@@ -71,63 +71,21 @@
     <section id="onshape">
         <div class="container">
 
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h1> Time to make rockets! </h1>
-                    <h1> </h1>
-                    <p>We recommend having this tutorial open on one side of your screen, and Onshape open on the other side</p>
-                    <!--h2> Time to make rockets! </h2>
-                    <h3> Time to make rockets! </h3>
-                    <h3 class="section-heading">Time to make rockets!</h3>
-                    <p> Now we are making rockets </p -->
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">1. Open the shared file</a></h3>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">2. Create a new part studio</h3>
-                    <p><video autoplay loop width="300" src="create_part_studio.webm" style="float: right" /></p>
-                    <ul>
-                        <li>Click the "<strong>+</strong>" button</li>
-                        <ul><li><img src="img/tutorial/plus_button.png" /></li></ul>
-                        <li>Select <strong>Create Part Studio</strong></li>
-                        <ul><li><img src="img/tutorial/create_part_studio.png" /></li></ul>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">3. Rename your part studio</h3>
-                    <ul>
-                        <li>Name it "<strong>Middle Body</strong>"</li>
-                        <ul><li style="font-size: 75%">You're already thinking of skipping this... don't.</li></ul>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">4. Create a sketch</h3>
+                    <h3 class="section-heading">8. Start a sketch on the lower stage connection tube</h3>
                     <ul>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
-                        <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> plane.</li>
-                        <ul><li><img src="img/tutorial/top_plane.png" height="150" /></li></ul><br /><video autoplay loop src="create_sketch_top_plane.webm" height="480"/>
+                        <li>Click the <strong>bottom face</strong> of your tube to start sketching on that face</li>
+                        <ul><li>Right click and select <em>View normal to sketch plane</em> to line up your view</li>
+                        </ul>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click on the <em>inner</em> circle</li>
+                        <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
+                        <li>Draw another, smaller circle and dimension it <strong>0.032</strong>
+                        <br /><br /><video autoplay loop src="start_connector_tube_sketch.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
@@ -139,13 +97,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">5. Draw the outer body circle</h3>
+                    <h3 class="section-heading">9. Finish the connector tube sketch</h3>
                     <ul>
-                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
-                        <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
-                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
-                        <li>Click on your circle and set its diameter to <strong>0.781</strong></li>
-                        <br /><br /><video autoplay loop src="draw_outer_circle.webm" height="480"/></li>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click on the <em>inner</em> circle</li>
+                        <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
+                        <li>Draw another, smaller circle and dimension it <strong>0.032</strong></li>
+                        <li>Click the green check to finish the sketch <img src="img/tutorial/green_check.png" />
+                        <br /><br /><video autoplay loop src="finish_connector_tube_sketch.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
@@ -157,32 +116,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">6. Draw the inner circle</h3>
+                    <h3 class="section-heading">10. Extrude the body connector</h3>
                     <ul>
-                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
-                        <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
-                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
-                        <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.025</strong>
-                        <br /><br /><video autoplay loop src="draw_inner_circle.webm" height="480"/></li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">7. Extrude the body</h3>
-                    <ul>
-                        <li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
-                        <li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>
-                        <li>Set the <em>Depth</em> to <strong>3.0 in</strong></li>
+                        <li>Click on "Sketch 2" <img src="img/tutorial/sketch_2.png" />
+                        <li>Click on <strong>Add</strong> to add to your part instead of creating a new part</li>
+                        <li>Set the <em>Depth</em> to <strong>0.5 in</strong></li>
+                        <li>Check <em>Second end position</em></li>
+                        <li>Set the second <em>Depth</em> to <strong>0.25 in</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" />
-                        <br /><br /><video autoplay loop src="extrude_body.webm" height="480"/></li>
+                        <br /><br /><video autoplay loop src="extrude_body_connector.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
