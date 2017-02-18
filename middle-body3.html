@@ -75,17 +75,77 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">8. Start a sketch on the lower stage connection tube</h3>
+                    <h3 class="section-heading">13. Create a plane for the nosecone tether sketch</h3>
                     <ul>
-                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
-                        <li>Click the <strong>bottom face</strong> of your tube to start sketching on that face</li>
-                        <ul><li>Right click and select <em>View normal to sketch plane</em> to line up your view</li>
+                        <li>Start a new plane with the plane tool <img src="img/tutorial/plane_tool.png" /></li>
+                        <li>Select the top <strong>face</strong> of your tube.</li>
+                        <li>Set the offset to <strong>1.25 in</strong></li>
+                        <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" />
+                        <br /><br /><video autoplay loop src="create_plane_nosecone_tether.webm" height="480"/></li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">14. Start the sketch for the nosecone tether holder</h3>
+                    <ul>
+                        <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
+                        <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                        <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch1.webm" height="480"/></li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">15. Sketch the outside of the tether holder</h3>
+                    <ul>
+                        <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <li>Set the first point on the circle, above the centerline</li>
+                        <li>Set the second point on the circle, below the centerline</li>
+                        <li>Set the third point so the arc in inside the tube
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch2.webm" height="480"/>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">16. Constrain the arc's centerpoint</h3>
+                    <ul>
+                        <li>Constrain the arc's center to the circle:</li>
+                        <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                        <li>Select the point that is the center of the arc you just created</li>
+                        <li>Select the circle, and you'll see the point jump onto the circle and turn black (black = fully constrained)</li>
                         </ul>
-                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
-                        <li>Click on the <em>inner</em> circle</li>
-                        <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
-                        <li>Draw another, smaller circle and dimension it <strong>0.032</strong>
-                        <br /><br /><video autoplay loop src="start_connector_tube_sketch.webm" height="480"/></li>
+                        <li>Constrain the arc's center to the centerline:</li>
+                        <ul>
+                        <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> &rarr; <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                        <li>Select the arc's center</li>
+                        <li>Select the origin point</li>
+                        </ul>
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch3.webm" height="480"/>
                     </ul>
                     </p>
                 </div>
@@ -97,14 +157,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">9. Finish the connector tube sketch</h3>
+                    <h3 class="section-heading">17. Draw the center circle</h3>
                     <ul>
-                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
-                        <li>Click on the <em>inner</em> circle</li>
-                        <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
-                        <li>Draw another, smaller circle and dimension it <strong>0.032</strong></li>
-                        <li>Click the green check to finish the sketch <img src="img/tutorial/green_check.png" />
-                        <br /><br /><video autoplay loop src="finish_connector_tube_sketch.webm" height="480"/></li>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle inside your arc and the tube (make it small)</li>
+                        <li>Constrain the circle's center to be horizontal with the origin, as you did above <img src="img/tutorial/horizontal_tool.png" />
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch4.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
@@ -116,16 +174,49 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">10. Extrude the body connector</h3>
+                    <h3 class="section-heading">18. Dimension the sketch</h3>
                     <ul>
+                        <li>Dimension the circle's gap:</li>
+                        <ul>
+                            <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                            <li>Click the circle's edge</li>
+                            <li>Click the tube's circle that you have been using</li>
+                            <li>Set the dimension to <strong>0.01</strong></li>
+                        </ul>
+                        <li>Dimension the gap on the other side (with the dimension tool still selected):</li>
+                        <ul>
+                            <li>Click the circle's edge</li>
+                            <li>Click your 3-point arc</li>
+                            <li>Set the dimension to <strong>0.025</strong></li>
+                        </ul>
+                        <li>Dimension the circle's diameter (with the dimension tool still selected):</li>
+                        <ul>
+                            <li>Select the circle</li>
+                            <li>Set the dimension to <strong>0.13</strong></li>
+                        </ul>
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch5.webm" height="480"/></li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">19. Finish the sketch and extrude the holder</h3>
+                    <ul>
+                        <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Select the part of the circle outside of the arc</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
-                        <li>Click on "Sketch 2" <img src="img/tutorial/sketch_2.png" />
-                        <li>Click on <strong>Add</strong> to add to your part instead of creating a new part</li>
-                        <li>Set the <em>Depth</em> to <strong>0.5 in</strong></li>
-                        <li>Check <em>Second end position</em></li>
-                        <li>Set the second <em>Depth</em> to <strong>0.25 in</strong></li>
+                        <li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>
+                        <li>Set the depth to <strong>0.75</strong></li>
+                        <li>Click the "Opposite direction" <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go towards the bottom of the part</li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" />
-                        <br /><br /><video autoplay loop src="extrude_body_connector.webm" height="480"/></li>
+                        <br /><br /><video autoplay loop src="nosecone_tether_holder_sketch6.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
@@ -137,15 +228,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">11. Turn on section view</h3>
+                    <h3 class="section-heading">20. Fillet the tether holder</h3>
                     <ul>
-                        <li>We want to see inside the tube, so we'll have our view cut away part of the tube.  This <strong>does not change the part</strong>, just how we look at it</li>
-                        <li>Select the view menu <img src="img/tutorial/view_menu.png" /></li>
-                        <li>Select "Turn section view on"</li>
-                        <ul><li><img src="img/tutorial/view_menu_long.png" /></li></ul>
-                        <li>Click on the <em>Right</em> plane <img src="img/tutorial/right_plane.png" /></li>
+                        <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /><li>Click the arc on the edge of the tube and the holder</li>
+                        <li>Set the radius to <strong>0.15</strong></li>
+                        <li>Select the same arc on the bottom of the holder</li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" />
-                        <br /><br /><video autoplay loop src="section_view.webm" height="480"/></li>
+                        <br /><br /><video autoplay loop src="fillet_nosecone_holder.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
@@ -157,12 +246,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">12. Fillet the body connector ring</h3>
+                    <h3 class="section-heading">21. Exit section view... you're done!</h3>
                     <ul>
-                        <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
-                        <li>Click on the outside ring of the ledge</li>
-                        <li>Click the green check <img src="img/tutorial/green_check.png" />
-                        <br /><br /><video autoplay loop src="fillet_outer_ring.webm" height="480"/></li>
+                        <li>Select the view cube menu <img src="img/tutorial/view_menu.png" /></li>
+                        <li>Select "Turn section view off"</li>
+                        <br /><br /><video autoplay loop src="finish_middle_body.webm" height="480"/></li>
                     </ul>
                     </p>
                 </div>
