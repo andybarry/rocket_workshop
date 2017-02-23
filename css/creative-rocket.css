@@ -20,6 +20,12 @@ hr {
     border-width: 3px;
 }
 
+hr.long {
+    max-width: 500px;
+    border-color: #f05f40;
+    border-width: 3px;
+}
+
 hr.light {
     border-color: #fff;
 }
