@@ -198,12 +198,30 @@ header {
     -o-background-size: cover;
 }
 
+header.no-image {
+    background-image: url(../img/stripes.png);
+    background-repeat: repeat;
+    background-color: #000;
+    -webkit-background-size: auto;
+    -moz-background-size: auto;
+    background-size: auto;
+    -o-background-size: auto;
+}
+
 
 header .header-content {
     position: relative;
     width: 100%;
     padding: 100px 15px;
     text-align: center;
+    z-index: 2;
+}
+
+header .header-background-video {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
 }
 
 header .header-content .header-content-inner h1 {
@@ -236,6 +254,10 @@ header .header-content .header-content-inner p {
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
+    }
+    
+    header .header-content-top {
+        top: 25%;
     }
 
     header .header-content .header-content-inner {
@@ -486,4 +508,9 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #222;
+}
+
+
+.video-background {
+    width: 100%;
 }
