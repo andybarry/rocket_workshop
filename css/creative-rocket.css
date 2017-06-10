@@ -198,7 +198,7 @@ header {
     -o-background-size: cover;
 }
 
-header.no-image {
+header.video-background {
     background-image: url(../img/stripes.png);
     background-repeat: repeat;
     background-color: #000;
@@ -206,6 +206,8 @@ header.no-image {
     -moz-background-size: auto;
     background-size: auto;
     -o-background-size: auto;
+    min-height: auto;
+    font-size: 0px; /* removes black border on bottom */
 }
 
 
@@ -246,7 +248,7 @@ header .header-content .header-content-inner p {
     header {
         min-height: 100%;
     }
-
+    
     header .header-content {
         position: absolute;
         top: 50%;
@@ -256,10 +258,6 @@ header .header-content .header-content-inner p {
         transform: translateY(-50%);
     }
     
-    header .header-content-top {
-        top: 25%;
-    }
-
     header .header-content .header-content-inner {
         margin-right: auto;
         margin-left: auto;
@@ -511,6 +509,8 @@ body {
 }
 
 
+
 .video-background {
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
