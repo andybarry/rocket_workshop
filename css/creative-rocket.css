@@ -519,8 +519,20 @@ body {
 }
 
 
-
 .video-background {
     min-width: 100%;
     min-height: 100%;
 }
+
+.rightbar-nav {
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    padding: 0 50px;
+}
+
+
+
+
+
+
