@@ -21,7 +21,7 @@
       bH: 6, //highest-level header to be included (H6)
       exclude: false, //jquery filter
       genIDs: false, //generate random IDs?
-      offset: 100, //offset for scrollspy
+      offset: 1000, //offset for scrollspy
       ulClassNames: 'hidden-print', //add this class to top-most UL
       activeClass: '', //active class (besides .active) to add
       testing: false //if testing, show heading tagName and ID
