@@ -74,14 +74,14 @@ def replace_nav(html_file):
     print "opening ...", html_file
     with open(html_file) as f:
         content = f.readlines()
-        #content = [x.strip() for x in content] 
+        content = [x.strip('\n') for x in content] 
         for index, val in enumerate(content):
 
-            if val =='<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">':
+            if '<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">' in val:
                 found_nav = True
                 write_new_nav(target)
 
-            if val =='</nav>':
+            if '</nav>' in val:
                 found_nav = False
 
             #if found_nav:
@@ -89,6 +89,7 @@ def replace_nav(html_file):
 
             if not found_nav:
                 target.write(val)
+                target.write('\n')
 
     target.close()
     print("mv replacing.html " + html_file)
