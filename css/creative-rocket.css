@@ -215,6 +215,20 @@ header.video-background {
     font-size: 0px; /* removes black border on bottom */
 }
 
+video.autosize {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media(min-width:768px) {
+    video.autosize {
+        position: unset;
+        transform: none;
+    }
+}
+
 header.not-full-page {
     min-height: 350px;
 }
