@@ -215,7 +215,7 @@ header.video-background {
     font-size: 0px; /* removes black border on bottom */
 }
 
-video.autosize {
+.autosize {
     position: absolute;
     top: 0px;
     left: 50%;
@@ -223,7 +223,7 @@ video.autosize {
 }
 
 @media(min-width:768px) {
-    video.autosize {
+    .autosize {
         position: unset;
         transform: none;
     }
@@ -537,4 +537,15 @@ body {
 .video-background {
     min-width: 100%;
     min-height: 100%;
+    overflow: hidden;
 }
+
+.tutorial-video {
+/*
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    overflow: hidden;
+*/
+}
+
