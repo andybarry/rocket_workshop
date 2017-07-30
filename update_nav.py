@@ -20,6 +20,7 @@ list_of_files = [
 "nosecone3.html",  
 "lower-body.html",  
 "lower-body2.html",
+"lower-body3.html",
 "assembly.html"  
 ]
 
@@ -55,7 +56,7 @@ def write_new_nav(target):
                         <a class="page-scroll" href="nosecone.html">3. Nosecone</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="assembly.html">Assembly</a>
+                        <a class="page-scroll" href="assembly.html">4. Assembly</a>
                     </li>
                 </ul>
             </div>
@@ -83,6 +84,7 @@ def replace_nav(html_file):
 
             if '</nav>' in val:
                 found_nav = False
+                continue
 
             #if found_nav:
                 # do nothing
