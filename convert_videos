@@ -1,0 +1,4 @@
+#!/bin/bash
+
+f=$1
+avconv -i $1 -vcodec libx264 -vprofile high -b:v 1000k ${f/webm/mp4}
