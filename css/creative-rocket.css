@@ -543,8 +543,7 @@ body {
 .tutorial-video {
 
     max-width: 100%;
-    max-height: 100%;
-    max-height: 70vh; /* 70% of viewport height */
+    max-height: 65vh; /* 65% of viewport height */
     overflow: hidden;
 
 }

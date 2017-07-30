@@ -1,4 +1,9 @@
 #!/bin/bash
 
-f=$1
-avconv -i $1 -vcodec libx264 -vprofile high -b:v 1000k ${f/webm/mp4}
+dir=$1
+
+
+for f in $dir/*.webm
+do
+    avconv -i $f -vcodec libx264 -vprofile baseline -b:v 350k -y ${f/webm/mp4}
+done
