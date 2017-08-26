@@ -1,0 +1,45 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+# Handle the main page by serving the index page.
+# Note the $ to specify the end of the path, since app.yaml does prefix matching.
+- url: /$
+  static_files: www/index.html
+  upload: www/index.html
+
+
+# Handle folder urls by serving the index.html page inside.
+- url: /(.*)/$
+  static_files: www/\1/index.html
+  upload: www/.*/index.html
+
+# Redirect from rocket-workshop to rocket-workshop/index.html
+- url: /rocket-workshop
+  static_files: www/rocket-workshop/redirect.html
+  upload: www/rocket-workshop/.*
+
+
+## Handle nearly every other file by just serving it.
+#- url: /(.+)
+  #static_files: www/\1
+  #upload: www/(.*)
+
+- url: /
+  static_dir: www
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- noUpload/
+- jekyll/
+- backup/
+- old/
+- convert_videos
+- create_website
+- LICENSE
+- README.md

@@ -1,0 +1,28 @@
+{% assign section1 = page.url | split:'/' | last %}
+{% assign page_num = section1 | replace:'.html', '' | slice: -1 %}
+{% assign section = section1 | split:page_num | first %}
+<!--Page nav-->
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>{{ include.title }} </strong><br>
+    {% if page_num != "1" %}
+        <a href="{{ section }}{{ page_num | minus:1}}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+    {% endif %}
+    Page:
+    {% assign page_num_int = page_num|plus: 0 %}
+    {% assign num_pages_int = include.num_pages|plus: 0 %}
+    {% for i in (1..include.num_pages) %}
+        {% if i == page_num_int %}
+            <strong>{{ i }}</strong>
+        {% else %}
+            <a href="{{ section }}{{ i }}.html">{{ i }}</a>
+        {% endif %}
+        
+        {% if i != num_pages_int or include.num_pages != page_num %}
+            |
+        {% endif %}
+    {% endfor %}
+    {% if include.num_pages != page_num %}
+        <a href="{{ section }}{{ page_num | plus:1 }}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    {% endif %}
+</p>
+<!--Page nav-->

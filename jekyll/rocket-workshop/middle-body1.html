@@ -1,0 +1,132 @@
+---
+layout: rocket-page
+title: Fuselage | Rocket Workshop | Stage One Education
+---
+        
+    <header class="not-full-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2>Start the fuselage</h2>
+                <hr class="long text-left" />
+                <p><em>in which we <strong>extrude</strong> sketches</em></p>
+<!--
+                <video autoplay loop src="videos/middle-body/middle_body_page1_fast.webm" height="480"/>
+                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+-->
+            </div>
+        </div>
+    </header>
+<!--
+    <section id="onshape">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h2>Middle body section</h2>
+                    <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+                    <p>We recommend having this tutorial open on one side of your screen, and Onshape open on the other side</p>
+                    <img src="img/tutorial/monitor_setup.png" />
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">1. Open the shared file</h3>
+                    <ul>
+                        <li>Go to <a href="http://onshape.com">onshape.com</a></li>
+                        <li>Log in or create an account</li>
+                        <li>Have your teammate share the file with your account</li>
+                        <li>Click <em>shared with me</em> <img src="img/tutorial/shared_with_me.png" /></li>
+                        <li>Select the file to open it</li>
+                </div>
+            </div>
+        </div>
+    </section>
+-->
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+                    
+
+                    <!-- <h2>Fuselage</h2>
+                    <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" /> -->
+                    <h3 class="section-heading">1. Create a new part studio</h3>
+                    <ul>
+                        <li>Click the "<strong>+</strong>" button</li>
+                        <ul><li><img src="img/tutorial/plus_button.png" /></li></ul>
+                        <li>Select <strong>Create Part Studio</strong></li>
+                        <li><img src="img/tutorial/create_part_studio.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/create_part_studio" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {% include section.html param="top" %}
+                    <h3 class="section-heading">2. Rename your part studio</h3>
+                    <ul>
+                        <li>Name it "<strong>Middle Body</strong>"</li>
+                        <ul><li style="font-size: 75%">You're already thinking of skipping this... but then your team will be sad...</li></ul>
+                    </ul>
+
+    {% include section.html %}
+                    <h3 class="section-heading">3. Create a sketch</h3>
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> plane.</li>
+                        <ul><li><img src="img/tutorial/top_plane.png" height="150" /></li></ul>
+                        <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/create_sketch_top_plane" %}
+    
+    {% include section.html %}
+                    <h3 class="section-heading">4. Draw the outer body circle</h3>
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click on your circle and set its diameter to <strong>0.781</strong></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/draw_outer_circle" %}
+    
+    {% include section.html %}
+                    <h3 class="section-heading">5. Draw the inner circle</h3>
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.025</strong></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/draw_inner_circle" %}
+    
+    {% include section.html %}
+                    <h3 class="section-heading">6. Extrude the body</h3>
+                    <ul>
+                        <li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>
+                        <li>Set the <em>Depth</em> to <strong>3.0 in</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/extrude_body" %}
+    
+                        <br /><br />
+                        {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+
+    {% include section.html param="bottom" %}
+    
