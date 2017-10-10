@@ -545,7 +545,10 @@ body {
     max-width: 100%;
     max-height: 65vh; /* 65% of viewport height */
     overflow: hidden;
+}
 
+.half-width-image {
+    width: 100%;
 }
 
 p.navigation-numbers {
