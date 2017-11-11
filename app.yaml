@@ -43,3 +43,4 @@ skip_files:
 - create_website
 - LICENSE
 - README.md
+- ^(.*/)?.*\.xcf$
