@@ -1,0 +1,265 @@
+     
+    <header class="not-full-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2>Build the nosecone tether connection</h2>
+                <hr class="long text-left" />
+                <p><em>in which we <strong>constrain</strong> our <strong>3-point arcs</strong></em></p>
+<!--
+                <video autoplay loop src="videos/middle-body/middle_body_page3_fast.webm" height="480"/>
+                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+-->
+            </div>
+        </div>
+    </header>
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+                    <h3 class="section-heading">12. Create a plane for the nosecone tether sketch</h3>
+                    <ul>
+                        <li>Start a new plane with the plane tool <img src="img/tutorial/plane_tool.png" /></li>
+                        <li>Select the top <strong>face</strong> of your tube.</li>
+                        <li>Set the offset to <strong>1.25 in</strong></li>
+                        <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">13. Start the sketch for the nosecone tether holder</h3>
+                    <ul>
+                        <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
+                        <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
+                        <li>Click the <strong>inside</strong> circle on the body tube</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">14. Sketch the outside of the tether holder</h3>
+                    <ul>
+                        <li>Deselect the "Use (Project/Convert)" tool</li>
+                        <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                        <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <li>Set the first point on the circle, above the centerline</li>
+                        <li>Set the second point on the circle, below the centerline</li>
+                        <li>Set the third point so the arc is in inside the tube</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_2" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">15. Constrain the arc's center to the circle</h3>
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                        <li>Select the point that is the center of the arc you just created</li>
+                        <li>Select the circle, and you'll see the point jump onto the circle</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">16. Constrain the arc's center to the centerline</h3>
+                    <ul>
+                        <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                        <li>Select the arc's center</li>
+                        <li>Select the origin point, and you'll see the point jump to the line and turn black (black = fully constrained)</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_2" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">17. Draw the center circle</h3>
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle inside your arc and the tube (make it small)</li>
+                        <li>Constrain the circle's center to be horizontal with the origin, as you did above <img src="img/tutorial/horizontal_tool.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch4" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">18. Dimension the left gap</h3>
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the circle's edge</li>
+                        <li>Click the tube's circle that you have been using</li>
+                        <li>Set the dimension to <strong>0.01</strong></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_left_gap" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">19. Dimension the gap on the other side</h3>
+                    <ul>
+                        <li><em>With the dimension tool still selected:</em></li>
+                        <ul>
+                            <li>Click the circle's edge</li>
+                            <li>Click your 3-point arc</li>
+                            <li>Set the dimension to <strong>0.025</strong></li>
+                        </ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_right_gap" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">20. Dimension the circle's diameter</h3>
+                    <ul>
+                        <li><em>With the dimension tool still selected:</em></li>
+                        <ul>
+                            <li>Select the circle</li>
+                            <li>Set the dimension to <strong>0.13</strong></li>
+                        </ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">21. Trim the outer circle, finish sketch</h3>
+                    <ul>
+                        <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Select the part of the circle outside of the arc</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">22. Extrude the tether holder</h3>
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>
+                        <li>Set the depth to <strong>0.75</strong></li>
+                        <li>Click the "Opposite direction" <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go towards the bottom of the part</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_extrude" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">23. Fillet the tether holder</h3>
+                    <ul>
+                        <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Click the arc on the edge of the tube and the holder</li>
+                        <li>Set the radius to <strong>0.15</strong></li>
+                        <li>Select the same arc on the bottom of the holder</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/fillet_nosecone_holder" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">24. Exit section view... you're done!</h3>
+                    <ul>
+                        <li>Select the view cube menu <img src="img/tutorial/view_menu.png" /></li>
+                        <li>Select "Turn section view off"</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/finish_middle_body" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+
+                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+                    <br />
+
+                    <h2>You finished the fuselage</h2>
+                    <hr class="long" />
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+{% else %}
+    {% assign teams_prefix = "" %}
+{% endif %}
+                    <p>We recommend next working on the <a href="{{ teams_prefix }}lower-body1.html">fins + booster</a>.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    

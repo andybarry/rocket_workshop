@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+{% else %}
+    {% assign teams_prefix = "" %}
+{% endif %}
+
 <head>
 
     <meta charset="utf-8">
@@ -65,20 +73,26 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+{% if is_teams == "teams" %}
                     <li>
-                        <a class="page-scroll" href="index.html">Getting Started</a>
+                        <a class="page-scroll" href="{{ teams_prefix }}index.html">Getting Started</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="middle-body1.html">1. Fuselage</a>
+                        <a class="page-scroll" href="{{ teams_prefix }}middle-body1.html">1. Fuselage</a>
+                    </li>
+{% else %}
+                    <li>
+                        <a class="page-scroll" href="{{ teams_prefix }}index.html">1. Getting started & fuselage</a>
+                    </li>
+{% endif %}
+                    <li>
+                        <a class="page-scroll" href="{{ teams_prefix }}lower-body1.html">2. Fins+Booster</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="lower-body1.html">2. Fins+Booster</a>
+                        <a class="page-scroll" href="{{ teams_prefix }}nosecone1.html">3. Nosecone</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="nosecone1.html">3. Nosecone</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="assembly1.html">4. Assembly</a>
+                        <a class="page-scroll" href="{{ teams_prefix }}assembly1.html">4. Assembly</a>
                     </li>
                 </ul>
             </div>
