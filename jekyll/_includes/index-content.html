@@ -1,3 +1,10 @@
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+{% else %}
+    {% assign teams_prefix = "" %}
+{% endif %}
     <header class="video-background">
         <div class="header-content header-content-top">
             <div class="header-content-inner">
@@ -31,7 +38,7 @@
                     <h2>Getting started</h2>
                     <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
                     <p style="margin: 0; border:0;">A complete introduction to CAD by designing a fully-functional model rocket.</p>
-                    <ul><li><a href="assembly1.html#parts_list">Parts list</a></li></ul>
+                    <ul><li><a href="{{ teams_prefix }}assembly1.html#parts_list">parts list</a></li></ul>
                     
                     <p>We recommend a split-screen layout:</p>
                     <img src="img/tutorial/split_screen_sketch.png" style="max-width: 100%;" />
@@ -51,15 +58,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">Preliminaries</h3>
+                    <h3 class="section-heading">1. Preliminaries</h3>
                     <ul>
-                        <li>1. Create an onshape account</li>
+                        <li>Create an onshape account</li>
                         <ul>
                             <li>Head to the <a href="https://cad.onshape.com/signup2" target="_blank">create account</a> page at Onshape</li>
                             <li>Create an account</li>
                             <li>Click the activation link in your email</li>
                         </ul>
-                        <li>2. Create a new document</li>
+                        <li>Create a new document</li>
                     </ul>
                     <!--
                     <video autoplay loop muted playsinline class="tutorial-video">
@@ -101,7 +108,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">3. Moving your view in 3D</h3>
+                    <h3 class="section-heading">2. Moving your view in 3D</h3>
                     <ul>
                         <li>Turn your view: <strong>right-click + drag</strong></li>
                         <li>Pan/slide: <strong>Middle-button + drag</strong> to pan/slide your view</li>
