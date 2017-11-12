@@ -560,3 +560,14 @@ p.navigation-numbers {
     min-width: 100px;
     font-size: 15px;
 }
+
+a.help-button {
+    text-transform: none;
+    margin-top: -2px;
+    padding: 0px 0px;
+}
+
+ul.help-button {
+    margin-top: -5px;
+}
+
