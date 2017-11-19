@@ -15,10 +15,10 @@ handlers:
   static_files: www/\1/index.html
   upload: www/.*/index.html
 
-# Redirect from rocket-workshop to rocket-workshop/index.html
-- url: /rocket-workshop
-  static_files: www/rocket-workshop/redirect.html
-  upload: www/rocket-workshop/.*
+# Redirect from cad-tutorial to cad-tutorial/index.html
+- url: /cad-tutorial
+  static_files: www/cad-tutorial/redirect.html
+  upload: www/cad-tutorial/.*
 
 
 ## Handle nearly every other file by just serving it.
