@@ -5,5 +5,5 @@ dir=$1
 
 for f in $dir/*.webm
 do
-    avconv -i $f -vcodec libx264 -vprofile baseline -b:v 350k -y ${f/webm/mp4}
+    ffmpeg -i $f -vcodec libx264 -vprofile baseline -b:v 350k -y ${f/webm/mp4}
 done
