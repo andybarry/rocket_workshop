@@ -1,5 +1,5 @@
 var videos = document.getElementsByTagName("video")
-videoPlayAtFraction = 0.5;
+videoPlayAtFraction = 0.2;
 function checkScroll() {
 
     for(var i = 0; i < videos.length; i++) {
