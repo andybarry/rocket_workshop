@@ -170,28 +170,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">23. Draw center line</h3>
+                    <h3 class="section-heading">23. Offset nosecone lines</h3>
                     <ul>
-                        <li>Select the "line" tool <img src="img/tutorial/line_tool.png" />
-                        <li>Start: on the end of the line you just drew</li>
-                        <li>End: straight down to the existing face</li>
+                        <li>Select the "offset" tool <img src="img/tutorial/sketch_fillet_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/offset_menu.png" />
+                        </li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#cant_find_offset">Can't find it? &raquo;</a></li>
+                        <li class="collapse" id="cant_find_offset">
+                        Try the <em>Search tools</em> feature, type <strong>"Offset"</strong> into the box. <img src="img/tutorial/search_tools.png" />
+                        <br /><br />
+                        </li>
+                        <li>Select the <strong>arc</strong> and the <strong>horizontal line</strong></li>
+                        <li>Drag the arrow to make the offset <strong>smaller</strong> than the arc</li>
+                        <li>Press <strong>Enter</strong> and set the dimension to <strong>0.025</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_4" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">24. Start dimensioning</h3>
-                    <ul>
-                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
-                        <li>Click on the horizontal line and set its dimension to <strong>0.15</strong></li>
-                    </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_5" %}
+                    {% include tutorial-video.html path="videos/nosecone/offset_nosecone_lines" %}
                 </div>
             </div>
         </div>
@@ -201,13 +193,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">25. Finish the nosecone sketch</h3>
+                    <h3 class="section-heading">24. Draw a line connecting to the offset</h3>
                     <ul>
-                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
-                        <li>Click on the vertical line and set its dimension to <strong>2.0</strong></li>
-                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                        <li>Select the line tool <img src="img/tutorial/line_tool.png" /></li>
+                        <li>Draw a line straight down from the outside to the inside of the nosecone</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_6" %}
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">25. Constrain that line to be vertical</h3>
+                    <ul>
+                        <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
+                        <li>Click on the line from above</li>
+                        <li>You should see that line turn black as it becomes fully constrained</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_2" %}
                 </div>
             </div>
         </div>
@@ -217,7 +224,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">26. Revolve the nosecone</h3>
+                    <h3 class="section-heading">26. Start dimensioning</h3>
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click on the horizontal line and set its dimension to <strong>0.15</strong></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_3" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">27. Finish the nosecone sketch</h3>
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click on the <strong>top line</strong> and then the <strong>bottom line</strong> and set the distance between them to <strong>2.0</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_4" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">28. Revolve the nosecone</h3>
                     <ul>
                         <li>Select the "Revolve" tool <img src="img/tutorial/revolve_tool.png" /></li>
                         <li>Select "Sketch 4" <img src="img/tutorial/sketch_4.png" /></li>
@@ -238,11 +276,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">27. Fillet the top of the nosecone</h3>
+                    <h3 class="section-heading">29. Fillet the top of the nosecone</h3>
                     <ul>
                         <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
                         <li>Click on the top ring of the nosecone</li>
-                        <li>Set the <em>radius</em> to <strong>0.15</strong></li>
+                        <li>Set the <em>radius</em> to <strong>0.10</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
                     {% include tutorial-video.html path="videos/nosecone/fillet_nosecone2" %}
