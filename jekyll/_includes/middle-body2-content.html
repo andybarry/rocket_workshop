@@ -1,4 +1,4 @@
-
+{% assign step_counter = 8 %}
     <header class="not-full-page">
         <div class="header-content">
             <div class="header-content-inner">
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
-                    <h3 class="section-heading">7. Start a sketch on the lower stage connection tube</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Start a sketch on the lower stage connection tube</h3>
                     <ul>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Click the <strong>bottom face</strong> of your tube to start sketching on that face</li>
@@ -34,7 +34,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">8. Finish the connector tube sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li><a class="btn help-button" data-toggle="collapse" data-target="#cant_find_use">Can't find it? &raquo;</a></li>
@@ -60,7 +60,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">9. Finish the connector tube sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
                     <ul>
                         <li>Draw a smaller circle centered at the origin</li>
                         <li>Dimension <strong>between</strong> the <em>inner circle</em> and the <em>circle from the step above</em> as <strong>0.032</strong></li>
@@ -76,7 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">10. Extrude the body connector</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the body connector</h3>
                     <ul>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <li>Click on "Sketch 2" <img src="img/tutorial/sketch_2.png" />
@@ -107,7 +107,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">10. Turn on section view</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Turn on section view</h3>
                     <ul>
                         <li>We want to see inside the tube, so we'll have our view cut away part of the tube.  This <strong>does not change the part</strong>, just how we look at it</li>
                         <li>Select the view menu <img src="img/tutorial/view_menu.png" /></li>
@@ -126,7 +126,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">11. Fillet the body connector ring</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the body connector ring</h3>
                     <ul>
                         <li><a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">What is a fillet? &raquo;</a></li>
                         <ul class="collapse" id="fillet-definition">

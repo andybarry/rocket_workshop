@@ -1,0 +1,6 @@
+{% if step_counter %}
+    {% assign step_counter = step_counter | plus:1 %}
+{% else %}
+    {% assign step_counter = 1 %}
+{% endif %}
+{{ step_counter}}.

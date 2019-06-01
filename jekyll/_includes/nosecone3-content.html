@@ -1,3 +1,4 @@
+{% assign step_counter = 14 %}
     <header class="not-full-page">
         <div class="header-content">
             <div class="header-content-inner">
@@ -19,7 +20,7 @@
                     
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
 
-                    <h3 class="section-heading">14. Start middle-of-nosecone sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Start middle-of-nosecone sketch</h3>
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Click the <strong>top face</strong> of your tube to start sketching on that face</li>
@@ -35,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">15. Draw the middle-of-nosecone circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the middle-of-nosecone circle</h3>
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Click on the <em>outer</em> circle</li>
@@ -52,7 +53,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">16. Dimension the middle-of-nosecone circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the middle-of-nosecone circle</h3>
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click your new circle's edge</li>
@@ -69,7 +70,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">17. Extrude the middle-of-nosecone</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the middle-of-nosecone</h3>
                     <ul>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <li>Click on "Sketch 3" <img src="img/tutorial/sketch_3.png" />
@@ -88,7 +89,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">18. Start the cone sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Start the cone sketch</h3>
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Select the Front plane <img src="img/tutorial/front_plane.png" /></li>
@@ -104,7 +105,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">19. Import lines to connect to</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Import lines to connect to</h3>
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Click on the top of the larger circle</li>
@@ -121,7 +122,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">20. Draw the nosecone</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the nosecone</h3>
                     <ul>
                         <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
                         <li>Set the first point on the rightmost point in your sketch</li>
@@ -138,7 +139,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">21. Constrain the arc</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the arc</h3>
                     <ul>
                         <li>Select the "Tangent" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/tangent_tool_menu.png" /></li>
                         <li>Select the arc</li>
@@ -154,7 +155,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">22. Draw top line</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw top line</h3>
                     <ul>
                         <li>Select the "line" tool <img src="img/tutorial/line_tool.png" /></li>
                         <li>Start: on the top of your arc</li>
@@ -170,7 +171,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">23. Offset nosecone lines</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Offset nosecone lines</h3>
                     <ul>
                         <li>Select the "offset" tool <img src="img/tutorial/sketch_fillet_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/offset_menu.png" />
                         </li>
@@ -193,7 +194,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">24. Draw a line connecting to the offset</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw a line connecting to the offset</h3>
                     <ul>
                         <li>Select the line tool <img src="img/tutorial/line_tool.png" /></li>
                         <li>Draw a line straight down from the outside to the inside of the nosecone</li>
@@ -208,7 +209,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">25. Constrain that line to be vertical</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain that line to be vertical</h3>
                     <ul>
                         <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
                         <li>Click on the line from above</li>
@@ -224,7 +225,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">26. Start dimensioning</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Start dimensioning</h3>
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click on the horizontal line and set its dimension to <strong>0.15</strong></li>
@@ -239,7 +240,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">27. Finish the nosecone sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the nosecone sketch</h3>
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click on the <strong>top line</strong> and then the <strong>bottom line</strong> and set the distance between them to <strong>2.0</strong></li>
@@ -255,7 +256,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">28. Revolve the nosecone</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Revolve the nosecone</h3>
                     <ul>
                         <li>Select the "Revolve" tool <img src="img/tutorial/revolve_tool.png" /></li>
                         <li>Select "Sketch 4" <img src="img/tutorial/sketch_4.png" /></li>
@@ -276,7 +277,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">29. Fillet the top of the nosecone</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the top of the nosecone</h3>
                     <ul>
                         <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
                         <li>Click on the top ring of the nosecone</li>

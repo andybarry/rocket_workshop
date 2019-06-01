@@ -1,6 +1,6 @@
-
+{% assign step_counter = 3 %}
     {% include section.html %}
-                    <h3 class="section-heading">4. Create a sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
                     {% include tutorial-video.html path="videos/middle-body/create_sketch_top_plane" %}
                     <ul>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
@@ -13,7 +13,7 @@
                     </ul>
 
     {% include section.html %}
-                    <h3 class="section-heading">5. Draw the outer body circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the outer body circle</h3>
                     {% include tutorial-video.html path="videos/middle-body/draw_outer_circle2" %}
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
@@ -26,7 +26,7 @@
                     
 
     {% include section.html %}
-                    <h3 class="section-heading">6. Dimension the outer body circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the outer body circle</h3>
                     {% include tutorial-video.html path="videos/middle-body/draw_outer_circle_dimension" %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
@@ -36,7 +36,7 @@
                     
     
     {% include section.html %}
-                    <h3 class="section-heading">7. Draw the inner circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the inner circle</h3>
                     {% include tutorial-video.html path="videos/middle-body/draw_inner_circle" %}
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
@@ -47,7 +47,7 @@
                     
     
     {% include section.html %}
-                    <h3 class="section-heading">8. Extrude the body</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the body</h3>
                     {% include tutorial-video.html path="videos/middle-body/extrude_body" %}
                     <ul>
                         <li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>

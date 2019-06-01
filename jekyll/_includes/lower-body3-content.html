@@ -1,3 +1,4 @@
+{% assign step_counter = 15 %}
     <header class="not-full-page">
         <div class="header-content">
             <div class="header-content-inner">
@@ -20,7 +21,7 @@
                 <div class="col-lg-12 text-left">
                     {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
                     
-                    <h3 class="section-heading">16. Create a sketch on the bottom face</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Create a sketch on the bottom face</h3>
                     <ul>
                         <li>Now we'll add the launch lug to so we can put the rocket on the pad</li>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
@@ -40,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">17. Draw the launch lug's inner circle</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the launch lug's inner circle</h3>
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
                         <li>Draw a circle outside the rocket.  Be sure to snap the <strong>circle's center</strong> to the <strong>centerline</strong>.
@@ -57,7 +58,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">18. Dimension the circle's distance</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the circle's distance</h3>
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click the circle, then click the edge of the rocket</li>
@@ -74,7 +75,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">19. Draw the outer section of the launch lug</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the outer section of the launch lug</h3>
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
                         <li>Draw a larger circle <strong>centered on the existing circle</strong></li>
@@ -90,7 +91,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">20. Draw the launch lug connectors</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the launch lug connectors</h3>
                     <ul>
                         <li>Select the 3-point arc tool <img src="img/tutorial/3_point_arc.png" /></li>
                         <ul>
@@ -110,7 +111,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">21. Constrain the launch lug connectors</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the launch lug connectors</h3>
                     <ul>
                         <li>First select:</li>
                         <ul>
@@ -130,7 +131,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">22. Add the rocket's side to your sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Add the rocket's side to your sketch</h3>
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Select the arc on the edge of the rocket</li>
@@ -149,7 +150,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">23. Constrain the launch lug sides</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the launch lug sides</h3>
                     <ul>
                         <li>Select the left arc and the outer circle</li>
                         <li>Select the "Tangent" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/tangent_tool_menu.png" /></li>
@@ -166,7 +167,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">24. Finish the launch lug sketch</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the launch lug sketch</h3>
                     <ul>
                         <li>Select the trim tool <img src="img/tutorial/trim_tool.png" /></li>
                         <li>Trim the bottom of the outer circle</li>
@@ -181,7 +182,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">25. Extrude the launch lug</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the launch lug</h3>
                     <ul>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <ul>
@@ -202,7 +203,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">26. Fillet the launch lug</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the launch lug</h3>
                     <ul>
                         <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
                         <li>Click the arc on the inside arc of launch lug</li>
@@ -219,7 +220,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">27. Fillet the launch lug (2)</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the launch lug (2)</h3>
                     <ul>
                         <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
                         <li>Left and right edges of the launch lug, near the body</li>
