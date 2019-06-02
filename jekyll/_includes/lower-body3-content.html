@@ -1,4 +1,4 @@
-{% assign step_counter = 15 %}
+{% assign step_counter = 17 %}
     <header class="not-full-page">
         <div class="header-content">
             <div class="header-content-inner">
@@ -24,6 +24,7 @@
                     <h3 class="section-heading">{% include step_counter.html %} Create a sketch on the bottom face</h3>
                     <ul>
                         <li>Now we'll add the launch lug to so we can put the rocket on the pad</li>
+                        <ul><li><img src="img/tutorial/launch_lug.jpg" class="tutorial-video" /></li></ul>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Click on bottom of the cylinder</li>
                         <li>Notice how a new sketch plane is now on the bottom of the rocket</li>
@@ -136,11 +137,24 @@
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Select the arc on the edge of the rocket</li>
                         <li>You should see that arc bold as it becomes part of your sketch</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug8_1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Connect the launch lug to the rocket</h3>
+                    <ul>
                         <li>Select the "Coincident" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/coincident_tool_menu.png" /></li>
                         <li>Select the point on the bottom of one of your arcs and the edge of the arc on the rocket</li>
                         <li>Repeat the coincident step for the second arc</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/lower-body/launch_lug6_1" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug8_2" %}
                 </div>
             </div>
         </div>
