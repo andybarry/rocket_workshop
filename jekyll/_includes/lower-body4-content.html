@@ -1,4 +1,3 @@
-{% assign step_counter = 30 %}
     <header class="not-full-page">
         <div class="header-content">
             <div class="header-content-inner">
@@ -173,7 +172,7 @@
                     <h3 class="section-heading">{% include step_counter.html %} Constrain the engine clip arc</h3>
                     <ul>
                         <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
-                        <li>Click the arc's centerpoint and then the origin of the rocket</li>
+                        <li>Click the arc's center-point and then the origin of the rocket</li>
                         <li>You should see the arc jump to the center</li>
                     </ul>
                     {% include tutorial-video.html path="videos/lower-body/constrain_engine_clip" %}
@@ -227,7 +226,14 @@
 
                     <h2>You finished the fins and the booster</h2>
                     <hr class="long" />
-                    <p>We recommend next working on the <a href="nosecone1.html">nosecone</a>.</p>
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+{% else %}
+    {% assign teams_prefix = "" %}
+{% endif %}                    
+                    <p>We recommend next working on the <a href="{{ teams_prefix }}nosecone1.html">nosecone</a>.</p>
 
                 </div>
             </div>
