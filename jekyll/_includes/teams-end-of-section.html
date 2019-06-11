@@ -1,0 +1,65 @@
+{% assign step_counter = 0 %}
+<p>Start working on another part of the rocket or, if your whole team has finished, create an <a href="teams-assembly1.html">assembly</a>.</p>
+<hr class="long" />
+<section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+{% if include.exclude != "middle-body" %}
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align: center" width="100%"><a href="teams-middle-body1.html"><br />{% include step_counter.html %} Fuselage</a></div>
+                    <a href="teams-middle-body1.html" class="portfolio-box" align="center">
+                        <img src="img/portfolio/middle-body.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+{% endif %}
+{% if include.exclude != "lower-body" %}
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align: center" width="100%"><a href="teams-lower-body1.html"><br />{% include step_counter.html %} Fins + Booster</a></div>
+                    <a href="teams-lower-body1.html" class="portfolio-box">
+                        <img src="img/portfolio/lower-body.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+{% endif %}
+{% if include.exclude != "nosecone" %}
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align: center" width="100%"><a href="teams-nosecone1.html"><br />{% include step_counter.html %} Nosecone</a></div>
+                    <a href="teams-nosecone1.html" class="portfolio-box">
+                        <img src="img/portfolio/nosecone.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+{% endif %}
+{% if include.exclude != "assembly" %}
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align: center" width="100%">(if you whole team has finished): <a href="teams-assembly1.html"><br />{% include step_counter.html %} Assembly</a></div>
+                    <a href="teams-assembly1.html" class="portfolio-box">
+                        <img src="img/portfolio/rocket.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+{% endif %}
+            </div>
+        </div>
+    </section>

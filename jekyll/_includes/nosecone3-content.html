@@ -297,17 +297,17 @@
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
                         <br>
 
-                    <h2>You finished the nosecone</h2>
+                    <h2>You finished the nosecone!</h2>
                     <hr class="long" />
 {% assign page_filename = page.path | split:'/' | last %}
 {% assign is_teams = page_filename |split:'-' | first %}
 {% if is_teams == "teams" %}
     {% assign teams_prefix = "teams-" %}
+                    {% include teams-end-of-section.html exclude="nosecone" %}
 {% else %}
+                    <p>It's now time to put together the <a href="{{ teams_prefix }}assembly1.html">assembly</a>.</p>
     {% assign teams_prefix = "" %}
 {% endif %}
-                    <p>It's now time to put together the <a href="{{ teams_prefix }}assembly1.html">assembly</a>.</p>
-
                 </div>
             </div>
         </div>

@@ -265,15 +265,16 @@
 
                     <h2>You finished the fuselage</h2>
                     <hr class="long" />
+
 {% assign page_filename = page.path | split:'/' | last %}
 {% assign is_teams = page_filename |split:'-' | first %}
 {% if is_teams == "teams" %}
     {% assign teams_prefix = "teams-" %}
+                    {% include teams-end-of-section.html exclude="middle-body" %}
 {% else %}
+                    <p>We recommend next working on the <a href="{{ teams_prefix }}lower-body1.html">fins + booster</a>.</p>
     {% assign teams_prefix = "" %}
 {% endif %}
-                    <p>We recommend next working on the <a href="{{ teams_prefix }}lower-body1.html">fins + booster</a>.</p>
-
                 </div>
             </div>
         </div>
