@@ -1,0 +1,195 @@
+    <header class="not-full-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2>Add your name to the rocket</h2>
+                <hr class="long text-left" />
+                <p><em>in which we add <strong>text</strong></em></p>
+<!--
+                <video autoplay loop src="videos/middle-body/middle_body_page3_fast.webm" height="480"/>
+                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+-->
+            </div>
+        </div>
+    </header>
+
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="4" %}
+                    <h3 class="section-heading">{% include step_counter.html %} Start the sketch to add your name to the rocket</h3>
+                    <ul>
+                        <li>Start a new sketch <img src="img/tutorial/sketch.png" /></li>
+                        <li>Select the front plane <img src="img/tutorial/front_plane.png" /></li>
+                        <li>Right click and select <em>View normal to sketch plane</em> to line up your view</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Add your name</h3>
+                    <ul>
+                        <li>Select the "Text" tool <img src="img/tutorial/text.png" /></li>
+                        <li>Draw a box near your rocket and type your name with <strong>Enter</strong> after each letter</li>
+                        <ul><li>A<br />N<br />D<br />Y<br /></li></ul>
+                        <li>Select the <strong>Roboto Slab</strong> font <img src="img/tutorial/roboto_slab.png" /></li>
+                        <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch2" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain your name</h3>
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                        <li>Select the point that is the center of the top line above the first letter</li>
+                        <li>Select the line running down the center of the rocket</li>
+                        <ul><li>You should see the letters jump to the center</li></ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch3" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension your name</h3>
+                    <ul>
+                        <li>Drag the dashed line around the letters so that the top is below the top of the rocket</li>
+                        <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Select the top of the rocket</li>
+                        <li>Select the top of the box around the first letter</li>
+                        <li>Set the dimension to <strong>0.25</strong></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch4" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension your name (2)</h3>
+                    <ul>
+                        <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Select the <em>side</em> of the box around the first letter</li>
+                        <li>Set the dimension to whatever makes all the letters fit on the rocket.  It's probably around <strong>0.4</strong></li>
+                        <ul><li>Make sure the letters <strong>don't</strong> go below the notch into the smaller diameter section</li></ul>
+                        <li>Press the green check to finish the sketch <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch5" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude your name (1)</h3>
+                    <ul>
+                        <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select <em>Sketch 4</em> <img src="img/tutorial/sketch_4.png" /></li>
+                        <li>Change <strong>Blind</strong> to <strong>Up to face</strong></li>
+                        <li>Select the box for <em>Up to face</em></li>
+                        <li>Click on the outer surface of the rocket</li>
+                        <li>Set the <em>Offset distance</em> to <strong>0.02</strong></li>
+                        <ul><li>Don't press the check yet, we have more options to set below</li></ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_extrude1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude your name (2)</h3>
+                    <ul>
+                        <li>Still in the extrude menu, set the <em>Offset distance</em> to <strong>0.02</strong></li>
+                        <li>Press the "Opposite direction" button next to <em>Offset distance</em> <img src="img/tutorial/opposite_direction_button.png" /></li>
+                        <ul><li>You should now see your name on the rocket</li></ul>
+                        <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_extrude2" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Remove the name extrude from the inside</h3>
+                    <ul>
+                        <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select <em>Sketch 4</em> (again) <img src="img/tutorial/sketch_4.png" /></li>
+                        <li>Change <em>Blind</em> to <strong>Up to face</strong></li>
+                        <li>Select the box for <em>Up to face</em></li>
+                        <li>Click on the <strong>inside surface</strong> of the rocket</li>
+                        <li>Select <strong>Remove</strong></li>
+                        <ul><li>You'll see the inside of the tube empty of your name</li></ul>
+                        <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/text_extrude3" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {% include section.html param="top" %}
+                    <!-- <h3 class="section-heading">26. Rename your part studio... you're done!</h3>
+                    <ul>
+                        <li>Name it "<strong>Middle Body</strong>"</li>
+                        <ul><li style="font-size: 75%">You're already thinking of skipping this... but then your future self will be sad...</li></ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/middle-body/rename_part_studio" %} -->
+    
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+
+                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="4" %}
+                    <br />
+
+                    <h2>You finished the fuselage!</h2>
+                    <hr class="long" />
+
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+                    {% include teams-end-of-section.html exclude="middle-body" %}
+{% else %}
+                    <p>We recommend next working on the <a href="{{ teams_prefix }}lower-body1.html">fins + booster</a>.</p>
+    {% assign teams_prefix = "" %}
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    

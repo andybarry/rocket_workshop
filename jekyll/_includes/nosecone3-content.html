@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     
-                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="4" %}
 
                     <h3 class="section-heading">{% include step_counter.html %} Start middle-of-nosecone sketch</h3>
                     <ul>
@@ -284,30 +284,9 @@
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
                     {% include tutorial-video.html path="videos/nosecone/fillet_nosecone2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-
-                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
-                        <br>
-
-                    <h2>You finished the nosecone!</h2>
-                    <hr class="long" />
-{% assign page_filename = page.path | split:'/' | last %}
-{% assign is_teams = page_filename |split:'-' | first %}
-{% if is_teams == "teams" %}
-    {% assign teams_prefix = "teams-" %}
-                    {% include teams-end-of-section.html exclude="nosecone" %}
-{% else %}
-                    <p>It's now time to put together the <a href="{{ teams_prefix }}assembly1.html">assembly</a>.</p>
-    {% assign teams_prefix = "" %}
-{% endif %}
+                    <br /><br />
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="4" %}
+                    </ul>
                 </div>
             </div>
         </div>
