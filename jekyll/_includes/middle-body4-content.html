@@ -185,7 +185,17 @@
     {% assign teams_prefix = "teams-" %}
                     {% include teams-end-of-section.html exclude="middle-body" %}
 {% else %}
-                    <p>We recommend next working on the <a href="{{ teams_prefix }}lower-body1.html">fins + booster</a>.</p>
+                    <a href="lower-body1.html" class="portfolio-box">
+                        <img src="img/portfolio/lower-body.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <h2>Next up are the <a href="lower-body1.html">fins + booster</a></h2>
+                    <hr class="long" />
     {% assign teams_prefix = "" %}
 {% endif %}
                 </div>
