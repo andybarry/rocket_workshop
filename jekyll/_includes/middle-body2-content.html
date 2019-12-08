@@ -12,6 +12,62 @@
         </div>
     </header>
 
+    <script>
+        function gtag_report_conversion(url) {
+          var callback = function () {
+            if (typeof(url) != 'undefined') {
+              window.location = url;
+            }
+          };
+          gtag('event', 'conversion', {
+              'send_to': 'AW-716077034/Gb8hCKikh6gBEOrvudUC',
+              'transaction_id': '',
+              'event_callback': callback
+          });
+          return false;
+        }
+
+        function gtag_class_report_conversion(url) {
+          var callback = function () {
+            if (typeof(url) != 'undefined') {
+              window.location = url;
+            }
+          };
+          gtag('event', 'conversion', {
+              'send_to': 'AW-716077034/gD7mCInOxqgBEOrvudUC',
+              'transaction_id': '',
+              'event_callback': callback
+          });
+          return false;
+        }
+
+        function payment() {
+            gtag('event', 'click', {
+              'event_category': 'purchase',
+              'event_label': 'rocket_tutorial_495',
+              'event_value': '1'
+            });
+
+            gtag_report_conversion()
+            document.getElementById('main_page').setAttribute('style', 'display: inline')
+            document.getElementById('payment').setAttribute('style', 'display: none')
+            document.getElementById('payment_complete').setAttribute('style', 'display: inline')
+        }
+
+        function payment_class() {
+            gtag('event', 'click', {
+              'event_category': 'purchase',
+              'event_label': 'rocket_tutorial_class',
+              'event_value': '1'
+            });
+
+            gtag_class_report_conversion()
+            document.getElementById('main_page').setAttribute('style', 'display: inline')
+            document.getElementById('payment').setAttribute('style', 'display: none')
+            document.getElementById('payment_complete').setAttribute('style', 'display: inline')
+        }
+    </script>
+
     <section class="top">
         <div class="container">
             <div class="row">
@@ -28,6 +84,44 @@
         </div>
     </section>
 
+    <!--
+    <section id="payment">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading"><strong>Keep going for $4.95</strong></h3>
+                    <p>
+                        <br />
+                    <button type="button" class="btn btn-primary purchase_button" onclick="payment()">Purchase lifetime access</button> <button type="button" class="btn btn-primary purchase_button" onclick="payment_class()">Purchase class/group license ($34.95)</button>
+                    </p>
+                    <ul>
+                        <li>Your purchase includes a personal link</li>
+                        <li>You are welcome to share your link with a friend or two, but we ask that you don't post it publicly.</li>
+                        <li>If you're unhappy for any reason, just shoot us an email and we'll refund your purchase</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="payment_complete" style="display: none">
+    
+        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading"><strong>Good news!  We're in a testing phase right now, so the tutorial is currently free!</strong></h3>
+                    <ul>
+                        <li>Keep going!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </section>
+
+    <section id="main_page" style="display: none">
+    -->
     <section>
         <div class="container">
             <div class="row">
@@ -161,4 +255,6 @@
             </div>
         </div>
     </section>
-    
+    <!--
+    </section>
+    -->

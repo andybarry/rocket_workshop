@@ -43,15 +43,14 @@
     <![endif]-->
     <script src="video_play_at_scroll.js"></script>
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-      ga('create', 'UA-86650838-1', 'auto');
-      ga('send', 'pageview');
-
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
     </script>
 </head>
 
@@ -97,7 +96,8 @@
                         <a class="page-scroll" href="{{ teams_prefix }}assembly1.html">4. Assembly</a>
                     </li>
                     <li>
-                        <a href="https://forms.gle/xAWeRawRYUDi26rbA" target="_blank">Give Feedback</a>
+                        <!--<a href="https://forms.gle/xAWeRawRYUDi26rbA" target="_blank">Give Feedback</a>-->
+                        <a href="mailto:workshops@stageoneeducation.com">Contact Us</a>
                     </li>
                 </ul>
             </div>
