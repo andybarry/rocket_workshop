@@ -8,7 +8,7 @@
                         <ul><li><img src="img/tutorial/top_features.png" /> <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i> </span><img src="img/tutorial/top_plane_sketch_box.png" /></li></ul>
                         <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
                         <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
-                        <li>Make sure you have selected the <strong>Top</strong> plane. In the upper right, you should see "Top Plane" under <em>sketch plane</em></li>
+                        <li>Make sure you have selected the <strong>Top</strong> plane. In the sketch overlay window, you should see "Top Plane" under <em>sketch plane</em></li>
                     </ul>
 
     {% include section.html %}
@@ -18,7 +18,9 @@
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
                         <ul class="help-button">
                             <li><a class="btn help-button" data-toggle="collapse" data-target="#no_circle">Can't find it? &raquo;</a></li>
-                            <li class="collapse" id="no_circle">You might have exited your sketch.  Double click on "Sketch 1" <img src="img/tutorial/sketch_1.png" /> to reenter the sketch.</li>
+                            <li class="collapse" id="no_circle">Your screen may be too narrow, thus hiding the tool from view -- if so, check under the dropdown menu by the line tool. Or, you might have exited your sketch -- in this case, double click on "Sketch 1" <img src="img/tutorial/sketch_1.png" /> to re-enter the sketch.</li>
+							<li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_c">Want a shortcut? &raquo;</a></li>
+                            <li class="collapse" id="kb_shortcut_c">CAD software is <i>much</i> easier and faster to use with keyboard shortcuts. Most onShape shortcuts are labeled in the menus (and intuitive). Simply press the 'c' key to bring up the circle tool.</li>
                         </ul>
                         <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
                     </ul>
@@ -29,6 +31,8 @@
                     {% include tutorial-video.html path="videos/middle-body/draw_outer_circle_dimension" %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+						<li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_d">Consider this essential shortcut &raquo;</a></li>
+                            <li class="collapse" id="kb_shortcut_d">The dimension tool is activated by pressing 'd' on the keyboard. You will use this <i>a lot</i></li>
                         <li>Click on your circle and set its diameter to <strong>0.781 in</strong></li>
                         <li>Press <strong>Enter</strong> to exit the dimensioning box</li>
                     </ul>
@@ -49,9 +53,12 @@
                     <h3 class="section-heading">{% include step_counter.html %} Extrude the body</h3>
                     {% include tutorial-video.html path="videos/middle-body/extrude_body" %}
                     <ul>
-                        <li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>
+                        <!--<li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>-->
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
-                        <li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>
+						<li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ee">Feature shortcuts &raquo;</a></li>
+                            <li class="collapse" id="kb_shortcut_ee">Outside of a sketch, the keyboard shortcuts are usually capital letters. Extrude can be activated by pressing 'shift' + 'e'.</li>
+                        <!--<li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>-->
+                        <li>Verify that "Sketch 1" <img src="img/tutorial/sketch_1.png" /> is selected</li>
                         <li>Set the <em>Depth</em> to <strong>3.0 in</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
