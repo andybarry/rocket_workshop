@@ -1,4 +1,5 @@
 .DS_Store
 www
 jekyll/_site
+jekyll/.jekyll-cache
 *.mp4

@@ -28,8 +28,10 @@
                         <li>Select the top <strong>face</strong> of your tube (the side opposite of where it connects to the lower body).</li>
                         <li>Set the offset to <strong>1.25 in</strong></li>
                         <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#opposite_offset">Another way &raquo;</a></li>
-                            <li class="collapse" id="opposite_offset">You can use negative offsets to also flip the direction in one step (-1.25 in).</li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#opposite_offset">Another way &raquo;</a></li>
+                            <li class="collapse" id="opposite_offset">
+                                <ul><li>You can use negative offsets to also flip the direction in one step (-1.25 in).</li></ul>
+                            </li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
                     {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %}
@@ -66,8 +68,10 @@
                         <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
                         <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
                         <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_a">Keyboard shortcut &raquo;</a></li>
-                            <li class="collapse" id="kb_shortcut_a">The 3-point (standard) arc, a sketch tool, uses the letter 'a'.</li>
-						<li>Set the first point on the circle, above the centerline</li>
+                            <li class="collapse" id="kb_shortcut_a">
+                                <ul><li>The 3-point (standard) arc, a sketch tool, uses the letter <code>a</code>.</li></ul>
+                            </li>
+                        <li>Set the first point on the circle, above the centerline</li>
                         <li>Set the second point on the circle, below the centerline</li>
                         <li>Set the third point so the arc is in inside the tube</li>
                     </ul>
@@ -84,12 +88,19 @@
                     <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the circle</h3>
                     <ul>
                         <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_i">Keyboard shortcut &raquo;</a></li>
-                            <li class="collapse" id="kb_shortcut_i">Many of the sketch constraints also use keyboard shortcuts. Rather than teach you each one, you can learn them by viewing the displayed letter in dropdown menus or hovering over the tool's name in the interface.  Note that circle is 'c', so coincident must be something else.</li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_i">Keyboard shortcut &raquo;</a></li>
+                            <li class="collapse" id="kb_shortcut_i">
+                                <ul><li>Many of the sketch constraints also use keyboard shortcuts.</li>
+                                <li>Rather than teach you each one, you can learn them by viewing the displayed letter in dropdown menus or hovering over the tool's name in the interface.</li>
+                                <li>Note that "circle" is <code>c</code>, so "coincident" must be something else.</li>
+                                </ul>
+                            </li>
                         <li>Select the point that is the center of the arc you just created</li>
                         <li>Select the bold circle, and you'll see the point jump onto the circle</li>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#constraints">What <em>is</em> a constraint? &raquo;</a></li>
-                            <li class="collapse" id="constraints">Constraints fully define the elements of your sketch.  An sketch that is not fully constrained can be dragged around into different positions.  A fully defined sketch is in exactly the one possible position (and the lines turn from blue to black).  If you didn't constrain your sketches, your final result could fall within a range of possibilities.  Don't leave your CAD models to chance. </li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#constraints">What <em>is</em> a constraint? &raquo;</a></li>
+                            <li class="collapse" id="constraints">
+                                <ul><li>Constraints fully define the elements of your sketch.  An sketch that is not fully constrained can be dragged around into different positions.  A fully defined sketch is in exactly the one possible position (and the lines turn from blue to black).  If you didn't constrain your sketches, your final result could fall within a range of possibilities.  Don't leave your CAD models to chance. </li></ul>
+                            </li>
                     </ul>
                     {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_1" %}
                 </div>
@@ -149,7 +160,7 @@
         </div>
     </section>
     
-	<section>
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
@@ -167,7 +178,7 @@
             </div>
         </div>
     </section>
-	
+    
     <section>
         <div class="container">
             <div class="row">
@@ -180,7 +191,7 @@
                             <li>Click your 3-point arc</li>
                             <li>Set the dimension to <strong>0.025 in</strong></li>
                         </ul>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how everything turned black? &raquo;</a></li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how everything turned black? &raquo;</a></li>
                         <ul class="collapse" id="fully-defined">
                             <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
                             <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
@@ -200,10 +211,14 @@
                     <h3 class="section-heading">{% include step_counter.html %} Trim the outer circle, finish sketch</h3>
                     <ul>
                         <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_m">Keyboard shortcut &raquo;</a></li>
-                            <li class="collapse" id="kb_shortcut_m">Since 't' is taken by <em>tangent</em>, we use the last letter 'm' for <em>trim</em>.</li>
-						<li><a class="btn help-button" data-toggle="collapse" data-target="#no_trim">Don't see the trim icon? &raquo;</a></li>
-                            <li class="collapse" id="no_trim">On narrow screens, items are hidden in menus. Trim collapses into the menu with sketch fillet <img src="img/tutorial/sketch_fillet.JPG" /></li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_m">Keyboard shortcut &raquo;</a></li>
+                            <li class="collapse" id="kb_shortcut_m">
+                                <ul><li>Since <code>t</code> is taken by "tangent", we use the last letter <code>m</code> for "trim".</li></ul>
+                            </li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#no_trim">Don't see the trim icon? &raquo;</a></li>
+                            <li class="collapse" id="no_trim">
+                                <ul><li>On narrow screens, items are hidden in menus. Trim collapses into the menu with sketch fillet <img src="img/tutorial/sketch_fillet.JPG" /></li></ul>
+                            </li>
                         <!--<li>Click the green check <img src="img/tutorial/green_check.png" /></li>-->
                     </ul>
                     {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim" %}
@@ -218,7 +233,7 @@
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Extrude the tether holder</h3>
                     <em>Complete the feature that attaches the parachute and nosecone to the main rocket body.</em>
-					<ul>
+                    <ul>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <!--<li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>-->
                         <li>Confirm that your newly created sketch <img src="img/tutorial/sketch_3.png" /> is selected. </li>
