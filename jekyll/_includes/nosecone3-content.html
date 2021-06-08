@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     
-                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="4" %}
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
 
                     <h3 class="section-heading">{% include step_counter.html %} Start middle-of-nosecone sketch</h3>
                     <ul>
@@ -285,8 +285,31 @@
                     </ul>
                     {% include tutorial-video.html path="videos/nosecone/fillet_nosecone2" %}
                     <br /><br />
-                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="4" %}
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
                     </ul>
+
+                    <br />
+                    <h2 class="text-center">You finished the nosecone!</h2>
+                    <hr class="long" />
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+                    {% include teams-end-of-section.html exclude="nosecone" %}
+{% else %}
+                    <a href="assembly1.html" class="portfolio-box">
+                        <img src="img/portfolio/rocket.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <h2 class="text-center">It's now time to put together the <a href="assembly1.html">assembly</a></h2>
+                    <hr class="long" />
+    {% assign teams_prefix = "" %}
+{% endif %}
                 </div>
             </div>
         </div>
