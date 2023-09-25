@@ -37,13 +37,13 @@
                     {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
 
                     <h3 class="section-heading">{% include step_counter.html %} Create a new part studio</h3>
-                    {% include tutorial-video.html path="videos/middle-body/create_part_studio" %}
                     <ul>
                         <li>Click the "<strong>+</strong>" button</li>
                         <ul><li><img src="img/tutorial/plus_button.png" /></li></ul>
                         <li>Select <strong>Create Part Studio</strong></li>
                         <li><img src="img/tutorial/create_part_studio.png" /></li>
                     </ul>
+                    {% include tutorial-video.html path="videos/middle-body/create_part_studio" %}
                 </div>
             </div>
         </div>
@@ -54,7 +54,6 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Rename your part studio</h3>
-                    {% include tutorial-video.html path="videos/nosecone/rename_nosecone" %}
                     <ul>
                         <li>Right-click on the <strong>Part Studio 1</strong> tab on the bottom left <img src="img/tutorial/part_studio1.png" /></li>
                         <li>Select <em>Rename</em></li>
@@ -63,6 +62,7 @@
                         <li>Rename it to "<strong>Nosecone</strong>"</li>
                         <ul><li style="font-size: 75%">You're already thinking of skipping this... but then your future self will be sad...</li></ul>
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/rename_nosecone" %}
                 </div>
             </div>
         </div>
@@ -70,7 +70,6 @@
     
     {% include section.html %}
                     <h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
-                    {% include tutorial-video.html path="videos/nosecone/create_sketch" %}
                     <ul>
                         <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
@@ -80,17 +79,18 @@
                         <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
                         <li>Make sure you have selected the <strong>Top</strong> plane. In the upper right, you should see "Top Plane" under <em>sketch plane</em></li>
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/create_sketch" %}
     
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Draw the outer body connector circle</h3>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_circle" %}
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
                         <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_circle" %}
                 </div>
             </div>
         </div>
@@ -101,11 +101,11 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Dimension the outer body connector circle</h3>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_circle_dimension" %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
-                        <li>Click on your circle and set its diameter to <strong>0.707</strong></li>
+                        <li>Click on your circle and set its diameter to <strong>0.706</strong></li>
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_circle_dimension" %}
                 </div>
             </div>
         </div>
@@ -116,13 +116,13 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Draw the inner circle</h3>
-                    {% include tutorial-video.html path="videos/nosecone/inner_circle" %}
                     <ul>
                         <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
                         <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.025</strong></li>
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/inner_circle" %}
                 </div>
             </div>
         </div>
@@ -133,18 +133,16 @@
             <div class="row">
                 <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Extrude the connector</h3>
-                    {% include tutorial-video.html path="videos/nosecone/extrude_body_connector" %}
                     <ul>
-                        <li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
-                        <li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>
+                        <li>("Sketch 1" will automatically be selected)</li>
                         <li>Set the <em>Depth</em> to <strong>0.6 in</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
+                    {% include tutorial-video.html path="videos/nosecone/extrude_body_connector" %}
                         <br /><br />
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
                     </ul>
-                    </p>
                 </div>
             </div>
         </div>

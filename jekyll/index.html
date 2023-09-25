@@ -9,7 +9,8 @@ title: Stage One Education, LLC
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -24,8 +25,12 @@ title: Stage One Education, LLC
                     <li>
                         <a href="cad-tutorial/index.html">Onshape Tutorial</a>
                     <li>
-                        <a class="page-scroll" href="#workshop">Helicopter Workshop</a>
+                        <a href="ElectronicsWorkshopInstructions2023.pdf">Electronics Workshop</a>
                     </li>
+                    <!--
+                    <li>
+                        <a class="page-scroll" href="teach_with_us.html">Careers</a>
+                    </li> -->
                     <li>
                         <a class="page-scroll" href="#team">Team</a>
                     </li>
@@ -39,71 +44,99 @@ title: Stage One Education, LLC
         <!-- /.container-fluid -->
     </nav>
 
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1>Hands on engineering</h1>
-                <hr />
-                <h3>learn CAD with our <a href="cad-tutorial/index.html">GIF-at-every-step Onshape tutorial</a></h3>
-                <h3>or</h3>
-                <h3>build circuits with our <a class="page-scroll" href="#workshop">helicopter workshop</a></h3>
+    <section class="bg-dark header-image-bg">
+        <div class="container">
+            <div class="row" >
+                <div class="col-lg-8 col-md-8 text-center">
+                    <h1 style="padding-top: 50px; margin-top: 0px">Hands on engineering</h1>
+                    <hr />
+                    <h3>learn CAD with our <a href="cad-tutorial/index.html">GIF-at-every-step Onshape tutorial</a></h3>
+                    <h3>or</h3>
+                    <h3>build circuits with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3>
+                </div>
+                <div class="col-lg-4 col-md-4 text-center border-left-header" style="margin-top: 50px">
+                    <a href="cad-tutorial/index.html" class="btn btn-primary btn-xl page-scroll">Onshape / CAD
+                        Workshop</a>
+                    <br>
+                    <a href="https://forms.gle/qGyQDPwsa39QodQU8" class="btn btn-xl light-hover"><u>Onshape Workshop
+                            Feedback</u></a>
+                    <hr class="light">
+                    <a href="ElectronicsWorkshopInstructions2023.pdf" class="btn btn-primary btn-xl">Electronics
+                        Workshop</a>
+                    <br>
+                    <br>
+                    Arduino Installer: <a href="https://downloads.arduino.cc/arduino-1.8.19-windows.exe"
+                        class="btn light-hover"><u>PC</u></a> — <a
+                        href="https://downloads.arduino.cc/arduino-1.8.19-macosx.zip"
+                        class="btn light-hover"><u>Mac</u></a>
+                    <br>
+                    <a href="helicopter.ino" class="btn btn-xl light-hover" download=""><u>Download Flight Code</u></a>
+                    <br>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwRxpAyULKMZ23ixiuXJQaBK6sjsPGl6GCNRWtIQCwolIoJA/viewform"
+                        class="btn btn-xl light-hover"><u>Electronics Workshop Feedback</u></a>
+                </div>
             </div>
         </div>
-    </header>
+        </div>
+    </section>
+
+
 
     <section id="workshop">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Helicopter Workshop</h2>
-                    <p><em>"I thought this is what I'd like to do with my life (CS/EE); this confirmed that."</em></p>
-                    <hr class="primary" />
-                    <h4>In 4 hours, our students:</h4>
+                    <h2 class="section-heading"></h2>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x wow bounceIn text-primary" data-wow-delay=".2s"><img src="img/bjt.png" height="75px"></i>
-                        <h3>build a circuit</h3>
-                        <p class="text-muted">arduino + transistor + motor</p>
+                        <i class="fa fa-4x fa-solid fa-screwdriver-wrench wow bounceIn text-primary"
+                            data-wow-delay=".2s"></i>
+                        <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
+                        <h3>hands on</h3>
+                        <p class="text16">get your students engaged by <strong>doing</strong> engineering in the first
+                            minute</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x wow bounceIn text-primary" data-wow-delay=".2s"><img src="img/heli-diagram.png" height="50px"></i>
-                        <h3>use the circuit to control a <a href="https://smile.amazon.com/s?k=S107G">small helicopter</a></h3>
-                        <p class="text-muted">we never get tired of that "ah-ha" moment when the throttle engages</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>write software to perform <strong>fully autonomous</strong> flight</h3>
-                        <p class="text-muted">press a button, it flies, in the pattern the students programmed</p>
+                <div class="col-lg-6 col-md-6 ">
+                    <div class="service-box text-center">
+                        <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3 class="text-center">amazing curriculum</h3>
+                        <ul>
+                            <li class="text-left text16">designed by MIT PhD engineers</li>
+                            <li class="text-left text16">continuously improved, no year is the same</li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-group wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>perfect for your class</h3>
-                        <p class="text-muted">we've taught 7,000+ students worldwide</p>
+                        <h3>experienced</h3>
+                        <p class="text16">10 years teaching, 10,000+ students</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-paperclip wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>get the materials</h3>
-                        <p class="text-muted"><a href="helicopters.html">handout and code</a>, free for non-commercial use</p>
+                <div class="col-lg-6 col-md-6 ">
+                    <div class="service-box text-center">
+                        <i class="fa fa-4x fa-shield wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3 class="text-center">safe & exciting</h3>
+                        <ul>
+                            <li class="text16 text-left">our model rockets stay virtual, so there's no risk to your
+                                students (no flying rockets)</li>
+                            <li class="text-left text16">our electronics workshop is all low-voltage</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <section class="bg-primary" id="team">
         <div class="container">
@@ -112,10 +145,35 @@ title: Stage One Education, LLC
                     <h2 class="section-heading">Team</h2>
                     <hr class="light">
                     <p class="text-faded">Andrew Barry, Ph.D.</p>
-                    <p>Andy fell in love with autonomous drones by <a href="https://www.youtube.com/watch?v=_qah8oIzCwk" class="text-faded" style="text-decoration:underline">flying them</a> for his Ph.D. at MIT.  Andy has brought electronics and software workshops to over 7,000 students throughout the world.
+                    <p>Andy B fell in love with autonomous drones by <a
+                            href="https://www.youtube.com/watch?v=_qah8oIzCwk" class="text-faded"
+                            style="text-decoration:underline">flying them</a> for his Ph.D. at MIT. Andy has brought
+                        electronics and software workshops to over 10,000 students from small helicopters to <a
+                            href="https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1"
+                            class="text-faded">sophisticated quadrupeds</a>.
                     </p>
                     <p class="text-faded">Pete Florence, Ph.D.</p>
-                    <p>Pete flew drones of all sorts during his Ph.D. work at MIT.  His planning and control work in the <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos" class="text-faded" style="text-decoration:underline">Robot Locomotion Group</a> pushed the horizons for faster, more agile, and more reliable drones and his award-winning <a href="https://www.youtube.com/watch?v=L5UW1VapKNE"  class="text-faded" style="text-decoration:underline">robot manipulation</a> is giving robots new abilities all the time.</p>
+                    <p>Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in the
+                        <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos" class="text-faded"
+                            style="text-decoration:underline">Robot Locomotion Group</a> pushed the horizons for faster,
+                        more agile, and more reliable drones and his award-winning <a
+                            href="https://www.youtube.com/watch?v=L5UW1VapKNE" class="text-faded"
+                            style="text-decoration:underline">robot manipulation</a> is giving robots new abilities all
+                        the time.
+                    </p>
+
+                    <p class="text-faded">Andy Pethan</p>
+                    <p>Andy P became obsessed with understanding how young people learn and hasn't let up. He taught
+                        high school math, coached robotics, led STEM workshops, developed curriculum, volunteered
+                        internationally, and now designs and develops software to guide best-practice instructional
+                        design for teachers.</p>
+
+                    <p class="text-faded">Kimly Do</p>
+                    <p>When not teaching for Stage One, Kimly ​is a private submersible pilot and amateur adventurer.
+                        She ​has worked at an aquarium feeding sharks, a used bookstore, a sushi restaurant, an
+                        educational camp for girls building ROVs, and several robotics research companies. She is a hang
+                        glider pilot, a boardgamer, a ​west coast swing ​dancer, a tea drinker, an e​​nneagram type 7w8,
+                        and a proud BTS fan.</p>
                 </div>
             </div>
         </div>
@@ -136,4 +194,3 @@ title: Stage One Education, LLC
             </div>
         </div>
     </section>
-

@@ -9,4 +9,4 @@ Convert to .webm to .mp4 files with:
 ```jekyll/cad-tutorial/videos/convert_webm_to_mp4.sh```
 
 
-```gcloud app deploy```  <-- deploys the site to google cloud services.
+```firebase deploy```  <-- deploys the site to google cloud services.

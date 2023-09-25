@@ -20,6 +20,17 @@ hr {
     border-width: 3px;
 }
 
+hr.long {
+    max-width: 500px;
+    border-color: #f05f40;
+    border-width: 3px;
+    margin-left:0;
+}
+
+hr#left {
+    margin-left:0;
+}
+
 hr.light {
     border-color: #fff;
 }
@@ -173,9 +184,32 @@ aside {
 }
 
 header {
-    position: relative;
+    /*position: relative;*/
     width: 100%;
     min-height: auto;
+    text-align: center;
+    color: #fff;
+/*
+    background-image: url(../img/header.jpg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+*/
+}
+
+header .header-content {
+    position: relative;
+    width: 100%;
+    padding: 100px 15px;
+    text-align: center;
+}
+
+.header-section {
+    text-align: center;
+}
+.quick-access {
     text-align: center;
     color: #fff;
     background-image: url(../img/header.jpg);
@@ -184,13 +218,6 @@ header {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
-
-header .header-content {
-    position: relative;
-    width: 100%;
-    padding: 100px 15px;
-    text-align: center;
 }
 
 header .header-content .header-content-inner h1 {
@@ -237,6 +264,42 @@ header .header-content .header-content-inner p {
         max-width: 80%;
         font-size: 18px;
     }
+}
+
+.header-image-bg {
+    background-image: url(../img/header.jpg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+@media (min-width: 992px) {
+    .border-left-header {
+        border-left: 1px solid #ccc;
+    }
+}
+
+
+/*
+
+.header-flexbox,
+.header-content-mainpage {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.header-flexbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} */
+
+
+.text16 {
+    font-size: 16px;
 }
 
 .section-heading {
@@ -473,4 +536,9 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #222;
+}
+
+
+.light-hover:hover {
+    color: #DBDBDB;
 }
