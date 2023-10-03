@@ -2,6 +2,46 @@
 layout: default
 title: Stage One Education, LLC
 ---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let posters = [
+        'img/poster1.jpg',
+        'img/poster2.jpg',
+        'img/poster3.jpg'
+    ];
+
+    // Preload the images
+    posters.forEach(function (src) {
+        let img = new Image();
+        img.src = src;
+    });
+
+    $(document).ready(function () {
+        let posters = [
+            'img/poster1.jpg',
+            'img/poster2.jpg',
+            'img/poster3.jpg',
+            'img/poster4.jpg'
+        ];
+        let currentIndex = 0;
+
+        setInterval(function () {
+            // Fade out the current image
+            $("#cyclingPoster").css("opacity", "0");
+
+            setTimeout(function () {
+                // Switch to the next image
+                currentIndex = (currentIndex + 1) % posters.length;
+                $("#cyclingPoster").attr("src", posters[currentIndex]);
+
+                // Fade in the new image
+                $("#cyclingPoster").css("opacity", "1");
+            }, 1000); // 1s delay matches the transition duration in the CSS
+        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
+    });
+
+
+</script>
 
 <body id="page-top">
 
@@ -46,13 +86,23 @@ title: Stage One Education, LLC
 
     <section class="bg-dark header-image-bg">
         <div class="container">
-            <div class="row" >
+            <div class="row">
                 <div class="col-lg-8 col-md-8 text-center">
                     <h1 style="padding-top: 50px; margin-top: 0px">Hands on engineering</h1>
                     <hr />
-                    <h3>learn CAD with our <a href="cad-tutorial/index.html">GIF-at-every-step Onshape tutorial</a></h3>
+                    <h2>turnkey workshops for your students</h2>
+                    <!-- <hr /> -->
+                    <!-- <h3>teach mechanical engineering with our GIF-at-every-step <a href="cad-tutorial/index.html">Onshape + rocketry workshop </a></h3>
                     <h3>or</h3>
-                    <h3>build circuits with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3>
+                    <h3>teach robotics with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3> -->
+                    <h3>
+                        <a href="">AI</a>
+                        &mdash;
+                        <a href="">robotics</a>
+                        &mdash;
+                        <a href="">mechanical engineering</a>
+                    </h3>
+
                 </div>
                 <div class="col-lg-4 col-md-4 text-center border-left-header" style="margin-top: 50px">
                     <a href="cad-tutorial/index.html" class="btn btn-primary btn-xl page-scroll">Onshape / CAD
@@ -78,6 +128,58 @@ title: Stage One Education, LLC
             </div>
         </div>
         </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="btn-group" role="group" aria-label="Workshop Selection">
+                    <div class="ai-film-button">
+                        <h1>Rocket</h1>
+                        <h2>Mechanical Engineering</h2>
+                        <img src="img/rocket-arrows.png" alt="Rocket CAD" style="width: 100%">
+                        <br />
+                        <p>Use professional Computer Aided Design (CAD) software</p>
+                        <br />
+                        <p>Design a multi-part model rocket</p>
+                        <br />
+                        <p>Explore 3D printing</p>
+                    </div>
+
+                    <div class="ai-film-button">
+                        <h1>AI Film Studio</h1>
+                        <h2>Artificial Intelligence & Neural Networks</h2>
+                        <p><em>Launched Summer of 2023</em></p>
+                        <div class="poster-container">
+                            <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
+                        </div>
+                        <p style="color: #5b5b5b;">(student created movie posters)</p>
+                        <br />
+                        <p>Discover how AI Neural Networks learn</p>
+                        <br />
+                        <p>Use the latest AI models: text, image, and music</p>
+                        <br />
+                        <p>AI ethics discussion</p>
+                    </div>
+
+                    <div class="ai-film-button">
+                        <h1>Helicopter</h1>
+                        <h2>Robotics, Electronics, Coding</h2>
+                        <img src="img/helicopter.png" style="width: 100%" alt="RC Helicopter">
+                        <br />
+                        <p>Fly RC Helicopters</p>
+                        <br />
+                        <p>Discover circut design and constructions</p>
+                        <br />
+                        <p>Design a circuit for helicopter control</p>
+                        <br />
+                        <p>Program for autonomous flight</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </section>
 
 
