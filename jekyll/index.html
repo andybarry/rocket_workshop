@@ -43,6 +43,21 @@ title: Stage One Education, LLC
 
 </script>
 
+<script>
+    function changeTab(id) {
+        let allTabs = ['rocket', 'ai', 'heli']
+        for (let tab of allTabs) {
+            if (id != tab) {
+                document.getElementById(tab).classList.remove('tab-active')
+                document.getElementById(tab + '-content').classList.remove('tab-active')
+            }
+            document.getElementById(id).classList.add('tab-active')
+            document.getElementById(id + '-content').classList.add('tab-active')
+            document.getElementById(id + '-content').scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        }
+    }
+</script>
+
 <body id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -96,12 +111,12 @@ title: Stage One Education, LLC
                     <h3>or</h3>
                     <h3>teach robotics with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3> -->
                     <h3>
-                        <a href="">AI</a>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('ai')">AI</a>
                         &mdash;
-                        <a href="">robotics</a>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('heli')">robotics</a>
                         &mdash;
-                        <a href="">mechanical engineering</a>
-                    </h3>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('rocket')">mechanical engineering</a>
+                        </ph3>
 
                 </div>
                 <div class="col-lg-4 col-md-4 text-center border-left-header" style="margin-top: 50px">
@@ -130,11 +145,11 @@ title: Stage One Education, LLC
         </div>
     </section>
 
-    <section>
+    <section style="padding-top: 15px">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="btn-group" role="group" aria-label="Workshop Selection">
-                    <div class="ai-film-button">
+                    <div class="ai-film-button" id="rocket" onClick="changeTab('rocket')">
                         <h1>Rocket</h1>
                         <h2>Mechanical Engineering</h2>
                         <img src="img/rocket-arrows.png" alt="Rocket CAD" style="width: 100%">
@@ -146,23 +161,20 @@ title: Stage One Education, LLC
                         <p>Explore 3D printing</p>
                     </div>
 
-                    <div class="ai-film-button">
+                    <div class="ai-film-button tab-active" id="ai" onClick="changeTab('ai')">
                         <h1>AI Film Studio</h1>
                         <h2>Artificial Intelligence & Neural Networks</h2>
                         <p><em>Launched Summer of 2023</em></p>
                         <div class="poster-container">
                             <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
                         </div>
-                        <p style="color: #5b5b5b;">(student created movie posters)</p>
-                        <br />
-                        <p>Discover how AI Neural Networks learn</p>
-                        <br />
+                        <p style="color: #5b5b5b;">student created movie posters</p>
+                        <p>Discover how AI neural networks learn</p>
                         <p>Use the latest AI models: text, image, and music</p>
-                        <br />
                         <p>AI ethics discussion</p>
                     </div>
 
-                    <div class="ai-film-button">
+                    <div class="ai-film-button" id="heli" onClick="changeTab('heli')">
                         <h1>Helicopter</h1>
                         <h2>Robotics, Electronics, Coding</h2>
                         <img src="img/helicopter.png" style="width: 100%" alt="RC Helicopter">
@@ -175,7 +187,83 @@ title: Stage One Education, LLC
                         <br />
                         <p>Program for autonomous flight</p>
                     </div>
+                </div>
+                <hr />
 
+
+                <div id="rocket-content" class="tab-content">
+                    <!-- <div style="display: flex; justify-content: center; align-items: center;"> -->
+                    <div style="text-align: center; max-width: 70vw; margin: auto;">
+                        <h2 style="text-align: left;">Rocket / CAD Workshop</h2>
+                        <div style="margin: 20px; text-align: left;">
+                            <ul>
+                                <li>Explore the world of engineering and discover CAD (computer aided design)</li>
+                                <li>Build a three-part rocket using a professional CAD platform</li>
+                                <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <img src="img/rocket-timeline.svg" />
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+
+                <div id="ai-content" class="tab-content tab-active">
+                    <div style="text-align: center; max-width: 70vw; margin: auto;">
+                        <h2 style="text-align: left;">AI Workshop</h2>
+                        <div style="margin: 20px; text-align: left;">
+                            <ul>
+                                <li><strong>Human Neural Network: A Hands-On Activity</strong>
+                                    <ul>
+                                        <li>Join an interactive game of complex telephone where each participant becomes a node in a neural network.</li>
+                                        <li>Gain an intuitive grasp of neural networks and their learning processes – all without the math!</li>
+                                    </ul>
+                                </li>
+                                
+                                <li><strong>AI Film Studio: Creative Activity</strong>
+                                    <ul>
+                                        <li>Explore cutting-edge AI tools for text, image, music, and voice generation.</li>
+                                        <li>Participants will craft all production elements for a unique short film, from scripts to marketing materials.</li>
+                                        <li>Conclude with a film review session, showcasing AI's creative prowess.</li>
+                                    </ul>
+                                </li>
+                                
+                                <li><strong>AI Ethics: Decision-Making Activity</strong>
+                                    <ul>
+                                        <li>Delve into the pressing ethical questions AI engineers grapple with.</li>
+                                        <li>Engage in lively dialogues that promote critical thinking about AI's responsible usage.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                        <div>
+                            <img src="img/ai-timeline.svg" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="heli-content" class="tab-content">
+                    <div style="text-align: center; max-width: 70vw; margin: auto;">
+                        <h2 style="text-align: left;">Helicopter Workshop</h2>
+                        <div style="margin: 20px; text-align: left;">
+                            <ul>
+                                <li>Immerse yourself in hands-on circuit-building and software development.</li>
+                                <li>With the goal of achieving autonomous flight of a RC helicopter, participants
+                                    collaborate on:</li>
+                                <ul>
+                                    <li>hardware</li>
+                                    <li>software design</li>
+                                    <li>learning problem-solving and debugging skills</li>
+                                </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <img src="img/heli-timeline.svg" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
