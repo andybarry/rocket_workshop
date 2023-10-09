@@ -7,7 +7,8 @@ title: Stage One Education, LLC
     let posters = [
         'img/poster1.jpg',
         'img/poster2.jpg',
-        'img/poster3.jpg'
+        'img/poster3.jpg',
+        'img/poster4.jpg'
     ];
 
     // Preload the images
@@ -17,12 +18,6 @@ title: Stage One Education, LLC
     });
 
     $(document).ready(function () {
-        let posters = [
-            'img/poster1.jpg',
-            'img/poster2.jpg',
-            'img/poster3.jpg',
-            'img/poster4.jpg'
-        ];
         let currentIndex = 0;
 
         setInterval(function () {
@@ -39,9 +34,9 @@ title: Stage One Education, LLC
             }, 1000); // 1s delay matches the transition duration in the CSS
         }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
     });
-
-
 </script>
+
+<script src="cad-tutorial/video_play_at_scroll.js"></script>
 
 <script>
     function changeTab(id) {
@@ -53,7 +48,8 @@ title: Stage One Education, LLC
             }
             document.getElementById(id).classList.add('tab-active')
             document.getElementById(id + '-content').classList.add('tab-active')
-            document.getElementById(id + '-content').scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
+            document.getElementById('tab-section').scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
         }
     }
 </script>
@@ -105,28 +101,34 @@ title: Stage One Education, LLC
                 <div class="col-lg-8 col-md-8 text-center">
                     <h1 style="padding-top: 50px; margin-top: 0px">Hands on engineering</h1>
                     <hr />
-                    <h2>turnkey workshops for your students</h2>
+                    <h2>turn-key workshops for your students</h2>
                     <!-- <hr /> -->
                     <!-- <h3>teach mechanical engineering with our GIF-at-every-step <a href="cad-tutorial/index.html">Onshape + rocketry workshop </a></h3>
                     <h3>or</h3>
                     <h3>teach robotics with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3> -->
                     <h3>
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('ai')">AI</a>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
+                            onClick="changeTab('ai')">AI</a>
                         &mdash;
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('heli')">robotics</a>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
+                            onClick="changeTab('heli')">robotics</a>
                         &mdash;
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline" onClick="changeTab('rocket')">mechanical engineering</a>
-                        </ph3>
+                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
+                            onClick="changeTab('rocket')">mechanical engineering</a>
+                    </h3>
+                    <br />
+                    <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl page-scroll">Request a demo</a>
 
                 </div>
                 <div class="col-lg-4 col-md-4 text-center border-left-header" style="margin-top: 50px">
-                    <a href="cad-tutorial/index.html" class="btn btn-primary btn-xl page-scroll">Onshape / CAD
-                        Workshop</a>
+                    <a href="cad-tutorial/index.html"
+                        class="top-right-button btn btn-outline-primary btn-xl page-scroll">Onshape / CAD Workshop</a>
                     <br>
                     <a href="https://forms.gle/qGyQDPwsa39QodQU8" class="btn btn-xl light-hover"><u>Onshape Workshop
                             Feedback</u></a>
                     <hr class="light">
-                    <a href="ElectronicsWorkshopInstructions2023.pdf" class="btn btn-primary btn-xl">Electronics
+                    <a href="ElectronicsWorkshopInstructions2023.pdf"
+                        class="top-right-button btn btn-outline-primary btn-xl">Electronics
                         Workshop</a>
                     <br>
                     <br>
@@ -145,134 +147,155 @@ title: Stage One Education, LLC
         </div>
     </section>
 
-    <section style="padding-top: 15px">
+    <section style="padding-top: 15px" id="tab-section" class="tab-section">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="btn-group" role="group" aria-label="Workshop Selection">
-                    <div class="ai-film-button" id="rocket" onClick="changeTab('rocket')">
-                        <h1>Rocket</h1>
-                        <h2>Mechanical Engineering</h2>
-                        <img src="img/rocket-arrows.png" alt="Rocket CAD" style="width: 100%">
-                        <br />
-                        <p>Use professional Computer Aided Design (CAD) software</p>
-                        <br />
-                        <p>Design a multi-part model rocket</p>
-                        <br />
-                        <p>Explore 3D printing</p>
-                    </div>
-
-                    <div class="ai-film-button tab-active" id="ai" onClick="changeTab('ai')">
-                        <h1>AI Film Studio</h1>
-                        <h2>Artificial Intelligence & Neural Networks</h2>
-                        <p><em>Launched Summer of 2023</em></p>
-                        <div class="poster-container">
-                            <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
-                        </div>
-                        <p style="color: #5b5b5b;">student created movie posters</p>
-                        <p>Discover how AI neural networks learn</p>
-                        <p>Use the latest AI models: text, image, and music</p>
-                        <p>AI ethics discussion</p>
-                    </div>
-
-                    <div class="ai-film-button" id="heli" onClick="changeTab('heli')">
-                        <h1>Helicopter</h1>
-                        <h2>Robotics, Electronics, Coding</h2>
-                        <img src="img/helicopter.png" style="width: 100%" alt="RC Helicopter">
-                        <br />
-                        <p>Fly RC Helicopters</p>
-                        <br />
-                        <p>Discover circut design and constructions</p>
-                        <br />
-                        <p>Design a circuit for helicopter control</p>
-                        <br />
-                        <p>Program for autonomous flight</p>
-                    </div>
+            <!-- AI Workshop Text (Right Side) -->
+            <hr class="fullpage" />
+            <div style="margin-left: 50px;">
+                <span class="workshop-title" style="font-variant: small-caps;">Our workshops</span><span
+                    class="workshop-subtitle"></span>
+            </div>
+            <hr class="fullpage" />
+        </div>
+        <div class="col-lg-6 col-med-6 col-sm-6">
+            <div class="workshop-container">
+                <span class="workshop-title">AI workshop</span><span class="workshop-subtitle"> &mdash;
+                    Robotics, Electronics, Coding</span>
+                <div class="workshop-subdata">
+                    3-3.5 hours, middle + high school students
                 </div>
-                <hr />
-
-
-                <div id="rocket-content" class="tab-content">
-                    <!-- <div style="display: flex; justify-content: center; align-items: center;"> -->
-                    <div style="text-align: center; max-width: 70vw; margin: auto;">
-                        <h2 style="text-align: left;">Rocket / CAD Workshop</h2>
-                        <div style="margin: 20px; text-align: left;">
-                            <ul>
-                                <li>Explore the world of engineering and discover CAD (computer aided design)</li>
-                                <li>Build a three-part rocket using a professional CAD platform</li>
-                                <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <img src="img/rocket-timeline.svg" />
-                        </div>
-                    </div>
-                    <!-- </div> -->
-                </div>
-
-                <div id="ai-content" class="tab-content tab-active">
-                    <div style="text-align: center; max-width: 70vw; margin: auto;">
-                        <h2 style="text-align: left;">AI Workshop</h2>
-                        <div style="margin: 20px; text-align: left;">
-                            <ul>
-                                <li><strong>Human Neural Network: A Hands-On Activity</strong>
-                                    <ul>
-                                        <li>Join an interactive game of complex telephone where each participant becomes a node in a neural network.</li>
-                                        <li>Gain an intuitive grasp of neural networks and their learning processes – all without the math!</li>
-                                    </ul>
-                                </li>
-                                
-                                <li><strong>AI Film Studio: Creative Activity</strong>
-                                    <ul>
-                                        <li>Explore cutting-edge AI tools for text, image, music, and voice generation.</li>
-                                        <li>Participants will craft all production elements for a unique short film, from scripts to marketing materials.</li>
-                                        <li>Conclude with a film review session, showcasing AI's creative prowess.</li>
-                                    </ul>
-                                </li>
-                                
-                                <li><strong>AI Ethics: Decision-Making Activity</strong>
-                                    <ul>
-                                        <li>Delve into the pressing ethical questions AI engineers grapple with.</li>
-                                        <li>Engage in lively dialogues that promote critical thinking about AI's responsible usage.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            
-                        </div>
-                        <div>
-                            <img src="img/ai-timeline.svg" />
-                        </div>
-                    </div>
-                </div>
-
-                <div id="heli-content" class="tab-content">
-                    <div style="text-align: center; max-width: 70vw; margin: auto;">
-                        <h2 style="text-align: left;">Helicopter Workshop</h2>
-                        <div style="margin: 20px; text-align: left;">
-                            <ul>
-                                <li>Immerse yourself in hands-on circuit-building and software development.</li>
-                                <li>With the goal of achieving autonomous flight of a RC helicopter, participants
-                                    collaborate on:</li>
+                <div id="ai-content" class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
+                    <div style="margin: 20px;">
+                        <ul>
+                            <li><strong>Human Neural Network: A Hands-On Activity</strong>
                                 <ul>
-                                    <li>hardware</li>
-                                    <li>software design</li>
-                                    <li>learning problem-solving and debugging skills</li>
+                                    <li>Join an interactive game of complex telephone where each participant becomes
+                                        a node in a neural network.</li>
+                                    <li>Gain an intuitive grasp of neural networks and their learning processes –
+                                        all without the math!</li>
                                 </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <img src="img/heli-timeline.svg" />
+                            </li>
+                            <li><strong>AI Film Studio: Creative Activity</strong>
+                                <ul>
+                                    <li>Explore cutting-edge AI tools for text, image, music, and voice generation.
+                                    </li>
+                                    <li>Participants will craft all production elements for a unique short film,
+                                        from scripts to marketing materials.</li>
+                                    <li>Conclude with a film review session, showcasing AI's creative prowess.</li>
+                                </ul>
+                            </li>
+                            <li><strong>AI Ethics: Decision-Making Activity</strong>
+                                <ul>
+                                    <li>Delve into the pressing ethical questions AI engineers grapple with.</li>
+                                    <li>Engage in lively dialogues that promote critical thinking about AI's
+                                        responsible usage.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a
+                                demo</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 col-med-6 col-sm-6 text-center">
+            <div class="poster-container">
+                <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
+            </div>
+            <p style="color: #5b5b5b; font-size: 95%">student created movie posters</p>
+        </div>
+        <div style="margin: auto; text-align: center">
+            <img src="img/ai-timeline.svg" />
+        </div>
 
+
+        <hr class="fullpage" />
+        <hr class="fullpage" />
+        <div class="col-lg-8 col-med-8 col-sm-8">
+            <div class="workshop-container">
+                <span class="workshop-title">Robotics Workshop</span><span class="workshop-subtitle"> &mdash;
+                    Robotics, Electronics, Coding</span>
+                <div class="workshop-subdata">
+                    3-3.5 hours, middle + high school students
+                </div>
+                <div id="ai-content" class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
+                    <div style="margin: 20px;">
+                        <ul>
+                            <li>Immerse yourself in hands-on circuit-building and software development.</li>
+                            <li>With the goal of achieving autonomous flight of a small toy RC drone, participants
+                                collaborate on:</li>
+                            <ul>
+                                <li>hardware</li>
+                                <li>software design</li>
+                                <li>learning problem-solving and debugging skills</li>
+                            </ul>
+                            </li>
+                        </ul>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a
+                                demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-med-4 col-sm-4 text-center">
+            <div class="poster-container" style="margin-top: 25px;">
+                <img src="img/heli-circuit.png" width="100%" alt="RC Helicopter">
+            </div>
+        </div>
+        <div style="margin: auto; text-align: center">
+            <img src="img/heli-timeline.svg" />
+        </div>
+
+        <!-- CAD workshop -->
+        <hr class="fullpage" />
+        <hr class="fullpage" />
+        <div class="col-lg-6 col-med-6 col-sm-6">
+            <div class="workshop-container">
+                <span class="workshop-title">CAD / Rocket Workshop</span><span class="workshop-subtitle"> &mdash;
+                    CAD & Mechanical Engineering</span>
+                <div class="workshop-subdata">
+                    3-3.5 hours, middle + high school students
+                </div>
+                <div id="ai-content" class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
+                    <div style="margin: 20px;">
+
+                        <li>Explore the world of engineering and discover CAD (computer aided design)</li>
+                        <li>Build a three-part (virtual) rocket using a professional CAD platform</li>
+                        <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a
+                        demo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-med-6 col-sm-6 text-center">
+            <!-- <img src="img/rocket-arrows.png" width="100%" alt="RC Helicopter"> -->
+
+
+
+            <div align="center" class=" autosize" style="padding-right: 10px; padding-bottom: 20px;">
+                <video autoplay loop muted playsinline class="intro-video-background ">
+                    <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+        <div style="margin: auto; text-align: center">
+            <img src="img/rocket-timeline.svg" />
+        </div>
     </section>
 
 
 
-    <section id="workshop">
+    <hr class="fullpage" />
+    <section id="workshop" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">

@@ -8,13 +8,15 @@ function checkScroll() {
         
         var frac_used = videoPlayAtFraction
         
-        if (video.className == "video-background") {
+        if (video.classList.contains("video-background") || video.classList.contains("intro-video-background")) {
             frac_used = 0.1;
         }
-        
+
         if (fractionScrolledIntoView(video) > frac_used) {
             if (video.paused) {
-                video.currentTime = 0
+                if (!video.classList.contains("intro-video-background")) {
+                    video.currentTime = 0
+                }
             }
             video.play();
         } else {
