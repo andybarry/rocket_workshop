@@ -589,7 +589,7 @@ body {
 }
 
 .poster-container {
-    max-width: 50vw;
+    max-width: 500px;
     margin: auto;
     padding-right: 20px;
 }
@@ -676,6 +676,7 @@ body {
     -o-background-size: auto;
     min-height: auto;
     width: 100%;
+    max-width: 500px;
     font-size: 0px; /* removes black border on bottom */
 }
 
