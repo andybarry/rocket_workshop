@@ -38,22 +38,6 @@ title: Stage One Education, LLC
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<script>
-    function changeTab(id) {
-        let allTabs = ['rocket', 'ai', 'heli']
-        for (let tab of allTabs) {
-            if (id != tab) {
-                document.getElementById(tab).classList.remove('tab-active')
-                document.getElementById(tab + '-content').classList.remove('tab-active')
-            }
-            document.getElementById(id).classList.add('tab-active')
-            document.getElementById(id + '-content').classList.add('tab-active')
-
-            document.getElementById('tab-section').scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-        }
-    }
-</script>
-
 <body id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -107,14 +91,14 @@ title: Stage One Education, LLC
                     <h3>or</h3>
                     <h3>teach robotics with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3> -->
                     <h3>
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
-                            onClick="changeTab('ai')">AI</a>
+                        <a href="#ai" class="page-scroll light-hover" style="text-decoration: underline"
+                            ">AI</a>
                         &mdash;
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
-                            onClick="changeTab('heli')">robotics</a>
+                        <a href="#robotics" class="page-scroll light-hover" style="text-decoration: underline"
+                            >robotics</a>
                         &mdash;
-                        <a href="javascript:void(0)" class="light-hover" style="text-decoration: underline"
-                            onClick="changeTab('rocket')">mechanical engineering</a>
+                        <a href="#cad" class="page-scroll light-hover" style="text-decoration: underline"
+                            >mechanical engineering</a>
                     </h3>
                     <br />
                     <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl page-scroll">Request a demo</a>
@@ -148,7 +132,7 @@ title: Stage One Education, LLC
     </section>
 
     <section style="padding-top: 15px" id="tab-section" class="tab-section">
-        <div class="container">
+        <div class="container" id="ai">
             <div class="row">
                 <!-- AI Workshop Text (Right Side) -->
                 <hr class="fullpage" />
@@ -160,12 +144,11 @@ title: Stage One Education, LLC
             </div>
             <div class="col-lg-6 col-med-6 col-sm-6">
                 <div class="workshop-container">
-                    <span class="workshop-title">AI workshop</span><span class="workshop-subtitle"> &mdash;
-                        Robotics, Electronics, Coding</span>
+                    <span class="workshop-title">AI workshop</span>
                     <div class="workshop-subdata">
                         3-3.5 hours, middle + high school students
                     </div>
-                    <div id="ai-content" class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
+                    <div class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
                         <div style="margin: 20px;">
                             <ul>
                                 <li><strong>Human Neural Network: A Hands-On Activity</strong>
@@ -213,7 +196,7 @@ title: Stage One Education, LLC
 
 
             <hr class="fullpage" />
-            <div class="col-lg-8 col-med-8 col-sm-8">
+            <div class="col-lg-8 col-med-8 col-sm-8" id="robotics">
                 <div class="workshop-container">
                     <span class="workshop-title">Robotics Workshop</span><span class="workshop-subtitle"> &mdash;
                         Robotics, Electronics, Coding</span>
@@ -252,7 +235,7 @@ title: Stage One Education, LLC
 
             <!-- CAD workshop -->
             <hr class="fullpage" />
-            <div class="col-lg-6 col-med-6 col-sm-6">
+            <div class="col-lg-6 col-med-6 col-sm-6" id="cad">
                 <div class="workshop-container">
                     <span class="workshop-title">CAD / Rocket Workshop</span><span class="workshop-subtitle"> &mdash;
                         CAD & Mechanical Engineering</span>
