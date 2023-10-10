@@ -8,7 +8,10 @@ title: Stage One Education, LLC
         'img/poster1.jpg',
         'img/poster2.jpg',
         'img/poster3.jpg',
-        'img/poster4.jpg'
+        'img/poster4.jpg',
+        'img/poster5.jpg',
+        'img/poster6.jpg',
+        'img/poster7.jpg',
     ];
 
     // Preload the images
@@ -40,44 +43,7 @@ title: Stage One Education, LLC
 
 <body id="page-top">
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Stage One Education, LLC</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="cad-tutorial/index.html">Onshape Tutorial</a>
-                    <li>
-                        <a href="ElectronicsWorkshopInstructions2023.pdf">Electronics Workshop</a>
-                    </li>
-                    <!--
-                    <li>
-                        <a class="page-scroll" href="teach_with_us.html">Careers</a>
-                    </li> -->
-                    <li>
-                        <a class="page-scroll" href="#team">Team</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+    {% include navigation.html %}
 
     <section class="bg-dark header-image-bg">
         <div class="container">
@@ -188,7 +154,7 @@ title: Stage One Education, LLC
                 <div class="poster-container">
                     <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
                 </div>
-                <p style="color: #5b5b5b; font-size: 95%">student created movie posters</p>
+                <p style="color: #5b5b5b; font-size: 95%; padding-top: 3px;">student created movie posters</p>
             </div>
             <div style="margin: auto; text-align: center">
                 <img src="img/ai-timeline.svg" />
@@ -217,8 +183,7 @@ title: Stage One Education, LLC
                                 </li>
                             </ul>
                             <div style="text-align: center; margin-top: 20px;">
-                                <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a
-                                    demo</a>
+                                <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a demo</a>
                             </div>
                         </div>
                     </div>
@@ -251,8 +216,8 @@ title: Stage One Education, LLC
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 20px;">
-                        <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a
-                            demo</a>
+                        <a href="mailto:workshops@stageoneeducation.com" class="btn btn-primary btn-xl request-demo-button">Request a demo</a>
+                        <br /><br />
                     </div>
                 </div>
             </div>
@@ -332,48 +297,6 @@ title: Stage One Education, LLC
         </div>
     </section>
 
-
-
-    <section class="bg-primary" id="team">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Team</h2>
-                    <hr class="light">
-                    <p class="text-faded">Andrew Barry, Ph.D.</p>
-                    <p>Andy B fell in love with autonomous drones by <a
-                            href="https://www.youtube.com/watch?v=_qah8oIzCwk" class="text-faded"
-                            style="text-decoration:underline">flying them</a> for his Ph.D. at MIT. Andy has brought
-                        electronics and software workshops to over 10,000 students from small helicopters to <a
-                            href="https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1"
-                            class="text-faded">sophisticated quadrupeds</a>.
-                    </p>
-                    <p class="text-faded">Pete Florence, Ph.D.</p>
-                    <p>Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in the
-                        <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos" class="text-faded"
-                            style="text-decoration:underline">Robot Locomotion Group</a> pushed the horizons for faster,
-                        more agile, and more reliable drones and his award-winning <a
-                            href="https://www.youtube.com/watch?v=L5UW1VapKNE" class="text-faded"
-                            style="text-decoration:underline">robot manipulation</a> is giving robots new abilities all
-                        the time.
-                    </p>
-
-                    <p class="text-faded">Andy Pethan</p>
-                    <p>Andy P became obsessed with understanding how young people learn and hasn't let up. He taught
-                        high school math, coached robotics, led STEM workshops, developed curriculum, volunteered
-                        internationally, and now designs and develops software to guide best-practice instructional
-                        design for teachers.</p>
-
-                    <p class="text-faded">Kimly Do</p>
-                    <p>When not teaching for Stage One, Kimly ​is a private submersible pilot and amateur adventurer.
-                        She ​has worked at an aquarium feeding sharks, a used bookstore, a sushi restaurant, an
-                        educational camp for girls building ROVs, and several robotics research companies. She is a hang
-                        glider pilot, a boardgamer, a ​west coast swing ​dancer, a tea drinker, an e​​nneagram type 7w8,
-                        and a proud BTS fan.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="contact">
         <div class="container">

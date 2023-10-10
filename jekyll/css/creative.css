@@ -666,6 +666,11 @@ body {
     font-variant: small-caps;
 }
 
+.workshop-subtitle-nocaps {
+    font-size: 24px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}
+
 .intro-video-background {
     background-image: url(../cad-tutorial/img/stripes.png);
     background-repeat: repeat;
@@ -693,4 +698,100 @@ body {
     margin-bottom: -10px;
     padding-top: 5px;
     color: #eb3812;
+}
+
+
+header.with-background {
+    position: relative;
+    width: 100%;
+    min-height: 350px;
+    text-align: center;
+    color: #fff;
+    background-image: url(../cad-tutorial/img/onshape-blur.jpg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.quote-container {
+    position: relative;
+    padding: 40px;
+    padding-bottom: 10px;
+    margin-bottom: -20px; /* Overlapping effect */
+}
+
+.quote-container::before {
+    content: '\201C'; /* Unicode for the quote symbol */
+    font-size: 10em;
+    color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -5%;
+    left: 5%;
+    z-index: -1;
+}
+
+.quote-text {
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.7); /* Slight transparency */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.quote-one {
+    left: 50px;
+}
+.quote-two {
+    top: -20px;
+}
+.quote-three {
+    top: 20px;
+    left: -20px;
+}
+
+.percent-agree {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.percent-agree-sub {
+    font-size: 130%;
+}
+
+.percent-agree-sub2 {
+    color: gray;
+}
+
+.leadership-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px;
+}
+
+.profile {
+    text-align: center;
+}
+
+.profile img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #eb3812;
+}
+
+.profile-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.role {
+    margin-top: 5px;
+}
+
+.instructors {
+    text-align: center;
+    margin-top: 50px;
 }
