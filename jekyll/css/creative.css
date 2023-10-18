@@ -27,6 +27,12 @@ hr.long {
     margin-left:0;
 }
 
+hr.long-center {
+    max-width: 500px;
+    border-color: #f05f40;
+    border-width: 3px;
+}
+
 hr.fullpage {
     max-width: 100%;
     border-color: #f05f40;
@@ -87,6 +93,10 @@ section {
     padding: 100px 0;
 }
 
+section.less-padding {
+    padding: 25px 0;
+}
+
 aside {
     padding: 50px 0;
 }
@@ -95,10 +105,25 @@ aside {
     padding: 0;
 }
 
+.black-for-nav {
+    height: 50px;
+    max-height: 50px;
+    background-color: black;
+}
+
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     background-color: #fff;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.navbar-default-white {
+    border-color: rgba(34,34,34,.05);
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    background-color: #000 !important;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -213,6 +238,7 @@ header .header-content {
     padding: 100px 15px;
     text-align: center;
 }
+
 
 .header-section {
     text-align: center;
@@ -658,6 +684,7 @@ body {
 .workshop-title {
     font-size: 30px;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    text-align: center;
 }
 
 .workshop-subtitle {
@@ -794,4 +821,33 @@ header.with-background {
 .instructors {
     text-align: center;
     margin-top: 50px;
+}
+
+.add-space {
+    margin-top: 10px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.horizontal-image {
+    max-width: 100%;
+}
+
+.vertical-image {
+    display: none;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .horizontal-image {
+        display: none;
+    }
+    .vertical-image {
+        display: block;
+        margin: auto;
+    }
 }
