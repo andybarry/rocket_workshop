@@ -860,3 +860,33 @@ header.with-background {
         margin: auto;
     }
 }
+
+.custom-link {
+    text-decoration: none; /* Removes the underline from the link */
+    color: inherit; /* Inherit the color from its parent */
+    display: block; /* Makes the entire area clickable */
+}
+
+.custom-link:hover .col-sm-4 {
+    background-color: rgba(0, 0, 0, 0.1); /* Adds a light grey background on hover */
+    transition: background-color 0.3s; /* Smooth transition effect */
+    cursor: pointer; /* Changes the cursor to hand symbol indicating it's clickable */
+}
+
+.custom-link .col-sm-4 {
+    padding: 10px; /* Some padding for aesthetics */
+    border: 1px solid transparent; /* Transparent border to avoid "jumping" on hover */
+}
+
+.custom-link:hover .col-sm-4 {
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Light grey border on hover */
+}
+
+.custom-link h3 {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.main-page-subtext {
+    color: #eb3812;
+}
