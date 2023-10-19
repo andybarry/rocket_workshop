@@ -884,9 +884,8 @@ header.with-background {
 
 .custom-link h3 {
     font-weight: bold;
-    text-decoration: underline;
 }
 
 .main-page-subtext {
-    color: #eb3812;
+    color: black;
 }
