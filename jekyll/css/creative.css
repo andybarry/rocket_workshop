@@ -770,13 +770,22 @@ header.with-background {
 .quote-one {
     left: 50px;
 }
-.quote-two {
-    top: -20px;
-}
 .quote-three {
     top: 20px;
     left: -20px;
 }
+@media (max-width: 1200px) {
+    .quote-one {
+        left: 0px;
+    }
+    .quote-two {
+        left: 0px;
+    }
+    .quote-three {
+        left: 0px;
+    }
+}
+
 
 .percent-agree {
     font-size: 200%;
