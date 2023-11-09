@@ -627,6 +627,25 @@ body {
     transition: opacity 1s; /* This will create the fading effect */
 }
 
+/* Aspect Ratio CSS */
+.aspect-ratio-16-9 {
+    position: relative;
+    width: 100%; /* or the width you desire */
+    height: 0;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio -> (9 / 16) * 100% */
+    overflow: hidden;
+  }
+  
+  .aspect-ratio-16-9 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* This will ensure the image covers the whole area */
+  }
+  
+
 /* Style for button group */
 .btn-group {
     display: flex;  /* Use flexbox for layout */
@@ -867,20 +886,13 @@ header.with-background {
     display: block; /* Makes the entire area clickable */
 }
 
-.custom-link:hover .col-sm-4 {
-    background-color: rgba(0, 0, 0, 0.1); /* Adds a light grey background on hover */
-    transition: background-color 0.3s; /* Smooth transition effect */
-    cursor: pointer; /* Changes the cursor to hand symbol indicating it's clickable */
-}
+
 
 .custom-link .col-sm-4 {
     padding: 10px; /* Some padding for aesthetics */
     border: 1px solid transparent; /* Transparent border to avoid "jumping" on hover */
 }
 
-.custom-link:hover .col-sm-4 {
-    border: 1px solid rgba(0, 0, 0, 0.1); /* Light grey border on hover */
-}
 
 .custom-link h3 {
     font-weight: bold;
@@ -888,4 +900,23 @@ header.with-background {
 
 .main-page-subtext {
     color: black;
+}
+
+.no-bullet {
+    list-style-type: none;
+}
+
+.button-shadow {
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add a subtle shadow to lift the button off the page */
+}
+
+
+.button-shadow:hover {
+    padding: 10px;
+    box-shadow: 0 10px 8px rgba(0,0,0,0.1); /* Add a subtle shadow to lift the button off the page */
+    background-color: rgba(0, 0, 0, 0.1); /* Adds a light grey background on hover */
+    transition: background-color 0.3s; /* Smooth transition effect */
+    cursor: pointer; /* Changes the cursor to hand symbol indicating it's clickable */
+    border: 0px;
 }
