@@ -1,7 +1,8 @@
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #f05f40; transition: height 0.3s ease, padding 0.3s ease; padding: 1px 0;">
-    <div class="container-fluid" style="display: flex; flex-direction: column; align-items: center;">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top"
+    style="background-color: #f05f40; transition: height 0.3s ease, padding 0.3s ease; padding: 1px 0;">
+    <div class="container-fluid">
         <!-- Navbar Header -->
-        <div class="navbar-header" style="display: flex; align-items: center; width: 100%;">
+        <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                 data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -12,100 +13,94 @@
         </div>
 
         <!-- Navigation Links and Inline Logo -->
-        <ul class="nav navbar-nav" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 5px; list-style-type: none; padding: 0;">
-            <!-- Moved Logo (Hidden Initially, will be displayed inline on scroll) -->
-            <li id="navbar-logo" style="display: none;">
-                <a href="index.html">
-                    <img src="img/stageone-logo-orange.png" alt="Stage One Logo" style="width: 150px; height: auto;">
-                </a>
-            </li>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!-- Moved Logo (Hidden Initially, will be displayed inline on scroll) -->
+                <li id="navbar-logo" style="display: none;">
+                    <a href="index.html">
+                        <img src="img/stageone-logo-orange.png" alt="Stage One Logo"
+                            style="width: 150px; height: auto;">
+                    </a>
+                </li>
 
-            <!-- "Request a demo" button -->
-            <li>
-                <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
+                <!-- "Request a demo" button -->
+                <li>
+                    <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
                           color: #f05f40; text-align: center; background-color: white; padding: 2px 10px;
                           border-radius: 50px; margin: 5px; white-space: normal; border: 0.5px solid #f05f40;"
-                   onmouseover="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';"
-                   onmouseout="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';">
-                   Request a demo
-                </a>
+                        onmouseover="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';"
+                        onmouseout="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';">
+                        Request a demo
+                    </a>
 
-           </li>
+                </li>
 
-            <!-- Other navigation links -->
-            <li>
-                <a href="index.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                <!-- Other navigation links -->
+                <li>
+                    <a href="index.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   HOME
-                </a>
-            </li>
-            <li>
-                <a href="presentations.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        HOME
+                    </a>
+                </li>
+                <li>
+                    <a href="presentations.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   PRESENTATIONS
-                </a>
-            </li>
-            <li>
-                <a href="locations.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        PRESENTATIONS
+                    </a>
+                </li>
+                <li>
+                    <a href="locations.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   LOCATIONS
-                </a>
-            </li>
-            <li>
-                <a href="instructors.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        LOCATIONS
+                    </a>
+                </li>
+                <li>
+                    <a href="instructors.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   INSTRUCTORS
-                </a>
-            </li>
-            <li>
-                <a href="feedback.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        INSTRUCTORS
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   FEEDBACK
-                </a>
-            </li>
-            <li>
-                <a href="contact.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        FEEDBACK
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   CONTACT
-                </a>
-            </li>
-            <li>
-                <a href="about.html"
-                   style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        CONTACT
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
                    color: white; text-align: center; background-color: #f05f40; padding: 2px 10px;
                    border-radius: 50px; margin: 5px; border: 0.5px solid white;"
-                   onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
-                   ABOUT
-                </a>
-            </li>
-        </ul>
-
+                        onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+                        onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';">
+                        ABOUT
+                    </a>
+                </li>
+            </ul>
+        </div>
         <!-- Original Logo Below the Boxes -->
         <div id="main-logo" style="margin-top: 10px; margin-bottom: 10px;">
             <a href="index.html">
@@ -115,7 +110,7 @@
     </div>
 </nav>
 
-<script>
+<!-- <script>
     window.addEventListener('scroll', function () {
         var navbar = document.getElementById('mainNav');
         var logo = document.getElementById('navbar-logo');
@@ -138,4 +133,4 @@
             navbar.style.marginTop = ''; // Reset the margin to default
         }
     });
-</script>
+</script> -->
