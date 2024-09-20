@@ -44,196 +44,307 @@ title: Stage One Education, LLC
 <body id="page-top">
 
     {% include navigation.html %}
+    <body id="page-top" style="margin-top: 140px;">
 
-    <section class="bg-dark header-image-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 text-center">
-                    <h1 style="padding-top: 50px; margin-top: 0px">STAGE ONE EDUCATION</h1>
-                    <hr />
-                    <h2>Hands-on Engineering Workshops</h2>
-                    <!-- <hr /> -->
-                    <!-- <h3>teach mechanical engineering with our GIF-at-every-step <a href="cad-tutorial/index.html">Onshape + rocketry workshop </a></h3>
-                    <h3>or</h3>
-                    <h3>teach robotics with our <a class="page-scroll" href="#workshop">electronics workshop</a></h3> -->
-                    <h2>
-                        <a href="ai-workshop.html" class="light-hover" style="text-decoration: underline" ">ai</a>
-                        &mdash;
-                        <a href=" robotics-workshop.html" class="light-hover"
-                            style="text-decoration: underline">robotics</a>
-                        &mdash;
-                        <a href="rocket-workshop.html" class="light-hover"
-                            style="text-decoration: underline">mechanical engineering</a>
-                    </h2>
-                    <br />
-                    <a href={% include demo_link.html %} style="margin-top: 15px;"
-                        class="btn btn-primary btn-xl page-scroll" target="_blank">Request a demo</a>
+        <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Jump right in:</span>
+        <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
-                </div>
-                <div class="col-lg-4 col-md-4 text-center border-left-header" style="margin-top: 50px">
-                    <h4>Jump right in:</h4>
-                    <a href="cad-tutorial/index.html"
-                        class="top-right-button btn btn-outline-primary btn-xl">Mechanical Engineering<br />
-                        Workshop</a>
-                    <br>
-                    <a href="https://forms.gle/qGyQDPwsa39QodQU8" class="btn btn-xl light-hover"><u>Mechanical
-                            Eng. Feedback</u></a>
-                    <hr class="light">
-                    <a href="robotics-workshop-materials.html"
-                        class="top-right-button btn btn-outline-primary btn-xl">Robotics Workshop</a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwRxpAyULKMZ23ixiuXJQaBK6sjsPGl6GCNRWtIQCwolIoJA/viewform"
-                        class="btn btn-xl light-hover"><u>Robotics Workshop Feedback</u></a>
-                </div>
+
+            
+<section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
+    <div class="container" id="ai" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+
+<!-- First Workshop Box --> 
+<div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
+    <a href="ai-workshop.html" 
+       style="display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
+       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'white');" 
+       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'rgb(100, 100, 100)');">
+
+        <!-- Title Section -->
+        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
+            ARTIFICIAL<br>INTELLIGENCE<br>WORKSHOP
+        </div>
+
+        <!-- Image Section -->
+        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+            <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
             </div>
         </div>
+
+        <!-- Text Section (Removed Scroll) -->
+        <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+            <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px; color: rgb(100, 100, 100);" class="content-text">
+                <li style="margin-bottom: 10px;">Discover AI Neural Networks</li>
+                <li style="margin-bottom: 10px;">Use the latest AI models:
+                    <ul style="list-style: none; padding-left: 0; margin: 0;">
+                        <li>text, image, and music</li>
+                    </ul>
+                </li>
+                <li style="margin-bottom: 10px;">AI ethics discussion</li>
+            </ul>
         </div>
-    </section>
+        
+    </a>
+</div>
 
-    <section style="padding-top: 15px" id="tab-section" class="tab-section less-padding">
-        <div class="container" id="ai">
-            <div class="row">
-                <div class="col-lg-12">
-                    <hr class="fullpage" />
-                    <div style="margin-left: 50px; text-align: center;">
-                        <span class="workshop-title">Our workshops</span><span class="workshop-subtitle"></span>
-                    </div>
-                    <hr class="fullpage" />
-                </div>
-            </div>
-            <div class="row align-items-stretch">
-                <div class="col-sm-4 text-center">
-                    <div class="button-shadow">
-                        <a href="ai-workshop.html" class="custom-link">
-                            <h3>Artificial Intelligence</h3>
-                            <div class="aspect-ratio-16-9" style="margin-bottom: 20px">
-                                <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
-                            </div>
-                            <div class="text-left">
-                                <ul class="main-page-subtext">
-                                    <li>Discover how AI Neural Networks learn</li>
-                                    <li>Use the latest AI models:
-                                        <ul>
-                                            <li>text, image, and music</li>
-                                        </ul>
-                                    <li>AI ethics discussion</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <div class="button-shadow">
-                        <a href="robotics-workshop.html" class="custom-link">
-                            <h3>Robotics / Electronics</h3>
-                            <div align="center" class=" autosize" style="padding-right: 10px; padding-bottom: 20px;">
-                                <video autoplay loop muted playsinline class="intro-video-background ">
-                                    <source src="videos/circuit.webm" type="video/webm">
-                                    <source src="videos/circuit.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="text-left">
-                                <ul class="main-page-subtext">
-                                    <li>Control a drone with circuits and programming</li>
-                                    <li>Build a circuit for helicopter control</li>
-                                    <li>Program for autonomous flight</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <div class="button-shadow">
-                        <a href="rocket-workshop.html" class="custom-link">
-                            <h3>Mechanical Engineering</h3>
-                            <div align="center" class=" autosize" style="padding-right: 10px; padding-bottom: 20px;">
-                                <video autoplay loop muted playsinline class="intro-video-background ">
-                                    <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
-                                    <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="text-left">
-                                <ul class="main-page-subtext">
-                                    <li>Use professional Computer Aided Design software</li>
-                                    <li>Design a multi-part model rocket</li>
-                                    <li>Explore 3D printing</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
+
+      <!-- Second Workshop Box -->
+<div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
+    <a href="robotics-workshop.html" 
+       style="display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
+       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'white');" 
+       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'rgb(100, 100, 100)');">
+
+        <!-- Title Section -->
+        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
+            ROBOTICS<br>WORKSHOP<br><br>
         </div>
-    </section>
 
-
-
-    <hr />
-    <section id="workshop" style="padding-top: 10px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading"></h2>
-                </div>
-            </div>
+        <!-- Video Section -->
+        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+            <video autoplay loop muted playsinline style="width: 250px; height: 200px; object-fit: cover;">
+                <source src="videos/circuit.webm" type="video/webm">
+                <source src="videos/circuit.mp4" type="video/mp4">
+            </video>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-solid fa-screwdriver-wrench wow bounceIn text-primary"
-                            data-wow-delay=".2s"></i>
-                        <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
-                        <h3>hands on</h3>
-                        <p class="text16">get your students engaged by <strong>doing</strong> engineering in the first
-                            minute</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 ">
-                    <div class="service-box text-center">
-                        <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3 class="text-center">amazing curriculum</h3>
-                        <ul>
-                            <li class="text-left text16 no-bullet">designed by MIT PhD engineers</li>
-                            <li class="text-left text16 no-bullet">continuously improved, no year is the same</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-group wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>experienced</h3>
-                        <p class="text16">10 years teaching, 10,000+ students</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 ">
-                    <div class="service-box text-center">
-                        <i class="fa fa-4x fa-shield wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3 class="text-center">safe & exciting</h3>
-                        <ul>
-                            <li class="text16 text-left no-bullet">our model rockets stay virtual, so there's no risk to
-                                your
-                                students (no flying rockets)</li>
-                            <li class="text-left text16 no-bullet">our electronics workshop is all low-voltage</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
+        <!-- Text Section (Removed Scroll) -->
+        <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+            <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px; color: rgb(100, 100, 100);" class="content-text">
+                <li style="margin-bottom: 10px;">Fly mini drones</li>
+                <li style="margin-bottom: 10px;">Build a circuit for drone control</li>
+                <li style="margin-bottom: 10px;">Program for autonomous flight</li>
+            </ul>
         </div>
-    </section>
+        
+    </a>
+</div>
+
+<!-- Third Workshop Box -->
+<div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
+    <a href="rocket-workshop.html" 
+       style="display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
+       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'white');" 
+       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: space-between; width: 300px; height: 500px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40'; this.querySelectorAll('.content-text').forEach(el => el.style.color = 'rgb(100, 100, 100)');">
+
+        <!-- Title Section -->
+        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
+            MECHANICAL ENGINEERING<br>WORKSHOP
+        </div>
+
+        <!-- Video Section -->
+        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+            <video autoplay loop muted playsinline style="width: 250px; height: 200px; object-fit: cover;">
+                <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Text Section (Removed Scroll) -->
+        <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+            <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px; color: rgb(100, 100, 100);" class="content-text">
+                <li style="margin-bottom: 10px;">Use professional CAD software</li>
+                <li style="margin-bottom: 10px;">Design a multi-part model rocket</li>
+                <li style="margin-bottom: 10px;">Explore 3D printing</li>
+            </ul>
+        </div>
+        
+    </a>
+</div>
+
+    </div>
+</section>
+
+<span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
 
 
-    <section id="contact" class="less-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Contact</h2>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a></p>
-                </div>
-            </div>
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">About</span>
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+<span class="workshop-title" style="display: block; height: 20px; background-color: white;"></span>
+
+
+
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1000px; margin: 0 auto;">
+        
+        <!-- Hands-on Box -->
+        <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+            <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
+            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">hands-on</h3>
+            <p style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Do engineering in the first minute, no prior experience needed, designed for all ages.</p>
         </div>
-    </section>
+
+        <!-- Curriculum Box -->
+        <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+            <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">curriculum</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Designed and instructed by PhDs, engineers, and educators.</li>
+                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Continuously updated, no year is the same.</li>
+            </ul>
+        </div>
+
+        <!-- Experienced Box -->
+        <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+            <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">experienced</h3>
+            <p style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Since 2013, Stage One Education has provided hands-on engineering workshops to thousands of participants.</p>
+        </div>
+
+        <!-- Safe & Exciting Box -->
+        <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+            <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">safe & exciting</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
+                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Your mind will be blown!</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+<span class="workshop-title" style="display: block; height: 5px; background-color: white;"></span>
+
+
+
+
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Feedback</span>
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+<span class="workshop-title" style="display: block; height: 20px; background-color: white;"></span>
+
+
+<!-- New Image Section with Continuous Scroll for Feedback -->
+<div style="overflow: hidden; margin-top: 40px; max-width: 1000px; margin: 20px auto; white-space: nowrap; position: relative;">
+    <div class="scroll-container">
+        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+
+        <!-- Duplicate images for smooth continuous scroll effect -->
+        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image">
+    </div>
+</div>
+
+<!-- Keyframes for continuous scroll without fade effect -->
+<style>
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Container for smooth scroll */
+.scroll-container {
+    display: inline-block;
+    animation: scroll 40s linear infinite;
+    white-space: nowrap;
+    padding-bottom: 20px;
+}
+
+/* Apply size and spacing to each image */
+.scroll-image {
+    display: inline-block;
+    width: 400px; /* Increased width */
+    height: auto; /* Adjusted height to maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adjust margin between images */
+    margin-right: 40px;
+}
+</style>
+
+</style>
+
+
+
+
+<!-- Centering the Feedback box below the images -->
+<div style="display: flex; justify-content: center; padding: 0px;">
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        <li>
+            <a href="feedback.html"
+               style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
+               color: #f05f40; text-align: center; background-color: white; padding: 5px 15px;
+               border-radius: 50px; margin: 5px; border: 1px solid #f05f40;
+               display: inline-block; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='#f05f40';"
+               onmouseout="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';">
+               More Feedback
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<span class="workshop-title" style="display: block; height: 50px; background-color: white;"></span>
+
+
+<!-- Adjusted margins to reduce space -->
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; margin: 5px 0;">Contact</span>
+<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+<section id="contact" class="less-padding" style="padding-top: 10px;">
+    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+      
+
+        <!-- Email Icon -->
+        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s" style="color: #f05f40; margin-top: 10px;"></i>
+
+        <!-- Email Link on its own line -->
+        <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 14px;">
+            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
+                workshops@stageoneeducation.com
+            </a>
+        </p>
+
+  <!-- Request a Demo Button -->
+  <a href="{% include demo_link.html %}" target="_blank" class="btn btn-primary btn-xl"
+  style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
+         color: white; text-align: center; background-color: #f05f40; padding: 5px 10px;
+         border-radius: 50px; margin: 5px; white-space: normal; border: 1px solid #f05f40;
+         text-decoration: none; transition: all 0.3s ease;"
+  onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
+  onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='#f05f40';">
+  Request a demo
+</a>
+
+    </div>
+</section>
+
+<span class="workshop-title" style="display: block; height: 50px; background-color: white;"></span>
+
+
+<div style="text-align: center; margin-top: 10px;">
+    <!-- Centered Logo -->
+    <img src="img/stageone-logo-white.png" alt="Stage One Logo" style="width: 200px; display: block; margin: 0 auto;">
+</div>
+
+<div style="text-align: right; margin-top: 10px;">
+    <!-- Copyright Text on its own line -->
+    <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
+        &copy; 2024 Stage One Education, LLC
+    </span>
+</div>
+
+<span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+
+
+
+

@@ -908,14 +908,14 @@ header.with-background {
 
 .button-shadow {
     padding: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add a subtle shadow to lift the button off the page */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Add a subtle shadow to lift the button off the page */
 }
 
 
 .button-shadow:hover {
     padding: 10px;
-    box-shadow: 0 10px 8px rgba(0,0,0,0.1); /* Add a subtle shadow to lift the button off the page */
-    background-color: rgba(0, 0, 0, 0.1); /* Adds a light grey background on hover */
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0); /* Add a subtle shadow to lift the button off the page */
+    background-color: rgba(0, 0, 0, 0); /* Adds a light grey background on hover */
     transition: background-color 0.3s; /* Smooth transition effect */
     cursor: pointer; /* Changes the cursor to hand symbol indicating it's clickable */
     border: 0px;
