@@ -14,25 +14,25 @@
 
         <!-- Navigation Links and Inline Logo -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <!-- Moved Logo (Hidden Initially, will be displayed inline on scroll) -->
-                <li id="navbar-logo" style="display: none;">
+            <ul class="nav navbar-nav" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                <!-- Inline Logo -->
+                <li>
                     <a href="index.html">
                         <img src="img/stageone-logo-orange.png" alt="Stage One Logo"
-                            style="width: 150px; height: auto;">
+                            style="width: 200px; height: auto; margin-right: 20px;">
                     </a>
                 </li>
 
                 <!-- "Request a demo" button -->
                 <li>
-                    <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl" style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
+                    <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl"
+                        style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
                           color: #f05f40; text-align: center; background-color: white; padding: 2px 10px;
                           border-radius: 50px; margin: 5px; white-space: normal; border: 0.5px solid #f05f40;"
                         onmouseover="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='white';"
                         onmouseout="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';">
                         Request a demo
                     </a>
-
                 </li>
 
                 <!-- Other navigation links -->
@@ -101,36 +101,5 @@
                 </li>
             </ul>
         </div>
-        <!-- Original Logo Below the Boxes -->
-        <div id="main-logo" style="margin-top: 10px; margin-bottom: 10px;">
-            <a href="index.html">
-                <img src="img/stageone-logo-orange.png" alt="Stage One Logo" style="width: 300px; height: auto;">
-            </a>
-        </div>
     </div>
 </nav>
-
-<!-- <script>
-    window.addEventListener('scroll', function () {
-        var navbar = document.getElementById('mainNav');
-        var logo = document.getElementById('navbar-logo');
-        var mainLogo = document.getElementById('main-logo');
-
-        if (window.scrollY > 50) { // Check if the user has scrolled more than 50 pixels
-            logo.style.display = 'flex'; // Show logo inline with navigation links
-            mainLogo.style.display = 'none'; // Hide the main logo
-            // Adjust the navbar's height and padding when scrolled
-            navbar.style.height = '60px'; // Set the navbar height when scrolled
-            navbar.style.padding = '0 0'; // Reduce padding for a sleeker, narrower look
-            navbar.style.marginTop = '0px'; // Adjust space between navbar and top of the page
-            logo.querySelector('img').style.width = '160px'; // Adjust logo size to be smaller when scrolled
-        } else {
-            logo.style.display = 'none'; // Hide the inline logo
-            mainLogo.style.display = 'block'; // Show the main logo
-            // Restore default navbar height and padding
-            navbar.style.height = ''; // Clear the inline height adjustment
-            navbar.style.padding = '1px 0'; // Restore default padding
-            navbar.style.marginTop = ''; // Reset the margin to default
-        }
-    });
-</script> -->
