@@ -7,68 +7,132 @@ title: AI Workshop | Stage One Education, LLC
 
     {% include navigation.html %}
 
-    <div style="height: 140px;"></div> <!-- Adjust height to match your navbar's height -->
+    <div style="height: 100px;"></div> <!-- Adjust height to match your navbar's height -->
 
-      
-    
     <!-- Title Section -->
-   <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; max-width: 1000px; margin: 20px auto;">
-    <div style="font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 100; color: #f05f40; text-align: center; background-color: white; padding: 5px 15px; border-radius: 50px; margin: 5px; border: 0.5px solid #f05f40; flex-basis: calc(20% - 10px);">
-        ai.stageoneeducation.com
-    </div>
-  
-    <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+    <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 30px;">Artificial Intelligence Workshop</span>
+    <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
+<!-- Section with Background Image -->
+<style>
+    @keyframes moveBackground {
+      0% {
+        background-position: center top;
+      }
+      100% {
+        background-position: center bottom;
+      }
+    }
+    
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 5px #f05f40;
+      }
+      50% {
+        box-shadow: 0 0 30px #f05f40;
+      }
+      100% {
+        box-shadow: 0 0 5px #f05f40;
+      }
+    }
+    
+    /* Style for the glow-button */
+    .glow-button {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      font-weight: 100;
+      color: #f05f40;
+      text-align: center;
+      background-color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      margin: 20px 5px;
+      border: 3px solid #f05f40; /* Increased border to 3px */
+      flex-basis: calc(20% - 10px);
+      text-decoration: none;
+      display: block;
+      animation: pulseGlow 2s infinite;
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Hover effect */
+    .glow-button:hover {
+      color: white;
+      background-color: #f05f40;
+      border: 3px solid #f05f40; /* Keep border at 3px */
+      text-decoration: none; /* Remove underline on hover */
+    }
+    
+    /* Overlay style */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.05); /* Reduced opacity */
+      z-index: 1;
+    }
+    </style>
+    
+    <div style="position: relative; width: 1100px; margin: 0 auto; background-image: url('img/film_poster_1.jpg'); background-size: 1100px auto; background-position: center top; padding: 5px 0; animation: moveBackground 60s linear infinite;">
+      <!-- Title Section -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; max-width: 1000px; margin: 20px auto;">
+        <a href="https://ai.stageoneeducation.com" target="_blank" rel="noopener noreferrer" class="glow-button">
+          ai.stageoneeducation.com
+        </a>
+      </div>
+      <!-- Overlay Div -->
+      <div class="overlay"></div>
+    </div>
+    
+
+   
+    
+
+    
+    <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+    
+    <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+    <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
+        <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+            Overview
+        </span>
+    </div>
+    
+    
+<hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
     
     <section class="less-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-med-6 col-sm-6">
                     <div class="workshop-container">
-
-
-
-
-
-                        
-                        <div class="header-container">
-                            <span class="workshop-title">AI workshop</span>
-                            
-                        </div>
-                        <hr class="long" style="margin-bottom: 10px" />
+                       
                         <div class="workshop-subdata">
-                            3-3.5 hours, middle + high school students
-                        </div>
+                            3-3.5 Hours | All Ages | No Experience Needed                        </div>
                         <div class="tab-content tab-active" style="flex: 2; text-align: left; max-width: 70vw;">
                             <div style="margin: 20px;">
                                 <ul>
                                     <li><strong>Human Neural Network: A Hands-On Activity</strong>
                                         <ul>
-                                            <li>Join an interactive game of complex telephone where each participant
-                                                becomes
-                                                a node in a neural network.</li>
-                                            <li>Gain an intuitive grasp of neural networks and their learning processes
-                                                –
-                                                all without the math!</li>
+                                            <li>Join an interactive game of complex telephone where each participant becomes a node in a neural network.</li>
+                                            <li>Gain an intuitive grasp of neural networks and their learning processes—all without the math!</li>
                                         </ul>
                                     </li>
                                     <li class="add-space"><strong>AI Film Studio: Creative Activity</strong>
                                         <ul>
-                                            <li>Explore cutting-edge AI tools for text, image, music, and voice
-                                                generation.
-                                            </li>
-                                            <li>Participants will craft all production elements for a unique short film,
-                                                from scripts to marketing materials.</li>
-                                            <li>Conclude with a film review session, showcasing AI's creative prowess.
-                                            </li>
+                                            <li>Explore cutting-edge AI tools for text, image, music, and voice generation.</li>
+                                            <li>Participants will craft all production elements for a unique short film, from scripts to marketing materials.</li>
+                                            <li>Conclude with a film review session, showcasing AI's creative prowess.</li>
                                         </ul>
                                     </li>
                                     <li class="add-space"><strong>AI Ethics: Decision-Making Activity</strong>
                                         <ul>
-                                            <li>Delve into the pressing ethical questions AI engineers grapple with.
-                                            </li>
-                                            <li>Engage in lively dialogues that promote critical thinking about AI's
-                                                responsible usage.</li>
+                                            <li>Delve into the pressing ethical questions AI engineers grapple with.</li>
+                                            <li>Engage in lively dialogues that promote critical thinking about AI's responsible usage.</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -76,66 +140,229 @@ title: AI Workshop | Stage One Education, LLC
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-med-6 col-sm-6 text-center" style="margin-top: 20px">
-                    <div class="poster-container">
-                        <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
-                    </div>
-                    <p style="color: #5b5b5b; font-size: 95%; padding-top: 3px;">student created movie posters</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Testimonials</h2>
-                    <hr />
-                    <h3>Understanding of AI neural networks <span style="font-weight: bold; color:#e06666">before</span>
-                        / <span style="font-weight: bold; color: #93c47d">after</span> the workshop</h3>
-                    <div class="col-lg-6">
-                        <img src="img/chart_ai_understanding_before.svg" style="width: 100%; max-width: 700px;" />
-                    </div>
-                    <div class="col-lg-6">
-                        <img src="img/chart_ai_understanding_after.svg" style="width: 100%; max-width: 700px;" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="quote-container quote-two">
-                        <p class="quote-text">
-                            &ldquo;<strong>I loved the activity</strong> with neural networks. that was an engaging
-                            and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash;
-                                Student, Boston 2023</em>
-                        </p>
-                    </div>
-                    <div class="quote-container quote-one">
-                        <p class="quote-text">
-                            &ldquo;You guys did well explaining everything and having <strong>everyone
-                                engage</strong> with the lesson, and you helped make it <strong>fun to
-                                learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="quote-container quote-three">
-                        <p class="quote-text">
-                            &ldquo;With the development of the times, AI has become inseparable from our lives, but
-                            <strong>I have not been able to use AI</strong> (Chat GPT) well because schools are
-                            avoiding the use of AI. However, through this class, I was able to learn how to use and
-                            utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable
-                                time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em>
-                        </p>
-                    </div>
+              <!-- Your existing content -->
 
-                </div>
+
+
+<!-- Container for the entire section -->
+<div class="container">
+    <div class="row align-items-start"> <!-- Align items to the top -->
+        <!-- Image Section -->
+        <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 mb-lg-0">
+            <div class="poster-container" style="
+                position: relative; 
+                width: 80%; 
+                padding-top: 80%; 
+                margin: 0 auto; /* Centers the container horizontally */
+                overflow: hidden; /* Ensures no overflow from the images */
+                border: 2px solid #f05f40; /* Optional: Adds a border for better visibility */
+                border-radius: 10px; /* Optional: Rounds the corners */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+            ">
+                <img id="cyclingPosterCurrent" src="img/poster1.jpg" alt="Participant-created movie posters" style="
+                    position: absolute; 
+                    top: 50%; 
+                    left: 50%; 
+                    width: 100%; 
+                    height: 100%; 
+                    transform: translate(-50%, -50%); /* Centers the image within the container */
+                    transition: opacity 1s, transform 1s; /* Adds transition for smooth scaling if needed */
+                    object-fit: cover; /* Ensures the image covers the container without distortion */
+                ">
+                <img id="cyclingPosterNext" src="img/poster2.jpg" alt="Participant-created movie posters" style="
+                    position: absolute; 
+                    top: 50%; 
+                    left: 50%; 
+                    width: 100%; 
+                    height: 100%; 
+                    transform: translate(-50%, -50%); /* Centers the image within the container */
+                    opacity: 0; 
+                    transition: opacity 1s, transform 1s; /* Adds transition for smooth scaling if needed */
+                    object-fit: cover; /* Ensures the image covers the container without distortion */
+                ">
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-med-12 col-sm-12 text-left" style="margin-top: 20px">
-                    <h2>Timeline</h2>
-                    <hr />
-                    <div class="text-center">
-                        <img src="img/ai-timeline.svg" alt="AI Workshop Timeline" class="horizontal-image">
-                        <img src="img/ai-timeline-vertical.svg" alt="AI Workshop Timeline" class="vertical-image">
-                    </div>
+            <p style="color: #5b5b5b; font-size: 95%; padding-top: 5px;">Participant-created movie posters</p>
+        </div>
+        
+      
+
+<!-- Include jQuery if not already included -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    let posters = [
+        'img/poster1.jpg',
+        'img/poster2.jpg',
+        'img/poster3.jpg',
+        'img/poster4.jpg',
+        'img/poster5.jpg',
+        'img/poster6.jpg',
+        'img/poster7.jpg'
+    ];
+
+    // Preload the images
+    posters.forEach(function(src) {
+        let img = new Image();
+        img.src = src;
+    });
+
+    $(document).ready(function() {
+        let currentIndex = 0;
+        let nextIndex = 1;
+        let $currentImage = $('#cyclingPosterCurrent');
+        let $nextImage = $('#cyclingPosterNext');
+
+        setInterval(function() {
+            // Set the next image's src
+            $nextImage.attr('src', posters[nextIndex]);
+
+            // Start the crossfade
+            $currentImage.css('opacity', '0');
+            $nextImage.css('opacity', '1');
+
+            // After the transition, prepare for the next cycle
+            setTimeout(function() {
+                // Swap the image elements
+                let temp = $currentImage;
+                $currentImage = $nextImage;
+                $nextImage = temp;
+
+                // Update indices
+                currentIndex = nextIndex;
+                nextIndex = (nextIndex + 1) % posters.length;
+
+                // Reset the opacity of the next image
+                $nextImage.css('opacity', '0');
+            }, 1000); // Match the transition duration
+        }, 6000); // Change image every 6 seconds
+    });
+</script>
+
+
+<section class="less-padding">
+    <div class="container">
+        <!-- Header and horizontal line -->
+        <div class="row">
+            <div class="col-lg-12 col-med-12 col-sm-12">
+             
+                <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
+                    <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                        Testimonials
+                    </span>
                 </div>
+
+                <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
             </div>
         </div>
-    </section>
+       
+        
+               
+                <!-- New Image Section with Continuous Scroll for Feedback -->
+                <div style="overflow: hidden; margin-top: 40px; max-width: 1100px; margin: 20px auto; white-space: nowrap; position: relative;">
+                    <div class="scroll-container">
+                        <img src="img/ai_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+        
+                        <!-- Duplicate images for smooth continuous scroll effect -->
+                        <img src="img/ai_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                        <img src="img/ai_feedback_4.jpg" alt="Feedback 4" class="scroll-image">
+                    </div>
+                </div>
+        
+                <!-- Keyframes for continuous scroll without fade effect -->
+                <style>
+                @keyframes scroll {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+        
+                /* Container for smooth scroll */
+                .scroll-container {
+                    display: inline-block;
+                    animation: scroll 40s linear infinite;
+                    white-space: nowrap;
+                    padding-bottom: 20px;
+                }
+        
+                /* Apply size and spacing to each image */
+                .scroll-image {
+                    display: inline-block;
+                    width: 400px; /* Increased width */
+                    height: auto; /* Adjusted height to maintain aspect ratio */
+                    object-fit: cover;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    /* Adjust margin between images */
+                    margin-right: 40px;
+                }
+                </style>
+
+ <!-- Quotes -->
+ <div class="row">
+    <div class="col-lg-6">
+        <div class="quote-container quote-two">
+            <p class="quote-text">
+                &ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging
+                and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash;
+                    Student, Boston 2023</em>
+            </p>
+        </div>
+        <div class="quote-container quote-one">
+            <p class="quote-text">
+                &ldquo;You guys did well explaining everything and having <strong>everyone
+                    engage</strong> with the lesson, and you helped make it <strong>fun to
+                    learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="quote-container quote-three">
+            <p class="quote-text">
+                &ldquo;With the development of the times, AI has become inseparable from our lives, but
+                <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are
+                avoiding the use of AI. However, through this class, I was able to learn how to use and
+                utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable
+                    time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em>
+            </p>
+        </div>
+
+        
+    </div>
+</div>
+
+<span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+
+ <!-- Timeline -->
+<div class="row">
+    <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
+        <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+            Timeline
+        </span>
+    </div>
+
+    <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+    <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+
+    <div class="text-center">
+        <img src="img/ai_timeline.jpg" alt="AI Workshop Timeline" class="horizontal-image" style="width: 800px; max-width: 100%;">
+        <img src="img/ai-timeline-vertical.svg" alt="AI Workshop Timeline" class="vertical-image" style="width: 800px; max-width: 100%;">
+    </div>
+</div>
+
+            
+        </section>
+           <!-- Footer Section -->
+    <div style="text-align: right; margin-top: 10px;">
+        <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
+            &copy; 2024 Stage One Education, LLC
+        </span>
+    </div>
