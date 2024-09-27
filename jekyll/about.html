@@ -3,27 +3,75 @@ layout: default
 title: Instructors | Stage One Education, LLC
 ---
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+
+        footer {
+            text-align: right;
+            margin: 20px;
+            font-family: 'Roboto', sans-serif;
+            color: rgb(100, 100, 100);
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .workshop-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            color: #f05f40;
+            text-align: center;
+        }
+
+        .workshop-subtitle-nocaps {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+
 <body id="page-top">
+    <div class="content">
+        {% include navigation.html %}
 
-    {% include navigation.html %}
+        <!-- Add a spacer to prevent content from hiding behind the fixed navbar -->
+        <div style="height: 100px;"></div> <!-- Adjust height to match your navbar's height -->
 
-    <!-- Add a spacer to prevent content from hiding behind the fixed navbar -->
-    <div style="height: 100px;"></div> <!-- Adjust height to match your navbar's height -->
 
-    <!-- Title Section -->
-    <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">About Us</span>
-    <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-   
-  
+        <!-- Title Section -->
+<div style="width: 1100px; max-width: 100%; margin: 0 auto; text-align: center;">
+    <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap; line-height: 1; padding: 0;">
+        About Us
+    </span>
+    <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto; padding: 0;" />
+</div>
 
-    
+
         <section id="contact" class="less-padding">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div style="margin-bottom: 10px">
                             <span class="workshop-title">Our goal</span>
-                            <spann class="workshop-subtitle-nocaps"> &mdash; share our love of engineering</span>
+                            <span class="workshop-subtitle-nocaps"> &mdash; share our love of engineering</span>
                         </div>
                     </div>
                 </div>
@@ -48,24 +96,16 @@ title: Instructors | Stage One Education, LLC
                         </div>
                     </div>
                 </div>
-              
-              
-              
-              
                 <div class="row">
                     <div class="col-lg-12">
-                        <p>
-                            Our workshops answer questions like,
-                        </p>
+                        <p>Our workshops answer questions like,</p>
                         <ul>
                             <li>&ldquo;can I do engineering?&rdquo;</li>
                             <li>&ldquo;what do engineers really do?&rdquo;</li>
                         </ul>
-                        <p>
-                            by getting students' hands dirty with real circuit-building and professional-grade computer
+                        <p>by getting students' hands dirty with real circuit-building and professional-grade computer
                             aided design (CAD).</p>
-                        <p>
-                            Students walk away with confidence and excitement about STEM, teamwork,
+                        <p>Students walk away with confidence and excitement about STEM, teamwork,
                             and problem solving, especially after talking with our professional engineering instructors
                             about their own career experiences.
                         </p>
@@ -73,8 +113,7 @@ title: Instructors | Stage One Education, LLC
                         <div style="margin-bottom: 10px">
                             <span class="workshop-title">Turn-key workshops</span>
                         </div>
-                        <p>
-                            We offer complete workshops with instructors, materials, and curriculum all included.
+                        <p>We offer complete workshops with instructors, materials, and curriculum all included.
                             Students walk out with newfound confidence, having learned professional-grade tools with our
                             continuously-optimized instructions, methods, and pedagogy.
                         </p>
@@ -123,7 +162,7 @@ title: Instructors | Stage One Education, LLC
                                 href="https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1"
                                 style="text-decoration:underline">sophisticated quadrupeds</a>.
                         </p>
-    
+
                         <h3>Co-founder: Pete Florence, Ph.D.</h3>
                         <p>Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in the
                             <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos"
@@ -133,13 +172,12 @@ title: Instructors | Stage One Education, LLC
                                 manipulation</a> is giving robots new abilities all
                             the time.
                         </p>
-    
+
                         <h3>Director of Operations: Robbie Kipp</h3>
                         <p>Robbie's engineering designs set the course for the future of dive systems and maritime vessels
                             during his time as an ocean engineer and naval architect for some of the world's biggest ships.
                             Currently at the helm as the Director of Operations at Stage One Education, he is pioneering the
-                            way
-                            the next generation of engineers are inspired. Robbie is an avid diver, climber, and aviation
+                            way the next generation of engineers are inspired. Robbie is an avid diver, climber, and aviation
                             enthusiast.
                         </p>
                     </div>
@@ -149,34 +187,35 @@ title: Instructors | Stage One Education, LLC
                         <h2>Some stats we're proud of</h2>
                         <hr />
                     </div>
-                   <div style="text-align: center;"> 
+                    <div style="text-align: center;">
                         <img src="img/cumulative.jpg" style="width: 100%; max-width: 750px;" />
                     </div>
-                  
+
                 </div>
                 <div class="row">
                     <hr />
-                   
-    
-        <section id="contact" class="less-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Contact</h2>
-                    </div>
-                    <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                        <p><a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a></p>
-                    </div>
                 </div>
+                <section id="contact" class="less-padding">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2 text-center">
+                                <h2 class="section-heading">Contact</h2>
+                            </div>
+                            <div class="col-lg-8 col-lg-offset-2 text-center">
+                                <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                                <p><a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
-
-    <!-- Footer Section -->
-    <div style="text-align: right; margin-top: 10px;">
-        <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
-            &copy; 2024 Stage One Education, LLC
-        </span>
     </div>
 
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 Stage One Education, LLC
+    </footer>
 </body>
+
+</html>
