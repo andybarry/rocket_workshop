@@ -1025,3 +1025,49 @@ header.with-background {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
 }
+
+/* Style for the glow-button */
+.glow-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+    color: #f05f40;
+    text-align: center;
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin: 20px 5px;
+    border: 3px solid #f05f40; /* Increased border to 3px */
+    flex-basis: calc(20% - 10px);
+    text-decoration: none;
+    display: block;
+    animation: pulseGlow 2s infinite;
+    position: relative;
+    z-index: 2;
+}
+
+/* Hover effect */
+.glow-button:hover {
+color: white;
+background-color: #f05f40;
+border: 3px solid #f05f40; /* Keep border at 3px */
+text-decoration: none; /* Remove underline on hover */
+}
+
+.glow-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+    color: #f05f40;
+    text-align: center;
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin: 20px 5px;
+    border: 3px solid #f05f40;
+    text-decoration: none;
+    display: block;
+    animation: pulseGlow 2s infinite;
+    position: relative;
+    z-index: 2;
+}
