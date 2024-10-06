@@ -41,10 +41,10 @@ title: Stage One Education, LLC
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<body id="page-top">
+<body id="page-top" style="margin-top: 70px">
 
     {% include navigation.html %}
-    <body id="page-top" style="margin-top: 100px;">
+    <body id="page-top">
 
         <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Our Workshops</span>
         <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
@@ -71,9 +71,8 @@ title: Stage One Education, LLC
                 </div>
             </div>
 
-            <!-- Text Section (Removed Scroll) -->
             <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-                <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px;" class="content-text">
+                <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px;" class="workshop-button-content-ul">
                     <li style="margin-bottom: 10px;">Discover AI Neural Networks</li>
                     <li style="margin-bottom: 10px;">Use the latest AI models:
                         <ul style="list-style: none; padding-left: 0; margin: 0;">
@@ -99,14 +98,14 @@ title: Stage One Education, LLC
         </div>
 
     <!-- Image Section -->
-<div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-    <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder" style="width: 200px; height: 200px; object-fit: cover;">
-</div>
+    <div>
+        <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder" style="width: 200px; height: 200px; object-fit: cover;">
+    </div>
 
 
         <!-- Text Section (Removed Scroll) -->
         <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-            <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px; color: rgb(100, 100, 100);" class="content-text">
+            <ul class="workshop-button-content-ul">
                 <li style="margin-bottom: 10px;">Fly mini drones</li>
                 <li style="margin-bottom: 10px;">Build a circuit for drone control</li>
                 <li style="margin-bottom: 10px;">Program for autonomous flight</li>
@@ -138,7 +137,7 @@ title: Stage One Education, LLC
 
         <!-- Text Section (Removed Scroll) -->
         <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-            <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px; color: rgb(100, 100, 100);" class="content-text">
+            <ul class="workshop-button-content-ul">
                 <li style="margin-bottom: 10px;">Use professional CAD software</li>
                 <li style="margin-bottom: 10px;">Design a multi-part model rocket</li>
                 <li style="margin-bottom: 10px;">Explore 3D printing</li>
@@ -152,50 +151,45 @@ title: Stage One Education, LLC
     </div>
 </section>
 
-<span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+<hr class="main-page-hr" style="margin-top: 30px;"/>
+<span class="workshop-title">About</span>
+<hr class="main-page-hr" />
 
 
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">About</span>
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-<span class="workshop-title" style="display: block; height: 20px; background-color: white;"></span>
-
-
-
-    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1000px; margin: 0 auto;">
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1000px; margin: 0 auto; margin-top: 20px">
         
         <!-- Hands-on Box -->
         <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
             <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
-            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">hands-on</h3>
-            <p style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Do engineering in the first minute, no prior experience needed, designed for all ages.</p>
+            <h3 class="about-title-text">hands-on</h3>
+            <p class="about-body-text">Do engineering in the first minute, no prior experience needed, experiences for all ages.</p>
         </div>
 
         <!-- Curriculum Box -->
         <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
             <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">curriculum</h3>
+            <h3 class="about-title-text">curriculum</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
-                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Designed and instructed by PhDs, engineers, and educators.</li>
-                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Continuously updated, no year is the same.</li>
+                <li class="about-body-text">Designed and instructed by PhDs, engineers, and educators.</li>
+                <li class="about-body-text">Continuously updated, no year is the same.</li>
             </ul>
         </div>
 
         <!-- Experienced Box -->
         <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
             <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">experienced</h3>
-            <p style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Since 2013, Stage One Education has provided hands-on engineering workshops to thousands of participants.</p>
+            <h3 class="about-title-text">experienced</h3>
+            <p class="about-body-text">Since 2013, Stage One Education has provided hands-on engineering workshops to 15,000+ participants.</p>
         </div>
 
         <!-- Safe & Exciting Box -->
         <div style="flex: 1 1 calc(25% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
             <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 25px; color: #333333; margin-top: 15px;">safe & exciting</h3>
+            <h3 class="about-title-text">safe & exciting</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
-                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
-                <li style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px; color: rgb(100, 100, 100);">Your mind will be blown!</li>
+                <li class="about-body-text">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
+                <li class="about-body-text">Your mind will be blown!</li>
             </ul>
         </div>
     </div>
@@ -207,9 +201,9 @@ title: Stage One Education, LLC
 
 
 
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<hr class="main-page-hr" />
 <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Feedback</span>
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<hr class="main-page-hr" />
 
 
 <span class="workshop-title" style="display: block; height: 20px; background-color: white;"></span>
@@ -272,13 +266,7 @@ title: Stage One Education, LLC
 <div style="display: flex; justify-content: center; padding: 0px;">
     <ul style="list-style: none; padding: 0; margin: 0;">
         <li>
-            <a href="feedback.html"
-               style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 100;
-               color: #f05f40; text-align: center; background-color: white; padding: 5px 15px;
-               border-radius: 50px; margin: 5px; border: 1px solid #f05f40;
-               display: inline-block; text-decoration: none; transition: all 0.3s ease;"
-               onmouseover="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='#f05f40';"
-               onmouseout="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';">
+            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight">
                More Feedback
             </a>
         </li>
@@ -286,13 +274,9 @@ title: Stage One Education, LLC
 </div>
 
 
-<span class="workshop-title" style="display: block; height: 50px; background-color: white;"></span>
-
-
-<!-- Adjusted margins to reduce space -->
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; margin: 5px 0;">Contact</span>
-<hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+<hr class="main-page-hr" style="margin-top: 50px"/>
+<span class="workshop-title">Contact</span>
+<hr class="main-page-hr" />
 
 <section id="contact" class="less-padding" style="padding-top: 10px;">
     <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
@@ -309,13 +293,7 @@ title: Stage One Education, LLC
         </p>
 
   <!-- Request a Demo Button -->
-  <a href="{% include demo_link.html %}" target="_blank" class="btn btn-primary btn-xl"
-  style="font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500;
-         color: white; text-align: center; background-color: #f05f40; padding: 5px 10px;
-         border-radius: 50px; margin: 5px; white-space: normal; border: 1px solid #f05f40;
-         text-decoration: none; transition: all 0.3s ease;"
-  onmouseover="this.style.color='#f05f40'; this.style.backgroundColor='white'; this.style.borderColor='#f05f40';"
-  onmouseout="this.style.color='white'; this.style.backgroundColor='#f05f40'; this.style.borderColor='#f05f40';">
+  <a href="{% include demo_link.html %}" target="_blank" class="btn btn-primary btn-xl nav-button-stageone">
   Request a demo
 </a>
 

@@ -702,9 +702,12 @@ body {
 
 .workshop-title {
     font-size: 30px;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    text-align: center;
-}
+        display: block;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        color: #f05f40;
+        font-size: 20px;
+    }
 
 .workshop-subtitle {
     font-size: 24px;
@@ -991,4 +994,34 @@ header.with-background {
     background-color: #f05f40;
     color: white;
     text-decoration: none;
+}
+
+.main-page-hr {
+    border: none;
+    height: 2px;
+    width: 1000px;
+    max-width: 100%;
+    background-color: #f05f40;
+    margin: 5px auto;
+}
+.about-title-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    color: #333333;
+    margin-top: 15px;
+}
+
+.about-body-text {font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: rgb(100, 100, 100);
+}
+
+.workshop-button-content-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
