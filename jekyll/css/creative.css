@@ -865,12 +865,13 @@ header.with-background {
 }
 
 .horizontal-image {
+    width: 100%;
     max-width: 100%;
 }
 
 .vertical-image {
     display: none;
-    max-width: 100%;
+    max-width: 80%;
 }
 
 @media (max-width: 768px) {
