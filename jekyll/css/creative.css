@@ -999,7 +999,14 @@ header.with-background {
 .main-page-hr {
     border: none;
     height: 2px;
-    width: 1000px;
+    max-width: 100%;
+    background-color: #f05f40;
+    margin: 5px auto;
+}
+.thin-hr {
+    border: none;
+    height: 1px;
+    width: 1100px;
     max-width: 100%;
     background-color: #f05f40;
     margin: 5px auto;

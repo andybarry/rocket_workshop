@@ -2,210 +2,274 @@
 layout: default
 title: Robotics / Electronics Workshop | Stage One Education, LLC
 ---
-    
-    <body id="page-top">
-    
-        {% include navigation.html %}
-    
-        <div style="height: 100px;"></div> <!-- Adjust height to match your navbar's height -->
-    
-        <!-- Title Section -->
-        <div style="width: 1100px; max-width: 100%; margin: 0 auto; text-align: center;">
-            <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap;">
-                Robotics Workshop
-            </span>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    {% include navigation.html %}
+
+    <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
+
+    <!-- Title Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="margin: 0 auto; text-align: center;">
+                    <span class="workshop-title"
+                        style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
+                        Robotics Workshop
+                    </span>
+
+                    <span class="workshop-title"
+                        style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px;">Electronics
+                        & Coding</span>
+
+                </div>
+            </div>
+
+            <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
         </div>
-        
-        
-        
-        <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px;">Electronics & Coding</span>
-        <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-    
-    <!-- Section with Background Image -->
-    <style>
-        /* Define animations for the drones entering from the edges */
-        @keyframes moveDroneHorizontalLeftToRight {
-            0% { transform: translateX(-150px); }
-            100% { transform: translateX(1250px); }
-        }
-    
-        @keyframes moveDroneHorizontalRightToLeft {
-            0% { transform: translateX(1250px); }
-            100% { transform: translateX(-150px); }
-        }
-    
-        @keyframes moveDroneVerticalUp {
-            0% { transform: translateY(150px); }
-            100% { transform: translateY(-200px); } /* Move fully up past the top */
-        }
-    
-        @keyframes moveDroneVerticalDown {
-            0% { transform: translateY(-150px); }
-            100% { transform: translateY(200px); } /* Move fully down past the bottom */
-        }
-    
-        @keyframes moveDroneDiagonalUpRight {
-            0% { transform: translate(0px, 150px); }
-            100% { transform: translate(1200px, -200px); }
-        }
-    
-        @keyframes moveDroneDiagonalDownRight {
-            0% { transform: translate(0px, -150px); }
-            100% { transform: translate(1200px, 200px); }
-        }
-    
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px #f05f40; }
-            50% { box-shadow: 0 0 30px #f05f40; }
-            100% { box-shadow: 0 0 5px #f05f40; }
-        }
-    
-        /* Style for the glow-button */
-        .glow-button {
-            font-family: 'Roboto', sans-serif;
-            font-size: 20px;
-            font-weight: 100;
-            color: #f05f40;
-            text-align: center;
-            background-color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            margin: 15px 0; /* Adds vertical spacing */
-            border: 3px solid #f05f40;
-            flex-basis: calc(20% - 10px);
-            text-decoration: none;
-            display: block;
-            animation: pulseGlow 2s infinite;
-            position: relative;
-            z-index: 2;
-        }
-    
-        /* Hover effect */
-        .glow-button:hover {
-            color: white;
-            background-color: #f05f40;
-            border: 3px solid #f05f40;
-            text-decoration: none;
-        }
-    
-        /* Align buttons in a column with vertical spacing */
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 1000px;
-            margin: 20px auto;
-            position: relative;
-            z-index: 2;
-        }
-    
-        /* Drone images */
-        .drone {
-            position: absolute;
-            width: auto;
-            height: 50px;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-    
-        /* Define horizontal animations for drones */
-        .drone-horizontal-left-to-right1 { animation: moveDroneHorizontalLeftToRight 8s linear infinite; }
-        .drone-horizontal-left-to-right2 { animation: moveDroneHorizontalLeftToRight 6s linear infinite; }
-        .drone-horizontal-right-to-left1 { animation: moveDroneHorizontalRightToLeft 8s linear infinite; }
-        .drone-horizontal-right-to-left2 { animation: moveDroneHorizontalRightToLeft 6s linear infinite; }
-    
-        /* Define vertical animations for drones moving up and down on the left side */
-        .drone-vertical-up1 { animation: moveDroneVerticalUp 5s linear infinite; left: 5%; }
-        .drone-vertical-up2 { animation: moveDroneVerticalUp 7s linear infinite; left: 10%; }
-    
-        /* Define vertical-down animations for the right side */
-        .drone-vertical-down1 { animation: moveDroneVerticalDown 4s linear infinite; left: 60%; }
-        .drone-vertical-down2 { animation: moveDroneVerticalDown 3s linear infinite; left: 90%; }
-    
-        /* Define diagonal animations */
-        .drone-diagonal-up-right { animation: moveDroneDiagonalUpRight 10s linear infinite; }
-        .drone-diagonal-down-right { animation: moveDroneDiagonalDownRight 12s linear infinite; }
-    
-        /* Overlay style */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.05); /* Reduced opacity */
-            z-index: 1;
-        }
-    </style>
-    
-    <div style="position: relative; width: 1100px; margin: 0 auto; height: 190px; background-color: white; overflow: hidden;">
-        <!-- Add Horizontal Moving Drone Images from left to right -->
-        <img src="img/drone.png" class="drone drone-horizontal-left-to-right1" style="top: 10%; left: -150px;" />
-        <img src="img/drone.png" class="drone drone-horizontal-left-to-right2" style="top: 40%; left: -150px;" />
-        
-        <!-- Add Horizontal Moving Drone Images from right to left -->
-        <img src="img/drone.png" class="drone drone-horizontal-right-to-left1" style="top: 60%; left: 1250px;" />
-        <img src="img/drone.png" class="drone drone-horizontal-right-to-left2" style="top: 80%; left: 1250px;" />
-    
-        <!-- Add Vertical Moving Drone Images on the left side -->
-        <img src="img/drone.png" class="drone drone-vertical-up1" style="top: 100%; left: 5%;" />
-        <img src="img/drone.png" class="drone drone-vertical-up2" style="top: 100%; left: 10%;" />
-    
-        <!-- Add Vertical Moving Drone Images on the right side -->
-        <img src="img/drone.png" class="drone drone-vertical-down1" style="top: 0px; left: 60%;" />
-        <img src="img/drone.png" class="drone drone-vertical-down2" style="top: 0px; left: 90%;" />
-    
-        <!-- Add Diagonal Moving Drone Images -->
-        <img src="img/drone.png" class="drone drone-diagonal-up-right" style="top: 80%; left: -150px;" />
-        <img src="img/drone.png" class="drone drone-diagonal-down-right" style="top: 10%; left: -150px;" />
-    
-        <!-- Title Section with Buttons -->
-        <div class="button-container">
-            <!-- First Button: Drone Workshop Link -->
-            <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer" class="glow-button">
-                stageoneeducation.com/drone/
-            </a>
-            
-            <!-- Second Button: Instructions -->
-            <a href="Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank" rel="noopener noreferrer" class="glow-button">
-                Instructions
-            </a>
+
+        <!-- Section with Background Image -->
+        <style>
+            /* Define animations for the drones entering from the edges */
+            @keyframes moveDroneHorizontalLeftToRight {
+                0% {
+                    transform: translateX(-150px);
+                }
+
+                100% {
+                    transform: translateX(1250px);
+                }
+            }
+
+            @keyframes moveDroneHorizontalRightToLeft {
+                0% {
+                    transform: translateX(1250px);
+                }
+
+                100% {
+                    transform: translateX(-150px);
+                }
+            }
+
+            @keyframes moveDroneVerticalUp {
+                0% {
+                    transform: translateY(150px);
+                }
+
+                100% {
+                    transform: translateY(-200px);
+                }
+
+                /* Move fully up past the top */
+            }
+
+            @keyframes moveDroneVerticalDown {
+                0% {
+                    transform: translateY(-150px);
+                }
+
+                100% {
+                    transform: translateY(200px);
+                }
+
+                /* Move fully down past the bottom */
+            }
+
+            @keyframes moveDroneDiagonalUpRight {
+                0% {
+                    transform: translate(0px, 150px);
+                }
+
+                100% {
+                    transform: translate(1200px, -200px);
+                }
+            }
+
+            @keyframes moveDroneDiagonalDownRight {
+                0% {
+                    transform: translate(0px, -150px);
+                }
+
+                100% {
+                    transform: translate(1200px, 200px);
+                }
+            }
+
+            @keyframes pulseGlow {
+                0% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+
+                50% {
+                    box-shadow: 0 0 30px #f05f40;
+                }
+
+                100% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+            }
+
+            /* Align buttons in a column with vertical spacing */
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 1000px;
+                margin: 20px auto;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Drone images */
+            .drone {
+                position: absolute;
+                width: auto;
+                height: 50px;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            /* Define horizontal animations for drones */
+            .drone-horizontal-left-to-right1 {
+                animation: moveDroneHorizontalLeftToRight 8s linear infinite;
+            }
+
+            .drone-horizontal-left-to-right2 {
+                animation: moveDroneHorizontalLeftToRight 6s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left1 {
+                animation: moveDroneHorizontalRightToLeft 8s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left2 {
+                animation: moveDroneHorizontalRightToLeft 6s linear infinite;
+            }
+
+            /* Define vertical animations for drones moving up and down on the left side */
+            .drone-vertical-up1 {
+                animation: moveDroneVerticalUp 5s linear infinite;
+                left: 5%;
+            }
+
+            .drone-vertical-up2 {
+                animation: moveDroneVerticalUp 7s linear infinite;
+                left: 10%;
+            }
+
+            /* Define vertical-down animations for the right side */
+            .drone-vertical-down1 {
+                animation: moveDroneVerticalDown 4s linear infinite;
+                left: 60%;
+            }
+
+            .drone-vertical-down2 {
+                animation: moveDroneVerticalDown 3s linear infinite;
+                left: 90%;
+            }
+
+            /* Define diagonal animations */
+            .drone-diagonal-up-right {
+                animation: moveDroneDiagonalUpRight 10s linear infinite;
+            }
+
+            .drone-diagonal-down-right {
+                animation: moveDroneDiagonalDownRight 12s linear infinite;
+            }
+
+            /* Overlay style */
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.05);
+                /* Reduced opacity */
+                z-index: 1;
+            }
+        </style>
+
+        <div class="row">
+
+            <div style="position: relative;  height: 190px; background-color: white; overflow: hidden;">
+                <!-- Add Horizontal Moving Drone Images from left to right -->
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
+                    style="top: 10%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right2"
+                    style="top: 40%; left: -150px;" />
+
+                <!-- Add Horizontal Moving Drone Images from right to left -->
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left1"
+                    style="top: 60%; left: 1250px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left2"
+                    style="top: 80%; left: 1250px;" />
+
+                <!-- Add Vertical Moving Drone Images on the left side -->
+                <img src="img/drone.png" class="drone drone-vertical-up1" style="top: 100%; left: 5%;" />
+                <img src="img/drone.png" class="drone drone-vertical-up2" style="top: 100%; left: 10%;" />
+
+                <!-- Add Vertical Moving Drone Images on the right side -->
+                <img src="img/drone.png" class="drone drone-vertical-down1" style="top: 0px; left: 60%;" />
+                <img src="img/drone.png" class="drone drone-vertical-down2" style="top: 0px; left: 90%;" />
+
+                <!-- Add Diagonal Moving Drone Images -->
+                <img src="img/drone.png" class="drone drone-diagonal-up-right" style="top: 80%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-diagonal-down-right" style="top: 10%; left: -150px;" />
+
+                <!-- Title Section with Buttons -->
+                <div class="button-container">
+                    <!-- First Button: Drone Workshop Link -->
+                    <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer"
+                        class="glow-button">
+                        stageoneeducation.com/drone
+                    </a>
+
+                    <!-- Second Button: Instructions -->
+                    <a href="Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank"
+                        rel="noopener noreferrer" class="glow-button">
+                        Instructions
+                    </a>
+                </div>
+
+                <!-- Overlay Div -->
+                <div class="overlay"></div>
+            </div>
         </div>
-    
-        <!-- Overlay Div -->
-        <div class="overlay"></div>
-    </div>
-    
-      
-    
-        
-        <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-        
+
+
+        <hr class="thin-hr" />
+
         <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
-    
-        <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
-            <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+        <div style="max-width: 100%; margin: 5px auto;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
                 Robotics Workshop Overview
             </span>
         </div>
-        
-        
-    <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <section class="less-padding">
-        <div class="container">
-            <div class="row" style="display: flex; align-items: flex-start;">
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <section class="less-padding">
+            <div class="row">
                 <!-- Text Section -->
-                <div class="col-lg-6 col-md-6 col-sm-6" style="flex: 1; padding-right: 20px;">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
-                        <div class="workshop-subdata" style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
+                        <div class="workshop-subdata"
+                            style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
-                        <div class="tab-content tab-active" style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
+                        <div class="tab-content tab-active"
+                            style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
                             <ul>
                                 <li>Immerse yourself in hands-on circuit-building and software development.</li>
                                 <li>
-                                    With the goal of achieving autonomous flight of a small toy RC drone, participants collaborate on:
+                                    With the goal of achieving autonomous flight of a small toy RC drone,
+                                    participants collaborate on:
                                     <ul style="list-style-type: circle; padding-left: 20px;">
                                         <li>hardware</li>
                                         <li>software design</li>
@@ -218,139 +282,159 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
                 </div>
                 <!-- Image Section -->
                 <div class="col-lg-6 col-md-6 col-sm-6" style="flex: 1; display: flex; justify-content: center;">
-                    <img src="img/robotics_placeholder.jpg" alt="Workshop Placeholder" style="width: 300px; height: auto; object-fit: cover;">
+                    <img src="img/robotics_placeholder.jpg" alt="Workshop Placeholder"
+                        style="width: 300px; height: auto; object-fit: cover;">
+                </div>
+            </div>
+        </section>
+
+
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                    Robotics Workshop Testimonials
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+
+            <!-- New Image Section with Continuous Scroll for Feedback -->
+            <div
+                style="overflow: hidden; margin-top: 50px; margin: 20px auto; white-space: nowrap; position: relative;">
+                <div class="scroll-container">
+                    <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image"
+                        style="margin-right: 40px;">
+
+                    <!-- Duplicate images for smooth continuous scroll effect -->
+                    <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image">
+                </div>
+            </div>
+
+            <!-- Keyframes for continuous scroll without fade effect -->
+            <style>
+                @keyframes scroll {
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+
+                /* Container for smooth scroll */
+                .scroll-container {
+                    display: inline-block;
+                    animation: scroll 40s linear infinite;
+                    white-space: nowrap;
+                    padding-bottom: 20px;
+                    animation-play-state: running;
+                    /* Ensure animation runs by default */
+                }
+
+                /* Apply size and spacing to each image */
+                .scroll-image {
+                    display: inline-block;
+                    width: 400px;
+                    /* Increased width */
+                    height: auto;
+                    /* Adjusted height to maintain aspect ratio */
+                    object-fit: cover;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    /* Adjust margin between images */
+                    margin-right: 40px;
+                }
+
+                /* Pause animation when hovered over the scroll container */
+                .scroll-container:hover {
+                    animation-play-state: paused;
+                }
+            </style>
+
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="quote-container quote-one" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I
+                        liked
+                        the
+                        coding portion and the electronics hardware&rdquo;
+                        <em>&mdash; Student, Berkeley 2023</em>
+                    </p>
+                </div>
+                <div class="quote-container quote-two" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more
+                        engineering and coding!&rdquo;
+                        <em>&mdash; Student, Boston 2023</em>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="quote-container quote-three" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use
+                            some
+                            of
+                            this knowledge</strong> for other projects I may do.&rdquo;
+                        <em>&mdash; Student, Houston 2022</em>
+                    </p>
                 </div>
             </div>
         </div>
-    </section>          
-          
 
-                 
-                    <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
-                        <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
-                            Robotics Workshop Testimonials
-                        </span>
-                    </div>
-    
-                    <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-                </div>
+
+        <!-- Vertical space -->
+        <div style="height: 30px;"></div>
+
+        <!-- Timeline -->
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                    Robotics Workshop Timeline
+                </span>
             </div>
-           
-            
-                   
-<!-- New Image Section with Continuous Scroll for Feedback -->
-<div style="overflow: hidden; margin-top: 50px; max-width: 1100px; margin: 20px auto; white-space: nowrap; position: relative;">
-    <div class="scroll-container">
-        <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
 
-        <!-- Duplicate images for smooth continuous scroll effect -->
-        <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image">
-    </div>
-</div>
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
-<!-- Keyframes for continuous scroll without fade effect -->
-<style>
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
+            <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
 
-/* Container for smooth scroll */
-.scroll-container {
-    display: inline-block;
-    animation: scroll 40s linear infinite;
-    white-space: nowrap;
-    padding-bottom: 20px;
-    animation-play-state: running; /* Ensure animation runs by default */
-}
-
-/* Apply size and spacing to each image */
-.scroll-image {
-    display: inline-block;
-    width: 400px; /* Increased width */
-    height: auto; /* Adjusted height to maintain aspect ratio */
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adjust margin between images */
-    margin-right: 40px;
-}
-
-/* Pause animation when hovered over the scroll container */
-.scroll-container:hover {
-    animation-play-state: paused;
-}
-</style>
-
-    
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-
-<div class="container" style="max-width: 1100px; margin: 0 auto;">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="quote-container quote-one" style="margin-bottom: 10px;">
-                <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                    &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I liked the coding portion and the electronics hardware&rdquo; 
-                    <em>&mdash; Student, Berkeley 2023</em>
-                </p>
-            </div>
-            <div class="quote-container quote-two" style="margin-bottom: 10px;">
-                <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                    &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more engineering and coding!&rdquo; 
-                    <em>&mdash; Student, Boston 2023</em>
-                </p>
+            <div class="text-center">
+                <img src="img/robotics-timeline.svg" alt="Robotics Workshop Timeline" class="horizontal-image">
+                <img src="img/robotics-timeline-vertical.svg" alt="Robotics Workshop Timeline" class="vertical-image">
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="quote-container quote-three" style="margin-bottom: 10px;">
-                <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                    &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use some of this knowledge</strong> for other projects I may do.&rdquo; 
-                    <em>&mdash; Student, Houston 2022</em>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 
-    
-    <!-- Vertical space -->
-    <div style="height: 30px;"></div>
-    
-    <!-- Timeline -->
-    <div class="row">
-        <div style="width: 1100px; max-width: 100%; margin: 5px auto;">
-            <span style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
-                Robotics Workshop Timeline
+
+
+        <!-- Footer Section -->
+        <div style="text-align: right; margin-top: 10px;">
+            <span class="workshop-title"
+                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
+                &copy; 2024 Stage One Education, LLC
             </span>
         </div>
-    
-        <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-    
-        <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
-    
-        <div class="text-center">
-            <img src="" alt="Robotics Workshop Timeline" class="horizontal-image" style="width: 800px; max-width: 100%;">
-            <img src="" alt="Robotics Workshop Timeline" class="vertical-image" style="width: 800px; max-width: 100%;">
-        </div>
     </div>
-    
-  
-    
-    <!-- Footer Section -->
-    <div style="text-align: right; margin-top: 10px;">
-        <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
-            &copy; 2024 Stage One Education, LLC
-        </span>
-    </div>
+
+</body>
