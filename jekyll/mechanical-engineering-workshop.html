@@ -1,0 +1,310 @@
+---
+layout: default
+title: CAD / Rocket Workshop | Stage One Education, LLC
+---
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="cad-tutorial/video_play_at_scroll.js"></script>
+
+<body id="page-top">
+
+    {% include navigation.html %}
+
+    <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
+
+    <!-- Title Section -->
+    <div style="max-width: 100%; margin: 0 auto; text-align: center;">
+        <span class="workshop-title"
+            style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold;">
+            Mechanical Engineering Workshop
+        </span>
+    </div>
+
+
+    <div class="container">
+
+
+        <span class="workshop-title"
+            style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color:rgb(100, 100, 100); font-size: 20px;">Computer-Aided
+            Design (CAD) & 3D Printing</span>
+        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <!-- Section with Background Video Loop -->
+        <div style="position: relative; margin: 0 auto; height: 200px; background-color: white; overflow: hidden;">
+            <div align="center" class="video-background autosize" style="height: 100%; width: 100%;">
+                <video autoplay loop muted playsinline style="width: 100%; height: auto;">
+                    <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Title Section with Button -->
+            <div class="button-container"
+                style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
+                <!-- First Button: Drone Workshop Link -->
+                <a href="https://stageoneeducation.com/cad-tutorial/index.html" target="_blank"
+                    rel="noopener noreferrer" class="glow-button">
+                   Start Single Workshop
+                </a>
+            </div>
+
+            <div class="button-container"
+            style="position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
+            <!-- Second Button: Drone Workshop Link -->
+            <a href="http://127.0.0.1:4000/group.html" target="_blank"
+                rel="noopener noreferrer" class="glow-button">
+                Start Group Workshop
+            </a>
+        </div>
+
+            <!-- Overlay Div -->
+            <div class="overlay"></div>
+        </div>
+
+        <!-- Styles for Glow Button -->
+        <style>
+            @keyframes pulseGlow {
+                0% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+
+                50% {
+                    box-shadow: 0 0 30px #f05f40;
+                }
+
+                100% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+            }
+
+            /* Style for the glow-button */
+            .glow-button {
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+                font-weight: 100;
+                color: #f05f40;
+                text-align: center;
+                background-color: white;
+                padding: 10px 20px;
+                border-radius: 50px;
+                margin: 20px 5px;
+                border: 3px solid #f05f40;
+                text-decoration: none;
+                display: inline-block;
+                animation: pulseGlow 2s infinite;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Hover effect */
+            .glow-button:hover {
+                color: white;
+                background-color: #f05f40;
+                border: 3px solid #f05f40;
+                text-decoration: none;
+            }
+
+            /* Overlay style */
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.05);
+                z-index: 1;
+            }
+        </style>
+
+
+        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+        <div style="max-width: 100%; margin: 5px auto;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                Overview
+            </span>
+        </div>
+
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <section class="less-padding">
+            <div class="row">
+                <!-- Text Section -->
+                <div class="col-sm-6">
+                    <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
+                        <div class="workshop-subdata"
+                            style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
+                            3-3.5 Hours | All Ages | No Experience Needed
+                        </div>
+                        <div class="tab-content tab-active"
+                            style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
+                            <ul>
+                                <li>Explore the world of engineering and discover CAD (computer aided design)</li>
+                                <li>Build a three-part (virtual) rocket using a professional CAD platform</li>
+                                <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image Section -->
+                <div class="col-sm-6">
+                    <img src="img/me_placeholder.jpg" alt="Robotics Placeholder"
+                        style="width: 400px; height: auto; object-fit: cover;">
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <div style="max-width: 100%; margin: 5px auto;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                Testimonials
+            </span>
+        </div>
+
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+        <!-- Continuous Scroll for Feedback -->
+        <div
+            style="overflow: hidden; margin-top: 40px; margin: 20px auto; white-space: nowrap; position: relative;">
+            <div class="scroll-container">
+                <img src="img/me_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.jpg" alt="Feedback 5" class="scroll-image">
+
+                <!-- Duplicate images for smooth continuous scroll effect -->
+                <img src="img/me_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.jpg" alt="Feedback 5" class="scroll-image">
+            </div>
+        </div>
+
+
+        <!-- Keyframes for continuous scroll without fade effect -->
+        <style>
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            /* Container for smooth scroll */
+            .scroll-container {
+                display: inline-block;
+                animation: scroll 40s linear infinite;
+                white-space: nowrap;
+                padding-bottom: 20px;
+            }
+
+            /* Apply size and spacing to each image */
+            .scroll-image {
+                display: inline-block;
+                width: 400px;
+                height: auto;
+                object-fit: cover;
+                border-radius: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-right: 40px;
+            }
+
+
+            /* Pause animation when hovered over the scroll container */
+            .scroll-container:hover {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        </head>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="quote-container quote-one">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;<strong>I loved it</strong> - instructions were clear and super laid out. I liked the
+                            animations along with the instructions for visual learners. Overall, I feel inspired to
+                            continue
+                            learning CAD and designing new things, <strong>I was hesitant on if being an engineer was
+                                truly
+                                for me, but after this I feel a lot more confident</strong> and excited to explore this
+                            field more&rdquo;
+                            <em>&mdash; Student, Houston 2023</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="quote-container quote-two">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;This workshop was <strong>my favorite workshop by far</strong>. As I want to be a
+                            civil
+                            engineer it was very nice to see a potential software I would be using when I do become a
+                            civil
+                            engineer&rdquo; <em>&mdash; Student, Berkeley 2021</em>
+                        </p>
+                    </div>
+                    <div class="quote-container">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;<strong>Challenging but well paced</strong> at the same time. Piqued my interest in
+                            virtual 3D rendering. I now <strong>feel like I could work on this on my own</strong> and I
+                            have
+                            the ambition to push my knowledge to its limits.&rdquo;
+                            <em>&mdash; Student, Atlanta 2021</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+        <!-- Timeline -->
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                    Timeline
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+            <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+
+            <div class="text-center">
+                <img src="img/me_timeline.jpg" alt="Rocket Timeline" class="horizontal-image">
+                <img src="img/rocket-timeline-vertical.svg" alt="Rocket Timeline" class="vertical-image">
+            </div>
+        </div>
+
+
+        <div style="text-align: right; margin-top: 30px;">
+            <span class="workshop-title"
+                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
+                &copy; 2024 Stage One Education, LLC
+            </span>
+        </div>
+    </div>
+</body>

@@ -138,7 +138,7 @@ aside {
 
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
-    color: #eb3812;
+    color: #f05f40;
 }
 
 .navbar-default .nav > li>a,
@@ -968,8 +968,8 @@ header.with-background {
     margin: auto;
     margin-bottom: 20px;
     width: 300px;
-    height: 500px;
-    border: 3px solid #f05f40;
+    height: 475px;
+    border: 5px solid #f05f40;
     border-radius: 50px;
     background-color: white;
     color: rgb(100, 100, 100);
@@ -979,7 +979,7 @@ header.with-background {
     padding: 20px 0;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
     color: #f05f40;
     text-transform: uppercase;
@@ -999,8 +999,8 @@ header.with-background {
 
 .main-page-hr {
     border: none;
-    height: 2px;
-    max-width: 100%;
+    height: 1px;
+    max-width: 85%;
     background-color: #f05f40;
     margin: 5px auto;
 }
