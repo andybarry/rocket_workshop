@@ -67,7 +67,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 p {
@@ -996,6 +996,42 @@ header.with-background {
     color: white;
     text-decoration: none;
 }
+
+
+.workshop-main-button-sm {
+    display: block;
+    margin: auto;
+    margin-bottom: 1px;
+    width: 250px;
+    height: 250px;
+    border: 5px solid #f05f40;
+    border-radius: 50px;
+    background-color: white;
+    color: rgb(100, 100, 100);
+}
+
+.workshop-main-button-sm > .main-button-title-text-sm {
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #f05f40;
+    text-transform: uppercase;
+}
+
+.workshop-main-button-sm:hover > .main-button-title-text-sm {
+    color: white;
+}
+
+.workshop-main-button-sm:hover {
+    border: 3px solid #f05f40;
+    border-radius: 50px;
+    background-color: #f05f40;
+    color: white;
+    text-decoration: none;
+}
+
 
 .main-page-hr {
     border: none;
