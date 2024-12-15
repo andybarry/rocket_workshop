@@ -1006,6 +1006,17 @@ inline-quote-container {
     color: white;
 }
 
+.location-item {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #f05f40;
+    text-align: center;
+    background-color: white;
+    padding: 5px 15px;
+    margin: 5px;
+    border: 0.5px solid #f05f40;
+}
+
 .workshop-main-button:hover {
     border: 3px solid #f05f40;
     border-radius: 50px;
