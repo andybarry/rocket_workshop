@@ -3,7 +3,51 @@ layout: default
 title: Instructors | Stage One Education, LLC
 ---
 
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
 
+    .workshop-title {
+        font-weight: bold;
+        font-size: 1.8em;
+    }
+
+    .profile {
+        margin-bottom: 40px;
+        padding: 20px;
+    }
+
+    .profile img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 3px solid #f05f40;
+        margin-bottom: 15px;
+    }
+
+    .profile-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .role {
+        font-size: 1em;
+        font-style: italic;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        font-size: 1em;
+        color: #444;
+        line-height: 1.6em;
+        margin: 0 auto;
+        max-width: 400px;
+    }
+</style>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -57,391 +101,342 @@ title: Instructors | Stage One Education, LLC
 
 
         <!-- Title Section -->
-    <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap; line-height: 1; padding: 0;">
-        About Us
-    </span>
-    <hr class="main-page-hr" />
-</div>
+        <span class="workshop-title"
+            style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap; line-height: 1; padding: 0;">
+            About Us
+        </span>
+        <hr class="main-page-hr" />
+    </div>
 
-
-<section id="contact" class="less-padding">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div style="margin-bottom: 10px;">
-                    <span class="workshop-title">We’re dedicated to sharing our love of engineering </span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-12">
-                <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 20px auto; max-width: 80%;">
-                    
-                    <!-- Adjusted spacing for these elements -->
-                    <p style="margin-bottom: 5px;">Our workshops answer questions like,</p>
-                    <ul style="margin-top: 5px; margin-bottom: 5px;">
-                        <li>&ldquo;can I do engineering?&rdquo;</li>
-                        <li>&ldquo;what do engineers really do?&rdquo;</li>
-                    </ul>
+        <section id="contact" class="less-padding">
 
-                    <!-- Apply similar spacing to these paragraphs -->
-                    <p style="margin-top: 10px; margin-bottom: 5px;">
-                        Through hands-on activities—from building real circuits to working with professional-grade CAD tools and the latest AI 
-                        models—participants gain a true sense of what engineering is all about.
-                    </p>
-                    
-                    <p style="margin-top: 10px;">
-                        After engaging with real-world projects, engineering tools, and talking to experienced professionals, participants 
-                        walk away more confident, inspired, and excited about their potential future in engineering.
-                    </p>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<hr class="main-page-hr" style="margin-top: 10px;"/>
-<span class="workshop-title">Hands-on Engineering Workshops</span>
-<hr class="main-page-hr" style="margin-bottom: 10px;"/>
-
-
-<section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
-    <div class="container" id="ai">
-
-        <!-- First Workshop Box (AI) --> 
-        <div class="col-sm-4 text-center">
-            <a href="ai-workshop.html" class="workshop-main-button-sm">
-                <!-- Title Section -->
-                <div class="main-button-title-text-sm">
-                    Artificial<br>Intelligence<br>
-                </div>
-                <!-- Image Section -->
-                <div>
-                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" 
-                         style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                </div>
-            </a>
-        </div>
-
-        <!-- Second Workshop Box (Robotics) -->
-        <div class="col-sm-4 text-center">
-            <a href="robotics-workshop.html" class="workshop-main-button-sm">
-                <!-- Title Section -->
-                <div class="main-button-title-text-sm">
-                    Robotics<br><br>
-                </div>
-                <!-- Image Section -->
-                <div>
-                    <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder" 
-                         style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                </div>
-            </a>
-        </div>
-
-        <!-- Third Workshop Box (Mechanical Engineering) -->
-        <div class="col-sm-4 text-center">
-            <a href="rocket-workshop.html" class="workshop-main-button-sm">
-                <!-- Title Section -->
-                <div class="main-button-title-text-sm">
-                    Mechanical Engineering
-                </div>
-                <!-- Video Section -->
-                <div>
-                    <video autoplay loop muted playsinline 
-                           style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                        <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
-                        <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
-
-
-
-<section id="contact" class="less-padding">
-    <div class="container">                           
-        <div class="row">
-            <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 10px auto; margin-top: 1px; max-width: 80%;">
-                <h3>Turn-key</h3>
-                <p style="margin-bottom: 5px;">
-                    We offer complete workshops with instructors, materials, and curriculum all included.
-                    Students walk out with newfound confidence, having learned professional-grade tools with our
-                    continuously-optimized instructions, methods, and pedagogy.
-                </p>
-
-                <div class="workshop-details">
-                    <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin-top: 1px; max-width: 80%;">
-                        <h3>Workshop Details</h3>
-                        <ul>
-                            <li><strong>Workshops Offered:</strong> Robotics, AI, Mechanical Engineering</li>
-                            <li><strong>Length:</strong> 3 hours</li>
-                            <li><strong>Participants:</strong> Up to ~60 per workshop (venue size determines capacity)</li>
-                            <li><strong>Location:</strong> We can accommodate any location</li>
-                            <li><strong>Venue:</strong> Must include Wi-Fi, power outlets, tables, and chairs. larger spaces preferred</li>
-                            <li><strong>Materials:</strong> Included with all workshops</li>    
-                            <li><strong>Instructors:</strong> Experienced engineering professionals who are passionate about sharing their expertise.</li>
-                            <li><strong>Schedule:</strong> We can work around your itentrary and have the capacity to host multiple or simultaneous sessions as needed</li>
-                        </ul>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div style="margin-bottom: 10px;">
+                        <span class="workshop-title">We’re dedicated to sharing our love of engineering </span>
                     </div>
                 </div>
-                
-                <h3>Pricing</h3>
-                <ul>
-                    <p> The per participant cost is determined by factors such as the group size, the scheduling of consecutive workshop days, asset 
-                        management, and the instructors provided. For a tailored quote that meets your specific needs, please get in touch with our team today.
-                         We’re here to help create the perfect engineering experience for you.</p><br>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div
+                        style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 20px auto; max-width: 80%;">
+
+                        <!-- Adjusted spacing for these elements -->
+                        <p style="margin-bottom: 5px;">Our workshops answer questions like,</p>
+                        <div style="position: relative;">
+                            <div class="inline-quote-container">
+                                <p class="quote-text">
+                                    can I do engineering?
+                                </p>
+                            </div>
+                        </div>
+                        <div style="position: relative;">
+                            <div class="inline-quote-container">
+                                <p class="quote-text">
+                                    what do engineers really do?
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Apply similar spacing to these paragraphs -->
+                        <p style="margin-top: 10px; margin-bottom: 5px;">
+                            through hands-on activities—from building real circuits to working with professional-grade
+                            CAD tools and the latest AI
+                            models—participants gain a true sense of what engineering is all about.
+                        </p>
+
+                        <p style="margin-top: 10px;">
+                            After engaging with real-world projects, engineering tools, and talking to experienced
+                            professionals, participants
+                            walk away more confident, inspired, and excited about their potential future in engineering.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="main-page-hr" style="margin-top: 10px;" />
+        <span class="workshop-title">Leadership Team</span>
+        <hr class="main-page-hr" style="margin-bottom: 10px;" />
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="profile">
+                    <img src="img/andy.jpg" alt="Andrew Barry">
+                    <div class="profile-title">Andrew Barry, MIT Ph.D.</div>
+                    <div class="role">Founder</div>
+                    <div class="description">
+                        Andy fell in love with autonomous drones by
+                        <a href="https://www.youtube.com/watch?v=_qah8oIzCwk" style="text-decoration:underline">flying
+                            them</a>
+                        for his Ph.D. at MIT. Andy has brought electronics and software workshops to over 10,000
+                        students, from small helicopters to
+                        <a href="https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1"
+                            style="text-decoration:underline">sophisticated quadrupeds</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="profile">
+                    <img src="img/pete.jpg" alt="Pete Florence">
+                    <div class="profile-title">Pete Florence, MIT Ph.D.</div>
+                    <div class="role">Co-Founder</div>
+                    <div class="description">
+                        Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in
+                        the
+                        <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos"
+                            style="text-decoration:underline">Robot Locomotion Group</a>
+                        pushed the horizons for faster, more agile, and more reliable drones. His award-winning
+                        <a href="https://www.youtube.com/watch?v=L5UW1VapKNE" style="text-decoration:underline">robot
+                            manipulation</a>
+                        research is giving robots new abilities every day.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="profile">
+                    <img src="img/robbie.jpg" alt="Robbie Kipp">
+                    <div class="profile-title">Robbie Kipp, Engineer</div>
+                    <div class="role">Director of Operations</div>
+                    <div class="description">
+                        Robbie's engineering designs set the course for the future of dive systems and maritime
+                        vessels
+                        during his time as an ocean engineer and naval architect.
+                        Now, as the Director of Operations at Stage One Education, he pioneers innovative approaches
+                        to
+                        inspire the next generation of engineers. Robbie is an avid
+                        diver, climber, and aviation enthusiast.
+                    </div>
+                </div>
+            </div>
+
+            <span class="workshop-title">Stage One Education Instructors</span>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2"
+                style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
+                <p>Nationwide network of passionate engineering professionals</p>
+                <ul style="list-style: none; padding: 0; margin: 20px;">
+            </div>
+        </div>
+
+
+        <hr class="main-page-hr" style="margin-top: 10px;" />
+        <span class="workshop-title">Hands-on Engineering Workshops</span>
+        <hr class="main-page-hr" style="margin-bottom: 10px;" />
+
+
+        <section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
+            <div class="row">
+                <!-- First Workshop Box (AI) -->
+                <div class="col-sm-4 text-center">
+                    <a href="ai-workshop.html" class="workshop-main-button-sm">
+                        <!-- Title Section -->
+                        <div class="main-button-title-text-sm">
+                            Artificial<br>Intelligence<br>
+                        </div>
+                        <!-- Image Section -->
+                        <div>
+                            <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters"
+                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Second Workshop Box (Robotics) -->
+                <div class="col-sm-4 text-center">
+                    <a href="robotics-workshop.html" class="workshop-main-button-sm">
+                        <!-- Title Section -->
+                        <div class="main-button-title-text-sm">
+                            Robotics<br><br>
+                        </div>
+                        <!-- Image Section -->
+                        <div>
+                            <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder"
+                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Third Workshop Box (Mechanical Engineering) -->
+                <div class="col-sm-4 text-center">
+                    <a href="rocket-workshop.html" class="workshop-main-button-sm">
+                        <!-- Title Section -->
+                        <div class="main-button-title-text-sm">
+                            Mechanical Engineering
+                        </div>
+                        <!-- Video Section -->
+                        <div>
+                            <video autoplay loop muted playsinline
+                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
+                                <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                                <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="less-padding" style="padding-top: 0px">
+            <div>
+                <div class="row">
+                    <div
+                        style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 10px auto; margin-top: 1px; max-width: 80%;">
+                        <h3>Turn-key</h3>
+                        <p style="margin-bottom: 5px;">
+                            We offer complete workshops with instructors, materials, and curriculum all included.
+                            Students walk out with newfound confidence, having learned professional-grade tools with our
+                            continuously-optimized instructions, methods, and pedagogy.
+                        </p>
+
+                        <div class="workshop-details">
+                            <div
+                                style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin-top: 1px; max-width: 80%;">
+                                <h3>Workshop Details</h3>
+                                <ul>
+                                    <li><strong>Workshops Offered:</strong> Robotics, AI, Mechanical Engineering</li>
+                                    <li><strong>Length:</strong> 3 hours</li>
+                                    <li><strong>Participants:</strong> Up to ~60 per workshop (venue size determines
+                                        capacity)</li>
+                                    <li><strong>Location:</strong> We can accommodate any location</li>
+                                    <li><strong>Venue:</strong> Must include Wi-Fi, power outlets, tables, and chairs.
+                                        larger spaces preferred</li>
+                                    <li><strong>Materials:</strong> Included with all workshops</li>
+                                    <li><strong>Instructors:</strong> Experienced engineering professionals who are
+                                        passionate about sharing their expertise.</li>
+                                    <li><strong>Schedule:</strong> We can work around your itentrary and have the
+                                        capacity to host multiple or simultaneous sessions as needed</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Pricing</h3>
+                        <ul>
+                            <p> The per participant cost is determined by factors such as the group size, the scheduling
+                                of consecutive workshop days, asset
+                                management, and the instructors provided. For a tailored quote that meets your specific
+                                needs, please get in touch with our team today.
+                                We’re here to help create the perfect engineering experience for you.</p><br>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <hr class="main-page-hr" style="margin-top: 10px;" />
+        <span class="workshop-title">Presentation Events
+        </span>
+        <hr class="main-page-hr" style="margin-bottom: 10px;" />
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2"
+                style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
+                <strong style="display: block; margin: 20px;">We offer 1-hour interactive lecture-style presentations by
+                    industry experts.</strong>
+                <ul style="list-style: none; padding: 0; margin: 20px;">
+                    <li>
+                        Deep dives into:
+                        <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                            <li>Virtual Reality</li>
+                            <li>Artificial Intelligence</li>
+                            <li>Robotics and more</li>
+                        </ul>
+                    </li>
                 </ul>
-            </div>
-                   
+                <p style="margin: 20px;">These sessions will spark innovation and expand your participants'
+                    understanding of
+                    the latest technological breakthroughs.</p>
+                <br><br>
 
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<hr class="main-page-hr" style="margin-top: 10px;"/>
-<span class="workshop-title">Presentation Events
-</span>
-<hr class="main-page-hr" style="margin-bottom: 10px;"/>
-
-<div class="row">
-    <div class="col-lg-8 col-lg-offset-2" style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-        <strong style="display: block; margin: 20px;">We offer 1-hour interactive lecture-style presentations by industry experts.</strong>
-        <ul style="list-style: none; padding: 0; margin: 20px;">
-            <li>
-                Deep dives into:
-                <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                    <li>Virtual Reality</li>
-                    <li>Artificial Intelligence</li>
-                    <li>Robotics and more</li>
-                </ul>
-            </li>
-        </ul>
-        <p style="margin: 20px;">These sessions will spark innovation and expand your participants' understanding of the latest technological breakthroughs.</p>
-        <br><br>
-
-    </div>
-</div>
-
-
-
-<!-- Include Roboto font -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
-
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
-
-
-
-    .workshop-title {
-        font-weight: bold;
-        font-size: 1.8em;
-    }
-
-    .profile {
-        text-align: center;
-        margin-bottom: 40px;
-        height: 450px;
-        width: 400px;
-        padding: 20px;
-        transition: all 0.3s ease-in-out;
-        background-color: #fff;
-    }
-
-    .profile:hover {
-        box-shadow: 0 4px 20px #f05f40;
-    }
-
-    .profile img {
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border: 3px solid #f05f40;
-        margin-bottom: 15px;
-    }
-
-    .profile-title {
-        font-size: 1.2em;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .role {
-        font-size: 1em;
-        font-style: italic;
-        color: #555;
-        margin-bottom: 15px;
-    }
-
-    .description {
-        font-size: 1em;
-        color: #444;
-        line-height: 1.6em;
-        margin: 0 auto;
-        max-width: 400px;
-    }
-
-    @media (min-width: 768px) {
-        .col-sm-4 {
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-    }
-
-    .row-c {
-    text-align: center;
-}
-
-
-.col-sm-4-c {
-    float: none;
-    display: inline-block;
-    vertical-align: top;
-    margin: 0 10px; 
-}
-
-
-</style>
-
-<hr class="main-page-hr" style="margin-top: 10px;"/>
-<span class="workshop-title">Leadership Team</span>
-<hr class="main-page-hr" style="margin-bottom: 10px;"/>
-
-<div class="row-c">
-    <div class="col-lg-12">
-        <div class="col-sm-4-c">
-            <div class="profile">
-                <img src="img/andy.jpg" alt="Andrew Barry">
-                <div class="profile-title">Andrew Barry, MIT Ph.D.</div>
-                <div class="role">Founder</div>
-                <div class="description">
-                    Andy fell in love with autonomous drones by 
-                    <a href="https://www.youtube.com/watch?v=_qah8oIzCwk" style="text-decoration:underline">flying them</a> 
-                    for his Ph.D. at MIT. Andy has brought electronics and software workshops to over 10,000 students, from small helicopters to 
-                    <a href="https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1" style="text-decoration:underline">sophisticated quadrupeds</a>.
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4-c">
-            <div class="profile">
-                <img src="img/pete.jpg" alt="Pete Florence">
-                <div class="profile-title">Pete Florence, MIT Ph.D.</div>
-                <div class="role">Co-Founder</div>
-                <div class="description">
-                    Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in the 
-                    <a href="https://www.youtube.com/user/RobotLocomotionGroup/videos" style="text-decoration:underline">Robot Locomotion Group</a> 
-                    pushed the horizons for faster, more agile, and more reliable drones. His award-winning 
-                    <a href="https://www.youtube.com/watch?v=L5UW1VapKNE" style="text-decoration:underline">robot manipulation</a> 
-                    research is giving robots new abilities every day.
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4-c">
-            <div class="profile">
-                <img src="img/robbie.jpg" alt="Robbie Kipp">
-                <div class="profile-title">Robbie Kipp, Engineer</div>
-                <div class="role">Director of Operations</div>
-                <div class="description">
-                    Robbie's engineering designs set the course for the future of dive systems and maritime vessels during his time as an ocean engineer and naval architect. 
-                    Now, as the Director of Operations at Stage One Education, he pioneers innovative approaches to inspire the next generation of engineers. Robbie is an avid
-                     diver, climber, and aviation enthusiast.
-                </div>
             </div>
         </div>
 
 
 
-<span class="workshop-title">Stage One Education Instructors</span>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-8 col-lg-offset-2" style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-        <p>Nationwide network of passionate engineering professionals</p>
-        <ul style="list-style: none; padding: 0; margin: 20px;">
-              </div>
-</div>
+        <!-- Include Roboto font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
 
 
-<hr class="main-page-hr" style="margin-top: 50px"/>
-<span class="workshop-title">Contact</span>
-<hr class="main-page-hr" />
+        <hr class="main-page-hr" style="margin-top: 50px" />
+        <span class="workshop-title">Contact</span>
+        <hr class="main-page-hr" />
 
-<section id="contact" class="less-padding" style="padding-top: 20px;">
-    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-       
-        <style>
-            @keyframes pulse {
-                0% {
-                    transform: scale(1);
-                }
-    
-                50% {
-                    transform: scale(1.2);
-                }
-    
-                100% {
-                    transform: scale(1);
-                }
-            }
-        </style>
-        
-        
-        <!-- Email Section with Pulsing Heartbeat Effect -->
-        <div style="display: flex; justify-content: center; align-items: center;">
+        <section id="contact" class="less-padding" style="padding-top: 20px;">
+            <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+
+                <style>
+                    @keyframes pulse {
+                        0% {
+                            transform: scale(1);
+                        }
+
+                        50% {
+                            transform: scale(1.2);
+                        }
+
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+                </style>
+
+
+                <!-- Email Section with Pulsing Heartbeat Effect -->
+                <div style="display: flex; justify-content: center; align-items: center;">
 
 
                     <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
                         <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                            style="color: #f05f40; animation: pulse 1s infinite;"></i>
+                            style="color: #f05f40; animation: pulse 1s;"></i>
                     </a>
                 </div>
 
-        <!-- Email Link on its own line -->
-        <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
-            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
-                workshops@stageoneducation.com
-            </a>
-        </p>
+                <!-- Email Link on its own line -->
+                <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
+                    <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
+                        workshops@stageoneducation.com
+                    </a>
+                </p>
 
-    <br>
-        
-    <div
-    style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 20px auto; max-width: 800px;">
+                <br>
 
-    Explore our engineering workshops and presentation events <br/> schedule a virtual workshop demo today</div>
+                <div
+                    style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 20px auto; max-width: 800px;">
 
-  <!-- Request a Demo Button -->
-  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone">
-  Request a demo
-</a>
-</section>
+                    Explore our engineering workshops and presentation events <br /> schedule a virtual workshop demo
+                    today
+                </div>
 
-<span class="workshop-title" style="display: block; height: 40px; background-color: white;"></span>
+                <!-- Request a Demo Button -->
+                <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone">
+                    Request a demo
+                </a>
+        </section>
 
-
-<div style="text-align: right; margin-top: 10px;">
-    <!-- Copyright Text on its own line -->
-    <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
-        &copy; 2024 Stage One Education, LLC
-    </span>
-</div>
-
-<span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+        <span class="workshop-title" style="display: block; height: 40px; background-color: white;"></span>
 
 
+        <div style="text-align: right; margin-top: 10px;">
+            <!-- Copyright Text on its own line -->
+            <span class="workshop-title"
+                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+                &copy; 2024 Stage One Education, LLC
+            </span>
+        </div>
+
+        <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
 
 
+    </div>

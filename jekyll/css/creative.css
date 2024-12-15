@@ -789,6 +789,23 @@ header.with-background {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+inline-quote-container {
+    position: relative;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin-bottom: -20px; /* Overlapping effect */
+}
+
+.inline-quote-container::before {
+    content: '\201C'; /* Unicode for the quote symbol */
+    font-size: 10em;
+    color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -70%;
+    left: -20px;
+    z-index: -1;
+}
+
 .quote-one {
     left: 50px;
 }
@@ -969,7 +986,7 @@ header.with-background {
     margin-bottom: 20px;
     width: 300px;
     height: 475px;
-    border: 5px solid #f05f40;
+    border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: white;
     color: rgb(100, 100, 100);
@@ -1001,10 +1018,10 @@ header.with-background {
 .workshop-main-button-sm {
     display: block;
     margin: auto;
-    margin-bottom: 1px;
+    margin-bottom: 20px;
     width: 250px;
     height: 250px;
-    border: 5px solid #f05f40;
+    border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: white;
     color: rgb(100, 100, 100);
