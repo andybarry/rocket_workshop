@@ -1,27 +1,127 @@
 ---
 layout: rocket-page
-title: Onshape Tutorial - Learn Onshape with a GIF at Every Step
+title: Onshape Tutorial - Learn Onshape
 ---
 
-    {% include index-content.html %}
+<!-- Include Font Awesome 4.7 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    {% include create-a-new-document.html %}
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 
-    {% include moving-your-view-in-3d.html %}
-    
-    {% include middle-body1-content.html %}
-    
-    {% include rocket-nav.html title="" num_pages="3" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-<!--
-    <section>
-        <div class="container">
-            <div class="row">
-            </div>
-        </div>
-    </section>
--->
+  #fullscreen-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #fullscreen-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.9;
+  }
+
+  .heading {
+    z-index: 10;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    width: 85%;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    z-index: 10;
+    height: 300px;
+    border-radius: 25px;
+  }
+
+  .button-container .btn {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background-color: #f05f40;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .button-container .btn i {
+    margin-bottom: 10px;
+  }
+
+  .button-container .btn:hover {
+    background-color: #fff;
+    color: #f05f40;
+  }
+
+  @media screen and (max-width: 600px) {
+    .button-container {
+      gap: 20px;
+      height: auto;
+    }
+
+    .button-container .btn {
+      font-size: 1.2em;
+      padding: 10px 20px;
+    }
+  }
+</style>
+
+<div id="fullscreen-container">
+  <video autoplay loop muted playsinline>
+    <source src="videos/intro-video3.webm" type="video/webm">
+    <source src="videos/intro-video3.mp4" type="video/mp4">
+  </video>
+
+  <div class="heading">Select Your Experience</div>
+
+  <div class="button-container">
+    <button id="single-user-btn" class="btn">
+      <i class="fa fa-user fa-4x"></i>
+      Single User
+    </button>
+    <button id="group-user-btn" class="btn">
+      <i class="fa fa-users fa-4x"></i>
+      Group User
+    </button>
+  </div>
+</div>
+
+<script>
+  const singleUserBtn = document.getElementById('single-user-btn');
+  const groupUserBtn = document.getElementById('group-user-btn');
+
+  singleUserBtn.addEventListener('click', function() {
+    window.location.href = "single-user-index.html";
+  });
+
+  groupUserBtn.addEventListener('click', function() {
+    window.location.href = "team-user-index.html";
+  });
+</script>

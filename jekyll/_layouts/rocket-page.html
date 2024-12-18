@@ -2,7 +2,8 @@
 <html lang="en">
 
 {% assign page_filename = page.path | split:'/' | last %}
-{% assign is_teams = page_filename |split:'-' | first %}
+{% assign is_teams = page_filename | split:'-' | first %}
+
 {% if is_teams == "teams" %}
     {% assign teams_prefix = "teams-" %}
 {% else %}
@@ -10,7 +11,6 @@
 {% endif %}
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,8 +25,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
@@ -35,14 +37,48 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <style>
+      /* Initially hide the navigation buttons */
+      .nav-button-stageone {
+        display: none;
+      }
+
+      /* Full screen center content */
+      .full-screen-center {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+
+    <!-- If we are on single-user-index.html or team-user-index.html, show nav buttons -->
+    {% if page.url contains 'single-user-index.html' or page.url contains 'team-user-index.html' %}
+    <style>
+      .nav-button-stageone {
+        display: inline-block !important;
+      }
+    </style>
+    {% endif %}
+
+    <!-- Explicitly hide nav buttons on index.html, even though it's default -->
+    {% if page_filename == "index.html" %}
+    <style>
+      .nav-button-stageone {
+        display: none !important;
+      }
+    </style>
+    {% endif %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
     <script src="video_play_at_scroll.js"></script>
-    
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -55,73 +91,89 @@
 </head>
 
 <body id="page-top">
-
-
-
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <!-- Navigation bar always visible, but nav buttons hidden initially -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #f05f40;">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar" style="background-color: white;"></span>
+                    <span class="icon-bar" style="background-color: white;"></span>
+                    <span class="icon-bar" style="background-color: white;"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com">Stage One Education</a>
             </div>
+            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-top: 5px;">
+                <div style="display: flex; flex-direction: row; align-items: center; width: 100%; height: 45px;">
+                    <!-- Left side: Logo and text -->
+                    <div style="display: flex; flex-direction: row; align-items: center; margin-left: 100px;">
+                        <a href="index.html" style="display:flex; align-items:center;">
+                            <img src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
+                                 style="width: 200px; height: auto; margin-right:0;">
+                        </a>
+                        <div style="display: flex; flex-direction: column; color: white; font-weight: bold; 
+                                    border-left: 2px solid white; border-bottom: 3px solid #f05f40; 
+                                    padding-left: 0; margin-left: 10px;
+                                    line-height: 1; height: 45px; justify-content: center;">
+                            <span style="font-size:18px; font-family:'Roboto', sans-serif; margin-left: 10px; line-height:1;">
+                                MECHANICAL ENGINEERING
+                            </span>
+                            <span style="font-size:18px; font-family:'Roboto', sans-serif; margin-left: 10px; line-height:1;">
+                                WORKSHOP
+                            </span>
+                        </div>
+                    </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-{% if is_teams == "teams" %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}index.html">Getting Started</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}middle-body1.html">1. Fuselage</a>
-                    </li>
-{% else %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}index.html">1. Fuselage</a>
-                    </li>
-{% endif %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}lower-body1.html">2. Fins+Booster</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}nosecone1.html">3. Nosecone</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}assembly1.html">4. Assembly</a>
-                    </li>
-                    <li>
-                        <!--<a href="https://forms.gle/xAWeRawRYUDi26rbA" target="_blank">Give Feedback</a>-->
-                        <a href="mailto:workshops@stageoneeducation.com">Contact Us</a>
-                    </li>
-                </ul>
+                    <!-- Right side: Navigation buttons (shown only on single-user-index and team-user-index) -->
+                    <ul class="nav navbar-nav" style="margin:0; margin-left:20px; display:flex; align-items:center;">
+                        {% if is_teams == "teams" %}
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}index.html">Getting Started</a>
+                        </li>
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}middle-body1.html">PART: Fuselage</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}index.html">Getting Started</a>
+                        </li>
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}index.html">PART: Fuselage</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}lower-body1.html">PART: Fins+Booster</a>
+                        </li>
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}nosecone1.html">PART: Nosecone</a>
+                        </li>
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}assembly1.html">Assembly</a>
+                        </li>
+                        <li>
+                            <a class="nav-button-stageone" href="{{ teams_prefix }}assembly1.html">3D Printing</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
-      
-{{ content }}
+    
+    <!-- Main content area: center all page content -->
+    <div class="full-screen-center">
+        {{ content }}
+    </div>
     
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/jquery.fittext.js"></script>
     <script src="js/wow.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
-
 </body>
-
 </html>

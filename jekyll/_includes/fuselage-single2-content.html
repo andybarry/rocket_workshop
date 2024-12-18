@@ -1,0 +1,389 @@
+<header class="not-full-page">
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h2>Add the lower body connection</h2>
+            <hr class="long text-left" />
+            <p><em>in which we use <strong>section view</strong> to great effect</em></p>
+            <!--
+            <video autoplay loop src="videos/middle-body/middle_body_page2_fast.webm" height="480"/>
+            <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+            -->
+        </div>
+    </div>
+</header>
+
+<!-- Toggle Switch for Images -->
+<div style="margin: 20px;">
+  <label for="toggleImage">
+    <input type="checkbox" id="toggleImage" onclick="toggleImages()" />
+    Show Part Drawing
+  </label>
+</div>
+
+<script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-716077034/Gb8hCKikh6gBEOrvudUC',
+          'transaction_id': '',
+          'event_callback': callback
+      });
+      return false;
+    }
+
+    function gtag_class_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-716077034/gD7mCInOxqgBEOrvudUC',
+          'transaction_id': '',
+          'event_callback': callback
+      });
+      return false;
+    }
+
+    function payment() {
+        gtag('event', 'click', {
+          'event_category': 'purchase',
+          'event_label': 'rocket_tutorial_495',
+          'event_value': '1'
+        });
+
+        gtag_report_conversion()
+        document.getElementById('main_page').setAttribute('style', 'display: inline')
+        document.getElementById('payment').setAttribute('style', 'display: none')
+        document.getElementById('payment_complete').setAttribute('style', 'display: inline')
+    }
+
+    function payment_class() {
+        gtag('event', 'click', {
+          'event_category': 'purchase',
+          'event_label': 'rocket_tutorial_class',
+          'event_value': '1'
+        });
+
+        gtag_class_report_conversion()
+        document.getElementById('main_page').setAttribute('style', 'display: inline')
+        document.getElementById('payment').setAttribute('style', 'display: none')
+        document.getElementById('payment_complete').setAttribute('style', 'display: inline')
+    }
+
+    function toggleImages() {
+        var images = document.querySelectorAll('.toggle-image');
+        var show = document.getElementById('toggleImage').checked;
+        images.forEach(function(img) {
+            img.style.display = show ? 'inline-block' : 'none';
+        });
+    }
+</script>
+
+<section class="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+
+{% include section.html param="top" %}
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:400px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
+{% include tutorial-video.html path="videos/middle-body/create_sketch_top_plane" %}
+<ul>
+    <li>Select the sketch tool <img src="img/tutorial/sketch.png" /></li>
+    <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
+    <ul><li><img src="img/tutorial/top_features.png" /> <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i> </span><img src="img/tutorial/top_plane_sketch_box.png" /></li></ul>
+    <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+    <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+    <li>Make sure you have selected the <strong>Top</strong> plane. In the sketch overlay window, you should see "Top Plane" under <em>sketch plane</em></li>
+</ul>
+
+{% include section.html %}
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Draw the outer body circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_outer_circle2" %}
+<ul>
+    <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+    <ul class="help-button">
+        <li><a class="btn help-button" data-toggle="collapse" data-target="#no_circle">Can't find it? &raquo;</a></li>
+        <ul class="collapse" id="no_circle">
+            <li>Your screen may be too narrow hiding the tool from view</li>
+            <ul><li>Check under the dropdown menu by the line tool</li></ul>
+            <li>You might have exited your sketch</li>
+            <ul><li>Double-click on "Sketch 1" <img src="img/tutorial/sketch_1.png" /> to re-enter the sketch.</li></ul>
+        </ul>
+        <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_c">Want a shortcut? &raquo;</a></li>
+        <li class="collapse" id="kb_shortcut_c">CAD software is <i>much</i> easier and faster to use with keyboard shortcuts.
+        <ul><li>Onshape shortcuts are labeled in the menus (and intuitive). Press <code>c</code> to bring up the circle tool.</li></ul></li>
+    </ul>
+    <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
+</ul>
+
+
+{% include section.html %}
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Dimension the outer body circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_outer_circle_dimension" %}
+<ul>
+    <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_d">Consider this essential shortcut &raquo;</a></li>
+        <li class="collapse" id="kb_shortcut_d">
+            <ul><li>The dimension tool is activated by pressing <code>d</code> on the keyboard. You will use this <em>a lot</em>.</li>
+        </li></ul>
+    <li>Click on your circle and set its diameter to <strong>0.781 in</strong></li>
+    <li>Press <strong>Enter</strong> to exit the dimensioning box</li>
+</ul>
+
+
+{% include section.html %}
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Draw the inner circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_inner_circle" %}
+<ul>
+    <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+    <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
+    <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+    <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.031 in</strong></li>
+</ul>
+
+
+{% include section.html %}
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Extrude the body</h3>
+{% include tutorial-video.html path="videos/middle-body/extrude_body" %}
+<ul>
+    <!--<li>Exit the sketch by clicking the green check <img src="img/tutorial/green_check.png" /></li>-->
+    <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ee">Feature shortcuts &raquo;</a></li>
+        <li class="collapse" id="kb_shortcut_ee">
+            <ul><li>Outside of a sketch, the keyboard shortcuts are usually <code>shift + [letter]</code>. Extrude can be activated by pressing <code>shift + e</code>.</li></ul>
+        </li>
+    <!--<li>Select "Sketch 1" <img src="img/tutorial/sketch_1.png" /> from the left pane </li>-->
+    <li>Verify that "Sketch 1" <img src="img/tutorial/sketch_1.png" /> is selected</li>
+    <li>Set the <em>Depth</em> to <strong>3.0 in</strong></li>
+    <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+</ul>
+
+
+
+<img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+<h3 class="section-heading">{% include step_counter.html %} Change view to look at the bottom of the fuselage</h3>
+<ul>
+    <li>Hold the <strong>right mouse button</strong> to look at the bottom of the rocket</li>
+    <li>Zoom in using the <strong>mouse wheel</strong> to get close to the bottom face</li>
+</ul>
+{% include tutorial-video.html path="videos/middle-body/look_at_bottom_of_extrude1" %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+<section id="payment">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h3 class="section-heading"><strong>Keep going for $4.95</strong></h3>
+                <p>
+                    <br />
+                <button type="button" class="btn btn-primary purchase_button" onclick="payment()">Purchase lifetime access</button> <button type="button" class="btn btn-primary purchase_button" onclick="payment_class()">Purchase class/group license ($34.95)</button>
+                </p>
+                <ul>
+                    <li>Your purchase includes a personal link</li>
+                    <li>You are welcome to share your link with a friend or two, but we ask that you don't post it publicly.</li>
+                    <li>If you're unhappy for any reason, just shoot us an email and we'll refund your purchase</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="payment_complete" style="display: none">
+
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h3 class="section-heading"><strong>Good news!  We're in a testing phase right now, so the tutorial is currently free!</strong></h3>
+                <ul>
+                    <li>Keep going!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr />
+</section>
+
+<section id="main_page" style="display: none">
+-->
+
+<section>
+    <div class="container">
+        <div class="row">
+            <table>
+                <tr><td>
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Start a sketch on the lower stage connection tube</h3>
+                <ul>
+                    <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ss">Keyboard shortcut &raquo;</a></li>
+                        <li class="collapse" id="kb_shortcut_ss">
+                            <ul><li>To enter a new sketch, press <code>shift + s</code>.</li></ul>
+                        </li>
+                    <li>Click the <strong>bottom face</strong> of your tube to start sketching on that face</li>
+                    <ul><li>Right click and select <em>View normal to sketch plane</em> to line up your view</li></ul>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_n">Another keyboard shortcut &raquo;</a></li>
+                        <li class="collapse" id="kb_shortcut_n">
+                            <ul><li>Pressing <code>n</code> reorients the view to normal</li>
+                            <li>You can use this frequently after tilting and panning to reset.</li></ul>
+                        </li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#upside_down1">Is it upside down? &raquo;</a></li>
+                        <li class="collapse" id="upside_down1">
+                            <ul><li>Click on the word "Bottom" on the rotation cube to turn it right-side-up.</li>
+                            <li><img src="img/tutorial/view_cube_bottom.png" /></ul>
+                        </li>
+                </ul>
+                </td></tr>
+                <tr><td>{% include tutorial-video.html path="videos/middle-body/start_connector_tube_sketch" %}</td></tr></table>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
+                <ul>
+                    <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#cant_find_use">Can't find it? &raquo;</a></li>
+                    <li class="collapse" id="cant_find_use">
+                        <ol>
+                            <li>Try the <em>Search tools</em> feature, type <strong>"Use"</strong> into the box. <img src="img/tutorial/search_tools.png" /></li>
+                            <li>You might have exited your sketch.  Do you see a box that says "Sketch 2" and has a green check?</li>
+                            <ul><li><img src="img/tutorial/sketch2_box.png" /></li>
+                            <li>If not, double click on Sketch 2 <img src="img/tutorial/sketch_2.png" /> to reenter your sketch </li></ul>
+                        </ol>
+                        <br />
+                    </li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_u">Keyboard shortcut &raquo;</a></li>
+                        <li class="collapse" id="kb_shortcut_u">
+                            <ul><li>Press <code>u</code> for the Use tool (lowercase, no 'shift', since we're back in a sketch).</li></ul>
+                        </li>
+                    <li>Click on the <em>inner</em> circle</li>
+                    <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
+                </ul>
+                {% include tutorial-video.html path="videos/middle-body/finish_connector_tube_sketch_1" %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
+                <ul>
+                    <li>Draw a smaller circle centered at the origin</li>
+                    <li>Dimension <strong>between</strong> the <strong>inner circle</strong> and the circle from the <strong>step above</strong> as <strong>0.032</strong></li>
+                </ul>
+                {% include tutorial-video.html path="videos/middle-body/finish_connector_tube_sketch_2" %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Extrude the body connector</h3>
+                <em>So we can make a firm connection to the fins+booster section.</em>
+                <ul>
+                    <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                    <li>Verify that "Sketch 2" is selected <img src="img/tutorial/sketch_2.png" /></li>
+                    <li>Click on <strong>Add</strong> to add to your part instead of creating a new part <img src="img/tutorial/add.png" /></li>
+                    <li>Set the <em>Depth</em> to <strong>0.5 in</strong></li>
+                    <li>Check <em>Second end position</em></li>
+                    <li>Set the second <em>Depth</em> to <strong>0.25 in</strong></li>
+                    <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#no_circle">Didn't work? Part ended up different color? &raquo;</a></li>
+                    <ul class="collapse" id="no_circle">
+                        <li>Make sure you have the following set:</li>
+                        <ul>
+                            <li>Solid</li>
+                            <li>Add</li>
+                            <li>Sketch 2</li>
+                            <li>Merge scope: Part 1</li>
+                            <img src="img/tutorial/extrude_help.png" />
+                        </ul>
+                    </ul>
+                </ul>
+                {% include tutorial-video.html path="videos/middle-body/extrude_body_connector" %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Turn on section view</h3>
+                <ul>
+                    <li>We want to see inside the tube, so we'll have our view cut away part of the tube.  This <strong>does not change the part</strong>, just how we look at it</li>
+                    <li>Select the view menu <img src="img/tutorial/view_menu.png" /></li>
+                    <li>Select "Section view..."</li>
+                    <ul><li><img src="img/tutorial/section_view.png" /></li></ul>
+                    <li>Click on the <em>Right</em> plane <img src="img/tutorial/right_plane.png" /></li>
+                    <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                </ul>
+                {% include tutorial-video.html path="videos/middle-body/section_view" %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <img class="toggle-image" src="img/tutorial/fuselage-drawing-2.png" style="width:500px;height:500px;display:none;border:2px solid #f05f40;margin:200px 0;" alt="PDF Image" />
+                <h3 class="section-heading">{% include step_counter.html %} Fillet the body connector ring</h3>
+                <ul>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">What is a fillet? &raquo;</a></li>
+                    <ul class="collapse" id="fillet-definition">
+                        <li><a href="https://en.wikipedia.org/wiki/Fillet_(mechanics)">Fillet</a>: &ldquo;a rounding of an interior or exterior corner of a part design.&rdquo;</li>
+                        <li>We use fillets to round-out edges, which is especially useful when 3D printing.</li>
+                    </ul>
+                    <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
+                    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ff">Keyboard shortcut &raquo;</a></li>
+                        <li class="collapse" id="kb_shortcut_ff">Since a fillet is a feature, not an element of a sketch, we press 'shift' + 'f'.</li>
+                    
+                    <li>Click on the outside ring of the ledge</li>
+                    <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                </ul>
+                {% include tutorial-video.html path="videos/middle-body/fillet_outer_ring" %}
+                <br /><br />
+                {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--
+</section>
+-->
