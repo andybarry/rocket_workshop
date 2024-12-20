@@ -1,4 +1,37 @@
-<video autoplay loop muted playsinline class="tutorial-video">
-                        <source src="{{ include.path }}.webm" type="video/webm">
-                        <source src="{{ include.path }}.mp4" type="video/mp4">
-                    </video>
+<div class="video-container">
+    <video 
+      autoplay 
+      loop 
+      muted 
+      playsinline
+      class="tutorial-video"
+      onmouseover="this.pause()" 
+      onmouseout="this.play()"
+      ontimeupdate="updateProgressBar(this)">
+      <source src="{{ include.path }}.webm" type="video/webm">
+      <source src="{{ include.path }}.mp4" type="video/mp4">
+    </video>
+  
+    <!-- Icons container -->
+    <div class="control-icons">
+      <div class="play-icon"></div>
+      <div class="pause-icon"></div>
+    </div>
+  
+    <div class="progress-bar-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+  
+  <script>
+  function updateProgressBar(video) {
+    const progressBar = video.parentElement.querySelector('.progress-bar');
+    const duration = video.duration;
+    const currentTime = video.currentTime;
+    
+    if (!isNaN(duration) && duration > 0) {
+      const percentage = (currentTime / duration) * 100;
+      progressBar.style.width = percentage + '%';
+    }
+  }
+  </script>

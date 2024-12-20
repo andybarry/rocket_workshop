@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fuselage Tutorial Example</title>
+
+  <!-- SIMPLE TOGGLE SWITCH STYLING -->
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #f05f40;
+    }
+    input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="not-full-page">
+  <div class="header-content" 
+       style="display:flex; 
+              justify-content:center; 
+              align-items:center; 
+              margin-left:-250px;">
+    <div class="header-content-inner" 
+         style="display:flex; 
+                align-items:center; 
+                justify-content:center; 
+                text-align:right;">
+      <!-- Text on the left -->
+      <div>
+        <h2 style="margin-bottom:10px;">FUSELAGE</h2>
+        <p style="margin-right:0;">
+          <em>The rocket’s body, connecting all other parts and housing the parachute attachment.</em>
+        </p>
+      </div>
+      <!-- Vertical line and image -->
+      <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+      <img 
+          src="img/tutorial/fuselage-iso.png" 
+          alt="fuselage-iso" 
+          style="width:150px; height:auto;"
+      >
+    </div>
+  </div>
+</header>
+
+<!-- Google Analytics / Conversion Tracking Script, etc. -->
+<script>
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-716077034/Gb8hCKikh6gBEOrvudUC',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
+
+  function gtag_class_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-716077034/gD7mCInOxqgBEOrvudUC',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
+
+  function payment() {
+    gtag('event', 'click', {
+      'event_category': 'purchase',
+      'event_label': 'rocket_tutorial_495',
+      'event_value': '1'
+    });
+
+    gtag_report_conversion();
+    document.getElementById('main_page').setAttribute('style', 'display: inline');
+    document.getElementById('payment').setAttribute('style', 'display: none');
+    document.getElementById('payment_complete').setAttribute('style', 'display: inline');
+  }
+
+  function payment_class() {
+    gtag('event', 'click', {
+      'event_category': 'purchase',
+      'event_label': 'rocket_tutorial_class',
+      'event_value': '1'
+    });
+
+    gtag_class_report_conversion();
+    document.getElementById('main_page').setAttribute('style', 'display: inline');
+    document.getElementById('payment').setAttribute('style', 'display: none');
+    document.getElementById('payment_complete').setAttribute('style', 'display: inline');
+  }
+</script>
+
+<section class="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+        
+        <!-- 1) Your rocket-nav.html include (if relevant in your environment) -->
+        {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+
+        <!-- ========== ADVANCED LEARNING MODE BOX ========== -->
+        <div id="advanced-learning-toggle" style="border: 2px solid #f05f40; padding: 10px; margin-bottom: 20px;">
+          <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
+            Advanced learning mode:
+          </label>
+          <!-- Toggle switch -->
+          <label class="switch">
+            <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode()" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <!-- End of toggle -->
+
+        <!-- EXAMPLE HEADING #1 -->
+        <h3 class="section-heading">
+          {% include step_counter.html %} Change view to look at the bottom of the fuselage
+        </h3>
+        <ul>
+          <li>Hold the <strong>right mouse button</strong> to look at the bottom of the rocket</li>
+          <li>Zoom in using the <strong>mouse wheel</strong> to get close to the bottom face</li>
+        </ul>
+        {% include tutorial-video.html path="videos/middle-body/look_at_bottom_of_extrude1" %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include section.html param="top" %}
+<h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
+{% include tutorial-video.html path="videos/middle-body/create_sketch_top_plane" %}
+<ul>
+  <li>Select the sketch tool <img src="img/tutorial/sketch.png" /></li>
+  <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
+  <ul><li><img src="img/tutorial/top_features.png" /> <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i> </span><img src="img/tutorial/top_plane_sketch_box.png" /></li></ul>
+  <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+  <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+  <li>Make sure you have selected the <strong>Top</strong> plane. In the sketch overlay window, you should see "Top Plane" under <em>sketch plane</em></li>
+</ul>
+
+{% include section.html %}
+<h3 class="section-heading">{% include step_counter.html %} Draw the outer body circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_outer_circle2" %}
+<ul>
+  <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+  <ul class="help-button">
+    <li><a class="btn help-button" data-toggle="collapse" data-target="#no_circle">Can't find it? &raquo;</a></li>
+    <ul class="collapse" id="no_circle">
+      <li>Your screen may be too narrow hiding the tool from view</li>
+      <ul><li>Check under the dropdown menu by the line tool</li></ul>
+      <li>You might have exited your sketch</li>
+      <ul><li>Double-click on "Sketch 1" <img src="img/tutorial/sketch_1.png" /> to re-enter the sketch.</li></ul>
+    </ul>
+    <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_c">Want a shortcut? &raquo;</a></li>
+    <li class="collapse" id="kb_shortcut_c">CAD software is <i>much</i> easier and faster to use with keyboard shortcuts.
+      <ul><li>Onshape shortcuts are labeled in the menus (and intuitive). Press <code>c</code> to bring up the circle tool.</li></ul>
+    </li>
+  </ul>
+  <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
+</ul>
+
+{% include section.html %}
+<h3 class="section-heading">{% include step_counter.html %} Dimension the outer body circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_outer_circle_dimension" %}
+<ul>
+  <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+  <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_d">Consider this essential shortcut &raquo;</a></li>
+    <li class="collapse" id="kb_shortcut_d">
+      <ul><li>The dimension tool is activated by pressing <code>d</code> on the keyboard.</li></ul>
+    </li>
+  <li>Click on your circle and set its diameter to <strong>0.781 in</strong></li>
+  <li>Press <strong>Enter</strong> to exit the dimensioning box</li>
+</ul>
+
+{% include section.html %}
+<h3 class="section-heading">{% include step_counter.html %} Draw the inner circle</h3>
+{% include tutorial-video.html path="videos/middle-body/draw_inner_circle" %}
+<ul>
+  <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+  <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
+  <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+  <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.031 in</strong></li>
+</ul>
+
+{% include section.html %}
+<h3 class="section-heading">{% include step_counter.html %} Extrude the body</h3>
+{% include tutorial-video.html path="videos/middle-body/extrude_body" %}
+<ul>
+  <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+  <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ee">Feature shortcuts &raquo;</a></li>
+    <li class="collapse" id="kb_shortcut_ee">
+      <ul><li>Outside of a sketch, the keyboard shortcuts are usually <code>shift + [letter]</code>. For example, <code>shift + e</code> for extrude.</li></ul>
+    </li>
+  <li>Verify that "Sketch 1" <img src="img/tutorial/sketch_1.png" /> is selected</li>
+  <li>Set the <em>Depth</em> to <strong>3.0 in</strong></li>
+  <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+</ul>
+
+<!-- Additional sections, includes, etc. omitted for brevity... -->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+        <h3 class="section-heading">{% include step_counter.html %} Fillet the body connector ring</h3>
+        <ul>
+          <li><a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">What is a fillet? &raquo;</a></li>
+          <ul class="collapse" id="fillet-definition">
+            <li><a href="https://en.wikipedia.org/wiki/Fillet_(mechanics)">Fillet</a>: &ldquo;a rounding of an interior or exterior corner.&rdquo;</li>
+            <li>We use fillets to round-out edges, which is especially useful when 3D printing.</li>
+          </ul>
+          <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
+          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ff">Keyboard shortcut &raquo;</a></li>
+            <li class="collapse" id="kb_shortcut_ff">
+              Since a fillet is a feature, not a sketch element, we press <code>shift + f</code>.
+            </li>
+          <li>Click on the outside ring of the ledge</li>
+          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+        </ul>
+        {% include tutorial-video.html path="videos/middle-body/fillet_outer_ring" %}
+        <br /><br />
+        {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADVANCED MODE SCRIPT (USING <object> FOR PDF) =============== -->
+<script>
+  function toggleAdvancedMode() {
+    const checkbox = document.getElementById('advancedModeSwitch');
+    const isChecked = checkbox.checked;
+    
+    // Grab all H3 elements on the page
+    const allH3s = document.querySelectorAll('h3');
+
+    if (isChecked) {
+      allH3s.forEach((h3) => {
+        // Avoid double-inserting
+        let existingObj = h3.querySelector('.advanced-learning-pdf');
+        if (!existingObj) {
+          // Create an <object> to embed the PDF
+          const obj = document.createElement('object');
+          obj.data = "img/tutorial/fuselage-drawing-1.pdf";  // Path to your PDF
+          obj.type = "application/pdf";
+          obj.width = "400";   // Adjust as needed
+          obj.height = "300";  // Adjust as needed
+          obj.classList.add('advanced-learning-pdf');
+          obj.style.display = 'block';
+          obj.style.margin = '10px auto';
+
+          // Insert the <object> BEFORE the text inside the H3
+          h3.insertBefore(obj, h3.firstChild);
+        }
+      });
+    } else {
+      // Remove all embedded PDFs
+      allH3s.forEach((h3) => {
+        const existingObj = h3.querySelector('.advanced-learning-pdf');
+        if (existingObj) {
+          h3.removeChild(existingObj);
+        }
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

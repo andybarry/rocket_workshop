@@ -635,3 +635,65 @@ ul.help-button {
 .navbar-default .navbar-nav > li > a.heading-hover.always-hovered {
     color: #f05f40 !important;
 }
+
+
+
+
+
+.video-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px; /* 5px vertical margin under each video */
+  }
+  
+  .progress-bar-container {
+    position: absolute;
+    bottom: -3;
+    left: 15px;            /* start 10px from the left */
+    width: calc(100% - 15px); /* adjust width accordingly */
+    height: 2px;
+    background: transparent;
+  }
+  
+  
+  .progress-bar {
+    background:  #a1a1a1; /* Bar color */
+    height: 100%;
+    width: 0;
+    transition: width 0.25s linear; /* Smoother transition */
+  }
+  
+  /* Icons container at bottom right */
+  .control-icons {
+    position: absolute;
+    bottom: -13px;
+    left: 1px;
+    pointer-events: none; /* icons shouldn't interfere with hovering */
+  }
+  
+  .play-icon, .pause-icon {
+    display: none;
+    color: #a1a1a1;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    line-height: 1;
+  }
+  
+  /* Play symbol: shown by default when not hovered (video playing) */
+  .play-icon:before {
+    content: "▶";
+  }
+  .video-container:not(:hover) .play-icon {
+    display: inline-block;
+  }
+  
+  /* Pause symbol: shown on hover (video paused) */
+  .pause-icon:before {
+    content: "||";
+  }
+  .video-container:hover .pause-icon {
+    display: inline-block;
+  }
+  .video-container:hover .play-icon {
+    display: none;
+  }

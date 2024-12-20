@@ -34,9 +34,20 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
-    
+
     <!-- Additional custom styling -->
     <style>
+      /* Navbar transition styling */
+      #mainNav {
+        background-color: transparent;
+        transition: background-color 0.3s ease;
+        border-bottom: none;
+      }
+      #mainNav.scrolled {
+        background-color: #fff;
+        border-bottom: 1px solid #d5d5d5;
+      }
+
       /* Default hover styling */
       .heading-hover {
         color: gray;
@@ -69,7 +80,7 @@
 
 <body id="page-top">
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #fff; border-bottom: 1px solid #d5d5d5;">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -92,7 +103,12 @@
                  <div style="width:2px; background-color:#f05f40; margin-left:10px; margin-right:10px; height:35px;"></div>
              
                  <!-- Text -->
-                 <span style="font-size:14px; ">Mechanical Engineering <br/> Workshop</span>
+                {% if page_filename == "portal.html" %}
+                <span style="font-size:30px;">Mechanical Engineering Workshop</span>
+                {% else %}
+                <span style="font-size:14px;">Mechanical Engineering <br/> Workshop</span>
+                {% endif %}
+
                 </a>
             </div>
 
@@ -126,9 +142,6 @@
     <script src="js/jquery.fittext.js"></script>
     <script src="js/wow.min.js"></script>
 
-    <!-- Removed creative.js -->
-    <!-- <script src="js/creative.js"></script> -->
-    
     <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -138,6 +151,16 @@
           if (link) {
             link.classList.add('always-hovered');
           }
+        }
+      });
+
+      // Add scroll event to change navbar background
+      window.addEventListener('scroll', function() {
+        var navbar = document.getElementById('mainNav');
+        if (window.scrollY > 200) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
         }
       });
     </script>
