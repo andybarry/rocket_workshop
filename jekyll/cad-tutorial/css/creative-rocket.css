@@ -90,7 +90,7 @@ aside {
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    background-color: #fff;
+    background-color: #ffffff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -571,3 +571,67 @@ ul.help-button {
     margin-top: -5px;
 }
 
+
+
+.button-container {
+    display: inline-flex;
+    gap: 50px; /* 50px horizontal space between the two buttons */
+    margin-top: 20px; /* Optional spacing below the hr */
+}
+
+.custom-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid #f05f40;
+    height: 200px;
+    width: 200px; /* Adjust as needed */
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.custom-button i {
+    font-size: 40px; /* Adjust icon size as needed */
+    margin-bottom: 10px; /* Space between icon and text */
+    color: #f05f40;
+}
+
+.custom-button span {
+    color: #f05f40;
+    font-size: 20px; /* Adjust as needed */
+}
+
+.custom-button:hover {
+    background-color: #f05f40;
+    color: #fff;
+}
+
+.custom-button:hover i {
+    color: #fff;
+}
+
+.custom-button:hover span {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a.heading-hover {
+    color: #777 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-default .navbar-nav > li > a.heading-hover:hover {
+    color: #f05f40 !important;
+}
+
+/* Add this at the end of your CSS */
+.navbar-default .navbar-nav > li > a.heading-hover.always-hovered {
+    color: #f05f40 !important;
+}

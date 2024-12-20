@@ -2,7 +2,7 @@
 <html lang="en">
 
 {% assign page_filename = page.path | split:'/' | last %}
-{% assign is_teams = page_filename |split:'-' | first %}
+{% assign is_teams = page_filename | split:'-' | first %}
 {% if is_teams == "teams" %}
     {% assign teams_prefix = "teams-" %}
 {% else %}
@@ -34,21 +34,34 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="video_play_at_scroll.js"></script>
     
+    <!-- Additional custom styling -->
+    <style>
+      /* Default hover styling */
+      .heading-hover {
+        color: gray;
+        transition: color 0.3s ease;
+        text-decoration: none;
+      }
+      .heading-hover:hover {
+        color: #f05f40;
+      }
+      
+      /* Special class to make the link appear hovered permanently */
+      .always-hovered {
+        color: #f05f40 !important;
+      }
+    </style>
+
+    <!-- Removed scripts that control scrolling behavior -->
+    <!-- <script src="video_play_at_scroll.js"></script> -->
+    <!-- <script src="js/creative.js"></script> -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-86650838-1');
       gtag('config', 'AW-716077034');
     </script>
@@ -56,57 +69,51 @@
 
 <body id="page-top">
 
-
-
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #fff; border-bottom: 1px solid #d5d5d5;">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+                        data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com">Stage One Education</a>
+                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com" 
+                   style="display:flex; align-items:center;">
+                
+                 <!-- Logo Image -->
+                 <img src="img/tutorial/logo-nobg-orange.svg" 
+                      alt="Stage One Education" 
+                      style="height:100px; width:auto; margin-top:8px;">
+             
+                 <!-- Vertical Line -->
+                 <div style="width:2px; background-color:#f05f40; margin-left:10px; margin-right:10px; height:35px;"></div>
+             
+                 <!-- Text -->
+                 <span style="font-size:14px; ">Mechanical Engineering <br/> Workshop</span>
+                </a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- Navigation links always visible except on portal.html -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                {% if page_filename != "portal.html" %}
                 <ul class="nav navbar-nav navbar-right">
-{% if is_teams == "teams" %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}index.html">Getting Started</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}middle-body1.html">1. Fuselage</a>
-                    </li>
-{% else %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}index.html">1. Fuselage</a>
-                    </li>
-{% endif %}
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}lower-body1.html">2. Fins+Booster</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}nosecone1.html">3. Nosecone</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{{ teams_prefix }}assembly1.html">4. Assembly</a>
-                    </li>
-                    <li>
-                        <!--<a href="https://forms.gle/xAWeRawRYUDi26rbA" target="_blank">Give Feedback</a>-->
-                        <a href="mailto:workshops@stageoneeducation.com">Contact Us</a>
-                    </li>
+                    <li><a id="getting-started-link" class="heading-hover" href="{{ teams_prefix }}index-single.html">Getting Started</a></li>
+                    <li><a class="heading-hover" href="{{ teams_prefix }}middle-body1.html">Fuselage</a></li>
+                    <li><a class="heading-hover" href="{{ teams_prefix }}lower-body1.html">Fins+Booster</a></li>
+                    <li><a class="heading-hover" href="{{ teams_prefix }}nosecone1.html">Nosecone</a></li>
+                    <li><a class="heading-hover" href="{{ teams_prefix }}assembly1.html">Assembly</a></li>
                 </ul>
+                {% endif %}
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
       
-{{ content }}
+    {{ content }}
     
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -119,9 +126,21 @@
     <script src="js/jquery.fittext.js"></script>
     <script src="js/wow.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
+    <!-- Removed creative.js -->
+    <!-- <script src="js/creative.js"></script> -->
+    
+    <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if the URL includes 'cad-tutorial/index-single.html'
+        if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1) {
+          var link = document.getElementById('getting-started-link');
+          if (link) {
+            link.classList.add('always-hovered');
+          }
+        }
+      });
+    </script>
 
 </body>
-
 </html>
