@@ -25,8 +25,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
@@ -62,6 +64,11 @@
       .always-hovered {
         color: #f05f40 !important;
       }
+      
+      /* Override any text-transform that might be forcing uppercase globally */
+      .navbar-brand, .navbar-brand * {
+        text-transform: none !important;
+      }
     </style>
 
     <!-- Removed scripts that control scrolling behavior -->
@@ -91,24 +98,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com" 
-                   style="display:flex; align-items:center;">
                 
-                 <!-- Logo Image -->
-                 <img src="img/tutorial/logo-nobg-orange.svg" 
-                      alt="Stage One Education" 
-                      style="height:100px; width:auto; margin-top:8px;">
-             
-                 <!-- Vertical Line -->
-                 <div style="width:2px; background-color:#f05f40; margin-left:10px; margin-right:10px; height:35px;"></div>
-             
-                 <!-- Text -->
-                {% if page_filename == "portal.html" %}
-                <span style="font-size:30px;">Mechanical Engineering Workshop</span>
-                {% else %}
-                <span style="font-size:14px;">Mechanical Engineering <br/> Workshop</span>
-                {% endif %}
-
+                <!-- Ensures no forced uppercase -->
+                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com" 
+                   style="display:flex; align-items:center; text-transform:none; ">
+                   
+                   {% if page_filename == "portal.html" %}
+                     <!-- Larger text on the portal page (logo removed) -->
+                     <span style="font-size:20px;">
+                       <strong style="text-transform:uppercase; ">STAGE ONE EDUCATION</strong>
+                       <span style="text-transform:none; font-weight:normal; color: #777;">
+                         Mechanical Engineering Workshop
+                       </span>
+                     </span>
+                   {% else %}
+                     <!-- All other pages: text only, no logo -->
+                     <span style="font-size:15px;">
+                       <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+                       <span style="text-transform:none; font-weight:normal; color: #777;">
+                         Mechanical Engineering Workshop
+                       </span>
+                     </span>
+                   {% endif %}
                 </a>
             </div>
 
@@ -117,7 +128,8 @@
                 {% if page_filename != "portal.html" %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a id="getting-started-link" class="heading-hover" href="{{ teams_prefix }}index-single.html">Getting Started</a></li>
-                    <li><a class="heading-hover" href="{{ teams_prefix }}middle-body1.html">Fuselage</a></li>
+                    <!-- ADDED ID FOR FUSELAGE LINK -->
+                    <li><a id="fuselage-link" class="heading-hover" href="{{ teams_prefix }}fuselage-single2.html">Fuselage</a></li>
                     <li><a class="heading-hover" href="{{ teams_prefix }}lower-body1.html">Fins+Booster</a></li>
                     <li><a class="heading-hover" href="{{ teams_prefix }}nosecone1.html">Nosecone</a></li>
                     <li><a class="heading-hover" href="{{ teams_prefix }}assembly1.html">Assembly</a></li>
@@ -145,11 +157,19 @@
     <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Check if the URL includes 'cad-tutorial/index-single.html'
+        // If on index-single.html, highlight "Getting Started"
         if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1) {
           var link = document.getElementById('getting-started-link');
           if (link) {
             link.classList.add('always-hovered');
+          }
+        }
+
+        // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
+        if (window.location.href.indexOf('fuselage-single2.html') !== -1) {
+          var fuselageLink = document.getElementById('fuselage-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
           }
         }
       });
