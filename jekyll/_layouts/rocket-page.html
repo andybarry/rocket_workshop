@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 {% assign page_filename = page.path | split:'/' | last %}
@@ -127,6 +127,39 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 {% if page_filename != "portal.html" %}
                 <ul class="nav navbar-nav navbar-right">
+
+                    <!-- ADDED ICON FOR index-team.html -->
+                    {% if page_filename == "index-team.html" %}
+                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+                      </li>
+                    {% endif %}
+
+                    <!-- ADDED ICON FOR index-team.html -->
+                    {% if page_filename == "fuselage-team2.html" %}
+                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+                      </li>
+                    {% endif %}
+
+                    <!-- ADDED ICON FOR index-team.html -->
+                    {% if page_filename == "fuselage-team1.html" %}
+                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+                      </li>
+                    {% endif %}
+
+
+                    <!-- ADDED ICON FOR index-team.html -->
+                    {% if page_filename == "fuselage-team3.html" %}
+                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+                      </li>
+                    {% endif %}
+
+                    
+                    <!-- END ICON -->
+
                     <li><a id="getting-started-link" class="heading-hover" href="{{ teams_prefix }}index-single.html">Getting Started</a></li>
                     <!-- ADDED ID FOR FUSELAGE LINK -->
                     <li><a id="fuselage-link" class="heading-hover" href="{{ teams_prefix }}fuselage-single2.html">Fuselage</a></li>
@@ -165,6 +198,15 @@
           }
         }
 
+        if (window.location.href.indexOf('index-team.html') !== -1) {
+  var link = document.getElementById('getting-started-link');
+  if (link) {
+    link.classList.add('always-hovered');
+  }
+}
+
+
+        
         // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
         if (window.location.href.indexOf('fuselage-single2.html') !== -1) {
           var fuselageLink = document.getElementById('fuselage-link');
@@ -172,7 +214,38 @@
             fuselageLink.classList.add('always-hovered');
           }
         }
+
+
+ // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
+ if (window.location.href.indexOf('fuselage-team2.html') !== -1) {
+          var fuselageLink = document.getElementById('fuselage-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+ // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
+ if (window.location.href.indexOf('fuselage-team3.html') !== -1) {
+          var fuselageLink = document.getElementById('fuselage-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+         // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
+ if (window.location.href.indexOf('fuselage-team1.html') !== -1) {
+          var fuselageLink = document.getElementById('fuselage-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+
+
+
       });
+
+
+      
 
       // Add scroll event to change navbar background
       window.addEventListener('scroll', function() {
