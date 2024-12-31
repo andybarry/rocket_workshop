@@ -132,7 +132,7 @@ aside {
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    font-weight: 10;
     color: #f05f40;
 }
 
@@ -145,7 +145,7 @@ aside {
 .navbar-default .nav>li>a:focus {
     text-transform: uppercase;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 50;
     color: #222;
 }
 
@@ -705,7 +705,7 @@ body {
         display: block;
         text-align: center;
         font-family: 'Roboto', sans-serif;
-        color: #f05f40;
+        color:#464444;
         font-size: 20px;
     }
 
@@ -949,7 +949,7 @@ inline-quote-container {
     background-color: #f05f40 !important;
     border-radius: 50px;
     font-weight: 450 !important;
-    margin: 5px;
+    margin: 5px 5px 0 5px;
     padding: 2px 10px !important;
     border: 0.5px solid white;
     max-width: 200px;
@@ -965,7 +965,7 @@ inline-quote-container {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     border-radius: 50px;
-    margin: 5px;
+    margin: 5px 5px 0 5px;
     padding: 2px 10px !important;
     font-weight: 500;
     max-width: 200px;
@@ -980,13 +980,54 @@ inline-quote-container {
     border-color: white;
 }
 
+
+.nav-button-stageone-inverted {
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40 !important;          /* was white */
+    text-align: center;
+    background-color: white !important; /* was #f05f40 */
+    border-radius: 50px;
+    font-weight: 450 !important;
+    margin: 5px;
+    padding: 2px 10px !important;
+    border: 0.5px solid #f05f40;       /* was white */
+    max-width: 200px;
+}
+
+.nav-button-stageone-inverted:hover {
+    color: white !important;           /* was #f05f40 */
+    background-color: #f05f40 !important; /* was white */
+    border-color: white;               /* was #f05f40 */
+}
+
+.nav-button-stageone-highlight-inverted {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    border-radius: 50px;
+    margin: 5px;
+    padding: 2px 10px !important;
+    font-weight: 500;
+    max-width: 200px;
+    color: white !important;           /* was #f05f40 */
+    background-color: #f05f40 !important; /* was white */
+    border: 0.5px solid white;         /* was #f05f40 */
+}
+
+.nav-button-stageone-highlight-inverted:hover {
+    color: #f05f40 !important;         /* was white */
+    background-color: white !important;   /* was #f05f40 */
+    border-color: #f05f40;             /* was white */
+}
+
+
+
 .workshop-main-button {
     display: block;
     margin: auto;
     margin-bottom: 20px;
     width: 300px;
     height: 475px;
-    border: 3px solid #f05f40;
+    border: 1px solid #f05f40;
     border-radius: 50px;
     background-color: white;
     color: rgb(100, 100, 100);
@@ -1065,9 +1106,18 @@ inline-quote-container {
     border: none;
     height: 1px;
     max-width: 85%;
-    background-color: #f05f40;
+    background-color: #464444;;
     margin: 5px auto;
 }
+
+.main-page-hr-short {
+    border: none;
+    height: 1px;
+    max-width: 25%;
+    background-color: #464444;;
+    margin: 5px auto;
+}
+
 .thin-hr {
     border: none;
     height: 1px;
