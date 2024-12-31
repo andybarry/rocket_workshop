@@ -87,8 +87,7 @@ title: Stage One Education, LLC
     </div>
 
 
-
-      <!-- Second Workshop Box -->
+<!-- Second Workshop Box -->
 <div class="col-sm-4 text-center">
     <a href="robotics-workshop.html" class="workshop-main-button">
 
@@ -97,11 +96,27 @@ title: Stage One Education, LLC
             Robotics<br><br>
         </div>
 
-    <!-- Image Section -->
-    <div>
-        <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
-    </div>
+        <!-- Image Section with Overlay -->
+        <div style="position: relative; display: inline-block;">
+            <!-- Base Image -->
+            <img src="img/robotics_placeholder.jpg"
+                 alt="Robotics Placeholder"
+                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
 
+            <!-- Overlay Image -->
+            <img src="img/drone.png"
+                 alt="Drone Image"
+                 style="
+                    position: absolute;
+                    top: 75%;
+                    left: 20%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    width: 150px;
+                    height: 150px;
+                    object-fit: contain;
+                 ">
+        </div>
 
         <!-- Text Section (Removed Scroll) -->
         <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
@@ -114,6 +129,7 @@ title: Stage One Education, LLC
         
     </a>
 </div>
+
 
 
 
