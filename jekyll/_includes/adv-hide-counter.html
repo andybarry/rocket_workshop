@@ -1,0 +1,8 @@
+{% if adv_hide_counter %}
+    {% if include.param != "no-increment" %}
+        {% assign adv_hide_counter = adv_hide_counter | plus:1 %}
+    {% endif %}
+{% else %}
+    {% assign adv_hide_counter = 1 %}
+{% endif %}
+{{- adv_hide_counter -}}

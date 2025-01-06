@@ -108,7 +108,7 @@
                      <span style="font-size:20px;">
                        <strong style="text-transform:uppercase; ">STAGE ONE EDUCATION</strong>
                        <span style="text-transform:none; font-weight:normal; color: #777;">
-                         Mechanical Engineering Workshop
+                         <!-- Mechanical Engineering Workshop -->
                        </span>
                      </span>
                    {% else %}
@@ -116,7 +116,7 @@
                      <span style="font-size:15px;">
                        <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
                        <span style="text-transform:none; font-weight:normal; color: #777;">
-                         Mechanical Engineering Workshop
+                         <!-- Mechanical Engineering Workshop -->
                        </span>
                      </span>
                    {% endif %}
@@ -173,6 +173,8 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+    {% include adv-drawing-toggle.html %}
       
     {{ content }}
     
@@ -250,13 +252,71 @@
       // Add scroll event to change navbar background
       window.addEventListener('scroll', function() {
         var navbar = document.getElementById('mainNav');
-        if (window.scrollY > 200) {
+        if (window.scrollY > 50) {
           navbar.classList.add('scrolled');
         } else {
           navbar.classList.remove('scrolled');
         }
       });
     </script>
+
+    <script>
+      function toggleAdvancedMode2(isAdvMode) {
+        const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+        elements.forEach((element) => {
+          if (isAdvMode) {
+            element.style.display = 'block';
+          } else {
+            element.style.display = 'none';
+          }
+        });
+
+        const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+
+        // Instructions are usually just plain visible, but in advanced mode we want to apply the
+        // collapsed class to make them hidden under the collapsed mode.
+        text_elements.forEach((element) => {
+          if (isAdvMode) {
+            element.classList.add('collapse');
+            element.classList.remove('video-container');
+          } else {
+            element.classList.remove('collapse');
+            element.classList.add('video-container');
+          }
+        });
+
+
+      }
+    </script>
+
+<script>
+  function updateProgressBar(video) {
+    const progressBar = video.parentElement.querySelector('.progress-bar');
+    const duration = video.duration;
+    const currentTime = video.currentTime;
+
+    if (!isNaN(duration) && duration > 0) {
+      const percentage = (currentTime / duration) * 100;
+      progressBar.style.width = percentage + '%';
+    }
+  }
+
+  function togglePlayPause(icon) {
+    const video = icon.closest('.video-container').querySelector('video');
+    const playIcon = icon.closest('.control-icons').querySelector('.play-icon');
+    const pauseIcon = icon.closest('.control-icons').querySelector('.pause-icon');
+
+    if (video.paused) {
+      video.play();
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    } else {
+      video.pause();
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    }
+  }
+</script>
 
 </body>
 </html>

@@ -1,61 +1,3 @@
-<!DOCTYPE html> 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Fuselage Tutorial Example</title>
-
-  <!-- SIMPLE TOGGLE SWITCH STYLING -->
-  <style>
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 42px;
-      height: 24px;
-      vertical-align: middle;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0;
-      background-color: #ccc;
-      cursor: pointer;
-      transition: .3s;
-      border-radius: 34px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: #fff;
-      transition: .3s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #f05f40;
-    }
-    input:checked + .slider:before {
-      transform: translateX(18px);
-    }
-
-    /* OPTIONAL sticky behavior for the toggle box */
-    .sticky-advanced-box {
-      position: sticky;
-      top: 50px;
-    }
-  </style>
-</head>
-
-<body>
 
 <header class="not-full-page">
   <div class="header-content" 
@@ -151,44 +93,35 @@
         <!-- 1) rocket-nav.html include (if relevant) -->
         {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
 
-        <!-- ========== ADVANCED LEARNING MODE BOX ========== -->
-        <div id="advanced-learning-toggle"
-             style="border: 2px solid #f05f40; 
-                    padding: 10px; 
-                    margin-bottom: 20px;
-                    border-radius: 15px;
-                    background-color: #fff;
-                    z-index: 9999;">
-          <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
-            Engineering Drawings Only
-          </label>
-          <label class="switch">
-            <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode()" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <!-- End of toggle -->
+      </div>
+    </div>
+  </div>
+</section>
 
 
 {% include section.html param="top" %}
 <h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
 {% include tutorial-video.html path="videos/middle-body/create_sketch_top_plane" %}
-<ul>
-  <li>Select the sketch tool <img src="img/tutorial/sketch.png" /></li>
-  <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
-  <ul><li><img src="img/tutorial/top_features.png" /> 
-    <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i></span>
-    <img src="img/tutorial/top_plane_sketch_box.png" />
-  </li></ul>
-  <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
-  <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
-  <li>Make sure you have selected the <strong>Top</strong> plane. 
-      In the sketch overlay window, you should see "Top Plane" under <em>sketch plane</em></li>
-</ul>
+{% include written-instructions.html %}
+  <ul>
+    <li>Select the sketch tool <img src="img/tutorial/sketch.png" /></li>
+    <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
+    <ul><li><img src="img/tutorial/top_features.png" /> 
+      <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i></span>
+      <img src="img/tutorial/top_plane_sketch_box.png" />
+    </li></ul>
+    <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+    <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+    <li>Make sure you have selected the <strong>Top</strong> plane. 
+        In the sketch overlay window, you should see "Top Plane" under <em>sketch plane</em></li>
+  </ul>
 
-{% include section.html %}
+  {% include section.html %}
 <h3 class="section-heading">{% include step_counter.html %} Draw the outer body circle</h3>
-{% include tutorial-video.html path="videos/middle-body/draw_outer_circle_2" %}  
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+{% include tutorial-video.html path="videos/middle-body/draw_outer_circle_2" %}
+{% include written-instructions.html %}
 <ul>
   <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
   <ul class="help-button">
@@ -211,7 +144,9 @@
 <h3 class="section-heading">
   {% include step_counter.html %} Dimension the outer body circle
 </h3>
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
 {% include tutorial-video.html path="videos/middle-body/draw_outer_circle_dimension_1" %}
+{% include written-instructions.html %}
 <ul>
   <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
   <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_d">Consider this essential shortcut &raquo;</a></li>
@@ -226,7 +161,9 @@
 <h3 class="section-heading">
   {% include step_counter.html %} Draw the inner circle
 </h3>
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
 {% include tutorial-video.html path="videos/middle-body/draw_inner_circle" %}
+{% include written-instructions.html %}
 <ul>
   <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
   <li>Draw a circle inside your first circle. <strong>Be sure to snap it to the origin</strong>.
@@ -239,7 +176,9 @@
 <h3 class="section-heading">
   {% include step_counter.html %} Extrude the body
 </h3>
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
 {% include tutorial-video.html path="videos/middle-body/extrude_body" %}
+{% include written-instructions.html %}
 <ul>
   <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
   <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_ee">Feature shortcuts &raquo;</a></li>
@@ -260,14 +199,17 @@
   <li>Hold the <strong>right mouse button</strong> to look at the bottom of the rocket</li>
   <li>Zoom in using the <strong>mouse wheel</strong> to get close to the bottom face</li>
 </ul>
+{% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
 {% include tutorial-video.html path="videos/middle-body/look_at_bottom_of_extrude1" %}
-</div>
+{% include written-instructions.html %}
 
 
 {% include section.html %}
 
   <h3 class="section-heading">{% include step_counter.html %} Start a sketch on the lower stage connection tube</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-2.png" %}
   {% include tutorial-video.html path="videos/middle-body/start_connector_tube_sketch_1" %}
+  {% include written-instructions.html %}
   <ul>
     <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
     <li>
@@ -308,9 +250,11 @@
     </li>
   </ul>
   
-  {% include section.html param="top" %}
+  {% include section.html %}
   <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-2.png" %}
   {% include tutorial-video.html path="videos/middle-body/finish_connector_tube_sketch_1_1" %}
+  {% include written-instructions.html %}
   <ul>
     <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
     <li>
@@ -354,7 +298,9 @@
 
   {% include section.html %}
   <h3 class="section-heading">{% include step_counter.html %} Finish the connector tube sketch</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-2.png" %}
   {% include tutorial-video.html path="videos/middle-body/finish_connector_tube_sketch_2_1" %}
+  {% include written-instructions.html %}
   <ul>
     <li>Draw a smaller circle centered at the origin</li>
     <li>Dimension <strong>between</strong> the <strong>inner circle</strong> and the circle from the <strong>step above</strong> as <strong>0.032</strong></li>
@@ -362,7 +308,9 @@
 
   {% include section.html %}
   <h3 class="section-heading">{% include step_counter.html %} Extrude the connector</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-2.png" %}
   {% include tutorial-video.html path="videos/middle-body/extrude_body_connector" %}
+  {% include written-instructions.html %}
   <ul>
     <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
     <li>Verify that "Sketch 2" is selected <img src="img/tutorial/sketch_2.png" /></li>
@@ -395,7 +343,9 @@
 
   {% include section.html %}
   <h3 class="section-heading">{% include step_counter.html %} Turn on section view</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-2.png" %}
   {% include tutorial-video.html path="videos/middle-body/section_view" %}
+  {% include written-instructions.html %}
   <ul>
     <li>
       We want to see inside the tube, so we'll have our view cut away part of the tube.
@@ -412,7 +362,9 @@
 
   {% include section.html %}
   <h3 class="section-heading">{% include step_counter.html %} Fillet the body connector ring</h3>
+  {% include adv-drawing.html path="img/tutorial/fuselage-drawing-3.png" %}
   {% include tutorial-video.html path="videos/middle-body/fillet_outer_ring" %}
+  {% include written-instructions.html %}
   <ul>
     <li>
       <a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">
@@ -440,226 +392,7 @@
     <li>Click on the outside ring of the ledge</li>
     <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
   </ul>
-<ul>
 
-{% include section.html %}
+
+{% include section.html param="bottom" %}
 {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
-
-
-
-<!-- ============ UPDATED ADVANCED MODE SCRIPT =============== -->
-<script>
-  function toggleAdvancedMode() {
-    const checkbox = document.getElementById('advancedModeSwitch');
-    const advancedBox = document.getElementById('advanced-learning-toggle');
-    const isChecked = checkbox.checked;
-
-    // OPTIONAL: Make the toggle box "sticky" if ON
-    if (isChecked) {
-      advancedBox.classList.add('sticky-advanced-box');
-    } else {
-      advancedBox.classList.remove('sticky-advanced-box');
-    }
-
-    // 1) Insert or remove engineering drawings
-    const allH3s = document.querySelectorAll('h3.section-heading');
-    if (isChecked) {
-      allH3s.forEach((h3) => {
-        const headingText = h3.textContent.trim();
-
-        // ---- Display fuselage-drawing-1.png ----
-        if (
-          headingText.includes("Create a sketch") ||
-          headingText.includes("Draw the outer body circle") ||
-          headingText.includes("Dimension the outer body circle") ||
-          headingText.includes("Draw the inner circle") ||
-          headingText.includes("Extrude the body")
-        ) {
-          let existingImg = h3.querySelector('.advanced-learning-pdf');
-          if (!existingImg) {
-            const img = document.createElement('img');
-            img.src = "img/tutorial/fuselage-drawing-1.png";
-            img.alt = "fuselage-drawing-1";
-            img.width = 400; 
-            img.classList.add('advanced-learning-pdf');
-            img.style.display = 'block';
-            img.style.margin = '10px 0';
-            h3.appendChild(img);
-          }
-        }
-        // ---- Display fuselage-drawing-2.png ----
-        else if (
-          headingText.includes("change view to look at the bottom of the fuselage") ||
-          headingText.includes("Start a sketch on the lower stage connection tube") ||
-          headingText.includes("Finish the connector tube sketch") ||
-          headingText.includes("Extrude the connector")
-        ) {
-          let existingImg = h3.querySelector('.advanced-learning-pdf');
-          if (!existingImg) {
-            const img = document.createElement('img');
-            img.src = "img/tutorial/fuselage-drawing-2.png";
-            img.alt = "fuselage-drawing-2";
-            img.width = 400; 
-            img.classList.add('advanced-learning-pdf');
-            img.style.display = 'block';
-            img.style.margin = '10px 0';
-            h3.appendChild(img);
-          }
-        }
-        // ---- Display fuselage-drawing-3.png ----
-        else if (headingText.includes("Fillet the body connector ring")) {
-          let existingImg = h3.querySelector('.advanced-learning-pdf');
-          if (!existingImg) {
-            const img = document.createElement('img');
-            img.src = "img/tutorial/fuselage-drawing-3.png";
-            img.alt = "fuselage-drawing-3";
-            img.width = 400; 
-            img.classList.add('advanced-learning-pdf');
-            img.style.display = 'block';
-            img.style.margin = '10px 0';
-            h3.appendChild(img);
-          }
-        }
-      });
-    } else {
-      // Remove all inserted images
-      allH3s.forEach((h3) => {
-        const existingImg = h3.querySelector('.advanced-learning-pdf');
-        if (existingImg) {
-          h3.removeChild(existingImg);
-        }
-      });
-    }
-
-    // 2) Hide or restore all <ul> instructions (Procedures...)
-    // 3) Hide or restore all videos (Video...)
-    allH3s.forEach((h3, index) => {
-      if (isChecked) {
-        // If this heading wasn't already processed
-        if (!h3.hasAttribute('data-collapse-bound')) {
-          h3.setAttribute('data-collapse-bound', 'true');
-
-          // ============== PROCEDURES ==============
-          const procButton = document.createElement('a');
-          procButton.className = "btn help-button";
-          const procID = "procedures_block_" + index;
-          procButton.setAttribute('data-toggle', 'collapse');
-          procButton.setAttribute('data-target', '#' + procID);
-          procButton.innerHTML = "Procedures... &raquo;";
-          // Append the "Procedures..." button right after the heading text
-          h3.appendChild(document.createTextNode(' '));
-          h3.appendChild(procButton);
-
-          const procDiv = document.createElement('div');
-          procDiv.className = "collapse";
-          procDiv.id = procID;
-
-          // Store all <ul> instructions in data attribute, then move them
-          h3.setAttribute('data-original-lists', '');
-          let nextElem = h3.nextElementSibling;
-          while (nextElem && !nextElem.matches('h3.section-heading')) {
-            if (nextElem.tagName && nextElem.tagName.toLowerCase() === 'ul') {
-              const existingVal = h3.getAttribute('data-original-lists');
-              h3.setAttribute('data-original-lists', existingVal + '<!--SPLIT-->' + nextElem.outerHTML);
-              procDiv.appendChild(nextElem);
-            }
-            nextElem = nextElem.nextElementSibling;
-          }
-          // Insert the Procedures block below this heading
-          h3.parentNode.insertBefore(procDiv, nextElem);
-
-          // ============== VIDEO ==============
-          const vidButton = document.createElement('a');
-          vidButton.className = "btn help-button";
-          const vidID = "video_block_" + index;
-          vidButton.setAttribute('data-toggle', 'collapse');
-          vidButton.setAttribute('data-target', '#' + vidID);
-          vidButton.innerHTML = "Video... &raquo;";
-          // Append the "Video..." button AFTER the Procedures button
-          h3.appendChild(document.createTextNode(' '));
-          h3.appendChild(vidButton);
-
-          const vidDiv = document.createElement('div');
-          vidDiv.className = "collapse";
-          vidDiv.id = vidID;
-
-          // We'll store any "video" snippet in data-original-videos
-          h3.setAttribute('data-original-videos', '');
-          let scanVideo = h3.nextElementSibling;
-          while (scanVideo && !scanVideo.matches('h3.section-heading')) {
-            const videoHTML = scanVideo.outerHTML.toLowerCase();
-            const isVideoSnippet = (
-              videoHTML.indexOf("videos/") >= 0 ||
-              videoHTML.indexOf("tutorial-video") >= 0 ||
-              videoHTML.indexOf("<iframe") >= 0
-            );
-            if (isVideoSnippet) {
-              const existingVidVal = h3.getAttribute('data-original-videos');
-              h3.setAttribute('data-original-videos', existingVidVal + '<!--SPLIT-->' + scanVideo.outerHTML);
-              vidDiv.appendChild(scanVideo);
-            }
-            scanVideo = scanVideo.nextElementSibling;
-          }
-          // Insert the Video block *below* the Procedures block
-          h3.parentNode.insertBefore(vidDiv, nextElem);
-        }
-      } else {
-        // ============= TOGGLE OFF => REVERT ============
-
-        // If already collapsed once, restore
-        if (h3.hasAttribute('data-collapse-bound')) {
-
-          // Remove the collapsible DIV for Procedures
-          const procID = "procedures_block_" + index;
-          const procDiv = document.getElementById(procID);
-          if (procDiv) {
-            procDiv.parentNode.removeChild(procDiv);
-          }
-          // Re-inject the <ul>
-          const originalLists = h3.getAttribute('data-original-lists');
-          if (originalLists) {
-            const splitted = originalLists.split('<!--SPLIT-->');
-            splitted.forEach((ulHTML) => {
-              if (ulHTML.trim() !== '') {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = ulHTML;
-                while (tempDiv.firstChild) {
-                  h3.parentNode.insertBefore(tempDiv.firstChild, h3.nextElementSibling);
-                }
-              }
-            });
-            h3.removeAttribute('data-original-lists');
-          }
-
-          // Remove the collapsible DIV for Videos
-          const vidID = "video_block_" + index;
-          const vidDiv = document.getElementById(vidID);
-          if (vidDiv) {
-            vidDiv.parentNode.removeChild(vidDiv);
-          }
-          // Re-inject the video snippet
-          const originalVideos = h3.getAttribute('data-original-videos');
-          if (originalVideos) {
-            const splittedVid = originalVideos.split('<!--SPLIT-->');
-            splittedVid.forEach((vidHTML) => {
-              if (vidHTML.trim() !== '') {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = vidHTML;
-                while (tempDiv.firstChild) {
-                  h3.parentNode.insertBefore(tempDiv.firstChild, h3.nextElementSibling);
-                }
-              }
-            });
-            h3.removeAttribute('data-original-videos');
-          }
-
-          // Remove the "Procedures..." and "Video..." buttons
-          const buttons = h3.querySelectorAll('a.btn.help-button[data-toggle="collapse"]');
-          buttons.forEach((btn) => h3.removeChild(btn));
-
-          h3.removeAttribute('data-collapse-bound');
-        }
-      }
-    });
-  }
-</script>
