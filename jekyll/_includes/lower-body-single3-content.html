@@ -1,0 +1,220 @@
+        
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">FINS + BOOSTER</h2>
+          <p style="margin-right:0;">
+            <em>Construct the launch lug, to guide the rocket off the launch platform</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/lower-body-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+    
+    
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+                    
+                </div>
+            </div>
+          </div>
+        </section>
+                   
+                   
+        {% include section.html param="top" %}
+
+                   
+                   
+                    <h3 class="section-heading">{% include step_counter.html %} Create a sketch on the bottom face</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_sketch_on_bottom" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Now we'll add the launch lug to so we can put the rocket on the pad</li>
+                        <ul><li><img src="img/tutorial/launch_lug.jpg" class="tutorial-video" /></li></ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click on bottom of the cylinder</li>
+                        <li>Notice how a new sketch plane is now on the bottom of the rocket</li>
+                        <li>Align your view with the sketch by clicking the <strong>Bottom</strong> of the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_bottom.png" /></li></ul>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the launch lug's inner circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/draw_launch_lug_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle outside the rocket.  Be sure to snap the <strong>circle's center</strong> to the <strong>centerline</strong>.
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the circle and set its diameter to <strong>0.165</strong></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the circle's distance</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the circle, then click the edge of the rocket</li>
+                        <li>Move your mouse so that the dimension is along the vertical</li>
+                        <li>Set the dimension to <strong>0.06</strong></li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how the circle turned black? &raquo;</a></li>
+                        <ul class="collapse" id="fully-defined">
+                            <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                            <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                        </ul>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the outer section of the launch lug</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug3" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a larger circle <strong>centered on the existing circle</strong></li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> to set its diameter to <strong>0.216</strong></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the launch lug connectors</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug4" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the 3-point arc tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <ul>
+                            <li>Set the first point on the circle</li>
+                            <li>Set the second point on the rocket body</li>
+                            <li>Set the third point so that the arc bends inwards.</li>
+                        </ul>
+                        <li>Repeat for the other side</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the launch lug connectors</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug5" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>First select:</li>
+                        <ul>
+                            <li>Top two points on your arcs</li>
+                            <li>The circles' center.</li>
+                        </ul>
+                        <li>Then select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                        <li>You should see all three points line up</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Add the rocket's side to your sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug8_1" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Select the arc on the edge of the rocket</li>
+                        <li>You should see that arc bold as it becomes part of your sketch</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Connect the launch lug to the rocket</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug8_2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/coincident_tool_menu.png" /></li>
+                        <li>Select the point on the bottom of one of your arcs and the edge of the arc on the rocket</li>
+                        <li>Repeat the coincident step for the second arc</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the launch lug sides</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug6_2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the left arc and the outer circle</li>
+                        <li>Select the "Tangent" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/tangent_tool_menu.png" /></li>
+                        <ul><li>You should see the arc jump to become tangent and turn black as becomes fully constrained</li></ul>
+                        <li>Repeat for the right-side arc</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the launch lug sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/launch_lug7_1" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the trim tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Trim the bottom of the outer circle</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the launch lug</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/extrude_launch_lug" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>Click the <strong>Add</strong> <img src="img/tutorial/extrude_add.png" /> option</li>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the launch lug extrude along your rocket</li>
+                        <li>Set the "Depth" to <strong>1.2</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the launch lug</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/fillet_launch_lug" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Click the arc on the inside arc of launch lug</li>
+                        <li>Set the "Radius" to <strong>0.2</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Fillet the launch lug (2)</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/fillet_launch_lug2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Left and right edges of the launch lug, near the body</li>
+                        <li>Set the "Radius" to <strong>0.1</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    
+                    {% include section.html param="bottom" %}
+                   
+                    {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+

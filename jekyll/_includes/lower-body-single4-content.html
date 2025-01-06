@@ -1,0 +1,281 @@
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">FINS + BOOSTER</h2>
+          <p style="margin-right:0;">
+            <em>Engine restraints - stop the engine from undergoing rapid unscheduled disassembly</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/lower-body-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+
+ 
+    
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+                  
+                </div>
+            </div>
+          </div>
+        </section>
+                    
+        {% include section.html param="top" %}
+
+
+                    <h3 class="section-heading">{% include step_counter.html %} Create a plane representing the top of the engine</h3>
+                    <em>We need to make a stopper so the engine doesn't explode out of the top of the rocket.</em><br/>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_stop_plane" %}
+                    {% include written-instructions.html %}
+                    
+                    <ul>
+                        <li>Start a new plane with the plane tool <img src="img/tutorial/offset_surface_menu.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/plane_menu.png" /></li>
+                        <li>Select the <strong>bottom</strong> face of the rocket</li>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the plane appear in the middle of the rocket</li>
+                        <li>Set the "Offset distance" to <strong>2.9</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Start a sketch on that plane</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_stop_sketch" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click "Plane 1" <img src="img/tutorial/plane_1.png" /></li>
+                        <li>Select the "Top" of the view cube to align your view with the sketch</li>
+                        <ul>
+                            <li><img src="img/tutorial/view_cube_top.png" /></li>
+                        </ul>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Sketch the engine block</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_stop_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Start the circle on the <strong>center point</strong></li>
+                        <li>Draw a circle smaller than the rocket</li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> to set the diameter to <strong>0.6</strong></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Add the rocket's body to your sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_stop_use" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Turn your view slightly</li>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click the inner circle of the rocket</li>
+                        <li>You should see that line bold as it becomes part of your sketch</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the engine stop</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_stop_extrude" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go <strong>upwards</strong></li>
+                        <li>Set the "Depth" to <strong>0.5</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Start engine clip sketch</h3>
+                    <em>We need a clip to stop the engine from exploding out of the back of the rocket when the recovery (reverse) charge goes off.</em>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_clip_sketch" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Start a sketch on the <strong>bottom</strong> face of the rocket</li>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click the inner circle of the rocket</li>
+                        <ul><li>You should see that line bold as it becomes part of your sketch</li></ul>
+                        <li>Align your view with the sketch by clicking the <strong>Bottom</strong> of the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_bottom.png" /></li></ul>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Sketch the engine clip arc</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/engine_clip_3_point_arc" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the 3-point arc tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <li>Set the points:</li>
+                        <ol>
+                            <li>Edge of the circle, to the left</li>
+                            <li>Edge of the circle, to the right</li>
+                            <li>Set the radius so the arc curves towards the rocket's center</li>
+                        </ol>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the engine clip arc</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/dimension_engine_clip" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the outer circle and then the arc and set the distance to <strong>0.04</strong></li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> again to set the arc's radius to <strong>0.1</strong></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain the engine clip arc</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/constrain_engine_clip" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
+                        <li>Click the arc's center-point and then the origin of the rocket</li>
+                        <li>You should see the arc jump to the center</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Trim the engine clip sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/trim_engine_clip" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the trim tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Trim the bottom of the inner circle</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the engine clip arc</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/extrude_engine_clip" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go <strong>upwards</strong></li>
+                        <li>Set the "Depth" to <strong>0.09</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Start the sketch for your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/text_sketch1" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the Sketch tool <img src="img/tutorial/sketch.png" /></li>
+                       <li>Click on flat plane on one of the fins</li>
+                       <li>Right-click and select "View normal to sketch plane" to align your view</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Add your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/text_sketch2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Text" tool <img src="img/tutorial/text.png" /></li>
+                        <li>Draw a box near the fin and type your name</li>
+                        <li>Select the <strong>Roboto Slab</strong> font <img src="img/tutorial/roboto_slab.png" /></li>
+                        <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Constrain your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/text_sketch3" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                        <li>Select the dashed line on the left</li>
+                        <li>Select the line on the left of the fin, and you should see the letters jump to line up</li>
+                        <li>Repeat with the right side lines</li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/text_sketch4" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Select the dashed line on the bottom of the letters</li>
+                        <li>Select the bottom of the rocket</li>
+                        <li>Set the dimension to <strong>0.25</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/text_extrude" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select <em>Sketch 7</em> <img src="img/tutorial/sketch_7.png" /></li>
+                        <li>Set the "Depth" to <strong>0.02</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include section.html param="bottom" %}
+
+
+                    {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+                    {% include section.html param="top" %}
+
+
+                    <h2 class="text-center">You finished the fins and the booster!</h2>
+                    <hr class="long" />
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+                    {% include teams-end-of-section.html exclude="lower-body" %}
+{% else %}
+                    <a href="nosecone1.html" class="portfolio-box">
+                        <img src="img/portfolio/nosecone.jpg" class="img-responsive" style="margin: auto" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <h2 class="text-center">Next up are the <a href="{{ teams_prefix }}nosecone1.html">nosecone</a></h2>
+                    <hr class="long" />
+    {% assign teams_prefix = "" %}
+{% endif %}
+{% include section.html param="bottom" %}
+
+    

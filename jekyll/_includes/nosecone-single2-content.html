@@ -1,0 +1,172 @@
+    <header class="not-full-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2>Build the nosecone bridge</h2>
+                <hr class="long text-left" />
+                <p><em>in which we <strong>constrain</strong> our sketches</em></p>
+<!--
+                <video autoplay loop src="videos/nosecone/nosecone_page2_fast.webm" height="480"/>
+                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+-->
+            </div>
+        </div>
+    </header>
+
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
+                    <h3 class="section-heading">{% include step_counter.html %} Look at the bottom of your extrude</h3>
+                    <ul>
+                        <li>Hold the <strong>right mouse button</strong> to look at the bottom of the rocket</li>
+                        <li>Zoom in using the <strong>mouse wheel</strong> to move the camera close to the bottom face</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/look_at_bottom_of_extrude1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Start a sketch for the string bridge on your tube</h3>
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click the <strong>bottom face</strong> of your tube to start sketching on that face</li>
+                        <ul>
+                            <li>Right click and select <em>View normal to sketch plane</em> to line up your view</li>
+                        </ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/bridge_sketch1" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Start to draw the string bridge</h3>
+                    <ul>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click on the <em>inner</em> circle</li>
+                        <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/bridge_sketch2" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the bridge</h3>
+                    <ul>
+                        <li>Select the Line tool <img src="img/tutorial/line_tool.png" /></li>
+                        <ul>
+                            <li>Click on the left side of the inner circle</li>
+                            <li>Click on the right side of the inner circle</li>
+                            <li>Right click and select <em>escape line</em></li>
+                        </ul>
+                        <li>Repeat to draw a second line below the first</li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/bridge_sketch3" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the bridge</h3>
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the first line, then the second</li>
+                        <li>Set the dimension to <strong>0.1</strong></li>
+                        <li>Select the <em>Equal</em> tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/equal_tool_menu.png" /></li>
+                        <li>Click on each line to make their lengths' equal</li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how the lines turned black? &raquo;</a></li>
+                        <ul class="collapse" id="fully-defined">
+                            <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                            <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                        </ul>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/bridge_sketch4" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Finish the sketch</h3>
+                    <ul>
+                        <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Select the part of the circle outside the lines</li>
+                        <ul>
+                            <li>On the top</li>
+                            <li>On the bottom</li>
+                        </ul>
+                        <li>Click the green check to finish the sketch <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/bridge_sketch5" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the bridge</h3>
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Click on "Sketch 2" <img src="img/tutorial/sketch_2.png" />
+                        <li>Click on <strong>Add</strong> to add to your part instead of creating a new part</li>
+                        <li>Set the <em>Depth</em> to <strong>0.25 in</strong></li>
+                        <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the bridge go inside your tube</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/extrude_bridge_sketch" %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">{% include step_counter.html %} Strengthen the bridge with fillets</h3>
+                    <ul>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">What is a fillet? &raquo;</a></li>
+                        <ul class="collapse" id="fillet-definition">
+                            <li><a href="https://en.wikipedia.org/wiki/Fillet_(mechanics)">Fillet</a>: &ldquo;a rounding of an interior or exterior corner of a part design.&rdquo;</li>
+                        </ul>
+                        <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Set the radius to <strong>0.05</strong></li>
+                        <li>Click the 4 edges of your bridge</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    {% include tutorial-video.html path="videos/nosecone/fillet_nosecone_bridge" %}
+
+                        <br /><br />
+                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    

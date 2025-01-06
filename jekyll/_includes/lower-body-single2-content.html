@@ -1,0 +1,197 @@
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">FINS + BOOSTER</h2>
+          <p style="margin-right:0;">
+            <em>Customize the fins on your rocket to enhance both flight performance and aesthetics</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/lower-body-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                        {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+                    </div>
+                </div>
+              </div>
+            </section>
+                   
+                   
+                   
+                   
+      {% include section.html param="top" %}
+
+                   
+                   
+                        <h3 class="section-heading">{% include step_counter.html %} Start a sketch on the Right plane</h3>
+                        {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                        {% include tutorial-video.html path="videos/lower-body/create_right_sketch" %}
+                        {% include written-instructions.html %}
+                        <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Select a <strong>sketch plane</strong>.  Use the <strong>Right</strong> plane.</li>
+                        <li>Align your view to the sketch plane by clicking "Right" on the view cube</li>
+                    </ul>
+
+        {% include section.html %}
+
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the profile of one fin</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/draw_fin" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the Line tool <img src="img/tutorial/line_tool.png" /></li>
+                        <li>Start at the bottom, in the middle of the cylinder, and draw the profile of one fin</li>
+                        <li>The exact fin shape can be up to you!</li>
+                        <li>Your fin should have these properties though:
+                        <ul>
+                            <li>A flat bottom</li>
+                            <li>About as wide/tall as these fins</li>
+                        </ul>
+                    </ul>
+        
+        {% include section.html %}
+
+    
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the fin in both directions</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/extrude_fins_2" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Click on <strong>Add</strong> to add to your part instead of creating a new part</li>
+                        <li>Set the <em>Depth</em> to <strong>0.05 in</strong></li>
+                        <li>Check <em>Second end position</em></li>
+                        <li>Set the second <em>Depth</em> to <strong>0.05 in</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+              
+       {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Add fillets to smooth out the fin profile</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/fillet_fins_big" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fillet-definition">What is a fillet? &raquo;</a></li>
+                        <ul class="collapse" id="fillet-definition">
+                            <li><a href="https://en.wikipedia.org/wiki/Fillet_(mechanics)">Fillet</a>: &ldquo;a rounding of an interior or exterior corner of a part design.&rdquo;</li>
+                        </ul>
+                        <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Click the edges on the left, right, top near the body, and top on the fin</li>
+                        <li>Set the radius to <strong>0.4</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                  
+       {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Add fillets to the fin edges</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/fillet_fins_small" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Set the radius to <strong>0.05</strong></li>
+                        <li>Click the two edges of the fin</li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                  
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Circular pattern the fins</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/circular-pattern" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>We have one fin, but we really want 3 fins around in a circular pattern.</li>
+                        <li>Select the circular pattern tool</li>
+                        <ul><li><img src="img/tutorial/circular_pattern_dropdown.png" /></li></ul>
+                        <li>Select a <strong>Feature Pattern</strong> from the drop down menu</li>
+                        <ul><li><img src="img/tutorial/feature_pattern_menu.png" /></li></ul>
+                        <li>In the left pane, click on <strong>Features to pattern</strong> and then select <em>Extrude 2</em> (the extrude for the fins) and the <em>two fillets</em> we just did</li>
+                        <ul><li><img src="img/tutorial/features_to_pattern.png" /></li></ul>
+                        <li>Select <strong>Axis of pattern</strong>, and then click the the cylinder</li>
+                        <ul><li><img src="img/tutorial/axis_of_pattern.png" /></li></ul>
+                        <li>Chance the <strong>Instance count</strong> to <strong>3</strong></li>
+                        <ul><li><img src="img/tutorial/instance_count_3.png" /></li></ul>
+                        <li>Check <strong>Apply per instance</strong></li>
+                        <ul><li><img src="img/tutorial/apply_per_instance_checked.png" /></li></ul>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                   
+        {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Create a sketch on top of the cylinder</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_sketch_on_top" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>What we want to do next is clear out the middle of the cylinder, and so we'll make a new sketch to help us get there</li>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click on top of the cylinder</li>
+                        <li>Notice how a new sketch plane is now on top of the cylinder</li>
+                    </ul>
+                   
+                   
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Use the "Use" tool to get the inner circle in this sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/use_top_inner_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the use tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Select the inner circle of the body</li>
+                        <li>To help see what this has done, hide the 3D part</li>
+                        <li>Unhide the part</li>
+                    </ul>
+                   
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude cut away the inside of the cylinder</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/extrude_remove" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the Extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select <strong>Remove</strong> to take away rather than add material</li>
+                        <li>Where it says Blind, change it to <strong>Through all</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                        <li>Notice how the inside of the cylinder is now perfectly empty</li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#cylinder-not-empty">Cylinder not empty? &raquo;</a></li>
+                        <ul class="collapse" id="cylinder-not-empty">
+                            <li><img src="img/tutorial/cylinder_not_empty.jpg" />
+                            <li>There's a good chance that your direction was mixed up</li>
+                            <li>Double click on <strong>Extrude 3</strong> <img src="img/tutorial/extrude3.png" /></li>
+                            <li>Click the "opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /></li>
+                            <ul><li><img src="img/tutorial/cylinder_not_empty_helper.png" /></li></ul>
+                            <li>Also check that in the <strong>Merge scope</strong> box, you see "Part 1"</li>
+                            <ul><li>If not, click the Merge scope box and then click the rocket</li></ul>
+                        </ul>
+                    </ul>
+                
+            {% include section.html param="bottom" %}
+            {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+
