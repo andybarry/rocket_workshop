@@ -145,38 +145,21 @@
   }
 </script>
 
-<section class="top">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-left">
         
         <!-- 1) rocket-nav.html include (if relevant) -->
         {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
 
-        <!-- ========== ADVANCED LEARNING MODE BOX ========== -->
-        <div id="advanced-learning-toggle"
-             style="border: 2px solid #f05f40; 
-                    padding: 10px; 
-                    margin-bottom: 20px;
-                    border-radius: 15px;
-                    background-color: #fff;
-                    z-index: 9999;">
-          <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
-            Engineering Drawings Only
-          </label>
-          <label class="switch">
-            <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode()" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <!-- End of toggle -->
-        <section class="top">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12 text-left">
+       
+        {% include section.html param="top" %}
+
                       
                       <h3 class="section-heading">{% include step_counter.html %} Create a plane for the nosecone tether sketch</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %} 
+                      {% include written-instructions.html %}
+
                       <ul>
+                        
                           <li>Now we'll add a spot for the nosecone and parachute to tie on to</li>
                           <ul>
                               <li><img src="img/tutorial/rocket_thread_string_s_arrow.jpg" class="tutorial-video" /></li>
@@ -192,34 +175,32 @@
                               </li>
                           <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                       </ul>
-                      {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %}
-                  </div>
-              </div>
-          </div>
-      </section>
+        
       
-      <section>
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12 text-left">
+      {% include section.html %}
+         
                       <h3 class="section-heading">{% include step_counter.html %} Start the sketch for the nosecone tether holder</h3>
+                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2" %}
+                      {% include written-instructions.html %}
+                      
                       <ul>
                           <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
                           <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
                           <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
                           <li>Click the <strong>inside</strong> circle on the body tube</li>
                       </ul>
-                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2" %}
-                  </div>
-              </div>
-          </div>
-      </section>
-  
-      <section>
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12 text-left">
+            
+     {% include section.html %}
+
+      
                       <h3 class="section-heading">{% include step_counter.html %} Sketch the outside of the tether holder</h3>
+                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_2" %}
+                      {% include written-instructions.html %}
+                      
                       <ul>
                           <li>Deselect the "Use (Project/Convert)" tool by pressing <strong>Esc</strong></li>
                           <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
@@ -233,16 +214,10 @@
                           <li>Set the second point on the circle, below the centerline</li>
                           <li>Set the third point so the arc is in inside the tube</li>
                       </ul>
-                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_2" %}
-                  </div>
-              </div>
-          </div>
-      </section>
+   
       
-      <section>
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12 text-left">
+       {% include section.html %}
+
                       <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the circle</h3>
                       <ul>
                           <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
