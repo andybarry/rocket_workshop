@@ -5,16 +5,25 @@
   </a>
 </div>
 <div class="video-container step-video" id="adv_video_{% include adv-hide-counter.html param="no-increment" %}">
-  <video autoplay loop muted playsinline class="tutorial-video" onmouseover="this.pause()" onmouseout="this.play()"
-    ontimeupdate="updateProgressBar(this)">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon({% include adv-hide-counter.html param="no-increment" %})"
+    onmouseout="this.play(); updatePlayPauseIcon({% include adv-hide-counter.html param="no-increment" %})"
+    id="video-{% include adv-hide-counter.html param="no-increment" %}"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon({% include adv-hide-counter.html param="no-increment" %})"
+    >
     <source src="{{ include.path }}.webm" type="video/webm">
     <source src="{{ include.path }}.mp4" type="video/mp4">
   </video>
 
-  <!-- Icons container -->
   <div class="control-icons">
-    <div class="play-icon" onclick="togglePlayPause(this)"></div>
-    <div class="pause-icon" onclick="togglePlayPause(this)"></div>
+    <div class="play-icon" id="play-button-{% include adv-hide-counter.html param="no-increment" %}" onclick="togglePlayPause({% include adv-hide-counter.html param="no-increment" %})">▶</div>
+    <div class="pause-icon" id="pause-button-{% include adv-hide-counter.html param="no-increment" %}" onclick="togglePlayPause({% include adv-hide-counter.html param="no-increment" %})">||</div>
   </div>
 
   <div class="progress-bar-container">

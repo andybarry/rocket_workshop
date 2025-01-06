@@ -296,24 +296,32 @@
     const currentTime = video.currentTime;
 
     if (!isNaN(duration) && duration > 0) {
-      const percentage = (currentTime / duration) * 100;
-      progressBar.style.width = percentage + '%';
+      const percentage = (currentTime / duration);
+      progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
     }
   }
 
-  function togglePlayPause(icon) {
-    const video = icon.closest('.video-container').querySelector('video');
-    const playIcon = icon.closest('.control-icons').querySelector('.play-icon');
-    const pauseIcon = icon.closest('.control-icons').querySelector('.pause-icon');
+  function updatePlayPauseIcon(id) {
+    const video = document.getElementById('video-' + id);
+    const playIcon = document.getElementById('play-button-' + id);
+    const pauseIcon = document.getElementById('pause-button-' + id);
+
+    if (video.paused) {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    } else {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    }
+  }
+
+  function togglePlayPause(id) {
+    const video = document.getElementById('video-' + id);
 
     if (video.paused) {
       video.play();
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
     } else {
       video.pause();
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
     }
   }
 </script>

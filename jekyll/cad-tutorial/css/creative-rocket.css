@@ -659,10 +659,9 @@ ul.help-button {
   }
   
   .progress-bar-container {
-    position: absolute;
-    bottom: -3;
-    left: 15px;            /* start 10px from the left */
-    width: calc(100% - 15px); /* adjust width accordingly */
+    position: relative;
+    bottom: 9px;
+    left: 10px;
     height: 2px;
     background: transparent;
   }
@@ -671,15 +670,16 @@ ul.help-button {
   .progress-bar {
     background:  #a1a1a1; /* Bar color */
     height: 100%;
-    width: 0;
+    margin-top: 3px;
+    margin-left: 4px;
     transition: width 0.25s linear; /* Smoother transition */
   }
   
   /* Icons container at bottom right */
   .control-icons {
-    position: absolute;
-    bottom: -13px;
-    left: 1px;
+    position: relative;
+    /* bottom: -9px;
+    left: -13px; */
     pointer-events: none; /* icons shouldn't interfere with hovering */
   }
   
@@ -690,26 +690,6 @@ ul.help-button {
     font-family: sans-serif;
     line-height: 1;
   }
-  
-  /* Play symbol: shown by default when not hovered (video playing) */
-  .play-icon:before {
-    content: "▶";
-  }
-  .video-container:not(:hover) .play-icon {
-    display: inline-block;
-  }
-  
-  /* Pause symbol: shown on hover (video paused) */
-  .pause-icon:before {
-    content: "||";
-  }
-  .video-container:hover .pause-icon {
-    display: inline-block;
-  }
-  .video-container:hover .play-icon {
-    display: none;
-  }
-
 
 .switch {
     position: relative;
