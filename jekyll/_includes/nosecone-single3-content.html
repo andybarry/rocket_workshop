@@ -1,16 +1,34 @@
-    <header class="not-full-page">
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h2>Finish the nosecone</h2>
-                <hr class="long text-left" />
-                <p><em>in which we <strong>revolve</strong> a sketch</em></p>
-<!--
-                <video autoplay loop src="videos/nosecone/nosecone_page3_fast.webm" height="480"/>
-                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
--->
-            </div>
+   
+   <header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">NOSECONE</h2>
+          <p style="margin-right:0;">
+            <em>revolve</strong> a customized sketch</em>
+          </p>
         </div>
-    </header>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/nosecone-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+   
+   
     
     <section class="top">
         <div class="container">
@@ -19,57 +37,55 @@
                     
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
 
+
+                    </div>
+                </div>
+              </div>
+            </section>
+
+            {% include section.html param="top" %}
+
+
+
                     <h3 class="section-heading">{% include step_counter.html %} Start middle-of-nosecone sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch1" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Click the <strong>top face</strong> of your tube to start sketching on that face</li>
                         <ul><li>Right click and select <em>View normal to sketch plane</em> to line up your view</li></ul>                        
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch1" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Draw the middle-of-nosecone circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Click on the <em>outer</em> circle</li>
                         <ul><li>That line will bold, as it becomes part of your sketch</li></ul>
                         <li>Draw another, larger circle, making sure to <strong>snap it to the center</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Dimension the middle-of-nosecone circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch3" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click your new circle's edge</li>
                         <li>Set the dimension to <strong>0.781</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/middle_of_nosecone_sketch3" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Extrude the middle-of-nosecone</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/extrude_middle_of_nosecone" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <li>Click on "Sketch 3" <img src="img/tutorial/sketch_3.png" />
@@ -78,99 +94,69 @@
                         <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make ring go down along tube</li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/extrude_middle_of_nosecone" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Start the cone sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/cone_sketch1" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
                         <li>Select the Front plane <img src="img/tutorial/front_plane.png" /></li>
                         <ul><li>Right click and select <em>View normal to sketch plane</em> to line up your view</li></ul>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch1" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Import lines to connect to</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/cone_sketch2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
                         <li>Click on the top of the larger circle</li>
                         <li>Click on the right side of the circle</li>
                         <ul><li>Those lines will bold, as they become part of your sketch</li></ul>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Draw the nosecone</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_1" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
                         <li>Set the first point on the rightmost point in your sketch</li>
                         <li>Set the second point somewhere above your part</li>
                         <li>Set the third point so the arc looks like a nosecone</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_1" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Constrain the arc</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "Tangent" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/tangent_tool_menu.png" /></li>
                         <li>Select the arc</li>
                         <li>Select the line right below the arc, and you'll see the arc straighten to line up with that line</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Draw top line</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_3" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "line" tool <img src="img/tutorial/line_tool.png" /></li>
                         <li>Start: on the top of your arc</li>
                         <li>End: <strong>horizontal</strong>, to the center of the rocket</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/cone_sketch3_3" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Offset nosecone lines</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/offset_nosecone_lines" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "offset" tool <img src="img/tutorial/sketch_fillet_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/offset_menu.png" />
                         </li>
@@ -183,79 +169,54 @@
                         <li>Drag the arrow to make the offset <strong>smaller</strong> than the arc</li>
                         <li>Press <strong>Enter</strong> and set the dimension to <strong>0.05</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/offset_nosecone_lines" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Draw a line connecting to the offset</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_1" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the line tool <img src="img/tutorial/line_tool.png" /></li>
                         <li>Draw a line straight down from the outside to the inside of the nosecone</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_1" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Constrain that line to be vertical</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
                         <li>Click on the line from above</li>
                         <li>You should see that line turn black as it becomes fully constrained</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Start dimensioning</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_3" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click on the horizontal line and set its dimension to <strong>0.15</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_3" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Finish the nosecone sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_4" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Click on the <strong>top line</strong> and then the <strong>bottom line</strong> and set the distance between them to <strong>2.0</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/nosecone_sketch4_4" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Revolve the nosecone</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/revolve_nosecone2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the "Revolve" tool <img src="img/tutorial/revolve_tool.png" /></li>
                         <li>Select "Sketch 4" <img src="img/tutorial/sketch_4.png" /></li>
@@ -266,25 +227,28 @@
                         </ul>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/revolve_nosecone2" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Fillet the top of the nosecone</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/fillet_nosecone2" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Select the fillet tool <img src="img/tutorial/fillet_tool.png" /></li>
                         <li>Click on the top ring of the nosecone</li>
                         <li>Set the <em>radius</em> to <strong>0.10</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/fillet_nosecone2" %}
-                    <br /><br />
+                    
+
+
+
+
+
+
+
+                    {% include section.html param="bottom" %}
+
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
                     </ul>
 
