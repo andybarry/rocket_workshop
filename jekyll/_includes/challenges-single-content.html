@@ -75,11 +75,11 @@
       overflow: hidden;             /* Ensures corners remain visible */
     }
 
-    /* Actual button styling */
+    /* Actual button (anchor) styling */
     .custom-button {
       cursor: pointer;
       padding: 10px 20px;
-      background-color: #ddd;       /* Matches group background */
+      background-color: #ddd;       /* Base color for background if no image is used */
       border: none;
       border-radius: 0;             /* We'll let the group have the rounded corners */
       font-size: 14px;
@@ -88,8 +88,9 @@
       justify-content: center;
       width: 100%;                  /* Fill the width of the group container */
       margin: 0;                    /* Remove extra margin to avoid gaps */
+      text-decoration: none;        /* Remove underline from anchor */
+      color: #000;                  /* Fallback text color */
     }
-
     .custom-button i {
       margin-right: 5px;
     }
@@ -111,48 +112,46 @@
       margin: 0;                    /* remove default margins */
     }
 
-    /* Existing class for "Add canards to the fuselage" */
+    /*
+      Classes for special buttons: 
+      - We removed background images here, so we can apply them inline in HTML.
+      - Retain color/text-shadow for readability on images.
+    */
     .custom-button-fins {
-      /* Make the entire background an image */
-      background: url('img/tutorial/new_glenn_fins.jpg') center center / cover no-repeat;
-      color: #fff; /* White text for contrast */
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Helps text stand out */
-    }
-    .custom-button-fins:hover {
-      /* Optional: Slightly darken or brighten the image on hover */
-      filter: brightness(0.9);
-    }
-
-    /* NEW: Class for Triple-Engine Booster */
-    .custom-button-triplebooster {
-      background: url('img/tutorial/triple_booster.jpg') center center / cover no-repeat;
       color: #fff; 
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    .custom-button-triplebooster {
+      color: #fff;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     }
-    .custom-button-triplebooster:hover {
-      filter: brightness(0.9);
+    .custom-button-nosecone {
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    .custom-button-newstage {
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
     }
 
-    /* Nosecone Aerodynamic Shaping */
-.custom-button-nosecone {
-  background: url('img/tutorial/rocket-assem-iso.png') bottom center / cover no-repeat;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-}
-.custom-button-nosecone:hover {
-  filter: brightness(0.9);
-}
-
-/* Add a New Stage */
-.custom-button-newstage {
-  background: url('img/tutorial/multi-stage-cad.jpg') bottom center / cover no-repeat;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-}
-.custom-button-newstage:hover {
-  filter: brightness(0.9);
-}
-
+    /* 
+      NEW RULE for challenge title <span>:
+      - 2px solid #f05f40
+      - Use Roboto font
+      - Single-line text (no wrap)
+      - Occupies 90% of the container width
+    */
+    .custom-button span {
+      display: block;                   /* So we can control width % and center the text */
+      width: 90%;
+      margin: 0 auto;                  /* Center block horizontally */
+      border: 2px solid #f05f40;
+      font-family: 'Roboto', sans-serif;
+      white-space: nowrap;             /* Keep text on one line */
+      text-align: center;              /* Center the text horizontally */
+      overflow: hidden;                /* Hide overflow */
+      text-overflow: ellipsis;         /* Optional: show "..." if text is too wide */
+    }
   </style>
 </head>
 
@@ -173,15 +172,15 @@
       <div>
         <h2 style="margin-bottom:10px;">CHALLENGES</h2>
         <p style="margin-right:0;">
-          <em>Building off your completed rocket assembly, test and expand your skills with these design challenges.</em>
+          <em>Building off your completed rocket assembly, <br/>test and expand your skills with these design challenges.</em>
         </p>
       </div>
       <!-- Vertical line and image -->
       <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
       <img 
-          src="img/tutorial/multi-stage-cad.jpg" 
+          src="img/tutorial/rocket-assem-iso.png" 
           alt="fuselage-iso" 
-          style="width:50px; height:auto;"
+          style="width:150px; height:auto;"
       >
     </div>
   </div>
@@ -197,131 +196,63 @@
               <h1>Select your challenge</h1>
               <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
 
-              <!-- Updated button container with vertically stacked buttons -->
+              <!-- Updated button container with vertically stacked links -->
               <div class="button-container">
 
                 <!-- BUTTON + COLLAPSE #1 -->
                 <div class="custom-button-group">
-                  <button 
+                  <a 
+                    href="challenges-single-canards.html"
                     class="custom-button custom-button-fins" 
-                    type="button" 
                     data-toggle="collapse" 
                     data-target="#collapseTutorial1" 
                     aria-expanded="false" 
                     aria-controls="collapseTutorial1"
+                    style="background: url('img/tutorial/triple_booster.jpg') center center / cover no-repeat;"
                   >
-                    <!-- Background image is in CSS class -->
-                    <span>Add canards to the fuselage</span>
-                  </button>
+                    <span>Desing Upgrades</span>
+                  </a>
                   <!-- Collapsible content for BUTTON #1 -->
                   <div class="collapse" id="collapseTutorial1">
-                    <ul>
-                      <li>Deselect the "Use (Project/Convert)" tool by pressing <strong>Esc</strong></li>
-                      <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
-                      <ul>
-                        <li><img src="img/tutorial/view_cube_top.png" /></li>
-                      </ul>
-                      <li>
-                        Select the "3 point arc" tool 
-                        <img src="img/tutorial/3_point_arc.png" />
-                      </li>
-                      <li>
-                        <a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_a">
-                          Keyboard shortcut &raquo;
-                        </a>
-                      </li>
-                      <li class="collapse" id="kb_shortcut_a">
-                        <ul>
-                          <li>The 3-point (standard) arc, a sketch tool, uses the letter <code>a</code>.</li>
-                        </ul>
-                      </li>
-                      <li>Set the first point on the circle, above the centerline</li>
-                      <li>Set the second point on the circle, below the centerline</li>
-                      <li>Set the third point so the arc is inside the tube</li>
-                    </ul>
+                  
                   </div>
                 </div>
 
-                <!-- Nosecone Aerodynamic Shaping -->
-                <div class="custom-button-group">
-                  <button 
-                    class="custom-button custom-button-nosecone"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseNosecone"
-                    aria-expanded="false"
-                    aria-controls="collapseNosecone"
-                  >
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                    <span>Nosecone Aerodynamic Shaping</span>
-                  </button>
-                  <div class="collapse" id="collapseNosecone">
-                    <!-- Collapsible text or instructions for Nosecone Aerodynamic Shaping go here -->
-                  </div>
-                </div>
                 
-
-                <!-- Updated Triple-Engine Booster -->
+                <!-- Measuring -->
                 <div class="custom-button-group">
-                  <button 
-                    class="custom-button custom-button-triplebooster"
-                    type="button"
-                    data-toggle="collapse" 
-                    data-target="#collapseTutorialTripleBooster" 
-                    aria-expanded="false" 
-                    aria-controls="collapseTutorialTripleBooster"
+                  <a 
+                    href="lower-body-single1.html"
+                    class="custom-button"
                   >
-                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                    <span>Convert to a Triple-Engine Booster</span>
-                  </button>
-                  <div class="collapse" id="collapseTutorialTripleBooster">
-                    <!-- Collapsible text/instructions for the triple booster go here -->
-                  </div>
-                </div>
-
-                <div class="custom-button-group">
-                  <button 
-                    class="custom-button custom-button-newstage"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseNewStage"
-                    aria-expanded="false"
-                    aria-controls="collapseNewStage"
-                  >
-                    <i class="fa fa-rocket" aria-hidden="true"></i>
-                    <span>Add a New Stage</span>
-                  </button>
-                  <div class="collapse" id="collapseNewStage">
-                    <!-- Collapsible text or instructions for adding a new stage go here -->
-                  </div>
-                </div>
-                
-
-                <div class="custom-button-group">
-                  <button class="custom-button">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <span>Use Calipers to Model</span>
-                  </button>
+                    <span>Measuring</span>
+                  </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
                 </div>
 
+                <!-- 3D Printing -->
                 <div class="custom-button-group">
-                  <button class="custom-button">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <span>Use Calipers to Model</span>
-                  </button>
+                  <a 
+                    href="lower-body-single1.html"
+                    class="custom-button"
+                  >
+                    <span>3D Printing</span>
+                  </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
                 </div>
 
+                <!-- Engineering Drawing -->
                 <div class="custom-button-group">
-                  <button class="custom-button">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <span>Create a 2D Drawing</span>
-                  </button>
+                  <a 
+                    href="lower-body-single1.html"
+                    class="custom-button"
+                  >
+                    <span>Engineering Drawing</span>
+                  </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
