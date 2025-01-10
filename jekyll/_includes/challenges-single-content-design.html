@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Design Challenges (Hover to Expand, Click to Collapse, Permanent Text Color)</title>
+
+  <style>
+    /* Make buttons stack vertically and add spacing */
+    .button-container {
+      display: flex;
+      flex-direction: column; /* stack vertically */
+      align-items: flex-start; /* align all buttons to the left */
+      margin-top: 20px;
+    }
+
+    .custom-button-group {
+      background-color: #ddd;
+      border-radius: 15px;
+      width: 500px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    /* =====================
+       Button Styling
+       ===================== */
+    .custom-button {
+      position: relative;
+      background-color: #ddd;
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-size 0.7s ease;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 15px;
+      /* Reduce font size to 10px */
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0;
+      text-decoration: none;
+      /* Halve the button height from 200px to 100px */
+      height: 100px;
+    }
+
+    /* Force the text color #f05f40 under all link states */
+    .custom-button,
+    .custom-button:link,
+    .custom-button:visited,
+    .custom-button:hover,
+    .custom-button:active,
+    .custom-button:focus,
+    .custom-button span,
+    .custom-button span:link,
+    .custom-button span:visited,
+    .custom-button span:hover,
+    .custom-button span:active,
+    .custom-button span:focus {
+      color: #f05f40 !important;
+      text-decoration: none !important;
+    }
+
+    /* This sets the main button text (the large text in each button) */
+    .custom-button span {
+      display: block;
+      position: relative;
+      z-index: 1;
+      font-size: 30px; /* Large text for the main challenge name */
+      margin: 0 auto;
+      font-family: 'Roboto', sans-serif;
+      white-space: nowrap;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /*
+      Optional overlay effect
+      (does not affect text color)
+    */
+    .custom-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.2);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /*
+      Hover: Zoom background only
+      (text color stays #f05f40)
+    */
+    .custom-button:hover {
+      background-size: 110%; /* Zoom in */
+      border: 2px solid #f05f40;
+    }
+
+    /* =====================
+       Dropdown Box
+       ===================== */
+    .toggle-box {
+      max-height: 0;
+      overflow: hidden;
+      margin-top: 10px;
+      padding: 0;
+      opacity: 0;
+      background-color: #ccc;
+      transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
+      border-radius: 0 0 15px 15px;
+    }
+
+    /* Optional styling for dropdown lists */
+    .toggle-box ul {
+      list-style-type: disc;
+      margin: 0;
+      padding-left: 20px;
+      color: #333;
+    }
+    .toggle-box li a {
+      color: #f05f40;
+      text-decoration: none;
+    }
+    .toggle-box li a:hover {
+      text-decoration: underline;
+    }
+
+    /* === ADDED STYLES FOR THE FOUR CIRCLES BELOW THE TEXT + LABEL === */
+    .circles-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+      gap: 5px;
+    }
+
+    /*
+      More specific selector to override .custom-button span
+      and ensure font-size is 5px
+    */
+    .custom-button .circles-container .difficulty-label {
+      font-size: 15px !important;
+      color: #f05f40 !important;
+    }
+
+    .circles-container .circle {
+      width: 10px;
+      height: 10px;
+      border: 1px solid #f05f40;
+      border-radius: 50%;
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="full-page">
+  <!-- Your header content here -->
+
+  <section class="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-left">
+
+          <h1>Design Challenges</h1>
+          <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+          <!-- Button container -->
+          <div class="button-container">
+
+            <!-- BUTTON #1 -->
+            <div class="custom-button-group">
+              <a
+                class="custom-button"
+                style="background-image: url('img/tutorial/new_glenn_fins.jpg');"
+              >
+                <span>ADD CANARDS</span>
+
+                <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
+                <div class="circles-container">
+                  <span class="difficulty-label">Difficulty:</span>
+                  <!-- FIRST CIRCLE FILLED WITH #f05f40 -->
+                  <div class="circle" style="background-color: #f05f40;"></div>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                </div>
+                <!-- END CIRCLES -->
+              </a>
+              <div class="toggle-box">
+                <ul>
+                  <li>Add little fins to the fuselage, similar to the design?</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- BUTTON #2 -->
+            <div class="custom-button-group">
+              <a
+                class="custom-button"
+                style="background-image: url('img/tutorial/nosecone-iso.png');"
+              >
+                <span>AERODYNAMIC SHAPING</span>
+                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
+                 <div class="circles-container">
+                   <span class="difficulty-label">Difficulty:</span>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle"></div>
+                   <div class="circle"></div>
+                 </div>
+                <!-- END CIRCLES -->
+              </a>
+              <div class="toggle-box">
+                <ul>
+                  <li>Edit your nosecone to make it pointy instead of flat</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- BUTTON #3 -->
+            <div class="custom-button-group">
+              <a
+                class="custom-button"
+                style="background-image: url('img/tutorial/triple_booster.jpg');"
+              >
+                <span>TRIPLE-ENGINE BOOSTER</span>
+                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
+                 <div class="circles-container">
+                   <span class="difficulty-label">Difficulty:</span>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle"></div>
+                 </div>
+                <!-- END CIRCLES -->
+              </a>
+              <div class="toggle-box">
+                <ul>
+                  <li>Convert your rocket to a triple-engine booster</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- BUTTON #4 -->
+            <div class="custom-button-group">
+              <a
+                class="custom-button"
+                style="background-image: url('img/tutorial/multi-stage-cad.jpg');"
+              >
+                <span>SECOND ENGINE STAGE</span>
+                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
+                 <div class="circles-container">
+                   <span class="difficulty-label">Difficulty:</span>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                   <div class="circle" style="background-color: #f05f40;"></div>
+                 </div>
+                <!-- END CIRCLES -->
+              </a>
+              <div class="toggle-box">
+                <ul>
+                  <li>Add an entire new stage to make a multi-stage rocket</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+          <!-- END .button-container -->
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const groups = document.querySelectorAll('.custom-button-group');
+
+    groups.forEach((group) => {
+      const button = group.querySelector('.custom-button');
+      const toggleBox = group.querySelector('.toggle-box');
+      
+      let isOpen = false;
+
+      // CLICK TO TOGGLE OPEN/CLOSE
+      button.addEventListener('click', () => {
+        if (!isOpen) {
+          isOpen = true;
+          toggleBox.style.maxHeight = '500px';
+          toggleBox.style.padding = '20px';
+          toggleBox.style.opacity = '1';
+        } else {
+          isOpen = false;
+          toggleBox.style.maxHeight = '0';
+          toggleBox.style.padding = '0';
+          toggleBox.style.opacity = '0';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

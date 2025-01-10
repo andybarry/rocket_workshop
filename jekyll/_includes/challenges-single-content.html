@@ -4,55 +4,7 @@
   <meta charset="UTF-8">
   <title>Challenges</title>
 
-  <!-- SIMPLE TOGGLE SWITCH STYLING -->
   <style>
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 42px;
-      height: 24px;
-      vertical-align: middle;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0;
-      background-color: #ccc;
-      cursor: pointer;
-      transition: .3s;
-      border-radius: 34px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: #fff;
-      transition: .3s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #f05f40;
-    }
-    input:checked + .slider:before {
-      transform: translateX(18px);
-    }
-
-    /* OPTIONAL sticky behavior for the toggle box */
-    .sticky-advanced-box {
-      position: sticky;
-      top: 50px;
-    }
-
     /* Make buttons stack vertically and add spacing */
     .button-container {
       display: flex;
@@ -61,96 +13,73 @@
       margin-top: 20px;
     }
 
-    /*
-      Button + collapsible text 'group' styling:
-      - Single box background
-      - Rounded corners
-      - Shared background color
-    */
     .custom-button-group {
-      background-color: #ddd;        /* Matches the button color */
-      border-radius: 4px;
+      background-color: #ddd;       /* Matches the button color */
+      border-radius: 15px;
       width: 500px;
-      margin-bottom: 10px;           /* Spacing between groups */
+      margin-bottom: 10px;          /* Spacing between groups */
       overflow: hidden;             /* Ensures corners remain visible */
     }
 
     /* Actual button (anchor) styling */
     .custom-button {
+      position: relative;
+      /* Fallback color if image doesn't load */
+      background-color: #ddd;
+
+      /* ↓↓ CHANGED from 125% to 100% ↓↓ */
+      background-size: 100%;  /* Default size so we can zoom IN on hover */
+      background-position: center;
+      background-repeat: no-repeat;
+
+      transition: background-size .7s ease;  /* Smooth transition */
       cursor: pointer;
       padding: 10px 20px;
-      background-color: #ddd;       /* Base color for background if no image is used */
-      border: none;
-      border-radius: 0;             /* We'll let the group have the rounded corners */
+      border-radius: 15px;
       font-size: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 100%;                  /* Fill the width of the group container */
-      margin: 0;                    /* Remove extra margin to avoid gaps */
-      text-decoration: none;        /* Remove underline from anchor */
-      color: #000;                  /* Fallback text color */
-    }
-    .custom-button i {
-      margin-right: 5px;
-    }
-    .custom-button:hover {
-      background-color: #ccc;
-    }
-
-    /*
-      Collapsible content styling:
-      - Same background color
-      - Border on top to show separation (optional)
-      - Inherits the group width, so width:100% inside
-    */
-    .custom-button-group .collapse {
-      background-color: #ddd;
-      border-top: 1px solid #ccc;    /* subtle line if desired */
       width: 100%;
-      padding: 10px 20px;           /* spacing inside the collapse box */
-      margin: 0;                    /* remove default margins */
+      margin: 0;
+      text-decoration: none;
+      color: #ddd;
     }
 
-    /*
-      Classes for special buttons: 
-      - We removed background images here, so we can apply them inline in HTML.
-      - Retain color/text-shadow for readability on images.
-    */
-    .custom-button-fins {
-      color: #fff; 
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    }
-    .custom-button-triplebooster {
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-    }
-    .custom-button-nosecone {
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    }
-    .custom-button-newstage {
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    /* Pseudo-element for the 50% white overlay */
+    .custom-button::before {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.2);
+      z-index: 0;
+      pointer-events: none;
     }
 
-    /* 
-      NEW RULE for challenge title <span>:
-      - 2px solid #f05f40
-      - Use Roboto font
-      - Single-line text (no wrap)
-      - Occupies 90% of the container width
-    */
     .custom-button span {
-      display: block;                   /* So we can control width % and center the text */
-      width: 90%;
-      margin: 0 auto;                  /* Center block horizontally */
-      border: 2px solid #f05f40;
+      display: block;
+      position: relative;
+      z-index: 1;
+      font-size: 50px;
+      margin: 0 auto; 
       font-family: 'Roboto', sans-serif;
-      white-space: nowrap;             /* Keep text on one line */
-      text-align: center;              /* Center the text horizontally */
-      overflow: hidden;                /* Hide overflow */
-      text-overflow: ellipsis;         /* Optional: show "..." if text is too wide */
+      white-space: nowrap;         
+      text-align: center;
+      overflow: hidden;            
+      text-overflow: ellipsis;     
+    }
+
+    /* Hover styles: zoom in */
+    .custom-button:hover {
+      color: #f05f40;
+      text-decoration: none;
+      border: 2px solid #f05f40;
+
+      /* ↓↓ CHANGED from 105% to 125% ↓↓ */
+      background-size: 110%;  /* Zoom in */
     }
   </style>
 </head>
@@ -172,7 +101,10 @@
       <div>
         <h2 style="margin-bottom:10px;">CHALLENGES</h2>
         <p style="margin-right:0;">
-          <em>Building off your completed rocket assembly, <br/>test and expand your skills with these design challenges.</em>
+          <em>
+            Building off your completed rocket assembly, test and expand 
+            your skills
+          </em>
         </p>
       </div>
       <!-- Vertical line and image -->
@@ -199,59 +131,53 @@
               <!-- Updated button container with vertically stacked links -->
               <div class="button-container">
 
-                <!-- BUTTON + COLLAPSE #1 -->
+                <!-- BUTTON #1 -->
                 <div class="custom-button-group">
                   <a 
-                    href="challenges-single-canards.html"
-                    class="custom-button custom-button-fins" 
-                    data-toggle="collapse" 
-                    data-target="#collapseTutorial1" 
-                    aria-expanded="false" 
-                    aria-controls="collapseTutorial1"
-                    style="background: url('img/tutorial/triple_booster.jpg') center center / cover no-repeat;"
+                    href="challenges-single-design.html"
+                    class="custom-button" 
+                    style="background-image: url('img/tutorial/triple_booster.jpg');"
                   >
-                    <span>Desing Upgrades</span>
+                    <span>DESIGN<br/>UPGRADES</span>
                   </a>
-                  <!-- Collapsible content for BUTTON #1 -->
-                  <div class="collapse" id="collapseTutorial1">
-                  
-                  </div>
                 </div>
 
-                
-                <!-- Measuring -->
+                <!-- BUTTON #2 -->
                 <div class="custom-button-group">
                   <a 
-                    href="lower-body-single1.html"
+                    href="challenges-single-content-design.html"
                     class="custom-button"
+                    style="background-image: url('img/tutorial/slicer.png');"
                   >
-                    <span>Measuring</span>
+                    <span>3D PRINTING</span>
                   </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
                 </div>
 
-                <!-- 3D Printing -->
+                <!-- BUTTON #3 -->
                 <div class="custom-button-group">
                   <a 
                     href="lower-body-single1.html"
                     class="custom-button"
+                    style="background-image: url('img/tutorial/caliper-placeholder.png');"
                   >
-                    <span>3D Printing</span>
+                    <span>MEASURING</span>
                   </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
                 </div>
 
-                <!-- Engineering Drawing -->
+                <!-- BUTTON #4 -->
                 <div class="custom-button-group">
                   <a 
                     href="lower-body-single1.html"
                     class="custom-button"
+                    style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
                   >
-                    <span>Engineering Drawing</span>
+                    <span>ENGINEERING<br/>DRAWING</span>
                   </a>
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
