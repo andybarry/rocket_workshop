@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Design Challenges (Hover to Expand, Click to Collapse, Permanent Text Color)</title>
+  <title>Design Challenges</title>
 
   <style>
     /* Make buttons stack vertically and add spacing */
@@ -142,7 +142,7 @@
 
     /*
       More specific selector to override .custom-button span
-      and ensure font-size is 5px
+      and ensure font-size is 15px
     */
     .custom-button .circles-container .difficulty-label {
       font-size: 15px !important;
@@ -169,7 +169,7 @@
       <div class="row">
         <div class="col-lg-12 text-left">
 
-          <h1>Design Challenges</h1>
+          <h1>Design Upgrades</h1>
           <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
 
           <!-- Button container -->
@@ -179,9 +179,9 @@
             <div class="custom-button-group">
               <a
                 class="custom-button"
-                style="background-image: url('img/tutorial/new_glenn_fins.jpg');"
+                style="background-image: url('img/tutorial/canards-iso.png');"
               >
-                <span>ADD CANARDS</span>
+                <span>CANARDS</span>
 
                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
                 <div class="circles-container">
@@ -196,7 +196,8 @@
               </a>
               <div class="toggle-box">
                 <ul>
-                  <li>Add little fins to the fuselage, similar to the design?</li>
+                  <li>Add little fins to the fuselage.</li>
+                  <li>These improve aerodynamic stability and increase control during flight.</li>
                 </ul>
               </div>
             </div>
@@ -205,7 +206,7 @@
             <div class="custom-button-group">
               <a
                 class="custom-button"
-                style="background-image: url('img/tutorial/nosecone-iso.png');"
+                style="background-image: url('img/tutorial/point-nosecone-iso.png');"
               >
                 <span>AERODYNAMIC SHAPING</span>
                  <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
@@ -220,8 +221,8 @@
               </a>
               <div class="toggle-box">
                 <ul>
-                  <li>Edit your nosecone to make it pointy instead of flat</li>
-                </ul>
+                  <li>Make the nosecone more pointed instead of flat.</li> 
+                  <li>At supersonic speeds (<em>faster than the speed of sound</em>), a pointed shape performs best.</li>                </ul>
               </div>
             </div>
 
@@ -295,14 +296,22 @@
       button.addEventListener('click', () => {
         if (!isOpen) {
           isOpen = true;
+          // Expand the text dropdown
           toggleBox.style.maxHeight = '500px';
           toggleBox.style.padding = '20px';
           toggleBox.style.opacity = '1';
+          
+          // Expand/collapse the button image to 500px height
+          button.style.height = '600px';
         } else {
           isOpen = false;
+          // Collapse the text dropdown
           toggleBox.style.maxHeight = '0';
           toggleBox.style.padding = '0';
           toggleBox.style.opacity = '0';
+
+          // Revert the button image height back to original (100px)
+          button.style.height = '100px';
         }
       });
     });
