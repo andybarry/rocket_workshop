@@ -1193,3 +1193,35 @@ text-decoration: none; /* Remove underline on hover */
     position: relative;
     z-index: 2;
 }
+    /* Top Images (Unchanged) */
+    .scroll-image {
+        width: 400px; /* Original larger images */
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #f05f40;
+
+    }
+
+    /* Bottom Images Container (Horizontal) */
+    .horizontal-gallery {
+        display: flex;
+        flex-wrap: nowrap;     /* Keep images on one line */
+        justify-content: center;
+        gap: 10px;
+        max-width: 90%;
+        margin: 40px auto;     /* Center the container */
+        overflow-x: auto;      /* Allow horizontal scroll if too wide */
+       }
+
+    /* Smaller Images at the Bottom */
+    .small-image {
+        width: 300px;          /* Adjust size as needed */
+        height: auto;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #f05f40;
+
+    }

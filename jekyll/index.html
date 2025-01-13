@@ -233,51 +233,119 @@ title: Stage One Education, LLC
 
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
-<div style="overflow: hidden; margin-top: 40px; max-width: 1000px; margin: 20px auto; white-space: nowrap; position: relative;">
+<div style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
     <div class="scroll-container">
-        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
 
         <!-- Duplicate images for smooth continuous scroll effect -->
-        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
     </div>
 </div>
 
 <!-- Keyframes for continuous scroll without fade effect -->
 <style>
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
     }
-    100% {
-        transform: translateX(-50%);
+    
+    /* Container for smooth scroll */
+    .scroll-container {
+        display: inline-block;
+        animation: scroll 45s linear infinite;
+        white-space: nowrap;
+        cursor: grab; /* Change cursor to indicate draggable area */
+        overflow: hidden; /* Hide scrollbar */
     }
-}
-
-/* Container for smooth scroll */
-.scroll-container {
-    display: inline-block;
-    animation: scroll 40s linear infinite;
-    white-space: nowrap;
-    padding-bottom: 20px;
-}
-
-/* Apply size and spacing to each image */
-.scroll-image {
-    display: inline-block;
-    width: 400px; /* Increased width */
-    height: auto; /* Adjusted height to maintain aspect ratio */
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adjust margin between images */
-    margin-right: 40px;
-}
+    
+    /* Apply size and spacing to each image */
+    .scroll-image {
+        display: inline-block;
+        width: 400px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 40px;
+    }
+    
+    /* Pause scroll animation on hover */
+    .scroll-container:hover {
+        animation-play-state: paused;
+    }
+    
+    /* Cursor changes when dragging */
+    .scroll-container.active {
+        cursor: grabbing;
+    }
+    
+    /* Hide scrollbar */
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    </style>
+    
+    <!-- JavaScript to control drag functionality -->
+    <script>
+        // Get the scroll container
+        const scrollContainer = document.getElementById('robotics-scroll-container');
+    
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+    
+        // Stop the continuous scroll animation on mouse over
+        scrollContainer.addEventListener('mouseover', () => {
+            scrollContainer.style.animationPlayState = 'paused';
+        });
+    
+        // Resume the continuous scroll animation on mouse leave
+        scrollContainer.addEventListener('mouseout', () => {
+            if (!isDragging) {
+                scrollContainer.style.animationPlayState = 'running';
+            }
+        });
+    
+        // Mouse down event to start dragging
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            scrollContainer.classList.add('active');
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+    
+        // Mouse leave event to stop dragging
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            scrollContainer.classList.remove('active');
+        });
+    
+        // Mouse up event to stop dragging
+        scrollContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+            scrollContainer.classList.remove('active');
+        });
+    
+        // Mouse move event to enable dragging functionality
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX); // Distance scrolled
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+    </script>
 </style>
 
 </style>
