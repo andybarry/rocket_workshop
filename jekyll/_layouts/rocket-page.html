@@ -163,10 +163,10 @@
                     <li><a id="getting-started-link" class="heading-hover" href="{{ teams_prefix }}index-single.html">Getting Started</a></li>
                     <!-- ADDED ID FOR FUSELAGE LINK -->
                     <li><a id="fuselage-link" class="heading-hover" href="{{ teams_prefix }}fuselage-single2.html">Fuselage</a></li>
-                    <li><a class="heading-hover" href="{{ teams_prefix }}lower-body-single1.html">Fins+Booster</a></li>
-                    <li><a class="heading-hover" href="{{ teams_prefix }}nosecone-single1.html">Nosecone</a></li>
-                    <li><a class="heading-hover" href="{{ teams_prefix }}assembly-single1.html">Assembly</a></li>
-                    <li><a class="heading-hover" href="{{ teams_prefix }}challenges-single.html">Challenges</a></li>
+                    <li><a id="fins-booster-link" class="heading-hover" href="{{ teams_prefix }}lower-body-single1.html">Fins+Booster</a></li>
+                    <li><a id="nosecone-link" class="heading-hover" href="{{ teams_prefix }}nosecone-single1.html">Nosecone</a></li>
+                    <li><a id="assembly-link" class="heading-hover" href="{{ teams_prefix }}assembly-single1.html">Assembly</a></li>
+                    <li><a id="challenges-link" class="heading-hover" href="{{ teams_prefix }}challenges-single.html">Challenges</a></li>
                 </ul>
                 {% endif %}
             </div>
@@ -209,6 +209,19 @@
 }
 
 
+
+
+        // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
+        if (window.location.href.indexOf('fuselage-single1.html') !== -1) {
+          var fuselageLink = document.getElementById('getting-started-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+
+
+
         
         // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
         if (window.location.href.indexOf('fuselage-single2.html') !== -1) {
@@ -219,29 +232,109 @@
         }
 
 
- // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
- if (window.location.href.indexOf('fuselage-team2.html') !== -1) {
+ if (window.location.href.indexOf('fuselage-single3.html') !== -1) {
           var fuselageLink = document.getElementById('fuselage-link');
           if (fuselageLink) {
             fuselageLink.classList.add('always-hovered');
           }
         }
- // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
- if (window.location.href.indexOf('fuselage-team3.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
+ 
+
+ if (window.location.href.indexOf('lower-body-single1.html') !== -1) {
+          var fuselageLink = document.getElementById('fins-booster-link');
           if (fuselageLink) {
             fuselageLink.classList.add('always-hovered');
           }
         }
 
-         // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
- if (window.location.href.indexOf('fuselage-team1.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
+
+        if (window.location.href.indexOf('lower-body-single2.html') !== -1) {
+          var fuselageLink = document.getElementById('fins-booster-link');
           if (fuselageLink) {
             fuselageLink.classList.add('always-hovered');
           }
         }
 
+
+
+        if (window.location.href.indexOf('lower-body-single3.html') !== -1) {
+          var fuselageLink = document.getElementById('fins-booster-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('lower-body-single4.html') !== -1) {
+          var fuselageLink = document.getElementById('fins-booster-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+
+        if (window.location.href.indexOf('nosecone-single1.html') !== -1) {
+          var fuselageLink = document.getElementById('nosecone-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('nosecone-single2.html') !== -1) {
+          var fuselageLink = document.getElementById('nosecone-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+
+        if (window.location.href.indexOf('nosecone-single3.html') !== -1) {
+          var fuselageLink = document.getElementById('nosecone-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+          var fuselageLink = document.getElementById('assembly-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('challenges-single.html') !== -1) {
+          var fuselageLink = document.getElementById('challenges-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('challenges-single-design.html') !== -1) {
+          var fuselageLink = document.getElementById('challenges-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+        if (window.location.href.indexOf('challenges-single-printing.html') !== -1) {
+          var fuselageLink = document.getElementById('challenges-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+        if (window.location.href.indexOf('challenges-single-measuring.html') !== -1) {
+          var fuselageLink = document.getElementById('challenges-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
+
+
+        if (window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+          var fuselageLink = document.getElementById('challenges-link');
+          if (fuselageLink) {
+            fuselageLink.classList.add('always-hovered');
+          }
+        }
 
 
 
