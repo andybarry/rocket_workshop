@@ -69,6 +69,48 @@ title: Stage One Education, LLC
                 <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
                     <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
                 </div>
+
+<!-- Container to hold both the cloud and the image -->
+<div
+  style="
+    position: absolute;
+    top: 28%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  "
+>
+  <!-- 'Cloud' element: a white circle at 50% opacity, with some blur to soften edges -->
+  <div
+    style="
+      position: absolute;
+      width: 200px;        /* slightly bigger than the image */
+      height: 80px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      filter: blur(10px);  /* adjust blur as desired */
+      z-index: 1;          /* ensure the cloud is behind the image */
+    "
+  ></div>
+
+  <!-- Rocket image on top of the cloud -->
+  <img
+    src="img/nn-nobg.png"
+    alt="Rocket Image"
+    style="
+      position: relative;
+      width: 200px;
+      height: auto;
+      object-fit: contain;
+      z-index: 2;  /* place the rocket above the white cloud */
+    "
+  />
+</div>
+
+
             </div>
 
             <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
@@ -148,6 +190,19 @@ title: Stage One Education, LLC
                     <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
                 </video>
+
+                <img src="img/rocket-assem-iso.png"
+            alt="Rocket Image"
+            style="
+               position: absolute;
+               top: 50%;
+               left: 75%;
+               transform: translate(-50%, -50%);
+               pointer-events: none;
+               width: 200px;
+               height: auto;
+               object-fit: contain;
+            ">
                 
             </div>
 
