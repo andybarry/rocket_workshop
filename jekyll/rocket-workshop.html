@@ -35,7 +35,7 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
 
         <!-- Section with Background Video Loop -->
         <div style="position: relative; margin: 0 auto; height: 200px; background-color: white; overflow: hidden;">
-            <div align="center" class="video-background autosize" style="height: 100%; width: 100%;">
+            <div class="video-background autosize" style="height: 100%; width: 100%;">
                 <video autoplay loop muted playsinline style="width: 100%; height: auto;">
                     <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
@@ -43,15 +43,36 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
                 </video>
             </div>
 
-            <!-- Title Section with Button -->
-            <div class="button-container"
-                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
-                <!-- First Button: Drone Workshop Link -->
-                <a href="https://stageoneeducation.com/cad-tutorial/index.html" target="_blank"
-                    rel="noopener noreferrer" class="glow-button">
-                    Start
-                </a>
-            </div>
+<!-- Title Section with Button -->
+<div class="button-container"
+     style="position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;">
+    
+    <!-- First Button: Drone Workshop Link -->
+    <a href="https://stageoneeducation.com/cad-tutorial/index.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="glow-button"
+       style="margin-bottom: 20px;">
+       Start
+    </a>
+
+    <!-- Feedback Survey Link -->
+    <a href="https://feedback.stageoneeducation.com/workshop-feedback/mechanical-engineering-feedback-survey/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="feedback-spacing">
+       Feedback Survey
+    </a>
+
+</div>
+
 
             <!-- Overlay Div -->
             <div class="overlay"></div>

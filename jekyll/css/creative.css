@@ -618,6 +618,7 @@ body {
     max-width: 500px;
     margin: auto;
     padding-right: 20px;
+    
 }
 
 #cyclingPoster {
@@ -1225,3 +1226,20 @@ text-decoration: none; /* Remove underline on hover */
         border: 1px solid #f05f40;
 
     }
+    .feedback-spacing {
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        font-weight: 100;
+        color: #f05f40;
+        text-align: center;
+        padding: 1px 15px;
+        border-radius: 50px;
+        margin: 10px 5px;
+        flex-basis: calc(20% - 10px);
+        text-decoration: none;
+        display: block;
+        position: relative;
+        z-index: 2;
+        /* No glow animation */
+    }
+    
