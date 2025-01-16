@@ -250,31 +250,4 @@
                     {% include section.html param="bottom" %}
 
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
-                    </ul>
-
-                    <br />
-                    <h2 class="text-center">You finished the nosecone!</h2>
-                    <hr class="long" />
-{% assign page_filename = page.path | split:'/' | last %}
-{% assign is_teams = page_filename |split:'-' | first %}
-{% if is_teams == "teams" %}
-    {% assign teams_prefix = "teams-" %}
-                    {% include teams-end-of-section.html exclude="nosecone" %}
-{% else %}
-                    <a href="assembly-single1.html" class="portfolio-box">
-                        <img src="img/portfolio/rocket.jpg" class="img-responsive" style="margin: auto" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <h2 class="text-center">It's now time to put together the <a href="assembly-single1.html">assembly</a></h2>
-                    <hr class="long" />
-    {% assign teams_prefix = "" %}
-{% endif %}
-                </div>
-            </div>
-        </div>
-    </section>
+                  
