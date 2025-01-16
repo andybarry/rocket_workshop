@@ -1,6 +1,6 @@
 {% include section.html param="top" %}
-
-<h2 class="text-center">You finished the Nosecone!</h2>
+         
+<h2 class="text-center">You finished the assembly!</h2>
 <hr class="long" />
 
 {% assign page_filename = page.path | split:'/' | last %}
@@ -9,8 +9,17 @@
 {% assign teams_prefix = "teams-" %}
 {% include teams-end-of-section.html exclude="middle-body" %}
 {% else %}
-    <img src="img/portfolio/nosecone.jpg" class="img-responsive" style="margin: auto" alt="">
-    
+<a href="challenges-single.html" class="portfolio-box">
+    <img src="img/tutorial/multi-stage-cad.jpg" class="img-responsive" style="margin: auto" alt="">
+    <div class="portfolio-box-caption">
+        <div class="portfolio-box-caption-content">
+            <div class="project-category text-faded">
+            </div>
+        </div>
+    </div>
+</a>
+<h2 class="text-center">Next up <a href="challenges-single.html">design challenges</a></h2>
+<hr class="long" />
 {% assign teams_prefix = "" %}
 {% endif %}
 {% include section.html param="bottom" %}
