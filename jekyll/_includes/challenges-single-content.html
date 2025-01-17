@@ -131,58 +131,113 @@
               <!-- Updated button container with vertically stacked links -->
               <div class="button-container">
 
-                <!-- BUTTON #1 -->
-                <div class="custom-button-group">
+
+
+                            <!-- BUTTON #1 -->
+              <div class="custom-button-group">
+                {% if page.url contains 'challenges-team' %}
+                  <!-- If the current page's URL includes 'challenges-team', 
+                      link to the TEAM design page -->
                   <a 
-                    href="challenges-single-design.html"
-                    class="custom-button" 
+                    href="challenges-team-design.html"
+                    class="custom-button"
                     style="background-image: url('img/tutorial/triple_booster.jpg');"
                   >
-                    <span>DESIGN<br/>UPGRADES</span>
-                  </a>
-                </div>
-
-                <!-- BUTTON #2 -->
-                <div class="custom-button-group">
+                {% else %}
+                  <!-- Otherwise, default to the SINGLE design page -->
                   <a 
-                    href="challenges-single-printing.html"
+                    href="challenges-single-design.html"
                     class="custom-button"
-                    style="background-image: url('img/tutorial/slicer.png');"
+                    style="background-image: url('img/tutorial/triple_booster.jpg');"
                   >
+                {% endif %}
+                  <span>DESIGN<br/>UPGRADES</span>
+                </a>
+              </div>
+
+
+
+              
+                              <!-- BUTTON #2 -->
+                <div class="custom-button-group">
+                  {% if page.url contains 'challenges-team' %}
+                    <!-- If the current page's URL includes 'challenges-team', link to the TEAM printing page -->
+                    <a 
+                      href="challenges-team-printing.html"
+                      class="custom-button"
+                      style="background-image: url('img/tutorial/slicer.png');"
+                    >
+                  {% else %}
+                    <!-- Otherwise, default to the SINGLE printing page -->
+                    <a 
+                      href="challenges-single-printing.html"
+                      class="custom-button"
+                      style="background-image: url('img/tutorial/slicer.png');"
+                    >
+                  {% endif %}
                     <span>3D PRINTING</span>
                   </a>
+
+                  <!-- Optional collapsible section (if you still need it) -->
                   <div class="collapse">
                     <!-- Collapsible text goes here -->
                   </div>
                 </div>
 
-                <!-- BUTTON #3 -->
-                <div class="custom-button-group">
-                  <a 
-                    href="challenges-single-measuring.html"
-                    class="custom-button"
-                    style="background-image: url('img/tutorial/caliper-placeholder.png');"
-                  >
-                    <span>MEASURING</span>
-                  </a>
-                  <div class="collapse">
-                    <!-- Collapsible text goes here -->
-                  </div>
-                </div>
 
-                <!-- BUTTON #4 -->
-                <div class="custom-button-group">
-                  <a 
-                  href="challenges-single-drawing.html"
-                  class="custom-button"
-                    style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
-                  >
-                    <span>ENGINEERING<br/>DRAWING</span>
-                  </a>
-                  <div class="collapse">
-                    <!-- Collapsible text goes here -->
+                  <!-- BUTTON #3 -->
+                  <div class="custom-button-group">
+                    {% if page.url contains 'challenges-team' %}
+                      <!-- If the current page's URL includes 'challenges-team', link to the TEAM measuring page -->
+                      <a 
+                        href="challenges-team-measuring.html"
+                        class="custom-button"
+                        style="background-image: url('img/tutorial/caliper-placeholder.png');"
+                      >
+                    {% else %}
+                      <!-- Otherwise, default to the SINGLE measuring page -->
+                      <a 
+                        href="challenges-single-measuring.html"
+                        class="custom-button"
+                        style="background-image: url('img/tutorial/caliper-placeholder.png');"
+                      >
+                    {% endif %}
+                      <span>MEASURING</span>
+                    </a>
+
+                    <!-- Optional collapsible section (if you still need it) -->
+                    <div class="collapse">
+                      <!-- Collapsible text goes here -->
+                    </div>
                   </div>
-                </div>
+
+
+                  <!-- BUTTON #4 -->
+                  <div class="custom-button-group">
+                    {% if page.url contains 'challenges-team' %}
+                      <!-- If the current page's URL includes 'challenges-team', link to the TEAM drawing page -->
+                      <a 
+                        href="challenges-team-drawing.html"
+                        class="custom-button"
+                        style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
+                      >
+                    {% else %}
+                      <!-- Otherwise, default to the SINGLE drawing page -->
+                      <a 
+                        href="challenges-single-drawing.html"
+                        class="custom-button"
+                        style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
+                      >
+                    {% endif %}
+                      <span>ENGINEERING<br/>DRAWING</span>
+                    </a>
+
+                    <!-- Optional collapsible section (if you still need it) -->
+                    <div class="collapse">
+                      <!-- Collapsible text goes here -->
+                    </div>
+                  </div>
+
 
               </div>
               <!-- END button-container -->
