@@ -267,12 +267,60 @@
                     
                     <!-- END ICON -->
 
-                    <li><a id="getting-started-link" class="heading-hover" href="{{ teams_prefix }}index-single.html">Getting Started</a></li>
-                    <li><a id="fuselage-link" class="heading-hover" href="{{ teams_prefix }}fuselage-single2.html">Fuselage</a></li>
-                    <li><a id="fins-booster-link" class="heading-hover" href="{{ teams_prefix }}lower-body-single1.html">Fins+Booster</a></li>
-                    <li><a id="nosecone-link" class="heading-hover" href="{{ teams_prefix }}nosecone-single1.html">Nosecone</a></li>
-                    <li><a id="assembly-link" class="heading-hover" href="{{ teams_prefix }}assembly-single1.html">Assembly</a></li>
-                    <li><a id="challenges-link" class="heading-hover" href="{{ teams_prefix }}challenges-single.html">Challenges</a></li>
+                    {% if page.path contains "team" %}
+                    <!-- If "team" is in the URL, go to index-team.html -->
+                    <li><a id="getting-started-link" class="heading-hover" href="index-team.html">Getting Started</a></li>
+                  {% else %}
+                    <!-- If NOT "team" in the URL, go to index-single.html -->
+                    <li><a id="getting-started-link" class="heading-hover" href="index-single.html">Getting Started</a></li>
+                  {% endif %}
+                                      
+                    
+                    {% if page.path contains "team" %}
+                    <!-- If "team" is in the URL, go to fuselage-team2.html -->
+                    <li><a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">Fuselage</a></li>
+                  {% else %}
+                    <!-- If NOT "team" in the URL, go to fuselage-single2.html -->
+                    <li><a id="fuselage-link" class="heading-hover" href="fuselage-single2.html">Fuselage</a></li>
+                  {% endif %}
+
+
+                  {% if page.path contains "team" %}
+                  <!-- If "team" is in the URL, go to lower-body-team1.html -->
+                  <li><a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">Fins+Booster</a></li>
+                {% else %}
+                  <!-- If NOT "team" in the URL, go to lower-body-single1.html -->
+                  <li><a id="fins-booster-link" class="heading-hover" href="lower-body-single1.html">Fins+Booster</a></li>
+                {% endif %}
+                
+
+                {% if page.path contains "team" %}
+                <!-- If "team" is in the URL, go to nosecone-team1.html -->
+                <li><a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">Nosecone</a></li>
+              {% else %}
+                <!-- If NOT "team" in the URL, go to nosecone-single1.html -->
+                <li><a id="nosecone-link" class="heading-hover" href="nosecone-single1.html">Nosecone</a></li>
+              {% endif %}
+              
+
+              {% if page.path contains "team" %}
+              <!-- If "team" is in the URL, go to assembly-team1.html -->
+              <li><a id="assembly-link" class="heading-hover" href="assembly-team1.html">Assembly</a></li>
+            {% else %}
+              <!-- If NOT "team" in the URL, go to assembly-single1.html -->
+              <li><a id="assembly-link" class="heading-hover" href="assembly-single1.html">Assembly</a></li>
+            {% endif %}
+            
+
+            {% if page.path contains "team" %}
+            <!-- If "team" is in the URL, go to challenges-team.html -->
+            <li><a id="challenges-link" class="heading-hover" href="challenges-team.html">Challenges</a></li>
+          {% else %}
+            <!-- If NOT "team" in the URL, go to challenges-single.html -->
+            <li><a id="challenges-link" class="heading-hover" href="challenges-single.html">Challenges</a></li>
+          {% endif %}
+          
+
                 </ul>
                 {% endif %}
             </div>
