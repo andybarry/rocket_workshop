@@ -99,28 +99,28 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <!-- Ensures no forced uppercase -->
-                <a class="navbar-brand page-scroll" href="https://stageoneeducation.com" 
-                   style="display:flex; align-items:center; text-transform:none; ">
-                   
-                   {% if page_filename == "portal.html" %}
-                     <!-- Larger text on the portal page (logo removed) -->
-                     <span style="font-size:20px;">
-                       <strong style="text-transform:uppercase; ">STAGE ONE EDUCATION</strong>
-                       <span style="text-transform:none; font-weight:normal; color: #777;">
-                         <!-- Mechanical Engineering Workshop -->
-                       </span>
-                     </span>
-                   {% else %}
-                     <!-- All other pages: text only, no logo -->
-                     <span style="font-size:15px;">
-                       <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
-                       <span style="text-transform:none; font-weight:normal; color: #777;">
-                         <!-- Mechanical Engineering Workshop -->
-                       </span>
-                     </span>
-                   {% endif %}
-                </a>
+<!-- Ensures no forced uppercase -->
+<a class="navbar-brand page-scroll" href="http://127.0.0.1:4000/cad-tutorial/portal.html"
+   style="display:flex; align-items:center; text-transform:none;">
+  {% if page_filename == "portal.html" %}
+    <!-- Larger text on the portal page (logo removed) -->
+    <span style="font-size:20px;">
+      <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+      <span style="text-transform:none; font-weight:normal; color: #777;">
+        <!-- Mechanical Engineering Workshop -->
+      </span>
+    </span>
+  {% else %}
+    <!-- All other pages: text only, no logo -->
+    <span style="font-size:15px;">
+      <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+      <span style="text-transform:none; font-weight:normal; color: #777;">
+        <!-- Mechanical Engineering Workshop -->
+      </span>
+    </span>
+  {% endif %}
+</a>
+
             </div>
 
             <!-- Navigation links always visible except on portal.html -->
