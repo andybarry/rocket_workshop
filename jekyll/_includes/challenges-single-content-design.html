@@ -5,24 +5,33 @@
   <title>Design Challenges</title>
 
   <style>
-    /* Make buttons stack vertically and add spacing */
+    /* =====================
+       LAYOUT: TWO ROWS
+       ===================== */
     .button-container {
       display: flex;
-      flex-direction: column; /* stack vertically */
-      align-items: flex-start; /* align all buttons to the left */
+      flex-direction: column; /* let each .button-row stack vertically */
+      gap: 20px;
       margin-top: 20px;
     }
 
+    .button-row {
+      display: flex;
+      gap: 20px; /* spacing between two buttons in a row */
+    }
+
+    /* Each group can have a fixed width or flex-grow */
     .custom-button-group {
       background-color: #ddd;
       border-radius: 15px;
+      /* Optionally remove fixed width so both fit nicely on one row */
       width: 500px;
       margin-bottom: 10px;
       position: relative;
     }
 
     /* =====================
-       Button Styling
+       BUTTON STYLING
        ===================== */
     .custom-button {
       position: relative;
@@ -34,19 +43,19 @@
       cursor: pointer;
       padding: 10px 20px;
       border-radius: 15px;
-      /* Reduce font size to 10px */
+      /* Font size to 10px as before */
       font-size: 10px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
       margin: 0;
       text-decoration: none;
-      /* Halve the button height from 200px to 100px */
-      height: 100px;
+      /* ALWAYS EXPANDED: set height to 600px (was 100px closed, 600px open) */
+      height: 500px;
+      width: 100%;
     }
 
-    /* Force the text color #f05f40 under all link states */
+    /* Force text color #f05f40 under all states */
     .custom-button,
     .custom-button:link,
     .custom-button:visited,
@@ -63,12 +72,12 @@
       text-decoration: none !important;
     }
 
-    /* This sets the main button text (the large text in each button) */
+    /* Main button text (large text) */
     .custom-button span {
       display: block;
       position: relative;
       z-index: 1;
-      font-size: 30px; /* Large text for the main challenge name */
+      font-size: 30px;
       margin: 0 auto;
       font-family: 'Roboto', sans-serif;
       white-space: nowrap;
@@ -77,10 +86,7 @@
       text-overflow: ellipsis;
     }
 
-    /*
-      Optional overlay effect
-      (does not affect text color)
-    */
+    /* Optional overlay effect */
     .custom-button::before {
       content: "";
       position: absolute;
@@ -93,30 +99,30 @@
       pointer-events: none;
     }
 
-    /*
-      Hover: Zoom background only
-      (text color stays #f05f40)
-    */
+    /* Hover: Zoom background only (text remains #f05f40) */
     .custom-button:hover {
       background-size: 110%; /* Zoom in */
       border: 2px solid #f05f40;
     }
 
     /* =====================
-       Dropdown Box
+       DROPDOWN (ALWAYS OPEN)
        ===================== */
     .toggle-box {
-      max-height: 0;
-      overflow: hidden;
+      /* Remove any height restrictions */
+      max-height: none !important;
+      overflow: visible !important;
+      opacity: 1 !important;
+      
+      /* Add some spacing & background */
       margin-top: 10px;
-      padding: 0;
-      opacity: 0;
+      padding: 20px;
       background-color: #ccc;
-      transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
       border-radius: 0 0 15px 15px;
+      transition: none; /* no transitions needed since always open */
     }
 
-    /* Optional styling for dropdown lists */
+    /* List styling in the dropdown */
     .toggle-box ul {
       list-style-type: disc;
       margin: 0;
@@ -131,7 +137,7 @@
       text-decoration: underline;
     }
 
-    /* === ADDED STYLES FOR THE FOUR CIRCLES BELOW THE TEXT + LABEL === */
+    /* Circles + label below the text */
     .circles-container {
       display: flex;
       align-items: center;
@@ -140,10 +146,6 @@
       gap: 5px;
     }
 
-    /*
-      More specific selector to override .custom-button span
-      and ensure font-size is 15px
-    */
     .custom-button .circles-container .difficulty-label {
       font-size: 15px !important;
       color: #f05f40 !important;
@@ -162,119 +164,122 @@
 <body>
 
 <header class="full-page">
-  <!-- Your header content here -->
-
   <section class="top">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-left">
-<br/>
-<br/>
-<br/>
+          <br/><br/><br/>
           <h1>Design Upgrades</h1>
           <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
 
-          <!-- Button container -->
+          <!-- Main container for the buttons -->
           <div class="button-container">
 
-            <!-- BUTTON #1 -->
-            <div class="custom-button-group">
-              <a
-                class="custom-button"
-                style="background-image: url('img/tutorial/canards-iso.png');"
-              >
-                <span>CANARDS</span>
-
-                <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
-                <div class="circles-container">
-                  <span class="difficulty-label">Difficulty:</span>
-                  <!-- FIRST CIRCLE FILLED WITH #f05f40 -->
-                  <div class="circle" style="background-color: #f05f40;"></div>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
+            <!-- FIRST ROW: CANARDS + AERODYNAMIC SHAPING -->
+            <div class="button-row">
+              
+              <!-- BUTTON #1: CANARDS -->
+              <div class="custom-button-group">
+                <a
+                  class="custom-button"
+                  style="background-image: url('img/tutorial/canards-iso.png');"
+                >
+                  <span>CANARDS</span>
+                  <div class="circles-container">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <!-- FIRST CIRCLE FILLED -->
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                  </div>
+                </a>
+                <!-- Always expanded dropdown text -->
+                <div class="toggle-box">
+                  <ul>
+                    <li>Add little fins to the fuselage.</li>
+                    <li>These improve aerodynamic stability and increase control during flight.</li>
+                  </ul>
                 </div>
-                <!-- END CIRCLES -->
-              </a>
-              <div class="toggle-box">
-                <ul>
-                  <li>Add little fins to the fuselage.</li>
-                  <li>These improve aerodynamic stability and increase control during flight.</li>
-                </ul>
               </div>
-            </div>
 
-            <!-- BUTTON #2 -->
-            <div class="custom-button-group">
-              <a
-                class="custom-button"
-                style="background-image: url('img/tutorial/point-nosecone-iso.png');"
-              >
-                <span>AERODYNAMIC SHAPING</span>
-                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
-                 <div class="circles-container">
-                   <span class="difficulty-label">Difficulty:</span>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle"></div>
-                   <div class="circle"></div>
-                 </div>
-                <!-- END CIRCLES -->
-              </a>
-              <div class="toggle-box">
-                <ul>
-                  <li>Make the nosecone more pointed instead of flat.</li> 
-                  <li>At supersonic speeds (<em>faster than the speed of sound</em>), a pointed shape performs best.</li>                </ul>
+              <!-- BUTTON #2: AERODYNAMIC SHAPING -->
+              <div class="custom-button-group">
+                <a
+                  class="custom-button"
+                  style="background-image: url('img/tutorial/point-nosecone-iso.png');"
+                >
+                  <span>AERODYNAMIC SHAPING</span>
+                  <div class="circles-container">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                  </div>
+                </a>
+                <!-- Always expanded dropdown text -->
+                <div class="toggle-box">
+                  <ul>
+                    <li>Make the nosecone more pointed instead of flat.</li>
+                    <li>At supersonic speeds (<em>faster than the speed of sound</em>), a pointed shape performs best.</li>
+                  </ul>
+                </div>
               </div>
-            </div>
 
-            <!-- BUTTON #3 -->
-            <div class="custom-button-group">
-              <a
-                class="custom-button"
-                style="background-image: url('img/tutorial/triple_booster.jpg');"
-              >
-                <span>TRIPLE-ENGINE BOOSTER</span>
-                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
-                 <div class="circles-container">
-                   <span class="difficulty-label">Difficulty:</span>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle"></div>
-                 </div>
-                <!-- END CIRCLES -->
-              </a>
-              <div class="toggle-box">
-                <ul>
-                  <li>Convert your rocket to a triple-engine booster</li>
-                </ul>
-              </div>
-            </div>
+            </div> <!-- end .button-row -->
 
-            <!-- BUTTON #4 -->
-            <div class="custom-button-group">
-              <a
-                class="custom-button"
-                style="background-image: url('img/tutorial/multi-stage-cad.jpg');"
-              >
-                <span>SECOND ENGINE STAGE</span>
-                 <!-- FOUR CIRCLES BELOW THE TEXT WITH "Difficulty:" -->
-                 <div class="circles-container">
-                   <span class="difficulty-label">Difficulty:</span>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                   <div class="circle" style="background-color: #f05f40;"></div>
-                 </div>
-                <!-- END CIRCLES -->
-              </a>
-              <div class="toggle-box">
-                <ul>
-                  <li>Add an entire new stage to make a multi-stage rocket</li>
-                </ul>
+
+            <!-- SECOND ROW: TRIPLE-ENGINE BOOSTER + SECOND ENGINE STAGE -->
+            <div class="button-row">
+              
+              <!-- BUTTON #3: TRIPLE-ENGINE BOOSTER -->
+              <div class="custom-button-group">
+                <a
+                  class="custom-button"
+                  style="background-image: url('img/tutorial/triple_booster.jpg');"
+                >
+                  <span>TRIPLE-ENGINE BOOSTER</span>
+                  <div class="circles-container">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle"></div>
+                  </div>
+                </a>
+                <!-- Always expanded dropdown text -->
+                <div class="toggle-box">
+                  <ul>
+                    <li>Convert your rocket to a triple-engine booster</li>
+                  </ul>
+                </div>
               </div>
-            </div>
+
+              <!-- BUTTON #4: SECOND ENGINE STAGE -->
+              <div class="custom-button-group">
+                <a
+                  class="custom-button"
+                  style="background-image: url('img/tutorial/multi-stage-cad.jpg');"
+                >
+                  <span>SECOND ENGINE STAGE</span>
+                  <div class="circles-container">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                    <div class="circle" style="background-color: #f05f40;"></div>
+                  </div>
+                </a>
+                <!-- Always expanded dropdown text -->
+                <div class="toggle-box">
+                  <ul>
+                    <li>Add an entire new stage to make a multi-stage rocket</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div> <!-- end .button-row -->
 
           </div>
           <!-- END .button-container -->
@@ -284,41 +289,7 @@
   </section>
 </header>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const groups = document.querySelectorAll('.custom-button-group');
-
-    groups.forEach((group) => {
-      const button = group.querySelector('.custom-button');
-      const toggleBox = group.querySelector('.toggle-box');
-      
-      let isOpen = false;
-
-      // CLICK TO TOGGLE OPEN/CLOSE
-      button.addEventListener('click', () => {
-        if (!isOpen) {
-          isOpen = true;
-          // Expand the text dropdown
-          toggleBox.style.maxHeight = '500px';
-          toggleBox.style.padding = '20px';
-          toggleBox.style.opacity = '1';
-          
-          // Expand/collapse the button image to 500px height
-          button.style.height = '600px';
-        } else {
-          isOpen = false;
-          // Collapse the text dropdown
-          toggleBox.style.maxHeight = '0';
-          toggleBox.style.padding = '0';
-          toggleBox.style.opacity = '0';
-
-          // Revert the button image height back to original (100px)
-          button.style.height = '100px';
-        }
-      });
-    });
-  });
-</script>
+<!-- No toggle script needed since everything is always expanded. -->
 
 </body>
 </html>

@@ -3,15 +3,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    <h3 class="section-heading">{% include step_counter.html %} Share a document</h3>
+                    <h3 class="section-heading">{% include step_counter.html %} <strong>Share a document</strong></h3>
                     <ul>
                         <li>Pick <font color="red"><strong>one</strong></font> member of your team to create the shared document.</li>
-                        <li>It does not matter who, everyone will equal access to it.</li>
+                        <li>It does not matter who, everyone will have equal access.</li>
                         <br />
-                        <ul class="nav nav-tabs">
-                          <li role="presentation" data-toggle="collapse" data-target="#not_create,#not_create2" style="cursor: pointer;"><a class="page-scroll">I will <u>not</u> create it</a></li>
-                          <li role="presentation" data-toggle="collapse" data-target="#will_create,#will_create2" style="cursor: pointer;"><a class="page-scroll"> I will create it</a></li>
-                        </ul>
+                        <ul class="nav nav-tabs" >
+                            <li role="presentation" data-toggle="collapse" data-target="#not_create,#not_create2" style="cursor: pointer;">
+                              <a class="page-scroll" style="border: 1px solid #f05f40; border-radius: 2px;">I will <u>not</u> create it</a>
+                            </li>
+                            <li role="presentation" data-toggle="collapse" data-target="#will_create,#will_create2" style="cursor: pointer;">
+                              <a class="page-scroll" style="border: 1px solid #f05f40; border-radius: 2px;">I will create it</a>
+                            </li>
+                          </ul>
+                          
                         <br />
                         <div id="sharedoc2">
                             <div class="panel">
