@@ -28,10 +28,31 @@
     </div>
   </header>
 
+  {% include section.html param="top" %}
 
-    {% include section.html param="top" %}
+  <h2>3D Printng Workflow</a></h2>
 
-                    <h3 class="section-heading">{% include step_counter.html %} Export the booster and fins for 3D printing</h3>
+
+<hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+
+
+<ol>
+  <li><strong>Design in CAD</strong>: Completed</li>
+  <li><strong>Export as STL</strong>: Creates a file of tiny triangles (a “point cloud”) that describe your model’s surface.</li>
+  <li><strong>Import into Slicer</strong>: Pick material, layer thickness, and other print settings.</li>
+  <li><strong>Generate G-Code</strong>: The slicer turns your design into precise instructions for the 3D printer.</li>
+  <li><strong>Start Printing</strong>: Load the G-Code into your printer and watch as it builds your part layer by layer.</li>
+  
+</ol>
+<br/>
+
+<h2>Export as STL</a></h2>
+
+<hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+
+                    <h3 class="section-heading">{% include step_counter.html %} Export the fins+booster for 3D printing</h3>
                     <ul>
                         <li>Right click on the booster and fins</li>
                         <li>Select "Export..."</li>
@@ -66,7 +87,23 @@
                     </ul>
                     {% include tutorial-video.html path="videos/assembly/export_nosecone" %}
                     
-                </div>
+            <br/> <br/>
+       
+
+        <h2>Slicer</a></h2>
+
+        <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+
+        <br/> <br/>
+
+
+        <h2>3D Printer Setup</a></h2>
+
+        <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+    </div>
             </div>
-        </div>
+
+         </div>
     </section>
