@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenges</title>
+
+  <style>
+    /* Make buttons stack vertically and add spacing */
+    .button-container {
+      display: flex;
+      flex-direction: column; /* stack vertically */
+      align-items: center;    /* center all buttons horizontally */
+      margin-top: 5px;
+    }
+
+    .custom-button-group {
+      background-color: #ddd;  /* Matches the button color */
+      border-radius: 15px;
+      width: 500px;
+      margin-bottom: 5px;      /* Spacing between groups */
+      overflow: hidden;        /* Ensures corners remain visible */
+    }
+
+    /* Actual button (anchor) styling */
+    .custom-button {
+      position: relative;
+      /* Fallback color if image doesn't load */
+      background-color: #ddd;
+
+      /* ↓↓ CHANGED from 125% to 100% ↓↓ */
+      background-size: 100%;  /* Default size so we can zoom IN on hover */
+      background-position: center;
+      background-repeat: no-repeat;
+
+      transition: background-size .7s ease;  /* Smooth transition */
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 15px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0;
+      text-decoration: none;
+      color: #ddd;
+    }
+
+    /* Pseudo-element for the 50% white overlay */
+    .custom-button::before {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.2);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .custom-button span {
+      display: block;
+      position: relative;
+      z-index: 1;
+      font-size: 50px;
+      margin: 0 auto; 
+      font-family: 'Roboto', sans-serif;
+      white-space: nowrap;         
+      text-align: center;
+      overflow: hidden;            
+      text-overflow: ellipsis;     
+    }
+
+    /* Hover styles: zoom in */
+    .custom-button:hover {
+      color: #f05f40;
+      text-decoration: none;
+      border: 2px solid #f05f40;
+
+      /* ↓↓ CHANGED from 105% to 125% ↓↓ */
+      background-size: 110%;  /* Zoom in */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="button-container">
+
+    <!-- BUTTON #1 -->
+    <div class="custom-button-group">
+      {% if page.url contains 'team' %}
+        <!-- If the current page's URL includes 'challenges-team', link to the TEAM design page -->
+        <a 
+          href="challenges-team-design.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/multi-stage-dark.png');"
+        >
+      {% else %}
+        <!-- Otherwise, default to the SINGLE design page -->
+        <a 
+          href="challenges-single-design.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/multi-stage-dark.png');"
+        >
+      {% endif %}
+        <span><strong>DESIGN<br/>UPGRADES</strong></span>
+      </a>
+    </div>
+
+    <!-- BUTTON #2 -->
+    <div class="custom-button-group">
+      {% if page.url contains 'team' %}
+        <a 
+          href="challenges-team-printing.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/slicer.png');"
+        >
+      {% else %}
+        <a 
+          href="challenges-single-printing.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/slicer.png');"
+        >
+      {% endif %}
+        <span><strong>3D PRINTING</strong></span>
+      </a>
+      <!-- Optional collapsible section -->
+      <div class="collapse">
+        <!-- Collapsible text goes here -->
+      </div>
+    </div>
+
+    <!-- BUTTON #3 -->
+    <div class="custom-button-group">
+      {% if page.url contains 'team' %}
+        <a 
+          href="challenges-team-measuring.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/caliper-iso-dark.png');"
+        >
+      {% else %}
+        <a 
+          href="challenges-single-measuring.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/caliper-iso-dark.png');"
+        >
+      {% endif %}
+        <span><strong>MEASURING</strong></span>
+      </a>
+      <div class="collapse">
+        <!-- Collapsible text goes here -->
+      </div>
+    </div>
+
+    <!-- BUTTON #4 -->
+    <div class="custom-button-group">
+      {% if page.url contains 'team' %}
+        <a 
+          href="challenges-team-drawing.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
+        >
+      {% else %}
+        <a 
+          href="challenges-single-drawing.html"
+          class="custom-button"
+          style="background-image: url('img/tutorial/fuselage-drawing-5-dark.png');"
+        >
+      {% endif %}
+        <span><strong>ENGINEERING<br/>DRAWING</strong></span>
+      </a>
+      <div class="collapse">
+        <!-- Collapsible text goes here -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
