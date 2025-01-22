@@ -100,7 +100,7 @@
                 </button>
                 
 <!-- Ensures no forced uppercase -->
-<a class="navbar-brand page-scroll" href="http://127.0.0.1:4000/cad-tutorial/portal.html"
+<a class="navbar-brand page-scroll" href="portal.html"
    style="display:flex; align-items:center; text-transform:none;">
   {% if page_filename == "portal.html" %}
     <!-- Larger text on the portal page (logo removed) -->
@@ -128,139 +128,15 @@
                 {% if page_filename != "portal.html" %}
                 <ul class="nav navbar-nav navbar-right">
 
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "index-team.html" %}
+
+
+
+                    <!-- ADDED ICON FOR team -->
+                    {% if page.path contains "team" %}
                       <li class="navbar-text" style="text-align:center; margin-right: 15px;">
                         <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
                       </li>
                     {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "fuselage-team2.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "fuselage-team1.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "fuselage-team3.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "lower-body-team1.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "lower-body-team2.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "lower-body-team3.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "lower-body-team4.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "nosecone-team1.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "nosecone-team2.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "nosecone-team3.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "assembly-team1.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "challenges-team.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "challenges-team-design.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "challenges-team-printing.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "challenges-team-measuring.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-                    <!-- ADDED ICON FOR index-team.html -->
-                    {% if page_filename == "challenges-team-drawing.html" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-
-
-
-
 
 
 
@@ -329,7 +205,6 @@
         <!-- /.container-fluid -->
     </nav>
 
-    {% include adv-drawing-toggle.html %}
       
     {{ content }}
     

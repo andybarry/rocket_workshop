@@ -35,17 +35,14 @@
 
 <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
 
+<img 
+            src="img/tutorial/print-workflow.png" 
+            alt="assembly-iso" 
+            style="width: 90%; height:auto;"
+        >
 
 
-<ol>
-  <li><strong>Design in CAD</strong>: Completed</li>
-  <li><strong>Export as STL</strong>: Creates a file of tiny triangles (a “point cloud”) that describe your model’s surface.</li>
-  <li><strong>Import into Slicer</strong>: Pick material, layer thickness, and other print settings.</li>
-  <li><strong>Generate G-Code</strong>: The slicer turns your design into precise instructions for the 3D printer.</li>
-  <li><strong>Start Printing</strong>: Load the G-Code into your printer and watch as it builds your part layer by layer.</li>
-  
-</ol>
-<br/>
+<br/><br/><br/>
 
 <h2>Export as STL</a></h2>
 
@@ -90,20 +87,157 @@
             <br/> <br/>
        
 
-        <h2>Slicer</a></h2>
+        <h2>Slice</a></h2>
 
         <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+        <p>A slicer is software that slices 3D models (e.g., STL) into G-code instructions. 
+          It determines nozzle movements, material extrusion, and speeds. Adjusting its settings 
+          affects print time, part strength, and appearance.</p>
+
+     
+        
+        
+        <!-- Common Slicer -->
+
+        <h3>Popular Slicer Software</h3>
+        <!-- Ultimaker Cura -->
+       
+<ul>
+<!-- Ultimaker Cura -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#ultimakerCura">
+    <strong>Ultimaker Cura</strong> &raquo;
+  </a>
+  <div class="collapse" id="ultimakerCura">
+     <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Download Ultimaker Cura</a>
+  </div>
+</li>
+<br/>
+
+<!-- PrusaSlicer -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#prusaSlicer">
+    <strong>PrusaSlicer</strong> &raquo;
+  </a>
+  <div class="collapse" id="prusaSlicer">
+   
+    <a href="https://www.prusa3d.com/prusaslicer/" target="_blank">Download PrusaSlicer</a>
+  </div>
+</li>
+<br/>
 
 
-        <br/> <br/>
+<!-- Slic3r -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#slic3r">
+    <strong>Slic3r</strong> &raquo;
+  </a>
+  <div class="collapse" id="slic3r">
+    An open-source project that has influenced many other slicers.
+    <br/>
+    <a href="https://slic3r.org/" target="_blank">Download Slic3r</a>
+  </div>
+</li>
+<br/>
+
+<!-- IdeaMaker -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#ideaMaker">
+    <strong>IdeaMaker</strong> &raquo;
+  </a>
+  <div class="collapse" id="ideaMaker">
+    Created by Raise3D, offering user-friendly presets and customization.
+    <br/>
+    <a href="https://www.raise3d.com/ideamaker/" target="_blank">Download IdeaMaker</a>
+  </div>
+</li>
+<br/>
+
+</ul>
+        
+
+
+<img 
+            src="img/tutorial/slicer-preview.png" 
+            alt="assembly-iso" 
+            style="width: 70%; height:auto;"
+        >
+<br/><br/>
+
+<h3>Print Settings</h3>
+<!-- Common 3D Print Settings -->
+<ul>
+  <li>
+    <strong>Layer Height:</strong> Determines the thickness of each printed layer. Thinner layers yield smoother surfaces but take longer, while thicker layers reduce print time but may show more visible lines.
+  </li>
+  <br/>
+  <li>
+    <strong>Print Speed:</strong> Controls how fast the nozzle moves. Faster speeds reduce print time but can lower quality; slower speeds enhance detail but take longer.
+  </li>
+  <br/>
+  <li>
+    <strong>Infill Density/Pattern:</strong> Determines how solid the part is inside. Higher infill increases strength but uses more time and material; lower infill saves on both at the cost of weaker parts.
+  </li>
+  <br/>
+  <li>
+    <strong>Shell/Wall Thickness:</strong> Adjusts the number of perimeter lines forming the outer walls. Thicker walls increase durability but require more print time; thinner walls reduce time and material usage.
+  </li>
+  <br/>
+  <li>
+    <strong>Support Structures:</strong> Temporary material that supports overhangs or complex geometry. Improves print success but needs additional post-processing to remove.
+  </li>
+  <br/>
+  <li>
+    <strong>Bed Adhesion (Raft/Brim/Skirt):</strong> Methods to improve how the first layer sticks to the build plate, preventing warping or detachment. They add extra material and print time.
+  </li>
+  <br/>
+  <li>
+    <strong>Temperature Settings (Nozzle/Bed):</strong> Controls the melting and bonding of filament layers. Proper temperatures prevent defects like warping or under-extrusion.
+  </li>
+</ul>
+
+
+
+
+
+
+
+        
+        <br/>
 
 
         <h2>3D Printer Setup</a></h2>
 
         <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
-
-    </div>
-            </div>
-
-         </div>
-    </section>
+        <ol>
+          <li>
+            <strong>Transfer G-code:</strong> Load the file generated by your slicer (via SD card, USB, or Wi-Fi) to your 3D printer.
+          </li>
+          <br/>
+          <li>
+            <strong>Bed Adhesion:</strong> Clean the build surface, level the bed, and apply any adhesive needed for proper first-layer sticking.
+          </li>
+          <br/>
+          <li>
+            <strong>Preheat:</strong> Heat the nozzle and build plate to the recommended temperatures for your filament.
+          </li>
+          <br/>
+          <li>
+            <strong>Load Filament:</strong> Ensure the filament is inserted and purged of any previous material.
+          </li>
+          <br/>
+          <li>
+            <strong>Start Print:</strong> Begin your print job and monitor the first few layers to check for proper adhesion.
+          </li>
+          <br/>
+          <li>
+            <strong>Cool & Remove:</strong> Allow the part to cool, then gently remove it from the build surface to avoid damage.
+          </li>
+          <br/>
+          <li>
+            <strong>Post-Process:</strong> Remove supports, sand, or paint as needed for a finished look or functionality.
+          </li>
+        </ol>
+        
+        
+        {% include section.html param="bottom" %}
