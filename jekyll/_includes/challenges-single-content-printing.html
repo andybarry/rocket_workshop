@@ -151,23 +151,25 @@
     <a href="https://www.raise3d.com/ideamaker/" target="_blank">Download IdeaMaker</a>
   </div>
 </li>
-<br/>
 
-</ul>
         
 
 
-{% include section.html param="top" %}
+
 
 
 {% include section.html %}
+
+  All slicers share a similar workflow, though the interface and features may vary. <br/><br/>
+
+
          
                       <h3 class="section-heading">{% include step_counter.html %} Select the 3D printer</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-select-printer1" %}
                       
                       <ul>
-                          <li>Select <strong>Add Printer</strong>  
+                          <li>Select <strong>Add printer</strong>  
                             <li>Look for a profile that matches the model of your 3D printer.
                             <li>Make sure the build volume and nozzle size are accurate.</li>
 
@@ -218,135 +220,236 @@
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Move the fuselage closer to the fins+booster</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-move-fuselage" %}
-
+                      <ul>
+                        <li>Speeds up printing by reducing travel</li>
+                        <li>Minimizes stringing between parts</li>
+                        <li>Optimizes bed usage</li>
+                        <li>Allows shared supports</li>
+                      </ul>
+                      
+                        
+                      
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Move the nosecone closer to the fins+booster</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-move-nosecone" %}
+                      <ul>
+                        <li>Retains heat in the part</li>
+                        <li>Improves inter-layer adhesion</li>
+                        <li>Reduces warping risk</li>
+                      </ul>
+                      
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Inspect the parts</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-inspect" %}
+                      <ul>
+                        <li>Ensure all parts are on the build plate</li>
+                        <li>Check that no parts overlap</li>
+                      </ul>
+
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Set the print settings</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-settings" %}
+                      <ul>
+                        <li>Each 3D printer requires individual tuning. 
+                          <li>These are the most important settings:
+                           </li><ul>
+                        <!-- Layer Height -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#layerHeight">
+                            <strong>Layer Height</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="layerHeight">
+                            <p>
+                              Determines how thick each layer is. Thinner layers yield smoother surfaces but take longer; thicker layers reduce print time but may show more lines.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Print Speed -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#printSpeed">
+                            <strong>Print Speed</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="printSpeed">
+                            <p>
+                              Controls nozzle movement speed. Faster speeds shorten print time but can reduce quality; slower speeds increase detail but take longer.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Infill Density/Pattern -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#infill">
+                            <strong>Infill Density/Pattern</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="infill">
+                            <p>
+                              Sets how solid the part is inside. Higher infill strengthens parts but uses more material and time; lower infill saves both but weakens parts.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Shell/Wall Thickness -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#shellThickness">
+                            <strong>Shell/Wall Thickness</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="shellThickness">
+                            <p>
+                              Adjusts the number of perimeter lines. Thicker walls improve durability but take longer; thinner walls save time and filament.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Support Structures -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#supportStructures">
+                            <strong>Support Structures</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="supportStructures">
+                            <p>
+                              Temporary material for overhangs or complex shapes, improving print success but requiring removal afterward.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Bed Adhesion -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#bedAdhesion">
+                            <strong>Bed Adhesion (Raft/Brim/Skirt)</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="bedAdhesion">
+                            <p>
+                              Methods to help the first layer stick. They prevent warping or detachment but add extra material and print time.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Temperature Settings -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#temperatureSettings">
+                            <strong>Temperature Settings (Nozzle/Bed)</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="temperatureSettings">
+                            <p>
+                              Proper temperatures ensure filament melts and bonds correctly, preventing warping or under-extrusion.
+                            </p>
+                          </div>
+                        </li>
+                      </ul>
+                      
+
+
+
+
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Slice the part</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-slice" %}
 
-                      {% include section.html %}
-         
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <ul>
+                        <li>Slicing is the process of converting a 3D model into layers and generating instructions (G-code) that the printer follows.</li>
+                      </ul>
                       
-                      {% include tutorial-video.html path="videos/printing/slicer-preview" %}
 
                       {% include section.html %}
          
-                      <h3 class="section-heading">{% include step_counter.html %} Upload the nosecone.stl</h3>
+                      <h3 class="section-heading">{% include step_counter.html %} Preview the sliced part</h3>
+                      
+                      {% include tutorial-video.html path="videos/printing/slicer-preview" %}
+                      <ul>
+                        <li>Look for overhangs, weak points, or collisions.</li>
+                        <li>Check layer lines for gaps or missing geometry.</li>
+                        <li>Ensure supports are placed correctly for complex shapes.</li>
+                        <li>Confirm the part orientation and infill settings are accurate.</li>
+                      </ul>
+                      
+
+
+
+
+                      {% include section.html %}
+         
+                      <h3 class="section-heading">{% include step_counter.html %} Download the G-code</h3>
                       
                       {% include tutorial-video.html path="videos/printing/slicer-gcode" %}
 
-
-
-
-                      {% include section.html param="bottom" %}
-
-
-
-
-
-
-
-
 <br/><br/>
 
-<h3>Print Settings</h3>
-<!-- Common 3D Print Settings -->
-<ul>
-  <li>
-    <strong>Layer Height:</strong> Determines the thickness of each printed layer. Thinner layers yield smoother surfaces but take longer, while thicker layers reduce print time but may show more visible lines.
-  </li>
-  <br/>
-  <li>
-    <strong>Print Speed:</strong> Controls how fast the nozzle moves. Faster speeds reduce print time but can lower quality; slower speeds enhance detail but take longer.
-  </li>
-  <br/>
-  <li>
-    <strong>Infill Density/Pattern:</strong> Determines how solid the part is inside. Higher infill increases strength but uses more time and material; lower infill saves on both at the cost of weaker parts.
-  </li>
-  <br/>
-  <li>
-    <strong>Shell/Wall Thickness:</strong> Adjusts the number of perimeter lines forming the outer walls. Thicker walls increase durability but require more print time; thinner walls reduce time and material usage.
-  </li>
-  <br/>
-  <li>
-    <strong>Support Structures:</strong> Temporary material that supports overhangs or complex geometry. Improves print success but needs additional post-processing to remove.
-  </li>
-  <br/>
-  <li>
-    <strong>Bed Adhesion (Raft/Brim/Skirt):</strong> Methods to improve how the first layer sticks to the build plate, preventing warping or detachment. They add extra material and print time.
-  </li>
-  <br/>
-  <li>
-    <strong>Temperature Settings (Nozzle/Bed):</strong> Controls the melting and bonding of filament layers. Proper temperatures prevent defects like warping or under-extrusion.
-  </li>
-</ul>
 
-
-
-
-
-
-
-        
-        <br/>
-
+{% include section.html %}
 
         <h2>3D Printer Setup</a></h2>
 
         <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
-        <ol>
+
+
+
+        <ol style="list-style:none;">
           <li>
-            <strong>Transfer G-code:</strong> Load the file generated by your slicer (via SD card, USB, or Wi-Fi) to your 3D printer.
+            {% include step_counter.html %}
+            <strong>Transfer G-code:</strong>
+            Load the file generated by your slicer (via SD card, USB, or Wi-Fi) to your 3D printer.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Bed Adhesion:</strong> Clean the build surface, level the bed, and apply any adhesive needed for proper first-layer sticking.
+            {% include step_counter.html %}
+            <strong>Bed Adhesion:</strong>
+            Clean the build surface, level the bed, and apply any adhesive needed for proper first-layer sticking.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Preheat:</strong> Heat the nozzle and build plate to the recommended temperatures for your filament.
+            {% include step_counter.html %}
+            <strong>Preheat:</strong>
+            Heat the nozzle and build plate to the recommended temperatures for your filament.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Load Filament:</strong> Ensure the filament is inserted and purged of any previous material.
+            {% include step_counter.html %}
+            <strong>Load Filament:</strong>
+            Ensure the filament is inserted and purged of any previous material.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Start Print:</strong> Begin your print job and monitor the first few layers to check for proper adhesion.
+            {% include step_counter.html %}
+            <strong>Start Print:</strong>
+            Begin your print job and monitor the first few layers to check for proper adhesion.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Cool & Remove:</strong> Allow the part to cool, then gently remove it from the build surface to avoid damage.
+            {% include step_counter.html %}
+            <strong>Cool & Remove:</strong>
+            Allow the part to cool, then gently remove it from the build surface to avoid damage.
+            <br/><br/>
           </li>
-          <br/>
+        
           <li>
-            <strong>Post-Process:</strong> Remove supports, sand, or paint as needed for a finished look or functionality.
+            {% include step_counter.html %}
+            <strong>Post-Process:</strong>
+            Remove supports, sand, or paint as needed for a finished look or functionality.
+            <br/><br/>
           </li>
         </ol>
+        
         
         
         {% include section.html param="bottom" %}
