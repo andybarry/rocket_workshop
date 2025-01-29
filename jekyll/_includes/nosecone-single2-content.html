@@ -26,22 +26,12 @@
         >
       </div>
     </div>
-  </header>
+</header>
 
-
-    <section class="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+{% include section.html param="topnav" %}
                         {% include rocket-nav.html title="Nosecone Tutorial" num_pages="3" %}
-                    </div>
-                </div>
-              </div>
-            </section>
-                    
-                    
-      {% include section.html param="top" %}
-      {% include adv-drawing-toggle.html %}
+      
+                        {% include adv-drawing-toggle.html %}
 
                     <h3 class="section-heading">{% include step_counter.html %} Look at the bottom of your extrude</h3>
                     {% include adv-drawing.html path="img/tutorial/nosecone-drawing-2.png" %}
