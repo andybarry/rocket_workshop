@@ -48,12 +48,14 @@ title: Instructors | Stage One Education, LLC
       Circles/Boxes in Your Neural Net
     ----------------------------------*/
     #boxes {
+      width: 90%;
+      margin: 0 auto;
       text-align: center;
-      font-size: 0; /* Prevent extra spacing from inline-block */
+      font-size: 0;
     }
     .circle {
-      width: 70px;
-      height: 70px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       margin: 0;
       display: inline-block;
@@ -73,12 +75,6 @@ title: Instructors | Stage One Education, LLC
       padding: 2px 5px;
       border-radius: 5px;
       font-size: 1.5em;
-    }
-    .red {
-      background-color: red;
-    }
-    .green {
-      background-color: green;
     }
     .circle-container {
       display: inline-block;
@@ -121,7 +117,7 @@ title: Instructors | Stage One Education, LLC
     #colorRed.active {
       background-color: red !important;
       color: #fff !important;
-      border: none !important; /* removes border on select */
+      border: none !important;
     }
 
     /* 2) Green Button */
@@ -133,7 +129,7 @@ title: Instructors | Stage One Education, LLC
     #colorGreen.active {
       background-color: green !important;
       color: #fff !important;
-      border: none !important; /* removes border on select */
+      border: none !important;
     }
 
     /* 3) Run + Visibility Toggle Buttons (OFF = white bg + f05f40 border/text, ON = f05f40 bg + white text) */
@@ -148,18 +144,17 @@ title: Instructors | Stage One Education, LLC
     #visibilityToggle.active {
       background-color: #f05f40 !important;
       color: #fff !important;
-      border: none !important; /* removes border on select */
+      border: none !important;
     }
-
   </style>
 </head>
 
 <body>
 
-  {% include navigation.html %}
+  {% include navigation-ai.html %}
 
   <!-- Spacer for fixed navbar -->
-  <div style="height: 70px;"></div>
+  <div style="height: 50px;"></div>
 
   <!-- Title section -->
   <div style="text-align: center;">
@@ -170,29 +165,29 @@ title: Instructors | Stage One Education, LLC
     <hr class="main-page-hr" />
   </div>
 
-  <!-- Optional headings -->
+  <!-- Choose Participant Count -->
   <div style="text-align: center;">
-    <h3>27 Participant</h3><br/>
-    <h4>Select the color of the Traffic Light</h4>
+    <h4>Select number of participants</h4>
+    <select id="participantsDropdown">
+      <option value="27" selected>27</option>
+      <option value="36">36</option>
+      <option value="45">45</option>
+      <option value="63">63</option>
+    </select>
+  </div>
+  
+  <br/>
+  <div style="text-align: center;">
+    <h4>Select color of traffic light</h4>
   </div>
 
   <!-- Buttons + Traffic Light Indicator -->
   <div style="text-align: center; margin-bottom: 20px;">
     <!-- Red Button -->
-    <button
-      id="colorRed"
-      class="btn"
-    >
-      Red
-    </button>
+    <button id="colorRed" class="btn">Red</button>
     
     <!-- Green Button -->
-    <button
-      id="colorGreen"
-      class="btn"
-    >
-      Green
-    </button>
+    <button id="colorGreen" class="btn">Green</button>
 
     <br><br>
 
@@ -207,183 +202,350 @@ title: Instructors | Stage One Education, LLC
 
   <!-- Run Button -->
   <div style="text-align: center; margin-bottom: 20px;">
-    <button id="runButton" class="btn">
-      Run
-    </button>
+    <button id="runButton" class="btn">Run</button>
   </div>
 
-  <!-- Circles Container (Sensor Nodes) -->
-  <div id="boxes">
-    <!-- Row 1 -->
-    <div class="circle-container">
-      <div class="circle" id="box1"><span>A1</span></div>
-      <span class="label-below">83.33%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box2"><span>A2</span></div>
-      <span class="label-below">33.33%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box3"><span>A3</span></div>
-      <span class="label-below">16.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box4"><span>A4</span></div>
-      <span class="label-below">66.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box5"><span>A5</span></div>
-      <span class="label-below">16.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box6"><span>A6</span></div>
-      <span class="label-below">83.33%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box7"><span>A7</span></div>
-      <span class="label-below">33.33%</span>
-    </div>
-    <br><br><br/>
-
-    <!-- Row 2 -->
-    <div class="circle-container">
-      <div class="circle" id="box8"><span>A8</span></div>
-      <span class="label-below">16.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box9"><span>A9</span></div>
-      <span class="label-below">66.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box10"><span>A10</span></div>
-      <span class="label-below">16.67%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box11"><span>A11</span></div>
-      <span class="label-below">83.33%</span>
-    </div>
-    <div class="circle-container">
-      <div class="circle" id="box12"><span>A12</span></div>
-      <span class="label-below">33.33%</span>
-    </div>
+  <!-- Container that will hold the circles (nodes) -->
+  <div id="nodesContainer" style="text-align: center;">
+    <!-- The appropriate HTML snippet gets injected here based on dropdown -->
   </div>
-<br/><br/>
+
+  <br/><br/>
   <!-- Simple ON/OFF Button for Label Visibility -->
   <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
     <label style="margin-right: 10px;">Node Weight:</label>
     <button id="visibilityToggle" class="btn">OFF</button>
   </div>
 
+
+
+      {% include copyright.html %}
+
+
+
+
+
+  <!-- Main Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initially, no color is selected
-      let selectedColor = null;
+  document.addEventListener('DOMContentLoaded', function() {
 
-      // Button references
-      const redButton   = document.getElementById('colorRed');
-      const greenButton = document.getElementById('colorGreen');
-      const runButton   = document.getElementById('runButton');
-      const visibilityToggle = document.getElementById('visibilityToggle');
+    /*******************************
+     * 1) HTML TEMPLATES
+     *******************************/
+    // 27 => 12 circles (A1..A12)
+    const htmlNodes27 = `
+      <div id="boxes">
+        ${[...Array(12)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
 
-      // Traffic Light circles
-      const redCircle   = document.getElementById('redCircle');
-      const greenCircle = document.getElementById('greenCircle');
+    // 36 => 16 circles (A1..A16)
+    const htmlNodes36 = `
+      <div id="boxes">
+        ${[...Array(16)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
 
-      // Node inputs and weights
-      const inputs = ['Red', 'Green'];
-      const inputNodes = [
-        { weight: 5 }, // A1
-        { weight: 2 }, // A2
-        { weight: 1 }, // A3
-        { weight: 4 }, // A4
-        { weight: 1 }, // A5
-        { weight: 5 }, // A6
-        { weight: 2 }, // A7
-        { weight: 1 }, // A8
-        { weight: 4 }, // A9
-        { weight: 1 }, // A10
-        { weight: 5 }, // A11
-        { weight: 2 }, // A12
-      ];
+    // 45 => 20 circles (A1..A20)
+    const htmlNodes45 = `
+      <div id="boxes">
+        ${[...Array(20)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
 
-      // Returns 'Red' or 'Green' based on weight/roll
-      function generateInput(correctIndex) {
-        const roll = Math.floor(Math.random() * 6) + 1;
-        const weight = inputNodes[this.n].weight;
-        if (roll <= weight) {
-          return inputs[correctIndex];
-        } else {
-          return inputs[correctIndex === 0 ? 1 : 0];
-        }
+    // 63 => 28 circles (A1..A28)
+    const htmlNodes63 = `
+      <div id="boxes">
+        ${[...Array(28)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Put them in an object by participant count
+    const nodeTemplates = {
+      27: htmlNodes27,
+      36: htmlNodes36,
+      45: htmlNodes45,
+      63: htmlNodes63
+    };
+
+
+    /*******************************
+     * 2) WEIGHTS FOR EACH COUNT
+     *******************************/
+    // For each participant count, the array length must match the number of circles
+
+    // 27 => 12 input nodes
+    const inputNodes27 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }  // A12
+    ];
+
+    // 36 => 16 input nodes
+    const inputNodes36 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }  // A16
+    ];
+
+    // 45 => 20 input nodes
+    const inputNodes45 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }, // A16
+      { weight: 2 }, // A17
+      { weight: 1 }, // A18
+      { weight: 4 }, // A19
+      { weight: 1 }  // A20
+    ];
+
+    // 63 => 28 input nodes
+    const inputNodes63 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }, // A16
+      { weight: 2 }, // A17
+      { weight: 1 }, // A18
+      { weight: 4 }, // A19
+      { weight: 1 }, // A20
+      { weight: 5 }, // A21
+      { weight: 2 }, // A22
+      { weight: 1 }, // A23
+      { weight: 4 }, // A24
+      { weight: 1 }, // A25
+      { weight: 5 }, // A26
+      { weight: 2 }, // A27
+      { weight: 1 }  // A28
+    ];
+
+    // Map them for easy access
+    const inputNodesMap = {
+      27: inputNodes27,
+      36: inputNodes36,
+      45: inputNodes45,
+      63: inputNodes63
+    };
+
+
+    /*******************************
+     * 3) INITIALIZE PAGE
+     *******************************/
+    const nodesContainer     = document.getElementById('nodesContainer');
+    const participantsSelect = document.getElementById('participantsDropdown');
+
+    // Load 27 circles by default
+    nodesContainer.innerHTML = nodeTemplates[27];
+    let currentInputNodes    = inputNodesMap[27];
+
+    const redButton   = document.getElementById('colorRed');
+    const greenButton = document.getElementById('colorGreen');
+    const runButton   = document.getElementById('runButton');
+    const visibilityToggle = document.getElementById('visibilityToggle');
+
+    const redCircle   = document.getElementById('redCircle');
+    const greenCircle = document.getElementById('greenCircle');
+
+    let selectedColor = null;
+    let labelsVisible = false;
+
+    // Once the DOM is loaded with default 27 circles, set their label-below text
+    setLabels();
+
+
+    /*******************************
+     * 4) DEFINE FUNCTIONS + EVENTS
+     *******************************/
+
+    // Helper to compute and assign label-below text for each circle
+    function setLabels() {
+      const circleContainers = nodesContainer.querySelectorAll('.circle-container');
+      circleContainers.forEach((container, index) => {
+        const labelBelow = container.querySelector('.label-below');
+        const w = currentInputNodes[index].weight;
+        // Standard rounding to one decimal place
+        const pct = ((w / 6) * 100).toFixed(1) + '%';
+        labelBelow.textContent = pct;
+      });
+    }
+
+    // Weighted random: returns 'Red' or 'Green'
+    // based on dice roll (1..6) vs node.weight
+    function generateInput(correctIndex, nodeIndex) {
+      const roll   = Math.floor(Math.random() * 6) + 1; // 1..6
+      const weight = currentInputNodes[nodeIndex].weight;
+      const inputs = ['Red','Green'];
+
+      if (roll <= weight) {
+        // Return the correct color
+        return inputs[correctIndex];
+      } else {
+        // Return the opposite color
+        return inputs[correctIndex === 0 ? 1 : 0];
+      }
+    }
+
+    // Toggle color to Red
+    redButton.addEventListener('click', function() {
+      selectedColor = 'red';
+      redButton.classList.add('active');
+      greenButton.classList.remove('active');
+
+      redCircle.classList.remove('inactive-red');
+      redCircle.classList.add('red');
+      greenCircle.classList.remove('green');
+      greenCircle.classList.add('inactive-green');
+    });
+
+    // Toggle color to Green
+    greenButton.addEventListener('click', function() {
+      selectedColor = 'green';
+      greenButton.classList.add('active');
+      redButton.classList.remove('active');
+
+      greenCircle.classList.remove('inactive-green');
+      greenCircle.classList.add('green');
+      redCircle.classList.remove('red');
+      redCircle.classList.add('inactive-red');
+    });
+
+    // Dropdown changes which layout + weights to use
+    participantsSelect.addEventListener('change', function() {
+      const val = parseInt(participantsSelect.value);
+
+      // Swap out the HTML for the chosen count
+      nodesContainer.innerHTML = nodeTemplates[val];
+
+      // Switch to the correct inputNodes array
+      currentInputNodes = inputNodesMap[val];
+
+      // Reset label visibility if it was ON
+      if (labelsVisible) {
+        labelsVisible = false;
+        visibilityToggle.classList.remove('active');
+        visibilityToggle.textContent = 'OFF';
       }
 
-      // Toggle function for Red
-      redButton.addEventListener('click', function() {
-        selectedColor = 'red';
+      // Update the new circles’ label-below texts
+      setLabels();
+    });
 
-        // Mark Red as active, Green as inactive
-        redButton.classList.add('active');
-        greenButton.classList.remove('active');
+    // Run button -> color circles
+    runButton.addEventListener('click', function() {
+      // Optional visual cue
+      runButton.classList.toggle('active');
 
-        // Traffic light display
-        redCircle.classList.remove('inactive-red');
-        redCircle.classList.add('red');
-        greenCircle.classList.remove('green');
-        greenCircle.classList.add('inactive-green');
+      if (!selectedColor) {
+        alert('Please select Red or Green before running.');
+        return;
+      }
+
+      const correctIndex = (selectedColor === 'red') ? 0 : 1;
+
+      // Generate an array of "Red"/"Green" results
+      const outputs = currentInputNodes.map((_, i) => {
+        return generateInput(correctIndex, i);
       });
 
-      // Toggle function for Green
-      greenButton.addEventListener('click', function() {
-        selectedColor = 'green';
-
-        // Mark Green as active, Red as inactive
-        greenButton.classList.add('active');
-        redButton.classList.remove('active');
-
-        // Traffic light display
-        greenCircle.classList.remove('inactive-green');
-        greenCircle.classList.add('green');
-        redCircle.classList.remove('red');
-        redCircle.classList.add('inactive-red');
-      });
-
-      // Run button click => generate & color the nodes
-      runButton.addEventListener('click', function() {
-        // Optionally toggle runButton active state if you want a visual cue
-        runButton.classList.toggle('active');
-
-        if (!selectedColor) {
-          alert('Please select Red or Green before running.');
-          return;
+      // Color the circles accordingly
+      for (let i = 0; i < currentInputNodes.length; i++) {
+        const boxId = 'box' + (i+1);
+        const circleEl = document.getElementById(boxId);
+        if (circleEl) {
+          circleEl.className = 'circle ' + (outputs[i] === 'Red' ? 'red' : 'green');
         }
+      }
+    });
 
-        const correctIndex = (selectedColor === 'red') ? 0 : 1;
-        const outputs = inputNodes.map((_, i) => {
-          return generateInput.call({ n: i }, correctIndex);
-        });
+    // Toggle label-below (for all displayed circles)
+    visibilityToggle.addEventListener('click', function() {
+      visibilityToggle.classList.toggle('active');
+      labelsVisible = !labelsVisible;
+      visibilityToggle.textContent = labelsVisible ? 'ON' : 'OFF';
 
-        // Color each circle according to the result
-        for (let i = 1; i <= 12; i++) {
-          const box = document.getElementById('box' + i);
-          box.className = 'circle ' + (outputs[i - 1] === 'Red' ? 'red' : 'green');
-        }
-      });
-
-      // Toggle label visibility for node weights
-      let labelsVisible = false;
-      const labels = document.querySelectorAll('.label-below');
-
-      visibilityToggle.addEventListener('click', function() {
-        // Toggle active styling
-        visibilityToggle.classList.toggle('active');
-
-        labelsVisible = !labelsVisible;
-        visibilityToggle.textContent = labelsVisible ? 'ON' : 'OFF';
-        labels.forEach(label => {
-          label.style.display = labelsVisible ? 'block' : 'none';
-        });
+      // Show/hide .label-below in the currently loaded #boxes
+      const labels = nodesContainer.querySelectorAll('.label-below');
+      labels.forEach(label => {
+        label.style.display = labelsVisible ? 'block' : 'none';
       });
     });
+
+  });
   </script>
 </body>
 </html>
