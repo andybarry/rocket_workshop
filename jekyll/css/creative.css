@@ -710,6 +710,62 @@ body {
         font-size: 20px;
     }
 
+/* Main title (H1) styling */
+.workshop-title-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;  /* Remove any default padding if present */
+  }
+  
+  /* Horizontal line (div) styling */
+  .orange-line {
+    display: block;
+    margin: 2px auto;        /* 2px above and below, centered horizontally */
+    width: 355px;            /* You can adjust this width as needed */
+    height: 1px;            /* 1px high line */
+    background-color: #f05f40;
+    border: none;           /* Ensure no default hr border applies */
+    padding: 0;
+  }
+  
+  /* Subtitle (H2) styling */
+  .workshop-subtitle-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40;
+    font-size: 23px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;  /* Ensures no extra space around the text */
+  }
+  
+  /* Example: minimal line if you still want after the subtitle */
+  .main-page-hr {
+    margin: 0;  /* Removes default spacing if it's an <hr> or styled line */
+    padding: 0;
+    border: none;
+    /* You can keep or remove other styling here as needed */
+  }
+  
+  .workshop-caption-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color:#6f6f6f;
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;  /* Ensures no extra space around the text */
+  }
+
+
+
 .workshop-subtitle {
     font-size: 24px;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -1036,7 +1092,7 @@ inline-quote-container {
 }
 
 .workshop-main-button > .main-button-title-text {
-    padding: 20px 0;
+    padding: 0px 0;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 30px;

@@ -10,15 +10,14 @@
                 <span class="icon-bar" style="background-color: white;"></span>
             </button>
             <a href="index.html">
-                <img src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
+                <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
                     style="width: 150px; height: auto; margin-top: 5px; margin-left: 100px; margin-right: 20px; margin-bottom: 5px;">
             </a>
         </div>
 
         <!-- Navigation Links and Inline Logo -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style=" margin-bottom: 2px; margin-top: 1px;">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-bottom: 2px; margin-top: 1px;">
             <ul class="nav navbar-nav">
-
                 <!-- "Request a demo" button -->
                 <li>
                     <a href={% include demo_link.html %} target="_blank" class="nav-button-stageone-highlight">
@@ -64,3 +63,33 @@
     </div>
 </nav>
 
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript for Scroll Event -->
+<script>
+    // Apply scroll fade effect only on index.html page
+    if (window.location.pathname === '/index.html' || window.location.pathname === '/') {
+        window.addEventListener('scroll', function() {
+            var logo = document.getElementById('logo');
+            if (window.scrollY > 80) {
+                logo.style.opacity = 1; // Fade in the logo after scrolling 80px
+            } else {
+                logo.style.opacity = 0; // Fade out the logo if less than 80px
+            }
+        });
+    } else {
+        // Ensure logo is always visible on other pages
+        var logo = document.getElementById('logo');
+        logo.style.opacity = 1;
+    }
+</script>
+
+<style>
+    /* Additional styles for logo visibility */
+    #logo {
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.5s; /* Smooth transition for fading */
+    }
+</style>
