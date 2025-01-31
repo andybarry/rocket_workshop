@@ -438,7 +438,7 @@ function App() {
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h1 style={{ margin: 0 }}>Drone Workshop | Stage One Education</h1>
+              <h1 style={{ margin: 0 }}>DDDDDrone Workshop | Stage One Education</h1>
               <a
                 href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
                 target="_blank"

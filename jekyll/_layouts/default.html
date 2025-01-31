@@ -8,9 +8,12 @@
      <!-- Dynamically insert or fallback to your hardcoded text -->
     <title>{{ page.title | default: "Stage One Education | hands-on engineering workshops" }}</title>
 
-    <meta name="description"
-          content='{{ page.description | default: "Hands-on engineering workshops nationwide, featuring
-           AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!" | escape }}'>
+    <meta 
+    name= "description" 
+    content="{{ page.description | default: 'Hands-on engineering workshops nationwide, 
+    featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!' | escape }}"
+    >
+         
   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
