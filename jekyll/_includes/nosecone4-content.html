@@ -1,58 +1,26 @@
-   
-<header class="not-full-page">
-    <div class="header-content" 
-         style="display:flex; 
-                justify-content:center; 
-                align-items:center; 
-                margin-left:-250px;">
-      <div class="header-content-inner" 
-           style="display:flex; 
-                  align-items:center; 
-                  justify-content:center; 
-                  text-align:right;">
-        <!-- Text on the left -->
-        <div>
-          <h2 style="margin-bottom:10px;">NOSECONE</h2>
-          <p style="margin-right:0;">
-            <em>Add your name to the nosecone</em>
-          </p>
-        </div>
-        <!-- Vertical line and image -->
-        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
-        <img 
-            src="img/tutorial/nosecone-iso.png" 
-            alt="fuselage-iso" 
-            style="width:150px; height:auto;"
-        >
-      </div>
-    </div>
-</header>
-   
-    
-    <section class="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    
-                        {% include rocket-nav.html title="Nosecone Tutorial" num_pages="4" %}
+{% include section.html param="topnav" %}
+
+       
+{% include adv-drawing-toggle.html %}
 
                     <h3 class="section-heading">{% include step_counter.html %} Start the sketch to add your name to the nosecone</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_sketch1" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch.png" /></li>
                         <li>Select the front plane <img src="img/tutorial/front_plane.png" /></li>
                         <li>Right click and select <em>View normal to sketch plane</em> to line up your view</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_sketch1" %}
-                </div>
-            </div>
-        </div>
-    </section>
+              
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Add your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_sketch2" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Text" tool <img src="img/tutorial/text.png" /></li>
                         <li>Draw a box near the nosecone and type your name with <strong>Enter</strong> after each letter</li>
@@ -60,34 +28,28 @@
                         <li>Select the <strong>Roboto Slab</strong> font <img src="img/tutorial/roboto_slab.png" /></li>
                         <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_sketch2" %}
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Constrain your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_sketch3" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
                         <li>Select the point that is the center of the top line above the first letter</li>
                         <li>Select the line running down the center of the rocket</li>
                         <ul><li>You should see the letters jump to the center</li></ul>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_sketch3" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Dimension your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_sketch4" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Press <strong>Esc</strong> to deselect the coincident tool</li>
                         <li>Drag the dashed line around the letters so that the top is below the top of the rocket</li>
@@ -96,17 +58,14 @@
                         <li>Select the top of the rocket</li>
                         <li>Set the dimension to <strong>0.25</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_sketch4" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
                     <h3 class="section-heading">{% include step_counter.html %} Dimension your name (2)</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch5" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Select the <em>side</em> of the box around the first letter</li>
@@ -114,17 +73,14 @@
                         <ul><li>Make sure the letters <strong>don't</strong> go below the notch into the smaller diameter section</li></ul>
                         <li>Press the green check to finish the sketch <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch5" %}
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Extrude your name (1)</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_extrude1" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <li>Select <em>Sketch 5</em> <img src="img/tutorial/sketch_5.png" /></li>
@@ -133,34 +89,28 @@
                         <li>Click on the outer surface of the rocket</li>
                         <ul><li>Don't press the check yet, we have more options to set below</li></ul>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_extrude1" %}
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Extrude your name (2)</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_extrude2" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Still in the extrude menu, set the <em>Offset distance</em> to <strong>0.02</strong></li>
                         <li>Press the "Opposite direction" button next to <em>Offset distance</em> <img src="img/tutorial/opposite_direction_button.png" /></li>
                         <ul><li>You should now see your name on the nosecone</li></ul>
                         <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_extrude2" %}
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                    {% include section.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Remove the name extrude from the inside</h3>
+                    {% include adv-drawing.html path="img/tutorial/nosecone-drawing-4.png" %}
+                    {% include tutorial-video.html path="videos/nosecone/text_extrude3" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
                         <li>Select <em>Sketch 5</em> (again) <img src="img/tutorial/sketch_5.png" /></li>
@@ -171,10 +121,6 @@
                         <ul><li>You'll see the inside of the nsoecone empty of your name</li></ul>
                         <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/nosecone/text_extrude3" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
+                    
+                 {% include section.html param="bottom" %}
    
