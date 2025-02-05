@@ -1,25 +1,27 @@
-  <section class="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    {% include rocket-nav.html title="Fuselage Tutorial" num_pages="4" %}
+{% include section.html param="topnav" %}
+
+       
+{% include adv-drawing-toggle.html %}
+
                     <h3 class="section-heading">{% include step_counter.html %} Start the sketch to add your name to the rocket</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch1" %}
+                    {% include written-instructions.html %}
                     <ul>
                         <li>Start a new sketch <img src="img/tutorial/sketch.png" /></li>
                         <li>Select the front plane <img src="img/tutorial/front_plane.png" /></li>
                         <li>Press <code>n</code> to line up your view (if upside down, click 'Front' on the view cube).</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch1" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                   
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
+
                     <h3 class="section-heading">{% include step_counter.html %} Add your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch2" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Text" tool <img src="img/tutorial/text.png" /></li>
                         <li>Draw a box near your rocket and type your name with <strong>Enter</strong> after each letter</li>
@@ -27,34 +29,30 @@
                         <li>Select the <strong>Roboto Slab</strong> font <img src="img/tutorial/roboto_slab.png" /></li>
                         <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch2" %}
-                </div>
-            </div>
-        </div>
-    </section>
+               
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
                     <h3 class="section-heading">{% include step_counter.html %} Constrain your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch3" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
                         <li>Select the point that is the center of the top line above the first letter</li>
                         <li>Select the line running down the center of the rocket</li>
                         <ul><li>You should see the letters jump to the center</li></ul>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch3" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
                     <h3 class="section-heading">{% include step_counter.html %} Dimension your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch4" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Press <strong>Esc</strong> to deselect the coincident tool</li>
                         <li>Drag the dashed line around the letters so that the top is below the top of the rocket</li>
@@ -63,17 +61,15 @@
                         <li>Select the top of the box around the first letter</li>
                         <li>Set the dimension to <strong>0.25</strong></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch4" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
                     <h3 class="section-heading">{% include step_counter.html %} Dimension your name (2)</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_sketch5" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
                         <li>Select the <em>side</em> of the box around the first letter</li>
@@ -81,51 +77,44 @@
                         <ul><li>Make sure the letters <strong>don't</strong> go below the notch into the smaller diameter section</li></ul>
                         <li>Press the green check to finish the sketch <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_sketch5" %}
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
                     <h3 class="section-heading">{% include step_counter.html %} Wrap your name</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_wrap1" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Select the "Wrap" tool <img src="img/tutorial/wrap_tool.png" /> (in a menu under the "Boolean" tool <img src="img/tutorial/bool_tool.JPG" />).</li>
                         <li>Select <strong>Solid</strong> </li>
                         <li>Click on the box for <em>Tools</em> and select <em>Sketch 4</em> <img src="img/tutorial/sketch_4.png" /></li>
                         <li>Click on the box for <em>Target</em> and then click on the outside of the rocket body.</li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_wrap1" %}
-                </div>
-            </div>
-        </div>
-    </section>
+               
+                    {% include section.html %}
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+
                     <h3 class="section-heading">{% include step_counter.html %} Wrap your name (2)</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
+                    {% include tutorial-video.html path="videos/middle-body/text_wrap2" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Right-click and drag the mouse to view the solid letters. If they are backwards, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> next to <em>Target</em>.</li>
                         <li>Set <em>Thickness</em> to <strong>0.02</strong></li>
                         <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
                     </ul>
-                    {% include tutorial-video.html path="videos/middle-body/text_wrap2" %}
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
+                
+                    {% include section.html %}
+
+
                     <h3 class="section-heading">{% include step_counter.html %} Rename your part studio... you're done with the fuselage!</h3>
+                    {% include adv-drawing.html path="img/tutorial/fuselage-drawing-6.png" %}
                     {% include tutorial-video.html path="videos/middle-body/rename_part_studio" %}
+                    {% include written-instructions.html %}
+
                     <ul>
                         <li>Right-click on the <strong>Part Studio 1</strong> tab on the bottom left <img src="img/tutorial/part_studio1.png" /></li>
                         <li>Select <em>Rename</em></li>
@@ -134,10 +123,9 @@
                         <li>Rename it to "<strong>Middle Body</strong>"</li>
                         <ul><li style="font-size: 75%">You're already thinking of skipping this... but then your future self will be sad...</li></ul>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+               
+                    {% include section.html param="bottom" %}
+
     
     
     
