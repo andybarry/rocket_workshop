@@ -1,0 +1,546 @@
+---
+layout: default
+title: Node Output | Stage One Education, LLC
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Interactive Table with Traffic Light & Decision (8 Rounds) – 0 to -10 Fix</title>
+  
+  <!-- GLOBAL STYLE (same CSS as your "big" second code) -->
+  <style>
+    /* -------------------------------------
+       SLIDER CONTAINER + ARROW STYLES
+       ------------------------------------- */
+    .slider-container {
+      width: 100%; /* We'll slide among 8 rounds side by side */
+      display: flex;
+      text-align: center;
+      transition: transform 0.5s ease;
+      margin: 0;
+      padding: 0;
+    }
+    .round-container {
+      width: 100%;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    #arrowLeft, #arrowRight {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      cursor: pointer;
+      font-size: 2em;
+      color: #f05f40;
+      background-color: transparent;
+      border: none;
+      user-select: none;
+    }
+    #arrowLeft {
+      left: 10px;
+    }
+    #arrowRight {
+      right: 10px;
+    }
+
+    /******************************************
+     *  TRAFFIC LIGHT + BUTTON STYLES (SMALLER)
+     ******************************************/
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      margin: 5px auto;
+      transition: background-color 0.3s;
+    }
+    /* Inactive (lighter) colors */
+    .inactive-red {
+      background-color: #ffb3b321; /* Light red */
+    }
+    .inactive-green {
+      background-color: #b3ffb324; /* Light green */
+    }
+    /* Active (full) colors */
+    .red {
+      background-color: red;
+    }
+    .green {
+      background-color: green;
+    }
+
+    /* Buttons for selecting Red/Green (SMALLER) */
+    .btn {
+      cursor: pointer;
+      font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 300px;
+      padding: 8px 15px;
+      outline: none;
+      box-shadow: none;
+      transition: all .3s;
+      margin: 0 5px;
+    }
+    /* Red Buttons (Rounds 1..8) */
+    #colorRed, 
+    #colorRed2, 
+    #colorRed3, 
+    #colorRed4, 
+    #colorRed5, 
+    #colorRed6, 
+    #colorRed7, 
+    #colorRed8 {
+      background-color: #fff !important;
+      color: red !important;
+      border: 2px solid red !important;
+    }
+    #colorRed.active,
+    #colorRed2.active,
+    #colorRed3.active,
+    #colorRed4.active,
+    #colorRed5.active,
+    #colorRed6.active,
+    #colorRed7.active,
+    #colorRed8.active {
+      background-color: red !important;
+      color: #fff !important;
+      border: none !important;
+    }
+    /* Green Buttons (Rounds 1..8) */
+    #colorGreen, 
+    #colorGreen2, 
+    #colorGreen3, 
+    #colorGreen4, 
+    #colorGreen5, 
+    #colorGreen6, 
+    #colorGreen7, 
+    #colorGreen8 {
+      background-color: #fff !important;
+      color: green !important;
+      border: 2px solid green !important;
+    }
+    #colorGreen.active,
+    #colorGreen2.active,
+    #colorGreen3.active,
+    #colorGreen4.active,
+    #colorGreen5.active,
+    #colorGreen6.active,
+    #colorGreen7.active,
+    #colorGreen8.active {
+      background-color: green !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /******************************************
+     *  INTERACTIVE TABLE STYLES
+     ******************************************/
+    .interactive-table {
+      width: 50%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .interactive-table th,
+    .interactive-table td {
+      border: 1px solid #ddd;
+      padding: 6px;
+      width: 80px;
+    }
+    .interactive-table th {
+      background-color: #f05f40;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+    .interactive-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .interactive-table tr:hover {
+      background-color: #f1f1f1;
+    }
+    .interactive-table select {
+      padding: 3px;
+    }
+
+    /* Color row red or green */
+    .row-red {
+      background-color: red !important;
+      color: #ffffff !important;
+    }
+    .row-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    /* Color dropdown red or green */
+    .select-red {
+      background-color: red !important; 
+      color: #ffffff !important;
+    }
+    .select-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    /******************************************
+     *  DECISION TABLE STYLES
+     ******************************************/
+    .decision-table {
+      width: 30%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .decision-table th,
+    .decision-table td {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+    .decision-table th {
+      background-color: #f05f40;
+      color: white;
+      font-weight: bold;
+    }
+    .decision-table .row-red {
+      background-color: red !important;
+      color: #ffffff !important;
+    }
+    .decision-table .row-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    /* Color only the cell red or green */
+    .cell-red {
+      background-color: red !important;
+      color: #ffffff !important;
+    }
+    .cell-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    /* -------------------------------------------------
+       OPTIONAL: Overlay User Inputs (applied to Round 1)
+       ------------------------------------------------- */
+    #userInputOverlays {
+      position: relative; 
+    }
+    .overlay-input-box {
+      position: absolute;
+      z-index: 99999999999999999 !important;
+      background-color: #fff !important;
+      color: #000 !important;
+      border: 1px solid #ffffff;
+      font-size: 1em;
+      padding: 6px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .hidden-overlays .overlay-input-box {
+      display: none;
+    }
+
+  </style>
+</head>
+
+<body>
+
+{% include navigation-ai.html %}
+
+<!-- Fixed arrows to navigate rounds -->
+<button id="arrowLeft" onclick="prevRound()">&#9664;</button>
+<button id="arrowRight" onclick="nextRound()">&#9654;</button>
+
+<!-- Container that holds all rounds side-by-side -->
+<div class="slider-container" id="sliderContainer">
+  
+  <!-- Round 1 partial -->
+  {% include node-output-round1.html %}
+
+  <!-- Round 2 partial -->
+  {% include node-output-round2.html %}
+
+  <!-- Round 3 partial -->
+  {% include node-output-round3.html %}
+
+  <!-- Round 4 partial -->
+  {% include node-output-round4.html %}
+
+  <!-- Round 5 partial -->
+  {% include node-output-round5.html %}
+
+  <!-- Round 6 partial -->
+  {% include node-output-round6.html %}
+
+  <!-- Round 7 partial -->
+  {% include node-output-round7.html %}
+
+  <!-- Round 8 partial -->
+  {% include node-output-round8.html %}
+
+</div> <!-- /sliderContainer -->
+
+<!-- GLOBAL SCRIPT for slider navigation & summary copying -->
+<script>
+  let currentRound = 0; // 0..7
+  const slider = document.getElementById('sliderContainer');
+
+  function showRound(index) {
+    slider.style.transform = "translateX(-" + (index * 100) + "%)";
+    currentRound = index;
+
+    // EXAMPLE: If user navigates to Round 2, copy Round1's summary into Round 2 table
+    if (index === 1) {
+      document.getElementById('networkStatusCell2_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell2_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+    }
+    // Round 3 needs Round1 & Round2 summary
+    if (index === 2) {
+      document.getElementById('networkStatusCell3_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell3_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell3_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell3_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+    }
+    // Round 4 needs Round1..3 summary
+    if (index === 3) {
+      document.getElementById('networkStatusCell4_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell4_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell4_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell4_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell4_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell4_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+    }
+    // Round 5 needs Round1..4 summary
+    if (index === 4) {
+      document.getElementById('networkStatusCell5_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell5_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell5_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell5_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell5_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell5_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell5_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell5_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+    }
+    // Round 6 needs Round1..5 summary
+    if (index === 5) {
+      document.getElementById('networkStatusCell6_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell6_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell6_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell6_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell6_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell6_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell6_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell6_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell6_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell6_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+    }
+    // Round 7 needs Round1..6 summary
+    if (index === 6) {
+      document.getElementById('networkStatusCell7_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell7_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell7_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell7_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell7_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell7_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell7_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell7_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell7_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell7_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+
+      document.getElementById('networkStatusCell7_R6').textContent =
+        document.getElementById('networkStatusCell6').textContent;
+      document.getElementById('networkSumCell7_R6').textContent =
+        document.getElementById('networkSumCell6').textContent;
+    }
+    // Round 8 needs Round1..7 summary
+    if (index === 7) {
+      document.getElementById('networkStatusCell8_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell8_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell8_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell8_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell8_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell8_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell8_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell8_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell8_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell8_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+
+      document.getElementById('networkStatusCell8_R6').textContent =
+        document.getElementById('networkStatusCell6').textContent;
+      document.getElementById('networkSumCell8_R6').textContent =
+        document.getElementById('networkSumCell6').textContent;
+
+      document.getElementById('networkStatusCell8_R7').textContent =
+        document.getElementById('networkStatusCell7').textContent;
+      document.getElementById('networkSumCell8_R7').textContent =
+        document.getElementById('networkSumCell7').textContent;
+    }
+  }
+
+  function nextRound() {
+    if (currentRound < 7) {
+      showRound(currentRound + 1);
+    }
+  }
+
+  function prevRound() {
+    if (currentRound > 0) {
+      showRound(currentRound - 1);
+    }
+  }
+
+  // We’ll track if hidden or not for the overlay example
+  let overlaysHidden = false;
+
+  // Example function to create user input overlays in Round 1 (or all rounds, if you prefer).
+  function createUserInputOverlays() {
+    // Suppose we only do it for Round 1, rows 1..9:
+    for (let i = 1; i <= 9; i++) {
+      const numericTd = document.getElementById('numericCell' + i);
+      if (numericTd) {
+        numericTd.style.position = 'relative';
+        numericTd.style.overflow = 'visible';
+        numericTd.style.zIndex = 1;
+
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.placeholder = 'C' + i + ' Numeric';
+        inp.classList.add('overlay-input-box');
+        inp.style.top  = '50%';
+        inp.style.left = '50%';
+        inp.style.width = '100%';
+        inp.style.height= '100%';
+        inp.style.transform = 'translate(-50%, -50%)';
+
+        numericTd.appendChild(inp);
+      }
+
+      const valueTd = document.getElementById('valueCell' + i);
+      if (valueTd) {
+        valueTd.style.position = 'relative';
+        valueTd.style.overflow = 'visible';
+        valueTd.style.zIndex = 1;
+
+        const inp2 = document.createElement('input');
+        inp2.type = 'text';
+        inp2.placeholder = 'C' + i + ' Value';
+        inp2.classList.add('overlay-input-box');
+        inp2.style.top  = '50%';
+        inp2.style.left = '50%';
+        inp2.style.width = '100%';
+        inp2.style.height= '100%';
+        inp2.style.transform = 'translate(-50%, -50%)';
+
+        valueTd.appendChild(inp2);
+      }
+    }
+  }
+
+  function toggleUserInputOverlays() {
+    overlaysHidden = !overlaysHidden;
+    const btn = document.getElementById('toggleUserInputsBtn');
+    if (overlaysHidden) {
+      document.body.classList.add('hidden-overlays');
+      btn.textContent = 'Show User Boxes';
+    } else {
+      document.body.classList.remove('hidden-overlays');
+      btn.textContent = 'Hide User Boxes';
+    }
+  }
+
+  window.addEventListener('load', function() {
+    // Show first round by default
+    showRound(0);
+    // If you want to create overlays in Round 1
+    createUserInputOverlays();
+  });
+</script>
+
+</body>
+</html>

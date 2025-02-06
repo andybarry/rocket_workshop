@@ -1,0 +1,524 @@
+<!-- ========================== ROUND 3 ========================== -->
+<div class="round-container" id="round3">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 3</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align:center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align:center; margin-bottom:20px;">
+    <button id="colorRed3" class="btn">Red</button>
+    <button id="colorGreen3" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight3">
+      <div class="light inactive-red" id="redCircle3"></div>
+      <div class="light inactive-green" id="greenCircle3"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align:center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 3) -->
+  <table class="interactive-table" id="interactiveTable3">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 9 nodes: C1..C9 -->
+      <tr id="row3_1">
+        <td>C1</td>
+        <td id="weightCell3_1">20</td>
+        <td>
+          <select id="inputDropdown3_1" onchange="updateRow3(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_1"></td>
+        <td id="valueCell3_1"></td>
+      </tr>
+      <tr id="row3_2">
+        <td>C2</td>
+        <td id="weightCell3_2">20</td>
+        <td>
+          <select id="inputDropdown3_2" onchange="updateRow3(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_2"></td>
+        <td id="valueCell3_2"></td>
+      </tr>
+      <tr id="row3_3">
+        <td>C3</td>
+        <td id="weightCell3_3">20</td>
+        <td>
+          <select id="inputDropdown3_3" onchange="updateRow3(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_3"></td>
+        <td id="valueCell3_3"></td>
+      </tr>
+      <tr id="row3_4">
+        <td>C4</td>
+        <td id="weightCell3_4">20</td>
+        <td>
+          <select id="inputDropdown3_4" onchange="updateRow3(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_4"></td>
+        <td id="valueCell3_4"></td>
+      </tr>
+      <tr id="row3_5">
+        <td>C5</td>
+        <td id="weightCell3_5">20</td>
+        <td>
+          <select id="inputDropdown3_5" onchange="updateRow3(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_5"></td>
+        <td id="valueCell3_5"></td>
+      </tr>
+      <tr id="row3_6">
+        <td>C6</td>
+        <td id="weightCell3_6">20</td>
+        <td>
+          <select id="inputDropdown3_6" onchange="updateRow3(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_6"></td>
+        <td id="valueCell3_6"></td>
+      </tr>
+      <tr id="row3_7">
+        <td>C7</td>
+        <td id="weightCell3_7">20</td>
+        <td>
+          <select id="inputDropdown3_7" onchange="updateRow3(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_7"></td>
+        <td id="valueCell3_7"></td>
+      </tr>
+      <tr id="row3_8">
+        <td>C8</td>
+        <td id="weightCell3_8">20</td>
+        <td>
+          <select id="inputDropdown3_8" onchange="updateRow3(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_8"></td>
+        <td id="valueCell3_8"></td>
+      </tr>
+      <tr id="row3_9">
+        <td>C9</td>
+        <td id="weightCell3_9">20</td>
+        <td>
+          <select id="inputDropdown3_9" onchange="updateRow3(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_9"></td>
+        <td id="valueCell3_9"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 3) -->
+  <div style="text-align:center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable3">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow3">
+        <td id="sumCell3">---</td>
+        <td id="outputCell3">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable3">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell3" style="font-weight:bold;">
+          Traffic Light State: ---
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 3) -->
+  <div style="text-align:center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable3">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example: row for Round 1 & 2 summary, then Round 3 row itself -->
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell3_R1"></td>
+        <td id="networkSumCell3_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell3_R2"></td>
+        <td id="networkSumCell3_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell3"></td>
+        <td id="networkSumCell3"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Bar Chart for Round 3 -->
+  <div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+    <canvas id="round3BarChart" width="500" height="200" style="border:1px solid #000;">
+      Your browser does not support Canvas.
+    </canvas>
+  </div>
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin:20px 0;">
+    <button id="resetButton3" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown3" onchange="updateHeaderColor3()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Round 3 SCRIPT -->
+  <script>
+    /********************************************************
+     * Round 3 - Traffic Light Handling
+     ********************************************************/
+    const colorRedBtn3   = document.getElementById('colorRed3');
+    const colorGreenBtn3 = document.getElementById('colorGreen3');
+    const redCircle3     = document.getElementById('redCircle3');
+    const greenCircle3   = document.getElementById('greenCircle3');
+
+    colorRedBtn3.addEventListener('click', () => {
+      colorRedBtn3.classList.add('active');
+      colorGreenBtn3.classList.remove('active');
+      redCircle3.classList.remove('inactive-red');
+      redCircle3.classList.add('red');
+      greenCircle3.classList.remove('green');
+      greenCircle3.classList.add('inactive-green');
+
+      updateNetworkStatusTable3();
+      updateRound4Weights(); // If continuing to Round 4
+    });
+
+    colorGreenBtn3.addEventListener('click', () => {
+      colorGreenBtn3.classList.add('active');
+      colorRedBtn3.classList.remove('active');
+      greenCircle3.classList.remove('inactive-green');
+      greenCircle3.classList.add('green');
+      redCircle3.classList.remove('red');
+      redCircle3.classList.add('inactive-red');
+
+      updateNetworkStatusTable3();
+      updateRound4Weights(); // If continuing to Round 4
+    });
+
+    function updateNetworkStatusTable3() {
+      const trafficLightStateCell3 = document.getElementById('trafficLightStateCell3');
+      let stateText3 = 'Traffic Light State: ---';
+
+      if (colorRedBtn3.classList.contains('active')) {
+        stateText3 = 'Traffic Light State: RED';
+        trafficLightStateCell3.style.backgroundColor = 'red';
+        trafficLightStateCell3.style.color = 'white';
+      } else if (colorGreenBtn3.classList.contains('active')) {
+        stateText3 = 'Traffic Light State: GREEN';
+        trafficLightStateCell3.style.backgroundColor = 'green';
+        trafficLightStateCell3.style.color = 'white';
+      } else {
+        trafficLightStateCell3.style.backgroundColor = '';
+        trafficLightStateCell3.style.color = '';
+      }
+      trafficLightStateCell3.textContent = stateText3;
+
+      const decisionOutput3 = document.getElementById('outputCell3').textContent;
+      const currentLightState3 = stateText3.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus3;
+      if (decisionOutput3 === 'UNDECIDED') {
+        networkStatus3 = 'UNDECIDED';
+      } else if (currentLightState3 === '---') {
+        networkStatus3 = 'INCORRECT';
+      } else if (decisionOutput3 === currentLightState3) {
+        networkStatus3 = 'CORRECT';
+      } else {
+        networkStatus3 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell3').textContent = networkStatus3;
+
+      const sumValue3 = document.getElementById('sumCell3').textContent;
+      document.getElementById('networkSumCell3').textContent = sumValue3;
+    }
+
+    /********************************************************
+     * Round 3 - Interactive Table & Decision
+     ********************************************************/
+    function updateRow3(rowIdx) {
+      const dropdown3   = document.getElementById("inputDropdown3_" + rowIdx);
+      const numericCell3= document.getElementById("numericCell3_" + rowIdx);
+      const valueCell3  = document.getElementById("valueCell3_" + rowIdx);
+      const weightCell3 = document.getElementById("weightCell3_" + rowIdx);
+
+      // Remove previous color classes
+      dropdown3.parentElement.classList.remove('cell-red','cell-green');
+      dropdown3.classList.remove('select-red','select-green');
+
+      const selection3 = dropdown3.value;
+      if (!selection3) {
+        numericCell3.textContent = "";
+        valueCell3.textContent   = "";
+        updateDecision3();
+        updateRound4Weights();
+        return;
+      }
+
+      const parsedWeight3 = parseFloat(weightCell3.textContent.trim());
+      const weight3       = isNaN(parsedWeight3) ? 20 : parsedWeight3;
+      const numericVal3= (selection3 === "RED") ? -1 : 1;
+
+      numericCell3.textContent = numericVal3;
+      valueCell3.textContent   = numericVal3 * weight3;
+
+      // Color the cell
+      if (selection3 === "RED") {
+        dropdown3.parentElement.classList.add('cell-red');
+        dropdown3.classList.add('select-red');
+      } else {
+        dropdown3.parentElement.classList.add('cell-green');
+        dropdown3.classList.add('select-green');
+      }
+
+      updateDecision3();
+      updateRound4Weights(); // If continuing to Round 4
+    }
+
+    function updateDecision3() {
+      let sum3 = 0;
+      for (let i = 1; i <= 9; i++) {
+        const valStr3 = document.getElementById("valueCell3_" + i).textContent.trim();
+        sum3 += parseFloat(valStr3) || 0;
+      }
+      document.getElementById("sumCell3").textContent = sum3;
+
+      let output3;
+      if (sum3 > 0) {
+        output3 = "GREEN";
+      } else if (sum3 < 0) {
+        output3 = "RED";
+      } else {
+        output3 = "UNDECIDED";
+      }
+      document.getElementById("outputCell3").textContent = output3;
+
+      // Color the entire decision row
+      const decisionRow3 = document.getElementById("decisionRow3");
+      decisionRow3.classList.remove('row-red','row-green');
+      if (sum3 > 0) {
+        decisionRow3.classList.add('row-green');
+      } else if (sum3 < 0) {
+        decisionRow3.classList.add('row-red');
+      }
+
+      updateNetworkStatusTable3();
+    }
+
+    function updateHeaderColor3() {
+      const newColor3 = document.getElementById('headerColorDropdown3').value;
+      const allHeaders3 = document.querySelectorAll(
+        '#round3 .interactive-table th, #round3 .decision-table th'
+      );
+      allHeaders3.forEach(th => {
+        th.style.backgroundColor = newColor3;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /********************************************************
+     * (Optional) 0 => -10 Fix: Update Round 4's Weights
+     ********************************************************/
+    function updateRound4Weights() {
+      // If you want to adjust Round 4’s initial weights based on Round 3 result
+      let round3Light = null;
+      if (colorRedBtn3.classList.contains('active')) {
+        round3Light = 'RED';
+      } else if (colorGreenBtn3.classList.contains('active')) {
+        round3Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const r4WeightCell = document.getElementById('weightCell4_' + i);
+        if (!r4WeightCell) continue; // If Round 4 doesn’t exist or not shown
+
+        const r3WeightCell = document.getElementById('weightCell3_' + i);
+        let parsedWeight3  = parseFloat(r3WeightCell.textContent.trim());
+let finalR3Weight  = isNaN(parsedWeight3) ? 20 : parsedWeight3;
+
+        // If Round3 user input matches the Round 3 traffic light => +10, else -10
+        const round3Input = document.getElementById('inputDropdown3_' + i).value;
+        if (round3Light && round3Input) {
+          if (round3Input === round3Light) {
+            finalR3Weight += 10;
+          } else {
+            finalR3Weight -= 10;
+          }
+        }
+        r4WeightCell.textContent = finalR3Weight;
+      }
+    }
+
+    /********************************************************
+     * Bar Chart for Round 3
+     ********************************************************/
+    function drawBarChartRound3() {
+      const canvas3 = document.getElementById('round3BarChart');
+      if (!canvas3) return;
+      const ctx3 = canvas3.getContext('2d');
+
+      // Gather the 9 weights from weightCell3_1..weightCell3_9
+      let weights3 = [];
+      for (let i = 1; i <= 9; i++) {
+        const cell3 = document.getElementById('weightCell3_' + i);
+        let w3 = 0;
+        if (cell3 && cell3.textContent.trim() !== '') {
+          w3 = parseFloat(cell3.textContent.trim()) || 0;
+        }
+        weights3.push(w3);
+      }
+
+      // Clear canvas
+      ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+
+      // Compute min/max
+      let minVal3 = Math.min(...weights3);
+      let maxVal3 = Math.max(...weights3);
+      if (minVal3 === maxVal3) {
+        minVal3 -= 10;
+        maxVal3 += 10;
+      }
+      const padding3 = 5;
+      minVal3 -= padding3;
+      maxVal3 += padding3;
+
+      // Chart area
+      const chartW3 = canvas3.width;
+      const chartH3 = canvas3.height;
+      const margin3 = 30;
+      const usableW3= chartW3 - margin3 * 2;
+      const usableH3= chartH3 - margin3 * 2;
+
+      // Zero line
+      let zeroY3;
+      if (minVal3 < 0 && maxVal3 > 0) {
+        zeroY3 = margin3 + (maxVal3 / (maxVal3 - minVal3)) * usableH3;
+      } else if (maxVal3 < 0) {
+        zeroY3 = margin3 + usableH3;
+      } else {
+        zeroY3 = margin3;
+      }
+      zeroY3 = Math.max(margin3, Math.min(margin3 + usableH3, zeroY3));
+
+      // X-axis
+      ctx3.strokeStyle = 'black';
+      ctx3.lineWidth = 1;
+      ctx3.beginPath();
+      ctx3.moveTo(margin3, zeroY3);
+      ctx3.lineTo(margin3 + usableW3, zeroY3);
+      ctx3.stroke();
+
+      // Y-axis
+      ctx3.beginPath();
+      ctx3.moveTo(margin3, margin3);
+      ctx3.lineTo(margin3, margin3 + usableH3);
+      ctx3.stroke();
+
+      // Bars
+      const barSpacing3 = usableW3 / 9;
+      const barWidth3   = 5;
+      ctx3.fillStyle    = '#f05f40';
+
+      for (let i = 0; i < 9; i++) {
+        const wVal3 = weights3[i];
+        const xCenter3 = margin3 + barSpacing3 * i + barSpacing3 / 2;
+        const scale3   = usableH3 / (maxVal3 - minVal3);
+        const barHeight3 = Math.abs(wVal3 * scale3);
+
+        const barX3 = xCenter3 - barWidth3/2;
+        const barY3 = (wVal3 >= 0) ? zeroY3 - barHeight3 : zeroY3;
+
+        ctx3.fillRect(barX3, barY3, barWidth3, barHeight3);
+
+        // Label "C1", "C2", etc.
+        ctx3.fillStyle = 'black';
+        ctx3.font = '12px sans-serif';
+        ctx3.fillText('C' + (i+1), xCenter3 - 6, zeroY3 + 15);
+        ctx3.fillStyle = '#f05f40';
+      }
+    }
+
+    setInterval(drawBarChartRound3, 1000);
+  </script>
+</div> <!-- /round3 -->

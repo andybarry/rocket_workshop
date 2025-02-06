@@ -7,9 +7,45 @@ title: Node Output | Stage One Education, LLC
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Interactive Table with Traffic Light & Decision (Smaller Version)</title>
-
+  <title>Interactive Table with Traffic Light & Decision (8 Rounds) – 0 to -10 Fix</title>
   <style>
+    /* -------------------------------------
+       SLIDER CONTAINER + ARROW STYLES
+       ------------------------------------- */
+    .slider-container {
+      width: 100%; /* We'll slide among 8 rounds side by side */
+      display: flex;
+      text-align: center;
+      transition: transform 0.5s ease;
+      margin: 0;
+      padding: 0;
+    }
+    .round-container {
+      width: 100%;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    #arrowLeft, #arrowRight {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      cursor: pointer;
+      font-size: 2em;
+      color: #f05f40;
+      background-color: transparent;
+      border: none;
+      user-select: none;
+    }
+    #arrowLeft {
+      left: 10px;
+    }
+    #arrowRight {
+      right: 10px;
+    }
+
     /******************************************
      *  TRAFFIC LIGHT + BUTTON STYLES (SMALLER)
      ******************************************/
@@ -18,15 +54,15 @@ title: Node Output | Stage One Education, LLC
       vertical-align: middle;
       background-color: black;
       border-radius: 10px;
-      padding: 5px; /* smaller padding */
-      width: 40px;  /* half of original 80px */
+      padding: 5px;
+      width: 40px;
       text-align: center;
     }
     .traffic-light .light {
-      width: 25px;  /* half of original 50px */
-      height: 25px; /* half of original 50px */
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
-      margin: 5px auto; /* smaller margin */
+      margin: 5px auto;
       transition: background-color 0.3s;
     }
     /* Inactive (lighter) colors */
@@ -55,33 +91,47 @@ title: Node Output | Stage One Education, LLC
       outline: none;
       box-shadow: none;
       transition: all .3s;
-      margin: 0 5px; /* smaller spacing */
+      margin: 0 5px;
     }
-    /* Red Button */
-    #colorRed {
+    /* Red Buttons (Rounds 1..8) */
+    #colorRed, #colorRed2, #colorRed3, #colorRed4, #colorRed5, #colorRed6, #colorRed7, #colorRed8 {
       background-color: #fff !important;
       color: red !important;
       border: 2px solid red !important;
     }
-    #colorRed.active {
+    #colorRed.active,
+    #colorRed2.active,
+    #colorRed3.active,
+    #colorRed4.active,
+    #colorRed5.active,
+    #colorRed6.active,
+    #colorRed7.active,
+    #colorRed8.active {
       background-color: red !important;
       color: #fff !important;
       border: none !important;
     }
-    /* Green Button */
-    #colorGreen {
+    /* Green Buttons (Rounds 1..8) */
+    #colorGreen, #colorGreen2, #colorGreen3, #colorGreen4, #colorGreen5, #colorGreen6, #colorGreen7, #colorGreen8 {
       background-color: #fff !important;
       color: green !important;
       border: 2px solid green !important;
     }
-    #colorGreen.active {
+    #colorGreen.active,
+    #colorGreen2.active,
+    #colorGreen3.active,
+    #colorGreen4.active,
+    #colorGreen5.active,
+    #colorGreen6.active,
+    #colorGreen7.active,
+    #colorGreen8.active {
       background-color: green !important;
       color: #fff !important;
       border: none !important;
     }
 
     /******************************************
-     *  INTERACTIVE TABLE STYLES (1st Table)
+     *  INTERACTIVE TABLE STYLES
      ******************************************/
     .interactive-table {
       width: 50%;
@@ -100,6 +150,7 @@ title: Node Output | Stage One Education, LLC
       background-color: #f05f40;
       color: white;
       font-weight: bold;
+      text-align: center;
     }
     .interactive-table tr:nth-child(even) {
       background-color: #f9f9f9;
@@ -111,7 +162,7 @@ title: Node Output | Stage One Education, LLC
       padding: 3px;
     }
 
-    /* Color row red or green (for the 1st table) */
+    /* Color row red or green */
     .row-red {
       background-color: red !important;
       color: #ffffff !important;
@@ -132,11 +183,11 @@ title: Node Output | Stage One Education, LLC
     }
 
     /******************************************
-     *  DECISION TABLE STYLES (2nd Table)
+     *  DECISION TABLE STYLES
      ******************************************/
     .decision-table {
       width: 30%;
-      margin: 30px auto; /* center it with equal spacing */
+      margin: 30px auto;
       border-collapse: collapse;
       font-family: Arial, sans-serif;
       text-align: center;
@@ -146,46 +197,87 @@ title: Node Output | Stage One Education, LLC
       border: 1px solid #ddd;
       padding: 6px;
     }
-    /* Default to #f05f40, but we will override via JS dropdown */
     .decision-table th {
       background-color: #f05f40;
       color: white;
       font-weight: bold;
     }
-
     .decision-table .row-red {
       background-color: red !important;
-      color: #ffffff !important; /* force white text */
+      color: #ffffff !important;
     }
     .decision-table .row-green {
       background-color: green !important;
-      color: #ffffff !important; /* force white text */
+      color: #ffffff !important;
     }
+
+    /* Color only the cell red or green */
+    .cell-red {
+      background-color: red !important;
+      color: #ffffff !important;
+    }
+    .cell-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    /* ---------------------------------------------
+       ADDED: Overlay User Inputs for Round 1
+       --------------------------------------------- */
+    /* Container that holds our absolutely positioned inputs (so they don’t affect the table) */
+    #userInputOverlays {
+      position: relative; 
+      /* We’ll dynamically place them at the same top-level as the table. 
+         We will attach <input> to the BODY actually, but this is to anchor or toggle. */
+    }
+
+ /* Force overlay inputs to be on top */
+.overlay-input-box {
+  position: absolute;
+  z-index: 99999999999999999 !important;
+  background-color: #fff !important;
+  color: #000 !important;      /* ensure text is visible even if cell text is white */
+  border: 1px solid #ffffff;      /* or #fff, your choice */
+  font-size: 1em;
+  padding: 6px;
+  text-align: center;
+  box-sizing: border-box;      /* good practice when you do width=100% or similar */
+  
+}
+
+/* Only hide if the user clicks "Hide User Boxes" */
+.hidden-overlays .overlay-input-box {
+  display: none;
+}
+
+
   </style>
 </head>
 <body>
 
-  {% include navigation-ai.html %}
+{% include navigation-ai.html %}
 
-  <!-- Spacer for fixed navbar -->
+<!-- Fixed arrows to navigate rounds -->
+<button id="arrowLeft" onclick="prevRound()">&#9664;</button>
+<button id="arrowRight" onclick="nextRound()">&#9654;</button>
+
+<!-- Container that holds all rounds side-by-side -->
+<div class="slider-container" id="sliderContainer">
+
+<!-- ========================== ROUND 1 ========================== -->
+<div class="round-container" id="round1">
   <div style="height: 50px;"></div>
   <h2 style="text-align:center;">Round 1</h2>
-
   <hr/>
+
   <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
   <div style="text-align: center;">
     <h4>Select state of the traffic light</h4>
   </div>
   <div style="text-align: center; margin-bottom: 20px;">
-    <!-- Red Button -->
     <button id="colorRed" class="btn">Red</button>
-    
-    <!-- Green Button -->
     <button id="colorGreen" class="btn">Green</button>
-
     <br><br>
-
-    <!-- Traffic Light -->
     <div class="traffic-light" id="trafficLight">
       <div class="light inactive-red" id="redCircle"></div>
       <div class="light inactive-green" id="greenCircle"></div>
@@ -197,7 +289,7 @@ title: Node Output | Stage One Education, LLC
     <h4>Output Node</h4>
   </div>
 
-  <!-- INTERACTIVE TABLE (1st Table) -->
+  <!-- INTERACTIVE TABLE (Round 1) -->
   <table class="interactive-table" id="interactiveTable">
     <thead>
       <tr>
@@ -209,7 +301,6 @@ title: Node Output | Stage One Education, LLC
       </tr>
     </thead>
     <tbody>
-      <!-- Rows 1 to 9 -->
       <tr id="row1">
         <td>C1</td>
         <td id="weightCell1">20</td>
@@ -220,8 +311,13 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell1"></td>
-        <td id="valueCell1"></td>
+        <!-- CHANGED: Add a <span> inside each numeric/value cell -->
+        <td id="numericCell1">
+          <span class="cell-number-span" id="numericSpan1"></span>
+        </td>
+        <td id="valueCell1">
+          <span class="cell-number-span" id="valueSpan1"></span>
+        </td>
       </tr>
       <tr id="row2">
         <td>C2</td>
@@ -233,8 +329,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell2"></td>
-        <td id="valueCell2"></td>
+        <td id="numericCell2">
+          <span class="cell-number-span" id="numericSpan2"></span>
+        </td>
+        <td id="valueCell2">
+          <span class="cell-number-span" id="valueSpan2"></span>
+        </td>
       </tr>
       <tr id="row3">
         <td>C3</td>
@@ -246,8 +346,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell3"></td>
-        <td id="valueCell3"></td>
+        <td id="numericCell3">
+          <span class="cell-number-span" id="numericSpan3"></span>
+        </td>
+        <td id="valueCell3">
+          <span class="cell-number-span" id="valueSpan3"></span>
+        </td>
       </tr>
       <tr id="row4">
         <td>C4</td>
@@ -259,8 +363,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell4"></td>
-        <td id="valueCell4"></td>
+        <td id="numericCell4">
+          <span class="cell-number-span" id="numericSpan4"></span>
+        </td>
+        <td id="valueCell4">
+          <span class="cell-number-span" id="valueSpan4"></span>
+        </td>
       </tr>
       <tr id="row5">
         <td>C5</td>
@@ -272,8 +380,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell5"></td>
-        <td id="valueCell5"></td>
+        <td id="numericCell5">
+          <span class="cell-number-span" id="numericSpan5"></span>
+        </td>
+        <td id="valueCell5">
+          <span class="cell-number-span" id="valueSpan5"></span>
+        </td>
       </tr>
       <tr id="row6">
         <td>C6</td>
@@ -285,8 +397,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell6"></td>
-        <td id="valueCell6"></td>
+        <td id="numericCell6">
+          <span class="cell-number-span" id="numericSpan6"></span>
+        </td>
+        <td id="valueCell6">
+          <span class="cell-number-span" id="valueSpan6"></span>
+        </td>
       </tr>
       <tr id="row7">
         <td>C7</td>
@@ -298,8 +414,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell7"></td>
-        <td id="valueCell7"></td>
+        <td id="numericCell7">
+          <span class="cell-number-span" id="numericSpan7"></span>
+        </td>
+        <td id="valueCell7">
+          <span class="cell-number-span" id="valueSpan7"></span>
+        </td>
       </tr>
       <tr id="row8">
         <td>C8</td>
@@ -311,8 +431,12 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell8"></td>
-        <td id="valueCell8"></td>
+        <td id="numericCell8">
+          <span class="cell-number-span" id="numericSpan8"></span>
+        </td>
+        <td id="valueCell8">
+          <span class="cell-number-span" id="valueSpan8"></span>
+        </td>
       </tr>
       <tr id="row9">
         <td>C9</td>
@@ -324,19 +448,23 @@ title: Node Output | Stage One Education, LLC
             <option value="GREEN">GREEN</option>
           </select>
         </td>
-        <td id="numericCell9"></td>
-        <td id="valueCell9"></td>
+        <td id="numericCell9">
+          <span class="cell-number-span" id="numericSpan9"></span>
+        </td>
+        <td id="valueCell9">
+          <span class="cell-number-span" id="valueSpan9"></span>
+        </td>
       </tr>
     </tbody>
   </table>
   <br/>
   <hr/>
   <br/>
-  <!-- DECISION TABLE (2nd Table) -->
+
+  <!-- DECISION TABLE (Round 1) -->
   <div style="text-align: center;">
     <h4>Add each C node's value</h4>
   </div>
-
   <table class="decision-table" id="decisionTable">
     <thead>
       <tr>
@@ -363,10 +491,11 @@ title: Node Output | Stage One Education, LLC
   <br/>
   <hr/>
   <br/>
+
+  <!-- NETWORK STATUS TABLE -->
   <div style="text-align: center;">
     <h4>Summary</h4>
   </div>
-  <!-- NETWORK STATUS TABLE (3rd Table) -->
   <table class="decision-table" id="networkStatusTable">
     <thead>
       <tr>
@@ -384,29 +513,42 @@ title: Node Output | Stage One Education, LLC
     </tbody>
   </table>
 
-  <br/>
-  <br/>
-  <br/>
 
-  <!-- RESET BUTTON BELOW THE TABLES -->
+
+  <!-- ADDED: Bar Chart for this round -->
+<div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+  <canvas id="round1BarChart" width="500" height="200"
+          style="border:1px solid #000;">
+    <!-- fallback text if canvas not supported -->
+    Your browser does not support Canvas.
+  </canvas>
+</div>
+
+
+
+  <br/><br/><br/>
   <div style="text-align:center; margin: 20px 0;">
     <button id="resetButton" onclick="location.reload()">Reset Table</button>
-    
-    <!-- NEW DROPDOWN FOR HEADER COLOR -->
     <br/><br/>
     <select id="headerColorDropdown" onchange="updateHeaderColor()">
       <option value="" disabled selected>Change Heading Color</option>
-      <!-- Option 1: #f05f40 with white text -->
       <option value="#f05f40">Orange</option>
-      <!-- Option 2: blue with white text -->
       <option value="blue">Blue</option>
     </select>
   </div>
 
-  <br/>
+  <!-- 
+    Button to toggle/hide new user input boxes in Round 1’s Numeric/Value cells
+  -->
+  <div style="text-align:center; margin: 20px;">
+    <button id="toggleUserInputsBtn" onclick="toggleUserInputOverlays()">
+      Hide User Boxes
+    </button>
+  </div>
+
   {% include copyright.html %}
 
-  <!-- Script for Traffic Light and Table Logic -->
+  <!-- SCRIPT FOR ROUND 1 -->
   <script>
     /***************************
      * Traffic Light Handling
@@ -416,40 +558,34 @@ title: Node Output | Stage One Education, LLC
     const redCircle     = document.getElementById('redCircle');
     const greenCircle   = document.getElementById('greenCircle');
 
-    // When RED button is clicked
     colorRedBtn.addEventListener('click', () => {
       colorRedBtn.classList.add('active');
       colorGreenBtn.classList.remove('active');
-      
-      // Make Red active, Green inactive
       redCircle.classList.remove('inactive-red');
       redCircle.classList.add('red');
       greenCircle.classList.remove('green');
       greenCircle.classList.add('inactive-green');
 
       updateNetworkStatusTable();
+      updateRound2Weights();
     });
 
-    // When GREEN button is clicked
     colorGreenBtn.addEventListener('click', () => {
       colorGreenBtn.classList.add('active');
       colorRedBtn.classList.remove('active');
-      
-      // Make Green active, Red inactive
       greenCircle.classList.remove('inactive-green');
       greenCircle.classList.add('green');
       redCircle.classList.remove('red');
       redCircle.classList.add('inactive-red');
 
       updateNetworkStatusTable();
+      updateRound2Weights();
     });
 
-    // Compare final output (RED/GREEN/UNDECIDED) to the traffic light's state
     function updateNetworkStatusTable() {
       const trafficLightStateCell = document.getElementById('trafficLightStateCell');
-      let trafficLightStateText   = 'Traffic Light State: ---';
+      let trafficLightStateText = 'Traffic Light State: ---';
 
-      // Check which button is active
       if (colorRedBtn.classList.contains('active')) {
         trafficLightStateText = 'Traffic Light State: RED';
         trafficLightStateCell.style.backgroundColor = 'red';
@@ -459,37 +595,28 @@ title: Node Output | Stage One Education, LLC
         trafficLightStateCell.style.backgroundColor = 'green';
         trafficLightStateCell.style.color = 'white';
       } else {
-        // Reset to default if neither is selected
         trafficLightStateCell.style.backgroundColor = '';
         trafficLightStateCell.style.color = '';
       }
 
-      // Update the displayed traffic light text
       trafficLightStateCell.textContent = trafficLightStateText;
 
-      // Grab the network's Output Node value (RED/GREEN/UNDECIDED)
-      const decisionOutput   = document.getElementById('outputCell').textContent;
-      // Extract "RED", "GREEN", or "---" from the trafficLightStateCell text
+      const decisionOutput = document.getElementById('outputCell').textContent;
       const currentLightState = trafficLightStateText.replace('Traffic Light State: ', '').trim();
 
       let networkStatus;
       if (decisionOutput === 'UNDECIDED') {
-        // If the network is undecided, show "UNDECIDED"
         networkStatus = 'UNDECIDED';
       } else if (currentLightState === '---') {
-        // If no traffic light is selected, "INCORRECT"
         networkStatus = 'INCORRECT';
       } else if (decisionOutput === currentLightState) {
-        // If both match, "CORRECT"
         networkStatus = 'CORRECT';
       } else {
-        // Otherwise, "INCORRECT"
         networkStatus = 'INCORRECT';
       }
 
       document.getElementById('networkStatusCell').textContent = networkStatus;
 
-      // Sum = same as the "Sum" from the decision table
       const sumValue = document.getElementById('sumCell').textContent;
       document.getElementById('networkSumCell').textContent = sumValue;
     }
@@ -499,59 +626,56 @@ title: Node Output | Stage One Education, LLC
      *******************************/
     function updateRow(rowIdx) {
       const dropdown    = document.getElementById("inputDropdown" + rowIdx);
-      const numericCell = document.getElementById("numericCell" + rowIdx);
-      const valueCell   = document.getElementById("valueCell" + rowIdx);
       const weightCell  = document.getElementById("weightCell" + rowIdx);
-      const row         = document.getElementById("row" + rowIdx);
 
-      // Get user's RED/GREEN selection
+      // IMPORTANT: we no longer overwrite entire <td> 
+      // Instead, we only update the <span> inside those cells
+      const numericSpan = document.getElementById("numericSpan" + rowIdx);
+      const valueSpan   = document.getElementById("valueSpan" + rowIdx);
+
+      const inputCell   = dropdown.parentElement;
       const selection = dropdown.value;
 
-      // Remove color classes first
-      row.classList.remove('row-red', 'row-green');
-      dropdown.classList.remove('select-red', 'select-green');
+      // remove color classes
+      inputCell.classList.remove('cell-red', 'cell-green');
+      dropdown.classList.remove('select-red','select-green');
 
-      // If no selection, clear numeric & value columns
       if (!selection) {
-        numericCell.textContent = "";
-        valueCell.textContent   = "";
+        numericSpan.textContent = "";
+        valueSpan.textContent   = "";
         updateDecision();
+        updateRound2Weights();
         return;
       }
 
-      // Otherwise, compute numeric and value
-      const weight     = parseFloat(weightCell.textContent);
+      const weight = parseFloat(weightCell.textContent) || 20;
       const numericVal = (selection === "RED") ? -1 : 1;
-      numericCell.textContent = numericVal;
-      valueCell.textContent   = numericVal * weight;
 
-      // Apply row + dropdown color (1st table)
+      // Update only the <span> text, not the entire cell:
+      numericSpan.textContent = numericVal;
+      valueSpan.textContent   = numericVal * weight;
+
       if (selection === "RED") {
-        row.classList.add('row-red');
+        inputCell.classList.add('cell-red');
         dropdown.classList.add('select-red');
       } else {
-        row.classList.add('row-green');
+        inputCell.classList.add('cell-green');
         dropdown.classList.add('select-green');
       }
 
-      // Recompute final sum & output
       updateDecision();
+      updateRound2Weights();
     }
 
-    // Sum all "Value" cells and update the second table row
     function updateDecision() {
       let sum = 0;
-      // Loop through all 9 rows
+      // We read from each 'valueSpan#' now instead of entire cell text
       for (let i = 1; i <= 9; i++) {
-        const valStr = document.getElementById("valueCell" + i).textContent.trim();
-        const valNum = parseFloat(valStr) || 0; // treat empty as 0
-        sum += valNum;
+        const valStr = document.getElementById("valueSpan" + i).textContent.trim();
+        sum += parseFloat(valStr) || 0;
       }
-
-      // Update "Sum" cell
       document.getElementById("sumCell").textContent = sum;
 
-      // Determine output
       let output;
       if (sum > 0) {
         output = "GREEN";
@@ -562,40 +686,3548 @@ title: Node Output | Stage One Education, LLC
       }
       document.getElementById("outputCell").textContent = output;
 
-      // Color the entire row in the second table if sum is positive/negative
+      // update row color
       const decisionRow = document.getElementById("decisionRow");
-      decisionRow.classList.remove("row-red", "row-green");
-
+      decisionRow.classList.remove('row-red', 'row-green');
       if (sum > 0) {
-        decisionRow.classList.add("row-green"); // green row, white text
+        decisionRow.classList.add('row-green');
       } else if (sum < 0) {
-        decisionRow.classList.add("row-red");   // red row, white text
+        decisionRow.classList.add('row-red');
       }
-      // If sum == 0 => row remains uncolored
 
-      // Finally, update the traffic light & network status
       updateNetworkStatusTable();
     }
 
-    /*******************************
-     * CHANGE HEADER COLOR
-     *******************************/
     function updateHeaderColor() {
-      // Grab the color from the dropdown
       const newColor = document.getElementById('headerColorDropdown').value;
-
-      // Query all <th> elements in both interactive and decision tables
-      // (including the network status table, which also uses .decision-table)
       const allHeaders = document.querySelectorAll(
-        '.interactive-table th, .decision-table th'
+        '#round1 .interactive-table th, #round1 .decision-table th'
       );
-
-      // Apply the new background + white text
       allHeaders.forEach(th => {
         th.style.backgroundColor = newColor;
         th.style.color = '#ffffff';
       });
     }
+
+    /*********************************************
+     * UPDATE Round 2's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound2Weights() {
+      let round1Light = null;
+      if (colorRedBtn.classList.contains('active')) {
+        round1Light = 'RED';
+      } else if (colorGreenBtn.classList.contains('active')) {
+        round1Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round2WeightCell = document.getElementById('weightCell2_' + i);
+        if (!round2WeightCell) continue;
+
+        const round1WeightCell = document.getElementById('weightCell' + i);
+        const finalRound1Weight = (
+          round1WeightCell.textContent.trim() === '' 
+            ? 20
+            : parseFloat(round1WeightCell.textContent)
+        );
+
+        let newWeight = finalRound1Weight;
+
+        if (round1Light) {
+          const round1Input = document.getElementById('inputDropdown' + i).value;
+          if (round1Input) {
+            if (round1Input === round1Light) {
+              newWeight = finalRound1Weight + 10;
+            } else {
+              newWeight = finalRound1Weight - 10;
+            }
+          }
+        }
+        round2WeightCell.textContent = newWeight;
+      }
+    }
+
+  
+// ADDED: Function to draw the bar chart for Round 1 (C1..C9).
+// If you are adding this in Round 2, rename to "drawBarChartRound2()",
+// for Round 3 -> "drawBarChartRound3()", and so on.
+
+function drawBarChartRound1() {
+  // 1) Get the <canvas>
+  const canvas = document.getElementById('round1BarChart');
+  if (!canvas) return; // safety check
+  const ctx = canvas.getContext('2d');
+
+  // 2) Gather the 9 weights for this round:
+  //    For Round 1, they are "weightCell1".."weightCell9"
+  //    For Round 2, they are "weightCell2_1".."weightCell2_9", etc.
+  let weights = [];
+  for (let i = 1; i <= 9; i++) {
+    // E.g. for Round 1:
+    const cell = document.getElementById('weightCell' + i);
+    // For Round 2, it would be: 'weightCell2_' + i
+    let w = 0;
+    if (cell && cell.textContent.trim() !== '') {
+      w = parseFloat(cell.textContent.trim()) || 0;
+    }
+    weights.push(w);
+  }
+
+  // 3) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 4) Compute min & max to handle negative or positive
+  let minVal = Math.min(...weights);
+  let maxVal = Math.max(...weights);
+  if (minVal === maxVal) {
+    // If they're all the same, force a small range so bars are visible
+    minVal -= 10;
+    maxVal += 10;
+  }
+  // Add a little padding
+  const padding = 5;
+  minVal -= padding;
+  maxVal += padding;
+
+  // 5) Define chart area
+  const chartW = canvas.width;
+  const chartH = canvas.height;
+  const margin = 30; 
+  const usableW = chartW - margin * 2;
+  const usableH = chartH - margin * 2;
+
+  // 6) Determine "zero" line for positive/negative bars
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    // everything is negative
+    zeroY = margin + usableH;
+  } else {
+    // everything is positive
+    zeroY = margin;
+  }
+  // clamp it so it doesn't go outside the chart
+  zeroY = Math.max(margin, Math.min(margin + usableH, zeroY));
+
+  // 7) Draw X-axis (in black)
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(margin, zeroY);
+  ctx.lineTo(margin + usableW, zeroY);
+  ctx.stroke();
+
+  // 8) Draw Y-axis on the left
+  ctx.beginPath();
+  ctx.moveTo(margin, margin);
+  ctx.lineTo(margin, margin + usableH);
+  ctx.stroke();
+
+  // 9) Draw bars
+  const barSpacing = usableW / 9;
+  const barWidth   = 5;      // per your request: 5 px wide
+  ctx.fillStyle    = '#f05f40'; 
+
+  for (let i = 0; i < 9; i++) {
+    const wVal = weights[i];
+    const xCenter = margin + barSpacing * i + barSpacing / 2;
+
+    // scale = how many pixels per unit weight
+    const scale = usableH / (maxVal - minVal);
+    const barHeight = Math.abs(wVal * scale);
+
+    // If wVal >= 0 => bar goes up from zeroY
+    // If wVal < 0  => bar goes down
+    const barX = xCenter - (barWidth / 2);
+    const barY = (wVal >= 0) ? zeroY - barHeight : zeroY;
+
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // 10) Label each bar "C1", "C2", etc. on X-axis
+    ctx.fillStyle = 'black';
+    ctx.font = '12px sans-serif';
+    ctx.fillText('C' + (i + 1), xCenter - 6, zeroY + 15);
+    ctx.fillStyle = '#f05f40'; // revert for the next bar
+  }
+}
+
+// 11) Update the chart on an interval so it follows changes in the table
+setInterval(drawBarChartRound1, 1000);
+
   </script>
+
+</div> <!-- /round1 -->
+
+
+
+
+
+<!-- ROUND 2 -->
+<div class="round-container" id="round2">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 2</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed2" class="btn">Red</button>
+    <button id="colorGreen2" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight2">
+      <div class="light inactive-red" id="redCircle2"></div>
+      <div class="light inactive-green" id="greenCircle2"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 2) -->
+  <table class="interactive-table" id="interactiveTable2">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row2_1">
+        <td>C1</td>
+        <td id="weightCell2_1">20</td>
+        <td>
+          <select id="inputDropdown2_1" onchange="updateRow2(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_1"></td>
+        <td id="valueCell2_1"></td>
+      </tr>
+      <tr id="row2_2">
+        <td>C2</td>
+        <td id="weightCell2_2">20</td>
+        <td>
+          <select id="inputDropdown2_2" onchange="updateRow2(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_2"></td>
+        <td id="valueCell2_2"></td>
+      </tr>
+      <tr id="row2_3">
+        <td>C3</td>
+        <td id="weightCell2_3">20</td>
+        <td>
+          <select id="inputDropdown2_3" onchange="updateRow2(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_3"></td>
+        <td id="valueCell2_3"></td>
+      </tr>
+      <tr id="row2_4">
+        <td>C4</td>
+        <td id="weightCell2_4">20</td>
+        <td>
+          <select id="inputDropdown2_4" onchange="updateRow2(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_4"></td>
+        <td id="valueCell2_4"></td>
+      </tr>
+      <tr id="row2_5">
+        <td>C5</td>
+        <td id="weightCell2_5">20</td>
+        <td>
+          <select id="inputDropdown2_5" onchange="updateRow2(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_5"></td>
+        <td id="valueCell2_5"></td>
+      </tr>
+      <tr id="row2_6">
+        <td>C6</td>
+        <td id="weightCell2_6">20</td>
+        <td>
+          <select id="inputDropdown2_6" onchange="updateRow2(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_6"></td>
+        <td id="valueCell2_6"></td>
+      </tr>
+      <tr id="row2_7">
+        <td>C7</td>
+        <td id="weightCell2_7">20</td>
+        <td>
+          <select id="inputDropdown2_7" onchange="updateRow2(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_7"></td>
+        <td id="valueCell2_7"></td>
+      </tr>
+      <tr id="row2_8">
+        <td>C8</td>
+        <td id="weightCell2_8">20</td>
+        <td>
+          <select id="inputDropdown2_8" onchange="updateRow2(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_8"></td>
+        <td id="valueCell2_8"></td>
+      </tr>
+      <tr id="row2_9">
+        <td>C9</td>
+        <td id="weightCell2_9">20</td>
+        <td>
+          <select id="inputDropdown2_9" onchange="updateRow2(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell2_9"></td>
+        <td id="valueCell2_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 2) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable2">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow2">
+        <td id="sumCell2">---</td>
+        <td id="outputCell2">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable2">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell2" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 2) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable2">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell2_R1"></td>
+        <td id="networkSumCell2_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell2"></td>
+        <td id="networkSumCell2"></td>
+      </tr>
+    </tbody>
+  </table>
+
+<!-- ADDED: Bar Chart for Round 2 -->
+<div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+  <canvas id="round2BarChart" width="500" height="200"
+          style="border:1px solid #000;">
+    Your browser does not support Canvas.
+  </canvas>
+</div>
+
+<script>
+// Draw a bar chart for Round 2 (C1..C9).
+function drawBarChartRound2() {
+  const canvas = document.getElementById('round2BarChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Gather the 9 updated weights from weightCell2_1..weightCell2_9
+  let weights = [];
+  for (let i = 1; i <= 9; i++) {
+    const cell = document.getElementById('weightCell2_' + i);
+    let w = 0;
+    if (cell && cell.textContent.trim() !== '') {
+      w = parseFloat(cell.textContent.trim()) || 0;
+    }
+    weights.push(w);
+  }
+
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Find min/max
+  let minVal = Math.min(...weights);
+  let maxVal = Math.max(...weights);
+  if (minVal === maxVal) {
+    minVal -= 10;
+    maxVal += 10;
+  }
+  const padding = 5;
+  minVal -= padding;
+  maxVal += padding;
+
+  const chartW = canvas.width;
+  const chartH = canvas.height;
+  const margin = 30;
+  const usableW = chartW - margin * 2;
+  const usableH = chartH - margin * 2;
+
+  // Calculate the zero line
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    zeroY = margin + usableH;
+  } else {
+    zeroY = margin;
+  }
+  zeroY = Math.max(margin, Math.min(margin + usableH, zeroY));
+
+  // X-axis
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(margin, zeroY);
+  ctx.lineTo(margin + usableW, zeroY);
+  ctx.stroke();
+
+  // Y-axis
+  ctx.beginPath();
+  ctx.moveTo(margin, margin);
+  ctx.lineTo(margin, margin + usableH);
+  ctx.stroke();
+
+  // Bars
+  const barSpacing = usableW / 9;
+  const barWidth   = 5;
+  ctx.fillStyle    = '#f05f40';
+
+  for (let i = 0; i < 9; i++) {
+    const wVal = weights[i];
+    const xCenter = margin + barSpacing * i + barSpacing / 2;
+    const scale = usableH / (maxVal - minVal);
+    const barHeight = Math.abs(wVal * scale);
+    const barX = xCenter - barWidth / 2;
+    const barY = (wVal >= 0) ? zeroY - barHeight : zeroY;
+
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Label each bar (C1..C9)
+    ctx.fillStyle = 'black';
+    ctx.font = '12px sans-serif';
+    ctx.fillText('C' + (i + 1), xCenter - 6, zeroY + 15);
+    ctx.fillStyle = '#f05f40';
+  }
+}
+
+// Redraw every 1 second
+setInterval(drawBarChartRound2, 1000);
+</script>
+
+
+
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton2" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown2" onchange="updateHeaderColor2()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 2 -->
+  <script>
+    const colorRedBtn2   = document.getElementById('colorRed2');
+    const colorGreenBtn2 = document.getElementById('colorGreen2');
+    const redCircle2     = document.getElementById('redCircle2');
+    const greenCircle2   = document.getElementById('greenCircle2');
+
+    colorRedBtn2.addEventListener('click', () => {
+      colorRedBtn2.classList.add('active');
+      colorGreenBtn2.classList.remove('active');
+      redCircle2.classList.remove('inactive-red');
+      redCircle2.classList.add('red');
+      greenCircle2.classList.remove('green');
+      greenCircle2.classList.add('inactive-green');
+      updateNetworkStatusTable2();
+      updateRound3Weights();
+    });
+
+    colorGreenBtn2.addEventListener('click', () => {
+      colorGreenBtn2.classList.add('active');
+      colorRedBtn2.classList.remove('active');
+      greenCircle2.classList.remove('inactive-green');
+      greenCircle2.classList.add('green');
+      redCircle2.classList.remove('red');
+      redCircle2.classList.add('inactive-red');
+      updateNetworkStatusTable2();
+      updateRound3Weights();
+    });
+
+    function updateNetworkStatusTable2() {
+      const trafficLightStateCell2 = document.getElementById('trafficLightStateCell2');
+      let trafficLightStateText2 = 'Traffic Light State: ---';
+
+      if (colorRedBtn2.classList.contains('active')) {
+        trafficLightStateText2 = 'Traffic Light State: RED';
+        trafficLightStateCell2.style.backgroundColor = 'red';
+        trafficLightStateCell2.style.color = 'white';
+      } else if (colorGreenBtn2.classList.contains('active')) {
+        trafficLightStateText2 = 'Traffic Light State: GREEN';
+        trafficLightStateCell2.style.backgroundColor = 'green';
+        trafficLightStateCell2.style.color = 'white';
+      } else {
+        trafficLightStateCell2.style.backgroundColor = '';
+        trafficLightStateCell2.style.color = '';
+      }
+      trafficLightStateCell2.textContent = trafficLightStateText2;
+
+      const decisionOutput2 = document.getElementById('outputCell2').textContent;
+      const currentLightState2 = trafficLightStateText2.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus2;
+      if (decisionOutput2 === 'UNDECIDED') {
+        networkStatus2 = 'UNDECIDED';
+      } else if (currentLightState2 === '---') {
+        networkStatus2 = 'INCORRECT';
+      } else if (decisionOutput2 === currentLightState2) {
+        networkStatus2 = 'CORRECT';
+      } else {
+        networkStatus2 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell2').textContent = networkStatus2;
+
+      const sumValue2 = document.getElementById('sumCell2').textContent;
+      document.getElementById('networkSumCell2').textContent = sumValue2;
+    }
+
+    function updateRow2(rowIdx) {
+      const dropdown2    = document.getElementById("inputDropdown2_" + rowIdx);
+      const numericCell2 = document.getElementById("numericCell2_" + rowIdx);
+      const valueCell2   = document.getElementById("valueCell2_" + rowIdx);
+      const weightCell2  = document.getElementById("weightCell2_" + rowIdx);
+
+      const inputCell2   = dropdown2.parentElement;
+      const selection2 = dropdown2.value;
+
+      inputCell2.classList.remove('cell-red', 'cell-green');
+      dropdown2.classList.remove('select-red', 'select-green');
+
+      if (!selection2) {
+        numericCell2.textContent = "";
+        valueCell2.textContent   = "";
+        updateDecision2();       
+        updateRound3Weights();   
+        return;
+      }
+
+      const weight2     = parseFloat(weightCell2.textContent);
+      const numericVal2 = (selection2 === "RED") ? -1 : 1;
+
+      numericCell2.textContent = numericVal2;
+      valueCell2.textContent   = numericVal2 * weight2;
+
+      if (selection2 === "RED") {
+        inputCell2.classList.add('cell-red');
+        dropdown2.classList.add('select-red');
+      } else {
+        inputCell2.classList.add('cell-green');
+        dropdown2.classList.add('select-green');
+      }
+
+      updateDecision2();
+      updateRound3Weights();
+    }
+
+    function updateDecision2() {
+  let sum2 = 0;
+  for (let i = 1; i <= 9; i++) {
+    const valStr2 = document.getElementById("valueCell2_" + i).textContent.trim();
+    sum2 += parseFloat(valStr2) || 0;
+  }
+  document.getElementById("sumCell2").textContent = sum2;
+
+  let output2;
+  if (sum2 > 0) {
+    output2 = "GREEN";
+  } else if (sum2 < 0) {
+    output2 = "RED";
+  } else {
+    output2 = "UNDECIDED";
+  }
+  document.getElementById("outputCell2").textContent = output2;
+
+  // --- NEW: Update the decision row background color ---
+  const decisionRow2 = document.getElementById("decisionRow2");
+  decisionRow2.classList.remove('row-red', 'row-green');
+  if (sum2 > 0) {
+    decisionRow2.classList.add('row-green');
+  } else if (sum2 < 0) {
+    decisionRow2.classList.add('row-red');
+  }
+  // -----------------------------------------------------
+
+  updateNetworkStatusTable2();
+}
+
+
+    function updateHeaderColor2() {
+      const newColor2 = document.getElementById('headerColorDropdown2').value;
+      const allHeaders2 = document.querySelectorAll(
+        '#round2 .interactive-table th, #round2 .decision-table th'
+      );
+      allHeaders2.forEach(th => {
+        th.style.backgroundColor = newColor2;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /*********************************************
+     * UPDATE Round 3's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound3Weights() {
+      let round2Light = null;
+      if (colorRedBtn2.classList.contains('active')) {
+        round2Light = 'RED';
+      } else if (colorGreenBtn2.classList.contains('active')) {
+        round2Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round3WeightCell = document.getElementById('weightCell3_' + i);
+        const round2WeightCell = document.getElementById('weightCell2_' + i);
+
+        if (!round3WeightCell || !round2WeightCell) continue;
+
+        const finalRound2Weight = (
+          round2WeightCell.textContent.trim() === ''
+            ? 20
+            : parseFloat(round2WeightCell.textContent)
+        );
+
+        let newWeight3 = finalRound2Weight;
+
+        if (round2Light) {
+          const round2Input = document.getElementById('inputDropdown2_' + i).value;
+          if (round2Input) {
+            if (round2Input === round2Light) {
+              newWeight3 = finalRound2Weight + 10;
+            } else {
+              newWeight3 = finalRound2Weight - 10;
+            }
+          }
+        }
+        round3WeightCell.textContent = newWeight3;
+      }
+    }
+  </script>
+</div> <!-- /round2 -->
+
+<!-- ROUND 3 -->
+<div class="round-container" id="round3">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 3</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed3" class="btn">Red</button>
+    <button id="colorGreen3" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight3">
+      <div class="light inactive-red" id="redCircle3"></div>
+      <div class="light inactive-green" id="greenCircle3"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 3) -->
+  <table class="interactive-table" id="interactiveTable3">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row3_1">
+        <td>C1</td>
+        <td id="weightCell3_1">20</td>
+        <td>
+          <select id="inputDropdown3_1" onchange="updateRow3(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_1"></td>
+        <td id="valueCell3_1"></td>
+      </tr>
+      <tr id="row3_2">
+        <td>C2</td>
+        <td id="weightCell3_2">20</td>
+        <td>
+          <select id="inputDropdown3_2" onchange="updateRow3(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_2"></td>
+        <td id="valueCell3_2"></td>
+      </tr>
+      <tr id="row3_3">
+        <td>C3</td>
+        <td id="weightCell3_3">20</td>
+        <td>
+          <select id="inputDropdown3_3" onchange="updateRow3(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_3"></td>
+        <td id="valueCell3_3"></td>
+      </tr>
+      <tr id="row3_4">
+        <td>C4</td>
+        <td id="weightCell3_4">20</td>
+        <td>
+          <select id="inputDropdown3_4" onchange="updateRow3(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_4"></td>
+        <td id="valueCell3_4"></td>
+      </tr>
+      <tr id="row3_5">
+        <td>C5</td>
+        <td id="weightCell3_5">20</td>
+        <td>
+          <select id="inputDropdown3_5" onchange="updateRow3(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_5"></td>
+        <td id="valueCell3_5"></td>
+      </tr>
+      <tr id="row3_6">
+        <td>C6</td>
+        <td id="weightCell3_6">20</td>
+        <td>
+          <select id="inputDropdown3_6" onchange="updateRow3(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_6"></td>
+        <td id="valueCell3_6"></td>
+      </tr>
+      <tr id="row3_7">
+        <td>C7</td>
+        <td id="weightCell3_7">20</td>
+        <td>
+          <select id="inputDropdown3_7" onchange="updateRow3(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_7"></td>
+        <td id="valueCell3_7"></td>
+      </tr>
+      <tr id="row3_8">
+        <td>C8</td>
+        <td id="weightCell3_8">20</td>
+        <td>
+          <select id="inputDropdown3_8" onchange="updateRow3(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_8"></td>
+        <td id="valueCell3_8"></td>
+      </tr>
+      <tr id="row3_9">
+        <td>C9</td>
+        <td id="weightCell3_9">20</td>
+        <td>
+          <select id="inputDropdown3_9" onchange="updateRow3(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell3_9"></td>
+        <td id="valueCell3_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 3) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable3">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow3">
+        <td id="sumCell3">---</td>
+        <td id="outputCell3">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable3">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell3" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 3) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable3">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell3_R1"></td>
+        <td id="networkSumCell3_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell3_R2"></td>
+        <td id="networkSumCell3_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell3"></td>
+        <td id="networkSumCell3"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ADDED: Bar Chart for this round -->
+<div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+  <canvas id="round3BarChart" width="500" height="200"
+          style="border:1px solid #000;">
+    <!-- fallback text if canvas not supported -->
+    Your browser does not support Canvas.
+  </canvas>
+</div>
+
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton3" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown3" onchange="updateHeaderColor3()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 3 -->
+  <script>
+    const colorRedBtn3   = document.getElementById('colorRed3');
+    const colorGreenBtn3 = document.getElementById('colorGreen3');
+    const redCircle3     = document.getElementById('redCircle3');
+    const greenCircle3   = document.getElementById('greenCircle3');
+
+    colorRedBtn3.addEventListener('click', () => {
+      colorRedBtn3.classList.add('active');
+      colorGreenBtn3.classList.remove('active');
+      redCircle3.classList.remove('inactive-red');
+      redCircle3.classList.add('red');
+      greenCircle3.classList.remove('green');
+      greenCircle3.classList.add('inactive-green');
+      updateNetworkStatusTable3();
+      updateRound4Weights();
+    });
+
+    colorGreenBtn3.addEventListener('click', () => {
+      colorGreenBtn3.classList.add('active');
+      colorRedBtn3.classList.remove('active');
+      greenCircle3.classList.remove('inactive-green');
+      greenCircle3.classList.add('green');
+      redCircle3.classList.remove('red');
+      redCircle3.classList.add('inactive-red');
+      updateNetworkStatusTable3();
+      updateRound4Weights();
+    });
+
+    function updateNetworkStatusTable3() {
+      const trafficLightStateCell3 = document.getElementById('trafficLightStateCell3');
+      let trafficLightStateText3 = 'Traffic Light State: ---';
+
+      if (colorRedBtn3.classList.contains('active')) {
+        trafficLightStateText3 = 'Traffic Light State: RED';
+        trafficLightStateCell3.style.backgroundColor = 'red';
+        trafficLightStateCell3.style.color = 'white';
+      } else if (colorGreenBtn3.classList.contains('active')) {
+        trafficLightStateText3 = 'Traffic Light State: GREEN';
+        trafficLightStateCell3.style.backgroundColor = 'green';
+        trafficLightStateCell3.style.color = 'white';
+      } else {
+        trafficLightStateCell3.style.backgroundColor = '';
+        trafficLightStateCell3.style.color = '';
+      }
+      trafficLightStateCell3.textContent = trafficLightStateText3;
+
+      const decisionOutput3 = document.getElementById('outputCell3').textContent;
+      const currentLightState3 = trafficLightStateText3.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus3;
+      if (decisionOutput3 === 'UNDECIDED') {
+        networkStatus3 = 'UNDECIDED';
+      } else if (currentLightState3 === '---') {
+        networkStatus3 = 'INCORRECT';
+      } else if (decisionOutput3 === currentLightState3) {
+        networkStatus3 = 'CORRECT';
+      } else {
+        networkStatus3 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell3').textContent = networkStatus3;
+
+      const sumValue3 = document.getElementById('sumCell3').textContent;
+      document.getElementById('networkSumCell3').textContent = sumValue3;
+    }
+
+    function updateRow3(rowIdx) {
+      const dropdown3    = document.getElementById("inputDropdown3_" + rowIdx);
+      const numericCell3 = document.getElementById("numericCell3_" + rowIdx);
+      const valueCell3   = document.getElementById("valueCell3_" + rowIdx);
+      const weightCell3  = document.getElementById("weightCell3_" + rowIdx);
+
+      const inputCell3   = dropdown3.parentElement;
+      const selection3 = dropdown3.value;
+
+      inputCell3.classList.remove('cell-red', 'cell-green');
+      dropdown3.classList.remove('select-red', 'select-green');
+
+      if (!selection3) {
+        numericCell3.textContent = "";
+        valueCell3.textContent   = "";
+        updateDecision3();
+        updateRound4Weights();
+        return;
+      }
+
+      const weight3     = parseFloat(weightCell3.textContent);
+      const numericVal3 = (selection3 === "RED") ? -1 : 1;
+
+      numericCell3.textContent = numericVal3;
+      valueCell3.textContent   = numericVal3 * weight3;
+
+      if (selection3 === "RED") {
+        inputCell3.classList.add('cell-red');
+        dropdown3.classList.add('select-red');
+      } else {
+        inputCell3.classList.add('cell-green');
+        dropdown3.classList.add('select-green');
+      }
+
+      updateDecision3();
+      updateRound4Weights();
+    }
+
+    function updateDecision3() {
+      let sum3 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr3 = document.getElementById("valueCell3_"+i).textContent.trim();
+        sum3 += parseFloat(valStr3) || 0;
+      }
+      document.getElementById("sumCell3").textContent = sum3;
+
+      let output3;
+      if (sum3 > 0) {
+        output3 = "GREEN";
+      } else if (sum3 < 0) {
+        output3 = "RED";
+      } else {
+        output3 = "UNDECIDED";
+      }
+      document.getElementById("outputCell3").textContent = output3;
+
+      const decisionRow3 = document.getElementById("decisionRow3");
+      decisionRow3.classList.remove('row-red','row-green');
+      if (sum3 > 0) {
+        decisionRow3.classList.add('row-green');
+      } else if (sum3 < 0) {
+        decisionRow3.classList.add('row-red');
+      }
+      updateNetworkStatusTable3();
+    }
+
+    function updateHeaderColor3() {
+      const newColor3 = document.getElementById('headerColorDropdown3').value;
+      const allHeaders3 = document.querySelectorAll(
+        '#round3 .interactive-table th, #round3 .decision-table th'
+      );
+      allHeaders3.forEach(th => {
+        th.style.backgroundColor = newColor3;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /*********************************************
+     * UPDATE Round 4's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound4Weights() {
+      let round3Light = null;
+      if (colorRedBtn3.classList.contains('active')) {
+        round3Light = 'RED';
+      } else if (colorGreenBtn3.classList.contains('active')) {
+        round3Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round4WeightCell = document.getElementById('weightCell4_' + i);
+        const round3WeightCell = document.getElementById('weightCell3_' + i);
+
+        if (!round4WeightCell || !round3WeightCell) continue;
+
+        const finalRound3Weight = (
+          round3WeightCell.textContent.trim() === ''
+            ? 20
+            : parseFloat(round3WeightCell.textContent)
+        );
+
+        let newWeight4 = finalRound3Weight;
+
+        if (round3Light) {
+          const round3Input = document.getElementById('inputDropdown3_' + i).value;
+          if (round3Input) {
+            if (round3Input === round3Light) {
+              newWeight4 = finalRound3Weight + 10;
+            } else {
+              newWeight4 = finalRound3Weight - 10;
+            }
+          }
+        }
+        round4WeightCell.textContent = newWeight4;
+      }
+    }
+  </script>
+</div> <!-- /round3 -->
+
+<!-- ROUND 4 -->
+<div class="round-container" id="round4">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 4</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed4" class="btn">Red</button>
+    <button id="colorGreen4" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight4">
+      <div class="light inactive-red" id="redCircle4"></div>
+      <div class="light inactive-green" id="greenCircle4"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 4) -->
+  <table class="interactive-table" id="interactiveTable4">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row4_1">
+        <td>C1</td>
+        <td id="weightCell4_1">20</td>
+        <td>
+          <select id="inputDropdown4_1" onchange="updateRow4(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_1"></td>
+        <td id="valueCell4_1"></td>
+      </tr>
+      <tr id="row4_2">
+        <td>C2</td>
+        <td id="weightCell4_2">20</td>
+        <td>
+          <select id="inputDropdown4_2" onchange="updateRow4(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_2"></td>
+        <td id="valueCell4_2"></td>
+      </tr>
+      <tr id="row4_3">
+        <td>C3</td>
+        <td id="weightCell4_3">20</td>
+        <td>
+          <select id="inputDropdown4_3" onchange="updateRow4(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_3"></td>
+        <td id="valueCell4_3"></td>
+      </tr>
+      <tr id="row4_4">
+        <td>C4</td>
+        <td id="weightCell4_4">20</td>
+        <td>
+          <select id="inputDropdown4_4" onchange="updateRow4(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_4"></td>
+        <td id="valueCell4_4"></td>
+      </tr>
+      <tr id="row4_5">
+        <td>C5</td>
+        <td id="weightCell4_5">20</td>
+        <td>
+          <select id="inputDropdown4_5" onchange="updateRow4(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_5"></td>
+        <td id="valueCell4_5"></td>
+      </tr>
+      <tr id="row4_6">
+        <td>C6</td>
+        <td id="weightCell4_6">20</td>
+        <td>
+          <select id="inputDropdown4_6" onchange="updateRow4(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_6"></td>
+        <td id="valueCell4_6"></td>
+      </tr>
+      <tr id="row4_7">
+        <td>C7</td>
+        <td id="weightCell4_7">20</td>
+        <td>
+          <select id="inputDropdown4_7" onchange="updateRow4(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_7"></td>
+        <td id="valueCell4_7"></td>
+      </tr>
+      <tr id="row4_8">
+        <td>C8</td>
+        <td id="weightCell4_8">20</td>
+        <td>
+          <select id="inputDropdown4_8" onchange="updateRow4(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_8"></td>
+        <td id="valueCell4_8"></td>
+      </tr>
+      <tr id="row4_9">
+        <td>C9</td>
+        <td id="weightCell4_9">20</td>
+        <td>
+          <select id="inputDropdown4_9" onchange="updateRow4(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_9"></td>
+        <td id="valueCell4_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 4) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable4">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow4">
+        <td id="sumCell4">---</td>
+        <td id="outputCell4">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable4">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell4" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 4) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable4">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell4_R1"></td>
+        <td id="networkSumCell4_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell4_R2"></td>
+        <td id="networkSumCell4_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell4_R3"></td>
+        <td id="networkSumCell4_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell4"></td>
+        <td id="networkSumCell4"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ADDED: Bar Chart for this round -->
+<div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+  <canvas id="round4BarChart" width="500" height="200"
+          style="border:1px solid #000;">
+    <!-- fallback text if canvas not supported -->
+    Your browser does not support Canvas.
+  </canvas>
+</div>
+
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton4" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown4" onchange="updateHeaderColor4()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 4 -->
+  <script>
+    const colorRedBtn4   = document.getElementById('colorRed4');
+    const colorGreenBtn4 = document.getElementById('colorGreen4');
+    const redCircle4     = document.getElementById('redCircle4');
+    const greenCircle4   = document.getElementById('greenCircle4');
+
+    colorRedBtn4.addEventListener('click', () => {
+      colorRedBtn4.classList.add('active');
+      colorGreenBtn4.classList.remove('active');
+      redCircle4.classList.remove('inactive-red');
+      redCircle4.classList.add('red');
+      greenCircle4.classList.remove('green');
+      greenCircle4.classList.add('inactive-green');
+      updateNetworkStatusTable4();
+      updateRound5Weights();
+    });
+
+    colorGreenBtn4.addEventListener('click', () => {
+      colorGreenBtn4.classList.add('active');
+      colorRedBtn4.classList.remove('active');
+      greenCircle4.classList.remove('inactive-green');
+      greenCircle4.classList.add('green');
+      redCircle4.classList.remove('red');
+      redCircle4.classList.add('inactive-red');
+      updateNetworkStatusTable4();
+      updateRound5Weights();
+    });
+
+    function updateNetworkStatusTable4() {
+      const trafficLightStateCell4 = document.getElementById('trafficLightStateCell4');
+      let trafficLightStateText4 = 'Traffic Light State: ---';
+
+      if (colorRedBtn4.classList.contains('active')) {
+        trafficLightStateText4 = 'Traffic Light State: RED';
+        trafficLightStateCell4.style.backgroundColor = 'red';
+        trafficLightStateCell4.style.color = 'white';
+      } else if (colorGreenBtn4.classList.contains('active')) {
+        trafficLightStateText4 = 'Traffic Light State: GREEN';
+        trafficLightStateCell4.style.backgroundColor = 'green';
+        trafficLightStateCell4.style.color = 'white';
+      } else {
+        trafficLightStateCell4.style.backgroundColor = '';
+        trafficLightStateCell4.style.color = '';
+      }
+      trafficLightStateCell4.textContent = trafficLightStateText4;
+
+      const decisionOutput4 = document.getElementById('outputCell4').textContent;
+      const currentLightState4 = trafficLightStateText4.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus4;
+      if (decisionOutput4 === 'UNDECIDED') {
+        networkStatus4 = 'UNDECIDED';
+      } else if (currentLightState4 === '---') {
+        networkStatus4 = 'INCORRECT';
+      } else if (decisionOutput4 === currentLightState4) {
+        networkStatus4 = 'CORRECT';
+      } else {
+        networkStatus4 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell4').textContent = networkStatus4;
+
+      const sumValue4 = document.getElementById('sumCell4').textContent;
+      document.getElementById('networkSumCell4').textContent = sumValue4;
+    }
+
+    function updateRow4(rowIdx) {
+      const dropdown4    = document.getElementById("inputDropdown4_" + rowIdx);
+      const numericCell4 = document.getElementById("numericCell4_" + rowIdx);
+      const valueCell4   = document.getElementById("valueCell4_" + rowIdx);
+      const weightCell4  = document.getElementById("weightCell4_" + rowIdx);
+
+      const inputCell4   = dropdown4.parentElement;
+      const selection4 = dropdown4.value;
+
+      inputCell4.classList.remove('cell-red', 'cell-green');
+      dropdown4.classList.remove('select-red', 'select-green');
+
+      if (!selection4) {
+        numericCell4.textContent = "";
+        valueCell4.textContent   = "";
+        updateDecision4();
+        updateRound5Weights();
+        return;
+      }
+
+      const weight4     = parseFloat(weightCell4.textContent);
+      const numericVal4 = (selection4 === "RED") ? -1 : 1;
+
+      numericCell4.textContent = numericVal4;
+      valueCell4.textContent   = numericVal4 * weight4;
+
+      if (selection4 === "RED") {
+        inputCell4.classList.add('cell-red');
+        dropdown4.classList.add('select-red');
+      } else {
+        inputCell4.classList.add('cell-green');
+        dropdown4.classList.add('select-green');
+      }
+
+      updateDecision4();
+      updateRound5Weights();
+    }
+
+    function updateDecision4() {
+      let sum4 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr4 = document.getElementById("valueCell4_"+i).textContent.trim();
+        sum4 += parseFloat(valStr4) || 0;
+      }
+      document.getElementById("sumCell4").textContent = sum4;
+
+      let output4;
+      if (sum4 > 0) {
+        output4 = "GREEN";
+      } else if (sum4 < 0) {
+        output4 = "RED";
+      } else {
+        output4 = "UNDECIDED";
+      }
+      document.getElementById("outputCell4").textContent = output4;
+
+      const decisionRow4 = document.getElementById("decisionRow4");
+      decisionRow4.classList.remove('row-red','row-green');
+      if (sum4 > 0) {
+        decisionRow4.classList.add('row-green');
+      } else if (sum4 < 0) {
+        decisionRow4.classList.add('row-red');
+      }
+      updateNetworkStatusTable4();
+    }
+
+    function updateHeaderColor4() {
+      const newColor4 = document.getElementById('headerColorDropdown4').value;
+      const allHeaders4 = document.querySelectorAll(
+        '#round4 .interactive-table th, #round4 .decision-table th'
+      );
+      allHeaders4.forEach(th => {
+        th.style.backgroundColor = newColor4;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /*********************************************
+     * UPDATE Round 5's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound5Weights() {
+      let round4Light = null;
+      if (colorRedBtn4.classList.contains('active')) {
+        round4Light = 'RED';
+      } else if (colorGreenBtn4.classList.contains('active')) {
+        round4Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round5WeightCell = document.getElementById('weightCell5_' + i);
+        const round4WeightCell = document.getElementById('weightCell4_' + i);
+        if (!round5WeightCell || !round4WeightCell) continue;
+
+        const finalRound4Weight = (
+          round4WeightCell.textContent.trim() === ''
+            ? 20
+            : parseFloat(round4WeightCell.textContent)
+        );
+
+        let newWeight5 = finalRound4Weight;
+
+        if (round4Light) {
+          const round4Input = document.getElementById('inputDropdown4_' + i).value;
+          if (round4Input) {
+            if (round4Input === round4Light) {
+              newWeight5 = finalRound4Weight + 10;
+            } else {
+              newWeight5 = finalRound4Weight - 10;
+            }
+          }
+        }
+        round5WeightCell.textContent = newWeight5;
+      }
+    }
+  </script>
+</div> <!-- /round4 -->
+
+<!-- ROUND 5 -->
+<div class="round-container" id="round5">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 5</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed5" class="btn">Red</button>
+    <button id="colorGreen5" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight5">
+      <div class="light inactive-red" id="redCircle5"></div>
+      <div class="light inactive-green" id="greenCircle5"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 5) -->
+  <table class="interactive-table" id="interactiveTable5">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row5_1">
+        <td>C1</td>
+        <td id="weightCell5_1">20</td>
+        <td>
+          <select id="inputDropdown5_1" onchange="updateRow5(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_1"></td>
+        <td id="valueCell5_1"></td>
+      </tr>
+      <tr id="row5_2">
+        <td>C2</td>
+        <td id="weightCell5_2">20</td>
+        <td>
+          <select id="inputDropdown5_2" onchange="updateRow5(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_2"></td>
+        <td id="valueCell5_2"></td>
+      </tr>
+      <tr id="row5_3">
+        <td>C3</td>
+        <td id="weightCell5_3">20</td>
+        <td>
+          <select id="inputDropdown5_3" onchange="updateRow5(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_3"></td>
+        <td id="valueCell5_3"></td>
+      </tr>
+      <tr id="row5_4">
+        <td>C4</td>
+        <td id="weightCell5_4">20</td>
+        <td>
+          <select id="inputDropdown5_4" onchange="updateRow5(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_4"></td>
+        <td id="valueCell5_4"></td>
+      </tr>
+      <tr id="row5_5">
+        <td>C5</td>
+        <td id="weightCell5_5">20</td>
+        <td>
+          <select id="inputDropdown5_5" onchange="updateRow5(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_5"></td>
+        <td id="valueCell5_5"></td>
+      </tr>
+      <tr id="row5_6">
+        <td>C6</td>
+        <td id="weightCell5_6">20</td>
+        <td>
+          <select id="inputDropdown5_6" onchange="updateRow5(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_6"></td>
+        <td id="valueCell5_6"></td>
+      </tr>
+      <tr id="row5_7">
+        <td>C7</td>
+        <td id="weightCell5_7">20</td>
+        <td>
+          <select id="inputDropdown5_7" onchange="updateRow5(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_7"></td>
+        <td id="valueCell5_7"></td>
+      </tr>
+      <tr id="row5_8">
+        <td>C8</td>
+        <td id="weightCell5_8">20</td>
+        <td>
+          <select id="inputDropdown5_8" onchange="updateRow5(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_8"></td>
+        <td id="valueCell5_8"></td>
+      </tr>
+      <tr id="row5_9">
+        <td>C9</td>
+        <td id="weightCell5_9">20</td>
+        <td>
+          <select id="inputDropdown5_9" onchange="updateRow5(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell5_9"></td>
+        <td id="valueCell5_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 5) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable5">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow5">
+        <td id="sumCell5">---</td>
+        <td id="outputCell5">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable5">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell5" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 5) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable5">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell5_R1"></td>
+        <td id="networkSumCell5_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell5_R2"></td>
+        <td id="networkSumCell5_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell5_R3"></td>
+        <td id="networkSumCell5_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell5_R4"></td>
+        <td id="networkSumCell5_R4"></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td id="networkStatusCell5"></td>
+        <td id="networkSumCell5"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ADDED: Bar Chart for this round -->
+<div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+  <canvas id="round5BarChart" width="500" height="200"
+          style="border:1px solid #000;">
+    <!-- fallback text if canvas not supported -->
+    Your browser does not support Canvas.
+  </canvas>
+</div>
+
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton5" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown5" onchange="updateHeaderColor5()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 5 -->
+  <script>
+    const colorRedBtn5   = document.getElementById('colorRed5');
+    const colorGreenBtn5 = document.getElementById('colorGreen5');
+    const redCircle5     = document.getElementById('redCircle5');
+    const greenCircle5   = document.getElementById('greenCircle5');
+
+    colorRedBtn5.addEventListener('click', () => {
+      colorRedBtn5.classList.add('active');
+      colorGreenBtn5.classList.remove('active');
+      redCircle5.classList.remove('inactive-red');
+      redCircle5.classList.add('red');
+      greenCircle5.classList.remove('green');
+      greenCircle5.classList.add('inactive-green');
+      updateNetworkStatusTable5();
+      updateRound6Weights();
+    });
+
+    colorGreenBtn5.addEventListener('click', () => {
+      colorGreenBtn5.classList.add('active');
+      colorRedBtn5.classList.remove('active');
+      greenCircle5.classList.remove('inactive-green');
+      greenCircle5.classList.add('green');
+      redCircle5.classList.remove('red');
+      redCircle5.classList.add('inactive-red');
+      updateNetworkStatusTable5();
+      updateRound6Weights();
+    });
+
+    function updateNetworkStatusTable5() {
+      const trafficLightStateCell5 = document.getElementById('trafficLightStateCell5');
+      let trafficLightStateText5 = 'Traffic Light State: ---';
+
+      if (colorRedBtn5.classList.contains('active')) {
+        trafficLightStateText5 = 'Traffic Light State: RED';
+        trafficLightStateCell5.style.backgroundColor = 'red';
+        trafficLightStateCell5.style.color = 'white';
+      } else if (colorGreenBtn5.classList.contains('active')) {
+        trafficLightStateText5 = 'Traffic Light State: GREEN';
+        trafficLightStateCell5.style.backgroundColor = 'green';
+        trafficLightStateCell5.style.color = 'white';
+      } else {
+        trafficLightStateCell5.style.backgroundColor = '';
+        trafficLightStateCell5.style.color = '';
+      }
+      trafficLightStateCell5.textContent = trafficLightStateText5;
+
+      const decisionOutput5 = document.getElementById('outputCell5').textContent;
+      const currentLightState5 = trafficLightStateText5.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus5;
+      if (decisionOutput5 === 'UNDECIDED') {
+        networkStatus5 = 'UNDECIDED';
+      } else if (currentLightState5 === '---') {
+        networkStatus5 = 'INCORRECT';
+      } else if (decisionOutput5 === currentLightState5) {
+        networkStatus5 = 'CORRECT';
+      } else {
+        networkStatus5 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell5').textContent = networkStatus5;
+
+      const sumValue5 = document.getElementById('sumCell5').textContent;
+      document.getElementById('networkSumCell5').textContent = sumValue5;
+    }
+
+    function updateRow5(rowIdx) {
+      const dropdown5    = document.getElementById("inputDropdown5_" + rowIdx);
+      const numericCell5 = document.getElementById("numericCell5_" + rowIdx);
+      const valueCell5   = document.getElementById("valueCell5_" + rowIdx);
+      const weightCell5  = document.getElementById("weightCell5_" + rowIdx);
+
+      const inputCell5   = dropdown5.parentElement;
+      const selection5 = dropdown5.value;
+
+      inputCell5.classList.remove('cell-red', 'cell-green');
+      dropdown5.classList.remove('select-red', 'select-green');
+
+      if (!selection5) {
+        numericCell5.textContent = "";
+        valueCell5.textContent   = "";
+        updateDecision5();
+        updateRound6Weights();
+        return;
+      }
+
+      const weight5     = parseFloat(weightCell5.textContent);
+      const numericVal5 = (selection5 === "RED") ? -1 : 1;
+
+      numericCell5.textContent = numericVal5;
+      valueCell5.textContent   = numericVal5 * weight5;
+
+      if (selection5 === "RED") {
+        inputCell5.classList.add('cell-red');
+        dropdown5.classList.add('select-red');
+      } else {
+        inputCell5.classList.add('cell-green');
+        dropdown5.classList.add('select-green');
+      }
+
+      updateDecision5();
+      updateRound6Weights();
+    }
+
+    function updateDecision5() {
+      let sum5 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr5 = document.getElementById("valueCell5_"+i).textContent.trim();
+        sum5 += parseFloat(valStr5) || 0;
+      }
+      document.getElementById("sumCell5").textContent = sum5;
+
+      let output5;
+      if (sum5 > 0) {
+        output5 = "GREEN";
+      } else if (sum5 < 0) {
+        output5 = "RED";
+      } else {
+        output5 = "UNDECIDED";
+      }
+      document.getElementById("outputCell5").textContent = output5;
+
+      const decisionRow5 = document.getElementById("decisionRow5");
+      decisionRow5.classList.remove('row-red','row-green');
+      if (sum5 > 0) {
+        decisionRow5.classList.add('row-green');
+      } else if (sum5 < 0) {
+        decisionRow5.classList.add('row-red');
+      }
+      updateNetworkStatusTable5();
+    }
+
+    function updateHeaderColor5() {
+      const newColor5 = document.getElementById('headerColorDropdown5').value;
+      const allHeaders5 = document.querySelectorAll(
+        '#round5 .interactive-table th, #round5 .decision-table th'
+      );
+      allHeaders5.forEach(th => {
+        th.style.backgroundColor = newColor5;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /*********************************************
+     * UPDATE Round 6's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound6Weights() {
+      let round5Light = null;
+      if (colorRedBtn5.classList.contains('active')) {
+        round5Light = 'RED';
+      } else if (colorGreenBtn5.classList.contains('active')) {
+        round5Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round6WeightCell = document.getElementById('weightCell6_' + i);
+        const round5WeightCell = document.getElementById('weightCell5_' + i);
+        if (!round6WeightCell || !round5WeightCell) continue;
+
+        const finalRound5Weight = (
+          round5WeightCell.textContent.trim() === ''
+            ? 20
+            : parseFloat(round5WeightCell.textContent)
+        );
+
+        let newWeight6 = finalRound5Weight;
+
+        if (round5Light) {
+          const round5Input = document.getElementById('inputDropdown5_' + i).value;
+          if (round5Input) {
+            if (round5Input === round5Light) {
+              newWeight6 = finalRound5Weight + 10;
+            } else {
+              newWeight6 = finalRound5Weight - 10;
+            }
+          }
+        }
+        round6WeightCell.textContent = newWeight6;
+      }
+    }
+  </script>
+</div> <!-- /round5 -->
+
+<!-- ROUND 6 -->
+<div class="round-container" id="round6">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 6</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed6" class="btn">Red</button>
+    <button id="colorGreen6" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight6">
+      <div class="light inactive-red" id="redCircle6"></div>
+      <div class="light inactive-green" id="greenCircle6"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 6) -->
+  <table class="interactive-table" id="interactiveTable6">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row6_1">
+        <td>C1</td>
+        <td id="weightCell6_1">20</td>
+        <td>
+          <select id="inputDropdown6_1" onchange="updateRow6(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_1"></td>
+        <td id="valueCell6_1"></td>
+      </tr>
+      <tr id="row6_2">
+        <td>C2</td>
+        <td id="weightCell6_2">20</td>
+        <td>
+          <select id="inputDropdown6_2" onchange="updateRow6(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_2"></td>
+        <td id="valueCell6_2"></td>
+      </tr>
+      <tr id="row6_3">
+        <td>C3</td>
+        <td id="weightCell6_3">20</td>
+        <td>
+          <select id="inputDropdown6_3" onchange="updateRow6(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_3"></td>
+        <td id="valueCell6_3"></td>
+      </tr>
+      <tr id="row6_4">
+        <td>C4</td>
+        <td id="weightCell6_4">20</td>
+        <td>
+          <select id="inputDropdown6_4" onchange="updateRow6(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_4"></td>
+        <td id="valueCell6_4"></td>
+      </tr>
+      <tr id="row6_5">
+        <td>C5</td>
+        <td id="weightCell6_5">20</td>
+        <td>
+          <select id="inputDropdown6_5" onchange="updateRow6(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_5"></td>
+        <td id="valueCell6_5"></td>
+      </tr>
+      <tr id="row6_6">
+        <td>C6</td>
+        <td id="weightCell6_6">20</td>
+        <td>
+          <select id="inputDropdown6_6" onchange="updateRow6(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_6"></td>
+        <td id="valueCell6_6"></td>
+      </tr>
+      <tr id="row6_7">
+        <td>C7</td>
+        <td id="weightCell6_7">20</td>
+        <td>
+          <select id="inputDropdown6_7" onchange="updateRow6(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_7"></td>
+        <td id="valueCell6_7"></td>
+      </tr>
+      <tr id="row6_8">
+        <td>C8</td>
+        <td id="weightCell6_8">20</td>
+        <td>
+          <select id="inputDropdown6_8" onchange="updateRow6(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_8"></td>
+        <td id="valueCell6_8"></td>
+      </tr>
+      <tr id="row6_9">
+        <td>C9</td>
+        <td id="weightCell6_9">20</td>
+        <td>
+          <select id="inputDropdown6_9" onchange="updateRow6(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell6_9"></td>
+        <td id="valueCell6_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 6) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable6">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow6">
+        <td id="sumCell6">---</td>
+        <td id="outputCell6">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable6">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell6" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 6) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable6">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Copy Rounds 1-5 summary here + Round 6 row -->
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell6_R1"></td>
+        <td id="networkSumCell6_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell6_R2"></td>
+        <td id="networkSumCell6_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell6_R3"></td>
+        <td id="networkSumCell6_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell6_R4"></td>
+        <td id="networkSumCell6_R4"></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td id="networkStatusCell6_R5"></td>
+        <td id="networkSumCell6_R5"></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td id="networkStatusCell6"></td>
+        <td id="networkSumCell6"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton6" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown6" onchange="updateHeaderColor6()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 6 -->
+  <script>
+    const colorRedBtn6   = document.getElementById('colorRed6');
+    const colorGreenBtn6 = document.getElementById('colorGreen6');
+    const redCircle6     = document.getElementById('redCircle6');
+    const greenCircle6   = document.getElementById('greenCircle6');
+
+    colorRedBtn6.addEventListener('click', () => {
+      colorRedBtn6.classList.add('active');
+      colorGreenBtn6.classList.remove('active');
+      redCircle6.classList.remove('inactive-red');
+      redCircle6.classList.add('red');
+      greenCircle6.classList.remove('green');
+      greenCircle6.classList.add('inactive-green');
+      updateNetworkStatusTable6();
+      updateRound7Weights();
+    });
+
+    colorGreenBtn6.addEventListener('click', () => {
+      colorGreenBtn6.classList.add('active');
+      colorRedBtn6.classList.remove('active');
+      greenCircle6.classList.remove('inactive-green');
+      greenCircle6.classList.add('green');
+      redCircle6.classList.remove('red');
+      redCircle6.classList.add('inactive-red');
+      updateNetworkStatusTable6();
+      updateRound7Weights();
+    });
+
+    function updateNetworkStatusTable6() {
+      const trafficLightStateCell6 = document.getElementById('trafficLightStateCell6');
+      let trafficLightStateText6 = 'Traffic Light State: ---';
+
+      if (colorRedBtn6.classList.contains('active')) {
+        trafficLightStateText6 = 'Traffic Light State: RED';
+        trafficLightStateCell6.style.backgroundColor = 'red';
+        trafficLightStateCell6.style.color = 'white';
+      } else if (colorGreenBtn6.classList.contains('active')) {
+        trafficLightStateText6 = 'Traffic Light State: GREEN';
+        trafficLightStateCell6.style.backgroundColor = 'green';
+        trafficLightStateCell6.style.color = 'white';
+      } else {
+        trafficLightStateCell6.style.backgroundColor = '';
+        trafficLightStateCell6.style.color = '';
+      }
+      trafficLightStateCell6.textContent = trafficLightStateText6;
+
+      const decisionOutput6 = document.getElementById('outputCell6').textContent;
+      const currentLightState6 = trafficLightStateText6.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus6;
+      if (decisionOutput6 === 'UNDECIDED') {
+        networkStatus6 = 'UNDECIDED';
+      } else if (currentLightState6 === '---') {
+        networkStatus6 = 'INCORRECT';
+      } else if (decisionOutput6 === currentLightState6) {
+        networkStatus6 = 'CORRECT';
+      } else {
+        networkStatus6 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell6').textContent = networkStatus6;
+
+      const sumValue6 = document.getElementById('sumCell6').textContent;
+      document.getElementById('networkSumCell6').textContent = sumValue6;
+    }
+
+    function updateRow6(rowIdx) {
+  const dropdown6    = document.getElementById("inputDropdown6_" + rowIdx);
+  const numericCell6 = document.getElementById("numericCell6_" + rowIdx);
+  const valueCell6   = document.getElementById("valueCell6_" + rowIdx);
+  const weightCell6  = document.getElementById("weightCell6_" + rowIdx);
+
+  const inputCell6   = dropdown6.parentElement;
+  const selection6 = dropdown6.value;
+
+  // Remove any previous color classes
+  inputCell6.classList.remove('cell-red', 'cell-green');
+  dropdown6.classList.remove('select-red', 'select-green');
+
+  // If no selection, clear cells, update decision and next round weights, then exit.
+  if (!selection6) {
+    numericCell6.textContent = "";
+    valueCell6.textContent   = "";
+    updateDecision6();
+    updateRound7Weights();
+    return;
+  }
+
+  // Calculate the new value based on the weight and the selection
+  const weight6     = parseFloat(weightCell6.textContent);
+  const numericVal6 = (selection6 === "RED") ? -1 : 1;
+
+  numericCell6.textContent = numericVal6;
+  valueCell6.textContent   = numericVal6 * weight6;
+
+  // Apply the appropriate color classes based on the selection
+  if (selection6 === "RED") {
+    inputCell6.classList.add('cell-red');
+    dropdown6.classList.add('select-red');
+  } else {
+    inputCell6.classList.add('cell-green');
+    dropdown6.classList.add('select-green');
+  }
+
+  // Update the decision for Round 6...
+  updateDecision6();
+  // ... and then update Round 7 weights accordingly.
+  updateRound7Weights();
+}
+
+
+    function updateDecision6() {
+      let sum6 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr6 = document.getElementById("valueCell6_"+i).textContent.trim();
+        sum6 += parseFloat(valStr6) || 0;
+      }
+      document.getElementById("sumCell6").textContent = sum6;
+
+      let output6;
+      if (sum6 > 0) {
+        output6 = "GREEN";
+      } else if (sum6 < 0) {
+        output6 = "RED";
+      } else {
+        output6 = "UNDECIDED";
+      }
+      document.getElementById("outputCell6").textContent = output6;
+
+      const decisionRow6 = document.getElementById("decisionRow6");
+      decisionRow6.classList.remove('row-red','row-green');
+      if (sum6 > 0) {
+        decisionRow6.classList.add('row-green');
+      } else if (sum6 < 0) {
+        decisionRow6.classList.add('row-red');
+      }
+      updateNetworkStatusTable6();
+    }
+
+
+
+    function updateHeaderColor6() {
+      const newColor6 = document.getElementById('headerColorDropdown6').value;
+      const allHeaders6 = document.querySelectorAll(
+        '#round6 .interactive-table th, #round6 .decision-table th'
+      );
+      allHeaders6.forEach(th => {
+        th.style.backgroundColor = newColor6;
+        th.style.color = '#ffffff';
+      });
+    }
+
+/*********************************************
+ * UPDATE Round 7's WEIGHTS (0 => -10 Fix)
+ *********************************************/
+ function updateRound7Weights() {
+  // 1. Check the Round 6 traffic light state
+  let round6Light = null;
+  if (colorRedBtn6.classList.contains('active')) {
+    round6Light = 'RED';
+  } else if (colorGreenBtn6.classList.contains('active')) {
+    round6Light = 'GREEN';
+  }
+
+  // 2. Loop through nodes C1..C9
+  for (let i = 1; i <= 9; i++) {
+    const round7WeightCell = document.getElementById('weightCell7_' + i);
+    const round6WeightCell = document.getElementById('weightCell6_' + i);
+    if (!round7WeightCell || !round6WeightCell) continue;
+
+    // If empty or missing, fall back to 20
+    const finalRound6Weight = (
+      round6WeightCell.textContent.trim() === ''
+        ? 20
+        : parseFloat(round6WeightCell.textContent)
+    );
+
+    let newWeight7 = finalRound6Weight;
+
+    // 3. If Round 6 had a Red/Green traffic light, compare it to each node's input
+    if (round6Light) {
+      const round6Input = document.getElementById('inputDropdown6_' + i).value;
+      if (round6Input) {
+        // If input matches the traffic light => +10, else => -10
+        if (round6Input === round6Light) {
+          newWeight7 = finalRound6Weight + 10;
+        } else {
+          newWeight7 = finalRound6Weight - 10;
+        }
+      }
+    }
+
+    // 4. Update Round 7's weight cell
+    round7WeightCell.textContent = newWeight7;
+  }
+}
+
+
+  </script>
+</div> <!-- /round6 -->
+
+<!-- ROUND 7 (NEW) -->
+<div class="round-container" id="round7">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 7</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed7" class="btn">Red</button>
+    <button id="colorGreen7" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight7">
+      <div class="light inactive-red" id="redCircle7"></div>
+      <div class="light inactive-green" id="greenCircle7"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 7) -->
+  <table class="interactive-table" id="interactiveTable7">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Similar 9 nodes as previous rounds -->
+      <tr id="row7_1">
+        <td>C1</td>
+        <td id="weightCell7_1">20</td>
+        <td>
+          <select id="inputDropdown7_1" onchange="updateRow7(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_1"></td>
+        <td id="valueCell7_1"></td>
+      </tr>
+      <tr id="row7_2">
+        <td>C2</td>
+        <td id="weightCell7_2">20</td>
+        <td>
+          <select id="inputDropdown7_2" onchange="updateRow7(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_2"></td>
+        <td id="valueCell7_2"></td>
+      </tr>
+      <tr id="row7_3">
+        <td>C3</td>
+        <td id="weightCell7_3">20</td>
+        <td>
+          <select id="inputDropdown7_3" onchange="updateRow7(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_3"></td>
+        <td id="valueCell7_3"></td>
+      </tr>
+      <tr id="row7_4">
+        <td>C4</td>
+        <td id="weightCell7_4">20</td>
+        <td>
+          <select id="inputDropdown7_4" onchange="updateRow7(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_4"></td>
+        <td id="valueCell7_4"></td>
+      </tr>
+      <tr id="row7_5">
+        <td>C5</td>
+        <td id="weightCell7_5">20</td>
+        <td>
+          <select id="inputDropdown7_5" onchange="updateRow7(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_5"></td>
+        <td id="valueCell7_5"></td>
+      </tr>
+      <tr id="row7_6">
+        <td>C6</td>
+        <td id="weightCell7_6">20</td>
+        <td>
+          <select id="inputDropdown7_6" onchange="updateRow7(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_6"></td>
+        <td id="valueCell7_6"></td>
+      </tr>
+      <tr id="row7_7">
+        <td>C7</td>
+        <td id="weightCell7_7">20</td>
+        <td>
+          <select id="inputDropdown7_7" onchange="updateRow7(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_7"></td>
+        <td id="valueCell7_7"></td>
+      </tr>
+      <tr id="row7_8">
+        <td>C8</td>
+        <td id="weightCell7_8">20</td>
+        <td>
+          <select id="inputDropdown7_8" onchange="updateRow7(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_8"></td>
+        <td id="valueCell7_8"></td>
+      </tr>
+      <tr id="row7_9">
+        <td>C9</td>
+        <td id="weightCell7_9">20</td>
+        <td>
+          <select id="inputDropdown7_9" onchange="updateRow7(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell7_9"></td>
+        <td id="valueCell7_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 7) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable7">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow7">
+        <td id="sumCell7">---</td>
+        <td id="outputCell7">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable7">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell7" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 7) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable7">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell7_R1"></td>
+        <td id="networkSumCell7_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell7_R2"></td>
+        <td id="networkSumCell7_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell7_R3"></td>
+        <td id="networkSumCell7_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell7_R4"></td>
+        <td id="networkSumCell7_R4"></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td id="networkStatusCell7_R5"></td>
+        <td id="networkSumCell7_R5"></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td id="networkStatusCell7_R6"></td>
+        <td id="networkSumCell7_R6"></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td id="networkStatusCell7"></td>
+        <td id="networkSumCell7"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton7" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown7" onchange="updateHeaderColor7()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 7 -->
+  <script>
+    const colorRedBtn7   = document.getElementById('colorRed7');
+    const colorGreenBtn7 = document.getElementById('colorGreen7');
+    const redCircle7     = document.getElementById('redCircle7');
+    const greenCircle7   = document.getElementById('greenCircle7');
+
+    colorRedBtn7.addEventListener('click', () => {
+      colorRedBtn7.classList.add('active');
+      colorGreenBtn7.classList.remove('active');
+      redCircle7.classList.remove('inactive-red');
+      redCircle7.classList.add('red');
+      greenCircle7.classList.remove('green');
+      greenCircle7.classList.add('inactive-green');
+      updateNetworkStatusTable7();
+      updateRound8Weights();
+    });
+
+    colorGreenBtn7.addEventListener('click', () => {
+      colorGreenBtn7.classList.add('active');
+      colorRedBtn7.classList.remove('active');
+      greenCircle7.classList.remove('inactive-green');
+      greenCircle7.classList.add('green');
+      redCircle7.classList.remove('red');
+      redCircle7.classList.add('inactive-red');
+      updateNetworkStatusTable7();
+      updateRound8Weights();
+    });
+
+    function updateNetworkStatusTable7() {
+      const trafficLightStateCell7 = document.getElementById('trafficLightStateCell7');
+      let trafficLightStateText7 = 'Traffic Light State: ---';
+
+      if (colorRedBtn7.classList.contains('active')) {
+        trafficLightStateText7 = 'Traffic Light State: RED';
+        trafficLightStateCell7.style.backgroundColor = 'red';
+        trafficLightStateCell7.style.color = 'white';
+      } else if (colorGreenBtn7.classList.contains('active')) {
+        trafficLightStateText7 = 'Traffic Light State: GREEN';
+        trafficLightStateCell7.style.backgroundColor = 'green';
+        trafficLightStateCell7.style.color = 'white';
+      } else {
+        trafficLightStateCell7.style.backgroundColor = '';
+        trafficLightStateCell7.style.color = '';
+      }
+      trafficLightStateCell7.textContent = trafficLightStateText7;
+
+      const decisionOutput7 = document.getElementById('outputCell7').textContent;
+      const currentLightState7 = trafficLightStateText7.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus7;
+      if (decisionOutput7 === 'UNDECIDED') {
+        networkStatus7 = 'UNDECIDED';
+      } else if (currentLightState7 === '---') {
+        networkStatus7 = 'INCORRECT';
+      } else if (decisionOutput7 === currentLightState7) {
+        networkStatus7 = 'CORRECT';
+      } else {
+        networkStatus7 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell7').textContent = networkStatus7;
+
+      const sumValue7 = document.getElementById('sumCell7').textContent;
+      document.getElementById('networkSumCell7').textContent = sumValue7;
+    }
+
+    function updateRow7(rowIdx) {
+      const dropdown7    = document.getElementById("inputDropdown7_" + rowIdx);
+      const numericCell7 = document.getElementById("numericCell7_" + rowIdx);
+      const valueCell7   = document.getElementById("valueCell7_" + rowIdx);
+      const weightCell7  = document.getElementById("weightCell7_" + rowIdx);
+
+      const inputCell7   = dropdown7.parentElement;
+      const selection7 = dropdown7.value;
+
+      inputCell7.classList.remove('cell-red', 'cell-green');
+      dropdown7.classList.remove('select-red', 'select-green');
+
+      if (!selection7) {
+        numericCell7.textContent = "";
+        valueCell7.textContent   = "";
+        updateDecision7();
+        updateRound8Weights();
+        return;
+      }
+
+      const weight7     = parseFloat(weightCell7.textContent);
+      const numericVal7 = (selection7 === "RED") ? -1 : 1;
+
+      numericCell7.textContent = numericVal7;
+      valueCell7.textContent   = numericVal7 * weight7;
+
+      if (selection7 === "RED") {
+        inputCell7.classList.add('cell-red');
+        dropdown7.classList.add('select-red');
+      } else {
+        inputCell7.classList.add('cell-green');
+        dropdown7.classList.add('select-green');
+      }
+
+      updateDecision7();
+      updateRound8Weights();
+    }
+
+    function updateDecision7() {
+      let sum7 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr7 = document.getElementById("valueCell7_"+i).textContent.trim();
+        sum7 += parseFloat(valStr7) || 0;
+      }
+      document.getElementById("sumCell7").textContent = sum7;
+
+      let output7;
+      if (sum7 > 0) {
+        output7 = "GREEN";
+      } else if (sum7 < 0) {
+        output7 = "RED";
+      } else {
+        output7 = "UNDECIDED";
+      }
+      document.getElementById("outputCell7").textContent = output7;
+
+      const decisionRow7 = document.getElementById("decisionRow7");
+      decisionRow7.classList.remove('row-red','row-green');
+      if (sum7 > 0) {
+        decisionRow7.classList.add('row-green');
+      } else if (sum7 < 0) {
+        decisionRow7.classList.add('row-red');
+      }
+      updateNetworkStatusTable7();
+    }
+
+    function updateHeaderColor7() {
+      const newColor7 = document.getElementById('headerColorDropdown7').value;
+      const allHeaders7 = document.querySelectorAll(
+        '#round7 .interactive-table th, #round7 .decision-table th'
+      );
+      allHeaders7.forEach(th => {
+        th.style.backgroundColor = newColor7;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /*********************************************
+     * UPDATE Round 8's WEIGHTS (0 => -10 Fix)
+     *********************************************/
+    function updateRound8Weights() {
+      let round7Light = null;
+      if (colorRedBtn7.classList.contains('active')) {
+        round7Light = 'RED';
+      } else if (colorGreenBtn7.classList.contains('active')) {
+        round7Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const round8WeightCell = document.getElementById('weightCell8_' + i);
+        const round7WeightCell = document.getElementById('weightCell7_' + i);
+        if (!round8WeightCell || !round7WeightCell) continue;
+
+        const finalRound7Weight = (
+          round7WeightCell.textContent.trim() === ''
+            ? 20
+            : parseFloat(round7WeightCell.textContent)
+        );
+
+        let newWeight8 = finalRound7Weight;
+
+        if (round7Light) {
+          const round7Input = document.getElementById('inputDropdown7_' + i).value;
+          if (round7Input) {
+            if (round7Input === round7Light) {
+              newWeight8 = finalRound7Weight + 10;
+            } else {
+              newWeight8 = finalRound7Weight - 10;
+            }
+          }
+        }
+        round8WeightCell.textContent = newWeight8;
+      }
+    }
+  </script>
+</div> <!-- /round7 -->
+
+<!-- ROUND 8 (NEW) -->
+<div class="round-container" id="round8">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 8</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed8" class="btn">Red</button>
+    <button id="colorGreen8" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight8">
+      <div class="light inactive-red" id="redCircle8"></div>
+      <div class="light inactive-green" id="greenCircle8"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 8) -->
+  <table class="interactive-table" id="interactiveTable8">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 9 nodes again -->
+      <tr id="row8_1">
+        <td>C1</td>
+        <td id="weightCell8_1">20</td>
+        <td>
+          <select id="inputDropdown8_1" onchange="updateRow8(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_1"></td>
+        <td id="valueCell8_1"></td>
+      </tr>
+      <tr id="row8_2">
+        <td>C2</td>
+        <td id="weightCell8_2">20</td>
+        <td>
+          <select id="inputDropdown8_2" onchange="updateRow8(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_2"></td>
+        <td id="valueCell8_2"></td>
+      </tr>
+      <tr id="row8_3">
+        <td>C3</td>
+        <td id="weightCell8_3">20</td>
+        <td>
+          <select id="inputDropdown8_3" onchange="updateRow8(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_3"></td>
+        <td id="valueCell8_3"></td>
+      </tr>
+      <tr id="row8_4">
+        <td>C4</td>
+        <td id="weightCell8_4">20</td>
+        <td>
+          <select id="inputDropdown8_4" onchange="updateRow8(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_4"></td>
+        <td id="valueCell8_4"></td>
+      </tr>
+      <tr id="row8_5">
+        <td>C5</td>
+        <td id="weightCell8_5">20</td>
+        <td>
+          <select id="inputDropdown8_5" onchange="updateRow8(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_5"></td>
+        <td id="valueCell8_5"></td>
+      </tr>
+      <tr id="row8_6">
+        <td>C6</td>
+        <td id="weightCell8_6">20</td>
+        <td>
+          <select id="inputDropdown8_6" onchange="updateRow8(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_6"></td>
+        <td id="valueCell8_6"></td>
+      </tr>
+      <tr id="row8_7">
+        <td>C7</td>
+        <td id="weightCell8_7">20</td>
+        <td>
+          <select id="inputDropdown8_7" onchange="updateRow8(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_7"></td>
+        <td id="valueCell8_7"></td>
+      </tr>
+      <tr id="row8_8">
+        <td>C8</td>
+        <td id="weightCell8_8">20</td>
+        <td>
+          <select id="inputDropdown8_8" onchange="updateRow8(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_8"></td>
+        <td id="valueCell8_8"></td>
+      </tr>
+      <tr id="row8_9">
+        <td>C9</td>
+        <td id="weightCell8_9">20</td>
+        <td>
+          <select id="inputDropdown8_9" onchange="updateRow8(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell8_9"></td>
+        <td id="valueCell8_9"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 8) -->
+  <div style="text-align: center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable8">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow8">
+        <td id="sumCell8">---</td>
+        <td id="outputCell8">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable8">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell8" style="font-weight:bold;">Traffic Light State: ---</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 8) -->
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable8">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Summaries from Rounds 1..7 + Round 8 row -->
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell8_R1"></td>
+        <td id="networkSumCell8_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell8_R2"></td>
+        <td id="networkSumCell8_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell8_R3"></td>
+        <td id="networkSumCell8_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell8_R4"></td>
+        <td id="networkSumCell8_R4"></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td id="networkStatusCell8_R5"></td>
+        <td id="networkSumCell8_R5"></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td id="networkStatusCell8_R6"></td>
+        <td id="networkSumCell8_R6"></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td id="networkStatusCell8_R7"></td>
+        <td id="networkSumCell8_R7"></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td id="networkStatusCell8"></td>
+        <td id="networkSumCell8"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin: 20px 0;">
+    <button id="resetButton8" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown8" onchange="updateHeaderColor8()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Script for Round 8 -->
+  <script>
+    const colorRedBtn8   = document.getElementById('colorRed8');
+    const colorGreenBtn8 = document.getElementById('colorGreen8');
+    const redCircle8     = document.getElementById('redCircle8');
+    const greenCircle8   = document.getElementById('greenCircle8');
+
+    colorRedBtn8.addEventListener('click', () => {
+      colorRedBtn8.classList.add('active');
+      colorGreenBtn8.classList.remove('active');
+      redCircle8.classList.remove('inactive-red');
+      redCircle8.classList.add('red');
+      greenCircle8.classList.remove('green');
+      greenCircle8.classList.add('inactive-green');
+      updateNetworkStatusTable8();
+    });
+
+    colorGreenBtn8.addEventListener('click', () => {
+      colorGreenBtn8.classList.add('active');
+      colorRedBtn8.classList.remove('active');
+      greenCircle8.classList.remove('inactive-green');
+      greenCircle8.classList.add('green');
+      redCircle8.classList.remove('red');
+      redCircle8.classList.add('inactive-red');
+      updateNetworkStatusTable8();
+    });
+
+    function updateNetworkStatusTable8() {
+      const trafficLightStateCell8 = document.getElementById('trafficLightStateCell8');
+      let trafficLightStateText8 = 'Traffic Light State: ---';
+
+      if (colorRedBtn8.classList.contains('active')) {
+        trafficLightStateText8 = 'Traffic Light State: RED';
+        trafficLightStateCell8.style.backgroundColor = 'red';
+        trafficLightStateCell8.style.color = 'white';
+      } else if (colorGreenBtn8.classList.contains('active')) {
+        trafficLightStateText8 = 'Traffic Light State: GREEN';
+        trafficLightStateCell8.style.backgroundColor = 'green';
+        trafficLightStateCell8.style.color = 'white';
+      } else {
+        trafficLightStateCell8.style.backgroundColor = '';
+        trafficLightStateCell8.style.color = '';
+      }
+      trafficLightStateCell8.textContent = trafficLightStateText8;
+
+      const decisionOutput8 = document.getElementById('outputCell8').textContent;
+      const currentLightState8 = trafficLightStateText8.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus8;
+      if (decisionOutput8 === 'UNDECIDED') {
+        networkStatus8 = 'UNDECIDED';
+      } else if (currentLightState8 === '---') {
+        networkStatus8 = 'INCORRECT';
+      } else if (decisionOutput8 === currentLightState8) {
+        networkStatus8 = 'CORRECT';
+      } else {
+        networkStatus8 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell8').textContent = networkStatus8;
+
+      const sumValue8 = document.getElementById('sumCell8').textContent;
+      document.getElementById('networkSumCell8').textContent = sumValue8;
+    }
+
+    function updateRow8(rowIdx) {
+      const dropdown8    = document.getElementById("inputDropdown8_" + rowIdx);
+      const numericCell8 = document.getElementById("numericCell8_" + rowIdx);
+      const valueCell8   = document.getElementById("valueCell8_" + rowIdx);
+      const weightCell8  = document.getElementById("weightCell8_" + rowIdx);
+
+      const inputCell8   = dropdown8.parentElement;
+      const selection8 = dropdown8.value;
+
+      inputCell8.classList.remove('cell-red', 'cell-green');
+      dropdown8.classList.remove('select-red', 'select-green');
+
+      if (!selection8) {
+        numericCell8.textContent = "";
+        valueCell8.textContent   = "";
+        updateDecision8(); 
+        return;
+      }
+
+      const weight8     = parseFloat(weightCell8.textContent);
+      const numericVal8 = (selection8 === "RED") ? -1 : 1;
+
+      numericCell8.textContent = numericVal8;
+      valueCell8.textContent   = numericVal8 * weight8;
+
+      if (selection8 === "RED") {
+        inputCell8.classList.add('cell-red');
+        dropdown8.classList.add('select-red');
+      } else {
+        inputCell8.classList.add('cell-green');
+        dropdown8.classList.add('select-green');
+      }
+
+      updateDecision8();
+    }
+
+    function updateDecision8() {
+      let sum8 = 0;
+      for (let i=1; i<=9; i++) {
+        const valStr8 = document.getElementById("valueCell8_"+i).textContent.trim();
+        sum8 += parseFloat(valStr8) || 0;
+      }
+      document.getElementById("sumCell8").textContent = sum8;
+
+      let output8;
+      if (sum8 > 0) {
+        output8 = "GREEN";
+      } else if (sum8 < 0) {
+        output8 = "RED";
+      } else {
+        output8 = "UNDECIDED";
+      }
+      document.getElementById("outputCell8").textContent = output8;
+
+      const decisionRow8 = document.getElementById("decisionRow8");
+      decisionRow8.classList.remove('row-red','row-green');
+      if (sum8 > 0) {
+        decisionRow8.classList.add('row-green');
+      } else if (sum8 < 0) {
+        decisionRow8.classList.add('row-red');
+      }
+      updateNetworkStatusTable8();
+    }
+
+    function updateHeaderColor8() {
+      const newColor8 = document.getElementById('headerColorDropdown8').value;
+      const allHeaders8 = document.querySelectorAll(
+        '#round8 .interactive-table th, #round8 .decision-table th'
+      );
+      allHeaders8.forEach(th => {
+        th.style.backgroundColor = newColor8;
+        th.style.color = '#ffffff';
+      });
+    }
+  </script>
+</div> <!-- /round8 -->
+
+</div> <!-- /sliderContainer -->
+
+<script>
+  /* Slider logic for navigating up to 8 rounds now (0..7) */
+  let currentRound = 0; // 0-based
+  const slider = document.getElementById('sliderContainer');
+
+  function showRound(index) {
+    slider.style.transform = "translateX(-" + (index * 100) + "%)";
+    currentRound = index;
+
+    // Round 2 needs Round 1 summary
+    if (index === 1) {
+      document.getElementById('networkStatusCell2_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell2_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+    }
+
+    // Round 3 needs Round 1 & 2 summary
+    if (index === 2) {
+      document.getElementById('networkStatusCell3_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell3_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell3_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell3_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+    }
+
+    // Round 4 needs Round 1..3 summary
+    if (index === 3) {
+      document.getElementById('networkStatusCell4_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell4_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell4_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell4_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell4_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell4_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+    }
+
+    // Round 5 needs Round 1..4 summary
+    if (index === 4) {
+      document.getElementById('networkStatusCell5_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell5_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell5_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell5_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell5_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell5_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell5_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell5_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+    }
+
+    // Round 6 needs Round 1..5 summary
+    if (index === 5) {
+      document.getElementById('networkStatusCell6_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell6_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell6_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell6_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell6_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell6_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell6_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell6_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell6_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell6_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+    }
+
+    // Round 7 needs Round 1..6 summary
+    if (index === 6) {
+      document.getElementById('networkStatusCell7_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell7_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell7_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell7_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell7_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell7_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell7_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell7_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell7_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell7_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+
+      document.getElementById('networkStatusCell7_R6').textContent =
+        document.getElementById('networkStatusCell6').textContent;
+      document.getElementById('networkSumCell7_R6').textContent =
+        document.getElementById('networkSumCell6').textContent;
+    }
+
+    // Round 8 needs Round 1..7 summary
+    if (index === 7) {
+      document.getElementById('networkStatusCell8_R1').textContent =
+        document.getElementById('networkStatusCell').textContent;
+      document.getElementById('networkSumCell8_R1').textContent =
+        document.getElementById('networkSumCell').textContent;
+
+      document.getElementById('networkStatusCell8_R2').textContent =
+        document.getElementById('networkStatusCell2').textContent;
+      document.getElementById('networkSumCell8_R2').textContent =
+        document.getElementById('networkSumCell2').textContent;
+
+      document.getElementById('networkStatusCell8_R3').textContent =
+        document.getElementById('networkStatusCell3').textContent;
+      document.getElementById('networkSumCell8_R3').textContent =
+        document.getElementById('networkSumCell3').textContent;
+
+      document.getElementById('networkStatusCell8_R4').textContent =
+        document.getElementById('networkStatusCell4').textContent;
+      document.getElementById('networkSumCell8_R4').textContent =
+        document.getElementById('networkSumCell4').textContent;
+
+      document.getElementById('networkStatusCell8_R5').textContent =
+        document.getElementById('networkStatusCell5').textContent;
+      document.getElementById('networkSumCell8_R5').textContent =
+        document.getElementById('networkSumCell5').textContent;
+
+      document.getElementById('networkStatusCell8_R6').textContent =
+        document.getElementById('networkStatusCell6').textContent;
+      document.getElementById('networkSumCell8_R6').textContent =
+        document.getElementById('networkSumCell6').textContent;
+
+      document.getElementById('networkStatusCell8_R7').textContent =
+        document.getElementById('networkStatusCell7').textContent;
+      document.getElementById('networkSumCell8_R7').textContent =
+        document.getElementById('networkSumCell7').textContent;
+    }
+  }
+
+  function nextRound() {
+    /* We have 8 rounds total (0..7) */
+    if (currentRound < 7) {
+      showRound(currentRound + 1);
+    }
+  }
+
+  function prevRound() {
+    if (currentRound > 0) {
+      showRound(currentRound - 1);
+    }
+  }
+// We will track if hidden or not
+let overlaysHidden = false;
+
+function createUserInputOverlays() {
+  for (let i = 1; i <= 9; i++) {
+    // numericCell
+    const numericTd = document.getElementById('numericCell' + i);
+    if (numericTd) {
+      // 1) Make the <td> a positioned container
+      numericTd.style.position = 'relative';
+
+      // 2) Allow child to spill outside if needed (avoid clipping)
+      numericTd.style.overflow = 'visible'; // NEW
+
+      // 3) Put the <td> behind the input (the input has z-index: 9999)
+      numericTd.style.zIndex   = 1;         // NEW
+
+      // Create the input
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.placeholder = 'C' + i + ' Numeric';
+      inp.classList.add('overlay-input-box');  // the CSS class with z-index: 9999
+
+      // Absolutely position the input so it stays over the cell
+      inp.style.top      = '50%';
+      inp.style.left     = '50%';
+      inp.style.width    = '100%';
+      inp.style.height   = '100%';
+      inp.style.transform = 'translate(-50%, -50%)';
+
+      numericTd.appendChild(inp);
+    }
+
+    // valueCell
+    const valueTd = document.getElementById('valueCell' + i);
+    if (valueTd) {
+      valueTd.style.position = 'relative';
+      valueTd.style.overflow = 'visible'; // NEW
+      valueTd.style.zIndex   = 1;         // NEW
+
+      const inp2 = document.createElement('input');
+      inp2.type = 'text';
+      inp2.placeholder = 'C' + i + ' Value';
+      inp2.classList.add('overlay-input-box');
+
+      inp2.style.top      = '50%';
+      inp2.style.left     = '50%';
+      inp2.style.width    = '100%';
+      inp2.style.height   = '100%';
+      inp2.style.transform = 'translate(-50%, -50%)';
+
+      valueTd.appendChild(inp2);
+    }
+  }
+}
+
+
+
+
+
+// Called by the button in Round 1
+function toggleUserInputOverlays() {
+  overlaysHidden = !overlaysHidden;
+  const btn = document.getElementById('toggleUserInputsBtn');
+  if (overlaysHidden) {
+    // Hide all
+    document.body.classList.add('hidden-overlays');
+    btn.textContent = 'Show User Boxes';
+  } else {
+    // Show all
+    document.body.classList.remove('hidden-overlays');
+    btn.textContent = 'Hide User Boxes';
+  }
+}
+
+// We’ll create them once the page loads
+window.addEventListener('load', function(){
+  createUserInputOverlays();
+});
+</script>
+
+
 </body>
 </html>

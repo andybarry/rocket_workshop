@@ -1,0 +1,528 @@
+<!-- ========================== ROUND 4 ========================== -->
+<div class="round-container" id="round4">
+  <div style="height: 50px;"></div>
+  <h2 style="text-align:center;">Round 4</h2>
+  <hr/>
+
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align:center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align:center; margin-bottom:20px;">
+    <button id="colorRed4" class="btn">Red</button>
+    <button id="colorGreen4" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight4">
+      <div class="light inactive-red" id="redCircle4"></div>
+      <div class="light inactive-green" id="greenCircle4"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align:center;">
+    <h4>Output Node</h4>
+  </div>
+
+  <!-- INTERACTIVE TABLE (Round 4) -->
+  <table class="interactive-table" id="interactiveTable4">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Weight</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 9 nodes: C1..C9 -->
+      <tr id="row4_1">
+        <td>C1</td>
+        <td id="weightCell4_1">20</td>
+        <td>
+          <select id="inputDropdown4_1" onchange="updateRow4(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_1"></td>
+        <td id="valueCell4_1"></td>
+      </tr>
+      <tr id="row4_2">
+        <td>C2</td>
+        <td id="weightCell4_2">20</td>
+        <td>
+          <select id="inputDropdown4_2" onchange="updateRow4(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_2"></td>
+        <td id="valueCell4_2"></td>
+      </tr>
+      <tr id="row4_3">
+        <td>C3</td>
+        <td id="weightCell4_3">20</td>
+        <td>
+          <select id="inputDropdown4_3" onchange="updateRow4(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_3"></td>
+        <td id="valueCell4_3"></td>
+      </tr>
+      <tr id="row4_4">
+        <td>C4</td>
+        <td id="weightCell4_4">20</td>
+        <td>
+          <select id="inputDropdown4_4" onchange="updateRow4(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_4"></td>
+        <td id="valueCell4_4"></td>
+      </tr>
+      <tr id="row4_5">
+        <td>C5</td>
+        <td id="weightCell4_5">20</td>
+        <td>
+          <select id="inputDropdown4_5" onchange="updateRow4(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_5"></td>
+        <td id="valueCell4_5"></td>
+      </tr>
+      <tr id="row4_6">
+        <td>C6</td>
+        <td id="weightCell4_6">20</td>
+        <td>
+          <select id="inputDropdown4_6" onchange="updateRow4(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_6"></td>
+        <td id="valueCell4_6"></td>
+      </tr>
+      <tr id="row4_7">
+        <td>C7</td>
+        <td id="weightCell4_7">20</td>
+        <td>
+          <select id="inputDropdown4_7" onchange="updateRow4(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_7"></td>
+        <td id="valueCell4_7"></td>
+      </tr>
+      <tr id="row4_8">
+        <td>C8</td>
+        <td id="weightCell4_8">20</td>
+        <td>
+          <select id="inputDropdown4_8" onchange="updateRow4(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_8"></td>
+        <td id="valueCell4_8"></td>
+      </tr>
+      <tr id="row4_9">
+        <td>C9</td>
+        <td id="weightCell4_9">20</td>
+        <td>
+          <select id="inputDropdown4_9" onchange="updateRow4(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td id="numericCell4_9"></td>
+        <td id="valueCell4_9"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- DECISION TABLE (Round 4) -->
+  <div style="text-align:center;">
+    <h4>Add each C node's value</h4>
+  </div>
+  <table class="decision-table" id="decisionTable4">
+    <thead>
+      <tr>
+        <th>Sum</th>
+        <th>Output Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="decisionRow4">
+        <td id="sumCell4">---</td>
+        <td id="outputCell4">---</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TRAFFIC LIGHT STATE (single row) -->
+  <table class="decision-table" id="trafficLightStateTable4">
+    <tbody>
+      <tr>
+        <td id="trafficLightStateCell4" style="font-weight:bold;">
+          Traffic Light State: ---
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr/>
+  <br/>
+
+  <!-- NETWORK STATUS TABLE (Round 4) -->
+  <div style="text-align:center;">
+    <h4>Summary</h4>
+  </div>
+  <table class="decision-table" id="networkStatusTable4">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Network Status</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td id="networkStatusCell4_R1"></td>
+        <td id="networkSumCell4_R1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="networkStatusCell4_R2"></td>
+        <td id="networkSumCell4_R2"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="networkStatusCell4_R3"></td>
+        <td id="networkSumCell4_R3"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="networkStatusCell4"></td>
+        <td id="networkSumCell4"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Bar Chart for Round 4 -->
+  <div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+    <canvas id="round4BarChart" width="500" height="200" style="border:1px solid #000;">
+      Your browser does not support Canvas.
+    </canvas>
+  </div>
+
+  <br/><br/><br/>
+  <div style="text-align:center; margin:20px 0;">
+    <button id="resetButton4" onclick="location.reload()">Reset Table</button>
+    <br/><br/>
+    <select id="headerColorDropdown4" onchange="updateHeaderColor4()">
+      <option value="" disabled selected>Change Heading Color</option>
+      <option value="#f05f40">Orange</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+
+  <!-- Round 4 SCRIPT -->
+  <script>
+    /********************************************************
+     * Round 4 - Traffic Light Handling
+     ********************************************************/
+    const colorRedBtn4   = document.getElementById('colorRed4');
+    const colorGreenBtn4 = document.getElementById('colorGreen4');
+    const redCircle4     = document.getElementById('redCircle4');
+    const greenCircle4   = document.getElementById('greenCircle4');
+
+    colorRedBtn4.addEventListener('click', () => {
+      colorRedBtn4.classList.add('active');
+      colorGreenBtn4.classList.remove('active');
+      redCircle4.classList.remove('inactive-red');
+      redCircle4.classList.add('red');
+      greenCircle4.classList.remove('green');
+      greenCircle4.classList.add('inactive-green');
+
+      updateNetworkStatusTable4();
+      updateRound5Weights(); // If continuing to Round 5
+    });
+
+    colorGreenBtn4.addEventListener('click', () => {
+      colorGreenBtn4.classList.add('active');
+      colorRedBtn4.classList.remove('active');
+      greenCircle4.classList.remove('inactive-green');
+      greenCircle4.classList.add('green');
+      redCircle4.classList.remove('red');
+      redCircle4.classList.add('inactive-red');
+
+      updateNetworkStatusTable4();
+      updateRound5Weights(); // If continuing to Round 5
+    });
+
+    function updateNetworkStatusTable4() {
+      const trafficLightStateCell4 = document.getElementById('trafficLightStateCell4');
+      let stateText4 = 'Traffic Light State: ---';
+
+      if (colorRedBtn4.classList.contains('active')) {
+        stateText4 = 'Traffic Light State: RED';
+        trafficLightStateCell4.style.backgroundColor = 'red';
+        trafficLightStateCell4.style.color = 'white';
+      } else if (colorGreenBtn4.classList.contains('active')) {
+        stateText4 = 'Traffic Light State: GREEN';
+        trafficLightStateCell4.style.backgroundColor = 'green';
+        trafficLightStateCell4.style.color = 'white';
+      } else {
+        trafficLightStateCell4.style.backgroundColor = '';
+        trafficLightStateCell4.style.color = '';
+      }
+      trafficLightStateCell4.textContent = stateText4;
+
+      const decisionOutput4 = document.getElementById('outputCell4').textContent;
+      const currentLightState4 = stateText4.replace('Traffic Light State: ', '').trim();
+
+      let networkStatus4;
+      if (decisionOutput4 === 'UNDECIDED') {
+        networkStatus4 = 'UNDECIDED';
+      } else if (currentLightState4 === '---') {
+        networkStatus4 = 'INCORRECT';
+      } else if (decisionOutput4 === currentLightState4) {
+        networkStatus4 = 'CORRECT';
+      } else {
+        networkStatus4 = 'INCORRECT';
+      }
+      document.getElementById('networkStatusCell4').textContent = networkStatus4;
+
+      const sumValue4 = document.getElementById('sumCell4').textContent;
+      document.getElementById('networkSumCell4').textContent = sumValue4;
+    }
+
+    /********************************************************
+     * Round 4 - Interactive Table & Decision
+     ********************************************************/
+    function updateRow4(rowIdx) {
+      const dropdown4   = document.getElementById("inputDropdown4_" + rowIdx);
+      const numericCell4= document.getElementById("numericCell4_" + rowIdx);
+      const valueCell4  = document.getElementById("valueCell4_" + rowIdx);
+      const weightCell4 = document.getElementById("weightCell4_" + rowIdx);
+
+      // Remove previous color classes
+      dropdown4.parentElement.classList.remove('cell-red','cell-green');
+      dropdown4.classList.remove('select-red','select-green');
+
+      const selection4 = dropdown4.value;
+      if (!selection4) {
+        numericCell4.textContent = "";
+        valueCell4.textContent   = "";
+        updateDecision4();
+        updateRound5Weights();
+        return;
+      }
+
+      const parsedWeight4 = parseFloat(weightCell4.textContent.trim());
+      const weight4       = isNaN(parsedWeight4) ? 20 : parsedWeight4;
+      const numericVal4   = (selection4 === "RED") ? -1 : 1;
+
+      numericCell4.textContent = numericVal4;
+      valueCell4.textContent   = numericVal4 * weight4;
+
+      // Color the cell
+      if (selection4 === "RED") {
+        dropdown4.parentElement.classList.add('cell-red');
+        dropdown4.classList.add('select-red');
+      } else {
+        dropdown4.parentElement.classList.add('cell-green');
+        dropdown4.classList.add('select-green');
+      }
+
+      updateDecision4();
+      updateRound5Weights(); // If continuing to Round 5
+    }
+
+    function updateDecision4() {
+      let sum4 = 0;
+      for (let i = 1; i <= 9; i++) {
+        const valStr4 = document.getElementById("valueCell4_" + i).textContent.trim();
+        sum4 += parseFloat(valStr4) || 0;
+      }
+      document.getElementById("sumCell4").textContent = sum4;
+
+      let output4;
+      if (sum4 > 0) {
+        output4 = "GREEN";
+      } else if (sum4 < 0) {
+        output4 = "RED";
+      } else {
+        output4 = "UNDECIDED";
+      }
+      document.getElementById("outputCell4").textContent = output4;
+
+      // Color the entire decision row
+      const decisionRow4 = document.getElementById("decisionRow4");
+      decisionRow4.classList.remove('row-red','row-green');
+      if (sum4 > 0) {
+        decisionRow4.classList.add('row-green');
+      } else if (sum4 < 0) {
+        decisionRow4.classList.add('row-red');
+      }
+
+      updateNetworkStatusTable4();
+    }
+
+    function updateHeaderColor4() {
+      const newColor4 = document.getElementById('headerColorDropdown4').value;
+      const allHeaders4 = document.querySelectorAll(
+        '#round4 .interactive-table th, #round4 .decision-table th'
+      );
+      allHeaders4.forEach(th => {
+        th.style.backgroundColor = newColor4;
+        th.style.color = '#ffffff';
+      });
+    }
+
+    /********************************************************
+     * (Optional) Weight Adjuster for Next Round
+     ********************************************************/
+    function updateRound5Weights() {
+      // If you want to adjust Round 5’s initial weights based on Round 4 result:
+      let round4Light = null;
+      if (colorRedBtn4.classList.contains('active')) {
+        round4Light = 'RED';
+      } else if (colorGreenBtn4.classList.contains('active')) {
+        round4Light = 'GREEN';
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const r5WeightCell = document.getElementById('weightCell5_' + i);
+        if (!r5WeightCell) continue; // If Round 5 doesn’t exist or is not shown
+
+        const r4WeightCell = document.getElementById('weightCell4_' + i);
+        let parsedWeight4  = parseFloat(r4WeightCell.textContent.trim());
+        let finalR4Weight  = isNaN(parsedWeight4) ? 20 : parsedWeight4;
+
+        // If Round4 user input matches the Round 4 traffic light => +10, else -10
+        const round4Input = document.getElementById('inputDropdown4_' + i).value;
+        if (round4Light && round4Input) {
+          if (round4Input === round4Light) {
+            finalR4Weight += 10;
+          } else {
+            finalR4Weight -= 10;
+          }
+        }
+        r5WeightCell.textContent = finalR4Weight;
+      }
+    }
+
+    /********************************************************
+     * Bar Chart for Round 4
+     ********************************************************/
+    function drawBarChartRound4() {
+      const canvas4 = document.getElementById('round4BarChart');
+      if (!canvas4) return;
+      const ctx4 = canvas4.getContext('2d');
+
+      // Gather the 9 weights from weightCell4_1..weightCell4_9
+      let weights4 = [];
+      for (let i = 1; i <= 9; i++) {
+        const cell4 = document.getElementById('weightCell4_' + i);
+        let w4 = 0;
+        if (cell4 && cell4.textContent.trim() !== '') {
+          w4 = parseFloat(cell4.textContent.trim()) || 0;
+        }
+        weights4.push(w4);
+      }
+
+      // Clear canvas
+      ctx4.clearRect(0, 0, canvas4.width, canvas4.height);
+
+      // Compute min/max
+      let minVal4 = Math.min(...weights4);
+      let maxVal4 = Math.max(...weights4);
+      if (minVal4 === maxVal4) {
+        minVal4 -= 10;
+        maxVal4 += 10;
+      }
+      const padding4 = 5;
+      minVal4 -= padding4;
+      maxVal4 += padding4;
+
+      // Chart area
+      const chartW4 = canvas4.width;
+      const chartH4 = canvas4.height;
+      const margin4 = 30;
+      const usableW4= chartW4 - margin4 * 2;
+      const usableH4= chartH4 - margin4 * 2;
+
+      // Zero line
+      let zeroY4;
+      if (minVal4 < 0 && maxVal4 > 0) {
+        zeroY4 = margin4 + (maxVal4 / (maxVal4 - minVal4)) * usableH4;
+      } else if (maxVal4 < 0) {
+        zeroY4 = margin4 + usableH4;
+      } else {
+        zeroY4 = margin4;
+      }
+      zeroY4 = Math.max(margin4, Math.min(margin4 + usableH4, zeroY4));
+
+      // X-axis
+      ctx4.strokeStyle = 'black';
+      ctx4.lineWidth = 1;
+      ctx4.beginPath();
+      ctx4.moveTo(margin4, zeroY4);
+      ctx4.lineTo(margin4 + usableW4, zeroY4);
+      ctx4.stroke();
+
+      // Y-axis
+      ctx4.beginPath();
+      ctx4.moveTo(margin4, margin4);
+      ctx4.lineTo(margin4, margin4 + usableH4);
+      ctx4.stroke();
+
+      // Bars
+      const barSpacing4 = usableW4 / 9;
+      const barWidth4   = 5;
+      ctx4.fillStyle    = '#f05f40';
+
+      for (let i = 0; i < 9; i++) {
+        const wVal4 = weights4[i];
+        const xCenter4 = margin4 + barSpacing4 * i + barSpacing4 / 2;
+        const scale4   = usableH4 / (maxVal4 - minVal4);
+        const barHeight4 = Math.abs(wVal4 * scale4);
+
+        const barX4 = xCenter4 - barWidth4/2;
+        const barY4 = (wVal4 >= 0) ? zeroY4 - barHeight4 : zeroY4;
+
+        ctx4.fillRect(barX4, barY4, barWidth4, barHeight4);
+
+        // Label "C1", "C2", etc.
+        ctx4.fillStyle = 'black';
+        ctx4.font = '12px sans-serif';
+        ctx4.fillText('C' + (i+1), xCenter4 - 6, zeroY4 + 15);
+        ctx4.fillStyle = '#f05f40';
+      }
+    }
+
+    setInterval(drawBarChartRound4, 1000);
+  </script>
+</div> <!-- /round4 -->
