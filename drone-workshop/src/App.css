@@ -44,3 +44,119 @@
 
 
 .CodeMirror { min-height: 38vh !important; }
+
+.stageone-heading {
+  margin: 0;
+  color: #f05f40ff;      /* Keep your desired color here */
+  font-size: 30px;       /* New text size */
+}
+
+/* Make “Stage One Education” bold & uppercase */
+.stageone-education {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* “Drone Workshop” is not bold */
+.drone-workshop {
+  font-weight: normal;
+}
+
+/* For the Connect to Serial button */
+.connect-serial-button {
+  background-color: #f05f40; /* same as #f05f40ff, the “ff” is just 100% alpha */
+  color: #ffffff;
+  border-color: #f05f40; 
+}
+
+.connect-serial-button:hover {
+  background-color: #e64a2c;
+  border-color: #e64a2c;
+}
+
+/* For the two links (USB/UART Drivers and Firmware) */
+.download-links a {
+  color: #4b4b4b;
+  text-decoration: none;
+  margin-left: 20px; /* If you want to keep some spacing as in your inline style */
+}
+
+.download-links a:hover {
+  color: #e64a2c;
+  text-decoration: underline; /* or whatever hover styling you prefer */
+}
+/* App.css (or another global stylesheet) */
+
+/* 0) Remove browser default appearance so we have full control */
+.form-check-input[type="checkbox"] {
+  -webkit-appearance: none; /* Safari/Chrome */
+  appearance: none;         /* Modern browsers */
+}
+
+/* 1) Default checkbox box styles (unchecked look) */
+.form-check-input[type="checkbox"] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  margin-right: 0.3em;
+  border: 1px solid #ced4da;
+  border-radius: 0.25em;
+  background-color: #fff;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Keep focus outlines working */
+.form-check-input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.25); 
+}
+
+/* 2) Checked state: remove any default checkmark, add your custom background */
+.form-check-input[type="checkbox"]:checked {
+  background-color: #f05f40ff !important;
+  border-color: #f05f40ff !important;
+  background-image: none !important;  /* Kill Bootstrap's default SVG check */
+  box-shadow: none !important;
+}
+
+/* Also override any default :checked::before bullet or checkmark */
+.form-check-input[type="checkbox"]:checked::before {
+  content: none !important;
+  background-image: none !important;
+}
+
+/* 3) Insert your own centered white check in :after */
+.form-check-input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  width: 0.55em;
+  height: 0.55em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.485 1.929l-7.071 7.071-2.828-2.828-1.414 1.414 4.242 4.242 8.485-8.485-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+/* 4) (Optional) Hover effect if you want to highlight the box on hover */
+.form-check-input[type="checkbox"]:hover {
+  border-color: #a0a0a0;
+}
+
+.autonomous-panel {
+  position: fixed;           /* Pin to bottom of screen */
+  left: 0;
+  right: 500px;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  overflow: hidden;          /* Hide the code when collapsed */
+  transition: height 0.3s;   /* Smooth animate the change in height */
+  z-index: 9999;             /* So it stays above other elements */
+}

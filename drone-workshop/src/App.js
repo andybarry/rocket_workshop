@@ -110,6 +110,11 @@ function App() {
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
+// Add this with your other useState imports
+// ...
+const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
+
+
   const holdCommandRef = useRef(null);
   const textareaRef = useRef(null);
 
@@ -434,30 +439,48 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Split initialPrimarySize='70vw'>
+      <Split initialPrimarySize={autonomousCollapsed ? '85vw' : '70vw'}>
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h1 style={{ margin: 0 }}>DDDDDrone Workshop | Stage One Education</h1>
-              <a
-                href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-                target="_blank"
-                style={{ marginLeft: '20px' }}
-              >
-                USB/UART Drivers
-              </a>
-              <a
-                href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
-                style={{ marginLeft: '20px' }}
-                download
-              >
-                Firmware
-              </a>
-            </div>
-            <hr />
+            <div style={{ display: 'flex', 
+  justifyContent: 'space-between', 
+  alignItems: 'center' }}>
+            
+            
+            <h1 className="stageone-heading">
+  <span className="stageone-education">Stage One Education</span>
+  <span className="drone-workshop"> | Drone Workshop</span>
+</h1>
+
+<div className="download-links">
+    <a
+      href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+      target="_blank"
+      rel="noreferrer"
+    >
+      USB/UART Drivers
+    </a>
+    <a
+      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
+      download
+    >
+      Firmware
+    </a>
+  </div>
+</div>
+
+<hr />
+
             <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
             <Form>
-              <Button onClick={handleConnect} className="mb-3" disabled={isConnected} variant={serialButtonVariant} >{serialButtonText}</Button>
+            <Button
+  onClick={handleConnect}
+  className="mb-3 connect-serial-button"
+  disabled={isConnected}
+>
+  {serialButtonText}
+</Button>
+
               {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
               <Button
                 onClick={handleSend}
@@ -531,15 +554,15 @@ function App() {
               }}
             />
             <hr />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-              <Button
-                onClick={handleSend}
-                className="mb-3"
-                style={{ marginLeft: '20px' }}
-                disabled={!isConnected || isUploading} // Disable during upload for better UX
-                variant={uploadButtonVariant}
-              >
+<div style={{ display: 'flex', alignItems: 'center' }}>
+  <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
+  <Button
+    onClick={handleSend}
+    className="mb-3"
+    style={{ marginLeft: '20px' }}
+    disabled={!isConnected || isUploading}
+    variant={uploadButtonVariant}
+  >
                 {isUploading ? (
                   <Spinner
                     as="span"
@@ -584,12 +607,13 @@ function App() {
           <Container className="py-3">
             <h5>Serial Monitor:</h5>
             <Form.Check
-              type="checkbox"
-              label="Autoscroll"
-              id="autoscroll"
-              checked={autoScroll}
-              onChange={handleCheckboxChange}
-            />
+  type="checkbox"
+  label="Autoscroll"
+  id="autoscroll"
+  checked={autoScroll}
+  onChange={handleCheckboxChange}
+/>
+
             <Form.Control
               as="textarea"
               value={data.join('')}
