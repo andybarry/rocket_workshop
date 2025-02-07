@@ -1,12 +1,4 @@
----
-layout: default
-title: Node Generator | Stage One Education, LLC
----
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Human Neural Network</title>
+
 
   <style>
     /*---------------------------------
@@ -81,7 +73,7 @@ title: Node Generator | Stage One Education, LLC
       text-align: center;
     }
     .label-below {
-      display: none;
+      display: none; /* hidden by default */
       font-size: 20px;
     }
 
@@ -131,22 +123,35 @@ title: Node Generator | Stage One Education, LLC
       border: none !important;
     }
 
-    /* Run + Visibility Toggle + Code Toggle Buttons */
-    #runButton,
-    #visibilityToggle,
-    #toggleCodeBox {
-      background-color: #fff !important;
-      color: #f05f40 !important;
-      border: 2px solid #f05f40 !important;
-      padding: 10px 20px !important; /* Adjust if desired */
-    }
-    #runButton.active,
-    #visibilityToggle.active,
-    #toggleCodeBox.active {
-      background-color: #f05f40 !important;
-      color: #fff !important;
-      border: none !important;
-    }
+    /*---------------------------------
+      Run + Show Code (Light Gray)
+    ----------------------------------*/
+    /* --- Run button = orange (#f05f40) --- */
+#runButton {
+  background-color: #fff !important;
+  color: #f05f40 !important;
+  border: 2px solid #f05f40 !important;
+  padding: 10px 20px !important; /* same padding as before */
+}
+#runButton.active {
+  background-color: #f05f40 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* --- Show Code button = light gray --- */
+#toggleCodeBox {
+  background-color: #fff !important; 
+  color: #666 !important;           
+  border: 2px solid #999 !important;
+  padding: 10px 20px !important; 
+}
+#toggleCodeBox.active {
+  background-color: #999 !important; 
+  color: #fff !important;
+  border: none !important;
+}
+
 
     /*---------------------------------
       CODE BOX (starts collapsed)
@@ -167,6 +172,7 @@ title: Node Generator | Stage One Education, LLC
       position: relative;
       white-space: pre;
       display: none; /* start hidden */
+      text-align: left; /* ensure code text is left-aligned */
     }
 
     /* Typewriter caret for effect */
@@ -187,20 +193,6 @@ title: Node Generator | Stage One Education, LLC
 </head>
 
 <body>
-
-  {% include navigation-ai.html %}
-
-  <!-- Spacer for fixed navbar -->
-  <div style="height: 50px;"></div>
-
-  <!-- Title section -->
-  <div style="text-align: center;">
-    <h1 style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; line-height: 1;">
-      Human Neural Network
-    </h1>
-    <h2>Sensor Node Generator</h2>
-    <hr class="main-page-hr" />
-  </div>
 
   <!-- Choose Participant Count -->
   <div style="text-align: center;">
@@ -247,21 +239,32 @@ title: Node Generator | Stage One Education, LLC
     <!-- The appropriate HTML snippet gets injected here based on dropdown -->
   </div>
 
-  <!-- Toggle Code Box Visibility -->
+
+
+ 
+
+  <!-- Example image (optional) -->
+  <img 
+    src="img/27-nn.png" 
+    alt="27-NN" 
+    style="
+      display: block; 
+      margin: 0 auto; 
+      max-width: 1150px; 
+      width: 100%; 
+      height: auto;
+    "
+  />
+
+   <!-- CODE BOX (starts collapsed) -->
+   <div id="codeBox" class="code-box"></div>
+
+   
+  <!-- Toggle Code Box + Node Weights -->
   <div style="text-align: center; margin: 20px;">
     <button id="toggleCodeBox" class="btn">Show Code</button>
   </div>
-
-  <!-- CODE BOX (starts collapsed) -->
-  <div id="codeBox" class="code-box"></div>
-
-  <br/><br/>
-  <!-- Simple ON/OFF Button for Label Visibility -->
-  <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
-    <label style="margin-right: 10px;">Node Weight:</label>
-    <button id="visibilityToggle" class="btn">OFF</button>
-  </div>
-
+<br/>
   {% raw %}
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -425,14 +428,13 @@ title: Node Generator | Stage One Education, LLC
 
 
     /*******************************
-     * 3) GET ELEMENTS + DEFAULT
+     * 3) GET ELEMENTS + DEFAULTS
      *******************************/
     const participantsSelect = document.getElementById('participantsDropdown');
     const nodesContainer     = document.getElementById('nodesContainer');
     const redButton          = document.getElementById('colorRed');
     const greenButton        = document.getElementById('colorGreen');
     const runButton          = document.getElementById('runButton');
-    const visibilityToggle   = document.getElementById('visibilityToggle');
     const redCircle          = document.getElementById('redCircle');
     const greenCircle        = document.getElementById('greenCircle');
     const codeBox            = document.getElementById('codeBox');
@@ -442,15 +444,14 @@ title: Node Generator | Stage One Education, LLC
     nodesContainer.innerHTML = nodeTemplates[27];
     let currentInputNodes    = inputNodesMap[27];
     let selectedColor        = null;
-    let labelsVisible        = false;
     let codeBoxVisible       = false; // track if code box is expanded
 
     // Keep track of code lines for typewriter
     let codeLines = [];
 
-    // Initialize labels & snippet lines
+    // Initialize snippet lines & labels for the default 27
     setLabels();
-    updateSnippetLines(27); // Build snippet for 27 initially
+    updateSnippetLines(27); 
 
 
     /*******************************
@@ -502,7 +503,7 @@ function computeNodeColor(selectedColor, nodeWeight) {
     return (diceRoll <= nodeWeight) ? 'Red' : 'Green';
   } else {
     // selectedColor = 'green'
-    // If diceRoll <= weight -> Green, else Red
+    // If diceRoll <= nodeWeight -> Green, else Red
     return (diceRoll <= nodeWeight) ? 'Green' : 'Red';
   }
 }`;
@@ -516,7 +517,6 @@ function computeNodeColor(selectedColor, nodeWeight) {
       let lineIndex = 0;
       const total = codeLines.length;
 
-      // Interval that appends lines one by one
       const intervalId = setInterval(() => {
         if (lineIndex < total) {
           codeBox.innerHTML += codeLines[lineIndex] + "\n";
@@ -525,7 +525,7 @@ function computeNodeColor(selectedColor, nodeWeight) {
         } else {
           clearInterval(intervalId);
         }
-      }, 100); // Adjust speed as desired
+      }, 100);
     }
 
     // Set each node label
@@ -552,19 +552,32 @@ function computeNodeColor(selectedColor, nodeWeight) {
       }
     }
 
-    // Toggle code box display
+    //  Show/Hide Code Box + Node Weights
     function toggleCodeBox() {
       codeBoxVisible = !codeBoxVisible;
       if (codeBoxVisible) {
-        // Show it
+        // Show code box
         codeBox.style.display = 'block';
         toggleCodeBoxBtn.textContent = 'Hide Code';
-        // Typewriter effect each time user opens it
+        // Typewriter effect
         scrollCode();
+
+        // Show node weights
+        const labels = nodesContainer.querySelectorAll('.label-below');
+        labels.forEach(label => {
+          label.style.display = 'block';
+        });
+
       } else {
-        // Hide it
+        // Hide code box
         codeBox.style.display = 'none';
         toggleCodeBoxBtn.textContent = 'Show Code';
+
+        // Hide node weights
+        const labels = nodesContainer.querySelectorAll('.label-below');
+        labels.forEach(label => {
+          label.style.display = 'none';
+        });
       }
     }
 
@@ -577,23 +590,25 @@ function computeNodeColor(selectedColor, nodeWeight) {
     participantsSelect.addEventListener('change', function() {
       const val = parseInt(this.value);
 
-      // Update circles
+      // Update circles for new count
       nodesContainer.innerHTML = nodeTemplates[val];
       currentInputNodes = inputNodesMap[val];
       setLabels();
 
-      // Reset label if ON
-      if (labelsVisible) {
-        labelsVisible = false;
-        visibilityToggle.classList.remove('active');
-        visibilityToggle.textContent = 'OFF';
-      }
-
-      // Build new snippet lines for that count
+      // Rebuild code snippet lines for that count
       updateSnippetLines(val);
 
-      // Clear the code box content
+      // Clear the code box content + revert button
       codeBox.innerHTML = "";
+      codeBox.style.display = 'none';
+      toggleCodeBoxBtn.textContent = 'Show Code';
+      codeBoxVisible = false;
+
+      // Hide node weights
+      const labels = nodesContainer.querySelectorAll('.label-below');
+      labels.forEach(label => {
+        label.style.display = 'none';
+      });
     });
 
     // 5.2) Red Button
@@ -637,27 +652,13 @@ function computeNodeColor(selectedColor, nodeWeight) {
         const boxId = 'box' + (i+1);
         const circleEl = document.getElementById(boxId);
         if (circleEl) {
+          // apply 'red' or 'green' class
           circleEl.className = 'circle ' + (outputs[i] === 'Red' ? 'red' : 'green');
         }
       }
-
-      // Note: The Run button NO longer expands/shows code
-      // The user can click "Show Code" if they want to see it
     });
 
-    // 5.5) Toggle Node Weight
-    visibilityToggle.addEventListener('click', function() {
-      visibilityToggle.classList.toggle('active');
-      labelsVisible = !labelsVisible;
-      visibilityToggle.textContent = labelsVisible ? 'ON' : 'OFF';
-
-      const labels = nodesContainer.querySelectorAll('.label-below');
-      labels.forEach(label => {
-        label.style.display = labelsVisible ? 'block' : 'none';
-      });
-    });
-
-    // 5.6) Show/Hide Code button
+    // 5.5) Show/Hide Code + Node Weights
     toggleCodeBoxBtn.addEventListener('click', function() {
       toggleCodeBox();
     });

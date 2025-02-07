@@ -9,33 +9,29 @@
     </h1>
     <h2>Round 1</h2>
     <hr class="main-page-hr" />
-    <h3>Sensor Nodes (A)</h3>
-    <hr class="main-page-hr" />
   </div>
   {% include node-generator-27.html %}
 
-  
-  <div style="text-align: center;">
-    <hr class="main-page-hr" />
-    <h3>Hidden Layer Nodes (B & C)</h3>
-    <hr class="main-page-hr" />
-  
-    <h4>
-      (B) Nodes: Write down sensor input and roll the dice 
-      <br/><br/>
-      (C) Nodes: Find your connections write down your input and roll the dice
-     </h4>
-     <br/><br/>
 
+  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed" class="btn">Red</button>
+    <button id="colorGreen" class="btn">Green</button>
+    <br><br>
+    <div class="traffic-light" id="trafficLight">
+      <div class="light inactive-red" id="redCircle"></div>
+      <div class="light inactive-green" id="greenCircle"></div>
+    </div>
+  </div>
+  <hr/>
+
+  <div style="text-align: center;">
+    <h4>Output Node</h4>
   </div>
 
-  <div style="text-align: center;">
-    <hr class="main-page-hr" />
-    <h3>Output Node (OUT)</h3>
-    <hr class="main-page-hr" />
-  </div>
-
-<br/>
   <!-- INTERACTIVE TABLE (Round 1) -->
   <table class="interactive-table" id="interactiveTable">
     <thead>
@@ -260,13 +256,9 @@
   <br/>
 
   <!-- NETWORK STATUS TABLE (Round 1) -->
-    <div style="text-align: center;">
-      <hr class="main-page-hr" />
-      <h3>Round Summary</h3>
-      <hr class="main-page-hr" />
-    </div>
-
-
+  <div style="text-align: center;">
+    <h4>Summary</h4>
+  </div>
   <table class="decision-table" id="networkStatusTable">
     <thead>
       <tr>
