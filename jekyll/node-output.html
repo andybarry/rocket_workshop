@@ -29,23 +29,40 @@ title: Node Output | Stage One Education, LLC
       padding: 20px;
     }
 
+    /* ARROW STYLES (UPDATED) */
     #arrowLeft, #arrowRight {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
       z-index: 9999;
       cursor: pointer;
-      font-size: 2em;
+      font-size: 4em;
       color: #f05f40;
       background-color: transparent;
       border: none;
       user-select: none;
+      /* Make arrows display text below */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
+
     #arrowLeft {
       left: 10px;
     }
     #arrowRight {
       right: 10px;
+    }
+
+    /* TEXT BELOW THE ARROWS */
+    .arrow-text {
+      font-size: 15px;
+      color: #f05f40;
+      margin-top: 1px;
+      margin-bottom: px;
+      font-family: 'Roboto', sans-serif;
+
     }
 
     /******************************************
@@ -258,59 +275,55 @@ title: Node Output | Stage One Education, LLC
       display: none;
     }
 
+    .title-box-a {
+      display: inline-block;          /* Only as wide as the text */
+      background-color: #a4c2f4ff;    /* Light blue fill */
+      color: #000;                    /* Black text */
+      border: 2px solid #000;         /* Black border */
+      border-radius: 8px;             /* Rounded corners */
+      padding: 8px 16px;              /* Spacing inside the box */
+      margin: 20px auto;              /* Centers it horizontally if the parent is text-align: center */
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+    .title-box-b {
+      display: inline-block;          
+      background: linear-gradient(to right, #ffabd6ff, #ffe2bfff);
+      color: #000;                    
+      border: 2px solid #000;         
+      border-radius: 8px;             
+      padding: 8px 16px;              
+      margin: 20px auto;              
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
 
-  .title-box-a {
-  display: inline-block;          /* Only as wide as the text */
-  background-color: #a4c2f4ff;      /* Light blue fill */
-  color: #000;                    /* Black text */
-  border: 2px solid #000;         /* Black border */
-  border-radius: 8px;             /* Rounded corners */
-  padding: 8px 16px;              /* Spacing inside the box */
-  margin: 20px auto;              /* Centers it horizontally if the parent is text-align: center */
-  font-size: 1.8em;
-  font-weight: 600;
-  width: 80%;
-}
-.title-box-b {
-  display: inline-block;          
-  background: linear-gradient(to right, #ffabd6ff, #ffe2bfff);
-  color: #000;                    
-  border: 2px solid #000;         
-  border-radius: 8px;             
-  padding: 8px 16px;              
-  margin: 20px auto;              
-  font-size: 1.8em;
-  font-weight: 600;
-  width: 80%;
-}
-
-.title-box-summary {
-  display: inline-block;          /* Only as wide as the text */
-  background-color: rgb(200, 200, 200);      /* Light blue fill */
-  color: #000;                    /* Black text */
-  border: 2px solid #000;         /* Black border */
-  border-radius: 8px;             /* Rounded corners */
-  padding: 8px 16px;              /* Spacing inside the box */
-  margin: 20px auto;              /* Centers it horizontally if the parent is text-align: center */
-  font-size: 1.8em;
-  font-weight: 600;
-  width: 80%;
-}
-.title-box-out {
-  display: inline-block;          /* Only as wide as the text */
-  background-color: #b6d7a8ff;      /* Light blue fill */
-  color: #000;                    /* Black text */
-  border: 2px solid #000;         /* Black border */
-  border-radius: 8px;             /* Rounded corners */
-  padding: 8px 16px;              /* Spacing inside the box */
-  margin: 20px auto;              /* Centers it horizontally if the parent is text-align: center */
-  font-size: 1.8em;
-  font-weight: 600;
-  width: 80%;
-}
-
-
-
+    .title-box-summary {
+      display: inline-block;          /* Only as wide as the text */
+      background-color: rgb(200, 200, 200); /* Light gray fill */
+      color: #000;                            
+      border: 2px solid #000;                
+      border-radius: 8px;                    
+      padding: 8px 16px;                     
+      margin: 20px auto;                     
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+    .title-box-out {
+      display: inline-block;          
+      background-color: #b6d7a8ff;    
+      color: #000;                    
+      border: 2px solid #000;         
+      border-radius: 8px;             
+      padding: 8px 16px;              
+      margin: 20px auto;              
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
   </style>
 </head>
 
@@ -318,9 +331,9 @@ title: Node Output | Stage One Education, LLC
 
 {% include navigation-ai.html %}
 
-<!-- Fixed arrows to navigate rounds -->
-<button id="arrowLeft" onclick="prevRound()">&#9664;</button>
-<button id="arrowRight" onclick="nextRound()">&#9654;</button>
+<!-- Fixed arrows to navigate rounds (UPDATED) -->
+<button id="arrowLeft" onclick="prevRound()"></button>
+<button id="arrowRight" onclick="nextRound()">&#9654;<br><span id="rightArrowText" class="arrow-text"></span></button>
 
 <!-- Container that holds all rounds side-by-side -->
 <div class="slider-container" id="sliderContainer">
@@ -353,166 +366,30 @@ title: Node Output | Stage One Education, LLC
 
 <!-- GLOBAL SCRIPT for slider navigation & summary copying -->
 <script>
-  let currentRound = 0; // 0..7
+  let currentRound = 0; // 0..7 (Round 1 = 0, Round 8 = 7)
   const slider = document.getElementById('sliderContainer');
+  const arrowLeft = document.getElementById('arrowLeft');
+  const arrowRight = document.getElementById('arrowRight');
+  const rightArrowText = document.getElementById('rightArrowText');
 
   function showRound(index) {
     slider.style.transform = "translateX(-" + (index * 100) + "%)";
     currentRound = index;
 
-    // EXAMPLE: If user navigates to Round 2, copy Round1's summary into Round 2 table
-    if (index === 1) {
-      document.getElementById('networkStatusCell2_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell2_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
+    // Hide left arrow on Round 1 (index 0)
+    if (currentRound === 0) {
+      arrowLeft.style.display = 'none';
+    } else {
+      arrowLeft.style.display = 'block';
+      arrowLeft.innerHTML = `&#9664;<br><span class="arrow-text">ROUND ${currentRound}</span>`;
     }
-    // Round 3 needs Round1 & Round2 summary
-    if (index === 2) {
-      document.getElementById('networkStatusCell3_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell3_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
 
-      document.getElementById('networkStatusCell3_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell3_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-    }
-    // Round 4 needs Round1..3 summary
-    if (index === 3) {
-      document.getElementById('networkStatusCell4_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell4_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
-
-      document.getElementById('networkStatusCell4_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell4_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-
-      document.getElementById('networkStatusCell4_R3').textContent =
-        document.getElementById('networkStatusCell3').textContent;
-      document.getElementById('networkSumCell4_R3').textContent =
-        document.getElementById('networkSumCell3').textContent;
-    }
-    // Round 5 needs Round1..4 summary
-    if (index === 4) {
-      document.getElementById('networkStatusCell5_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell5_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
-
-      document.getElementById('networkStatusCell5_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell5_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-
-      document.getElementById('networkStatusCell5_R3').textContent =
-        document.getElementById('networkStatusCell3').textContent;
-      document.getElementById('networkSumCell5_R3').textContent =
-        document.getElementById('networkSumCell3').textContent;
-
-      document.getElementById('networkStatusCell5_R4').textContent =
-        document.getElementById('networkStatusCell4').textContent;
-      document.getElementById('networkSumCell5_R4').textContent =
-        document.getElementById('networkSumCell4').textContent;
-    }
-    // Round 6 needs Round1..5 summary
-    if (index === 5) {
-      document.getElementById('networkStatusCell6_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell6_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
-
-      document.getElementById('networkStatusCell6_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell6_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-
-      document.getElementById('networkStatusCell6_R3').textContent =
-        document.getElementById('networkStatusCell3').textContent;
-      document.getElementById('networkSumCell6_R3').textContent =
-        document.getElementById('networkSumCell3').textContent;
-
-      document.getElementById('networkStatusCell6_R4').textContent =
-        document.getElementById('networkStatusCell4').textContent;
-      document.getElementById('networkSumCell6_R4').textContent =
-        document.getElementById('networkSumCell4').textContent;
-
-      document.getElementById('networkStatusCell6_R5').textContent =
-        document.getElementById('networkStatusCell5').textContent;
-      document.getElementById('networkSumCell6_R5').textContent =
-        document.getElementById('networkSumCell5').textContent;
-    }
-    // Round 7 needs Round1..6 summary
-    if (index === 6) {
-      document.getElementById('networkStatusCell7_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell7_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
-
-      document.getElementById('networkStatusCell7_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell7_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-
-      document.getElementById('networkStatusCell7_R3').textContent =
-        document.getElementById('networkStatusCell3').textContent;
-      document.getElementById('networkSumCell7_R3').textContent =
-        document.getElementById('networkSumCell3').textContent;
-
-      document.getElementById('networkStatusCell7_R4').textContent =
-        document.getElementById('networkStatusCell4').textContent;
-      document.getElementById('networkSumCell7_R4').textContent =
-        document.getElementById('networkSumCell4').textContent;
-
-      document.getElementById('networkStatusCell7_R5').textContent =
-        document.getElementById('networkStatusCell5').textContent;
-      document.getElementById('networkSumCell7_R5').textContent =
-        document.getElementById('networkSumCell5').textContent;
-
-      document.getElementById('networkStatusCell7_R6').textContent =
-        document.getElementById('networkStatusCell6').textContent;
-      document.getElementById('networkSumCell7_R6').textContent =
-        document.getElementById('networkSumCell6').textContent;
-    }
-    // Round 8 needs Round1..7 summary
-    if (index === 7) {
-      document.getElementById('networkStatusCell8_R1').textContent =
-        document.getElementById('networkStatusCell').textContent;
-      document.getElementById('networkSumCell8_R1').textContent =
-        document.getElementById('networkSumCell').textContent;
-
-      document.getElementById('networkStatusCell8_R2').textContent =
-        document.getElementById('networkStatusCell2').textContent;
-      document.getElementById('networkSumCell8_R2').textContent =
-        document.getElementById('networkSumCell2').textContent;
-
-      document.getElementById('networkStatusCell8_R3').textContent =
-        document.getElementById('networkStatusCell3').textContent;
-      document.getElementById('networkSumCell8_R3').textContent =
-        document.getElementById('networkSumCell3').textContent;
-
-      document.getElementById('networkStatusCell8_R4').textContent =
-        document.getElementById('networkStatusCell4').textContent;
-      document.getElementById('networkSumCell8_R4').textContent =
-        document.getElementById('networkSumCell4').textContent;
-
-      document.getElementById('networkStatusCell8_R5').textContent =
-        document.getElementById('networkStatusCell5').textContent;
-      document.getElementById('networkSumCell8_R5').textContent =
-        document.getElementById('networkSumCell5').textContent;
-
-      document.getElementById('networkStatusCell8_R6').textContent =
-        document.getElementById('networkStatusCell6').textContent;
-      document.getElementById('networkSumCell8_R6').textContent =
-        document.getElementById('networkSumCell6').textContent;
-
-      document.getElementById('networkStatusCell8_R7').textContent =
-        document.getElementById('networkStatusCell7').textContent;
-      document.getElementById('networkSumCell8_R7').textContent =
-        document.getElementById('networkSumCell7').textContent;
+    // Hide right arrow on Round 8 (index 7)
+    if (currentRound === 7) {
+      arrowRight.style.display = 'none';
+    } else {
+      arrowRight.style.display = 'block';
+      rightArrowText.innerText = `ROUND ${currentRound + 2}`;
     }
   }
 
@@ -588,7 +465,7 @@ title: Node Output | Stage One Education, LLC
   }
 
   window.addEventListener('load', function() {
-    // Show first round by default
+    // Show first round (index 0) by default
     showRound(0);
     // If you want to create overlays in Round 1
     createUserInputOverlays();
