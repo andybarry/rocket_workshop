@@ -1,0 +1,45 @@
+---
+layout: default
+title: Node Portal | Stage One Education, LLC
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Portal</title>
+</head>
+
+<body>
+  {% include navigation-ai.html %}
+
+  <!-- MAIN CONTENT -->
+  <div style="text-align: center; margin-top: 50px;">
+    <h2>Select Number of Participants</h2>
+
+    <!-- Dropdown -->
+    <select id="participantsDropdown">
+      <option value="27" selected>27</option>
+      <option value="36">36</option>
+      <option value="45">45</option>
+      <option value="63">63</option>
+    </select>
+
+    <br><br>
+
+    <!-- Button to proceed -->
+    <button onclick="goToOutput()">Start Round 1</button>
+  </div>
+
+  <script>
+    function goToOutput() {
+      // Get selected value, e.g. "27"
+      var chosen = document.getElementById("participantsDropdown").value;
+      // Redirect to node-output.html, passing chosen as a query parameter
+      window.location.href = "node-output.html?count=" + chosen;
+    }
+  </script>
+
+  {% include copyright.html %}
+</body>
+</html>

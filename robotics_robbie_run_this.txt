@@ -17,3 +17,5 @@ C:\Users\robbi\Documents>cd github
 C:\Users\robbi\Documents\GitHub>cd rocket_workshop
 
 C:\Users\robbi\Documents\GitHub\rocket_workshop>cd drone-workshop
+
+npm run start

@@ -464,11 +464,25 @@ title: Node Output | Stage One Education, LLC
     }
   }
 
-  window.addEventListener('load', function() {
-    // Show first round (index 0) by default
-    showRound(0);
-    // If you want to create overlays in Round 1
-    createUserInputOverlays();
+  
+</script>
+
+<script>
+  // This ensures that when we land here with ?count=27 (etc.),
+  // we set the dropdown in node-generator-27.html accordingly.
+  window.addEventListener('DOMContentLoaded', function() {
+    // Read "count" from ?count=...
+    var urlParams = new URLSearchParams(window.location.search);
+    var c = urlParams.get('count') || '27';
+
+    // node-generator-27.html has <select id="participantsDropdown"> already
+    var dd = document.getElementById('participantsDropdown');
+    if (dd) {
+      // Set it to the correct participant count
+      dd.value = c;
+      // Force the built-in change logic to run
+      dd.dispatchEvent(new Event('change'));
+    }
   });
 </script>
 
