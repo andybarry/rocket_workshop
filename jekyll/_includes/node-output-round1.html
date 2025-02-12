@@ -1,41 +1,44 @@
 <!-- ========================== ROUND 1 ========================== -->
 <div class="round-container" id="round1">
+
   <!-- Title section -->
   <div style="text-align: center;">
-      <!-- Spacer for fixed navbar -->
-      <div style="height: 50px;"></div>
-      <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 40px; font-weight: bold; line-height: 1;">Round 1</h2>  
-      <h2 style="font-size: 40px; font-family: 'Roboto', sans-serif; color: #f05f40;  font-weight: bold; line-height: 1;">
-          Human Neural Network
-      </h2>
-      <hr class="main-page-hr" />
-      <br/>
+    <!-- Spacer for fixed navbar -->
+    <div style="height: 50px;"></div>
+    <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 40px; font-weight: bold; line-height: 1;">
+      Round 1
+    </h2>
+    <h2 style="font-size: 40px; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: 1;">
+      Human Neural Network
+    </h2>
+    <hr class="main-page-hr" />
+    <br/>
 
-      <!-- Example image (optional) -->
-      <img 
-        src="img/27-nn.png" 
-        alt="27-NN" 
-        style="
-          display: block; 
-          margin: 0 auto; 
-          max-width: 1000px; 
-          width: 100%; 
-          height: auto;
-        "
-      />
+    <!-- Example image (optional) -->
+    <img 
+      src="img/27-nn.png" 
+      alt="27-NN" 
+      style="
+        display: block; 
+        margin: 0 auto; 
+        max-width: 1000px; 
+        width: 100%; 
+        height: auto;
+      "
+    />
 
-      <br/>
-  
-      <h3 class="title-box-a">Sensor Nodes (A)</h3>
+    <br/>
+    <h3 class="title-box-a">Sensor Nodes (A)</h3>
   </div>
+
   {% include node-generator-27.html %}
 
   <div style="text-align: center;">
-    <h3 class="title-box-b">Hidden Layer Nodes (B & C)</h3>
+    <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
     <h4>
       (B) Nodes: Write down sensor input and roll the dice 
       <br/><br/>
-      (C) Nodes: Find your connections write down your input and roll the dice
+      (C) Nodes: Find your connections, write down your input, and roll the dice
     </h4>
     <br/><br/>
 
@@ -44,291 +47,548 @@
     </div>
     <br/>
 
-    <!-- INTERACTIVE TABLE (Round 1) -->
-    <table class="interactive-table" id="interactiveTable">
-      <thead>
-        <tr>
-          <th>Node</th>
-          <th>Input</th>
-          <th>Numeric</th>
-          <th>x</th>
-          <th>Weight</th>
-          <th>=</th>
-          <th>Value</th>
-        </tr>
-      </thead>
+    <!-- Container for Round 1 table + Round 2 container -->
+    <div style="text-align: center;">
 
-      <tbody>
-        <!-- Row Template (C1..C9) -->
-        <tr id="row1">
-          <td>C1</td>
-          <td>
-            <select id="inputDropdown1" onchange="updateRow(1)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell1">
-            <!-- User input for Numeric -->
-            <input 
-              type="number" 
-              id="numericInput1" 
-              style="width: 60px;" 
-              oninput="updateRow(1)"
-            />
-            <!-- Auto-computed display for Numeric -->
-            <span class="cell-number-span" id="numericSpan1"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell1">
-            <!-- User input for Weight -->
-            <input 
-              type="number" 
-              id="weightInput1" 
-              style="width: 60px;" 
-              oninput="updateRow(1)"
-            />
-            <!-- Auto-computed display for Weight -->
-            <span class="cell-number-span" id="weightSpan1">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell1">
-            <!-- User input for Value -->
-            <input 
-              type="number" 
-              id="valueInput1" 
-              style="width: 60px;"
-              oninput="updateRow(1)"
-            />
-            <!-- Auto-computed display for Value -->
-            <span class="cell-number-span" id="valueSpan1"></span>
-          </td>
-        </tr>
+      <!-- ROUND 1 MAIN TABLE -->
+      <div style="display: inline-block; vertical-align: top; position: relative;">
+        <h3 style="text-align:center;">Round 1</h3>
 
-        <tr id="row2">
-          <td>C2</td>
-          <td>
-            <select id="inputDropdown2" onchange="updateRow(2)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell2">
-            <input type="number" id="numericInput2" style="width: 60px;" oninput="updateRow(2)" />
-            <span class="cell-number-span" id="numericSpan2"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell2">
-            <input type="number" id="weightInput2" style="width: 60px;" oninput="updateRow(2)" />
-            <span class="cell-number-span" id="weightSpan2">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell2">
-            <input type="number" id="valueInput2" style="width: 60px;" oninput="updateRow(2)" />
-            <span class="cell-number-span" id="valueSpan2"></span>
-          </td>
-        </tr>
+        <table class="interactive-table" id="interactiveTable" style="margin: 0 auto;">
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Input</th>
+              <th>Numeric</th>
+              <th>x</th>
+              <th>Weight</th>
+              <th>=</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows C1..C9 -->
+            <tr id="row1">
+              <td>C1</td>
+              <td>
+                <select id="inputDropdown1" onchange="updateRow(1)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell1">
+                <input 
+                  type="number"
+                  id="numericInput1" 
+                  style="width: 60px;" 
+                  oninput="updateRow(1)"
+                />
+                <span class="cell-number-span" id="numericSpan1"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell1">
+                <input 
+                  type="number" 
+                  id="weightInput1" 
+                  style="width: 60px;" 
+                  oninput="updateRow(1)"
+                />
+                <span class="cell-number-span" id="weightSpan1">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell1">
+                <input 
+                  type="number" 
+                  id="valueInput1" 
+                  style="width: 60px;" 
+                  oninput="updateRow(1)"
+                />
+                <span class="cell-number-span" id="valueSpan1"></span>
+              </td>
+            </tr>
+            <tr id="row2">
+              <td>C2</td>
+              <td>
+                <select id="inputDropdown2" onchange="updateRow(2)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell2">
+                <input 
+                  type="number"
+                  id="numericInput2" 
+                  style="width: 60px;" 
+                  oninput="updateRow(2)"
+                />
+                <span class="cell-number-span" id="numericSpan2"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell2">
+                <input 
+                  type="number" 
+                  id="weightInput2" 
+                  style="width: 60px;" 
+                  oninput="updateRow(2)"
+                />
+                <span class="cell-number-span" id="weightSpan2">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell2">
+                <input 
+                  type="number" 
+                  id="valueInput2" 
+                  style="width: 60px;" 
+                  oninput="updateRow(2)"
+                />
+                <span class="cell-number-span" id="valueSpan2"></span>
+              </td>
+            </tr>
+            <tr id="row3">
+              <td>C3</td>
+              <td>
+                <select id="inputDropdown3" onchange="updateRow(3)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell3">
+                <input 
+                  type="number" 
+                  id="numericInput3" 
+                  style="width: 60px;" 
+                  oninput="updateRow(3)"
+                />
+                <span class="cell-number-span" id="numericSpan3"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell3">
+                <input 
+                  type="number" 
+                  id="weightInput3" 
+                  style="width: 60px;" 
+                  oninput="updateRow(3)"
+                />
+                <span class="cell-number-span" id="weightSpan3">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell3">
+                <input 
+                  type="number" 
+                  id="valueInput3" 
+                  style="width: 60px;" 
+                  oninput="updateRow(3)"
+                />
+                <span class="cell-number-span" id="valueSpan3"></span>
+              </td>
+            </tr>
+            <tr id="row4">
+              <td>C4</td>
+              <td>
+                <select id="inputDropdown4" onchange="updateRow(4)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell4">
+                <input 
+                  type="number" 
+                  id="numericInput4" 
+                  style="width: 60px;" 
+                  oninput="updateRow(4)"
+                />
+                <span class="cell-number-span" id="numericSpan4"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell4">
+                <input 
+                  type="number" 
+                  id="weightInput4" 
+                  style="width: 60px;" 
+                  oninput="updateRow(4)"
+                />
+                <span class="cell-number-span" id="weightSpan4">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell4">
+                <input 
+                  type="number" 
+                  id="valueInput4" 
+                  style="width: 60px;" 
+                  oninput="updateRow(4)"
+                />
+                <span class="cell-number-span" id="valueSpan4"></span>
+              </td>
+            </tr>
+            <tr id="row5">
+              <td>C5</td>
+              <td>
+                <select id="inputDropdown5" onchange="updateRow(5)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell5">
+                <input 
+                  type="number" 
+                  id="numericInput5" 
+                  style="width: 60px;" 
+                  oninput="updateRow(5)"
+                />
+                <span class="cell-number-span" id="numericSpan5"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell5">
+                <input 
+                  type="number" 
+                  id="weightInput5" 
+                  style="width: 60px;" 
+                  oninput="updateRow(5)"
+                />
+                <span class="cell-number-span" id="weightSpan5">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell5">
+                <input 
+                  type="number" 
+                  id="valueInput5" 
+                  style="width: 60px;" 
+                  oninput="updateRow(5)"
+                />
+                <span class="cell-number-span" id="valueSpan5"></span>
+              </td>
+            </tr>
+            <tr id="row6">
+              <td>C6</td>
+              <td>
+                <select id="inputDropdown6" onchange="updateRow(6)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell6">
+                <input 
+                  type="number" 
+                  id="numericInput6" 
+                  style="width: 60px;" 
+                  oninput="updateRow(6)"
+                />
+                <span class="cell-number-span" id="numericSpan6"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell6">
+                <input 
+                  type="number" 
+                  id="weightInput6" 
+                  style="width: 60px;" 
+                  oninput="updateRow(6)"
+                />
+                <span class="cell-number-span" id="weightSpan6">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell6">
+                <input 
+                  type="number" 
+                  id="valueInput6" 
+                  style="width: 60px;" 
+                  oninput="updateRow(6)"
+                />
+                <span class="cell-number-span" id="valueSpan6"></span>
+              </td>
+            </tr>
+            <tr id="row7">
+              <td>C7</td>
+              <td>
+                <select id="inputDropdown7" onchange="updateRow(7)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell7">
+                <input 
+                  type="number" 
+                  id="numericInput7" 
+                  style="width: 60px;" 
+                  oninput="updateRow(7)"
+                />
+                <span class="cell-number-span" id="numericSpan7"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell7">
+                <input 
+                  type="number" 
+                  id="weightInput7" 
+                  style="width: 60px;" 
+                  oninput="updateRow(7)"
+                />
+                <span class="cell-number-span" id="weightSpan7">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell7">
+                <input 
+                  type="number" 
+                  id="valueInput7" 
+                  style="width: 60px;" 
+                  oninput="updateRow(7)"
+                />
+                <span class="cell-number-span" id="valueSpan7"></span>
+              </td>
+            </tr>
+            <tr id="row8">
+              <td>C8</td>
+              <td>
+                <select id="inputDropdown8" onchange="updateRow(8)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell8">
+                <input 
+                  type="number" 
+                  id="numericInput8" 
+                  style="width: 60px;" 
+                  oninput="updateRow(8)"
+                />
+                <span class="cell-number-span" id="numericSpan8"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell8">
+                <input 
+                  type="number" 
+                  id="weightInput8" 
+                  style="width: 60px;" 
+                  oninput="updateRow(8)"
+                />
+                <span class="cell-number-span" id="weightSpan8">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell8">
+                <input 
+                  type="number" 
+                  id="valueInput8" 
+                  style="width: 60px;" 
+                  oninput="updateRow(8)"
+                />
+                <span class="cell-number-span" id="valueSpan8"></span>
+              </td>
+            </tr>
+            <tr id="row9">
+              <td>C9</td>
+              <td>
+                <select id="inputDropdown9" onchange="updateRow(9)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell9">
+                <input 
+                  type="number" 
+                  id="numericInput9" 
+                  style="width: 60px;" 
+                  oninput="updateRow(9)"
+                />
+                <span class="cell-number-span" id="numericSpan9"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell9">
+                <input 
+                  type="number" 
+                  id="weightInput9" 
+                  style="width: 60px;" 
+                  oninput="updateRow(9)"
+                />
+                <span class="cell-number-span" id="weightSpan9">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell9">
+                <input 
+                  type="number" 
+                  id="valueInput9" 
+                  style="width: 60px;" 
+                  oninput="updateRow(9)"
+                />
+                <span class="cell-number-span" id="valueSpan9"></span>
+              </td>
+            </tr>
+          </tbody>
+          <!-- Auto Buttons Row -->
+          <tfoot>
+            <tr class="auto-button-row">
+              <td></td>
+              <td></td>
+              <td style="text-align: center;">
+                <button id="autoNumericBtn">Auto</button>
+              </td>
+              <td></td>
+              <td style="text-align: center;">
+                <button id="autoWeightBtn">Auto</button>
+              </td>
+              <td></td>
+              <td style="text-align: center;">
+                <button id="autoValueBtn">Auto</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div> <!-- /Round 1 table -->
 
-        <tr id="row3">
-          <td>C3</td>
-          <td>
-            <select id="inputDropdown3" onchange="updateRow(3)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell3">
-            <input type="number" id="numericInput3" style="width: 60px;" oninput="updateRow(3)" />
-            <span class="cell-number-span" id="numericSpan3"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell3">
-            <input type="number" id="weightInput3" style="width: 60px;" oninput="updateRow(3)" />
-            <span class="cell-number-span" id="weightSpan3">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell3">
-            <input type="number" id="valueInput3" style="width: 60px;" oninput="updateRow(3)" />
-            <span class="cell-number-span" id="valueSpan3"></span>
-          </td>
-        </tr>
+      <!-- ROUND 2 TABLE (hidden by default) -->
+      <div 
+        id="round2Container" 
+        style="display: none; margin-left: 30px; vertical-align: top;"
+      >
+        <h3 style="text-align:center;">Round 2</h3>
 
-        <tr id="row4">
-          <td>C4</td>
-          <td>
-            <select id="inputDropdown4" onchange="updateRow(4)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell4">
-            <input type="number" id="numericInput4" style="width: 60px;" oninput="updateRow(4)" />
-            <span class="cell-number-span" id="numericSpan4"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell4">
-            <input type="number" id="weightInput4" style="width: 60px;" oninput="updateRow(4)" />
-            <span class="cell-number-span" id="weightSpan4">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell4">
-            <input type="number" id="valueInput4" style="width: 60px;" oninput="updateRow(4)" />
-            <span class="cell-number-span" id="valueSpan4"></span>
-          </td>
-        </tr>
+        <!-- (NEW) CSS to fix each cell at a certain width -->
+        <style>
+          #round2SideTable {
+            table-layout: fixed; 
+            width: 80px; /* adjust as needed */
+          }
+          #round2SideTable th,
+          #round2SideTable td {
+            width: 80px !important; 
+            height: 38px;
+          }
+        </style>
 
-        <tr id="row5">
-          <td>C5</td>
-          <td>
-            <select id="inputDropdown5" onchange="updateRow(5)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell5">
-            <input type="number" id="numericInput5" style="width: 60px;" oninput="updateRow(5)" />
-            <span class="cell-number-span" id="numericSpan5"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell5">
-            <input type="number" id="weightInput5" style="width: 60px;" oninput="updateRow(5)" />
-            <span class="cell-number-span" id="weightSpan5">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell5">
-            <input type="number" id="valueInput5" style="width: 60px;" oninput="updateRow(5)" />
-            <span class="cell-number-span" id="valueSpan5"></span>
-          </td>
-        </tr>
+        <table id="round2SideTable" class="interactive-table" style="margin: 0 auto;">
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C1</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview1" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(1)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan1"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C2</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview2" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(2)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan2"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C3</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview3" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(3)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan3"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C4</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview4" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(4)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan4"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C5</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview5" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(5)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan5"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C6</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview6" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(6)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan6"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C7</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview7" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(7)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan7"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C8</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview8" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(8)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan8"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C9</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview9" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(9)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan9"></span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="auto-button-row" style="border: none;">
+              <td colspan="2" style="text-align: center; border: none;">
+                <button id="round2SideAutoBtn">Auto</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div> <!-- /round2Container -->
 
-        <tr id="row6">
-          <td>C6</td>
-          <td>
-            <select id="inputDropdown6" onchange="updateRow(6)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell6">
-            <input type="number" id="numericInput6" style="width: 60px;" oninput="updateRow(6)" />
-            <span class="cell-number-span" id="numericSpan6"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell6">
-            <input type="number" id="weightInput6" style="width: 60px;" oninput="updateRow(6)" />
-            <span class="cell-number-span" id="weightSpan6">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell6">
-            <input type="number" id="valueInput6" style="width: 60px;" oninput="updateRow(6)" />
-            <span class="cell-number-span" id="valueSpan6"></span>
-          </td>
-        </tr>
-
-        <tr id="row7">
-          <td>C7</td>
-          <td>
-            <select id="inputDropdown7" onchange="updateRow(7)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell7">
-            <input type="number" id="numericInput7" style="width: 60px;" oninput="updateRow(7)" />
-            <span class="cell-number-span" id="numericSpan7"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell7">
-            <input type="number" id="weightInput7" style="width: 60px;" oninput="updateRow(7)" />
-            <span class="cell-number-span" id="weightSpan7">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell7">
-            <input type="number" id="valueInput7" style="width: 60px;" oninput="updateRow(7)" />
-            <span class="cell-number-span" id="valueSpan7"></span>
-          </td>
-        </tr>
-
-        <tr id="row8">
-          <td>C8</td>
-          <td>
-            <select id="inputDropdown8" onchange="updateRow(8)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell8">
-            <input type="number" id="numericInput8" style="width: 60px;" oninput="updateRow(8)" />
-            <span class="cell-number-span" id="numericSpan8"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell8">
-            <input type="number" id="weightInput8" style="width: 60px;" oninput="updateRow(8)" />
-            <span class="cell-number-span" id="weightSpan8">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell8">
-            <input type="number" id="valueInput8" style="width: 60px;" oninput="updateRow(8)" />
-            <span class="cell-number-span" id="valueSpan8"></span>
-          </td>
-        </tr>
-
-        <tr id="row9">
-          <td>C9</td>
-          <td>
-            <select id="inputDropdown9" onchange="updateRow(9)">
-              <option value="" disabled selected>Select</option>
-              <option value="RED">RED</option>
-              <option value="GREEN">GREEN</option>
-            </select>
-          </td>
-          <td id="numericCell9">
-            <input type="number" id="numericInput9" style="width: 60px;" oninput="updateRow(9)" />
-            <span class="cell-number-span" id="numericSpan9"></span>
-          </td>
-          <td>x</td>
-          <td id="weightCell9">
-            <input type="number" id="weightInput9" style="width: 60px;" oninput="updateRow(9)" />
-            <span class="cell-number-span" id="weightSpan9">20</span>
-          </td>
-          <td>=</td>
-          <td id="valueCell9">
-            <input type="number" id="valueInput9" style="width: 60px;" oninput="updateRow(9)" />
-            <span class="cell-number-span" id="valueSpan9"></span>
-          </td>
-        </tr>
-      </tbody>
-
-      <!-- Auto Buttons Row -->
-      <tfoot>
-        <tr class="auto-button-row">
-          <td></td>
-          <td></td>
-          <!-- Numeric Column Auto Button -->
-          <td style="text-align: center;">
-            <button id="autoNumericBtn">Auto</button>
-          </td>
-          <td></td>
-          <!-- Weight Column Auto Button -->
-          <td style="text-align: center;">
-            <button id="autoWeightBtn">Auto</button>
-          </td>
-          <td></td>
-          <!-- Value Column Auto Button -->
-          <td style="text-align: center;">
-            <button id="autoValueBtn">Auto</button>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    </div> <!-- /container for Round 1 + Round 2 -->
 
     <br/>
     <hr/>
@@ -336,9 +596,9 @@
 
     <!-- DECISION TABLE (Round 1) -->
     <div style="text-align: center;">
-      <h4>Sum and Output Node</h4>
+      <h4>Output Node</h4>
     </div>
-    <table class="decision-table" id="decisionTable">
+    <table class="decision-table" id="decisionTable" style="margin: 0 auto;">
       <thead>
         <tr>
           <th>Sum</th>
@@ -346,7 +606,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- THIS ROW GETS COLORED RED OR GREEN BASED ON SUM -->
         <tr id="decisionRow">
           <td id="sumCell">---</td>
           <td id="outputCell">---</td>
@@ -355,23 +614,33 @@
     </table>
 
     <!-- TRAFFIC LIGHT STATE (single row) -->
-    <table class="decision-table" id="trafficLightStateTable">
+    <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto;">
       <tbody>
         <tr>
-          <td id="trafficLightStateCell" style="font-weight:bold;">Traffic Light State: ---</td>
+          <td id="trafficLightStateCell" style="font-weight:bold;">
+            Traffic Light State: ---
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <br/>
-    <br/>
+<!-- DUPLICATE TRAFFIC LIGHT that mirrors the color chosen in node-generator-27.html -->
+<div style="text-align: center;">
+  <div class="traffic-light" id="trafficLightRound1">
+    <div class="light inactive-red" id="redCircleRound1"></div>
+    <div class="light inactive-green" id="greenCircleRound1"></div>
+  </div>
+</div>
+
+
+    <br/><br/><br/><br/>
 
     <!-- NETWORK STATUS TABLE (Round 1) -->
     <div style="text-align: center;">
       <h3 class="title-box-summary">Summary</h3>
+      <br/><br/>
     </div>
-
-    <table class="decision-table" id="networkStatusTable">
+    <table class="decision-table" id="networkStatusTable" style="margin: 0 auto;">
       <thead>
         <tr>
           <th>Round</th>
@@ -388,6 +657,8 @@
       </tbody>
     </table>
 
+    <br/><br/><br/><br/>
+
     <!-- Bar Chart for Round 1 -->
     <div style="text-align:center; margin-top:30px; margin-bottom:30px;">
       <canvas id="round1BarChart" width="500" height="200" style="border:1px solid #000;">
@@ -395,7 +666,10 @@
       </canvas>
     </div>
 
+    <!-- The "Round 2" toggle button is now here (unchanged) -->
+    <button id="toggleRound2Btn">Update Weights</button>
     <br/><br/><br/>
+
     <div style="text-align:center; margin: 20px 0;">
       <button id="resetButton" onclick="location.reload()">Reset Table</button>
       <br/><br/>
@@ -442,102 +716,48 @@
       background-color: green !important;
       color: #ffffff !important;
     }
-
-    /* Removes border from row with the auto buttons */
     .auto-button-row td {
       border: none !important;
     }
-
-    /* Optional class to hide inputs if user toggles them globally */
     .hide-inputs input {
       display: none !important;
     }
+    .cell-number-span {
+      display: none; /* Hide spans initially (we show them only if auto) */
+    }
   </style>
 
-  <!-- SCRIPT FOR ROUND 1 -->
+  <!-- SCRIPT FOR ROUND 1 + ROUND 2 TOGGLE -->
   <script>
     /**********************************************
-     * GLOBAL "AUTO" FLAGS (start as false => show user boxes)
+     * Toggle Round 2 table visibility (Round 1)
      **********************************************/
-    let numericAutoActive = false;  // User inputs shown on load
-    let weightAutoActive  = false;  // User inputs shown on load
-    let valueAutoActive   = false;  // User inputs shown on load
-
-    /**********************************************
-     * TRAFFIC LIGHT Handling (Optional)
-     **********************************************/
-    const colorRedBtn   = document.getElementById('colorRed');
-    const colorGreenBtn = document.getElementById('colorGreen');
-    const redCircle     = document.getElementById('redCircle');
-    const greenCircle   = document.getElementById('greenCircle');
-
-    if (colorRedBtn && colorGreenBtn && redCircle && greenCircle) {
-      colorRedBtn.addEventListener('click', () => {
-        colorRedBtn.classList.add('active');
-        colorGreenBtn.classList.remove('active');
-        redCircle.classList.remove('inactive-red');
-        redCircle.classList.add('red');
-        greenCircle.classList.remove('green');
-        greenCircle.classList.add('inactive-green');
-
-        updateNetworkStatusTable();
-        updateRound2Weights();
-      });
-
-      colorGreenBtn.addEventListener('click', () => {
-        colorGreenBtn.classList.add('active');
-        colorRedBtn.classList.remove('active');
-        greenCircle.classList.remove('inactive-green');
-        greenCircle.classList.add('green');
-        redCircle.classList.remove('red');
-        redCircle.classList.add('inactive-red');
-
-        updateNetworkStatusTable();
-        updateRound2Weights();
+    const toggleRound2Btn = document.getElementById('toggleRound2Btn');
+    const round2Container = document.getElementById('round2Container');
+    if (toggleRound2Btn && round2Container) {
+      // By default, round2Container is display: none;
+      toggleRound2Btn.addEventListener('click', function() {
+        if (round2Container.style.display === 'none') {
+          round2Container.style.display = 'inline-block'; 
+        } else {
+          round2Container.style.display = 'none'; 
+        }
       });
     }
 
-    function updateNetworkStatusTable() {
-      const trafficLightStateCell = document.getElementById('trafficLightStateCell');
-      if (!trafficLightStateCell) return;
+    /**********************************************
+     * GLOBAL "AUTO" FLAGS FOR ROUND 1
+     **********************************************/
+    let numericAutoActive = false;  
+    let weightAutoActive  = false;  
+    let valueAutoActive   = false;  
 
-      let stateText = 'Traffic Light State: ---';
-      if (colorRedBtn && colorRedBtn.classList.contains('active')) {
-        stateText = 'Traffic Light State: RED';
-        trafficLightStateCell.style.backgroundColor = 'red';
-        trafficLightStateCell.style.color = 'white';
-      } else if (colorGreenBtn && colorGreenBtn.classList.contains('active')) {
-        stateText = 'Traffic Light State: GREEN';
-        trafficLightStateCell.style.backgroundColor = 'green';
-        trafficLightStateCell.style.color = 'white';
-      } else {
-        trafficLightStateCell.style.backgroundColor = '';
-        trafficLightStateCell.style.color = '';
-      }
-      trafficLightStateCell.textContent = stateText;
-
-      // Compare final Output Node with chosen traffic light state
-      const decisionOutput = document.getElementById('outputCell').textContent;
-      const currentLightState = stateText.replace('Traffic Light State:', '').trim();
-
-      let networkStatus;
-      if (decisionOutput === 'UNDECIDED') {
-        networkStatus = 'UNDECIDED';
-      } else if (currentLightState === '---') {
-        networkStatus = 'INCORRECT';
-      } else if (decisionOutput === currentLightState) {
-        networkStatus = 'CORRECT';
-      } else {
-        networkStatus = 'INCORRECT';
-      }
-      document.getElementById('networkStatusCell').textContent = networkStatus;
-
-      const sumValue = document.getElementById('sumCell').textContent;
-      document.getElementById('networkSumCell').textContent = sumValue;
-    }
+    // (For Round 2 side table)
+    let round2SideAutoActive = false;
+    let round2SideWeights = [0,0,0,0,0,0,0,0,0];
 
     /**********************************************
-     * MAIN UPDATE LOGIC FOR EACH ROW
+     * MAIN UPDATE LOGIC FOR EACH ROW (ROUND 1)
      **********************************************/
     function updateRow(rowIdx) {
       const dropdown   = document.getElementById("inputDropdown" + rowIdx);
@@ -555,7 +775,6 @@
       // 1) Numeric
       let numericFinal;
       if (numericAutoActive) {
-        // If auto => numeric depends on RED/GREEN
         if (dropdown.value === "RED") {
           numericFinal = -1;
         } else if (dropdown.value === "GREEN") {
@@ -565,7 +784,6 @@
         }
         numericSpn.textContent = (dropdown.value ? numericFinal : "");
       } else {
-        // If not auto => use user's numeric input
         let userNumeric = parseFloat(numericInp.value) || 0;
         numericFinal = userNumeric;
       }
@@ -573,15 +791,14 @@
       // 2) Weight
       let weightFinal;
       if (weightAutoActive) {
-        // If auto => default "20" for Round 1
-        weightFinal = 20;
+        weightFinal = 20; // default if auto is on
         weightSpn.textContent = "20";
       } else {
         let userWeight = parseFloat(weightInp.value) || 0;
         weightFinal = userWeight;
       }
 
-      // 3) Value
+      // 3) Value = numeric * weight
       let computedVal = numericFinal * weightFinal;
       let valueFinal;
       if (valueAutoActive) {
@@ -601,13 +818,13 @@
         dropdown.classList.add('select-green');
       }
 
-      // Update decision table
+      // Update the final decision for Round 1
       updateDecision();
-      // Update Round2 weights if needed
+      // Update Round 2 side table if auto is on
       updateRound2Weights();
     }
 
-    // Recompute sum & output
+    // Recompute sum & output (Round 1)
     function updateDecision() {
       let sum = 0;
       for (let i = 1; i <= 9; i++) {
@@ -634,17 +851,18 @@
         decisionRow.classList.add('row-red');
       }
 
+      // Update the network status summary at bottom
       updateNetworkStatusTable();
     }
 
-    // Helper: returns the "active" Value for row i
+    // Helper for Round 1 Value (numeric * weight or user typed)
     function getFinalValue(rowIdx) {
       const dropdown   = document.getElementById("inputDropdown" + rowIdx);
       const numericInp = document.getElementById("numericInput" + rowIdx);
       const weightInp  = document.getElementById("weightInput" + rowIdx);
       const valueInp   = document.getElementById("valueInput" + rowIdx);
 
-      // numeric
+      // numeric part
       let numericVal;
       if (numericAutoActive) {
         if (dropdown.value === "RED") numericVal = -1;
@@ -654,7 +872,7 @@
         numericVal = parseFloat(numericInp.value) || 0;
       }
 
-      // weight
+      // weight part
       let weightVal;
       if (weightAutoActive) {
         weightVal = 20;
@@ -662,7 +880,6 @@
         weightVal = parseFloat(weightInp.value) || 0;
       }
 
-      // value
       if (valueAutoActive) {
         return numericVal * weightVal;
       } else {
@@ -671,39 +888,86 @@
     }
 
     /**********************************************
-     * ROUND 2 WEIGHTS UPDATE (if applicable)
+     * ROUND 2 SIDE TABLE (PREVIEW) LOGIC
      **********************************************/
     function updateRound2Weights() {
-      // If you have Round 2 cells with IDs like "weightCell2_1", etc.
-      let round1Light = null;
-      if (colorRedBtn && colorRedBtn.classList.contains('active')) {
-        round1Light = 'RED';
-      } else if (colorGreenBtn && colorGreenBtn.classList.contains('active')) {
-        round1Light = 'GREEN';
-      }
+      // Only apply if the side table is in auto mode.
+      if (!round2SideAutoActive) return;
 
-      // Example code if Round 2 exists
+      // Which color was chosen in node-generator-27.html?
+      const round1Light = window.selectedTrafficLightColor || null; 
+      // round1Light will be "RED", "GREEN", or null if not chosen
+
       for (let i = 1; i <= 9; i++) {
-        const r2WeightCell = document.getElementById('weightCell2_' + i);
-        if (!r2WeightCell) continue;
+        const previewEl = document.getElementById('round2WeightPreview' + i);
+        const spanEl    = document.getElementById('round2WeightSpan'   + i);
+        if (!previewEl || !spanEl) continue;
 
-        let w;
+        // Determine the Round 1 weight:
+        let r1Weight;
         if (weightAutoActive) {
-          w = 20;
+          // If Round 1 weight column is in auto mode, treat Round 1 weight as 20.
+          r1Weight = 20;
         } else {
-          w = parseFloat(document.getElementById('weightInput'+ i).value) || 0;
+          // Otherwise, read the user-typed Round 1 weight.
+          r1Weight = parseFloat(document.getElementById('weightInput' + i).value) || 0;
         }
 
-        const round1Input = document.getElementById('inputDropdown' + i).value;
-        if (round1Light && round1Input) {
-          if (round1Input === round1Light) {
-            w += 10;
+        // Node color from Round 1 dropdown (RED or GREEN)
+        let r1NodeColor = document.getElementById('inputDropdown' + i).value;
+
+        let newWeight = r1Weight;
+        // +10 if matches traffic light, -10 if differs
+        if (round1Light && r1NodeColor) {
+          if (r1NodeColor === round1Light) {
+            newWeight += 10;
           } else {
-            w -= 10;
+            newWeight -= 10;
           }
         }
-        r2WeightCell.textContent = w;
+        // Put computed result in the auto-preview span
+        spanEl.textContent = newWeight;
+
+        // Store it in the round2SideWeights array
+        round2SideWeights[i - 1] = newWeight;
       }
+    }
+
+    // Called on manual input in the Round 2 side table
+    function storeRound2Preview(i) {
+      const el = document.getElementById('round2WeightPreview' + i);
+      if (!el) return;
+      round2SideWeights[i - 1] = parseFloat(el.value) || 0;
+    }
+
+    // Show/hide user input vs. auto for Round 2 preview weights
+    function toggleRound2WeightColumn(isAuto) {
+      for (let i = 1; i <= 9; i++) {
+        const inp = document.getElementById('round2WeightPreview' + i);
+        const spn = document.getElementById('round2WeightSpan' + i);
+        if (!inp || !spn) continue;
+
+        if (isAuto) {
+          inp.style.display = 'none';
+          spn.style.display = 'inline';
+        } else {
+          inp.style.display = 'inline';
+          spn.style.display = 'none';
+        }
+      }
+    }
+
+    // "Auto" button in the Round 2 side table
+    const round2SideAutoBtn = document.getElementById('round2SideAutoBtn');
+    if (round2SideAutoBtn) {
+      round2SideAutoBtn.addEventListener('click', () => {
+        round2SideAutoActive = !round2SideAutoActive;
+        toggleRound2WeightColumn(round2SideAutoActive);
+        if (round2SideAutoActive) {
+          // Immediately recalc so spans reflect updated values
+          updateRound2Weights();
+        }
+      });
     }
 
     /**********************************************
@@ -728,14 +992,16 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // Gather final weight values from Round 1
+      // Gather final weight values from Round 1 (C1..C9)
       let weights = [];
       for (let i = 1; i <= 9; i++) {
         let w;
         if (weightAutoActive) {
-          w = 20; 
+          // If auto is on, each weight is 20 in Round 1.
+          w = 20;
         } else {
-          w = parseFloat(document.getElementById('weightInput'+ i).value) || 0;
+          // Otherwise, read user-typed input.
+          w = parseFloat(document.getElementById('weightInput' + i).value) || 0;
         }
         weights.push(w);
       }
@@ -759,7 +1025,7 @@
       const usableW = chartW - margin * 2;
       const usableH = chartH - margin * 2;
 
-      // Where 0 sits on the Y-axis
+      // Where "0" sits on the Y-axis:
       let zeroY;
       if (minVal < 0 && maxVal > 0) {
         zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
@@ -770,7 +1036,7 @@
       }
       zeroY = Math.max(margin, Math.min(margin + usableH, zeroY));
 
-      // X-axis
+      // Draw X-axis
       ctx.strokeStyle = 'black';
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -778,13 +1044,13 @@
       ctx.lineTo(margin + usableW, zeroY);
       ctx.stroke();
 
-      // Y-axis
+      // Draw Y-axis
       ctx.beginPath();
       ctx.moveTo(margin, margin);
       ctx.lineTo(margin, margin + usableH);
       ctx.stroke();
 
-      // Bars
+      // Bars (C1..C9)
       const barSpacing = usableW / 9;
       const barWidth   = 5;
       ctx.fillStyle    = '#f05f40';
@@ -796,22 +1062,24 @@
         const barHeight = Math.abs(wVal * scale);
 
         const barX = xCenter - barWidth / 2;
-        const barY = (wVal >= 0) ? zeroY - barHeight : zeroY;
+        // If wVal >= 0, bar extends upward from zeroY; if negative, downward.
+        const barY = (wVal >= 0) ? (zeroY - barHeight) : zeroY;
 
+        // Draw the bar
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
-        // Label bars as C1..C9
+        // Label bars: "C1", "C2", etc.
         ctx.fillStyle = 'black';
         ctx.font = '12px sans-serif';
         ctx.fillText('C' + (i + 1), xCenter - 6, zeroY + 15);
         ctx.fillStyle = '#f05f40';
       }
     }
-    // Re-draw chart periodically
+    // Redraw every 1 second (demo only).
     setInterval(drawBarChartRound1, 1000);
 
     /**********************************************
-     * AUTO-BUTTON EVENT HANDLERS
+     * AUTO-BUTTON EVENT HANDLERS (Round 1)
      **********************************************/
     const autoNumericBtn = document.getElementById('autoNumericBtn');
     const autoWeightBtn  = document.getElementById('autoWeightBtn');
@@ -819,45 +1087,31 @@
 
     if (autoNumericBtn) {
       autoNumericBtn.addEventListener('click', () => {
-        // Toggle numeric auto mode
         numericAutoActive = !numericAutoActive;
         toggleNumericColumn(numericAutoActive);
-        // Recalc all rows
-        for (let i = 1; i <= 9; i++) {
-          updateRow(i);
-        }
+        for (let i = 1; i <= 9; i++) updateRow(i);
       });
     }
-
     if (autoWeightBtn) {
       autoWeightBtn.addEventListener('click', () => {
-        // Toggle weight auto mode
         weightAutoActive = !weightAutoActive;
         toggleWeightColumn(weightAutoActive);
-        // Recalc
-        for (let i = 1; i <= 9; i++) {
-          updateRow(i);
-        }
+        for (let i = 1; i <= 9; i++) updateRow(i);
       });
     }
-
     if (autoValueBtn) {
       autoValueBtn.addEventListener('click', () => {
-        // Toggle value auto mode
         valueAutoActive = !valueAutoActive;
         toggleValueColumn(valueAutoActive);
-        // Recalc
-        for (let i = 1; i <= 9; i++) {
-          updateRow(i);
-        }
+        for (let i = 1; i <= 9; i++) updateRow(i);
       });
     }
 
-    // Show/hide numeric input vs. span
     function toggleNumericColumn(isAuto) {
       for (let i = 1; i <= 9; i++) {
         const numericInp = document.getElementById("numericInput" + i);
         const numericSpn = document.getElementById("numericSpan" + i);
+        if (!numericInp || !numericSpn) continue;
         if (isAuto) {
           numericInp.style.display = "none";
           numericSpn.style.display = "inline";
@@ -868,11 +1122,11 @@
       }
     }
 
-    // Show/hide weight input vs. span
     function toggleWeightColumn(isAuto) {
       for (let i = 1; i <= 9; i++) {
         const weightInp = document.getElementById("weightInput" + i);
         const weightSpn = document.getElementById("weightSpan" + i);
+        if (!weightInp || !weightSpn) continue;
         if (isAuto) {
           weightInp.style.display = "none";
           weightSpn.style.display = "inline";
@@ -883,11 +1137,11 @@
       }
     }
 
-    // Show/hide value input vs. span
     function toggleValueColumn(isAuto) {
       for (let i = 1; i <= 9; i++) {
         const valueInp = document.getElementById("valueInput" + i);
         const valueSpn = document.getElementById("valueSpan" + i);
+        if (!valueInp || !valueSpn) continue;
         if (isAuto) {
           valueInp.style.display = "none";
           valueSpn.style.display = "inline";
@@ -898,23 +1152,84 @@
       }
     }
 
-    // Initialize columns to user mode on load
     window.addEventListener("DOMContentLoaded", () => {
       toggleNumericColumn(numericAutoActive);
       toggleWeightColumn(weightAutoActive);
       toggleValueColumn(valueAutoActive);
+
+      // Turn OFF auto mode for Round 2 side table by default
+      toggleRound2WeightColumn(false);
     });
 
     /**********************************************
-     * TOGGLE/HIDE ALL USER INPUTS (global)
+     * TOGGLE/HIDE ALL USER INPUTS (ROUND 1 only)
      **********************************************/
     function toggleUserInputOverlays() {
       const table = document.getElementById('interactiveTable');
       if (!table) return;
-
       const isHidden = table.classList.toggle('hide-inputs');
       document.getElementById('toggleUserInputsBtn').textContent = 
         isHidden ? 'Show User Boxes' : 'Hide User Boxes';
     }
+
+    /**********************************************
+     * updateNetworkStatusTable() 
+     * (Now reads global window.selectedTrafficLightColor)
+     **********************************************/
+    function getSelectedTrafficLightColor() {
+      // If user has not pressed Red/Green yet, default is "NONE"
+      return window.selectedTrafficLightColor || 'NONE';
+    }
+
+    // This function is called whenever we recalc output or 
+    // the user chooses a traffic light color in node-generator-27.html
+    window.updateNetworkStatusTable = function() {
+      const trafficLightStateCell = document.getElementById('trafficLightStateCell');
+      if (!trafficLightStateCell) return;
+
+      // 1) Grab the user’s chosen color from node-generator-27.html
+      const chosenColor = getSelectedTrafficLightColor();
+
+      // 2) Default text
+      let stateText = 'Traffic Light State: ---';
+      trafficLightStateCell.style.backgroundColor = '';
+      trafficLightStateCell.style.color = '';
+
+      if (chosenColor === 'RED') {
+        stateText = 'Traffic Light State: RED';
+        trafficLightStateCell.style.backgroundColor = 'red';
+        trafficLightStateCell.style.color = 'white';
+      } 
+      else if (chosenColor === 'GREEN') {
+        stateText = 'Traffic Light State: GREEN';
+        trafficLightStateCell.style.backgroundColor = 'green';
+        trafficLightStateCell.style.color = 'white';
+      }
+
+      trafficLightStateCell.textContent = stateText;
+
+      // Compare final Output Node with chosen traffic light state
+      const decisionOutput = document.getElementById('outputCell').textContent; 
+      let networkStatus = '';
+
+      if (decisionOutput === 'UNDECIDED') {
+        networkStatus = 'UNDECIDED';
+      } else if (chosenColor === 'NONE') {
+        // user never selected a color
+        networkStatus = 'INCORRECT';
+      } else if (decisionOutput === chosenColor) {
+        // e.g. both "GREEN"
+        networkStatus = 'CORRECT';
+      } else {
+        networkStatus = 'INCORRECT';
+      }
+
+      document.getElementById('networkStatusCell').textContent = networkStatus;
+
+      // Also fill in the sum
+      const sumValue = document.getElementById('sumCell').textContent;
+      document.getElementById('networkSumCell').textContent = sumValue;
+    }
   </script>
+
 </div> <!-- /round1 -->

@@ -1,4 +1,9 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Generator 27 Demo</title>
 
   <style>
     /*---------------------------------
@@ -127,31 +132,30 @@
       Run + Show Code (Light Gray)
     ----------------------------------*/
     /* --- Run button = orange (#f05f40) --- */
-#runButton {
-  background-color: #fff !important;
-  color: #f05f40 !important;
-  border: 2px solid #f05f40 !important;
-  padding: 10px 20px !important; /* same padding as before */
-}
-#runButton.active {
-  background-color: #f05f40 !important;
-  color: #fff !important;
-  border: none !important;
-}
+    #runButton {
+      background-color: #fff !important;
+      color: #f05f40 !important;
+      border: 2px solid #f05f40 !important;
+      padding: 10px 20px !important; /* same padding as before */
+    }
+    #runButton.active {
+      background-color: #f05f40 !important;
+      color: #fff !important;
+      border: none !important;
+    }
 
-/* --- Show Code button = light gray --- */
-#toggleCodeBox {
-  background-color: #fff !important; 
-  color: #666 !important;           
-  border: 2px solid #999 !important;
-  padding: 10px 20px !important; 
-}
-#toggleCodeBox.active {
-  background-color: #999 !important; 
-  color: #fff !important;
-  border: none !important;
-}
-
+    /* --- Show Code button = light gray --- */
+    #toggleCodeBox {
+      background-color: #fff !important; 
+      color: #666 !important;           
+      border: 2px solid #999 !important;
+      padding: 10px 20px !important; 
+    }
+    #toggleCodeBox.active {
+      background-color: #999 !important; 
+      color: #fff !important;
+      border: none !important;
+    }
 
     /*---------------------------------
       CODE BOX (starts collapsed)
@@ -194,6 +198,8 @@
 
 <body>
 
+  {% include navigation-ai.html %}
+
   <!-- Choose Participant Count -->
   <div style="text-align: center; display: none;">
     <h4>Select number of participants</h4>
@@ -204,7 +210,7 @@
       <option value="63">63</option>
     </select>
   </div>
-  
+
   <br/>
   <div style="text-align: center;">
     <h4>Select state of the traffic light</h4>
@@ -239,21 +245,14 @@
     <!-- The appropriate HTML snippet gets injected here based on dropdown -->
   </div>
 
+  <!-- CODE BOX (starts collapsed) -->
+  <div id="codeBox" class="code-box"></div>
 
-
- 
-
-
-
-   <!-- CODE BOX (starts collapsed) -->
-   <div id="codeBox" class="code-box"></div>
-
-   
   <!-- Toggle Code Box + Node Weights -->
   <div style="text-align: center; margin: 20px;">
     <button id="toggleCodeBox" class="btn">Show Code</button>
   </div>
-<br/>
+
   {% raw %}
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -317,7 +316,6 @@
       45: htmlNodes45,
       63: htmlNodes63
     };
-
 
     /*******************************
      * 2) WEIGHTS FOR EACH COUNT
@@ -415,7 +413,6 @@
       63: inputNodes63
     };
 
-
     /*******************************
      * 3) GET ELEMENTS + DEFAULTS
      *******************************/
@@ -441,7 +438,6 @@
     // Initialize snippet lines & labels for the default 27
     setLabels();
     updateSnippetLines(27); 
-
 
     /*******************************
      * 4) HELPER FUNCTIONS
@@ -541,7 +537,7 @@ function computeNodeColor(selectedColor, nodeWeight) {
       }
     }
 
-    //  Show/Hide Code Box + Node Weights
+    // Show/Hide Code Box + Node Weights
     function toggleCodeBox() {
       codeBoxVisible = !codeBoxVisible;
       if (codeBoxVisible) {
@@ -556,7 +552,6 @@ function computeNodeColor(selectedColor, nodeWeight) {
         labels.forEach(label => {
           label.style.display = 'block';
         });
-
       } else {
         // Hide code box
         codeBox.style.display = 'none';
@@ -610,6 +605,14 @@ function computeNodeColor(selectedColor, nodeWeight) {
       redCircle.classList.add('red');
       greenCircle.classList.remove('green');
       greenCircle.classList.add('inactive-green');
+
+      // Also store in a global so node-output-round1.html can read it
+      window.selectedTrafficLightColor = 'RED';
+
+      // If node-output-round1.html has a function to refresh status, call it
+      if (window.updateNetworkStatusTable) {
+        window.updateNetworkStatusTable();
+      }
     });
 
     // 5.3) Green Button
@@ -622,6 +625,11 @@ function computeNodeColor(selectedColor, nodeWeight) {
       greenCircle.classList.add('green');
       redCircle.classList.remove('red');
       redCircle.classList.add('inactive-red');
+
+      window.selectedTrafficLightColor = 'GREEN';
+      if (window.updateNetworkStatusTable) {
+        window.updateNetworkStatusTable();
+      }
     });
 
     // 5.4) Run Button
