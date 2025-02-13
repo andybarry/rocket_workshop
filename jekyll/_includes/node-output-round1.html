@@ -4,12 +4,12 @@
   <!-- Title section -->
   <div style="text-align: center;">
     <!-- Spacer for fixed navbar -->
-    <div style="height: 50px;"></div>
-    <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 40px; font-weight: bold; line-height: 1;">
+    <div style="height: 30px;"></div>
+    <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 1.8em; font-weight: bold; line-height: .5;">
       Round 1
     </h2>
-    <h2 style="font-size: 40px; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: 1;">
-      Human Neural Network
+    <h2 style="font-size: 1.8em; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: .5;">
+      Human Neural Network - 27
     </h2>
     <hr class="main-page-hr" />
     <br/>
@@ -21,7 +21,7 @@
       style="
         display: block; 
         margin: 0 auto; 
-        max-width: 1000px; 
+        max-width: 900px; 
         width: 100%; 
         height: auto;
       "
@@ -29,6 +29,7 @@
 
     <br/>
     <h3 class="title-box-a">Sensor Nodes (A)</h3>
+    
   </div>
 
   {% include node-generator-27.html %}
@@ -52,6 +53,7 @@
 
       <!-- ROUND 1 MAIN TABLE -->
       <div style="display: inline-block; vertical-align: top; position: relative;">
+      
         <h3 style="text-align:center;">Round 1</h3>
 
         <table class="interactive-table" id="interactiveTable" style="margin: 0 auto;">
@@ -595,14 +597,12 @@
     <br/>
 
     <!-- DECISION TABLE (Round 1) -->
-    <div style="text-align: center;">
-      <h4>Output Node</h4>
-    </div>
-    <table class="decision-table" id="decisionTable" style="margin: 0 auto;">
+
+    <table class="decision-table" id="decisionTable" style="margin: 0 auto; text-align: center;">
       <thead>
         <tr>
-          <th>Sum</th>
-          <th>Output Node</th>
+          <th style="text-align: center;">Sum of (C) Node Values</th>
+          <th style="text-align: center;">Networks Decision</th>
         </tr>
       </thead>
       <tbody>
@@ -613,25 +613,28 @@
       </tbody>
     </table>
 
+    <br/>
+    <hr/>
+    <br/>
+
     <!-- TRAFFIC LIGHT STATE (single row) -->
-    <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto;">
+    <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto; width: 150px;">
       <tbody>
         <tr>
           <td id="trafficLightStateCell" style="font-weight:bold;">
-            Traffic Light State: ---
+            Traffic Light State:<br/>---
           </td>
         </tr>
       </tbody>
     </table>
 
-<!-- DUPLICATE TRAFFIC LIGHT that mirrors the color chosen in node-generator-27.html -->
-<div style="text-align: center;">
-  <div class="traffic-light" id="trafficLightRound1">
-    <div class="light inactive-red" id="redCircleRound1"></div>
-    <div class="light inactive-green" id="greenCircleRound1"></div>
-  </div>
-</div>
-
+    <!-- DUPLICATE TRAFFIC LIGHT that mirrors the color chosen in node-generator-27.html -->
+    <div style="text-align: center;">
+      <div class="traffic-light" id="trafficLightRound1">
+        <div class="light inactive-red" id="redCircleRound1"></div>
+        <div class="light inactive-green" id="greenCircleRound1"></div>
+      </div>
+    </div>
 
     <br/><br/><br/><br/>
 
@@ -656,19 +659,27 @@
         </tr>
       </tbody>
     </table>
-
-    <br/><br/><br/><br/>
-
+    <br/>
+    <hr/>
+    <br/>
+   
+    <div style="text-align: center;">
+      <h4>C Node Weights</h4>
+    </div>
     <!-- Bar Chart for Round 1 -->
-    <div style="text-align:center; margin-top:30px; margin-bottom:30px;">
+    <div style="text-align:center; margin-top:10px; margin-bottom:30px;">
       <canvas id="round1BarChart" width="500" height="200" style="border:1px solid #000;">
         Your browser does not support Canvas.
       </canvas>
     </div>
 
-    <!-- The "Round 2" toggle button is now here (unchanged) -->
+    <!-- The "Round 2" toggle button -->
     <button id="toggleRound2Btn">Update Weights</button>
     <br/><br/><br/>
+
+
+    <hr class="main-page-hr" />
+    <br/><br/><br/><br/>
 
     <div style="text-align:center; margin: 20px 0;">
       <button id="resetButton" onclick="location.reload()">Reset Table</button>
@@ -680,12 +691,6 @@
       </select>
     </div>
 
-    <!-- Button to toggle/hide user input boxes for Round 1 -->
-    <div style="text-align:center; margin: 20px;">
-      <button id="toggleUserInputsBtn" onclick="toggleUserInputOverlays()">
-        Hide User Boxes
-      </button>
-    </div>
 
     {% include copyright.html %}
   </div>
@@ -741,6 +746,15 @@
           round2Container.style.display = 'inline-block'; 
         } else {
           round2Container.style.display = 'none'; 
+        }
+
+        // NEW SCROLL CODE: Jump to the main Round 1 table after toggling.
+        const mainTable = document.getElementById('interactiveTable');
+        if (mainTable) {
+          mainTable.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
         }
       });
     }
@@ -818,41 +832,11 @@
         dropdown.classList.add('select-green');
       }
 
-      // Update the final decision for Round 1
+      // Update the final decision for Round 1 (recalc sum, etc.)
       updateDecision();
+
       // Update Round 2 side table if auto is on
       updateRound2Weights();
-    }
-
-    // Recompute sum & output (Round 1)
-    function updateDecision() {
-      let sum = 0;
-      for (let i = 1; i <= 9; i++) {
-        sum += getFinalValue(i);
-      }
-      document.getElementById("sumCell").textContent = sum;
-
-      let output;
-      if (sum > 0) {
-        output = "GREEN";
-      } else if (sum < 0) {
-        output = "RED";
-      } else {
-        output = "UNDECIDED";
-      }
-      document.getElementById("outputCell").textContent = output;
-
-      // Color the sum/output row
-      const decisionRow = document.getElementById("decisionRow");
-      decisionRow.classList.remove('row-red','row-green');
-      if (sum > 0) {
-        decisionRow.classList.add('row-green');
-      } else if (sum < 0) {
-        decisionRow.classList.add('row-red');
-      }
-
-      // Update the network status summary at bottom
-      updateNetworkStatusTable();
     }
 
     // Helper for Round 1 Value (numeric * weight or user typed)
@@ -1173,60 +1157,101 @@
     }
 
     /**********************************************
-     * updateNetworkStatusTable() 
-     * (Now reads global window.selectedTrafficLightColor)
+     * updateDecision() => Recompute SUM + Output Node in Round 1 table
      **********************************************/
-    function getSelectedTrafficLightColor() {
-      // If user has not pressed Red/Green yet, default is "NONE"
-      return window.selectedTrafficLightColor || 'NONE';
+    function updateDecision() {
+      let sum = 0;
+      for (let i = 1; i <= 9; i++) {
+        sum += getFinalValue(i);
+      }
+
+      // Show sum in the table
+      document.getElementById('sumCell').textContent = sum;
+
+      // Decide output: negative => "RED", positive => "GREEN", else "UNDECIDED"
+      let outputVal = 'UNDECIDED';
+      if (sum < 0) outputVal = 'RED';
+      if (sum > 0) outputVal = 'GREEN';
+      document.getElementById('outputCell').textContent = outputVal;
+
+      // ====== NEW LINES TO COLOR THE SECOND ROW ======
+      const decisionRow = document.getElementById('decisionRow');
+      decisionRow.classList.remove('row-red', 'row-green');
+
+      if (sum < 0) {
+        decisionRow.classList.add('row-red');
+      } else if (sum > 0) {
+        decisionRow.classList.add('row-green');
+      }
+      // ==============================================
+
+      // And call your network status check if desired:
+      updateNetworkStatusTable();
     }
 
-    // This function is called whenever we recalc output or 
-    // the user chooses a traffic light color in node-generator-27.html
+    /**********************************************
+     * updateNetworkStatusTable() 
+     * Now also updates our "duplicate" traffic light in Round 1
+     **********************************************/
     window.updateNetworkStatusTable = function() {
-      const trafficLightStateCell = document.getElementById('trafficLightStateCell');
-      if (!trafficLightStateCell) return;
-
       // 1) Grab the user’s chosen color from node-generator-27.html
-      const chosenColor = getSelectedTrafficLightColor();
+      const chosenColor = window.selectedTrafficLightColor || 'NONE';
 
-      // 2) Default text
-      let stateText = 'Traffic Light State: ---';
+      // 2) Set table cell color/text:
+      const trafficLightStateCell = document.getElementById('trafficLightStateCell');
+      trafficLightStateCell.textContent = 'Traffic Light State: ---';
       trafficLightStateCell.style.backgroundColor = '';
       trafficLightStateCell.style.color = '';
 
       if (chosenColor === 'RED') {
-        stateText = 'Traffic Light State: RED';
+        trafficLightStateCell.textContent = 'Traffic Light State: RED';
         trafficLightStateCell.style.backgroundColor = 'red';
         trafficLightStateCell.style.color = 'white';
-      } 
-      else if (chosenColor === 'GREEN') {
-        stateText = 'Traffic Light State: GREEN';
+      } else if (chosenColor === 'GREEN') {
+        trafficLightStateCell.textContent = 'Traffic Light State: GREEN';
         trafficLightStateCell.style.backgroundColor = 'green';
         trafficLightStateCell.style.color = 'white';
       }
 
-      trafficLightStateCell.textContent = stateText;
+      // 3) Mirror that color in the duplicate traffic light (Round 1)
+      const redCircleRound1   = document.getElementById('redCircleRound1');
+      const greenCircleRound1 = document.getElementById('greenCircleRound1');
 
-      // Compare final Output Node with chosen traffic light state
-      const decisionOutput = document.getElementById('outputCell').textContent; 
+      // First remove old classes
+      redCircleRound1.classList.remove('red', 'inactive-red');
+      greenCircleRound1.classList.remove('green', 'inactive-green');
+
+      // Then add the new set based on chosenColor
+      if (chosenColor === 'RED') {
+        redCircleRound1.classList.add('red');
+        greenCircleRound1.classList.add('inactive-green');
+      }
+      else if (chosenColor === 'GREEN') {
+        redCircleRound1.classList.add('inactive-red');
+        greenCircleRound1.classList.add('green');
+      }
+      else {
+        // If user has not chosen any color yet, both inactive
+        redCircleRound1.classList.add('inactive-red');
+        greenCircleRound1.classList.add('inactive-green');
+      }
+
+      // 4) Also mark "Correct" or "Incorrect" based on the output cell vs. chosenColor
+      const decisionOutput = document.getElementById('outputCell').textContent;
       let networkStatus = '';
-
       if (decisionOutput === 'UNDECIDED') {
         networkStatus = 'UNDECIDED';
       } else if (chosenColor === 'NONE') {
-        // user never selected a color
+        // user never selected a color in node-generator-27.html yet
         networkStatus = 'INCORRECT';
       } else if (decisionOutput === chosenColor) {
-        // e.g. both "GREEN"
         networkStatus = 'CORRECT';
       } else {
         networkStatus = 'INCORRECT';
       }
 
+      // Fill in the status cell + sum cell for summary table in Round 1
       document.getElementById('networkStatusCell').textContent = networkStatus;
-
-      // Also fill in the sum
       const sumValue = document.getElementById('sumCell').textContent;
       document.getElementById('networkSumCell').textContent = sumValue;
     }

@@ -89,7 +89,7 @@ title: Node Output | Stage One Education, LLC
       border-top: 40px solid transparent;
       border-bottom: 40px solid transparent;
       border-left: 80px solid #f05f40; /* arrow color */
-    }
+     }
     #arrowRight .arrow-text {
       position: absolute;
       color: #fff;
@@ -106,7 +106,7 @@ title: Node Output | Stage One Education, LLC
       Keep the Round 2 Weights button “as is”
     */
     #toggleRound2Btn {
-      font-size: 1rem;
+      font-size: 2rem;
       background-color: #f05f40;
       color: #fff;
       border: none;
@@ -116,6 +116,7 @@ title: Node Output | Stage One Education, LLC
       font-family: 'Roboto', sans-serif;
       font-weight: bold;
       transition: all 0.2s ease-in-out; /* for a smoother hover effect */
+      
     }
     #toggleRound2Btn:hover {
       background-color: #fff;
@@ -394,6 +395,45 @@ title: Node Output | Stage One Education, LLC
       font-size: 1.2em;
       margin: 10px 0;
     }
+
+/* Traffic Light Container */
+.traffic-light {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 80px; /* Adjust as desired */
+  text-align: center;
+}
+
+/* Circles inside the traffic light */
+.traffic-light .light {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px auto; /* center horizontally */
+  transition: background-color 0.3s;
+}
+
+/* Inactive (lighter) colors */
+.inactive-red {
+  background-color: #ffb3b321; /* Light red */
+}
+.inactive-green {
+  background-color: #b3ffb324; /* Light green */
+}
+
+/* Active (full) colors */
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+
+
+
 
 
 
