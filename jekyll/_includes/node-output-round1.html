@@ -898,22 +898,22 @@
         }
 
         // Node color from Round 1 dropdown (RED or GREEN)
-        let r1NodeColor = document.getElementById('inputDropdown' + i).value;
+        // 2) Round 1 node color => "RED" / "GREEN" / "" if not selected.
+let r1NodeColor = document.getElementById('inputDropdown' + i).value;
 
-        let newWeight = r1Weight;
-        // +10 if matches traffic light, -10 if differs
-        if (round1Light && r1NodeColor) {
-          if (r1NodeColor === round1Light) {
-            newWeight += 10;
-          } else {
-            newWeight -= 10;
-          }
-        }
-        // Put computed result in the auto-preview span
-        spanEl.textContent = newWeight;
+// 3) If the node's color matches the traffic light => +10, else => -10.
+let newWeight = r1Weight;
+if (round1Light && r1NodeColor) {
+  if (r1NodeColor === round1Light) {
+    newWeight = r1Weight + 10;  // add 10
+  } else {
+    newWeight = r1Weight - 10;  // subtract 10
+  }
+}
+spanEl.textContent = newWeight;
+round2SideWeights[i - 1] = newWeight;
+previewEl.value = newWeight; // optional to also update the input
 
-        // Store it in the round2SideWeights array
-        round2SideWeights[i - 1] = newWeight;
       }
     }
 

@@ -1,9 +1,8 @@
 <!-- ========================== ROUND 2 ========================== -->
 <div class="round-container" id="round2">
 
-  <!-- Title section -->
+  <!-- Title Section -->
   <div style="text-align: center;">
-    <!-- Spacer for fixed navbar -->
     <div style="height: 30px;"></div>
     <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 1.8em; font-weight: bold; line-height: .5;">
       Round 2
@@ -14,7 +13,7 @@
     <hr class="main-page-hr" />
     <br/>
 
-    <!-- Example image (optional) -->
+    <!-- Example Image (Optional) -->
     <img 
       src="img/27-nn.png" 
       alt="27-NN" 
@@ -23,13 +22,11 @@
         margin: 0 auto; 
         max-width: 900px; 
         width: 100%; 
-        height: auto;
-      "
+        height: auto;"
     />
 
     <br/>
     <h3 class="title-box-a">Sensor Nodes (A)</h3>
-    
   </div>
 
   {% include node-generator-27.html %}
@@ -50,8 +47,6 @@
 
     <!-- Container for Round 2 main table -->
     <div style="text-align: center;">
-
-      <!-- ROUND 2 MAIN TABLE -->
       <div style="display: inline-block; vertical-align: top; position: relative;">
       
         <h3 style="text-align:center;">Round 2</h3>
@@ -90,14 +85,12 @@
               </td>
               <td>x</td>
               <td>
-                <!-- Round 2 weight input (editable if auto is off) -->
                 <input 
                   type="number" 
                   id="weightInput2_1" 
                   style="width: 60px;" 
                   oninput="updateRow2(1)"
                 />
-                <!-- Span shown if auto is on -->
                 <span class="cell-number-span" id="weightSpan2_1"></span>
               </td>
               <td>=</td>
@@ -453,7 +446,6 @@
           </tfoot>
         </table>
       </div> <!-- /Round 2 table -->
-
     </div> <!-- /container for Round 2 -->
 
     <br/>
@@ -480,7 +472,7 @@
     <hr/>
     <br/>
 
-    <!-- TRAFFIC LIGHT STATE (single row) for Round 2 (optional) -->
+    <!-- TRAFFIC LIGHT STATE (Round 2) -->
     <table class="decision-table" id="trafficLightStateTable2" style="margin: 20px auto; width: 150px;">
       <tbody>
         <tr>
@@ -491,7 +483,6 @@
       </tbody>
     </table>
 
-    <!-- DUPLICATE TRAFFIC LIGHT if you want a separate one for Round 2 -->
     <div style="text-align: center;">
       <div class="traffic-light" id="trafficLightRound2">
         <div class="light inactive-red" id="redCircleRound2"></div>
@@ -525,21 +516,18 @@
     <br/>
     <hr/>
     <br/>
-   
+
     <div style="text-align: center;">
       <h4>C Node Weights (Round 2)</h4>
     </div>
-    <!-- Bar Chart for Round 2 -->
     <div style="text-align:center; margin-top:10px; margin-bottom:30px;">
       <canvas id="round2BarChart" width="500" height="200" style="border:1px solid #000;">
         Your browser does not support Canvas.
       </canvas>
     </div>
 
-    <!-- (Optional) "Update Weights" button for Round 2 -->
     <button id="toggleRound2Btn">Update Weights</button>
     <br/><br/><br/>
-
 
     <hr class="main-page-hr" />
     <br/><br/><br/><br/>
@@ -593,13 +581,32 @@
   <!-- SCRIPT FOR ROUND 2 -->
   <script>
     /**********************************************
+     * 0) HELPER: Read Round 1 node color & weight
+     **********************************************/
+    function getRound1NodeColor(rowIdx) {
+      // For C1..C9 in Round 1: ID = "inputDropdown1", "inputDropdown2", etc.
+      const dd = document.getElementById("inputDropdown" + rowIdx);
+      return dd ? dd.value.toUpperCase() : "";
+    }
+
+    function getRound1NodeWeight(rowIdx) {
+      // If Round 1's auto weight is ON => 20, otherwise parse user typed from "weightInputX".
+      const r1WeightAuto = window.weightAutoActive || false;
+      if (r1WeightAuto) {
+        return 20;
+      } else {
+        const el = document.getElementById("weightInput" + rowIdx);
+        return el ? parseFloat(el.value) || 0 : 0;
+      }
+    }
+
+    /**********************************************
      * 1) GLOBAL "AUTO" FLAGS FOR ROUND 2
      **********************************************/
-    let numericAutoActive2 = false;  
-    let weightAutoActive2  = false;  
-    let valueAutoActive2   = false;  
+    let numericAutoActive2 = false;
+    let weightAutoActive2  = false;
+    let valueAutoActive2   = false;
 
-    // Round 2 auto buttons:
     const autoNumericBtn2 = document.getElementById('autoNumericBtn2');
     const autoWeightBtn2  = document.getElementById('autoWeightBtn2');
     const autoValueBtn2   = document.getElementById('autoValueBtn2');
@@ -645,7 +652,6 @@
         const weightInp = document.getElementById("weightInput2_" + i);
         const weightSpn = document.getElementById("weightSpan2_" + i);
         if (!weightInp || !weightSpn) continue;
-
         if (isAuto) {
           weightInp.style.display = "none";
           weightSpn.style.display = "inline";
@@ -660,7 +666,6 @@
         const valueInp = document.getElementById("valueInput2_" + i);
         const valueSpn = document.getElementById("valueSpan2_" + i);
         if (!valueInp || !valueSpn) continue;
-
         if (isAuto) {
           valueInp.style.display = "none";
           valueSpn.style.display = "inline";
@@ -672,7 +677,7 @@
     }
 
     /**********************************************
-     * 2) MAIN UPDATE LOGIC PER ROW (ROUND 2)
+     * 2) updateRow2 => main logic for each row (C1..C9)
      **********************************************/
     function updateRow2(rowIdx) {
       const dropdown   = document.getElementById("inputDropdown2_" + rowIdx);
@@ -683,42 +688,44 @@
       const valueInp   = document.getElementById("valueInput2_" + rowIdx);
       const valueSpn   = document.getElementById("valueSpan2_" + rowIdx);
 
-      // Remove old color classes
+      // Remove old red/green classes
       dropdown.parentElement.classList.remove('cell-red','cell-green');
       dropdown.classList.remove('select-red','select-green');
 
-      // 1) Numeric (auto => -1 if RED, +1 if GREEN)
+      // (A) Numeric column logic: auto => -1 if RED, +1 if GREEN.
       let numericVal;
       if (numericAutoActive2) {
-        if (dropdown.value === "RED") {
-          numericVal = -1;
-        } else if (dropdown.value === "GREEN") {
-          numericVal = 1;
-        } else {
-          numericVal = 0;
-        }
+        if (dropdown.value === "RED") numericVal = -1;
+        else if (dropdown.value === "GREEN") numericVal = 1;
+        else numericVal = 0;
         numericSpn.textContent = dropdown.value ? numericVal : "";
       } else {
         numericVal = parseFloat(numericInp.value) || 0;
       }
 
-      // 2) Weight (auto => read from Round 1 side table's final +10/-10 result)
+      // (B) Weight column logic: auto => Round1Weight ±10, else typed.
       let weightVal;
       if (weightAutoActive2) {
-        // We assume Round 1 has <span id="round2WeightSpanX"> with the final ±10 value.
-        const sideSpan = document.getElementById("round2WeightSpan" + rowIdx);
-        if (sideSpan) {
-          weightVal = parseFloat(sideSpan.textContent) || 0;
-        } else {
-          weightVal = 0;
+        const r1Color = getRound1NodeColor(rowIdx);   // e.g. "RED"
+        const r1Weight = getRound1NodeWeight(rowIdx); // e.g. 20 if typed in Round 1
+        const trafficLight = (window.selectedTrafficLightColor || "").toUpperCase(); 
+        let newW = r1Weight;
+        if (r1Color && trafficLight) {
+          if (r1Color === trafficLight) {
+            // MATCH => +10
+            newW = r1Weight + 10;
+          } else {
+            // MISMATCH => -10
+            newW = r1Weight - 10;
+          }
         }
+        weightVal = newW;
         weightSpn.textContent = weightVal;
       } else {
-        // if auto is off, user can type in Round 2’s weightInput2_X
         weightVal = parseFloat(weightInp.value) || 0;
       }
 
-      // 3) Value = numericVal * weightVal (auto => display computed)
+      // (C) Value = numericVal * weightVal
       let computed = numericVal * weightVal;
       let finalVal;
       if (valueAutoActive2) {
@@ -728,7 +735,7 @@
         finalVal = parseFloat(valueInp.value) || 0;
       }
 
-      // Color the cell if user picks RED/GREEN in the dropdown
+      // Color the cell if Round 2 user picks RED or GREEN in the dropdown.
       if (dropdown.value === "RED") {
         dropdown.parentElement.classList.add('cell-red');
         dropdown.classList.add('select-red');
@@ -737,18 +744,18 @@
         dropdown.classList.add('select-green');
       }
 
-      // Recompute the final Round 2 sum + decision.
+      // Recompute Round 2 sum + decision.
       updateDecision2();
     }
 
-    // Summation helper for Round 2.
+    // Summation helper for Round 2 => used by updateDecision2.
     function getFinalValue2(rowIdx) {
       const dropdown   = document.getElementById("inputDropdown2_" + rowIdx);
       const numericInp = document.getElementById("numericInput2_" + rowIdx);
       const weightInp  = document.getElementById("weightInput2_" + rowIdx);
       const valueInp   = document.getElementById("valueInput2_" + rowIdx);
 
-      // Numeric
+      // Numeric part
       let numericVal;
       if (numericAutoActive2) {
         if (dropdown.value === "RED") numericVal = -1;
@@ -758,16 +765,23 @@
         numericVal = parseFloat(numericInp.value) || 0;
       }
 
-      // Weight
+      // Weight part => Round1Weight ±10 if mismatch or match
       let weightVal;
       if (weightAutoActive2) {
-        const sideSpan = document.getElementById("round2WeightSpan" + rowIdx);
-        weightVal = sideSpan ? parseFloat(sideSpan.textContent) || 0 : 0;
+        const r1Color = getRound1NodeColor(rowIdx);
+        const r1Weight = getRound1NodeWeight(rowIdx);
+        const trafficLight = (window.selectedTrafficLightColor || "").toUpperCase();
+        let newW = r1Weight;
+        if (r1Color && trafficLight) {
+          if (r1Color === trafficLight) newW = r1Weight + 10;
+          else newW = r1Weight - 10;
+        }
+        weightVal = newW;
       } else {
         weightVal = parseFloat(weightInp.value) || 0;
       }
 
-      // Value final (auto => numericVal * weightVal)
+      // Value => numericVal * weightVal if auto, else user typed in Value col.
       if (valueAutoActive2) {
         return numericVal * weightVal;
       } else {
@@ -776,7 +790,7 @@
     }
 
     /**********************************************
-     * 3) Recompute SUM + Decision for Round 2
+     * 3) Final SUM + Decision for Round 2
      **********************************************/
     function updateDecision2() {
       let sum2 = 0;
@@ -784,22 +798,24 @@
         sum2 += getFinalValue2(i);
       }
 
-      // Show sum in Round 2 table
       document.getElementById('sumCell2').textContent = sum2;
 
-      // Decide RED / GREEN / UNDECIDED
+      // negative => RED, positive => GREEN, else UNDECIDED.
       let outputVal2 = 'UNDECIDED';
       if (sum2 < 0) outputVal2 = 'RED';
       if (sum2 > 0) outputVal2 = 'GREEN';
       document.getElementById('outputCell2').textContent = outputVal2;
 
-      // Color the row based on sign.
+      // color the row if sum < 0 or > 0.
       const decisionRow2 = document.getElementById('decisionRow2');
       decisionRow2.classList.remove('row-red','row-green');
-      if (sum2 < 0) decisionRow2.classList.add('row-red');
-      else if (sum2 > 0) decisionRow2.classList.add('row-green');
+      if (sum2 < 0) {
+        decisionRow2.classList.add('row-red');
+      } else if (sum2 > 0) {
+        decisionRow2.classList.add('row-green');
+      }
 
-      // If desired, reflect correctness vs. Round 2 traffic light:
+      // optional: reflect correctness vs. Round 2 traffic light.
       updateNetworkStatusTable2();
     }
 
@@ -807,7 +823,6 @@
      * 4) Round 2 Network Status (optional)
      **********************************************/
     function updateNetworkStatusTable2() {
-      // For instance, if there's a separate traffic light color for Round 2:
       let chosenColor2 = window.selectedTrafficLightColorRound2 || 'NONE';
       let decision2    = document.getElementById('outputCell2').textContent;
 
@@ -823,7 +838,8 @@
       }
 
       document.getElementById('networkStatusCell2').textContent = status2;
-      document.getElementById('networkSumCell2').textContent    = document.getElementById('sumCell2').textContent;
+      document.getElementById('networkSumCell2').textContent =
+        document.getElementById('sumCell2').textContent;
     }
 
     /**********************************************
@@ -834,41 +850,51 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
+      // gather each node's weight for Round 2 (auto or user typed)
       let w2 = [];
       for (let i = 1; i <= 9; i++) {
-        // if auto is on => read from sideSpan, else read from user input in Round 2.
         let val;
         if (weightAutoActive2) {
-          const sideSpan = document.getElementById("round2WeightSpan" + i);
-          val = sideSpan ? parseFloat(sideSpan.textContent) || 0 : 0;
+          const r1Color = getRound1NodeColor(i);
+          const r1Weight = getRound1NodeWeight(i);
+          const trafficLight = (window.selectedTrafficLightColor || "").toUpperCase();
+          let newW = r1Weight;
+          if (r1Color && trafficLight) {
+            newW = (r1Color === trafficLight) ? (r1Weight + 10) : (r1Weight - 10);
+          }
+          val = newW;
         } else {
-          val = parseFloat(document.getElementById('weightInput2_' + i).value) || 0;
+          val = parseFloat(document.getElementById('weightInput2_'+ i).value) || 0;
         }
         w2.push(val);
       }
 
+      // chart logic
       ctx.clearRect(0,0,canvas.width,canvas.height);
       let minVal = Math.min(...w2);
       let maxVal = Math.max(...w2);
-      if (minVal === maxVal) {minVal -= 10; maxVal += 10;}
-      const padding=5; minVal-=padding; maxVal+=padding;
+      if (minVal === maxVal) { minVal -= 10; maxVal += 10; }
+      const padding=5; 
+      minVal -= padding; 
+      maxVal += padding;
 
-      const chartW=canvas.width; const chartH=canvas.height;
-      const margin=30; 
-      const usableW=chartW - margin*2; 
-      const usableH=chartH - margin*2;
+      const chartW = canvas.width;
+      const chartH = canvas.height;
+      const margin = 30;
+      const usableW = chartW - margin*2;
+      const usableH = chartH - margin*2;
 
       let zeroY;
-      if(minVal<0 && maxVal>0) {
-        zeroY= margin + (maxVal/(maxVal-minVal))*usableH;
-      } else if(maxVal<0) {
-        zeroY= margin + usableH;
+      if (minVal<0 && maxVal>0) {
+        zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
+      } else if (maxVal<0) {
+        zeroY = margin + usableH;
       } else {
-        zeroY= margin;
+        zeroY = margin;
       }
       zeroY = Math.max(margin, Math.min(margin+usableH, zeroY));
 
-      // X-axis
+      // x-axis
       ctx.strokeStyle='black';
       ctx.lineWidth=1;
       ctx.beginPath();
@@ -876,37 +902,39 @@
       ctx.lineTo(margin+usableW, zeroY);
       ctx.stroke();
 
-      // Y-axis
+      // y-axis
       ctx.beginPath();
       ctx.moveTo(margin, margin);
       ctx.lineTo(margin, margin+usableH);
       ctx.stroke();
 
-      // Bars (C1..C9)
+      // bars C1..C9
       const barSpacing=usableW/9;
       const barWidth=5;
       ctx.fillStyle='#f05f40';
 
-      for(let i=0;i<9;i++){
+      for (let i=0; i<9; i++) {
         const wVal = w2[i];
         const xCenter = margin + barSpacing*i + barSpacing/2;
-        const scale = usableH/(maxVal - minVal);
+        const scale = usableH / (maxVal - minVal);
         const barHeight = Math.abs(wVal*scale);
         const barX = xCenter - barWidth/2;
-        const barY = (wVal >=0)?(zeroY - barHeight) : zeroY;
+        const barY = (wVal >= 0) ? (zeroY - barHeight) : zeroY;
 
-        ctx.fillRect(barX,barY,barWidth,barHeight);
-        // label "C1", "C2", etc.
+        ctx.fillRect(barX, barY, barWidth, barHeight);
+
+        // label 'C1'..'C9'
         ctx.fillStyle='black';
         ctx.font='12px sans-serif';
-        ctx.fillText('C'+(i+1), xCenter - 6, zeroY+15);
+        ctx.fillText('C'+(i+1), xCenter - 6, zeroY + 15);
         ctx.fillStyle='#f05f40';
       }
     }
-    setInterval(drawBarChartRound2,1000); // or call on certain triggers
+    // call every 1s (demo)
+    setInterval(drawBarChartRound2, 1000);
 
     /**********************************************
-     * 6) Round 2: header color, etc.
+     * 6) Round 2 heading color, etc.
      **********************************************/
     function updateHeaderColor2() {
       const newColor2 = document.getElementById('headerColorDropdown2').value;
@@ -927,11 +955,11 @@
       toggleWeightColumn2(false);
       toggleValueColumn2(false);
 
-      // Optionally copy the final Round 1 side table values into Round 2 inputs initially:
+      // if you have sideSpan from Round 1 => copy them into Round 2 inputs initially
       for (let i=1; i<=9; i++){
-        let sideSpan = document.getElementById('round2WeightSpan'+i);
-        let mainW = document.getElementById('weightInput2_'+i);
-        if(sideSpan && mainW){
+        let sideSpan = document.getElementById('round2WeightSpan'+ i);
+        let mainW = document.getElementById('weightInput2_'+ i);
+        if (sideSpan && mainW){
           mainW.value = parseFloat(sideSpan.textContent) || 0;
         }
       }

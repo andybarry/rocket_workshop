@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Node Portal | Stage One Education, LLC
+title: Human Neural Network | Stage One Education, LLC
 ---
 
 <!DOCTYPE html>
@@ -8,35 +8,100 @@ title: Node Portal | Stage One Education, LLC
 <head>
   <meta charset="utf-8">
   <title>Node Portal</title>
+  <style>
+    /* Basic styling to place two PDFs side by side */
+    .pdf-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .pdf-container iframe {
+      width: 45%;
+      height: 300px;
+      border: 1px solid #ccc;
+    }
+
+    /* START Button styling */
+    #toggleRound2Btn {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out; /* for a smoother hover effect */
+    }
+    #toggleRound2Btn:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+  </style>
 </head>
 
 <body>
   {% include navigation-ai.html %}
 
   <!-- MAIN CONTENT -->
-  <div style="text-align: center; margin-top: 50px;">
-    <h2>Select Number of Participants</h2>
+  <div style="text-align: center; margin-top: 100px;">
+    <div style="margin-top: 100px; width: 70%; margin: 0 auto; text-align: center;">
+      <h3>
+        Step into the driver’s seat of a self-driving car’s brain!<br/><br/>In this activity, you’ll become a “node” in a neural network,
+        rolling dice to decide if the car should GO or STOP.<br/><br/>Each round, we’ll
+         tweak the “weights” so our network predicts traffic lights better<br/><br/>- no
+          math required -
+      </h3>
+    </div>
+    <br/>
+    <img src="img/class-nn.png" alt="class network" style="width: 400px;">
+    <br><br>
+    <hr class="main-page-hr" />
+    <br><br>
+    <h2>Select the number of participants</h2>
 
     <!-- Dropdown -->
-    <select id="participantsDropdown">
+    <select id="participantsDropdown" onchange="updatePDFs()">
       <option value="27" selected>27</option>
       <option value="36">36</option>
       <option value="45">45</option>
       <option value="63">63</option>
     </select>
+    <br><br>
+
+    <h4>Ensure each (B) and (C) node has a person.<br/>Some might play two nodes!</h4>
+    <br><br>
+
+    <!-- PDFs displayed side by side -->
+    <div class="pdf-container">
+      <iframe id="pdfFrame1" src="img/1st-HL-27.pdf"></iframe>
+      <iframe id="pdfFrame2" src="img/2nd-HL-27.pdf"></iframe>
+    </div>
 
     <br><br>
 
-    <!-- Button to proceed -->
-    <button onclick="goToOutput()">Start Round 1</button>
+    <h4>Every participant needs:</h4>
+    <li>Printed (B) or (C) Human Neural Network Sheet</li>
+    <li>Pencil</li>
+    <li>6-sided die</li>
+
+    <br><br>
+
+    <!-- START Button -->
+    <a href="node-output.html" target="_blank" id="toggleRound2Btn">START</a>
+    <br><br>
+
   </div>
 
   <script>
-    function goToOutput() {
-      // Get selected value, e.g. "27"
+    function updatePDFs() {
       var chosen = document.getElementById("participantsDropdown").value;
-      // Redirect to node-output.html, passing chosen as a query parameter
-      window.location.href = "node-output.html?count=" + chosen;
+      // Update iframes to show the chosen PDFs
+      document.getElementById("pdfFrame1").src = "img/1st-HL-" + chosen + ".pdf";
+      document.getElementById("pdfFrame2").src = "img/2nd-HL-" + chosen + ".pdf";
     }
   </script>
 
