@@ -7,7 +7,7 @@ title: Node Output | Stage One Education, LLC
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Interactive Table with Traffic Light &amp; Decision (8 Rounds) – 0 to -10 Fix</title>
+  <title>Interactive Table with Traffic Light &amp; Decision (8 Rounds) – Updated</title>
   
   <!-- GLOBAL STYLE -->
   <style>
@@ -15,7 +15,7 @@ title: Node Output | Stage One Education, LLC
        SLIDER CONTAINER + ARROW STYLES
        ------------------------------------- */
     .slider-container {
-      width: 100%; /* We'll slide among 8 rounds side by side */
+      width: 100%; 
       display: flex;
       text-align: center;
       transition: transform 0.5s ease;
@@ -29,7 +29,6 @@ title: Node Output | Stage One Education, LLC
       padding: 20px;
     }
 
-    /* Container that holds the right arrow + Round 2 button stacked vertically */
     #arrowRightContainer {
       position: fixed;
       right: 10px;
@@ -37,14 +36,12 @@ title: Node Output | Stage One Education, LLC
       transform: translateY(-50%);
       z-index: 9999;
       display: flex;
-      flex-direction: column; /* stack items vertically */
+      flex-direction: column;
       align-items: center;
       text-align: center;
-      background-color: transparent; /* remove any box/border */
+      background-color: transparent;
       border: none;
     }
-
-    /* LEFT ARROW (triangle pointing left, with text in the center) */
     #arrowLeft {
       position: fixed;
       left: 10px;
@@ -52,18 +49,15 @@ title: Node Output | Stage One Education, LLC
       transform: translateY(-50%);
       z-index: 9999;
       cursor: pointer;
-      /* Remove button box and make a left-facing triangle */
       background: transparent;
       border: none;
-      width: 0;
+      width: 0; 
       height: 0;
       border-top: 40px solid transparent;
       border-bottom: 40px solid transparent;
-      border-right: 80px solid #f05f40; /* arrow color */
-      /* we’ll position text absolutely inside */
+      border-right: 80px solid #f05f40; 
     }
     #arrowLeft .arrow-text {
-      /* Center white text on top of the triangle */
       position: absolute;
       color: #fff;
       font-family: 'Roboto', sans-serif;
@@ -72,23 +66,19 @@ title: Node Output | Stage One Education, LLC
       top: 50%;
       left: 50%;
       transform: translate(60%, -40%);
-      pointer-events: none; /* so clicks still hit the triangle/button */
+      pointer-events: none;
     }
-
-    /* RIGHT ARROW (triangle pointing right, with text in the center) */
     #arrowRight {
       position: relative; 
       cursor: pointer;
-      margin-bottom: 0.5em; /* spacing between arrow & Round 2 Weights button */
-
-      /* Remove box, shape a right-facing triangle */
+      margin-bottom: 0.5em; 
       background: transparent;
       border: none;
       width: 0;
       height: 0;
       border-top: 40px solid transparent;
       border-bottom: 40px solid transparent;
-      border-left: 80px solid #f05f40; /* arrow color */
+      border-left: 80px solid #f05f40;
      }
     #arrowRight .arrow-text {
       position: absolute;
@@ -102,9 +92,6 @@ title: Node Output | Stage One Education, LLC
       pointer-events: none;
     }
 
-    /*
-      Keep the Round 2 Weights button “as is”
-    */
     #toggleRound2Btn {
       font-size: 2rem;
       background-color: #f05f40;
@@ -115,8 +102,7 @@ title: Node Output | Stage One Education, LLC
       cursor: pointer;
       font-family: 'Roboto', sans-serif;
       font-weight: bold;
-      transition: all 0.2s ease-in-out; /* for a smoother hover effect */
-      
+      transition: all 0.2s ease-in-out;
     }
     #toggleRound2Btn:hover {
       background-color: #fff;
@@ -124,10 +110,7 @@ title: Node Output | Stage One Education, LLC
       border: 2px solid #f05f40; 
     }
 
-
-    /******************************************
-     *  TRAFFIC LIGHT + BUTTON STYLES (SMALLER)
-     ******************************************/
+    /* Traffic lights (generic) */
     .traffic-light {
       display: inline-block;
       vertical-align: middle;
@@ -144,14 +127,12 @@ title: Node Output | Stage One Education, LLC
       margin: 5px auto;
       transition: background-color 0.3s;
     }
-    /* Inactive (lighter) colors */
     .inactive-red {
-      background-color: #ffb3b321; /* Light red */
+      background-color: #ffb3b321; 
     }
     .inactive-green {
-      background-color: #b3ffb324; /* Light green */
+      background-color: #b3ffb324;
     }
-    /* Active (full) colors */
     .red {
       background-color: red;
     }
@@ -159,7 +140,7 @@ title: Node Output | Stage One Education, LLC
       background-color: green;
     }
 
-    /* Buttons for selecting Red/Green (SMALLER) */
+    /* Round n red/green buttons */
     .btn {
       cursor: pointer;
       font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -172,7 +153,6 @@ title: Node Output | Stage One Education, LLC
       transition: all .3s;
       margin: 0 5px;
     }
-    /* Red Buttons (Rounds 1..8) */
     #colorRed, 
     #colorRed2, 
     #colorRed3, 
@@ -197,7 +177,6 @@ title: Node Output | Stage One Education, LLC
       color: #fff !important;
       border: none !important;
     }
-    /* Green Buttons (Rounds 1..8) */
     #colorGreen, 
     #colorGreen2, 
     #colorGreen3, 
@@ -223,9 +202,7 @@ title: Node Output | Stage One Education, LLC
       border: none !important;
     }
 
-    /******************************************
-     *  INTERACTIVE TABLE STYLES
-     ******************************************/
+    /* Interactive table */
     .interactive-table {
       margin: 0 auto;
       border-collapse: collapse;
@@ -250,11 +227,7 @@ title: Node Output | Stage One Education, LLC
     .interactive-table tr:hover {
       background-color: #f1f1f1;
     }
-    .interactive-table select {
-      padding: 3px;
-    }
 
-    /* Color row red or green */
     .row-red {
       background-color: red !important;
       color: #ffffff !important;
@@ -263,8 +236,6 @@ title: Node Output | Stage One Education, LLC
       background-color: green !important;
       color: #ffffff !important;
     }
-
-    /* Color dropdown red or green */
     .select-red {
       background-color: red !important; 
       color: #ffffff !important;
@@ -274,9 +245,6 @@ title: Node Output | Stage One Education, LLC
       color: #ffffff !important;
     }
 
-    /******************************************
-     *  DECISION TABLE STYLES
-     ******************************************/
     .decision-table {
       width: 30%;
       margin: 30px auto;
@@ -295,19 +263,7 @@ title: Node Output | Stage One Education, LLC
       font-weight: bold;
     }
 
-    /* Color only the cell red or green */
-    .cell-red {
-      background-color: red !important;
-      color: #ffffff !important;
-    }
-    .cell-green {
-      background-color: green !important;
-      color: #ffffff !important;
-    }
-
-    /* -------------------------------------------------
-       OPTIONAL: Overlay User Inputs (Round 1 example)
-       ------------------------------------------------- */
+    /* Overlay inputs (optional) */
     #userInputOverlays {
       position: relative; 
     }
@@ -375,70 +331,23 @@ title: Node Output | Stage One Education, LLC
       width: 80%;
     }
 
-    /* (NEW) -- Container to show Round 1 main table on left and Round 2 preview on right */
-    .round1-and-2-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .round1-section {
-      flex: 0 1 68%;
-    }
-    .round2-preview-section {
-      flex: 0 1 30%;
-      border: 2px dashed #ccc;
+    /* bigger traffic light style */
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
       padding: 10px;
-      margin-left: 10px;
+      width: 80px;
+      text-align: center;
     }
-    .round2-preview-section h3 {
-      font-family: Arial, sans-serif;
-      font-size: 1.2em;
-      margin: 10px 0;
+    .traffic-light .light {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px auto;
+      transition: background-color 0.3s;
     }
-
-/* Traffic Light Container */
-.traffic-light {
-  display: inline-block;
-  vertical-align: middle;
-  background-color: black;
-  border-radius: 10px;
-  padding: 10px;
-  width: 80px; /* Adjust as desired */
-  text-align: center;
-}
-
-/* Circles inside the traffic light */
-.traffic-light .light {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px auto; /* center horizontally */
-  transition: background-color 0.3s;
-}
-
-/* Inactive (lighter) colors */
-.inactive-red {
-  background-color: #ffb3b321; /* Light red */
-}
-.inactive-green {
-  background-color: #b3ffb324; /* Light green */
-}
-
-/* Active (full) colors */
-.red {
-  background-color: red;
-}
-.green {
-  background-color: green;
-}
-
-
-
-
-
-
-
-    
   </style>
 </head>
 
@@ -448,50 +357,32 @@ title: Node Output | Stage One Education, LLC
 
 <!-- LEFT ARROW -->
 <button id="arrowLeft" onclick="prevRound()">
-  <!-- We only show the "ROUND #" text. The triangle is done by CSS. -->
   <span class="arrow-text">ROUND 0</span>
 </button>
 
-<!-- RIGHT ARROW + "Round 2" BUTTON in the same fixed container -->
+<!-- RIGHT ARROW + Round 2 button -->
 <div id="arrowRightContainer">
   <button id="arrowRight" onclick="nextRound()">
-    <!-- No arrow char needed; the triangle is pure CSS. -->
     <span id="rightArrowText" class="arrow-text"></span>
   </button>
+</div>
+
+<!-- Rounds slider -->
+<div class="slider-container" id="sliderContainer">
+  
+  {% include node-output-round1.html %}
+  {% include node-output-round2.html %}
+  {% include node-output-round3.html %}
+  {% include node-output-round4.html %}
+  {% include node-output-round5.html %}
+  {% include node-output-round6.html %}
+  {% include node-output-round7.html %}
+  {% include node-output-round8.html %}
 
 </div>
 
-<!-- Container that holds all rounds side-by-side -->
-<div class="slider-container" id="sliderContainer">
-  
-  <!-- Round 1 partial -->
-  {% include node-output-round1.html %}
-
-  <!-- Round 2 partial -->
-  {% include node-output-round2.html %}
-
-  <!-- Round 3 partial -->
-  {% include node-output-round3.html %}
-
-  <!-- Round 4 partial -->
-  {% include node-output-round4.html %}
-
-  <!-- Round 5 partial -->
-  {% include node-output-round5.html %}
-
-  <!-- Round 6 partial -->
-  {% include node-output-round6.html %}
-
-  <!-- Round 7 partial -->
-  {% include node-output-round7.html %}
-
-  <!-- Round 8 partial -->
-  {% include node-output-round8.html %}
-</div> <!-- /sliderContainer -->
-
-<!-- GLOBAL SCRIPT for slider navigation & summary copying -->
 <script>
-  let currentRound = 0; // 0..7 (Round 1 = 0, Round 8 = 7)
+  let currentRound = 0; // 0-based: Round 1 = index 0, Round 2 = index 1, ...
   const slider = document.getElementById('sliderContainer');
   const arrowLeft = document.getElementById('arrowLeft');
   const arrowRight = document.getElementById('arrowRight');
@@ -501,37 +392,34 @@ title: Node Output | Stage One Education, LLC
     slider.style.transform = "translateX(-" + (index * 100) + "%)";
     currentRound = index;
 
-    // Hide left arrow on Round 1 (index 0)
     if (currentRound === 0) {
       arrowLeft.style.display = 'none';
     } else {
       arrowLeft.style.display = 'block';
-      // Update text for the left arrow’s “ROUND #”
       arrowLeft.querySelector('.arrow-text').textContent = "ROUND " + currentRound;
     }
 
-    // Hide right arrow on Round 8 (index 7)
     if (currentRound === 7) {
       arrowRight.style.display = 'none';
     } else {
       arrowRight.style.display = 'block';
-      // Update text for the right arrow’s “ROUND #”
       rightArrowText.textContent = "ROUND " + (currentRound + 2);
     }
+     // ================================
+    // NEW: If we are showing Round 2 (index=1),
+    //     call updateRow2(i) for each node to refresh weights.
+    if (index === 1) { // Round 2
+      for (let i = 1; i <= 9; i++) {
+        // Make sure updateRow2(...) is in global scope
+        // or loaded BEFORE this script is called
+        updateRow2(i);
+      }
+    }
+    // ================================
   }
 
   function nextRound() {
     if (currentRound < 7) {
-      // If leaving Round 1 and going to Round 2, copy side-table weight inputs 
-      if (currentRound === 0) {
-        for (let i = 1; i <= 9; i++) {
-          let previewEl = document.getElementById('round2WeightPreview' + i);
-          let actualEl  = document.getElementById('weightInput2_' + i);
-          if (previewEl && actualEl) {
-            actualEl.value = previewEl.value;
-          }
-        }
-      }
       showRound(currentRound + 1);
     }
   }
@@ -542,14 +430,13 @@ title: Node Output | Stage One Education, LLC
     }
   }
 
-  // Show Round 1 by default on page load
   document.addEventListener('DOMContentLoaded', () => {
     showRound(0);
   });
 </script>
 
 <script>
-  // This ensures that when we land with ?count=27 (etc.), we set the dropdown in node-generator-27.html accordingly.
+  // For dynamically setting participant count in node-generator if needed
   window.addEventListener('DOMContentLoaded', function() {
     var urlParams = new URLSearchParams(window.location.search);
     var c = urlParams.get('count') || '27';
