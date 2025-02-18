@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Node Generator 27 - Round 2</title>
+  <title>Node Generator 27 - Round 3</title>
 
   <style>
     /*******************************************************
@@ -38,15 +38,15 @@
     }
 
     /*******************************************************
-     * CIRCLES (ROUND 2)
+     * CIRCLES (ROUND 3)
      *******************************************************/
-    #boxesRound2 {
+    #boxesRound3 {
       width: 90%;
       margin: 0 auto;
       text-align: center;
       font-size: 0;
     }
-    .circleRound2 {
+    .circleRound3 {
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -59,7 +59,7 @@
       font-family: 'Roboto', sans-serif;
       margin: 10px;
     }
-    .circleRound2 span {
+    .circleRound3 span {
       position: absolute;
       top: -45px;
       left: 50%;
@@ -70,13 +70,13 @@
       border-radius: 5px;
       font-size: 1.5em;
     }
-    .circle-container-round2 {
+    .circle-container-round3 {
       display: inline-block;
       margin: 30px 20px;
       text-align: center;
     }
     /* Hidden by default; shown when user toggles code box */
-    .label-below-round2 {
+    .label-below-round3 {
       display: none;
       font-size: 20px;
     }
@@ -101,58 +101,58 @@
     }
 
     /* --- Red button --- */
-    #colorRed2 {
+    #colorRed3 {
       background-color: #fff !important;
       color: red !important;
       border: 2px solid red !important;
     }
-    #colorRed2.active {
+    #colorRed3.active {
       background-color: red !important;
       color: #fff !important;
       border: none !important;
     }
 
     /* --- Green button --- */
-    #colorGreen2 {
+    #colorGreen3 {
       background-color: #fff !important;
       color: green !important;
       border: 2px solid green !important;
     }
-    #colorGreen2.active {
+    #colorGreen3.active {
       background-color: green !important;
       color: #fff !important;
       border: none !important;
     }
 
     /* --- Run button (Orange) --- */
-    #runButton2 {
+    #runButton3 {
       background-color: #fff !important;
       color: #f05f40 !important;
       border: 2px solid #f05f40 !important;
       padding: 10px 20px !important;
     }
-    #runButton2.active {
+    #runButton3.active {
       background-color: #f05f40 !important;
       color: #fff !important;
       border: none !important;
     }
 
-    /* --- Show Code (R2) button (Gray) --- */
-    #toggleCodeBox2 {
+    /* --- Show Code (R3) button (Gray) --- */
+    #toggleCodeBox3 {
       background-color: #fff !important;
       color: #666 !important;
       padding: 10px 20px !important;
     }
-    #toggleCodeBox2.active {
+    #toggleCodeBox3.active {
       background-color: #999 !important; 
       color: #fff !important;
       border: none !important;
     }
 
     /*******************************************************
-     * CODE BOX (R2)
+     * CODE BOX (R3)
      *******************************************************/
-    .code-box2 {
+    .code-box3 {
       width: 60%;
       margin: 20px auto; 
       height: 300px;
@@ -174,58 +174,58 @@
 </head>
 
 <body>
-  <!-- Round 2: Traffic Light & Buttons -->
+  <!-- Round 3: Traffic Light & Buttons -->
   <div style="text-align: center; margin-bottom: 20px;">
     <h4>Select state of the traffic light</h4>
   </div>
   <div style="text-align: center; margin-bottom: 20px;">
-    <button id="colorRed2" class="btn">Red</button>
-    <button id="colorGreen2" class="btn">Green</button>
+    <button id="colorRed3" class="btn">Red</button>
+    <button id="colorGreen3" class="btn">Green</button>
 
     <br><br>
 
-    <div class="traffic-light" id="trafficLight2">
-      <div class="light inactive-red" id="redCircle2"></div>
-      <div class="light inactive-green" id="greenCircle2"></div>
+    <div class="traffic-light" id="trafficLight3">
+      <div class="light inactive-red" id="redCircle3"></div>
+      <div class="light inactive-green" id="greenCircle3"></div>
     </div>
 
     <br><br>
   </div>
 
-  <!-- Run Button (Round 2) -->
+  <!-- Run Button (Round 3) -->
   <div style="text-align: center; margin-bottom: 20px;">
-    <button id="runButton2" class="btn">Run (R2)</button>
+    <button id="runButton3" class="btn">Run (R3)</button>
   </div>
 
-  <!-- Circles for Round 2: A1..A12 -->
-  <div id="nodesContainer2" style="text-align: center;">
-    <div id="boxesRound2">
+  <!-- Circles for Round 3: A1..A12 -->
+  <div id="nodesContainer3" style="text-align: center;">
+    <div id="boxesRound3">
       <!-- Generate 12 circles -->
       {% for i in (1..12) %}
-      <div class="circle-container-round2">
-        <div class="circleRound2" id="boxRound2_{{ i }}">
+      <div class="circle-container-round3">
+        <div class="circleRound3" id="boxRound3_{{ i }}">
           <span>A{{ i }}</span>
         </div>
-        <span class="label-below-round2">???</span>
+        <span class="label-below-round3">???</span>
       </div>
       {% endfor %}
     </div>
   </div>
 
-  <!-- Code box Round 2 -->
-  <div id="codeBox2" class="code-box2"></div>
+  <!-- Code box Round 3 -->
+  <div id="codeBox3" class="code-box3"></div>
 
   <div style="text-align: center; margin: 20px;">
-    <button id="toggleCodeBox2" class="btn">Show Code (R2)</button>
+    <button id="toggleCodeBox3" class="btn">Show Code (R3)</button>
   </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
   /*****************************************
-   * 1) SAME WEIGHTS AS ROUND 1 (A1..A12)
+   * 1) SAME WEIGHTS (A1..A12)
    *****************************************/
-  const inputNodesRound2 = [
+  const inputNodesRound3 = [
     { weight: 5 }, // A1
     { weight: 2 }, // A2
     { weight: 1 }, // A3
@@ -241,126 +241,123 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
 
   /*****************************************
-   * 1A) SET LABELS FOR ROUND 2
+   * 1A) SET LABELS FOR ROUND 3
    *****************************************/
-  function setLabelsRound2() {
-    const circleContainers = document.querySelectorAll('.circle-container-round2');
+  function setLabelsRound3() {
+    const circleContainers = document.querySelectorAll('.circle-container-round3');
     circleContainers.forEach((container, index) => {
-      const labelBelow = container.querySelector('.label-below-round2');
-      const w = inputNodesRound2[index].weight;
-      // Convert weight to percentage
+      const labelBelow = container.querySelector('.label-below-round3');
+      const w = inputNodesRound3[index].weight;
       const pct = ((w / 6) * 100).toFixed(1) + '%';
       labelBelow.textContent = pct;
     });
   }
 
-  // Call it on page load so the labels get updated from "???" to "X%"
-  setLabelsRound2();
+  // Call it on page load
+  setLabelsRound3();
 
   /*****************************************
    * 2) DOM ELEMENTS + STATE
    *****************************************/
-  let selectedColor2     = null;
-  let codeBoxVisible2    = false;
-  let codeLines2         = [];
+  let selectedColor3    = null;
+  let codeBoxVisible3   = false;
+  let codeLines3        = [];
 
-  const colorRed2        = document.getElementById('colorRed2');
-  const colorGreen2      = document.getElementById('colorGreen2');
-  const redCircle2       = document.getElementById('redCircle2');
-  const greenCircle2     = document.getElementById('greenCircle2');
-  const runButton2       = document.getElementById('runButton2');
-  const codeBox2         = document.getElementById('codeBox2');
-  const toggleCodeBox2   = document.getElementById('toggleCodeBox2');
+  const colorRed3       = document.getElementById('colorRed3');
+  const colorGreen3     = document.getElementById('colorGreen3');
+  const redCircle3      = document.getElementById('redCircle3');
+  const greenCircle3    = document.getElementById('greenCircle3');
+  const runButton3      = document.getElementById('runButton3');
+  const codeBox3        = document.getElementById('codeBox3');
+  const toggleCodeBox3  = document.getElementById('toggleCodeBox3');
 
-  // Expose this if you need it externally
-  window.selectedTrafficLightColorRound2 = null;
+  window.selectedTrafficLightColorRound3 = null;
 
   /*****************************************
    * 3) BUTTON CLICK HANDLERS
    *****************************************/
-  // -- Red
-  colorRed2.addEventListener('click', function() {
-    selectedColor2 = 'red';
-    colorRed2.classList.add('active');
-    colorGreen2.classList.remove('active');
+  // --- Red button
+  colorRed3.addEventListener('click', function() {
+    selectedColor3 = 'red';
+    colorRed3.classList.add('active');
+    colorGreen3.classList.remove('active');
 
-    redCircle2.classList.remove('inactive-red');
-    redCircle2.classList.add('red');
-    greenCircle2.classList.remove('green');
-    greenCircle2.classList.add('inactive-green');
+    redCircle3.classList.remove('inactive-red');
+    redCircle3.classList.add('red');
+    greenCircle3.classList.remove('green');
+    greenCircle3.classList.add('inactive-green');
 
-    window.selectedTrafficLightColorRound2 = 'RED';
-    if (window.updateNetworkStatusTable2) {
-      window.updateNetworkStatusTable2();
+    window.selectedTrafficLightColorRound3 = 'RED';
+    // If you have an external table or function to update:
+    if (window.updateNetworkStatusTable3) {
+      window.updateNetworkStatusTable3();
     }
   });
 
-  // -- Green
-  colorGreen2.addEventListener('click', function() {
-    selectedColor2 = 'green';
-    colorGreen2.classList.add('active');
-    colorRed2.classList.remove('active');
+  // --- Green button
+  colorGreen3.addEventListener('click', function() {
+    selectedColor3 = 'green';
+    colorGreen3.classList.add('active');
+    colorRed3.classList.remove('active');
 
-    greenCircle2.classList.remove('inactive-green');
-    greenCircle2.classList.add('green');
-    redCircle2.classList.remove('red');
-    redCircle2.classList.add('inactive-red');
+    greenCircle3.classList.remove('inactive-green');
+    greenCircle3.classList.add('green');
+    redCircle3.classList.remove('red');
+    redCircle3.classList.add('inactive-red');
 
-    window.selectedTrafficLightColorRound2 = 'GREEN';
-    if (window.updateNetworkStatusTable2) {
-      window.updateNetworkStatusTable2();
+    window.selectedTrafficLightColorRound3 = 'GREEN';
+    if (window.updateNetworkStatusTable3) {
+      window.updateNetworkStatusTable3();
     }
   });
 
-  // -- RUN (Round 2)
-  runButton2.addEventListener('click', function() {
-    runButton2.classList.toggle('active');
+  // --- Run (Round 3)
+  runButton3.addEventListener('click', function() {
+    runButton3.classList.toggle('active');
 
-    if (!selectedColor2) {
-      alert('Select Red or Green for Round 2 before running.');
+    if (!selectedColor3) {
+      alert('Select Red or Green for Round 3 before running.');
       return;
     }
 
-    // For each A1..A12, pick color based on diceRoll vs. weight
-    const circleEls = document.querySelectorAll('.circleRound2');
+    // Weighted dice logic
+    const circleEls = document.querySelectorAll('.circleRound3');
     circleEls.forEach((circleEl, idx) => {
       const diceRoll   = Math.floor(Math.random() * 6) + 1;
-      const nodeWeight = inputNodesRound2[idx].weight;
+      const nodeWeight = inputNodesRound3[idx].weight;
 
       let finalColor;
       if (diceRoll <= nodeWeight) {
-        // Node color = user-chosen color
-        finalColor = selectedColor2;
+        finalColor = selectedColor3;
       } else {
-        // Opposite color
-        finalColor = (selectedColor2 === 'red') ? 'green' : 'red';
+        finalColor = (selectedColor3 === 'red') ? 'green' : 'red';
       }
 
-      // Clear out old color classes, apply the new color
+      // Remove existing color classes, apply finalColor
       circleEl.classList.remove('red', 'green');
       circleEl.classList.add(finalColor);
     });
   });
 
-  // -- Show/Hide Code Box + Labels
-  toggleCodeBox2.addEventListener('click', function(){
-    codeBoxVisible2 = !codeBoxVisible2;
-    if (codeBoxVisible2) {
+  // --- Show/Hide Code Box (Round 3)
+  toggleCodeBox3.addEventListener('click', function(){
+    codeBoxVisible3 = !codeBoxVisible3;
+    if (codeBoxVisible3) {
       // Show code box
-      codeBox2.style.display = 'block';
-      toggleCodeBox2.textContent = 'Hide Code (R2)';
-      scrollCode2();
+      codeBox3.style.display = 'block';
+      toggleCodeBox3.textContent = 'Hide Code (R3)';
+      scrollCode3();
 
       // Show node weights
-      const labels = document.querySelectorAll('.label-below-round2');
+      const labels = document.querySelectorAll('.label-below-round3');
       labels.forEach(lb => lb.style.display = 'block');
     } else {
       // Hide code box
-      codeBox2.style.display = 'none';
-      toggleCodeBox2.textContent = 'Show Code (R2)';
+      codeBox3.style.display = 'none';
+      toggleCodeBox3.textContent = 'Show Code (R3)';
 
       // Hide node weights
-      const labels = document.querySelectorAll('.label-below-round2');
+      const labels = document.querySelectorAll('.label-below-round3');
       labels.forEach(lb => lb.style.display = 'none');
     }
   });
@@ -368,15 +365,15 @@ document.addEventListener('DOMContentLoaded', function() {
   /*****************************************
    * 4) TYPEWRITER CODE BOX
    *****************************************/
-  function buildSnippet2() {
+  function buildSnippet3(){
     return `
 /******************************************************
- * Round 2 Node Generator
+ * Round 3 Node Generator
  * Weighted Dice Logic:
  *   If diceRoll <= nodeWeight, node = user-chosen color
  *   Else node = opposite color
  ******************************************************/
-const inputNodesRound2 = [
+const inputNodesRound3 = [
   { weight: 5 }, // A1
   { weight: 2 }, // A2
   { weight: 1 }, // A3
@@ -391,21 +388,21 @@ const inputNodesRound2 = [
   { weight: 2 }  // A12
 ];
 
-// Display weights below each circle as X% (weight/6 * 100)
-function setLabelsRound2() {
+function setLabelsRound3() {
   // ...
+  // Logic for showing the % (weight/6 * 100)
 }
     `;
   }
 
-  function scrollCode2() {
-    codeBox2.innerHTML = "";
-    codeLines2 = buildSnippet2().split('\n');
+  function scrollCode3() {
+    codeBox3.innerHTML = "";
+    codeLines3 = buildSnippet3().split('\n');
     let idx = 0;
     const timer = setInterval(() => {
-      if (idx < codeLines2.length) {
-        codeBox2.innerHTML += codeLines2[idx] + "\n";
-        codeBox2.scrollTop = codeBox2.scrollHeight;
+      if (idx < codeLines3.length) {
+        codeBox3.innerHTML += codeLines3[idx] + "\n";
+        codeBox3.scrollTop = codeBox3.scrollHeight;
         idx++;
       } else {
         clearInterval(timer);

@@ -29,7 +29,6 @@
     <h3 class="title-box-a">Sensor Nodes (A)</h3>
     <div style="text-align:center;">
       <div style="display:inline-block; vertical-align:top; position:relative;">
-
         <h3 style="text-align:center;">Round 1</h3>
       </div>
     </div>
@@ -41,7 +40,6 @@
     <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
     <div style="text-align:center;">
       <div style="display:inline-block; vertical-align:top; position:relative;">
-
         <h3 style="text-align:center;">Round 1</h3>
       </div>
     </div>
@@ -605,7 +603,6 @@
     <br/>
     <div style="text-align:center;">
       <div style="display:inline-block; vertical-align:top; position:relative;">
-
         <h3 style="text-align:center;">Round 1</h3>
       </div>
     </div>
@@ -628,7 +625,6 @@
     <br/>
     <hr/>
     <br/>
-
 
     <!-- Round 1 traffic light state -->
     <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto; ">
@@ -684,8 +680,8 @@
       </canvas>
     </div>
 
-    <!-- Toggle Round 2 side table -->
-    <button id="toggleRound2Btn">Update Weights</button>
+    <!-- Round 1 "Update Weights" button renamed to toggleRound2BtnR1 -->
+    <button id="toggleRound2BtnR1">Update Weights</button>
     <br/><br/><br/>
 
     <hr class="main-page-hr" />
@@ -1042,67 +1038,110 @@
       const canvas = document.getElementById('round1BarChart');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
+
+      // Collect weights for each bar
       let weights = [];
       for (let i = 1; i <= 9; i++) {
         let w;
-        if (weightAutoActive) w = 20;
-        else w = parseFloat(document.getElementById('weightInput'+i).value) || 0;
+        if (weightAutoActive) {
+          w = 20;
+        } else {
+          w = parseFloat(document.getElementById('weightInput' + i).value) || 0;
+        }
         weights.push(w);
       }
+
+      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Determine min and max values
       let minVal = Math.min(...weights);
       let maxVal = Math.max(...weights);
-      if (minVal===maxVal) { minVal-=10; maxVal+=10; }
-      const padding=5; minVal-=padding; maxVal+=padding;
 
-      const chartW=canvas.width, chartH=canvas.height, margin=30;
-      const usableW=chartW-margin*2, usableH=chartH-margin*2;
+      // If all are the same, expand a bit
+      if (minVal === maxVal) {
+        minVal -= 10;
+        maxVal += 10;
+      }
+
+      // Small padding
+      const padding = 10;
+      minVal -= padding;
+      maxVal += padding;
+
+      const chartW = canvas.width,
+            chartH = canvas.height,
+            margin = 70;
+
+      const usableW = chartW - margin * 2,
+            usableH = chartH - margin * 2;
+
+      // Y=0 location
       let zeroY;
-      if (minVal<0 && maxVal>0) {
-        zeroY = margin + (maxVal/(maxVal-minVal))*usableH;
-      } else if (maxVal<0) {
-        zeroY = margin+usableH;
+      if (minVal < 0 && maxVal > 0) {
+        zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
+      } else if (maxVal < 0) {
+        zeroY = margin + usableH;
       } else {
         zeroY = margin;
       }
-      zeroY = Math.max(margin, Math.min(margin+usableH, zeroY));
+      zeroY = Math.max(margin, Math.min(margin + usableH, zeroY));
 
-      ctx.strokeStyle='black';
-      ctx.lineWidth=1;
+      // X-axis
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(margin, zeroY);
-      ctx.lineTo(margin+usableW, zeroY);
+      ctx.lineTo(margin + usableW, zeroY);
       ctx.stroke();
 
+      // Y-axis
       ctx.beginPath();
       ctx.moveTo(margin, margin);
-      ctx.lineTo(margin, margin+usableH);
+      ctx.lineTo(margin, margin + usableH);
       ctx.stroke();
 
-      const barSpacing=usableW/9;
-      const barWidth=5;
-      ctx.fillStyle='#f05f40';
-      for (let i=0; i<9; i++) {
+      const barSpacing = usableW / 9;
+      const barWidth = 5;
+      ctx.fillStyle = '#f05f40';
+
+      for (let i = 0; i < 9; i++) {
         const wVal = weights[i];
-        const xCenter = margin + barSpacing*i + barSpacing/2;
-        const scale=usableH/(maxVal-minVal);
-        const barHeight=Math.abs(wVal*scale);
-        const barX=xCenter - barWidth/2;
-        const barY=(wVal>=0)?(zeroY - barHeight):zeroY;
+        const xCenter = margin + barSpacing * i + barSpacing / 2;
+        const scale = usableH / (maxVal - minVal);
+        const barHeight = Math.abs(wVal * scale);
+        const barX = xCenter - barWidth / 2;
+        const barY = (wVal >= 0) ? (zeroY - barHeight) : zeroY;
+
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
-        ctx.fillStyle='black';
-        ctx.font='12px sans-serif';
-        ctx.fillText('C'+(i+1), xCenter-6, zeroY+15);
-        ctx.fillStyle='#f05f40';
+        ctx.save();
+        ctx.fillStyle = 'black';
+        ctx.font = '12px sans-serif';
+
+        const displayVal = Math.round(wVal).toString();
+        if (wVal >= 0) {
+          ctx.fillText(displayVal, xCenter - 10, barY - 5);
+        } else {
+          ctx.fillText(displayVal, xCenter - 10, barY + barHeight + 15);
+        }
+        ctx.restore();
+
+        ctx.fillStyle = 'black';
+        ctx.font = '12px sans-serif';
+        ctx.fillText('C' + (i + 1), xCenter - 6, zeroY + 15);
+
+        ctx.fillStyle = '#f05f40';
       }
     }
+
     setInterval(drawBarChartRound1, 1000);
 
-    const toggleRound2Btn = document.getElementById('toggleRound2Btn');
+    // Round 1 "Update Weights" button toggles round2Container
+    const toggleRound2BtnR1 = document.getElementById('toggleRound2BtnR1');
     const round2Container = document.getElementById('round2Container');
-    if (toggleRound2Btn && round2Container) {
-      toggleRound2Btn.addEventListener('click', function() {
+    if (toggleRound2BtnR1 && round2Container) {
+      toggleRound2BtnR1.addEventListener('click', function() {
         if (round2Container.style.display === 'none') {
           round2Container.style.display = 'inline-block'; 
         } else {

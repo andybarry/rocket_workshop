@@ -92,7 +92,8 @@ title: Node Output | Stage One Education, LLC
       pointer-events: none;
     }
 
-    #toggleRound2Btn {
+    /* Different IDs for Round 1 and Round 2 "Update Weights" buttons */
+    #toggleRound2BtnR1 {
       font-size: 2rem;
       background-color: #f05f40;
       color: #fff;
@@ -104,7 +105,25 @@ title: Node Output | Stage One Education, LLC
       font-weight: bold;
       transition: all 0.2s ease-in-out;
     }
-    #toggleRound2Btn:hover {
+    #toggleRound2BtnR1:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound3BtnR2 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound3BtnR2:hover {
       background-color: #fff;
       color: #f05f40;
       border: 2px solid #f05f40; 
@@ -214,6 +233,7 @@ title: Node Output | Stage One Education, LLC
       border: 1px solid #ddd;
       padding: 6px;
       width: 80px;
+      height: 38px;
     }
     .interactive-table th {
       background-color: #f05f40;
@@ -405,17 +425,61 @@ title: Node Output | Stage One Education, LLC
       arrowRight.style.display = 'block';
       rightArrowText.textContent = "ROUND " + (currentRound + 2);
     }
-     // ================================
-    // NEW: If we are showing Round 2 (index=1),
-    //     call updateRow2(i) for each node to refresh weights.
-    if (index === 1) { // Round 2
+
+    // --- If we are showing Round 2 (index=1), call updateRow2(...) for each node
+    if (index === 1) {
       for (let i = 1; i <= 9; i++) {
-        // Make sure updateRow2(...) is in global scope
-        // or loaded BEFORE this script is called
         updateRow2(i);
       }
+      // NEW: Re-fetch Round 1 sum/status from localStorage
+      const storedStatus = localStorage.getItem('round1NetworkStatus');
+      const storedSum    = localStorage.getItem('round1NetworkSum');
+      if (storedStatus !== null) {
+        const r1StatusCell = document.getElementById('networkStatusCellR1');
+        if (r1StatusCell) r1StatusCell.textContent = storedStatus;
+      }
+      if (storedSum !== null) {
+        const r1SumCell = document.getElementById('networkSumCellR1');
+        if (r1SumCell) r1SumCell.textContent = storedSum;
+      }
     }
-    // ================================
+// NEW: If showing Round 3 (index=2), we copy the displayed Round 1 & Round 2 summary into Round 3
+if (index === 2) {
+    // 1) Make sure Round 3 recalculations happen:
+    for (let i = 1; i <= 9; i++) {
+      updateRow3(i);
+    }
+
+    // 2) Grab Round 1's *displayed* status & sum from the DOM
+    const round1StatusEl = document.getElementById('networkStatusCell');
+    const round1SumEl    = document.getElementById('networkSumCell');
+
+    // Place them into Round 3’s summary row for Round 1
+    if (round1StatusEl && round1SumEl) {
+      const r1StatusCell3 = document.getElementById('networkStatusCellR1_3');
+      const r1SumCell3    = document.getElementById('networkSumCellR1_3');
+      if (r1StatusCell3) r1StatusCell3.textContent = round1StatusEl.textContent;
+      if (r1SumCell3)    r1SumCell3.textContent    = round1SumEl.textContent;
+    }
+
+    // 3) Grab Round 2's *displayed* status & sum from the DOM
+    const round2StatusEl = document.getElementById('networkStatusCell2');
+    const round2SumEl    = document.getElementById('networkSumCell2');
+
+    // Place them into Round 3’s summary row for Round 2
+    if (round2StatusEl && round2SumEl) {
+      const r2StatusCell3 = document.getElementById('networkStatusCellR2_3');
+      const r2SumCell3    = document.getElementById('networkSumCellR2_3');
+      if (r2StatusCell3) r2StatusCell3.textContent = round2StatusEl.textContent;
+      if (r2SumCell3)    r2SumCell3.textContent    = round2SumEl.textContent;
+    }
+  }
+
+
+
+
+
+
   }
 
   function nextRound() {
