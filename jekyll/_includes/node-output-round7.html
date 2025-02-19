@@ -1,543 +1,1167 @@
+<!-- node-output-round7.html -->
 <!-- ========================== ROUND 7 ========================== -->
 <div class="round-container" id="round7">
-  <div style="height: 50px;"></div>
-  <h2 style="text-align:center;">Round 7</h2>
-  <hr/>
 
-  <!-- TRAFFIC LIGHT SECTION (SMALLER) -->
-  <div style="text-align:center;">
-    <h4>Select state of the traffic light</h4>
-  </div>
-  <div style="text-align:center; margin-bottom:20px;">
-    <button id="colorRed7" class="btn">Red</button>
-    <button id="colorGreen7" class="btn">Green</button>
-    <br><br>
-    <div class="traffic-light" id="trafficLight7">
-      <div class="light inactive-red" id="redCircle7"></div>
-      <div class="light inactive-green" id="greenCircle7"></div>
+  <!-- Title & Header -->
+  <div style="text-align: center;">
+    <div style="height: 30px;"></div>
+    <h2 style="font-family: 'Roboto', sans-serif; color: #000000; font-size: 1.8em; font-weight: bold; line-height: .5;">
+      Round 7
+    </h2>
+    <h2 style="font-size: 1.8em; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: .5;">
+      Human Neural Network - 27
+    </h2>
+    <hr class="main-page-hr" />
+    <br/>
+
+    <!-- Optional Image -->
+    <img
+      src="img/27-nn.png"
+      alt="27-NN"
+      style="
+        display: block;
+        margin: 0 auto;
+        max-width: 900px;
+        width: 100%;
+        height: auto;"
+    />
+
+    <br/>
+    <h3 class="title-box-a">Sensor Nodes (A)</h3>
+    <div style="text-align:center;">
+      <div style="display:inline-block; vertical-align:top; position:relative;">
+        <h3 style="text-align:center;">Round 7</h3>
+      </div>
     </div>
   </div>
-  <hr/>
 
-  <div style="text-align:center;">
-    <h4>Output Node</h4>
-  </div>
+  <!-- Include the round-7 specific sensor node listing (similar to node-generator-27-round6.html, but for Round 7) -->
+  {% include node-generator-27-round7.html %}
 
-  <!-- INTERACTIVE TABLE (Round 7) -->
-  <table class="interactive-table" id="interactiveTable7">
-    <thead>
-      <tr>
-        <th>Node</th>
-        <th>Weight</th>
-        <th>Input</th>
-        <th>Numeric</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 9 nodes: C1..C9 -->
-      <tr id="row7_1">
-        <td>C1</td>
-        <td id="weightCell7_1">20</td>
-        <td>
-          <select id="inputDropdown7_1" onchange="updateRow7(1)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_1"></td>
-        <td id="valueCell7_1"></td>
-      </tr>
-      <tr id="row7_2">
-        <td>C2</td>
-        <td id="weightCell7_2">20</td>
-        <td>
-          <select id="inputDropdown7_2" onchange="updateRow7(2)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_2"></td>
-        <td id="valueCell7_2"></td>
-      </tr>
-      <tr id="row7_3">
-        <td>C3</td>
-        <td id="weightCell7_3">20</td>
-        <td>
-          <select id="inputDropdown7_3" onchange="updateRow7(3)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_3"></td>
-        <td id="valueCell7_3"></td>
-      </tr>
-      <tr id="row7_4">
-        <td>C4</td>
-        <td id="weightCell7_4">20</td>
-        <td>
-          <select id="inputDropdown7_4" onchange="updateRow7(4)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_4"></td>
-        <td id="valueCell7_4"></td>
-      </tr>
-      <tr id="row7_5">
-        <td>C5</td>
-        <td id="weightCell7_5">20</td>
-        <td>
-          <select id="inputDropdown7_5" onchange="updateRow7(5)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_5"></td>
-        <td id="valueCell7_5"></td>
-      </tr>
-      <tr id="row7_6">
-        <td>C6</td>
-        <td id="weightCell7_6">20</td>
-        <td>
-          <select id="inputDropdown7_6" onchange="updateRow7(6)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_6"></td>
-        <td id="valueCell7_6"></td>
-      </tr>
-      <tr id="row7_7">
-        <td>C7</td>
-        <td id="weightCell7_7">20</td>
-        <td>
-          <select id="inputDropdown7_7" onchange="updateRow7(7)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_7"></td>
-        <td id="valueCell7_7"></td>
-      </tr>
-      <tr id="row7_8">
-        <td>C8</td>
-        <td id="weightCell7_8">20</td>
-        <td>
-          <select id="inputDropdown7_8" onchange="updateRow7(8)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_8"></td>
-        <td id="valueCell7_8"></td>
-      </tr>
-      <tr id="row7_9">
-        <td>C9</td>
-        <td id="weightCell7_9">20</td>
-        <td>
-          <select id="inputDropdown7_9" onchange="updateRow7(9)">
-            <option value="" disabled selected>Select</option>
-            <option value="RED">RED</option>
-            <option value="GREEN">GREEN</option>
-          </select>
-        </td>
-        <td id="numericCell7_9"></td>
-        <td id="valueCell7_9"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <br/>
-  <hr/>
-  <br/>
-
-  <!-- DECISION TABLE (Round 7) -->
-  <div style="text-align:center;">
-    <h4>Add each C node's value</h4>
-  </div>
-  <table class="decision-table" id="decisionTable7">
-    <thead>
-      <tr>
-        <th>Sum</th>
-        <th>Output Node</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id="decisionRow7">
-        <td id="sumCell7">---</td>
-        <td id="outputCell7">---</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- TRAFFIC LIGHT STATE (single row) -->
-  <table class="decision-table" id="trafficLightStateTable7">
-    <tbody>
-      <tr>
-        <td id="trafficLightStateCell7" style="font-weight:bold;">
-          Traffic Light State: ---
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br/>
-  <hr/>
-  <br/>
-
-  <!-- NETWORK STATUS TABLE (Round 7) -->
-  <div style="text-align:center;">
-    <h4>Summary</h4>
-  </div>
-  <table class="decision-table" id="networkStatusTable7">
-    <thead>
-      <tr>
-        <th>Round</th>
-        <th>Network Status</th>
-        <th>Sum</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td id="networkStatusCell7_R1"></td>
-        <td id="networkSumCell7_R1"></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td id="networkStatusCell7_R2"></td>
-        <td id="networkSumCell7_R2"></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td id="networkStatusCell7_R3"></td>
-        <td id="networkSumCell7_R3"></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td id="networkStatusCell7_R4"></td>
-        <td id="networkSumCell7_R4"></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td id="networkStatusCell7_R5"></td>
-        <td id="networkSumCell7_R5"></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td id="networkStatusCell7_R6"></td>
-        <td id="networkSumCell7_R6"></td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td id="networkStatusCell7"></td>
-        <td id="networkSumCell7"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Bar Chart for Round 7 -->
-  <div style="text-align:center; margin-top:30px; margin-bottom:30px;">
-    <canvas id="round7BarChart" width="500" height="200" style="border:1px solid #000;">
-      Your browser does not support Canvas.
-    </canvas>
-  </div>
-
-  <br/><br/><br/>
-  <div style="text-align:center; margin:20px 0;">
-    <button id="resetButton7" onclick="location.reload()">Reset Table</button>
+  <div style="text-align: center;">
+    <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
+    <div style="text-align:center;">
+      <div style="display:inline-block; vertical-align:top; position:relative;">
+        <h3 style="text-align:center;">Round 7</h3>
+      </div>
+    </div>
+    <h4>
+      (B) Nodes: Write down sensor input and roll the dice
+      <br/><br/>
+      (C) Nodes: Find your connections, write down your input, and roll the dice
+    </h4>
     <br/><br/>
-    <select id="headerColorDropdown7" onchange="updateHeaderColor7()">
-      <option value="" disabled selected>Change Heading Color</option>
-      <option value="#f05f40">Orange</option>
-      <option value="blue">Blue</option>
-    </select>
-  </div>
 
-  <!-- Round 7 SCRIPT -->
+    <div style="text-align: center;">
+      <h3 class="title-box-out">Output Node (OUT)</h3>
+    </div>
+    <br/>
+
+    <!-- Round 7 Main Table + Round 8 side preview -->
+    <div style="text-align:center;">
+
+      <!-- ROUND 7 MAIN TABLE -->
+      <div style="display:inline-block; vertical-align:top; position:relative;">
+
+        <h3 style="text-align:center;">Round 7</h3>
+        <table class="interactive-table" id="interactiveTable7" style="margin:0 auto;">
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Input</th>
+              <th>Numeric</th>
+              <th>x</th>
+              <!-- Weight is read-only, always from Round 6 ± 10 -->
+              <th>Weight</th>
+              <th>=</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- ROW C1 -->
+            <tr id="row7_1">
+              <td>C1</td>
+              <td>
+                <select id="inputDropdown7_1" onchange="updateRow7(1)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_1"
+                  style="width: 60px;"
+                  oninput="updateRow7(1)"
+                />
+                <span class="cell-number-span" id="numericSpan7_1"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_1"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_1"
+                  style="width: 60px;"
+                  oninput="updateRow7(1)"
+                />
+                <span class="cell-number-span" id="valueSpan7_1"></span>
+              </td>
+            </tr>
+            <!-- ROW C2 -->
+            <tr id="row7_2">
+              <td>C2</td>
+              <td>
+                <select id="inputDropdown7_2" onchange="updateRow7(2)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_2"
+                  style="width:60px;"
+                  oninput="updateRow7(2)"
+                />
+                <span class="cell-number-span" id="numericSpan7_2"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_2"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_2"
+                  style="width:60px;"
+                  oninput="updateRow7(2)"
+                />
+                <span class="cell-number-span" id="valueSpan7_2"></span>
+              </td>
+            </tr>
+            <!-- ROW C3 -->
+            <tr id="row7_3">
+              <td>C3</td>
+              <td>
+                <select id="inputDropdown7_3" onchange="updateRow7(3)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_3"
+                  style="width:60px;"
+                  oninput="updateRow7(3)"
+                />
+                <span class="cell-number-span" id="numericSpan7_3"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_3"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_3"
+                  style="width:60px;"
+                  oninput="updateRow7(3)"
+                />
+                <span class="cell-number-span" id="valueSpan7_3"></span>
+              </td>
+            </tr>
+            <!-- ROW C4 -->
+            <tr id="row7_4">
+              <td>C4</td>
+              <td>
+                <select id="inputDropdown7_4" onchange="updateRow7(4)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_4"
+                  style="width:60px;"
+                  oninput="updateRow7(4)"
+                />
+                <span class="cell-number-span" id="numericSpan7_4"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_4"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_4"
+                  style="width:60px;"
+                  oninput="updateRow7(4)"
+                />
+                <span class="cell-number-span" id="valueSpan7_4"></span>
+              </td>
+            </tr>
+            <!-- ROW C5 -->
+            <tr id="row7_5">
+              <td>C5</td>
+              <td>
+                <select id="inputDropdown7_5" onchange="updateRow7(5)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_5"
+                  style="width:60px;"
+                  oninput="updateRow7(5)"
+                />
+                <span class="cell-number-span" id="numericSpan7_5"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_5"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_5"
+                  style="width:60px;"
+                  oninput="updateRow7(5)"
+                />
+                <span class="cell-number-span" id="valueSpan7_5"></span>
+              </td>
+            </tr>
+            <!-- ROW C6 -->
+            <tr id="row7_6">
+              <td>C6</td>
+              <td>
+                <select id="inputDropdown7_6" onchange="updateRow7(6)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_6"
+                  style="width:60px;"
+                  oninput="updateRow7(6)"
+                />
+                <span class="cell-number-span" id="numericSpan7_6"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_6"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_6"
+                  style="width:60px;"
+                  oninput="updateRow7(6)"
+                />
+                <span class="cell-number-span" id="valueSpan7_6"></span>
+              </td>
+            </tr>
+            <!-- ROW C7 -->
+            <tr id="row7_7">
+              <td>C7</td>
+              <td>
+                <select id="inputDropdown7_7" onchange="updateRow7(7)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_7"
+                  style="width:60px;"
+                  oninput="updateRow7(7)"
+                />
+                <span class="cell-number-span" id="numericSpan7_7"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_7"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_7"
+                  style="width:60px;"
+                  oninput="updateRow7(7)"
+                />
+                <span class="cell-number-span" id="valueSpan7_7"></span>
+              </td>
+            </tr>
+            <!-- ROW C8 -->
+            <tr id="row7_8">
+              <td>C8</td>
+              <td>
+                <select id="inputDropdown7_8" onchange="updateRow7(8)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_8"
+                  style="width:60px;"
+                  oninput="updateRow7(8)"
+                />
+                <span class="cell-number-span" id="numericSpan7_8"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_8"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_8"
+                  style="width:60px;"
+                  oninput="updateRow7(8)"
+                />
+                <span class="cell-number-span" id="valueSpan7_8"></span>
+              </td>
+            </tr>
+            <!-- ROW C9 -->
+            <tr id="row7_9">
+              <td>C9</td>
+              <td>
+                <select id="inputDropdown7_9" onchange="updateRow7(9)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="numericInput7_9"
+                  style="width:60px;"
+                  oninput="updateRow7(9)"
+                />
+                <span class="cell-number-span" id="numericSpan7_9"></span>
+              </td>
+              <td>x</td>
+              <td>
+                <span id="weightSpan7_9"></span>
+              </td>
+              <td>=</td>
+              <td>
+                <input
+                  type="number"
+                  id="valueInput7_9"
+                  style="width:60px;"
+                  oninput="updateRow7(9)"
+                />
+                <span class="cell-number-span" id="valueSpan7_9"></span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="auto-button-row">
+              <td></td>
+              <td></td>
+              <td style="text-align:center;">
+                <button id="autoNumericBtn7">Auto</button>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="text-align:center;">
+                <button id="autoValueBtn7">Auto</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div> <!-- /Round 7 main table -->
+
+      <!-- ROUND 8 SIDE PREVIEW TABLE (hidden by default) -->
+      <div
+        id="round8Container"
+        style="display: none; margin-left: 30px; vertical-align: top;"
+      >
+        <h3 style="text-align:center;">Round 8</h3>
+
+        <style>
+          #round8SideTable {
+            table-layout: fixed;
+            width: 80px;
+          }
+          #round8SideTable th,
+          #round8SideTable td {
+            width: 80px !important;
+            height: 38px;
+          }
+        </style>
+
+        <table id="round8SideTable" class="interactive-table" style="margin: 0 auto;">
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C1</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview1"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(1)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan1"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C2</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview2"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(2)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan2"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C3</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview3"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(3)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan3"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C4</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview4"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(4)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan4"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C5</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview5"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(5)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan5"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C6</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview6"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(6)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan6"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C7</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview7"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(7)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan7"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C8</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview8"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(8)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan8"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C9</td>
+              <td>
+                <input
+                  type="number"
+                  id="round8WeightPreview9"
+                  style="width: 60px;"
+                  oninput="storeRound8Preview(9)"
+                />
+                <span class="cell-number-span" id="round8WeightSpan9"></span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="auto-button-row" style="border: none;">
+              <td colspan="2" style="text-align: center; border: none;">
+                <button id="round8SideAutoBtn">Auto</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div> <!-- /round8Container -->
+
+    </div> <!-- /Round7 + Round8 container -->
+
+    <br/>
+    <hr/>
+    <br/>
+    <div style="text-align:center;">
+      <div style="display:inline-block; vertical-align:top; position:relative;">
+        <h3 style="text-align:center;">Round 7</h3>
+      </div>
+    </div>
+
+    <!-- DECISION TABLE (Round 7) -->
+    <table class="decision-table" id="decisionTable7" style="margin:0 auto; text-align:center;">
+      <thead>
+        <tr>
+          <th>Sum of (C) Node Values</th>
+          <th>Network's Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="decisionRow7">
+          <td id="sumCell7">---</td>
+          <td id="outputCell7">---</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br/>
+    <hr/>
+    <br/>
+
+    <!-- Round 7 Traffic Light State -->
+    <table class="decision-table" id="trafficLightStateTable7" style="margin:20px auto;">
+      <tbody>
+        <tr>
+          <td id="trafficLightStateCell7" style="font-weight:bold;">
+            Traffic Light State (R7): ---
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="text-align:center;">
+      <div class="traffic-light" id="trafficLightRound7">
+        <div class="light inactive-red" id="redCircleRound7"></div>
+        <div class="light inactive-green" id="greenCircleRound7"></div>
+      </div>
+    </div>
+
+    <br/><br/><br/><br/>
+
+    <!-- NETWORK STATUS TABLE (Round 7) -->
+    <div style="text-align:center;">
+      <h3 class="title-box-summary">Summary</h3>
+      <br/><br/>
+    </div>
+    <table class="decision-table" id="networkStatusTable7" style="margin:0 auto;">
+      <thead>
+        <tr>
+          <th>Round</th>
+          <th>Network Status</th>
+          <th>Sum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Round 1 row -->
+        <tr>
+          <td>1</td>
+          <td id="networkStatusCellR1_7"></td>
+          <td id="networkSumCellR1_7"></td>
+        </tr>
+        <!-- Round 2 row -->
+        <tr>
+          <td>2</td>
+          <td id="networkStatusCellR2_7"></td>
+          <td id="networkSumCellR2_7"></td>
+        </tr>
+        <!-- Round 3 row -->
+        <tr>
+          <td>3</td>
+          <td id="networkStatusCellR3_7"></td>
+          <td id="networkSumCellR3_7"></td>
+        </tr>
+        <!-- Round 4 row -->
+        <tr>
+          <td>4</td>
+          <td id="networkStatusCellR4_7"></td>
+          <td id="networkSumCellR4_7"></td>
+        </tr>
+        <!-- Round 5 row -->
+        <tr>
+          <td>5</td>
+          <td id="networkStatusCellR5_7"></td>
+          <td id="networkSumCellR5_7"></td>
+        </tr>
+        <!-- Round 6 row -->
+        <tr>
+          <td>6</td>
+          <td id="networkStatusCellR6_7"></td>
+          <td id="networkSumCellR6_7"></td>
+        </tr>
+        <!-- Round 7 row -->
+        <tr>
+          <td>7</td>
+          <td id="networkStatusCell7"></td>
+          <td id="networkSumCell7"></td>
+        </tr>
+      </tbody>
+    </table>
+    <br/>
+    <hr/>
+    <br/>
+
+    <div style="text-align:center;">
+      <h4>C Node Weights (Round 7)</h4>
+    </div>
+    <div style="text-align:center; margin-top:10px; margin-bottom:30px;">
+      <canvas id="round7BarChart" width="500" height="200" style="border:1px solid #000;">
+        Your browser does not support Canvas.
+      </canvas>
+    </div>
+
+    <!-- Round 7 "Update Weights" button now has id="toggleRound8BtnR7" -->
+    <button id="toggleRound8BtnR7">Update Weights</button>
+    <br/><br/><br/>
+
+    <hr class="main-page-hr"/>
+    <br/><br/><br/><br/>
+
+    <div style="text-align:center; margin:20px 0;">
+      <button id="resetButton7" onclick="location.reload()">Reset Table</button>
+      <br/><br/>
+      <select id="headerColorDropdown7" onchange="updateHeaderColor7()">
+        <option value="" disabled selected>Change Heading Color</option>
+        <option value="#f05f40">Orange</option>
+        <option value="blue">Blue</option>
+      </select>
+    </div>
+
+  </div> <!-- /round7 -->
+
+  <!-- STYLES for Round 7 -->
+  <style>
+    #round7 .row-red {
+      background-color: red !important;
+      color: #fff !important;
+    }
+    #round7 .row-green {
+      background-color: green !important;
+      color: #fff !important;
+    }
+    #round7 .cell-red {
+      background-color: red !important;
+      color: #fff !important;
+    }
+    #round7 .cell-green {
+      background-color: green !important;
+      color: #fff !important;
+    }
+    #round7 .select-red {
+      background-color: red !important;
+      color: #fff !important;
+    }
+    #round7 .select-green {
+      background-color: green !important;
+      color: #fff !important;
+    }
+    .auto-button-row td {
+      border: none !important;
+    }
+    .cell-number-span {
+      display: none;
+    }
+  </style>
+
+  <!-- SCRIPT FOR ROUND 7 -->
   <script>
-    /********************************************************
-     * Round 7 - Traffic Light Handling
-     ********************************************************/
-    const colorRedBtn7   = document.getElementById('colorRed7');
-    const colorGreenBtn7 = document.getElementById('colorGreen7');
-    const redCircle7     = document.getElementById('redCircle7');
-    const greenCircle7   = document.getElementById('greenCircle7');
+    let numericAutoActive7 = false;
+    let valueAutoActive7   = false;
 
-    colorRedBtn7.addEventListener('click', () => {
-      colorRedBtn7.classList.add('active');
-      colorGreenBtn7.classList.remove('active');
-      redCircle7.classList.remove('inactive-red');
-      redCircle7.classList.add('red');
-      greenCircle7.classList.remove('green');
-      greenCircle7.classList.add('inactive-green');
+    // For the Round 8 side table:
+    let round8SideAutoActive = false;
+    let round8SideWeights    = [0,0,0,0,0,0,0,0,0];
 
-      updateNetworkStatusTable7();
-      updateRound8Weights(); // If continuing to Round 8
-    });
+    // Hook up auto buttons for Round 7
+    const autoNumericBtn7 = document.getElementById('autoNumericBtn7');
+    const autoValueBtn7   = document.getElementById('autoValueBtn7');
 
-    colorGreenBtn7.addEventListener('click', () => {
-      colorGreenBtn7.classList.add('active');
-      colorRedBtn7.classList.remove('active');
-      greenCircle7.classList.remove('inactive-green');
-      greenCircle7.classList.add('green');
-      redCircle7.classList.remove('red');
-      redCircle7.classList.add('inactive-red');
-
-      updateNetworkStatusTable7();
-      updateRound8Weights(); // If continuing to Round 8
-    });
-
-    function updateNetworkStatusTable7() {
-      const trafficLightStateCell7 = document.getElementById('trafficLightStateCell7');
-      let stateText7 = 'Traffic Light State: ---';
-
-      if (colorRedBtn7.classList.contains('active')) {
-        stateText7 = 'Traffic Light State: RED';
-        trafficLightStateCell7.style.backgroundColor = 'red';
-        trafficLightStateCell7.style.color = 'white';
-      } else if (colorGreenBtn7.classList.contains('active')) {
-        stateText7 = 'Traffic Light State: GREEN';
-        trafficLightStateCell7.style.backgroundColor = 'green';
-        trafficLightStateCell7.style.color = 'white';
-      } else {
-        trafficLightStateCell7.style.backgroundColor = '';
-        trafficLightStateCell7.style.color = '';
-      }
-      trafficLightStateCell7.textContent = stateText7;
-
-      const decisionOutput7 = document.getElementById('outputCell7').textContent;
-      const currentLightState7 = stateText7.replace('Traffic Light State: ', '').trim();
-
-      let networkStatus7;
-      if (decisionOutput7 === 'UNDECIDED') {
-        networkStatus7 = 'UNDECIDED';
-      } else if (currentLightState7 === '---') {
-        networkStatus7 = 'INCORRECT';
-      } else if (decisionOutput7 === currentLightState7) {
-        networkStatus7 = 'CORRECT';
-      } else {
-        networkStatus7 = 'INCORRECT';
-      }
-      document.getElementById('networkStatusCell7').textContent = networkStatus7;
-
-      const sumValue7 = document.getElementById('sumCell7').textContent;
-      document.getElementById('networkSumCell7').textContent = sumValue7;
-    }
-
-    /********************************************************
-     * Round 7 - Interactive Table & Decision
-     ********************************************************/
-    function updateRow7(rowIdx) {
-      const dropdown7   = document.getElementById("inputDropdown7_" + rowIdx);
-      const numericCell7= document.getElementById("numericCell7_" + rowIdx);
-      const valueCell7  = document.getElementById("valueCell7_" + rowIdx);
-      const weightCell7 = document.getElementById("weightCell7_" + rowIdx);
-
-      // Remove previous color classes
-      dropdown7.parentElement.classList.remove('cell-red','cell-green');
-      dropdown7.classList.remove('select-red','select-green');
-
-      const selection7 = dropdown7.value;
-      if (!selection7) {
-        numericCell7.textContent = "";
-        valueCell7.textContent   = "";
-        updateDecision7();
-        updateRound8Weights();
-        return;
-      }
-
-      const parsedWeight7 = parseFloat(weightCell7.textContent.trim());
-      const weight7       = isNaN(parsedWeight7) ? 20 : parsedWeight7;
-      const numericVal7   = (selection7 === "RED") ? -1 : 1;
-
-      numericCell7.textContent = numericVal7;
-      valueCell7.textContent   = numericVal7 * weight7;
-
-      // Color the cell
-      if (selection7 === "RED") {
-        dropdown7.parentElement.classList.add('cell-red');
-        dropdown7.classList.add('select-red');
-      } else {
-        dropdown7.parentElement.classList.add('cell-green');
-        dropdown7.classList.add('select-green');
-      }
-
-      updateDecision7();
-      updateRound8Weights(); // If continuing to Round 8
-    }
-
-    function updateDecision7() {
-      let sum7 = 0;
-      for (let i = 1; i <= 9; i++) {
-        const valStr7 = document.getElementById("valueCell7_" + i).textContent.trim();
-        sum7 += parseFloat(valStr7) || 0;
-      }
-      document.getElementById("sumCell7").textContent = sum7;
-
-      let output7;
-      if (sum7 > 0) {
-        output7 = "GREEN";
-      } else if (sum7 < 0) {
-        output7 = "RED";
-      } else {
-        output7 = "UNDECIDED";
-      }
-      document.getElementById("outputCell7").textContent = output7;
-
-      // Color the entire decision row
-      const decisionRow7 = document.getElementById("decisionRow7");
-      decisionRow7.classList.remove('row-red','row-green');
-      if (sum7 > 0) {
-        decisionRow7.classList.add('row-green');
-      } else if (sum7 < 0) {
-        decisionRow7.classList.add('row-red');
-      }
-
-      updateNetworkStatusTable7();
-    }
-
-    function updateHeaderColor7() {
-      const newColor7 = document.getElementById('headerColorDropdown7').value;
-      const allHeaders7 = document.querySelectorAll(
-        '#round7 .interactive-table th, #round7 .decision-table th'
-      );
-      allHeaders7.forEach(th => {
-        th.style.backgroundColor = newColor7;
-        th.style.color = '#ffffff';
+    if (autoNumericBtn7) {
+      autoNumericBtn7.addEventListener('click', () => {
+        numericAutoActive7 = !numericAutoActive7;
+        toggleNumericColumn7(numericAutoActive7);
+        for (let i = 1; i <= 9; i++) updateRow7(i);
       });
     }
 
-    /********************************************************
-     * (Optional) Weight Adjuster for Next Round
-     ********************************************************/
-    function updateRound8Weights() {
-      // If you want to adjust Round 8’s initial weights based on Round 7 result:
-      let round7Light = null;
-      if (colorRedBtn7.classList.contains('active')) {
-        round7Light = 'RED';
-      } else if (colorGreenBtn7.classList.contains('active')) {
-        round7Light = 'GREEN';
-      }
+    if (autoValueBtn7) {
+      autoValueBtn7.addEventListener('click', () => {
+        valueAutoActive7 = !valueAutoActive7;
+        toggleValueColumn7(valueAutoActive7);
+        for (let i = 1; i <= 9; i++) updateRow7(i);
+      });
+    }
 
+    function toggleNumericColumn7(isAuto) {
       for (let i = 1; i <= 9; i++) {
-        const r8WeightCell = document.getElementById('weightCell8_' + i);
-        if (!r8WeightCell) continue; // If Round 8 doesn’t exist or is not shown
-
-        const r7WeightCell = document.getElementById('weightCell7_' + i);
-        let parsedWeight7  = parseFloat(r7WeightCell.textContent.trim());
-        let finalR7Weight  = isNaN(parsedWeight7) ? 20 : parsedWeight7;
-
-        // If Round7 user input matches the Round 7 traffic light => +10, else -10
-        const round7Input = document.getElementById('inputDropdown7_' + i).value;
-        if (round7Light && round7Input) {
-          if (round7Input === round7Light) {
-            finalR7Weight += 10;
-          } else {
-            finalR7Weight -= 10;
-          }
-        }
-        r8WeightCell.textContent = finalR7Weight;
+        const numInp = document.getElementById(`numericInput7_${i}`);
+        const numSpn = document.getElementById(`numericSpan7_${i}`);
+        if (!numInp || !numSpn) continue;
+        numInp.style.display = isAuto ? 'none' : 'inline';
+        numSpn.style.display = isAuto ? 'inline' : 'none';
       }
     }
 
-    /********************************************************
-     * Bar Chart for Round 7
-     ********************************************************/
-    function drawBarChartRound7() {
-      const canvas7 = document.getElementById('round7BarChart');
-      if (!canvas7) return;
-      const ctx7 = canvas7.getContext('2d');
-
-      // Gather the 9 weights from weightCell7_1..weightCell7_9
-      let weights7 = [];
+    function toggleValueColumn7(isAuto) {
       for (let i = 1; i <= 9; i++) {
-        const cell7 = document.getElementById('weightCell7_' + i);
-        let w7 = 0;
-        if (cell7 && cell7.textContent.trim() !== '') {
-          w7 = parseFloat(cell7.textContent.trim()) || 0;
+        const valInp = document.getElementById(`valueInput7_${i}`);
+        const valSpn = document.getElementById(`valueSpan7_${i}`);
+        if (!valInp || !valSpn) continue;
+        valInp.style.display = isAuto ? 'none' : 'inline';
+        valSpn.style.display = isAuto ? 'inline' : 'none';
+      }
+    }
+
+    /*
+     * Round 7's weight = Round 6's weight ± 10, depending on match with Round 6 traffic light.
+     * Negative weights allowed. If mismatch, subtract 10; if match, add 10.
+     */
+
+    // Helper: read node color from Round 6
+    function getRound6NodeColor(i) {
+      const dd6 = document.getElementById(`inputDropdown6_${i}`);
+      return dd6 ? dd6.value.toUpperCase() : "";
+    }
+
+    // Helper: read node's Round 6 weight from #weightSpan6_i
+    function getRound6NodeWeight(i) {
+      const wSpan6 = document.getElementById(`weightSpan6_${i}`);
+      if (wSpan6 && wSpan6.textContent.trim() !== "") {
+        const parsed = parseFloat(wSpan6.textContent.trim());
+        return isNaN(parsed) ? 0 : parsed;
+      }
+      return 0; // fallback
+    }
+
+    function updateRow7(i) {
+      const dd7       = document.getElementById(`inputDropdown7_${i}`);
+      const numInp7   = document.getElementById(`numericInput7_${i}`);
+      const numSpn7   = document.getElementById(`numericSpan7_${i}`);
+      const weightSpn7= document.getElementById(`weightSpan7_${i}`);
+      const valInp7   = document.getElementById(`valueInput7_${i}`);
+      const valSpn7   = document.getElementById(`valueSpan7_${i}`);
+
+      // Clear old styling
+      dd7.parentElement.classList.remove('cell-red','cell-green');
+      dd7.classList.remove('select-red','select-green');
+
+      // (A) Numeric
+      let numericVal7;
+      if (numericAutoActive7) {
+        if (dd7.value === "RED") {
+          numericVal7 = -1;
+        } else if (dd7.value === "GREEN") {
+          numericVal7 = 1;
+        } else {
+          numericVal7 = 0;
         }
-        weights7.push(w7);
-      }
-
-      // Clear canvas
-      ctx7.clearRect(0, 0, canvas7.width, canvas7.height);
-
-      // Compute min/max
-      let minVal7 = Math.min(...weights7);
-      let maxVal7 = Math.max(...weights7);
-      if (minVal7 === maxVal7) {
-        minVal7 -= 10;
-        maxVal7 += 10;
-      }
-      const padding7 = 5;
-      minVal7 -= padding7;
-      maxVal7 += padding7;
-
-      // Chart area
-      const chartW7 = canvas7.width;
-      const chartH7 = canvas7.height;
-      const margin7 = 30;
-      const usableW7= chartW7 - margin7 * 2;
-      const usableH7= chartH7 - margin7 * 2;
-
-      // Zero line
-      let zeroY7;
-      if (minVal7 < 0 && maxVal7 > 0) {
-        zeroY7 = margin7 + (maxVal7 / (maxVal7 - minVal7)) * usableH7;
-      } else if (maxVal7 < 0) {
-        zeroY7 = margin7 + usableH7;
+        numSpn7.textContent = dd7.value ? numericVal7 : "";
       } else {
-        zeroY7 = margin7;
+        numericVal7 = parseFloat(numInp7.value) || 0;
       }
-      zeroY7 = Math.max(margin7, Math.min(margin7 + usableH7, zeroY7));
+
+      // (B) Weight = round6Weight ± 10 based on match w/ Round 6 traffic light
+      const r6Color  = getRound6NodeColor(i);
+      const r6Weight = getRound6NodeWeight(i);
+      const traffic6 = (window.selectedTrafficLightColorRound6 || "").toUpperCase();
+
+      let newW7 = r6Weight;
+      if (r6Color && traffic6) {
+        if (r6Color === traffic6) {
+          newW7 = r6Weight + 10;
+        } else {
+          newW7 = r6Weight - 10;
+        }
+      }
+      weightSpn7.textContent = newW7; // can be negative
+
+      // (C) Value
+      let computedVal7 = numericVal7 * newW7;
+      let finalVal7;
+      if (valueAutoActive7) {
+        finalVal7 = computedVal7;
+        valSpn7.textContent = dd7.value ? finalVal7 : "";
+      } else {
+        finalVal7 = parseFloat(valInp7.value) || 0;
+      }
+
+      // Color the cell based on the input color
+      if (dd7.value === "RED") {
+        dd7.parentElement.classList.add('cell-red');
+        dd7.classList.add('select-red');
+      } else if (dd7.value === "GREEN") {
+        dd7.parentElement.classList.add('cell-green');
+        dd7.classList.add('select-green');
+      }
+
+      // Update final decision
+      updateDecision7();
+    }
+
+    // Returns the final numeric value for each node i
+    function getFinalValue7(i) {
+      const dd7    = document.getElementById(`inputDropdown7_${i}`);
+      const numInp7= document.getElementById(`numericInput7_${i}`);
+      const valInp7= document.getElementById(`valueInput7_${i}`);
+
+      let numericVal7;
+      if (numericAutoActive7) {
+        if (dd7.value === "RED") {
+          numericVal7 = -1;
+        } else if (dd7.value === "GREEN") {
+          numericVal7 = 1;
+        } else {
+          numericVal7 = 0;
+        }
+      } else {
+        numericVal7 = parseFloat(numInp7.value) || 0;
+      }
+
+      // Round 6 color & weight
+      const r6Color  = getRound6NodeColor(i);
+      const r6Weight = getRound6NodeWeight(i);
+      const traffic6 = (window.selectedTrafficLightColorRound6 || "").toUpperCase();
+      let newW7 = r6Weight;
+      if (r6Color && traffic6) {
+        newW7 = (r6Color === traffic6) ? (r6Weight + 10) : (r6Weight - 10);
+      }
+
+      if (valueAutoActive7) {
+        return numericVal7 * newW7;
+      } else {
+        return parseFloat(valInp7.value) || 0;
+      }
+    }
+
+    // Sums all final values => sets Round 7 decision
+    function updateDecision7() {
+      let sum7 = 0;
+      for (let i = 1; i <= 9; i++) {
+        sum7 += getFinalValue7(i);
+      }
+      document.getElementById("sumCell7").textContent = sum7;
+
+      let dec7 = "UNDECIDED";
+      if (sum7 < 0) dec7 = "RED";
+      else if (sum7 > 0) dec7 = "GREEN";
+      document.getElementById("outputCell7").textContent = dec7;
+
+      const row7 = document.getElementById("decisionRow7");
+      row7.classList.remove('row-red','row-green');
+      if (sum7 < 0) row7.classList.add('row-red');
+      else if (sum7 > 0) row7.classList.add('row-green');
+
+      updateNetworkStatusTable7();
+    }
+
+    // Checks user-chosen Round 7 traffic light => sets status CORRECT/INCORRECT/UNDECIDED
+    function updateNetworkStatusTable7() {
+      const chosen7   = window.selectedTrafficLightColorRound7 || "NONE";
+      const decision7 = document.getElementById("outputCell7").textContent;
+      let status7     = "";
+
+      if (decision7 === "UNDECIDED") {
+        status7 = "UNDECIDED";
+      } else if (chosen7 === "NONE") {
+        status7 = "INCORRECT";
+      } else if (decision7 === chosen7) {
+        status7 = "CORRECT";
+      } else {
+        status7 = "INCORRECT";
+      }
+
+      document.getElementById("networkStatusCell7").textContent = status7;
+      document.getElementById("networkSumCell7").textContent =
+        document.getElementById("sumCell7").textContent;
+
+      // Display the chosen traffic light color
+      const trafficLightStateCell7 = document.getElementById('trafficLightStateCell7');
+      trafficLightStateCell7.textContent = 'Traffic Light State (R7): ---';
+      trafficLightStateCell7.style.backgroundColor = '';
+      trafficLightStateCell7.style.color = '';
+
+      if (chosen7 === 'RED') {
+        trafficLightStateCell7.textContent = 'Traffic Light State (R7): RED';
+        trafficLightStateCell7.style.backgroundColor = 'red';
+        trafficLightStateCell7.style.color = 'white';
+      } else if (chosen7 === 'GREEN') {
+        trafficLightStateCell7.textContent = 'Traffic Light State (R7): GREEN';
+        trafficLightStateCell7.style.backgroundColor = 'green';
+        trafficLightStateCell7.style.color = 'white';
+      }
+
+      const redCircleRound7   = document.getElementById('redCircleRound7');
+      const greenCircleRound7 = document.getElementById('greenCircleRound7');
+      redCircleRound7.classList.remove('red','inactive-red');
+      greenCircleRound7.classList.remove('green','inactive-green');
+
+      if (chosen7 === 'RED') {
+        redCircleRound7.classList.add('red');
+        greenCircleRound7.classList.add('inactive-green');
+      } else if (chosen7 === 'GREEN') {
+        redCircleRound7.classList.add('inactive-red');
+        greenCircleRound7.classList.add('green');
+      } else {
+        redCircleRound7.classList.add('inactive-red');
+        greenCircleRound7.classList.add('inactive-green');
+      }
+    }
+
+    // Draw bar chart for Round 7 weights
+    function drawBarChartRound7() {
+      const canvas = document.getElementById("round7BarChart");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      let w7 = [];
+      for (let i = 1; i <= 9; i++) {
+        const spanEl7 = document.getElementById(`weightSpan7_${i}`);
+        if (!spanEl7) {
+          w7.push(0);
+          continue;
+        }
+        const parsed = parseFloat(spanEl7.textContent) || 0;
+        w7.push(parsed);
+      }
+
+      // Clear old chart
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let minVal = Math.min(...w7);
+      let maxVal = Math.max(...w7);
+      if (minVal === maxVal) {
+        minVal -= 10;
+        maxVal += 10;
+      }
+      const pad = 10;
+      minVal -= pad;
+      maxVal += pad;
+
+      const cw = canvas.width,
+            ch = canvas.height,
+            mg = 70;
+
+      const usableW = cw - mg * 2,
+            usableH = ch - mg * 2;
+
+      // Determine the Y coordinate of zero
+      let zeroY;
+      if (minVal < 0 && maxVal > 0) {
+        zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
+      } else if (maxVal < 0) {
+        zeroY = mg + usableH;
+      } else {
+        zeroY = mg;
+      }
+      zeroY = Math.max(mg, Math.min(mg + usableH, zeroY));
 
       // X-axis
-      ctx7.strokeStyle = 'black';
-      ctx7.lineWidth = 1;
-      ctx7.beginPath();
-      ctx7.moveTo(margin7, zeroY7);
-      ctx7.lineTo(margin7 + usableW7, zeroY7);
-      ctx7.stroke();
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(mg, zeroY);
+      ctx.lineTo(mg + usableW, zeroY);
+      ctx.stroke();
 
       // Y-axis
-      ctx7.beginPath();
-      ctx7.moveTo(margin7, margin7);
-      ctx7.lineTo(margin7, margin7 + usableH7);
-      ctx7.stroke();
+      ctx.beginPath();
+      ctx.moveTo(mg, mg);
+      ctx.lineTo(mg, mg + usableH);
+      ctx.stroke();
 
-      // Bars
-      const barSpacing7 = usableW7 / 9;
-      const barWidth7   = 5;
-      ctx7.fillStyle    = '#f05f40';
+      const barSpacing = usableW / 9;
+      const barWidth   = 5;
+      ctx.fillStyle = "#f05f40";
 
       for (let i = 0; i < 9; i++) {
-        const wVal7 = weights7[i];
-        const xCenter7 = margin7 + barSpacing7 * i + barSpacing7 / 2;
-        const scale7   = usableH7 / (maxVal7 - minVal7);
-        const barHeight7 = Math.abs(wVal7 * scale7);
+        const wVal7   = w7[i];
+        const xCenter = mg + barSpacing * i + barSpacing / 2;
+        const scale   = usableH / (maxVal - minVal);
+        const barH    = Math.abs(wVal7 * scale);
+        const barX    = xCenter - barWidth / 2;
+        const barY    = (wVal7 >= 0) ? (zeroY - barH) : zeroY;
 
-        const barX7 = xCenter7 - barWidth7/2;
-        const barY7 = (wVal7 >= 0) ? zeroY7 - barHeight7 : zeroY7;
+        ctx.fillRect(barX, barY, barWidth, barH);
 
-        ctx7.fillRect(barX7, barY7, barWidth7, barHeight7);
+        // draw text
+        ctx.save();
+        ctx.fillStyle = "black";
+        ctx.font = "12px sans-serif";
+        const displayVal = Math.round(wVal7).toString();
 
-        // Label "C1", "C2", etc.
-        ctx7.fillStyle = 'black';
-        ctx7.font = '12px sans-serif';
-        ctx7.fillText('C' + (i+1), xCenter7 - 6, zeroY7 + 15);
-        ctx7.fillStyle = '#f05f40';
+        if (wVal7 >= 0) {
+          ctx.fillText(displayVal, xCenter - 10, barY - 5);
+        } else {
+          ctx.fillText(displayVal, xCenter - 10, barY + barH + 15);
+        }
+        ctx.restore();
+
+        // draw X label
+        ctx.fillStyle = "black";
+        ctx.font = "12px sans-serif";
+        ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
+
+        ctx.fillStyle = "#f05f40";
       }
     }
 
     setInterval(drawBarChartRound7, 1000);
+
+    // Toggle Round8 side preview
+    const toggleRound8ContainerBtn = document.getElementById('toggleRound8BtnR7');
+    const round8Container = document.getElementById('round8Container');
+    if (toggleRound8ContainerBtn && round8Container) {
+      toggleRound8ContainerBtn.addEventListener('click', function() {
+        if (round8Container.style.display === 'none') {
+          round8Container.style.display = 'inline-block';
+        } else {
+          round8Container.style.display = 'none';
+        }
+        const mainTable7 = document.getElementById('interactiveTable7');
+        if (mainTable7) {
+          mainTable7.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+      });
+    }
+
+    // Round8 side table logic
+    function storeRound8Preview(i) {
+      const el = document.getElementById('round8WeightPreview' + i);
+      if (!el) return;
+      round8SideWeights[i - 1] = parseFloat(el.value) || 0;
+    }
+
+    function toggleRound8WeightColumn(isAuto) {
+      for (let i = 1; i <= 9; i++) {
+        const inp = document.getElementById('round8WeightPreview' + i);
+        const spn = document.getElementById('round8WeightSpan' + i);
+        if (!inp || !spn) continue;
+        inp.style.display = isAuto ? 'none' : 'inline';
+        spn.style.display = isAuto ? 'inline' : 'none';
+      }
+    }
+
+    /*
+     * updateRound8Weights():
+     *  For each C node, read the Round7 weight (#weightSpan7_i).
+     *  Compare Round7 input color with chosen Round7 traffic light => ±10
+     */
+    function updateRound8Weights() {
+      if (!round8SideAutoActive) return;
+
+      const round7ChosenColor = (window.selectedTrafficLightColorRound7 || "").toUpperCase();
+
+      for (let i = 1; i <= 9; i++) {
+        const previewEl = document.getElementById('round8WeightPreview' + i);
+        const spanEl    = document.getElementById('round8WeightSpan' + i);
+        if (!previewEl || !spanEl) continue;
+
+        // read Round7 weight from #weightSpan7_i
+        const w7SpanEl = document.getElementById(`weightSpan7_${i}`);
+        let round7W = 0;
+        if (w7SpanEl && w7SpanEl.textContent.trim() !== '') {
+          round7W = parseFloat(w7SpanEl.textContent.trim()) || 0;
+        }
+
+        // The node’s Round7 input color
+        const nodeRound7Input = document.getElementById(`inputDropdown7_${i}`);
+        let nodeR7Color = (nodeRound7Input && nodeRound7Input.value)
+                          ? nodeRound7Input.value.toUpperCase()
+                          : "";
+
+        let newWeight8 = round7W;
+        if (round7ChosenColor && nodeR7Color) {
+          if (nodeR7Color === round7ChosenColor) {
+            newWeight8 = round7W + 10;
+          } else {
+            newWeight8 = round7W - 10;
+          }
+        }
+
+        spanEl.textContent = newWeight8;
+        round8SideWeights[i - 1] = newWeight8;
+        previewEl.value = newWeight8;
+      }
+    }
+
+    const round8SideAutoBtn = document.getElementById('round8SideAutoBtn');
+    if (round8SideAutoBtn) {
+      round8SideAutoBtn.addEventListener('click', () => {
+        round8SideAutoActive = !round8SideAutoActive;
+        toggleRound8WeightColumn(round8SideAutoActive);
+        if (round8SideAutoActive) updateRound8Weights();
+      });
+    }
+
+    function updateHeaderColor7() {
+      const newColor7 = document.getElementById("headerColorDropdown7").value;
+      const headers7 = document.querySelectorAll("#round7 .interactive-table th, #round7 .decision-table th");
+      headers7.forEach(th => {
+        th.style.backgroundColor = newColor7;
+        th.style.color = "#fff";
+      });
+    }
   </script>
-</div> <!-- /round7 -->
+
+</div>
