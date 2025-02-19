@@ -17,7 +17,7 @@ title: Human Neural Network | Stage One Education, LLC
       margin-top: 20px;
     }
     .pdf-container iframe {
-      width: 45%;
+      width: 30%;
       height: 300px;
       border: 1px solid #ccc;
     }
@@ -40,6 +40,21 @@ title: Human Neural Network | Stage One Education, LLC
       color: #f05f40;
       border: 2px solid #f05f40; 
     }
+
+        /* Dropdown styling */
+        #participantsDropdown {
+      font-size: 2rem;       /* Makes the text larger */
+      color: #f05f40;         /* Text color */
+      padding: 8px 12px;      /* Increase box size */
+      border: 2px solid #f05f40;
+      border-radius: 8px;
+      background-color: #fff;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bolder;
+    }
+
+
   </style>
 </head>
 
@@ -47,33 +62,27 @@ title: Human Neural Network | Stage One Education, LLC
   {% include navigation-ai.html %}
 
   <!-- MAIN CONTENT -->
-  <div style="text-align: center; margin-top: 100px;">
-    <div style="margin-top: 100px; width: 70%; margin: 0 auto; text-align: center;">
-      <h3>
-        Step into the driver’s seat of a self-driving car’s brain!<br/><br/>In this activity, you’ll become a “node” in a neural network,
-        rolling dice to decide if the car should GO or STOP.<br/><br/>Each round, we’ll
-         tweak the “weights” so our network predicts traffic lights better<br/><br/>- no
-          math required -
-      </h3>
+  <div style="text-align: center; margin-top: 70px;">
+    <div style="width: 70%; margin: 0 auto; text-align: center;">
+      <h1 style="font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold;">Human Neural Network</h1>
+      <hr style="border: none; height: 2px; width: 800px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
     </div>
     <br/>
     <img src="img/class-nn.png" alt="class network" style="width: 400px;">
-    <br><br>
-    <hr class="main-page-hr" />
-    <br><br>
-    <h2>Select the number of participants</h2>
+
+    <br>
+    <h3>Select the number of participants</h3>
 
     <!-- Dropdown -->
     <select id="participantsDropdown" onchange="updatePDFs()">
       <option value="27">27</option>
-  <!-- <option value="36">36</option> -->
-  <option value="45">45</option>
-  <!-- <option value="63">63</option> -->
-</select>
+      <!-- <option value="36">36</option> -->
+      <option value="45">45</option>
+      <!-- <option value="63">63</option> -->
+    </select>
     <br><br>
 
-    <h4>Ensure each (B) and (C) node has a person.<br/>Some might play two nodes!</h4>
-    <br><br>
+    
 
     <!-- PDFs displayed side by side -->
     <div class="pdf-container">
@@ -82,6 +91,8 @@ title: Human Neural Network | Stage One Education, LLC
     </div>
 
     <br><br>
+<h4>Ensure each (B) and (C) node has a person.<br/>Some might play two nodes!</h4>
+    <br>
 
     <h4>Every participant needs:</h4>
     <li>Printed (B) or (C) Human Neural Network Sheet</li>
@@ -93,15 +104,18 @@ title: Human Neural Network | Stage One Education, LLC
     <!-- START Button -->
     <a href="human-neural-network-27.html" target="_blank" id="toggleRound2Btn">START</a>
     <br><br>
-
   </div>
 
   <script>
     function updatePDFs() {
       var chosen = document.getElementById("participantsDropdown").value;
+      
       // Update iframes to show the chosen PDFs
       document.getElementById("pdfFrame1").src = "img/1st-HL-" + chosen + ".pdf";
       document.getElementById("pdfFrame2").src = "img/2nd-HL-" + chosen + ".pdf";
+      
+      // Update the START button link
+      document.getElementById("toggleRound2Btn").href = "human-neural-network-" + chosen + ".html";
     }
   </script>
 

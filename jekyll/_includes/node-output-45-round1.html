@@ -8,15 +8,15 @@
       Round 1
     </h2>
     <h2 style="font-size: 1.8em; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: .5;">
-      Human Neural Network - 27
+      Human Neural Network - 45
     </h2>
     <hr class="main-page-hr" />
     <br/>
 
     <!-- Example image -->
     <img 
-      src="img/27-nn.png" 
-      alt="27-NN" 
+      src="img/45-nn.png" 
+      alt="45-NN" 
       style="
         display: block; 
         margin: 0 auto; 
@@ -34,7 +34,8 @@
     </div>
   </div>
 
-  {% include node-generator-27-round1.html %}
+  <!-- Include the 45-node generator for Round 1 -->
+  {% include node-generator-45-round1.html %}
 
   <div style="text-align: center;">
     <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
@@ -76,7 +77,10 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Rows C1..C9 -->
+            <!-- Rows C1..C15 -->
+            {% comment %}
+              Duplicate the row block for each C1..C15
+            {% endcomment %}
             <tr id="row1">
               <td>C1</td>
               <td>
@@ -428,6 +432,240 @@
                 <span class="cell-number-span" id="valueSpan9"></span>
               </td>
             </tr>
+            <tr id="row10">
+              <td>C10</td>
+              <td>
+                <select id="inputDropdown10" onchange="updateRow(10)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell10">
+                <input 
+                  type="number" 
+                  id="numericInput10" 
+                  style="width: 60px;" 
+                  oninput="updateRow(10)"
+                />
+                <span class="cell-number-span" id="numericSpan10"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell10">
+                <input 
+                  type="number" 
+                  id="weightInput10" 
+                  style="width: 60px;" 
+                  oninput="updateRow(10)"
+                />
+                <span class="cell-number-span" id="weightSpan10">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell10">
+                <input 
+                  type="number" 
+                  id="valueInput10" 
+                  style="width: 60px;" 
+                  oninput="updateRow(10)"
+                />
+                <span class="cell-number-span" id="valueSpan10"></span>
+              </td>
+            </tr>
+            <tr id="row11">
+              <td>C11</td>
+              <td>
+                <select id="inputDropdown11" onchange="updateRow(11)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell11">
+                <input 
+                  type="number" 
+                  id="numericInput11" 
+                  style="width: 60px;" 
+                  oninput="updateRow(11)"
+                />
+                <span class="cell-number-span" id="numericSpan11"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell11">
+                <input 
+                  type="number" 
+                  id="weightInput11" 
+                  style="width: 60px;" 
+                  oninput="updateRow(11)"
+                />
+                <span class="cell-number-span" id="weightSpan11">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell11">
+                <input 
+                  type="number" 
+                  id="valueInput11" 
+                  style="width: 60px;" 
+                  oninput="updateRow(11)"
+                />
+                <span class="cell-number-span" id="valueSpan11"></span>
+              </td>
+            </tr>
+            <tr id="row12">
+              <td>C12</td>
+              <td>
+                <select id="inputDropdown12" onchange="updateRow(12)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell12">
+                <input 
+                  type="number" 
+                  id="numericInput12" 
+                  style="width: 60px;" 
+                  oninput="updateRow(12)"
+                />
+                <span class="cell-number-span" id="numericSpan12"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell12">
+                <input 
+                  type="number" 
+                  id="weightInput12" 
+                  style="width: 60px;" 
+                  oninput="updateRow(12)"
+                />
+                <span class="cell-number-span" id="weightSpan12">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell12">
+                <input 
+                  type="number" 
+                  id="valueInput12" 
+                  style="width: 60px;" 
+                  oninput="updateRow(12)"
+                />
+                <span class="cell-number-span" id="valueSpan12"></span>
+              </td>
+            </tr>
+            <tr id="row13">
+              <td>C13</td>
+              <td>
+                <select id="inputDropdown13" onchange="updateRow(13)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell13">
+                <input 
+                  type="number" 
+                  id="numericInput13" 
+                  style="width: 60px;" 
+                  oninput="updateRow(13)"
+                />
+                <span class="cell-number-span" id="numericSpan13"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell13">
+                <input 
+                  type="number" 
+                  id="weightInput13" 
+                  style="width: 60px;" 
+                  oninput="updateRow(13)"
+                />
+                <span class="cell-number-span" id="weightSpan13">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell13">
+                <input 
+                  type="number" 
+                  id="valueInput13" 
+                  style="width: 60px;" 
+                  oninput="updateRow(13)"
+                />
+                <span class="cell-number-span" id="valueSpan13"></span>
+              </td>
+            </tr>
+            <tr id="row14">
+              <td>C14</td>
+              <td>
+                <select id="inputDropdown14" onchange="updateRow(14)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell14">
+                <input 
+                  type="number" 
+                  id="numericInput14" 
+                  style="width: 60px;" 
+                  oninput="updateRow(14)"
+                />
+                <span class="cell-number-span" id="numericSpan14"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell14">
+                <input 
+                  type="number" 
+                  id="weightInput14" 
+                  style="width: 60px;" 
+                  oninput="updateRow(14)"
+                />
+                <span class="cell-number-span" id="weightSpan14">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell14">
+                <input 
+                  type="number" 
+                  id="valueInput14" 
+                  style="width: 60px;" 
+                  oninput="updateRow(14)"
+                />
+                <span class="cell-number-span" id="valueSpan14"></span>
+              </td>
+            </tr>
+            <tr id="row15">
+              <td>C15</td>
+              <td>
+                <select id="inputDropdown15" onchange="updateRow(15)">
+                  <option value="" disabled selected>Select</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                </select>
+              </td>
+              <td id="numericCell15">
+                <input 
+                  type="number" 
+                  id="numericInput15" 
+                  style="width: 60px;" 
+                  oninput="updateRow(15)"
+                />
+                <span class="cell-number-span" id="numericSpan15"></span>
+              </td>
+              <td>x</td>
+              <td id="weightCell15">
+                <input 
+                  type="number" 
+                  id="weightInput15" 
+                  style="width: 60px;" 
+                  oninput="updateRow(15)"
+                />
+                <span class="cell-number-span" id="weightSpan15">20</span>
+              </td>
+              <td>=</td>
+              <td id="valueCell15">
+                <input 
+                  type="number" 
+                  id="valueInput15" 
+                  style="width: 60px;" 
+                  oninput="updateRow(15)"
+                />
+                <span class="cell-number-span" id="valueSpan15"></span>
+              </td>
+            </tr>
           </tbody>
           <!-- Round 1 auto buttons row -->
           <tfoot>
@@ -477,6 +715,7 @@
             </tr>
           </thead>
           <tbody>
+            <!-- c1..c15 preview -->
             <tr>
               <td>C1</td>
               <td>
@@ -583,6 +822,78 @@
                   oninput="storeRound2Preview(9)"
                 />
                 <span class="cell-number-span" id="round2WeightSpan9"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C10</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview10" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(10)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan10"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C11</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview11" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(11)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan11"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C12</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview12" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(12)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan12"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C13</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview13" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(13)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan13"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C14</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview14" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(14)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan14"></span>
+              </td>
+            </tr>
+            <tr>
+              <td>C15</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="round2WeightPreview15" 
+                  style="width: 60px;"
+                  oninput="storeRound2Preview(15)"
+                />
+                <span class="cell-number-span" id="round2WeightSpan15"></span>
               </td>
             </tr>
           </tbody>
@@ -743,7 +1054,7 @@
     let valueAutoActive   = false;  
 
     let round2SideAutoActive = false;
-    let round2SideWeights = [0,0,0,0,0,0,0,0,0];
+    let round2SideWeights = Array(15).fill(0);
 
     function updateRow(rowIdx) {
       const dropdown   = document.getElementById("inputDropdown" + rowIdx);
@@ -800,7 +1111,7 @@
       // Also update the side preview if auto is on
       updateRound2Weights();
 
-      // NEW: Recalc Round 2 main table (so weight is always live)
+      // If there's a recalcAllRound2 in scope, call it so round2 stays fresh
       if (window.recalcAllRound2) {
         window.recalcAllRound2();
       }
@@ -837,7 +1148,7 @@
 
     function updateDecision() {
       let sum = 0;
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         sum += getFinalValue(i);
       }
       document.getElementById('sumCell').textContent = sum;
@@ -852,22 +1163,22 @@
       if (sum < 0) decisionRow.classList.add('row-red');
       else if (sum > 0) decisionRow.classList.add('row-green');
 
-      updateNetworkStatusTable();
+      updateNetworkStatusTable1();
     }
 
-    function updateNetworkStatusTable() {
-      const chosenColor = window.selectedTrafficLightColor || 'NONE';
+    function updateNetworkStatusTable1() {
+      const chosenColor = window.selectedTrafficLightColorRound1 || 'NONE';
       const trafficLightStateCell = document.getElementById('trafficLightStateCell');
-      trafficLightStateCell.textContent = 'Traffic Light State: ---';
+      trafficLightStateCell.textContent = 'Traffic Light State (R1): ---';
       trafficLightStateCell.style.backgroundColor = '';
       trafficLightStateCell.style.color = '';
 
       if (chosenColor === 'RED') {
-        trafficLightStateCell.textContent = 'Traffic Light State: RED';
+        trafficLightStateCell.textContent = 'Traffic Light State (R1): RED';
         trafficLightStateCell.style.backgroundColor = 'red';
         trafficLightStateCell.style.color = 'white';
       } else if (chosenColor === 'GREEN') {
-        trafficLightStateCell.textContent = 'Traffic Light State: GREEN';
+        trafficLightStateCell.textContent = 'Traffic Light State (R1): GREEN';
         trafficLightStateCell.style.backgroundColor = 'green';
         trafficLightStateCell.style.color = 'white';
       }
@@ -912,7 +1223,7 @@
     function updateRound2Weights() {
       if (!round2SideAutoActive) return;
       const round1Light = window.selectedTrafficLightColor || null; 
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         const previewEl = document.getElementById('round2WeightPreview' + i);
         const spanEl    = document.getElementById('round2WeightSpan' + i);
         if (!previewEl || !spanEl) continue;
@@ -926,6 +1237,7 @@
         let r1NodeColor = document.getElementById('inputDropdown' + i).value;
         let newWeight = r1Weight;
         if (round1Light && r1NodeColor) {
+          // If c-node color matches the chosen traffic light, +10; else -10
           if (r1NodeColor === round1Light) newWeight = r1Weight + 10;
           else newWeight = r1Weight - 10;
         }
@@ -942,7 +1254,7 @@
     }
 
     function toggleRound2WeightColumn(isAuto) {
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         const inp = document.getElementById('round2WeightPreview' + i);
         const spn = document.getElementById('round2WeightSpan' + i);
         if (!inp || !spn) continue;
@@ -973,26 +1285,26 @@
       autoNumericBtn.addEventListener('click', () => {
         numericAutoActive = !numericAutoActive;
         toggleNumericColumn(numericAutoActive);
-        for (let i = 1; i <= 9; i++) updateRow(i);
+        for (let i = 1; i <= 15; i++) updateRow(i);
       });
     }
     if (autoWeightBtn) {
       autoWeightBtn.addEventListener('click', () => {
         weightAutoActive = !weightAutoActive;
         toggleWeightColumn(weightAutoActive);
-        for (let i = 1; i <= 9; i++) updateRow(i);
+        for (let i = 1; i <= 15; i++) updateRow(i);
       });
     }
     if (autoValueBtn) {
       autoValueBtn.addEventListener('click', () => {
         valueAutoActive = !valueAutoActive;
         toggleValueColumn(valueAutoActive);
-        for (let i = 1; i <= 9; i++) updateRow(i);
+        for (let i = 1; i <= 15; i++) updateRow(i);
       });
     }
 
     function toggleNumericColumn(isAuto) {
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         const inp = document.getElementById("numericInput" + i);
         const spn = document.getElementById("numericSpan" + i);
         if (!inp || !spn) continue;
@@ -1006,7 +1318,7 @@
       }
     }
     function toggleWeightColumn(isAuto) {
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         const inp = document.getElementById("weightInput" + i);
         const spn = document.getElementById("weightSpan" + i);
         if (!inp || !spn) continue;
@@ -1020,7 +1332,7 @@
       }
     }
     function toggleValueColumn(isAuto) {
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         const inp = document.getElementById("valueInput" + i);
         const spn = document.getElementById("valueSpan" + i);
         if (!inp || !spn) continue;
@@ -1041,7 +1353,7 @@
 
       // Collect weights for each bar
       let weights = [];
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         let w;
         if (weightAutoActive) {
           w = 20;
@@ -1101,11 +1413,11 @@
       ctx.lineTo(margin, margin + usableH);
       ctx.stroke();
 
-      const barSpacing = usableW / 9;
+      const barSpacing = usableW / 15;
       const barWidth = 5;
       ctx.fillStyle = '#f05f40';
 
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 15; i++) {
         const wVal = weights[i];
         const xCenter = margin + barSpacing * i + barSpacing / 2;
         const scale = usableH / (maxVal - minVal);
