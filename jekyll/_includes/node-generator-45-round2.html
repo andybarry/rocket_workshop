@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Generator 27 Demo</title>
+
+  <style>
+    /*---------------------------------
+      Traffic Light Indicator
+    ----------------------------------*/
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 10px;
+      width: 80px; /* Adjust as desired */
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px auto; /* center horizontally */
+      transition: background-color 0.3s;
+    }
+    /* Inactive (lighter) colors */
+    .inactive-red {
+      background-color: #ffb3b321; /* Light red */
+    }
+    .inactive-green {
+      background-color: #b3ffb324; /* Light green */
+    }
+    /* Active (full) colors */
+    .red {
+      background-color: red;
+    }
+    .green {
+      background-color: green;
+    }
+
+    /*---------------------------------
+      Circles/Boxes in Your Neural Net
+    ----------------------------------*/
+    #boxes {
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0;
+    }
+    .circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0;
+      display: inline-block;
+      line-height: 50px;
+      border: 2px solid black;
+      position: relative;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .circle span {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      background-color: transparent;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-size: 1.5em;
+    }
+    .circle-container {
+      display: inline-block;
+      margin: 30px 20px;
+      text-align: center;
+    }
+    .label-below {
+      display: none; /* hidden by default */
+      font-size: 20px;
+    }
+
+    /*---------------------------------
+      Button Base
+    ----------------------------------*/
+    .btn {
+      cursor: pointer;
+      font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 300px;
+      padding: 10px 20px;
+      outline: none;
+      box-shadow: none;
+      transition: all .3s;
+    }
+    .btn:focus, .btn:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /*---------------------------------
+      Specific Button Styles
+    ----------------------------------*/
+    /* Red Button */
+    #colorRed {
+      background-color: #fff !important;
+      color: red !important;
+      border: 2px solid red !important;
+    }
+    #colorRed.active {
+      background-color: red !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* Green Button */
+    #colorGreen {
+      background-color: #fff !important;
+      color: green !important;
+      border: 2px solid green !important;
+    }
+    #colorGreen.active {
+      background-color: green !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /*---------------------------------
+      Run + Show Code (Light Gray)
+    ----------------------------------*/
+    /* --- Run button = orange (#f05f40) --- */
+    #runButton {
+      background-color: #fff !important;
+      color: #f05f40 !important;
+      border: 2px solid #f05f40 !important;
+      padding: 10px 20px !important; /* same padding as before */
+    }
+    #runButton.active {
+      background-color: #f05f40 !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Show Code button = light gray --- */
+    #toggleCodeBox {
+      background-color: #fff !important; 
+      color: #666 !important;           
+      padding: 10px 20px !important; 
+    }
+    #toggleCodeBox.active {
+      background-color: #999 !important; 
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /*---------------------------------
+      CODE BOX (starts collapsed)
+    ----------------------------------*/
+    .code-box {
+      width: 60%;
+      margin: 20px auto; 
+      height: 300px;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.4em;
+      overflow-y: scroll;
+      border-radius: 6px;
+      border: 2px solid #333;
+      padding: 10px;
+      position: relative;
+      white-space: pre;
+      display: none; /* start hidden */
+      text-align: left; /* ensure code text is left-aligned */
+    }
+
+    /* Typewriter caret for effect */
+    .caret {
+      display: inline-block;
+      width: 8px;
+      background-color: #d4d4d4;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+      vertical-align: bottom;
+    }
+    @keyframes blink {
+      0%   { opacity: 1; }
+      50%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include navigation-ai.html %}
+
+  <!-- Choose Participant Count -->
+  <div style="text-align: center; display: none;">
+    <h4>Select number of participants</h4>
+    <select id="participantsDropdown">
+      <option value="27" selected>27</option>
+      <option value="36">36</option>
+      <option value="45">45</option>
+      <option value="63">63</option>
+    </select>
+  </div>
+
+  <br/>
+  <div style="text-align: center;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+
+  <!-- Buttons + Traffic Light Indicator -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <!-- Red Button -->
+    <button id="colorRed" class="btn">Red</button>
+    
+    <!-- Green Button -->
+    <button id="colorGreen" class="btn">Green</button>
+
+    <br><br>
+
+    <!-- Traffic Light -->
+    <div class="traffic-light" id="trafficLight">
+      <div class="light inactive-red" id="redCircle"></div>
+      <div class="light inactive-green" id="greenCircle"></div>
+    </div>
+
+    <br><br>
+  </div>
+
+  <!-- Run Button -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="runButton" class="btn">Run</button>
+  </div>
+
+  <!-- Circles Container -->
+  <div id="nodesContainer" style="text-align: center;">
+    <!-- The appropriate HTML snippet gets injected here based on dropdown -->
+  </div>
+
+  <!-- CODE BOX (starts collapsed) -->
+  <div id="codeBox" class="code-box"></div>
+
+  <!-- Toggle Code Box + Node Weights -->
+  <div style="text-align: center; margin: 20px;">
+    <button id="toggleCodeBox" class="btn">Show Code</button>
+  </div>
+
+  {% raw %}
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    /*******************************
+     * 1) HTML TEMPLATES
+     *******************************/
+    const htmlNodes27 = `
+      <div id="boxes">
+        ${[...Array(12)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    const htmlNodes36 = `
+      <div id="boxes">
+        ${[...Array(16)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    const htmlNodes45 = `
+      <div id="boxes">
+        ${[...Array(20)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    const htmlNodes63 = `
+      <div id="boxes">
+        ${[...Array(28)].map((_, idx) => `
+          <div class="circle-container">
+            <div class="circle" id="box${idx+1}">
+              <span>A${idx+1}</span>
+            </div>
+            <span class="label-below">???</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Organized for easy reference
+    const nodeTemplates = {
+      27: htmlNodes27,
+      36: htmlNodes36,
+      45: htmlNodes45,
+      63: htmlNodes63
+    };
+
+    /*******************************
+     * 2) WEIGHTS FOR EACH COUNT
+     *******************************/
+    const inputNodes27 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }  // A12
+    ];
+    const inputNodes36 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }  // A16
+    ];
+    const inputNodes45 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }, // A16
+      { weight: 2 }, // A17
+      { weight: 1 }, // A18
+      { weight: 4 }, // A19
+      { weight: 1 }  // A20
+    ];
+    const inputNodes63 = [
+      { weight: 5 }, // A1
+      { weight: 2 }, // A2
+      { weight: 1 }, // A3
+      { weight: 4 }, // A4
+      { weight: 1 }, // A5
+      { weight: 5 }, // A6
+      { weight: 2 }, // A7
+      { weight: 1 }, // A8
+      { weight: 4 }, // A9
+      { weight: 1 }, // A10
+      { weight: 5 }, // A11
+      { weight: 2 }, // A12
+      { weight: 1 }, // A13
+      { weight: 4 }, // A14
+      { weight: 1 }, // A15
+      { weight: 5 }, // A16
+      { weight: 2 }, // A17
+      { weight: 1 }, // A18
+      { weight: 4 }, // A19
+      { weight: 1 }, // A20
+      { weight: 5 }, // A21
+      { weight: 2 }, // A22
+      { weight: 1 }, // A23
+      { weight: 4 }, // A24
+      { weight: 1 }, // A25
+      { weight: 5 }, // A26
+      { weight: 2 }, // A27
+      { weight: 1 }  // A28
+    ];
+
+    // Mapped
+    const inputNodesMap = {
+      27: inputNodes27,
+      36: inputNodes36,
+      45: inputNodes45,
+      63: inputNodes63
+    };
+
+    /*******************************
+     * 3) GET ELEMENTS + DEFAULTS
+     *******************************/
+    const participantsSelect = document.getElementById('participantsDropdown');
+    const nodesContainer     = document.getElementById('nodesContainer');
+    const redButton          = document.getElementById('colorRed');
+    const greenButton        = document.getElementById('colorGreen');
+    const runButton          = document.getElementById('runButton');
+    const redCircle          = document.getElementById('redCircle');
+    const greenCircle        = document.getElementById('greenCircle');
+    const codeBox            = document.getElementById('codeBox');
+    const toggleCodeBoxBtn   = document.getElementById('toggleCodeBox');
+
+    // Load 27 by default
+    nodesContainer.innerHTML = nodeTemplates[27];
+    let currentInputNodes    = inputNodesMap[27];
+    let selectedColor        = null;
+    let codeBoxVisible       = false; // track if code box is expanded
+
+    // Keep track of code lines for typewriter
+    let codeLines = [];
+
+    // Initialize snippet lines & labels for the default 27
+    setLabels();
+    updateSnippetLines(27); 
+
+    /*******************************
+     * 4) HELPER FUNCTIONS
+     *******************************/
+
+    // Build the "weights array" portion for selected participant count
+    function buildWeightArraySnippet(count) {
+      const arr = inputNodesMap[count];
+      return arr
+        .map((obj, i) => `  { weight: ${obj.weight} }, // A${i+1}`)
+        .join('\n');
+    }
+
+    // Regenerate lines of code snippet for the chosen count
+    function updateSnippetLines(count) {
+      // Dynamic array for that count
+      const arrayLines = buildWeightArraySnippet(count);
+
+      // Full snippet as multiline string
+      const snippet = `\
+/*****************************************************************************
+ * ENGINEERING CODE FOR TRAFFIC LIGHT SELECTION
+ *
+ * Explanation:
+ *   1. Each node has a "weight" value (e.g., 1..5).
+ *   2. The user selects either "Red" or "Green" for the main traffic light.
+ *   3. We roll a virtual dice (1..6). If diceRoll <= nodeWeight, the node
+ *      color matches the chosen traffic light. Otherwise, it becomes
+ *      the opposite color.
+ *****************************************************************************/
+
+/*******************************
+ * 1) WEIGHTS FOR SELECTED COUNT
+ *******************************/
+const inputNodes = [
+${arrayLines}
+];
+
+/*******************************
+ * 2) CALCULATE NODE COLOR
+ *******************************/
+function computeNodeColor(selectedColor, nodeWeight) {
+  // Roll a 6-sided dice
+  const diceRoll = Math.floor(Math.random() * 6) + 1;
+
+  if (selectedColor === 'red') {
+    // If diceRoll <= weight -> Red, else Green
+    return (diceRoll <= nodeWeight) ? 'Red' : 'Green';
+  } else {
+    // selectedColor = 'green'
+    // If diceRoll <= nodeWeight -> Green, else Red
+    return (diceRoll <= nodeWeight) ? 'Green' : 'Red';
+  }
+}`;
+      // Convert to array of lines
+      codeLines = snippet.split('\n');
+    }
+
+    // Typewriter effect: clear code box and add lines with short delay
+    function scrollCode() {
+      codeBox.innerHTML = "";
+      let lineIndex = 0;
+      const total = codeLines.length;
+
+      const intervalId = setInterval(() => {
+        if (lineIndex < total) {
+          codeBox.innerHTML += codeLines[lineIndex] + "\n";
+          lineIndex++;
+          codeBox.scrollTop = codeBox.scrollHeight; // auto-scroll
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 100);
+    }
+
+    // Set each node label
+    function setLabels() {
+      const circleContainers = nodesContainer.querySelectorAll('.circle-container');
+      circleContainers.forEach((container, index) => {
+        const labelBelow = container.querySelector('.label-below');
+        const w = currentInputNodes[index].weight;
+        const pct = ((w / 6) * 100).toFixed(1) + '%';
+        labelBelow.textContent = pct;
+      });
+    }
+
+    // Weighted random logic
+    function generateInput(correctIndex, nodeIndex) {
+      const roll   = Math.floor(Math.random() * 6) + 1;
+      const weight = currentInputNodes[nodeIndex].weight;
+      const outputs = ['Red','Green']; // 0=Red,1=Green
+
+      if (roll <= weight) {
+        return outputs[correctIndex];
+      } else {
+        return outputs[correctIndex === 0 ? 1 : 0];
+      }
+    }
+
+    // Show/Hide Code Box + Node Weights
+    function toggleCodeBox() {
+      codeBoxVisible = !codeBoxVisible;
+      if (codeBoxVisible) {
+        // Show code box
+        codeBox.style.display = 'block';
+        toggleCodeBoxBtn.textContent = 'Hide Code';
+        // Typewriter effect
+        scrollCode();
+
+        // Show node weights
+        const labels = nodesContainer.querySelectorAll('.label-below');
+        labels.forEach(label => {
+          label.style.display = 'block';
+        });
+      } else {
+        // Hide code box
+        codeBox.style.display = 'none';
+        toggleCodeBoxBtn.textContent = 'Show Code';
+
+        // Hide node weights
+        const labels = nodesContainer.querySelectorAll('.label-below');
+        labels.forEach(label => {
+          label.style.display = 'none';
+        });
+      }
+    }
+
+
+    /*******************************
+     * 5) EVENT LISTENERS
+     *******************************/
+
+    // 5.1) Participant dropdown changes
+    participantsSelect.addEventListener('change', function() {
+      const val = parseInt(this.value);
+
+      // Update circles for new count
+      nodesContainer.innerHTML = nodeTemplates[val];
+      currentInputNodes = inputNodesMap[val];
+      setLabels();
+
+      // Rebuild code snippet lines for that count
+      updateSnippetLines(val);
+
+      // Clear the code box content + revert button
+      codeBox.innerHTML = "";
+      codeBox.style.display = 'none';
+      toggleCodeBoxBtn.textContent = 'Show Code';
+      codeBoxVisible = false;
+
+      // Hide node weights
+      const labels = nodesContainer.querySelectorAll('.label-below');
+      labels.forEach(label => {
+        label.style.display = 'none';
+      });
+    });
+
+    // 5.2) Red Button
+    redButton.addEventListener('click', function() {
+      selectedColor = 'red';
+      redButton.classList.add('active');
+      greenButton.classList.remove('active');
+
+      redCircle.classList.remove('inactive-red');
+      redCircle.classList.add('red');
+      greenCircle.classList.remove('green');
+      greenCircle.classList.add('inactive-green');
+
+      // Also store in a global so node-output-round1.html can read it
+      window.selectedTrafficLightColor = 'RED';
+
+      // If node-output-round1.html has a function to refresh status, call it
+      if (window.updateNetworkStatusTable) {
+        window.updateNetworkStatusTable();
+      }
+    });
+
+    // 5.3) Green Button
+    greenButton.addEventListener('click', function() {
+      selectedColor = 'green';
+      greenButton.classList.add('active');
+      redButton.classList.remove('active');
+
+      greenCircle.classList.remove('inactive-green');
+      greenCircle.classList.add('green');
+      redCircle.classList.remove('red');
+      redCircle.classList.add('inactive-red');
+
+      window.selectedTrafficLightColor = 'GREEN';
+      if (window.updateNetworkStatusTable) {
+        window.updateNetworkStatusTable();
+      }
+    });
+
+    // 5.4) Run Button
+    runButton.addEventListener('click', function() {
+      runButton.classList.toggle('active');
+
+      if (!selectedColor) {
+        alert('Please select Red or Green before running.');
+        return;
+      }
+
+      // Color the circles
+      const correctIndex = (selectedColor === 'red') ? 0 : 1;
+      const outputs = currentInputNodes.map((_, i) => generateInput(correctIndex, i));
+
+      for (let i = 0; i < currentInputNodes.length; i++) {
+        const boxId = 'box' + (i+1);
+        const circleEl = document.getElementById(boxId);
+        if (circleEl) {
+          // apply 'red' or 'green' class
+          circleEl.className = 'circle ' + (outputs[i] === 'Red' ? 'red' : 'green');
+        }
+      }
+    });
+
+    // 5.5) Show/Hide Code + Node Weights
+    toggleCodeBoxBtn.addEventListener('click', function() {
+      toggleCodeBox();
+    });
+
+  });
+  </script>
+  {% endraw %}
+
+</body>
+</html>
