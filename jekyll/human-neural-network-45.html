@@ -536,7 +536,7 @@ title: 45 Human Neural Network | Stage One Education, LLC
 
     // --- If we are showing Round 2 (index=1), call updateRow2(...) for each node
     if (index === 1) {
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 15; i++) {
         updateRow2(i);
       }
       // NEW: Re-fetch Round 1 sum/status from localStorage
@@ -554,7 +554,7 @@ title: 45 Human Neural Network | Stage One Education, LLC
 // NEW: If showing Round 3 (index=2), we copy the displayed Round 1 & Round 2 summary into Round 3
 if (index === 2) {
     // 1) Make sure Round 3 recalculations happen:
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 1; i <= 15; i++) {
       updateRow3(i);
     }
 
@@ -586,7 +586,7 @@ if (index === 2) {
  // If showing Round 4 (index=3), copy the displayed Round 1, 2, and 3 summary into Round 4
 if (index === 3) {
   // 1) Make sure Round 4 recalculations happen:
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 15; i++) {
     updateRow4(i);
   }
 
@@ -631,7 +631,7 @@ if (index === 3) {
 // If showing Round 5 (index=4), recalc Round 5 and copy Round 1..4 summary into Round 5
 if (index === 4) {
   // 1) Recalc Round 5
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 15; i++) {
     updateRow5(i);
   }
 
@@ -683,7 +683,7 @@ if (index === 4) {
 // If showing Round 6 (index=5), recalc Round 6 and copy Round 1..5 summaries into Round 6
 if (index === 5) {
   // 1) Recalc Round 6 for each C node (C1..C9)
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 15; i++) {
     updateRow6(i);
   }
 
@@ -748,7 +748,7 @@ if (index === 5) {
   // If showing Round 7 (index=6), recalc Round 7 and copy Round 1..6 summaries into Round 7
   if (index === 6) {
     // 1) Recalc Round 7 for each C node (C1..C9)
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 1; i <= 15; i++) {
       updateRow7(i);
     }
 
@@ -823,7 +823,7 @@ if (index === 5) {
   // If showing Round 8 (index=7), recalc Round 8 and copy Round 1..7 summaries into Round 8
   if (index === 7) {
     // 1) Recalc Round 8 for each C node (C1..C9)
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 1; i <= 15; i++) {
       updateRow8(i);
     }
 
@@ -926,7 +926,7 @@ if (index === 5) {
   // For dynamically setting participant count in node-generator if needed
   window.addEventListener('DOMContentLoaded', function() {
     var urlParams = new URLSearchParams(window.location.search);
-    var c = urlParams.get('count') || '27';
+    var c = urlParams.get('count') || '45';
     var dd = document.getElementById('participantsDropdown');
     if (dd) {
       dd.value = c;

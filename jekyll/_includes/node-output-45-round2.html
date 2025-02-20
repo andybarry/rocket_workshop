@@ -59,60 +59,552 @@
     <!-- Round 2 Main Table + Round 3 side preview -->
     <div style="text-align:center;">
 
-      <!-- ROUND 2 MAIN TABLE (C1..C15) -->
-      <div style="display:inline-block; vertical-align:top; position:relative;">
+<!-- ========================== ROUND 2 (C1..C15) ========================== -->
+<div style="display:inline-block; vertical-align:top; position:relative;">
 
-        <h3 style="text-align:center;">Round 2</h3>
-        <table class="interactive-table" id="interactiveTable2" style="margin:0 auto;">
-          <thead>
-            <tr>
-              <th>Node</th>
-              <th>Input</th>
-              <th>Numeric</th>
-              <th>x</th>
-              <th>Weight</th> <!-- read-only (Round1 ± 10) -->
-              <th>=</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- C1..C15 -->
-            {% for i in (1..15) %}
-            <tr id="row2_{{ i }}">
-              <td>C{{ i }}</td>
-              <td>
-                <select id="inputDropdown2_{{ i }}" onchange="updateRow2(i)">
-                  <option value="" disabled selected>Select</option>
-                  <option value="RED">RED</option>
-                  <option value="GREEN">GREEN</option>
-                </select>
-              </td>
-              <td>
-                <input 
-                  type="number"
-                  id="numericInput2_{{ i }}"
-                  style="width:60px;"
-                  oninput="updateRow2(i)"
-                />
-                <span class="cell-number-span" id="numericSpan2_{{ i }}"></span>
-              </td>
-              <td>x</td>
-              <td>
-                <!-- read-only weight => Round1 ± 10 -->
-                <span id="weightSpan2_{{ i }}"></span>
-              </td>
-              <td>=</td>
-              <td>
-                <input 
-                  type="number"
-                  id="valueInput2_{{ i }}"
-                  style="width:60px;"
-                  oninput="updateRow2(i)"
-                />
-                <span class="cell-number-span" id="valueSpan2_{{ i }}"></span>
-              </td>
-            </tr>
-            {% endfor %}
+  <h3 style="text-align:center;">Round 2</h3>
+
+  <table class="interactive-table" id="interactiveTable2" style="margin:0 auto;">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>Input</th>
+        <th>Numeric</th>
+        <th>x</th>
+        <th>Weight</th> <!-- read-only (Round1 ± 10) -->
+        <th>=</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ================== C1 ================== -->
+      <tr id="row2_1">
+        <td>C1</td>
+        <td>
+          <select id="inputDropdown2_1" onchange="updateRow2(1)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_1"
+            style="width:60px;"
+            oninput="updateRow2(1)"
+          />
+          <span class="cell-number-span" id="numericSpan2_1"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_1"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_1"
+            style="width:60px;"
+            oninput="updateRow2(1)"
+          />
+          <span class="cell-number-span" id="valueSpan2_1"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C2 ================== -->
+      <tr id="row2_2">
+        <td>C2</td>
+        <td>
+          <select id="inputDropdown2_2" onchange="updateRow2(2)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_2"
+            style="width:60px;"
+            oninput="updateRow2(2)"
+          />
+          <span class="cell-number-span" id="numericSpan2_2"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_2"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_2"
+            style="width:60px;"
+            oninput="updateRow2(2)"
+          />
+          <span class="cell-number-span" id="valueSpan2_2"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C3 ================== -->
+      <tr id="row2_3">
+        <td>C3</td>
+        <td>
+          <select id="inputDropdown2_3" onchange="updateRow2(3)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_3"
+            style="width:60px;"
+            oninput="updateRow2(3)"
+          />
+          <span class="cell-number-span" id="numericSpan2_3"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_3"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_3"
+            style="width:60px;"
+            oninput="updateRow2(3)"
+          />
+          <span class="cell-number-span" id="valueSpan2_3"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C4 ================== -->
+      <tr id="row2_4">
+        <td>C4</td>
+        <td>
+          <select id="inputDropdown2_4" onchange="updateRow2(4)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_4"
+            style="width:60px;"
+            oninput="updateRow2(4)"
+          />
+          <span class="cell-number-span" id="numericSpan2_4"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_4"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_4"
+            style="width:60px;"
+            oninput="updateRow2(4)"
+          />
+          <span class="cell-number-span" id="valueSpan2_4"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C5 ================== -->
+      <tr id="row2_5">
+        <td>C5</td>
+        <td>
+          <select id="inputDropdown2_5" onchange="updateRow2(5)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_5"
+            style="width:60px;"
+            oninput="updateRow2(5)"
+          />
+          <span class="cell-number-span" id="numericSpan2_5"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_5"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_5"
+            style="width:60px;"
+            oninput="updateRow2(5)"
+          />
+          <span class="cell-number-span" id="valueSpan2_5"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C6 ================== -->
+      <tr id="row2_6">
+        <td>C6</td>
+        <td>
+          <select id="inputDropdown2_6" onchange="updateRow2(6)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_6"
+            style="width:60px;"
+            oninput="updateRow2(6)"
+          />
+          <span class="cell-number-span" id="numericSpan2_6"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_6"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_6"
+            style="width:60px;"
+            oninput="updateRow2(6)"
+          />
+          <span class="cell-number-span" id="valueSpan2_6"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C7 ================== -->
+      <tr id="row2_7">
+        <td>C7</td>
+        <td>
+          <select id="inputDropdown2_7" onchange="updateRow2(7)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_7"
+            style="width:60px;"
+            oninput="updateRow2(7)"
+          />
+          <span class="cell-number-span" id="numericSpan2_7"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_7"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_7"
+            style="width:60px;"
+            oninput="updateRow2(7)"
+          />
+          <span class="cell-number-span" id="valueSpan2_7"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C8 ================== -->
+      <tr id="row2_8">
+        <td>C8</td>
+        <td>
+          <select id="inputDropdown2_8" onchange="updateRow2(8)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_8"
+            style="width:60px;"
+            oninput="updateRow2(8)"
+          />
+          <span class="cell-number-span" id="numericSpan2_8"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_8"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_8"
+            style="width:60px;"
+            oninput="updateRow2(8)"
+          />
+          <span class="cell-number-span" id="valueSpan2_8"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C9 ================== -->
+      <tr id="row2_9">
+        <td>C9</td>
+        <td>
+          <select id="inputDropdown2_9" onchange="updateRow2(9)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_9"
+            style="width:60px;"
+            oninput="updateRow2(9)"
+          />
+          <span class="cell-number-span" id="numericSpan2_9"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_9"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_9"
+            style="width:60px;"
+            oninput="updateRow2(9)"
+          />
+          <span class="cell-number-span" id="valueSpan2_9"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C10 ================== -->
+      <tr id="row2_10">
+        <td>C10</td>
+        <td>
+          <select id="inputDropdown2_10" onchange="updateRow2(10)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_10"
+            style="width:60px;"
+            oninput="updateRow2(10)"
+          />
+          <span class="cell-number-span" id="numericSpan2_10"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_10"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_10"
+            style="width:60px;"
+            oninput="updateRow2(10)"
+          />
+          <span class="cell-number-span" id="valueSpan2_10"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C11 ================== -->
+      <tr id="row2_11">
+        <td>C11</td>
+        <td>
+          <select id="inputDropdown2_11" onchange="updateRow2(11)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_11"
+            style="width:60px;"
+            oninput="updateRow2(11)"
+          />
+          <span class="cell-number-span" id="numericSpan2_11"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_11"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_11"
+            style="width:60px;"
+            oninput="updateRow2(11)"
+          />
+          <span class="cell-number-span" id="valueSpan2_11"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C12 ================== -->
+      <tr id="row2_12">
+        <td>C12</td>
+        <td>
+          <select id="inputDropdown2_12" onchange="updateRow2(12)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_12"
+            style="width:60px;"
+            oninput="updateRow2(12)"
+          />
+          <span class="cell-number-span" id="numericSpan2_12"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_12"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_12"
+            style="width:60px;"
+            oninput="updateRow2(12)"
+          />
+          <span class="cell-number-span" id="valueSpan2_12"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C13 ================== -->
+      <tr id="row2_13">
+        <td>C13</td>
+        <td>
+          <select id="inputDropdown2_13" onchange="updateRow2(13)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_13"
+            style="width:60px;"
+            oninput="updateRow2(13)"
+          />
+          <span class="cell-number-span" id="numericSpan2_13"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_13"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_13"
+            style="width:60px;"
+            oninput="updateRow2(13)"
+          />
+          <span class="cell-number-span" id="valueSpan2_13"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C14 ================== -->
+      <tr id="row2_14">
+        <td>C14</td>
+        <td>
+          <select id="inputDropdown2_14" onchange="updateRow2(14)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_14"
+            style="width:60px;"
+            oninput="updateRow2(14)"
+          />
+          <span class="cell-number-span" id="numericSpan2_14"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_14"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_14"
+            style="width:60px;"
+            oninput="updateRow2(14)"
+          />
+          <span class="cell-number-span" id="valueSpan2_14"></span>
+        </td>
+      </tr>
+
+      <!-- ================== C15 ================== -->
+      <tr id="row2_15">
+        <td>C15</td>
+        <td>
+          <select id="inputDropdown2_15" onchange="updateRow2(15)">
+            <option value="" disabled selected>Select</option>
+            <option value="RED">RED</option>
+            <option value="GREEN">GREEN</option>
+          </select>
+        </td>
+        <td>
+          <input 
+            type="number"
+            id="numericInput2_15"
+            style="width:60px;"
+            oninput="updateRow2(15)"
+          />
+          <span class="cell-number-span" id="numericSpan2_15"></span>
+        </td>
+        <td>x</td>
+        <td>
+          <span id="weightSpan2_15"></span>
+        </td>
+        <td>=</td>
+        <td>
+          <input 
+            type="number"
+            id="valueInput2_15"
+            style="width:60px;"
+            oninput="updateRow2(15)"
+          />
+          <span class="cell-number-span" id="valueSpan2_15"></span>
+        </td>
+      </tr>
+
+
+
           </tbody>
           <tfoot>
             <tr class="auto-button-row">
@@ -287,6 +779,8 @@
         <option value="blue">Blue</option>
       </select>
     </div>
+    {% include copyright.html %}
+
   </div> <!-- /round2 -->
 
 <!-- STYLES for Round 2 -->
@@ -360,7 +854,7 @@
     /* (B) Weight = Round1Weight ±10 if matched Round1 traffic light */
     const r1Color   = getRound1NodeColor(idx);
     const r1Weight  = getRound1NodeWeight(idx);
-    const traffic1  = (window.selectedTrafficLightColor || "").toUpperCase();
+    const traffic1  = (window.selectedTrafficLightColorRound1 || "").toUpperCase();
 
     let w2 = r1Weight;
     if (r1Color && traffic1) {
@@ -408,7 +902,7 @@
 
     const r1C  = getRound1NodeColor(idx);
     const r1W  = getRound1NodeWeight(idx);
-    const t1   = (window.selectedTrafficLightColor || "").toUpperCase();
+    const t1   = (window.selectedTrafficLightColorRound1 || "").toUpperCase();
 
     let w2 = r1W;
     if (r1C && t1) {
@@ -767,3 +1261,4 @@
   }
   window.updateHeaderColor2 = updateHeaderColor2;
 </script>
+</div>

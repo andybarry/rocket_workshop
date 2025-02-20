@@ -1221,31 +1221,51 @@
     }
 
     function updateRound2Weights() {
-      if (!round2SideAutoActive) return;
-      const round1Light = window.selectedTrafficLightColor || null; 
-      for (let i = 1; i <= 15; i++) {
-        const previewEl = document.getElementById('round2WeightPreview' + i);
-        const spanEl    = document.getElementById('round2WeightSpan' + i);
-        if (!previewEl || !spanEl) continue;
+  // Only do the auto-adjust if the "Auto" button (round2SideAutoBtn) is active
+  if (!round2SideAutoActive) return;
 
-        let r1Weight;
-        if (weightAutoActive) r1Weight = 20;
-        else {
-          r1Weight = parseFloat(document.getElementById('weightInput' + i).value) || 0;
-        }
+  // Pull the Round 1 selected light color that the user clicked
+  // Make sure somewhere in your code you set: window.selectedTrafficLightColorRound1 = 'RED' or 'GREEN'
+  const round1Light = window.selectedTrafficLightColorRound1 || null; 
 
-        let r1NodeColor = document.getElementById('inputDropdown' + i).value;
-        let newWeight = r1Weight;
-        if (round1Light && r1NodeColor) {
-          // If c-node color matches the chosen traffic light, +10; else -10
-          if (r1NodeColor === round1Light) newWeight = r1Weight + 10;
-          else newWeight = r1Weight - 10;
-        }
-        spanEl.textContent = newWeight;
-        round2SideWeights[i - 1] = newWeight;
-        previewEl.value = newWeight;
+  for (let i = 1; i <= 15; i++) {
+    // The preview <input> in the Round 2 side table
+    const previewEl = document.getElementById('round2WeightPreview' + i);
+    // The <span> in the Round 2 side table
+    const spanEl = document.getElementById('round2WeightSpan' + i);
+    if (!previewEl || !spanEl) continue;
+
+    // Get Round 1’s final weight (whether manually input or auto=20)
+    let r1Weight;
+    if (weightAutoActive) {
+      r1Weight = 20; 
+    } else {
+      r1Weight = parseFloat(document.getElementById('weightInput' + i).value) || 0;
+    }
+
+    // Check the c-node’s dropdown color (either RED/GREEN or blank)
+    const r1NodeColor = document.getElementById('inputDropdown' + i).value;
+    let newWeight = r1Weight;
+
+    // If Round 1 color is set and the node has a color
+    if (round1Light && r1NodeColor) {
+      // If node color matches chosen color → +10, else → -10
+      if (r1NodeColor === round1Light) {
+        newWeight = r1Weight + 10;
+      } else {
+        newWeight = r1Weight - 10;
       }
     }
+
+    // Display the newly computed Round 2 weight in both <span> and <input>
+    spanEl.textContent = newWeight;
+    previewEl.value = newWeight;
+
+    // Save it into your round2SideWeights array if needed
+    round2SideWeights[i - 1] = newWeight;
+  }
+}
+
 
     function storeRound2Preview(i) {
       const el = document.getElementById('round2WeightPreview' + i);
