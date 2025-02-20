@@ -44,7 +44,7 @@
       width: 90%;
       margin: 0 auto;
       text-align: center;
-      font-size: 0;
+      font-size: 0; /* so inline-blocks don't have extra spacing */
     }
     .circleRound5 {
       width: 50px;
@@ -74,11 +74,36 @@
       display: inline-block;
       margin: 30px 20px;
       text-align: center;
+      vertical-align: top; /* keep them aligned neatly */
     }
     /* Hidden by default; shown when user toggles code box */
     .label-below-round5 {
       display: none;
       font-size: 20px;
+    }
+
+    /*******************************************************
+     * NEW: PSEUDO-ELEMENTS FOR "R" / "G" INSIDE CIRCLES
+     *******************************************************/
+    .circleRound5.red::after {
+      content: "R";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .circleRound5.green::after {
+      content: "G";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
     /*******************************************************
@@ -144,7 +169,7 @@
       padding: 10px 20px !important;
     }
     #toggleCodeBox5.active {
-      background-color: #999 !important; 
+      background-color: #999 !important;
       color: #fff !important;
       border: none !important;
     }
@@ -200,7 +225,7 @@
   <!-- Circles for Round 5: A1..A12 -->
   <div id="nodesContainer5" style="text-align: center;">
     <div id="boxesRound5">
-      <!-- Generate 12 circles -->
+      <!-- Generate 12 circles; insert <br> after the 5th one -->
       {% for i in (1..12) %}
       <div class="circle-container-round5">
         <div class="circleRound5" id="boxRound5_{{ i }}">
@@ -208,6 +233,9 @@
         </div>
         <span class="label-below-round5">???</span>
       </div>
+      {% if i == 6 %}
+        <br/>
+      {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -223,7 +251,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   /*****************************************
-   * 1) SAME WEIGHTS (A1..A12)
+   * 1) Node Weights for Round 5 (A1..A12)
    *****************************************/
   const inputNodesRound5 = [
     { weight: 5 }, // A1
@@ -248,36 +276,37 @@ document.addEventListener('DOMContentLoaded', function() {
     circleContainers.forEach((container, index) => {
       const labelBelow = container.querySelector('.label-below-round5');
       const w = inputNodesRound5[index].weight;
+      // Convert weight to percentage
       const pct = ((w / 6) * 100).toFixed(1) + '%';
       labelBelow.textContent = pct;
     });
   }
 
-  // Call it on page load
+  // Call it on page load so the labels get updated from "???" to "X%"
   setLabelsRound5();
 
   /*****************************************
    * 2) DOM ELEMENTS + STATE
    *****************************************/
-  let selectedColor5   = null;
-  let codeBoxVisible5  = false;
-  let codeLines5       = [];
+  let selectedColor5    = null;
+  let codeBoxVisible5   = false;
+  let codeLines5        = [];
 
-  const colorRed5      = document.getElementById('colorRed5');
-  const colorGreen5    = document.getElementById('colorGreen5');
-  const redCircle5     = document.getElementById('redCircle5');
-  const greenCircle5   = document.getElementById('greenCircle5');
-  const runButton5     = document.getElementById('runButton5');
-  const codeBox5       = document.getElementById('codeBox5');
-  const toggleCodeBox5 = document.getElementById('toggleCodeBox5');
+  const colorRed5       = document.getElementById('colorRed5');
+  const colorGreen5     = document.getElementById('colorGreen5');
+  const redCircle5      = document.getElementById('redCircle5');
+  const greenCircle5    = document.getElementById('greenCircle5');
+  const runButton5      = document.getElementById('runButton5');
+  const codeBox5        = document.getElementById('codeBox5');
+  const toggleCodeBox5  = document.getElementById('toggleCodeBox5');
 
-  // If you need to expose the selected color externally:
+  // Expose this if you need it externally
   window.selectedTrafficLightColorRound5 = null;
 
   /*****************************************
    * 3) BUTTON CLICK HANDLERS
    *****************************************/
-  // --- Red button
+  // -- Red
   colorRed5.addEventListener('click', function() {
     selectedColor5 = 'red';
     colorRed5.classList.add('active');
@@ -294,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // --- Green button
+  // -- Green
   colorGreen5.addEventListener('click', function() {
     selectedColor5 = 'green';
     colorGreen5.classList.add('active');
@@ -311,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // --- Run (Round 5)
+  // -- RUN (Round 5)
   runButton5.addEventListener('click', function() {
     runButton5.classList.toggle('active');
 
@@ -320,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Weighted dice logic
+    // For each A1..A12, pick color based on diceRoll vs. weight
     const circleEls = document.querySelectorAll('.circleRound5');
     circleEls.forEach((circleEl, idx) => {
       const diceRoll   = Math.floor(Math.random() * 6) + 1;
@@ -328,18 +357,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let finalColor;
       if (diceRoll <= nodeWeight) {
+        // Node color = user-chosen color
         finalColor = selectedColor5;
       } else {
+        // Opposite color
         finalColor = (selectedColor5 === 'red') ? 'green' : 'red';
       }
 
-      // Remove existing color classes, apply finalColor
+      // Clear out old color classes, apply the new color
       circleEl.classList.remove('red', 'green');
       circleEl.classList.add(finalColor);
     });
   });
 
-  // --- Show/Hide Code Box (Round 5)
+  // -- Show/Hide Code Box + Labels
   toggleCodeBox5.addEventListener('click', function(){
     codeBoxVisible5 = !codeBoxVisible5;
     if (codeBoxVisible5) {
@@ -365,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /*****************************************
    * 4) TYPEWRITER CODE BOX
    *****************************************/
-  function buildSnippet5(){
+  function buildSnippet5() {
     return `
 /******************************************************
  * Round 5 Node Generator
@@ -388,9 +419,9 @@ const inputNodesRound5 = [
   { weight: 2 }  // A12
 ];
 
+// Display weights below each circle as X% (weight/6 * 100)
 function setLabelsRound5() {
   // ...
-  // Logic for showing the % (weight/6 * 100)
 }
     `;
   }

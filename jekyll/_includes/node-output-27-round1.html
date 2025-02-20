@@ -852,11 +852,11 @@
       if (sum < 0) decisionRow.classList.add('row-red');
       else if (sum > 0) decisionRow.classList.add('row-green');
 
-      updateNetworkStatusTable();
+      updateNetworkStatusTable1();
     }
 
-    function updateNetworkStatusTable() {
-      const chosenColor = window.selectedTrafficLightColor || 'NONE';
+    function updateNetworkStatusTable1() {
+      const chosenColor = window.selectedTrafficLightColorRound1 || 'NONE';
       const trafficLightStateCell = document.getElementById('trafficLightStateCell');
       trafficLightStateCell.textContent = 'Traffic Light State: ---';
       trafficLightStateCell.style.backgroundColor = '';
@@ -911,7 +911,7 @@
 
     function updateRound2Weights() {
       if (!round2SideAutoActive) return;
-      const round1Light = window.selectedTrafficLightColor || null; 
+      const round1Light = window.selectedTrafficLightColorRound1 || null; 
       for (let i = 1; i <= 9; i++) {
         const previewEl = document.getElementById('round2WeightPreview' + i);
         const spanEl    = document.getElementById('round2WeightSpan' + i);

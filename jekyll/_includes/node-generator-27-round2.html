@@ -44,7 +44,7 @@
       width: 90%;
       margin: 0 auto;
       text-align: center;
-      font-size: 0;
+      font-size: 0; /* so inline-blocks don't have extra spacing */
     }
     .circleRound2 {
       width: 50px;
@@ -74,11 +74,36 @@
       display: inline-block;
       margin: 30px 20px;
       text-align: center;
+      vertical-align: top; /* keep them aligned neatly */
     }
     /* Hidden by default; shown when user toggles code box */
     .label-below-round2 {
       display: none;
       font-size: 20px;
+    }
+
+    /*******************************************************
+     * NEW: PSEUDO-ELEMENTS FOR "R" / "G" INSIDE CIRCLES
+     *******************************************************/
+    .circleRound2.red::after {
+      content: "R";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .circleRound2.green::after {
+      content: "G";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
     /*******************************************************
@@ -144,7 +169,7 @@
       padding: 10px 20px !important;
     }
     #toggleCodeBox2.active {
-      background-color: #999 !important; 
+      background-color: #999 !important;
       color: #fff !important;
       border: none !important;
     }
@@ -200,7 +225,7 @@
   <!-- Circles for Round 2: A1..A12 -->
   <div id="nodesContainer2" style="text-align: center;">
     <div id="boxesRound2">
-      <!-- Generate 12 circles -->
+      <!-- Generate 12 circles; insert <br> after the 5th one -->
       {% for i in (1..12) %}
       <div class="circle-container-round2">
         <div class="circleRound2" id="boxRound2_{{ i }}">
@@ -208,6 +233,9 @@
         </div>
         <span class="label-below-round2">???</span>
       </div>
+      {% if i == 6 %}
+        <br/>
+      {% endif %}
       {% endfor %}
     </div>
   </div>

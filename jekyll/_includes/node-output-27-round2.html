@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  {% include node-generator-45-round2.html %}
+  {% include node-generator-27-round2.html %}
 
   <div style="text-align: center;">
     <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
@@ -804,7 +804,7 @@
       // (B) Weight = Round1Weight ± 10 if color matched Round 1 traffic light
       const r1Color   = getRound1NodeColor(i);
       const r1Weight  = getRound1NodeWeight(i);   // <--- uses the updated function
-      const traffic1  = (window.selectedTrafficLightColor || "").toUpperCase();
+      const traffic1  = (window.selectedTrafficLightColorRound1 || "").toUpperCase();
 
       let newW = r1Weight;
       if (r1Color && traffic1) {
