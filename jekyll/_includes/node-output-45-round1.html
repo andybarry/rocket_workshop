@@ -78,13 +78,11 @@
           </thead>
           <tbody>
             <!-- Rows C1..C15 -->
-            {% comment %}
-              Duplicate the row block for each C1..C15
-            {% endcomment %}
+            {% comment %} Duplicate row blocks for each C node, adding tabindex attributes {% endcomment %}
             <tr id="row1">
               <td>C1</td>
               <td>
-                <select id="inputDropdown1" onchange="updateRow(1)">
+                <select id="inputDropdown1" tabindex="0" onchange="updateRow(1)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -93,8 +91,9 @@
               <td id="numericCell1">
                 <input 
                   type="number"
-                  id="numericInput1" 
-                  style="width: 60px;" 
+                  id="numericInput1"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(1)"
                 />
                 <span class="cell-number-span" id="numericSpan1"></span>
@@ -103,8 +102,9 @@
               <td id="weightCell1">
                 <input 
                   type="number" 
-                  id="weightInput1" 
-                  style="width: 60px;" 
+                  id="weightInput1"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(1)"
                 />
                 <span class="cell-number-span" id="weightSpan1">20</span>
@@ -113,8 +113,9 @@
               <td id="valueCell1">
                 <input 
                   type="number" 
-                  id="valueInput1" 
-                  style="width: 60px;" 
+                  id="valueInput1"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(1)"
                 />
                 <span class="cell-number-span" id="valueSpan1"></span>
@@ -123,7 +124,7 @@
             <tr id="row2">
               <td>C2</td>
               <td>
-                <select id="inputDropdown2" onchange="updateRow(2)">
+                <select id="inputDropdown2" tabindex="0" onchange="updateRow(2)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -132,8 +133,9 @@
               <td id="numericCell2">
                 <input 
                   type="number"
-                  id="numericInput2" 
-                  style="width: 60px;" 
+                  id="numericInput2"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(2)"
                 />
                 <span class="cell-number-span" id="numericSpan2"></span>
@@ -141,9 +143,10 @@
               <td>x</td>
               <td id="weightCell2">
                 <input 
-                  type="number" 
-                  id="weightInput2" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput2"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(2)"
                 />
                 <span class="cell-number-span" id="weightSpan2">20</span>
@@ -151,9 +154,10 @@
               <td>=</td>
               <td id="valueCell2">
                 <input 
-                  type="number" 
-                  id="valueInput2" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput2"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(2)"
                 />
                 <span class="cell-number-span" id="valueSpan2"></span>
@@ -162,7 +166,7 @@
             <tr id="row3">
               <td>C3</td>
               <td>
-                <select id="inputDropdown3" onchange="updateRow(3)">
+                <select id="inputDropdown3" tabindex="0" onchange="updateRow(3)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -170,19 +174,21 @@
               </td>
               <td id="numericCell3">
                 <input 
-                  type="number" 
-                  id="numericInput3" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput3"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(3)"
                 />
                 <span class="cell-number-span" id="numericSpan3"></span>
               </td>
               <td>x</td>
               <td id="weightCell3">
-                <input 
-                  type="number" 
-                  id="weightInput3" 
-                  style="width: 60px;" 
+                <input
+                  type="number"
+                  id="weightInput3"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(3)"
                 />
                 <span class="cell-number-span" id="weightSpan3">20</span>
@@ -190,9 +196,10 @@
               <td>=</td>
               <td id="valueCell3">
                 <input 
-                  type="number" 
-                  id="valueInput3" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput3"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(3)"
                 />
                 <span class="cell-number-span" id="valueSpan3"></span>
@@ -201,7 +208,7 @@
             <tr id="row4">
               <td>C4</td>
               <td>
-                <select id="inputDropdown4" onchange="updateRow(4)">
+                <select id="inputDropdown4" tabindex="0" onchange="updateRow(4)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -209,9 +216,10 @@
               </td>
               <td id="numericCell4">
                 <input 
-                  type="number" 
-                  id="numericInput4" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput4"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(4)"
                 />
                 <span class="cell-number-span" id="numericSpan4"></span>
@@ -219,9 +227,10 @@
               <td>x</td>
               <td id="weightCell4">
                 <input 
-                  type="number" 
-                  id="weightInput4" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput4"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(4)"
                 />
                 <span class="cell-number-span" id="weightSpan4">20</span>
@@ -229,9 +238,10 @@
               <td>=</td>
               <td id="valueCell4">
                 <input 
-                  type="number" 
-                  id="valueInput4" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput4"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(4)"
                 />
                 <span class="cell-number-span" id="valueSpan4"></span>
@@ -240,7 +250,7 @@
             <tr id="row5">
               <td>C5</td>
               <td>
-                <select id="inputDropdown5" onchange="updateRow(5)">
+                <select id="inputDropdown5" tabindex="0" onchange="updateRow(5)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -248,9 +258,10 @@
               </td>
               <td id="numericCell5">
                 <input 
-                  type="number" 
-                  id="numericInput5" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput5"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(5)"
                 />
                 <span class="cell-number-span" id="numericSpan5"></span>
@@ -258,9 +269,10 @@
               <td>x</td>
               <td id="weightCell5">
                 <input 
-                  type="number" 
-                  id="weightInput5" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput5"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(5)"
                 />
                 <span class="cell-number-span" id="weightSpan5">20</span>
@@ -268,9 +280,10 @@
               <td>=</td>
               <td id="valueCell5">
                 <input 
-                  type="number" 
-                  id="valueInput5" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput5"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(5)"
                 />
                 <span class="cell-number-span" id="valueSpan5"></span>
@@ -279,7 +292,7 @@
             <tr id="row6">
               <td>C6</td>
               <td>
-                <select id="inputDropdown6" onchange="updateRow(6)">
+                <select id="inputDropdown6" tabindex="0" onchange="updateRow(6)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -287,9 +300,10 @@
               </td>
               <td id="numericCell6">
                 <input 
-                  type="number" 
-                  id="numericInput6" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput6"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(6)"
                 />
                 <span class="cell-number-span" id="numericSpan6"></span>
@@ -297,9 +311,10 @@
               <td>x</td>
               <td id="weightCell6">
                 <input 
-                  type="number" 
-                  id="weightInput6" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput6"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(6)"
                 />
                 <span class="cell-number-span" id="weightSpan6">20</span>
@@ -307,9 +322,10 @@
               <td>=</td>
               <td id="valueCell6">
                 <input 
-                  type="number" 
-                  id="valueInput6" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput6"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(6)"
                 />
                 <span class="cell-number-span" id="valueSpan6"></span>
@@ -318,7 +334,7 @@
             <tr id="row7">
               <td>C7</td>
               <td>
-                <select id="inputDropdown7" onchange="updateRow(7)">
+                <select id="inputDropdown7" tabindex="0" onchange="updateRow(7)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -326,9 +342,10 @@
               </td>
               <td id="numericCell7">
                 <input 
-                  type="number" 
-                  id="numericInput7" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput7"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(7)"
                 />
                 <span class="cell-number-span" id="numericSpan7"></span>
@@ -336,9 +353,10 @@
               <td>x</td>
               <td id="weightCell7">
                 <input 
-                  type="number" 
-                  id="weightInput7" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput7"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(7)"
                 />
                 <span class="cell-number-span" id="weightSpan7">20</span>
@@ -346,9 +364,10 @@
               <td>=</td>
               <td id="valueCell7">
                 <input 
-                  type="number" 
-                  id="valueInput7" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput7"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(7)"
                 />
                 <span class="cell-number-span" id="valueSpan7"></span>
@@ -357,7 +376,7 @@
             <tr id="row8">
               <td>C8</td>
               <td>
-                <select id="inputDropdown8" onchange="updateRow(8)">
+                <select id="inputDropdown8" tabindex="0" onchange="updateRow(8)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -365,9 +384,10 @@
               </td>
               <td id="numericCell8">
                 <input 
-                  type="number" 
-                  id="numericInput8" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput8"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(8)"
                 />
                 <span class="cell-number-span" id="numericSpan8"></span>
@@ -375,9 +395,10 @@
               <td>x</td>
               <td id="weightCell8">
                 <input 
-                  type="number" 
-                  id="weightInput8" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput8"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(8)"
                 />
                 <span class="cell-number-span" id="weightSpan8">20</span>
@@ -385,9 +406,10 @@
               <td>=</td>
               <td id="valueCell8">
                 <input 
-                  type="number" 
-                  id="valueInput8" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput8"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(8)"
                 />
                 <span class="cell-number-span" id="valueSpan8"></span>
@@ -396,7 +418,7 @@
             <tr id="row9">
               <td>C9</td>
               <td>
-                <select id="inputDropdown9" onchange="updateRow(9)">
+                <select id="inputDropdown9" tabindex="0" onchange="updateRow(9)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -404,9 +426,10 @@
               </td>
               <td id="numericCell9">
                 <input 
-                  type="number" 
-                  id="numericInput9" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput9"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(9)"
                 />
                 <span class="cell-number-span" id="numericSpan9"></span>
@@ -414,9 +437,10 @@
               <td>x</td>
               <td id="weightCell9">
                 <input 
-                  type="number" 
-                  id="weightInput9" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput9"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(9)"
                 />
                 <span class="cell-number-span" id="weightSpan9">20</span>
@@ -424,9 +448,10 @@
               <td>=</td>
               <td id="valueCell9">
                 <input 
-                  type="number" 
-                  id="valueInput9" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput9"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(9)"
                 />
                 <span class="cell-number-span" id="valueSpan9"></span>
@@ -435,7 +460,7 @@
             <tr id="row10">
               <td>C10</td>
               <td>
-                <select id="inputDropdown10" onchange="updateRow(10)">
+                <select id="inputDropdown10" tabindex="0" onchange="updateRow(10)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -443,9 +468,10 @@
               </td>
               <td id="numericCell10">
                 <input 
-                  type="number" 
-                  id="numericInput10" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput10"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(10)"
                 />
                 <span class="cell-number-span" id="numericSpan10"></span>
@@ -453,9 +479,10 @@
               <td>x</td>
               <td id="weightCell10">
                 <input 
-                  type="number" 
-                  id="weightInput10" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput10"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(10)"
                 />
                 <span class="cell-number-span" id="weightSpan10">20</span>
@@ -463,9 +490,10 @@
               <td>=</td>
               <td id="valueCell10">
                 <input 
-                  type="number" 
-                  id="valueInput10" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput10"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(10)"
                 />
                 <span class="cell-number-span" id="valueSpan10"></span>
@@ -474,7 +502,7 @@
             <tr id="row11">
               <td>C11</td>
               <td>
-                <select id="inputDropdown11" onchange="updateRow(11)">
+                <select id="inputDropdown11" tabindex="0" onchange="updateRow(11)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -482,9 +510,10 @@
               </td>
               <td id="numericCell11">
                 <input 
-                  type="number" 
-                  id="numericInput11" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput11"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(11)"
                 />
                 <span class="cell-number-span" id="numericSpan11"></span>
@@ -492,9 +521,10 @@
               <td>x</td>
               <td id="weightCell11">
                 <input 
-                  type="number" 
-                  id="weightInput11" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput11"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(11)"
                 />
                 <span class="cell-number-span" id="weightSpan11">20</span>
@@ -502,9 +532,10 @@
               <td>=</td>
               <td id="valueCell11">
                 <input 
-                  type="number" 
-                  id="valueInput11" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput11"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(11)"
                 />
                 <span class="cell-number-span" id="valueSpan11"></span>
@@ -513,7 +544,7 @@
             <tr id="row12">
               <td>C12</td>
               <td>
-                <select id="inputDropdown12" onchange="updateRow(12)">
+                <select id="inputDropdown12" tabindex="0" onchange="updateRow(12)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -521,9 +552,10 @@
               </td>
               <td id="numericCell12">
                 <input 
-                  type="number" 
-                  id="numericInput12" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput12"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(12)"
                 />
                 <span class="cell-number-span" id="numericSpan12"></span>
@@ -531,9 +563,10 @@
               <td>x</td>
               <td id="weightCell12">
                 <input 
-                  type="number" 
-                  id="weightInput12" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput12"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(12)"
                 />
                 <span class="cell-number-span" id="weightSpan12">20</span>
@@ -541,9 +574,10 @@
               <td>=</td>
               <td id="valueCell12">
                 <input 
-                  type="number" 
-                  id="valueInput12" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput12"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(12)"
                 />
                 <span class="cell-number-span" id="valueSpan12"></span>
@@ -552,7 +586,7 @@
             <tr id="row13">
               <td>C13</td>
               <td>
-                <select id="inputDropdown13" onchange="updateRow(13)">
+                <select id="inputDropdown13" tabindex="0" onchange="updateRow(13)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -560,9 +594,10 @@
               </td>
               <td id="numericCell13">
                 <input 
-                  type="number" 
-                  id="numericInput13" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput13"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(13)"
                 />
                 <span class="cell-number-span" id="numericSpan13"></span>
@@ -570,9 +605,10 @@
               <td>x</td>
               <td id="weightCell13">
                 <input 
-                  type="number" 
-                  id="weightInput13" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput13"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(13)"
                 />
                 <span class="cell-number-span" id="weightSpan13">20</span>
@@ -580,9 +616,10 @@
               <td>=</td>
               <td id="valueCell13">
                 <input 
-                  type="number" 
-                  id="valueInput13" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput13"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(13)"
                 />
                 <span class="cell-number-span" id="valueSpan13"></span>
@@ -591,7 +628,7 @@
             <tr id="row14">
               <td>C14</td>
               <td>
-                <select id="inputDropdown14" onchange="updateRow(14)">
+                <select id="inputDropdown14" tabindex="0" onchange="updateRow(14)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -599,9 +636,10 @@
               </td>
               <td id="numericCell14">
                 <input 
-                  type="number" 
-                  id="numericInput14" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput14"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(14)"
                 />
                 <span class="cell-number-span" id="numericSpan14"></span>
@@ -609,9 +647,10 @@
               <td>x</td>
               <td id="weightCell14">
                 <input 
-                  type="number" 
-                  id="weightInput14" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput14"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(14)"
                 />
                 <span class="cell-number-span" id="weightSpan14">20</span>
@@ -619,9 +658,10 @@
               <td>=</td>
               <td id="valueCell14">
                 <input 
-                  type="number" 
-                  id="valueInput14" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput14"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(14)"
                 />
                 <span class="cell-number-span" id="valueSpan14"></span>
@@ -630,7 +670,7 @@
             <tr id="row15">
               <td>C15</td>
               <td>
-                <select id="inputDropdown15" onchange="updateRow(15)">
+                <select id="inputDropdown15" tabindex="0" onchange="updateRow(15)">
                   <option value="" disabled selected>Select</option>
                   <option value="RED">RED</option>
                   <option value="GREEN">GREEN</option>
@@ -638,9 +678,10 @@
               </td>
               <td id="numericCell15">
                 <input 
-                  type="number" 
-                  id="numericInput15" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="numericInput15"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(15)"
                 />
                 <span class="cell-number-span" id="numericSpan15"></span>
@@ -648,9 +689,10 @@
               <td>x</td>
               <td id="weightCell15">
                 <input 
-                  type="number" 
-                  id="weightInput15" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="weightInput15"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(15)"
                 />
                 <span class="cell-number-span" id="weightSpan15">20</span>
@@ -658,9 +700,10 @@
               <td>=</td>
               <td id="valueCell15">
                 <input 
-                  type="number" 
-                  id="valueInput15" 
-                  style="width: 60px;" 
+                  type="number"
+                  id="valueInput15"
+                  tabindex="0"
+                  style="width:60px;"
                   oninput="updateRow(15)"
                 />
                 <span class="cell-number-span" id="valueSpan15"></span>
@@ -938,7 +981,7 @@
     <br/>
 
     <!-- Round 1 traffic light state -->
-    <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto; ">
+    <table class="decision-table" id="trafficLightStateTable" style="margin: 20px auto;">
       <tbody>
         <tr>
           <td id="trafficLightStateCell" style="font-weight:bold;">
@@ -1111,7 +1154,6 @@
       // Also update the side preview if auto is on
       updateRound2Weights();
 
-      // If there's a recalcAllRound2 in scope, call it so round2 stays fresh
       if (window.recalcAllRound2) {
         window.recalcAllRound2();
       }
@@ -1215,57 +1257,44 @@
       document.getElementById('networkStatusCell').textContent = networkStatus;
       document.getElementById('networkSumCell').textContent = sum;
 
-      // **************** SAVE ROUND 1 VALUES IN localStorage ****************
+      // Save Round1 in localStorage if desired
       localStorage.setItem('round1NetworkStatus', networkStatus);
       localStorage.setItem('round1NetworkSum', sum);
     }
 
     function updateRound2Weights() {
-  // Only do the auto-adjust if the "Auto" button (round2SideAutoBtn) is active
-  if (!round2SideAutoActive) return;
+      // Only do the auto-adjust if the "Auto" button (round2SideAutoBtn) is active
+      if (!round2SideAutoActive) return;
 
-  // Pull the Round 1 selected light color that the user clicked
-  // Make sure somewhere in your code you set: window.selectedTrafficLightColorRound1 = 'RED' or 'GREEN'
-  const round1Light = window.selectedTrafficLightColorRound1 || null; 
+      const round1Light = window.selectedTrafficLightColorRound1 || null; 
+      for (let i = 1; i <= 15; i++) {
+        const previewEl = document.getElementById('round2WeightPreview' + i);
+        const spanEl    = document.getElementById('round2WeightSpan' + i);
+        if (!previewEl || !spanEl) continue;
 
-  for (let i = 1; i <= 15; i++) {
-    // The preview <input> in the Round 2 side table
-    const previewEl = document.getElementById('round2WeightPreview' + i);
-    // The <span> in the Round 2 side table
-    const spanEl = document.getElementById('round2WeightSpan' + i);
-    if (!previewEl || !spanEl) continue;
+        let r1Weight;
+        if (weightAutoActive) {
+          r1Weight = 20; 
+        } else {
+          r1Weight = parseFloat(document.getElementById('weightInput' + i).value) || 0;
+        }
 
-    // Get Round 1’s final weight (whether manually input or auto=20)
-    let r1Weight;
-    if (weightAutoActive) {
-      r1Weight = 20; 
-    } else {
-      r1Weight = parseFloat(document.getElementById('weightInput' + i).value) || 0;
-    }
+        const r1NodeColor = document.getElementById('inputDropdown' + i).value;
+        let newWeight = r1Weight;
 
-    // Check the c-node’s dropdown color (either RED/GREEN or blank)
-    const r1NodeColor = document.getElementById('inputDropdown' + i).value;
-    let newWeight = r1Weight;
+        if (round1Light && r1NodeColor) {
+          if (r1NodeColor === round1Light) {
+            newWeight = r1Weight + 10;
+          } else {
+            newWeight = r1Weight - 10;
+          }
+        }
 
-    // If Round 1 color is set and the node has a color
-    if (round1Light && r1NodeColor) {
-      // If node color matches chosen color → +10, else → -10
-      if (r1NodeColor === round1Light) {
-        newWeight = r1Weight + 10;
-      } else {
-        newWeight = r1Weight - 10;
+        spanEl.textContent = newWeight;
+        previewEl.value = newWeight;
+        round2SideWeights[i - 1] = newWeight;
       }
     }
-
-    // Display the newly computed Round 2 weight in both <span> and <input>
-    spanEl.textContent = newWeight;
-    previewEl.value = newWeight;
-
-    // Save it into your round2SideWeights array if needed
-    round2SideWeights[i - 1] = newWeight;
-  }
-}
-
 
     function storeRound2Preview(i) {
       const el = document.getElementById('round2WeightPreview' + i);
@@ -1486,11 +1515,53 @@
       });
     }
 
+    // ========== CUSTOM VERTICAL TABBING FOR ROUND 1 ==========
+    function attachTabHandlers1() {
+      // The columns we want to move in: Input (dropdown), numeric, weight, value
+      const colPrefixes = [
+        "inputDropdown",
+        "numericInput",
+        "weightInput",
+        "valueInput"
+      ];
+      const maxRows = 15;
+
+      colPrefixes.forEach(prefix => {
+        for (let row = 1; row <= maxRows; row++) {
+          const el = document.getElementById(prefix + row);
+          if (!el) continue;
+          el.addEventListener("keydown", function(e) {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              if (e.shiftKey) {
+                // SHIFT+TAB => up one row in the same column
+                const prev = row - 1;
+                if (prev >= 1) {
+                  const prevEl = document.getElementById(prefix + prev);
+                  if (prevEl) prevEl.focus();
+                }
+              } else {
+                // TAB => down one row in the same column
+                const next = row + 1;
+                if (next <= maxRows) {
+                  const nextEl = document.getElementById(prefix + next);
+                  if (nextEl) nextEl.focus();
+                }
+              }
+            }
+          });
+        }
+      });
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       toggleNumericColumn(numericAutoActive);
       toggleWeightColumn(weightAutoActive);
       toggleValueColumn(valueAutoActive);
       toggleRound2WeightColumn(false);
+
+      // After the DOM is ready, attach vertical tabbing for Round 1
+      attachTabHandlers1();
     });
 
     function updateHeaderColor() {
