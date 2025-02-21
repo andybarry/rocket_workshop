@@ -8,14 +8,14 @@
       Round 4
     </h2>
     <h2 style="font-size: 1.8em; font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold; line-height: .5;">
-      Human Neural Network 
+      Human Neural Network
     </h2>
     <hr class="main-page-hr" />
     <br/>
 
     <!-- Optional Image -->
     <img 
-      src="img/27-nn.png" 
+      src="img/45-nn.png" 
       alt="NN"
       style="
         display: block; 
@@ -34,11 +34,8 @@
     </div>
   </div>
 
-  {% comment %}
-    Your "node-generator-45-round4.html" or similar partial might already handle sensor nodes.
-    Make sure it includes or references your hidden-layer nodes as you want.
-  {% endcomment %}
-  {% include node-generator-45-round4.html %}
+
+    {% include node-generator-45-round4.html %}
 
   <div style="text-align: center;">
     <h3 class="title-box-b">Hidden Layer Nodes (B &amp; C)</h3>
@@ -80,7 +77,8 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Repeat rows for C1..C15 -->
+
+            <!-- Row 1 -->
             <tr id="row4_1">
               <td>C1</td>
               <td>
@@ -94,27 +92,29 @@
                 <input 
                   type="number"
                   id="numericInput4_1"
-                  style="width: 60px;"
+                  style="width:60px;"
                   oninput="updateRow4(1)"
                 />
                 <span class="cell-number-span" id="numericSpan4_1"></span>
               </td>
               <td>x</td>
+              <!-- ADDED tabindex="0" so Weight is focusable. -->
               <td>
-                <span id="weightSpan4_1"></span>
+                <span id="weightSpan4_1" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
                 <input 
                   type="number"
                   id="valueInput4_1"
-                  style="width: 60px;"
+                  style="width:60px;"
                   oninput="updateRow4(1)"
                 />
                 <span class="cell-number-span" id="valueSpan4_1"></span>
               </td>
             </tr>
-            
+
+            <!-- Row 2 -->
             <tr id="row4_2">
               <td>C2</td>
               <td>
@@ -135,7 +135,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_2"></span>
+                <span id="weightSpan4_2" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -149,6 +149,7 @@
               </td>
             </tr>
 
+            <!-- Row 3 -->
             <tr id="row4_3">
               <td>C3</td>
               <td>
@@ -169,7 +170,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_3"></span>
+                <span id="weightSpan4_3" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -183,6 +184,7 @@
               </td>
             </tr>
 
+            <!-- Row 4 -->
             <tr id="row4_4">
               <td>C4</td>
               <td>
@@ -203,7 +205,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_4"></span>
+                <span id="weightSpan4_4" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -217,6 +219,7 @@
               </td>
             </tr>
 
+            <!-- Row 5 -->
             <tr id="row4_5">
               <td>C5</td>
               <td>
@@ -237,7 +240,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_5"></span>
+                <span id="weightSpan4_5" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -251,6 +254,7 @@
               </td>
             </tr>
 
+            <!-- Row 6 -->
             <tr id="row4_6">
               <td>C6</td>
               <td>
@@ -271,7 +275,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_6"></span>
+                <span id="weightSpan4_6" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -285,6 +289,7 @@
               </td>
             </tr>
 
+            <!-- Row 7 -->
             <tr id="row4_7">
               <td>C7</td>
               <td>
@@ -305,7 +310,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_7"></span>
+                <span id="weightSpan4_7" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -319,6 +324,7 @@
               </td>
             </tr>
 
+            <!-- Row 8 -->
             <tr id="row4_8">
               <td>C8</td>
               <td>
@@ -339,7 +345,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_8"></span>
+                <span id="weightSpan4_8" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -353,6 +359,7 @@
               </td>
             </tr>
 
+            <!-- Row 9 -->
             <tr id="row4_9">
               <td>C9</td>
               <td>
@@ -373,7 +380,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_9"></span>
+                <span id="weightSpan4_9" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -387,7 +394,7 @@
               </td>
             </tr>
 
-            <!-- Additional rows for C10..C15 -->
+            <!-- Row 10 -->
             <tr id="row4_10">
               <td>C10</td>
               <td>
@@ -408,7 +415,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_10"></span>
+                <span id="weightSpan4_10" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -422,6 +429,7 @@
               </td>
             </tr>
 
+            <!-- Row 11 -->
             <tr id="row4_11">
               <td>C11</td>
               <td>
@@ -442,7 +450,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_11"></span>
+                <span id="weightSpan4_11" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -456,6 +464,7 @@
               </td>
             </tr>
 
+            <!-- Row 12 -->
             <tr id="row4_12">
               <td>C12</td>
               <td>
@@ -476,7 +485,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_12"></span>
+                <span id="weightSpan4_12" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -490,6 +499,7 @@
               </td>
             </tr>
 
+            <!-- Row 13 -->
             <tr id="row4_13">
               <td>C13</td>
               <td>
@@ -510,7 +520,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_13"></span>
+                <span id="weightSpan4_13" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -524,6 +534,7 @@
               </td>
             </tr>
 
+            <!-- Row 14 -->
             <tr id="row4_14">
               <td>C14</td>
               <td>
@@ -544,7 +555,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_14"></span>
+                <span id="weightSpan4_14" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -558,6 +569,7 @@
               </td>
             </tr>
 
+            <!-- Row 15 -->
             <tr id="row4_15">
               <td>C15</td>
               <td>
@@ -578,7 +590,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan4_15"></span>
+                <span id="weightSpan4_15" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -612,10 +624,10 @@
       </div>
       <!-- /Round 4 main table (C1..C15) -->
 
-      <!-- ROUND 5 SIDE PREVIEW TABLE (also extended to C1..C15) -->
+      <!-- ROUND 5 SIDE PREVIEW TABLE (C1..C15, hidden by default) -->
       <div 
         id="round5Container" 
-        style="display: none; margin-left: 30px; vertical-align: top;"
+        style="display:none; margin-left:30px; vertical-align:top;"
       >
         <h3 style="text-align:center;">Round 5</h3>
 
@@ -631,7 +643,7 @@
           }
         </style>
 
-        <table id="round5SideTable" class="interactive-table" style="margin: 0 auto;">
+        <table id="round5SideTable" class="interactive-table" style="margin:0 auto;">
           <thead>
             <tr>
               <th>Node</th>
@@ -639,191 +651,25 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Now 15 rows for Round 5 preview -->
+            <!-- C1..C15 for Round5 preview -->
+            {% for i in (1..15) %}
             <tr>
-              <td>C1</td>
+              <td>C{{ i }}</td>
               <td>
                 <input 
                   type="number" 
-                  id="round5WeightPreview1" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(1)"
+                  id="round5WeightPreview{{ i }}" 
+                  style="width:60px;"
+                  oninput="storeRound5Preview( i )"
                 />
-                <span class="cell-number-span" id="round5WeightSpan1"></span>
+                <span class="cell-number-span" id="round5WeightSpan{{ i }}"></span>
               </td>
             </tr>
-            <tr>
-              <td>C2</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview2" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(2)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan2"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C3</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview3" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(3)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan3"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C4</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview4" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(4)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan4"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C5</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview5" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(5)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan5"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C6</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview6" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(6)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan6"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C7</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview7" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(7)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan7"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C8</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview8" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(8)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan8"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C9</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview9" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(9)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan9"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C10</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview10" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(10)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan10"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C11</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview11" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(11)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan11"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C12</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview12" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(12)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan12"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C13</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview13" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(13)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan13"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C14</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview14" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(14)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan14"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>C15</td>
-              <td>
-                <input 
-                  type="number" 
-                  id="round5WeightPreview15" 
-                  style="width: 60px;"
-                  oninput="storeRound5Preview(15)"
-                />
-                <span class="cell-number-span" id="round5WeightSpan15"></span>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
           <tfoot>
-            <tr class="auto-button-row" style="border: none;">
-              <td colspan="2" style="text-align: center; border: none;">
+            <tr class="auto-button-row" style="border:none;">
+              <td colspan="2" style="text-align:center; border:none;">
                 <button id="round5SideAutoBtn">Auto</button>
               </td>
             </tr>
@@ -896,25 +742,21 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Round 1 row -->
         <tr>
           <td>1</td>
           <td id="networkStatusCellR1_4"></td>
           <td id="networkSumCellR1_4"></td>
         </tr>
-        <!-- Round 2 row -->
         <tr>
           <td>2</td>
           <td id="networkStatusCellR2_4"></td>
           <td id="networkSumCellR2_4"></td>
         </tr>
-        <!-- Round 3 row -->
         <tr>
           <td>3</td>
           <td id="networkStatusCellR3_4"></td>
           <td id="networkSumCellR3_4"></td>
         </tr>
-        <!-- Round 4 row -->
         <tr>
           <td>4</td>
           <td id="networkStatusCell4"></td>
@@ -935,7 +777,7 @@
       </canvas>
     </div>
 
-    <!-- Round 4 "Update Weights" button now has id="toggleRound5BtnR4" -->
+    <!-- Round 4 "Update Weights" => toggles Round 5 side preview -->
     <button id="toggleRound5BtnR4">Update Weights</button>
     <br/><br/><br/>
 
@@ -953,16 +795,15 @@
     </div>
     {% include copyright.html %}
   </div>
- <!-- /round4 -->
+  <!-- /round4 -->
 
-  <!-- ================= ROUND 4 SCRIPT (C1..C15, allowing negative weights) ================== -->
+  <!-- ================= ROUND 4 SCRIPT (C1..C15, with vertical tabbing) ================== -->
   <script>
     let numericAutoActive4 = false;
     let valueAutoActive4   = false;
 
     // For the Round 5 side table:
     let round5SideAutoActive = false;
-    // Now we have 15 nodes => store 15 values
     let round5SideWeights    = new Array(15).fill(0);
 
     // Hook up auto buttons for Round 4
@@ -1024,9 +865,8 @@
     /**
      * updateRow4(i):
      *  - Looks up the Round 3 color/weight,
-     *  - Adds or subtracts 10 if the node color matches or mismatches Round 3 traffic light,
-     *  - Allows negative weights (e.g., 0-10 = -10),
-     *  - Updates final numeric & value columns.
+     *  - ±10 if the node color matches Round3 traffic light,
+     *  - Allows negative weights.
      */
     function updateRow4(i) {
       const dd4        = document.getElementById(`inputDropdown4_${i}`);
@@ -1059,7 +899,7 @@
         numericVal4 = parseFloat(numInp4?.value) || 0;
       }
 
-      // (B) Weight: Round4 = Round3 Weight ± 10 based on match w/ Round3 traffic light
+      // (B) Weight from Round3 ± 10 if matched R3 traffic light color
       const r3Color  = getRound3NodeColor(i);
       const r3Weight = getRound3NodeWeight(i);
       const traffic3 = (window.selectedTrafficLightColorRound3 || "").toUpperCase();
@@ -1072,9 +912,7 @@
           newW4 = r3Weight - 10; // can go negative
         }
       }
-      if (weightSpn4) {
-        weightSpn4.textContent = newW4; 
-      }
+      if (weightSpn4) weightSpn4.textContent = newW4;
 
       // (C) Value = numericVal4 * newW4
       let computedVal4 = numericVal4 * newW4;
@@ -1088,7 +926,7 @@
         finalVal4 = parseFloat(valInp4?.value) || 0;
       }
 
-      // Color the cell based on the input color
+      // Color the cell if RED or GREEN
       if (dd4 && dd4.value === "RED") {
         dd4.parentElement.classList.add('cell-red');
         dd4.classList.add('select-red');
@@ -1097,11 +935,11 @@
         dd4.classList.add('select-green');
       }
 
-      // Update final decision
+      // Update final decision for Round4
       updateDecision4();
     }
 
-    // Returns the final numeric value for each node i
+    // Returns the final numeric value for each node i in Round4
     function getFinalValue4(i) {
       const dd4    = document.getElementById(`inputDropdown4_${i}`);
       const numInp4= document.getElementById(`numericInput4_${i}`);
@@ -1109,18 +947,13 @@
 
       let numericVal4 = 0;
       if (numericAutoActive4) {
-        if (dd4 && dd4.value === "RED") {
-          numericVal4 = -1;
-        } else if (dd4 && dd4.value === "GREEN") {
-          numericVal4 = 1;
-        } else {
-          numericVal4 = 0;
-        }
+        if (dd4 && dd4.value === "RED") numericVal4 = -1;
+        else if (dd4 && dd4.value === "GREEN") numericVal4 = 1;
+        else numericVal4 = 0;
       } else {
         numericVal4 = parseFloat(numInp4?.value) || 0;
       }
 
-      // Round 3 color & weight
       const r3Color  = getRound3NodeColor(i);
       const r3Weight = getRound3NodeWeight(i);
       const traffic3 = (window.selectedTrafficLightColorRound3 || "").toUpperCase();
@@ -1136,7 +969,7 @@
       }
     }
 
-    // Sums all final values => sets Round 4 decision
+    // Summation => Round4 decision => sets outputCell4, sumCell4, color row
     function updateDecision4() {
       let sum4 = 0;
       for (let i = 1; i <= 15; i++) {
@@ -1159,7 +992,6 @@
       updateNetworkStatusTable4();
     }
 
-    // Checks user-chosen Round 4 traffic light => sets status CORRECT/INCORRECT/UNDECIDED
     function updateNetworkStatusTable4() {
       const chosen4   = window.selectedTrafficLightColorRound4 || "NONE";
       const decision4 = document.getElementById("outputCell4").textContent;
@@ -1179,7 +1011,7 @@
       document.getElementById("networkSumCell4").textContent =
         document.getElementById("sumCell4").textContent;
 
-      // Display the chosen traffic light color
+      // Show chosen traffic light color for Round4
       const trafficLightStateCell4 = document.getElementById('trafficLightStateCell4');
       if (trafficLightStateCell4) {
         trafficLightStateCell4.textContent = 'Traffic Light State (R4): ---';
@@ -1202,7 +1034,6 @@
       if (redCircleRound4 && greenCircleRound4) {
         redCircleRound4.classList.remove('red','inactive-red');
         greenCircleRound4.classList.remove('green','inactive-green');
-
         if (chosen4 === 'RED') {
           redCircleRound4.classList.add('red');
           greenCircleRound4.classList.add('inactive-green');
@@ -1216,7 +1047,7 @@
       }
     }
 
-    // Draw bar chart for Round 4 weights (C1..C15)
+    // Round4 bar chart: read #weightSpan4_i => draw it
     function drawBarChartRound4() {
       const canvas = document.getElementById("round4BarChart");
       if (!canvas) return;
@@ -1233,12 +1064,10 @@
         w4.push(parsed);
       }
 
-      // Clear old chart
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
 
       let minVal = Math.min(...w4);
       let maxVal = Math.max(...w4);
-      // If all are the same, separate them a bit
       if (minVal === maxVal) {
         minVal -= 10;
         maxVal += 10;
@@ -1254,7 +1083,6 @@
       const usableW = cw - mg * 2,
             usableH = ch - mg * 2;
 
-      // Determine the Y coordinate of zero
       let zeroY;
       if (minVal < 0 && maxVal > 0) {
         zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
@@ -1294,7 +1122,7 @@
 
         ctx.fillRect(barX, barY, barWidth, barH);
 
-        // draw numeric weight above/below each bar
+        // label numeric weight above/below each bar
         ctx.save();
         ctx.fillStyle = "black";
         ctx.font = "12px sans-serif";
@@ -1306,7 +1134,7 @@
         }
         ctx.restore();
 
-        // X-axis label "C#"
+        // label "C#"
         ctx.fillStyle = "black";
         ctx.font = "12px sans-serif";
         ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
@@ -1314,15 +1142,13 @@
         ctx.fillStyle = "#f05f40";
       }
     }
-
-    // Refresh chart every second
     setInterval(drawBarChartRound4, 1000);
 
-    // Toggle Round5 side preview
+    // Toggle Round5 side preview container
     const toggleRound5ContainerBtn = document.getElementById('toggleRound5BtnR4');
     const round5Container = document.getElementById('round5Container');
     if (toggleRound5ContainerBtn && round5Container) {
-      toggleRound5ContainerBtn.addEventListener('click', function() {
+      toggleRound5ContainerBtn.addEventListener('click', () => {
         if (round5Container.style.display === 'none') {
           round5Container.style.display = 'inline-block';
         } else {
@@ -1352,12 +1178,6 @@
       }
     }
 
-    /*
-    * updateRound5Weights():
-    *  For each C node, read the Round4 weight (#weightSpan4_i).
-    *  Compare Round4 input color with chosen Round4 traffic light => ±10
-    *  Negative is allowed if mismatch => 0 - 10 = -10
-    */
     function updateRound5Weights() {
       if (!round5SideAutoActive) return;
 
@@ -1375,7 +1195,7 @@
           round4W = parseFloat(w4SpanEl.textContent.trim()) || 0;
         }
 
-        // The node’s Round4 input color
+        // Round4 node color in the Input column
         const nodeRound4Input = document.getElementById(`inputDropdown4_${i}`);
         let nodeR4Color = (nodeRound4Input && nodeRound4Input.value) 
                           ? nodeRound4Input.value.toUpperCase() 
@@ -1407,15 +1227,66 @@
 
     function updateHeaderColor4() {
       const newColor4 = document.getElementById("headerColorDropdown4").value;
-      const headers4 = document.querySelectorAll(
-        "#round4 .interactive-table th, #round4 .decision-table th"
-      );
+      const headers4 = document.querySelectorAll("#round4 .interactive-table th, #round4 .decision-table th");
       headers4.forEach(th => {
         th.style.backgroundColor = newColor4;
         th.style.color = "#fff";
       });
     }
+
+    // ========== CUSTOM VERTICAL TABBING FOR ROUND 4 ==========
+    function attachTabHandlers4() {
+      const colPrefixes = [
+        "inputDropdown4_",
+        "numericInput4_",
+        "weightSpan4_",
+        "valueInput4_"
+      ];
+      const maxRows = 15;
+
+      colPrefixes.forEach(prefix => {
+        for (let row = 1; row <= maxRows; row++) {
+          const el = document.getElementById(prefix + row);
+          if (!el) continue;
+          el.addEventListener("keydown", function(e) {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              if (e.shiftKey) {
+                // SHIFT+TAB => up one row in same column
+                const prev = row - 1;
+                if (prev >= 1) {
+                  const prevEl = document.getElementById(prefix + prev);
+                  if (prevEl) prevEl.focus();
+                }
+              } else {
+                // TAB => down one row in same column
+                const next = row + 1;
+                if (next <= maxRows) {
+                  const nextEl = document.getElementById(prefix + next);
+                  if (nextEl) nextEl.focus();
+                }
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // On DOM load => init each row, attach tabbing, etc.
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleNumericColumn4(false);
+      toggleValueColumn4(false);
+
+      // Initialize each row (C1..C15)
+      for (let i = 1; i <= 15; i++) {
+        updateRow4(i);
+      }
+
+      // Now attach vertical tabbing logic:
+      attachTabHandlers4();
+    });
   </script>
+
   <!-- ========================= STYLES FOR ROUND 4 ========================= -->
   <style>
     #round4 .row-red {
@@ -1446,7 +1317,7 @@
       border: none !important;
     }
     .cell-number-span {
-      display: none; /* The numeric/value columns go here when using the "Auto" buttons */
+      display: none; /* Numeric/Value placeholders for "Auto" mode */
     }
   </style>
 </div>

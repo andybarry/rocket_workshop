@@ -98,8 +98,9 @@
                 <span class="cell-number-span" id="numericSpan3_1"></span>
               </td>
               <td>x</td>
+              <!-- NOTE: added tabindex="0" to weightSpan3_1 -->
               <td>
-                <span id="weightSpan3_1"></span>
+                <span id="weightSpan3_1" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -134,7 +135,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_2"></span>
+                <span id="weightSpan3_2" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -169,7 +170,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_3"></span>
+                <span id="weightSpan3_3" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -204,7 +205,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_4"></span>
+                <span id="weightSpan3_4" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -239,7 +240,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_5"></span>
+                <span id="weightSpan3_5" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -274,7 +275,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_6"></span>
+                <span id="weightSpan3_6" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -309,7 +310,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_7"></span>
+                <span id="weightSpan3_7" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -344,7 +345,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_8"></span>
+                <span id="weightSpan3_8" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -379,7 +380,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_9"></span>
+                <span id="weightSpan3_9" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -414,7 +415,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_10"></span>
+                <span id="weightSpan3_10" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -449,7 +450,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_11"></span>
+                <span id="weightSpan3_11" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -484,7 +485,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_12"></span>
+                <span id="weightSpan3_12" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -519,7 +520,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_13"></span>
+                <span id="weightSpan3_13" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -554,7 +555,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_14"></span>
+                <span id="weightSpan3_14" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -589,7 +590,7 @@
               </td>
               <td>x</td>
               <td>
-                <span id="weightSpan3_15"></span>
+                <span id="weightSpan3_15" tabindex="0"></span>
               </td>
               <td>=</td>
               <td>
@@ -1079,15 +1080,63 @@
       }
     }
 
-    /* ============ On DOM load => initialize each row ============ */
+    /* ============ On DOM load => initialize each row & attach custom tab handlers ============ */
     window.addEventListener("DOMContentLoaded", () => {
+      // existing init code
       toggleNumericColumn3(false);
       toggleValueColumn3(false);
-
       for (let i = 1; i <= 15; i++) {
         updateRow3(i);
       }
+
+      // ===== CUSTOM TAB HANDLERS for Input, Numeric, Weight, and Value columns =====
+      attachTabHandlers();
     });
+
+    /* ========== FUNCTION: attachTabHandlers ==========
+       This creates vertical TAB/SHIFT+TAB movement in 4 columns:
+         1) inputDropdown3_i
+         2) numericInput3_i
+         3) weightSpan3_i  (requires tabindex="0")
+         4) valueInput3_i
+    */
+    function attachTabHandlers() {
+      const colPrefixes = [
+        "inputDropdown3_",
+        "numericInput3_",
+        "weightSpan3_",
+        "valueInput3_"
+      ];
+      const maxRows = 15;
+
+      // For each column prefix, attach a keydown listener to each row 1..15:
+      colPrefixes.forEach(prefix => {
+        for (let row = 1; row <= maxRows; row++) {
+          const el = document.getElementById(prefix + row);
+          if (!el) continue;
+          el.addEventListener("keydown", function(e) {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              if (e.shiftKey) {
+                // SHIFT+TAB => up one row (if possible)
+                const prev = row - 1;
+                if (prev >= 1) {
+                  const prevEl = document.getElementById(prefix + prev);
+                  if (prevEl) prevEl.focus();
+                }
+              } else {
+                // TAB => down one row (if possible)
+                const next = row + 1;
+                if (next <= maxRows) {
+                  const nextEl = document.getElementById(prefix + next);
+                  if (nextEl) nextEl.focus();
+                }
+              }
+            }
+          });
+        }
+      });
+    }
 
     /* ============ Round3 Bar Chart ============ */
     function drawBarChartRound3() {
@@ -1227,9 +1276,9 @@
         let newW4 = w3;
         if (round3Chosen && c3Val) {
           if (c3Val === round3Chosen) {
-            newW4 = w3 + 10;   // can go above 0 if w3 was negative, or more negative if mismatch below.
+            newW4 = w3 + 10;
           } else {
-            newW4 = w3 - 10;   // can go negative from 0 or any positive.
+            newW4 = w3 - 10;
           }
         }
 

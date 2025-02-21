@@ -6,7 +6,7 @@
 
   <style>
     /*******************************************************
-     * TRAFFIC LIGHT STYLES
+     * TRAFFIC LIGHT STYLES (ROUND 7)
      *******************************************************/
     .traffic-light {
       display: inline-block;
@@ -50,15 +50,14 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      margin: 0;
+      margin: 10px;
       display: inline-block;
-      line-height: 50px;
+      position: relative; /* needed for pseudo-elements */
       border: 2px solid black;
-      position: relative;
       font-size: 20px;
       font-family: 'Roboto', sans-serif;
-      margin: 10px;
     }
+    /* Circle label above the circle */
     .circleRound7 span {
       position: absolute;
       top: -45px;
@@ -82,7 +81,31 @@
     }
 
     /*******************************************************
-     * BUTTON STYLES
+     * PSEUDO-ELEMENTS FOR "R" / "G" INSIDE CIRCLES (ROUND 7)
+     *******************************************************/
+    .circleRound7.red::after {
+      content: "R";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .circleRound7.green::after {
+      content: "G";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /*******************************************************
+     * BUTTON STYLES (ROUND 7)
      *******************************************************/
     .btn {
       cursor: pointer;
@@ -100,7 +123,7 @@
       box-shadow: none !important;
     }
 
-    /* --- Red button --- */
+    /* --- Red button (R7) --- */
     #colorRed7 {
       background-color: #fff !important;
       color: red !important;
@@ -112,7 +135,7 @@
       border: none !important;
     }
 
-    /* --- Green button --- */
+    /* --- Green button (R7) --- */
     #colorGreen7 {
       background-color: #fff !important;
       color: green !important;
@@ -124,7 +147,7 @@
       border: none !important;
     }
 
-    /* --- Run button (Orange) --- */
+    /* --- Run button (Orange, R7) --- */
     #runButton7 {
       background-color: #fff !important;
       color: #f05f40 !important;
@@ -150,11 +173,11 @@
     }
 
     /*******************************************************
-     * CODE BOX (R7)
+     * CODE BOX (ROUND 7)
      *******************************************************/
     .code-box7 {
       width: 60%;
-      margin: 20px auto; 
+      margin: 20px auto;
       height: 300px;
       background-color: #1e1e1e;
       color: #d4d4d4;
@@ -176,7 +199,7 @@
 <body>
   <!-- Round 7: Traffic Light & Buttons -->
   <div style="text-align: center; margin-bottom: 20px;">
-    <h4>Ssssselect state of the traffic light (Round 7)</h4>
+    <h4>Select state of the traffic light (Round 7)</h4>
   </div>
   <div style="text-align: center; margin-bottom: 20px;">
     <button id="colorRed7" class="btn">Red</button>
@@ -223,7 +246,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   /*****************************************
-   * 1) WEIGHTS FOR A1..A20
+   * 1) WEIGHTS FOR A1..A20 (ROUND 7)
    *****************************************/
   const inputNodesRound7 = [
     { weight: 5 }, // A1
@@ -262,11 +285,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Call it on page load so the labels get updated from "???" to "X%"
+  // Call on page load to update labels from "???" to "X%"
   setLabelsRound7();
 
   /*****************************************
-   * 2) DOM ELEMENTS + STATE
+   * 2) DOM ELEMENTS + STATE (ROUND 7)
    *****************************************/
   let selectedColor7     = null;
   let codeBoxVisible7    = false;
@@ -280,11 +303,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const codeBox7         = document.getElementById('codeBox7');
   const toggleCodeBox7   = document.getElementById('toggleCodeBox7');
 
-  // Expose this if you need it externally
+  // Expose this if needed externally
   window.selectedTrafficLightColorRound7 = null;
 
   /*****************************************
-   * 3) BUTTON CLICK HANDLERS
+   * 3) BUTTON CLICK HANDLERS (ROUND 7)
    *****************************************/
   // -- Red
   colorRed7.addEventListener('click', function() {
@@ -344,13 +367,13 @@ document.addEventListener('DOMContentLoaded', function() {
         finalColor = (selectedColor7 === 'red') ? 'green' : 'red';
       }
 
-      // Clear out old color classes, apply the new color
+      // Clear old color classes, apply new color
       circleEl.classList.remove('red', 'green');
       circleEl.classList.add(finalColor);
     });
   });
 
-  // -- Show/Hide Code Box + Labels
+  // -- Show/Hide Code Box (Round 7) + Labels
   toggleCodeBox7.addEventListener('click', function(){
     codeBoxVisible7 = !codeBoxVisible7;
     if (codeBoxVisible7) {
@@ -374,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   /*****************************************
-   * 4) TYPEWRITER CODE BOX
+   * 4) TYPEWRITER CODE BOX (ROUND 7)
    *****************************************/
   function buildSnippet7() {
     return `
@@ -383,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * Weighted Dice Logic:
  *   If diceRoll <= nodeWeight, node = user-chosen color
  *   Else node = opposite color
+ * Also: 'R' in center if red, 'G' if green
  ******************************************************/
 const inputNodesRound7 = [
   { weight: 5 }, // A1
