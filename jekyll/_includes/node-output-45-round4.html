@@ -772,7 +772,7 @@
       <h4>C Node Weights (Round 4)</h4>
     </div>
     <div style="text-align:center; margin-top:10px; margin-bottom:30px;">
-      <canvas id="round4BarChart" width="600" height="250" style="border:1px solid #000;">
+      <canvas id="round4BarChart" width="500" height="200" style="border:1px solid #000;">
         Your browser does not support Canvas.
       </canvas>
     </div>
@@ -1047,102 +1047,150 @@
       }
     }
 
-    // Round4 bar chart: read #weightSpan4_i => draw it
-    function drawBarChartRound4() {
-      const canvas = document.getElementById("round4BarChart");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
+   /* ============ Round4 Bar Chart ============ */
+function drawBarChartRound4() {
+  const canvas = document.getElementById("round4BarChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-      let w4 = [];
-      for (let i = 1; i <= 15; i++) {
-        const spanEl4 = document.getElementById(`weightSpan4_${i}`);
-        if (!spanEl4) {
-          w4.push(0);
-          continue;
-        }
-        const parsed = parseFloat(spanEl4.textContent) || 0; 
-        w4.push(parsed);
-      }
-
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-
-      let minVal = Math.min(...w4);
-      let maxVal = Math.max(...w4);
-      if (minVal === maxVal) {
-        minVal -= 10;
-        maxVal += 10;
-      }
-      const pad = 10;
-      minVal -= pad;
-      maxVal += pad;
-
-      const cw = canvas.width,
-            ch = canvas.height,
-            mg = 70;
-
-      const usableW = cw - mg * 2,
-            usableH = ch - mg * 2;
-
-      let zeroY;
-      if (minVal < 0 && maxVal > 0) {
-        zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
-      } else if (maxVal < 0) {
-        zeroY = mg + usableH;
-      } else {
-        zeroY = mg;
-      }
-      zeroY = Math.max(mg, Math.min(mg + usableH, zeroY));
-
-      // X-axis
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(mg, zeroY);
-      ctx.lineTo(mg + usableW, zeroY);
-      ctx.stroke();
-
-      // Y-axis
-      ctx.beginPath();
-      ctx.moveTo(mg, mg);
-      ctx.lineTo(mg, mg + usableH);
-      ctx.stroke();
-
-      const barCount   = 15;
-      const barSpacing = usableW / barCount;
-      const barWidth   = 5;
-      ctx.fillStyle = "#f05f40";
-
-      for (let i = 0; i < barCount; i++) {
-        const wVal4   = w4[i];
-        const xCenter = mg + barSpacing * i + barSpacing / 2;
-        const scale   = usableH / (maxVal - minVal);
-        const barH    = Math.abs(wVal4 * scale);
-        const barX    = xCenter - barWidth / 2;
-        const barY    = (wVal4 >= 0) ? (zeroY - barH) : zeroY;
-
-        ctx.fillRect(barX, barY, barWidth, barH);
-
-        // label numeric weight above/below each bar
-        ctx.save();
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        const displayVal = Math.round(wVal4).toString();
-        if (wVal4 >= 0) {
-          ctx.fillText(displayVal, xCenter - 10, barY - 5);
-        } else {
-          ctx.fillText(displayVal, xCenter - 10, barY + barH + 15);
-        }
-        ctx.restore();
-
-        // label "C#"
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
-
-        ctx.fillStyle = "#f05f40";
-      }
+  // 1) Gather Round 4 weights from #weightSpan4_i
+  let w4Arr = [];
+  for (let i = 1; i <= 15; i++) {
+    const sp4 = document.getElementById("weightSpan4_" + i);
+    let val = 0;
+    if (sp4 && sp4.textContent.trim() !== "") {
+      const parsed = parseFloat(sp4.textContent.trim());
+      if (!isNaN(parsed)) val = parsed;
     }
-    setInterval(drawBarChartRound4, 1000);
+    w4Arr.push(val);
+  }
+
+  // 2) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // --------------------------------------------------
+  // Determine if we need to scale beyond ±110
+  // --------------------------------------------------
+  const largestAbsVal = Math.max(...w4Arr.map(v => Math.abs(v)));
+  let minVal, maxVal;
+  if (largestAbsVal > 110) {
+    minVal = -largestAbsVal;
+    maxVal =  largestAbsVal;
+  } else {
+    minVal = -110;
+    maxVal =  110;
+  }
+
+  // --------------------------------------------------
+  // Define margins (~90% width usage)
+  // --------------------------------------------------
+  const cw = canvas.width;
+  const ch = canvas.height;
+
+  // 5% margin on each side
+  const leftMargin   = cw * 0.05;
+  const rightMargin  = cw * 0.05;
+  const topMargin    = 20;
+  const bottomMargin = 20;
+
+  const usableW = cw - (leftMargin + rightMargin);
+  const usableH = ch - (topMargin + bottomMargin);
+
+  // --------------------------------------------------
+  // Compute zero line (Y=0)
+  // --------------------------------------------------
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    // Range crosses 0 => zero in the middle
+    zeroY = topMargin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    // Entirely below 0 => zero at the bottom
+    zeroY = topMargin + usableH;
+  } else {
+    // Entirely above 0 => zero at the top
+    zeroY = topMargin;
+  }
+  // Clamp just in case
+  zeroY = Math.max(topMargin, Math.min(topMargin + usableH, zeroY));
+
+  // --------------------------------------------------
+  // Draw Y-axis
+  // --------------------------------------------------
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, topMargin);
+  ctx.lineTo(leftMargin, topMargin + usableH);
+  ctx.stroke();
+
+  // --------------------------------------------------
+  // Draw X-axis at zeroY
+  // --------------------------------------------------
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, zeroY);
+  ctx.lineTo(leftMargin + usableW, zeroY);
+  ctx.stroke();
+
+  // --------------------------------------------------
+  // Bar settings
+  // --------------------------------------------------
+  const barCount   = 15;
+  const barWidth   = 16;
+  const barSpacing = (usableW - barWidth * barCount) / (barCount + 1);
+
+  // Scale factor: map data range (minVal..maxVal) -> usableH
+  const dataRange = maxVal - minVal;
+  const scale = usableH / dataRange;
+
+  // --------------------------------------------------
+  // Draw the bars
+  // --------------------------------------------------
+  ctx.fillStyle = "#f05f40";
+
+  let xPos = leftMargin + barSpacing; // Start after first spacing
+  for (let i = 0; i < barCount; i++) {
+    const actualVal = w4Arr[i];
+
+    // Bar height in pixels
+    const barHeight = Math.abs(actualVal * scale);
+
+    // If actualVal >= 0, bar goes up from zeroY
+    // If actualVal <  0, bar goes down from zeroY
+    const barX = xPos;
+    const barY = (actualVal >= 0)
+      ? zeroY - barHeight
+      : zeroY;
+
+    // Draw the bar
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Draw numeric label (actualVal)
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    const label = Math.round(actualVal).toString();
+    if (actualVal >= 0) {
+      ctx.fillText(label, barX, barY - 5);
+    } else {
+      ctx.fillText(label, barX, barY + barHeight + 15);
+    }
+    ctx.restore();
+
+    // X label "C#"
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("C" + (i + 1), barX + barWidth / 2 - 8, zeroY + 15);
+    ctx.restore();
+
+    // Move to next bar
+    xPos += barWidth + barSpacing;
+  }
+}
+
+// Auto-refresh every second, as before
+setInterval(drawBarChartRound4, 1000);
+
 
     // Toggle Round5 side preview container
     const toggleRound5ContainerBtn = document.getElementById('toggleRound5BtnR4');
