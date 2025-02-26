@@ -688,7 +688,7 @@
     <br/><br/><br/><br/>
 
     <div style="text-align:center; margin: 20px 0;">
-      <button id="resetButton" onclick="location.reload()">Reset Table</button>
+<!-- <button id="resetButton" onclick="location.reload()">Reset Table</button> -->
       <br/><br/>
       <select id="headerColorDropdown" onchange="updateHeaderColor()">
         <option value="" disabled selected>Change Heading Color</option>
@@ -697,7 +697,7 @@
       </select>
     </div>
 
-    {% include copyright.html %}
+  
   </div>
 
   <style>
@@ -1035,107 +1035,153 @@
     }
 
     function drawBarChartRound1() {
-      const canvas = document.getElementById('round1BarChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('round1BarChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
 
-      // Collect weights for each bar
-      let weights = [];
-      for (let i = 1; i <= 9; i++) {
-        let w;
-        if (weightAutoActive) {
-          w = 20;
-        } else {
-          w = parseFloat(document.getElementById('weightInput' + i).value) || 0;
-        }
-        weights.push(w);
-      }
-
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Determine min and max values
-      let minVal = Math.min(...weights);
-      let maxVal = Math.max(...weights);
-
-      // If all are the same, expand a bit
-      if (minVal === maxVal) {
-        minVal -= 10;
-        maxVal += 10;
-      }
-
-      // Small padding
-      const padding = 10;
-      minVal -= padding;
-      maxVal += padding;
-
-      const chartW = canvas.width,
-            chartH = canvas.height,
-            margin = 70;
-
-      const usableW = chartW - margin * 2,
-            usableH = chartH - margin * 2;
-
-      // Y=0 location
-      let zeroY;
-      if (minVal < 0 && maxVal > 0) {
-        zeroY = margin + (maxVal / (maxVal - minVal)) * usableH;
-      } else if (maxVal < 0) {
-        zeroY = margin + usableH;
-      } else {
-        zeroY = margin;
-      }
-      zeroY = Math.max(margin, Math.min(margin + usableH, zeroY));
-
-      // X-axis
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(margin, zeroY);
-      ctx.lineTo(margin + usableW, zeroY);
-      ctx.stroke();
-
-      // Y-axis
-      ctx.beginPath();
-      ctx.moveTo(margin, margin);
-      ctx.lineTo(margin, margin + usableH);
-      ctx.stroke();
-
-      const barSpacing = usableW / 9;
-      const barWidth = 5;
-      ctx.fillStyle = '#f05f40';
-
-      for (let i = 0; i < 9; i++) {
-        const wVal = weights[i];
-        const xCenter = margin + barSpacing * i + barSpacing / 2;
-        const scale = usableH / (maxVal - minVal);
-        const barHeight = Math.abs(wVal * scale);
-        const barX = xCenter - barWidth / 2;
-        const barY = (wVal >= 0) ? (zeroY - barHeight) : zeroY;
-
-        ctx.fillRect(barX, barY, barWidth, barHeight);
-
-        ctx.save();
-        ctx.fillStyle = 'black';
-        ctx.font = '12px sans-serif';
-
-        const displayVal = Math.round(wVal).toString();
-        if (wVal >= 0) {
-          ctx.fillText(displayVal, xCenter - 10, barY - 5);
-        } else {
-          ctx.fillText(displayVal, xCenter - 10, barY + barHeight + 15);
-        }
-        ctx.restore();
-
-        ctx.fillStyle = 'black';
-        ctx.font = '12px sans-serif';
-        ctx.fillText('C' + (i + 1), xCenter - 6, zeroY + 15);
-
-        ctx.fillStyle = '#f05f40';
-      }
+  // 1) Collect weights from the table
+  let weights = [];
+  for (let i = 1; i <= 9; i++) {
+    let w;
+    if (weightAutoActive) {
+      w = 20; // If "Auto" for weights is on
+    } else {
+      w = parseFloat(document.getElementById('weightInput' + i).value) || 0;
     }
+    weights.push(w);
+  }
 
-    setInterval(drawBarChartRound1, 1000);
+  // 2) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // --------------------------------------------------
+  // Determine if we need to scale beyond ±110
+  // --------------------------------------------------
+  const largestAbsVal = Math.max(...weights.map(v => Math.abs(v)));
+  let minVal, maxVal;
+  if (largestAbsVal > 110) {
+    minVal = -largestAbsVal;  // e.g. -200
+    maxVal =  largestAbsVal;  // e.g. +200
+  } else {
+    minVal = -110;
+    maxVal =  110;
+  }
+
+  // --------------------------------------------------
+  // Define margins (~90% width usage)
+  // --------------------------------------------------
+  const chartW = canvas.width;
+  const chartH = canvas.height;
+
+  const leftMargin   = chartW * 0.05;  // 5% left
+  const rightMargin  = chartW * 0.05;  // 5% right
+  const topMargin    = 20;
+  const bottomMargin = 20;
+
+  const usableW = chartW - (leftMargin + rightMargin);
+  const usableH = chartH - (topMargin + bottomMargin);
+
+  // --------------------------------------------------
+  // Compute zero line (Y=0)
+  // --------------------------------------------------
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    // Range crosses 0 in the middle
+    zeroY = topMargin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    // Entirely below 0
+    zeroY = topMargin + usableH;
+  } else {
+    // Entirely above 0
+    zeroY = topMargin;
+  }
+  // Clamp zeroY to be safe
+  zeroY = Math.max(topMargin, Math.min(topMargin + usableH, zeroY));
+
+  // --------------------------------------------------
+  // Draw Y-axis (top to bottom)
+  // --------------------------------------------------
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, topMargin);
+  ctx.lineTo(leftMargin, topMargin + usableH);
+  ctx.stroke();
+
+  // --------------------------------------------------
+  // Draw X-axis at zeroY
+  // --------------------------------------------------
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, zeroY);
+  ctx.lineTo(leftMargin + usableW, zeroY);
+  ctx.stroke();
+
+  // --------------------------------------------------
+  // Bar settings
+  // --------------------------------------------------
+  const totalBars = 9;
+  const barWidth  = 16;
+  const barSpacing = (usableW - barWidth * totalBars) / (totalBars + 1);
+
+  // Scale factor: map data range (minVal..maxVal) -> usableH
+  const dataRange = maxVal - minVal;
+  const scale = usableH / dataRange;
+
+  // --------------------------------------------------
+  // Draw the bars
+  // --------------------------------------------------
+  ctx.fillStyle = '#f05f40';
+
+  let xPos = leftMargin + barSpacing; // Start after first spacing
+  for (let i = 0; i < totalBars; i++) {
+    const actualVal = weights[i];
+    // Bar height in pixels
+    const barHeight = Math.abs((actualVal - 0) * scale);
+
+    // If actualVal >= 0, bar goes up from zeroY
+    // If actualVal <  0, bar goes down from zeroY
+    const barX = xPos;
+    const barY = (actualVal >= 0)
+      ? zeroY - barHeight
+      : zeroY;
+
+    // Draw the bar
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Draw numeric label (actual value)
+    ctx.save();
+    ctx.fillStyle = 'black';
+    ctx.font = '12px sans-serif';
+    const label = Math.round(actualVal).toString();
+    if (actualVal >= 0) {
+      ctx.fillText(label, barX, barY - 5);
+    } else {
+      ctx.fillText(label, barX, barY + barHeight + 15);
+    }
+    ctx.restore();
+
+    // Draw the "C#" label under x-axis
+    ctx.save();
+    ctx.fillStyle = 'black';
+    ctx.font = '12px sans-serif';
+    // Slight shift to center text under the bar
+    ctx.fillText(`C${i + 1}`, barX + barWidth / 2 - 8, zeroY + 15);
+    ctx.restore();
+
+    // Next bar position
+    xPos += barWidth + barSpacing;
+  }
+}
+
+// Refresh automatically every second
+setInterval(drawBarChartRound1, 1000);
+
+
+
+
+
+
+    
 
     // Round 1 "Update Weights" button toggles round2Container
     const toggleRound2BtnR1 = document.getElementById('toggleRound2BtnR1');
@@ -1169,5 +1215,61 @@
         th.style.color = '#ffffff';
       });
     }
+
+
+  // ... Your existing code for updateRow(), updateDecision(), etc.
+
+  // ========== CUSTOM VERTICAL TABBING FOR THE 9-ROW TABLE ==========
+  function attachTabHandlersForRound1() {
+    // The column ID prefixes you want to tab vertically through:
+    const colPrefixes = [
+      "inputDropdown",
+      "numericInput",
+      "weightInput",
+      "valueInput"
+    ];
+    
+    const maxRows = 9; // because you have C1..C9
+
+    colPrefixes.forEach((prefix) => {
+      for (let row = 1; row <= maxRows; row++) {
+        const el = document.getElementById(prefix + row);
+        if (!el) continue;
+
+        el.addEventListener("keydown", function (e) {
+          // Intercept Tab presses
+          if (e.key === "Tab") {
+            e.preventDefault();
+            if (e.shiftKey) {
+              // SHIFT + TAB => move up one row in the same column
+              const prev = row - 1;
+              if (prev >= 1) {
+                const prevEl = document.getElementById(prefix + prev);
+                if (prevEl) prevEl.focus();
+              }
+            } else {
+              // TAB => move down one row in the same column
+              const next = row + 1;
+              if (next <= maxRows) {
+                const nextEl = document.getElementById(prefix + next);
+                if (nextEl) nextEl.focus();
+              }
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Attach the handlers after DOM is loaded:
+  window.addEventListener("DOMContentLoaded", () => {
+    // ... your existing on-load code ...
+    attachTabHandlersForRound1(); // <--- call the vertical tab setup
+  });
+
+
+
+
+
   </script>
 </div>

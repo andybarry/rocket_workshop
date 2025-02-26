@@ -651,7 +651,6 @@
     <br/><br/><br/><br/>
 
     <div style="text-align:center; margin:20px 0;">
-      <button id="resetButton2" onclick="location.reload()">Reset Table</button>
       <br/><br/>
       <select id="headerColorDropdown2" onchange="updateHeaderColor2()">
         <option value="" disabled selected>Change Heading Color</option>
@@ -938,102 +937,124 @@
       }
     }
 
-    function drawBarChartRound2() { 
-      const canvas = document.getElementById("round2BarChart");
-      if (!canvas) return;
+    
+    function drawBarChartRound2() {
+  const canvas = document.getElementById("round2BarChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-      const ctx = canvas.getContext("2d");
-      // Gather the actual "Weight" text from each <span id="weightSpan2_#">
-      let w2 = [];
-      for (let i = 1; i <= 9; i++) {
-        const spanEl = document.getElementById(`weightSpan2_${i}`);
-        if (!spanEl) {
-          w2.push(0);
-          continue;
-        }
-        const weightVal = parseFloat(spanEl.textContent) || 0;
-        w2.push(weightVal);
-      }
-
-      // Clear previous
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      let minVal = Math.min(...w2);
-      let maxVal = Math.max(...w2);
-      if (minVal === maxVal) {
-        minVal -= 10;
-        maxVal += 10;
-      }
-      const pad = 10;
-      minVal -= pad;
-      maxVal += pad;
-
-      const cw = canvas.width,
-            ch = canvas.height,
-            mg = 70;
-
-      const usableW = cw - mg * 2,
-            usableH = ch - mg * 2;
-
-      let zeroY;
-      if (minVal < 0 && maxVal > 0) {
-        zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
-      } else if (maxVal < 0) {
-        zeroY = mg + usableH;
-      } else {
-        zeroY = mg;
-      }
-      zeroY = Math.max(mg, Math.min(mg + usableH, zeroY));
-
-      // X-axis
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(mg, zeroY);
-      ctx.lineTo(mg + usableW, zeroY);
-      ctx.stroke();
-
-      // Y-axis
-      ctx.beginPath();
-      ctx.moveTo(mg, mg);
-      ctx.lineTo(mg, mg + usableH);
-      ctx.stroke();
-
-      const barSpacing = usableW / 9;
-      const barWidth   = 5;
-      ctx.fillStyle = "#f05f40";
-
-      for (let i = 0; i < 9; i++) {
-        const wVal = w2[i];
-        const xCenter = mg + barSpacing * i + barSpacing / 2;
-        const scale = usableH / (maxVal - minVal);
-        const barH = Math.abs(wVal * scale);
-        const barX = xCenter - barWidth / 2;
-        const barY = wVal >= 0 ? zeroY - barH : zeroY;
-
-        ctx.fillRect(barX, barY, barWidth, barH);
-
-        ctx.save();
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        const displayVal = Math.round(wVal).toString();
-
-        if (wVal >= 0) {
-          ctx.fillText(displayVal, xCenter - 10, barY - 5);
-        } else {
-          ctx.fillText(displayVal, xCenter - 10, barY + barH + 15);
-        }
-        ctx.restore();
-
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
-
-        ctx.fillStyle = "#f05f40";
-      }
+  // 1) Gather Round 2 weights from each "weightSpan2_i"
+  //    (for i = 1..9 in your 27-node Round 2)
+  const weights = [];
+  for (let i = 1; i <= 9; i++) {
+    const wSpan = document.getElementById("weightSpan2_" + i);
+    if (!wSpan) {
+      weights.push(0);
+      continue;
     }
+    const val = parseFloat(wSpan.textContent) || 0;
+    weights.push(val);
+  }
 
-    setInterval(drawBarChartRound2, 1000);
+  // 2) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 3) Possibly re-scale beyond ±110 if needed
+  const largestAbsVal = Math.max(...weights.map(v => Math.abs(v)));
+  let minVal, maxVal;
+  if (largestAbsVal > 110) {
+    minVal = -largestAbsVal;
+    maxVal =  largestAbsVal;
+  } else {
+    minVal = -110;
+    maxVal =  110;
+  }
+
+  // 4) Define chart area + margins
+  const cw = canvas.width;
+  const ch = canvas.height;
+  const leftMargin   = cw * 0.05;  // 5% left
+  const rightMargin  = cw * 0.05;  // 5% right
+  const topMargin    = 20;
+  const bottomMargin = 20;
+  const usableW      = cw - (leftMargin + rightMargin);
+  const usableH      = ch - (topMargin + bottomMargin);
+
+  // 5) Compute zero line (Y=0)
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    zeroY = topMargin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    zeroY = topMargin + usableH; // everything is negative
+  } else {
+    zeroY = topMargin; // everything is positive
+  }
+  zeroY = Math.max(topMargin, Math.min(topMargin + usableH, zeroY));
+
+  // 6) Draw axes
+  ctx.strokeStyle = "black";
+  ctx.lineWidth   = 1;
+
+  // Y-axis
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, topMargin);
+  ctx.lineTo(leftMargin, topMargin + usableH);
+  ctx.stroke();
+
+  // X-axis (at zeroY)
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, zeroY);
+  ctx.lineTo(leftMargin + usableW, zeroY);
+  ctx.stroke();
+
+  // 7) Draw the bars
+  const totalBars  = 9;    // we have 9 C-nodes in Round 2 (27-node version)
+  const barWidth   = 16;
+  const barSpacing = (usableW - barWidth * totalBars) / (totalBars + 1);
+  const dataRange  = maxVal - minVal;
+  const scale      = usableH / dataRange;
+
+  ctx.fillStyle = "#f05f40";
+
+  let xPos = leftMargin + barSpacing;
+  for (let i = 0; i < totalBars; i++) {
+    const actualVal = weights[i];
+    const barHeight = Math.abs(actualVal * scale);
+
+    // If >= 0, bar goes upward from zeroY; else downward
+    const barX = xPos;
+    const barY = (actualVal >= 0)
+      ? zeroY - barHeight
+      : zeroY;
+
+    // Draw the rectangle
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Draw numeric label above/below bar
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    const label = Math.round(actualVal).toString();
+    if (actualVal >= 0) {
+      ctx.fillText(label, barX, barY - 5);
+    } else {
+      ctx.fillText(label, barX, barY + barHeight + 15);
+    }
+    ctx.restore();
+
+    // Label each bar "C#" under the X-axis
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("C" + (i + 1), barX + barWidth / 2 - 8, zeroY + 15);
+    ctx.restore();
+
+    xPos += barWidth + barSpacing;
+  }
+}
+setInterval(drawBarChartRound2, 1000);
+
+
 
     function updateHeaderColor2() {
       const newColor2 = document.getElementById("headerColorDropdown2").value;
@@ -1061,6 +1082,8 @@
       if (storedSum !== null) {
         document.getElementById('networkSumCellR1').textContent = storedSum;
       }
+
+      attachTabHandlersForRound2();
     });
 
     // Round 3 side table logic
@@ -1160,5 +1183,47 @@
         }
       });
     }
+
+    function attachTabHandlersForRound2() {
+  // Match exactly the ID prefixes in your Round 2 HTML
+  const colPrefixes = [
+    "inputDropdown2_",
+    "numericInput2_",
+    "valueInput2_"
+  ];
+  
+  const maxRows = 9; // you have 9 rows: C1..C9
+
+  colPrefixes.forEach((prefix) => {
+    for (let row = 1; row <= maxRows; row++) {
+      const el = document.getElementById(prefix + row);
+      if (!el) continue;
+
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          if (e.shiftKey) {
+            // SHIFT+TAB => go up one row in same column
+            const prev = row - 1;
+            if (prev >= 1) {
+              const prevEl = document.getElementById(prefix + prev);
+              if (prevEl) prevEl.focus();
+            }
+          } else {
+            // TAB => go down one row in same column
+            const next = row + 1;
+            if (next <= maxRows) {
+              const nextEl = document.getElementById(prefix + next);
+              if (nextEl) nextEl.focus();
+            }
+          }
+        }
+      });
+    }
+  });
+}
+
+
+
   </script>
 </div>

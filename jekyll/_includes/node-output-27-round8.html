@@ -685,7 +685,7 @@
     <br/><br/><br/><br/>
 
     <div style="text-align:center; margin:20px 0;">
-      <button id="resetButton8" onclick="location.reload()">Reset Table</button>
+      
       <br/><br/>
       <select id="headerColorDropdown8" onchange="updateHeaderColor8()">
         <option value="" disabled selected>Change Heading Color</option>
@@ -976,103 +976,127 @@
 
     // Draw bar chart for Round 8 weights
     function drawBarChartRound8() {
-      const canvas = document.getElementById("round8BarChart");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("round8BarChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-      let w8 = [];
-      for (let i = 1; i <= 9; i++) {
-        const spanEl8 = document.getElementById(`weightSpan8_${i}`);
-        if (!spanEl8) {
-          w8.push(0);
-          continue;
-        }
-        const parsed = parseFloat(spanEl8.textContent) || 0;
-        w8.push(parsed);
-      }
-
-      // Clear old chart
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      let minVal = Math.min(...w8);
-      let maxVal = Math.max(...w8);
-      if (minVal === maxVal) {
-        minVal -= 10;
-        maxVal += 10;
-      }
-      const pad = 10;
-      minVal -= pad;
-      maxVal += pad;
-
-      const cw = canvas.width,
-            ch = canvas.height,
-            mg = 70;
-
-      const usableW = cw - mg * 2,
-            usableH = ch - mg * 2;
-
-      // Determine the Y coordinate of zero
-      let zeroY;
-      if (minVal < 0 && maxVal > 0) {
-        zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
-      } else if (maxVal < 0) {
-        zeroY = mg + usableH;
-      } else {
-        zeroY = mg;
-      }
-      zeroY = Math.max(mg, Math.min(mg + usableH, zeroY));
-
-      // X-axis
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(mg, zeroY);
-      ctx.lineTo(mg + usableW, zeroY);
-      ctx.stroke();
-
-      // Y-axis
-      ctx.beginPath();
-      ctx.moveTo(mg, mg);
-      ctx.lineTo(mg, mg + usableH);
-      ctx.stroke();
-
-      const barSpacing = usableW / 9;
-      const barWidth   = 5;
-      ctx.fillStyle = "#f05f40";
-
-      for (let i = 0; i < 9; i++) {
-        const wVal8   = w8[i];
-        const xCenter = mg + barSpacing * i + barSpacing / 2;
-        const scale   = usableH / (maxVal - minVal);
-        const barH    = Math.abs(wVal8 * scale);
-        const barX    = xCenter - barWidth / 2;
-        const barY    = (wVal8 >= 0) ? (zeroY - barH) : zeroY;
-
-        ctx.fillRect(barX, barY, barWidth, barH);
-
-        // draw text
-        ctx.save();
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        const displayVal = Math.round(wVal8).toString();
-
-        if (wVal8 >= 0) {
-          ctx.fillText(displayVal, xCenter - 10, barY - 5);
-        } else {
-          ctx.fillText(displayVal, xCenter - 10, barY + barH + 15);
-        }
-        ctx.restore();
-
-        // draw X label
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
-
-        ctx.fillStyle = "#f05f40";
-      }
+  // 1) Gather Round 8 weights from each "weightSpan8_i"
+  const weights = [];
+  for (let i = 1; i <= 9; i++) {
+    const wSpan = document.getElementById("weightSpan8_" + i);
+    if (!wSpan) {
+      weights.push(0);
+      continue;
     }
+    // If empty or non-numeric => 0
+    const val = parseFloat(wSpan.textContent.trim()) || 0;
+    weights.push(val);
+  }
 
-    setInterval(drawBarChartRound8, 1000);
+  // 2) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 3) Determine if scaling beyond ±110 is necessary
+  const largestAbsVal = Math.max(...weights.map(Math.abs));
+  let minVal, maxVal;
+  if (largestAbsVal > 110) {
+    minVal = -largestAbsVal;
+    maxVal =  largestAbsVal;
+  } else {
+    minVal = -110;
+    maxVal =  110;
+  }
+
+  // 4) Define margins & chart area
+  const cw = canvas.width;
+  const ch = canvas.height;
+  const leftMargin   = cw * 0.05; // 5%
+  const rightMargin  = cw * 0.05; // 5%
+  const topMargin    = 20;
+  const bottomMargin = 20;
+  const usableW      = cw - (leftMargin + rightMargin);
+  const usableH      = ch - (topMargin + bottomMargin);
+
+  // 5) Compute zero line (Y=0)
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    // Range crosses zero
+    zeroY = topMargin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    // Entirely below zero
+    zeroY = topMargin + usableH;
+  } else {
+    // Entirely above zero
+    zeroY = topMargin;
+  }
+  zeroY = Math.max(topMargin, Math.min(topMargin + usableH, zeroY));
+
+  // 6) Draw axes
+  ctx.strokeStyle = "black";
+  ctx.lineWidth   = 1;
+
+  // Y-axis
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, topMargin);
+  ctx.lineTo(leftMargin, topMargin + usableH);
+  ctx.stroke();
+
+  // X-axis (at zeroY)
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, zeroY);
+  ctx.lineTo(leftMargin + usableW, zeroY);
+  ctx.stroke();
+
+  // 7) Draw bars
+  const totalBars  = 9; // Round 8 has 9 C-nodes
+  const barWidth   = 16;
+  const barSpacing = (usableW - barWidth * totalBars) / (totalBars + 1);
+  const dataRange  = maxVal - minVal;
+  const scale      = usableH / dataRange;
+
+  ctx.fillStyle = "#f05f40";
+
+  let xPos = leftMargin + barSpacing;
+  for (let i = 0; i < totalBars; i++) {
+    const actualVal = weights[i];
+    const barHeight = Math.abs(actualVal * scale);
+
+    // Above the zero line if >= 0, below if negative
+    const barX = xPos;
+    const barY = (actualVal >= 0)
+      ? zeroY - barHeight
+      : zeroY;
+
+    // Draw the bar
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Numeric label
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    const label = Math.round(actualVal).toString();
+    if (actualVal >= 0) {
+      ctx.fillText(label, barX, barY - 5);
+    } else {
+      ctx.fillText(label, barX, barY + barHeight + 15);
+    }
+    ctx.restore();
+
+    // "C#" label under x-axis
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("C" + (i + 1), barX + barWidth / 2 - 8, zeroY + 15);
+    ctx.restore();
+
+    xPos += barWidth + barSpacing;
+  }
+}
+// If you want to auto-refresh the chart every second:
+setInterval(drawBarChartRound8, 1000);
+
+
+
 
     // Toggle Round9 side preview
     const toggleRound9ContainerBtn = document.getElementById('toggleRound9BtnR8');
@@ -1168,6 +1192,65 @@
         th.style.color = "#fff";
       });
     }
+
+
+/**
+ * Enable vertical tabbing in Round 8's main table.
+ * We want to move down the rows in each column:
+ *   - Input (select):   "inputDropdown8_1..9"
+ *   - Numeric (input):  "numericInput8_1..9"
+ *   - Value (input):    "valueInput8_1..9"
+ */
+ function attachTabHandlersForRound8() {
+  // These prefixes match the IDs in your Round 8 main table
+  const colPrefixes = [
+    "inputDropdown8_",
+    "numericInput8_",
+    "valueInput8_"
+  ];
+
+  // 9 rows total: C1..C9
+  const maxRows = 9;
+
+  colPrefixes.forEach(prefix => {
+    for (let row = 1; row <= maxRows; row++) {
+      // e.g. "inputDropdown8_1", "numericInput8_1", "valueInput8_1", etc.
+      const el = document.getElementById(prefix + row);
+      if (!el) continue;
+
+      el.addEventListener("keydown", function(e) {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          if (e.shiftKey) {
+            // SHIFT+TAB => move UP one row in the same column
+            const prev = row - 1;
+            if (prev >= 1) {
+              const prevEl = document.getElementById(prefix + prev);
+              if (prevEl) prevEl.focus();
+            }
+          } else {
+            // TAB => move DOWN one row in the same column
+            const next = row + 1;
+            if (next <= maxRows) {
+              const nextEl = document.getElementById(prefix + next);
+              if (nextEl) nextEl.focus();
+            }
+          }
+        }
+      });
+    }
+  });
+}
+
+// 2) Call the function once DOM is loaded
+window.addEventListener("DOMContentLoaded", () => {
+  // ... your existing Round 8 setup code (toggles, etc.) ...
+  
+  // Finally, attach vertical tabbing for Round 8:
+  attachTabHandlersForRound8();
+});
+
+
   </script>
 
 </div>

@@ -1042,8 +1042,8 @@
     <br/><br/><br/><br/>
 
     <div style="text-align:center; margin: 20px 0;">
-      <button id="resetButton" onclick="location.reload()">Reset Table</button>
-      <br/><br/>
+<!-- <button id="resetButton" onclick="location.reload()">Reset Table</button> -->
+<br/><br/>
       <select id="headerColorDropdown" onchange="updateHeaderColor()">
         <option value="" disabled selected>Change Heading Color</option>
         <option value="#f05f40">Orange</option>
@@ -1051,7 +1051,6 @@
       </select>
     </div>
 
-    {% include copyright.html %}
   </div>
 
   <style>
@@ -1397,6 +1396,15 @@
 
 
 
+
+
+
+
+
+
+
+    
+
     function drawBarChartRound1() {
   const canvas = document.getElementById('round1BarChart');
   if (!canvas) return;
@@ -1539,6 +1547,11 @@
 
 // Refresh automatically every second (as in your original code)
 setInterval(drawBarChartRound1, 1000);
+
+
+
+
+
 
 
     // Round 1 "Update Weights" button toggles round2Container

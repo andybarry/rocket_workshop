@@ -673,7 +673,6 @@
     <br/><br/><br/><br/>
 
     <div style="text-align:center; margin:20px 0;">
-      <button id="resetButton6" onclick="location.reload()">Reset Table</button>
       <br/><br/>
       <select id="headerColorDropdown6" onchange="updateHeaderColor6()">
         <option value="" disabled selected>Change Heading Color</option>
@@ -964,103 +963,121 @@
 
     // Draw bar chart for Round 6 weights
     function drawBarChartRound6() {
-      const canvas = document.getElementById("round6BarChart");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("round6BarChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-      let w6 = [];
-      for (let i = 1; i <= 9; i++) {
-        const spanEl6 = document.getElementById(`weightSpan6_${i}`);
-        if (!spanEl6) {
-          w6.push(0);
-          continue;
-        }
-        const parsed = parseFloat(spanEl6.textContent) || 0;
-        w6.push(parsed);
-      }
-
-      // Clear old chart
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      let minVal = Math.min(...w6);
-      let maxVal = Math.max(...w6);
-      if (minVal === maxVal) {
-        minVal -= 10;
-        maxVal += 10;
-      }
-      const pad = 10;
-      minVal -= pad;
-      maxVal += pad;
-
-      const cw = canvas.width,
-            ch = canvas.height,
-            mg = 70;
-
-      const usableW = cw - mg * 2,
-            usableH = ch - mg * 2;
-
-      // Determine the Y coordinate of zero
-      let zeroY;
-      if (minVal < 0 && maxVal > 0) {
-        zeroY = mg + (maxVal / (maxVal - minVal)) * usableH;
-      } else if (maxVal < 0) {
-        zeroY = mg + usableH;
-      } else {
-        zeroY = mg;
-      }
-      zeroY = Math.max(mg, Math.min(mg + usableH, zeroY));
-
-      // X-axis
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(mg, zeroY);
-      ctx.lineTo(mg + usableW, zeroY);
-      ctx.stroke();
-
-      // Y-axis
-      ctx.beginPath();
-      ctx.moveTo(mg, mg);
-      ctx.lineTo(mg, mg + usableH);
-      ctx.stroke();
-
-      const barSpacing = usableW / 9;
-      const barWidth   = 5;
-      ctx.fillStyle = "#f05f40";
-
-      for (let i = 0; i < 9; i++) {
-        const wVal6   = w6[i];
-        const xCenter = mg + barSpacing * i + barSpacing / 2;
-        const scale   = usableH / (maxVal - minVal);
-        const barH    = Math.abs(wVal6 * scale);
-        const barX    = xCenter - barWidth / 2;
-        const barY    = (wVal6 >= 0) ? (zeroY - barH) : zeroY;
-
-        ctx.fillRect(barX, barY, barWidth, barH);
-
-        // draw text
-        ctx.save();
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        const displayVal = Math.round(wVal6).toString();
-
-        if (wVal6 >= 0) {
-          ctx.fillText(displayVal, xCenter - 10, barY - 5);
-        } else {
-          ctx.fillText(displayVal, xCenter - 10, barY + barH + 15);
-        }
-        ctx.restore();
-
-        // draw X label
-        ctx.fillStyle = "black";
-        ctx.font = "12px sans-serif";
-        ctx.fillText("C" + (i + 1), xCenter - 6, zeroY + 15);
-
-        ctx.fillStyle = "#f05f40";
-      }
+  // 1) Gather Round 6 weights from each "weightSpan6_i"
+  const weights = [];
+  for (let i = 1; i <= 9; i++) {
+    const wSpan = document.getElementById("weightSpan6_" + i);
+    if (!wSpan) {
+      weights.push(0);
+      continue;
     }
+    // If blank or non‑numeric, default to 0
+    const val = parseFloat(wSpan.textContent.trim()) || 0;
+    weights.push(val);
+  }
 
-    setInterval(drawBarChartRound6, 1000);
+  // 2) Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 3) Auto-scale if any weight surpasses ±110
+  const largestAbsVal = Math.max(...weights.map(Math.abs));
+  let minVal, maxVal;
+  if (largestAbsVal > 110) {
+    minVal = -largestAbsVal;
+    maxVal =  largestAbsVal;
+  } else {
+    minVal = -110;
+    maxVal =  110;
+  }
+
+  // 4) Define chart area + margins
+  const cw = canvas.width;
+  const ch = canvas.height;
+  const leftMargin   = cw * 0.05;  // 5% left
+  const rightMargin  = cw * 0.05;  // 5% right
+  const topMargin    = 20;
+  const bottomMargin = 20;
+  const usableW      = cw - (leftMargin + rightMargin);
+  const usableH      = ch - (topMargin + bottomMargin);
+
+  // 5) Compute zero line (Y=0)
+  let zeroY;
+  if (minVal < 0 && maxVal > 0) {
+    zeroY = topMargin + (maxVal / (maxVal - minVal)) * usableH;
+  } else if (maxVal < 0) {
+    zeroY = topMargin + usableH; // entirely negative
+  } else {
+    zeroY = topMargin;           // entirely positive
+  }
+  zeroY = Math.max(topMargin, Math.min(topMargin + usableH, zeroY));
+
+  // 6) Draw axes
+  ctx.strokeStyle = "black";
+  ctx.lineWidth   = 1;
+
+  // Y-axis
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, topMargin);
+  ctx.lineTo(leftMargin, topMargin + usableH);
+  ctx.stroke();
+
+  // X-axis (at zeroY)
+  ctx.beginPath();
+  ctx.moveTo(leftMargin, zeroY);
+  ctx.lineTo(leftMargin + usableW, zeroY);
+  ctx.stroke();
+
+  // 7) Draw bars
+  const totalBars  = 9; // Round 6 has 9 C-nodes in a 27-node network
+  const barWidth   = 16;
+  const barSpacing = (usableW - barWidth * totalBars) / (totalBars + 1);
+  const dataRange  = maxVal - minVal;
+  const scale      = usableH / dataRange;
+
+  ctx.fillStyle = "#f05f40";
+
+  let xPos = leftMargin + barSpacing;
+  for (let i = 0; i < totalBars; i++) {
+    const actualVal = weights[i];
+    const barHeight = Math.abs(actualVal * scale);
+
+    // Bar goes up if >= 0, else goes down
+    const barX = xPos;
+    const barY = (actualVal >= 0)
+      ? zeroY - barHeight
+      : zeroY;
+
+    // Draw the bar
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // Numeric label
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    const label = Math.round(actualVal).toString();
+    if (actualVal >= 0) {
+      ctx.fillText(label, barX, barY - 5);
+    } else {
+      ctx.fillText(label, barX, barY + barHeight + 15);
+    }
+    ctx.restore();
+
+    // Label "C#" below the bar
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("C" + (i + 1), barX + barWidth / 2 - 8, zeroY + 15);
+    ctx.restore();
+
+    xPos += barWidth + barSpacing;
+  }
+}
+// If you want auto-refresh:
+setInterval(drawBarChartRound6, 1000);
 
     // Toggle Round7 side preview
     const toggleRound7ContainerBtn = document.getElementById('toggleRound7BtnR6');
@@ -1156,6 +1173,60 @@
         th.style.color = "#fff";
       });
     }
+
+/**
+ * Enable vertical tabbing in Round 6's main table.
+ * We want to cycle down the rows in the same column: Input, Numeric, Value.
+ */
+ function attachTabHandlersForRound6() {
+  // These are the ID prefixes in your Round 6 main table.
+  const colPrefixes = [
+    "inputDropdown6_",
+    "numericInput6_",
+    "valueInput6_"
+  ];
+  // We have rows C1..C9 => 9 rows
+  const maxRows = 9;
+
+  colPrefixes.forEach(prefix => {
+    for (let row = 1; row <= maxRows; row++) {
+      const el = document.getElementById(prefix + row);
+      if (!el) continue; // skip if the element isn't found
+
+      el.addEventListener("keydown", function(e) {
+        // Intercept the Tab key
+        if (e.key === "Tab") {
+          e.preventDefault();
+          if (e.shiftKey) {
+            // SHIFT+TAB => move UP one row in the same column
+            const prev = row - 1;
+            if (prev >= 1) {
+              const prevEl = document.getElementById(prefix + prev);
+              if (prevEl) prevEl.focus();
+            }
+          } else {
+            // TAB => move DOWN one row in the same column
+            const next = row + 1;
+            if (next <= maxRows) {
+              const nextEl = document.getElementById(prefix + next);
+              if (nextEl) nextEl.focus();
+            }
+          }
+        }
+      });
+    }
+  });
+}
+
+// 2) Call it once the DOM is fully loaded:
+window.addEventListener("DOMContentLoaded", () => {
+  // ... your existing Round 6 setup code (e.g. toggling numeric/values, etc.) ...
+
+  // Finally, attach vertical tabbing for the Round 6 main table:
+  attachTabHandlersForRound6();
+});
+
+
   </script>
 
 </div>
