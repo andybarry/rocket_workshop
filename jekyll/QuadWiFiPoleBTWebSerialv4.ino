@@ -58,7 +58,7 @@ void AutonomousFlightFromBlueButton() {
   }
 }
 
-#define DRONE_WORKSHOP_VERSION_STRING "Drone workshop firmware: v2.0"
+#define DRONE_WORKSHOP_VERSION_STRING "Drone workshop firmware: v4.0"
 
 // IO pins
 
@@ -196,7 +196,16 @@ void parseInput(String input) {
   int partIndex = 0;
   commandCount = 0;
 
+  if (input == "test_all_drones") {
+    testAllDrones();
+    return;
+  }
+
   Serial.println(DRONE_WORKSHOP_VERSION_STRING);
+
+  if (input == "version") {
+    return;
+  }
 
   while ((index = input.indexOf('@', startIndex)) != -1) {
     String part = input.substring(startIndex, index);
@@ -377,6 +386,96 @@ void autonomousPressed() {
   stopPressed();
 }
 
+void testAllDrones() {
+  Serial.println("\n--- Wi-Fi scan ---");
+  WiFi.disconnect(true);
+  delay(200);
+
+  int found = WiFi.scanNetworks(false, true);
+  if (found <= 0) {
+    Serial.println("No networks found (or error).");
+    WiFi.scanDelete();
+    return;
+  }
+
+  int num_drones = 0;
+  for (int i=0; i<found; i++) {
+    String ssid = WiFi.SSID(i);
+    if (ssid.startsWith("udirc") &&
+        WiFi.encryptionType(i) == WIFI_AUTH_OPEN) {
+          num_drones ++;
+          Serial.printf("Found: %s\n", ssid.c_str());
+    }
+  }
+  Serial.println("Found " + String(num_drones) + " drone(s).");
+
+  for (int i=0; i<found; i++) {
+    String ssid = WiFi.SSID(i);
+    if (ssid.startsWith("udirc") &&
+        WiFi.encryptionType(i) == WIFI_AUTH_OPEN) {
+      Serial.printf("Connecting to: %s\n", ssid.c_str());
+
+      connectToWiFi(ssid.c_str(), "");
+
+      for (int i = 0; i < 100; i++) {
+        if (connected) {
+          break;
+        }
+        delay(50);
+      }
+      if (!connected) {
+        Serial.println("Failed to connect to: " + ssid + " giving up.");
+        continue;
+      }
+
+      quadcopter_id = ssid;
+      autonomous_mode = 1;
+      stopped = 0;
+
+
+      int test_roll = 50;
+      int test_pitch = 50;
+      int test_throttle = 50;
+      int test_yaw = 50;
+      int test_time_ms = 50;
+      String test_color = "purple";
+
+      // Init the drone
+      for (int i = 0; i < 20; i++) {
+        // put an idle packet in there to set the length
+        char tmpHexStr[] = "63630a00000b0066808080808080800c8c99";
+        
+        compute_packet(128, 128, 128, 128, tmpHexStr);
+        // Serial.println(tmpHexStr);
+        sendPacket(String(tmpHexStr));  // has built in t_delta delay
+      }
+
+      // Take off
+      // required take-off packets (minimum 5)
+      for (int i = 0; i < 15; i++) {
+        sendPacket(take_off_packet_String);
+      }
+
+      // Stop
+      for (int i = 0; i < 10; i++) {
+        sendPacket(stopped_packet_String);
+      }
+
+      Serial.println("Done testing: " + ssid);
+    }
+  }
+
+  Serial.println("-----------------------");
+  Serial.println("Done testing all drones");
+  Serial.println("-----------------------");
+
+
+  quadcopter_id = "";
+  autonomous_mode = 0;
+  stopped = 1;
+ 
+}
+
 // Executes the various serial-command routines for colors and testing wiring
 void serialInput(char in_val) {
   switch (in_val) {
@@ -415,7 +514,13 @@ void serialInput(char in_val) {
 
 // executes a hold command as specified and converts time to cycles to loop through each command every ~50ms
 void holdCommand(int lr, int fb, int ud, int ro, int mill, String colorStr) {
-  Serial.printf("holdCommand x:%3d, y:%3d, throttle:%3d, rotate:%3d, time-ms:%4d (100-center)\n", lr, fb, ud, ro, mill);
+  holdCommandDetail(lr, fb, ud, ro, mill, colorStr, true);
+}
+
+void holdCommandDetail(int lr, int fb, int ud, int ro, int mill, String colorStr, bool print) {
+  if (print) {
+    Serial.printf("holdCommand x:%3d, y:%3d, throttle:%3d, rotate:%3d, time-ms:%4d (100-center)\n", lr, fb, ud, ro, mill);
+  }
 
   char color = colorToChar(colorStr);
   
@@ -618,7 +723,7 @@ void doManualFlightUpdate() {
     compute_packet(left_right, forward_back, altitude, go_rotate, tmpHexStr);
     // Serial.println(tmpHexStr);
     sendPacket(String(tmpHexStr));  // has built in t_delta delay
-  }    
+  }
 }
 
 bool connectToBluetoothPole() {
@@ -707,6 +812,9 @@ void setup() {
   pixel2.setBrightness(5);  // turn down brightness
   pixel2.begin();  // initialize NeoPixel
   lightsStopped();  // function to set all led lights to "stopped" state
+
+  //register event handler
+  WiFi.onEvent(WiFiEvent);
 
   //Connect to the WiFi network
   if (quadcopter_id != "") {
@@ -942,8 +1050,7 @@ void connectToWiFi(const char * ssid, const char * pwd) {
 
   // delete old config
   WiFi.disconnect(true);
-  //register event handler
-  WiFi.onEvent(WiFiEvent);
+  
   //Initiate connection
   WiFi.begin(ssid);
   Serial.println("Waiting for WIFI connection...");

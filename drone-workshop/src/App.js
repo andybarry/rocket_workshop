@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import { UnControlled as CodeMirrorUncontrolled } from 'react-codemirror2'
 import 'codemirror/mode/clike/clike';
@@ -8,6 +8,8 @@ import 'codemirror/addon/selection/active-line.js';
 import { Split } from '@geoffcox/react-splitter';
 import ErrorBoundary from './ErrorBoundary';
 import { ResetAllButton } from "./ResetAllButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 
 // Import search-related addons
@@ -92,6 +94,61 @@ const getInitialEditableLines = () => {
   return initialLines
 }
 
+// SerialMonitor component
+const SerialMonitor = ({ 
+  data, 
+  autoScroll, 
+  onAutoScrollChange, 
+  onClear, 
+  height = '85vh',
+  title = "Serial Monitor"
+}) => {
+  const localTextareaRef = useRef(null);
+
+  // Handle autoscrolling within the component
+  useEffect(() => {
+    if (autoScroll && localTextareaRef.current) {
+      localTextareaRef.current.scrollTop = localTextareaRef.current.scrollHeight;
+    }
+  }, [data, autoScroll]);
+
+  return (
+    <>
+      <h5>{title}</h5>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+        <Form.Check
+          type="checkbox"
+          label="Autoscroll"
+          checked={autoScroll}
+          onChange={onAutoScrollChange}
+        />
+        <Button
+          variant="outline-primary"
+          onClick={onClear}
+          size="sm"
+          style={{ color: '#f05f40', borderColor: '#f05f40', backgroundColor: 'transparent' }}
+          className="orange-btn"
+        >
+          Clear
+        </Button>
+      </div>
+
+      <Form.Control
+        as="textarea"
+        value={data.join('')}
+        ref={localTextareaRef}
+        readOnly
+        style={{ 
+          fontFamily: 'monospace', 
+          height: height, 
+          overflowY: 'scroll',
+          marginBottom: '0.5rem'
+        }}
+      />
+    </>
+  );
+};
+
 function App() {
   const [port, setPort] = useState(null);
   const [inputValue, setInputValue] = useState('');
@@ -103,6 +160,7 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [firmwareVersion, setFirmwareVersion] = useState(0);
 
   const [codeText, setCodeText] = React.useState(BASE_CODE);
   const [codeError, setCodeError] = React.useState('');
@@ -116,7 +174,14 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
 
 
   const holdCommandRef = useRef(null);
-  const textareaRef = useRef(null);
+  const dialogTextareaRef = useRef(null);
+
+  const [showAdminDialog, setShowAdminDialog] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDroneTesting, setIsDroneTesting] = useState(false);
+  const passwordInputRef = useRef(null);
 
   // Effect to load data from localStorage on component mount
   useEffect(() => {
@@ -166,6 +231,9 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
         await port.open({ baudRate: 115200 }).catch(e => console.log(e.message));
         setIsConnected(true);
 
+        // Send a blank message to the serial port to trigger the firmware to send its version
+        setTimeout(handleSend, 100);
+
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
         const reader = textDecoder.readable.getReader();
@@ -201,12 +269,15 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
               // Join the array into a string, then split by newline, take the last 5 elements, and join them again
               const recentLines = newData.join('').split('\n').slice(-5)
 
-              // Check for the upload string
-
+              // Check for the upload string and drone test completion
               for (let line of recentLines) {
                 if (line.includes(firmwareVersionString)) {
                   const version_num = parseFloat(line.replace(firmwareVersionString, ''))
+                  setFirmwareVersion(version_num)
                   setIsUploading(false);
+                }
+                if (line.includes("Done testing all drones")) {
+                  setIsDroneTesting(false);
                 }
               }
 
@@ -244,15 +315,17 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
   }, [editableLines]);
 
   const getValuesForChip = () => {
+    console.log("Getting values for chip version: " + firmwareVersion)
     let holdcmd = parseHoldCommand();
     if (holdcmd === null) {
-      return;
+      return "";
     }
     let out = []
     let no_errors = true;
     for (let linenum in editableLines) {
       let line = editableLines[linenum];
       let value = line['value'];
+      let humanLineNumber = parseInt(linenum) + 1;
       // Remove comments
       value = value.replace(/\/\/.*$/, '');
       if (line['removeSpaces']) {
@@ -263,9 +336,19 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
         if (line['removeSpaces']) {
           remove2 = remove.replaceAll(' ', '')
         }
+        if (!value.includes(remove2)) {
+          no_errors = false
+
+          // let all_remove = ""
+          // for (let r of line['remove']) {
+          //   all_remove += r
+          // }
+
+          setCodeError('Error: Line ' + humanLineNumber + ' is missing: ' + remove)
+        }
         value = value.replaceAll(remove2, '')
       }
-      let humanLineNumber = parseInt(linenum) + 1;
+      
 
       // Check for valid
       let found_valid = false;
@@ -304,7 +387,10 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
     }
     if (no_errors) {
       setCodeError('')
+    } else {
+      return "";
     }
+
     for (let command of holdcmd) {
       out.push(command['param1'] + ',' + command['param2'] + ',' + command['param3'] + ',' + command['param4'] + ',' + command['param5'] + ',' + command['color'])
     }
@@ -320,12 +406,6 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
     }).join('\n');
     return newCode;
   }
-
-  useEffect(() => {
-    if (autoScroll && textareaRef.current) {
-      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
-    }
-  }, [data, autoScroll]);
 
   const handleCheckboxChange = () => {
     setAutoScroll(!autoScroll);
@@ -407,6 +487,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
     try {
       const port = await navigator.serial.requestPort();
       setPort(port);
+
     } catch (error) {
       console.error('There was an error requesting the serial port:', error);
     }
@@ -416,6 +497,11 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
     setIsUploading(true);
     const message = getValuesForChip();
     console.log(message)
+    if (message == "") {
+      console.log("No message to send")
+      setIsUploading(false);
+      return;
+    }
     if (port) {
       const textEncoder = new TextEncoder();
       const writer = port.writable.getWriter();
@@ -428,18 +514,61 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
     // }, 500)
   };
 
+  const handleAdminDialogOpen = () => {
+    setShowAdminDialog(true);
+    setPassword('');
+    setPasswordError('');
+    setIsAuthenticated(false);
+  };
+
+  const handleAdminDialogClose = () => {
+    setShowAdminDialog(false);
+    setIsDroneTesting(false); // Reset testing state when dialog closes
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === 'uptonogood') {
+      setIsAuthenticated(true);
+      setPasswordError('');
+    } else {
+      setPasswordError('Incorrect password');
+    }
+  };
+
+  const handleTestAllDrones = async () => {
+    // send the command "test_all_drones"
+    setIsDroneTesting(true);
+    if (port) {
+      const textEncoder = new TextEncoder();
+      const writer = port.writable.getWriter();
+      await writer.write(textEncoder.encode("test_all_drones"));
+      writer.releaseLock();
+    }
+  };
+
+  const handleClearSerialData = () => {
+    setData([]);
+  };
+
   if (!isSupported) {
     return <p>Your browser does not support the Web Serial API. Please use a compatible browser like Chrome or Edge.</p>
   }
 
-  const serialButtonText = isConnected ? 'Connected ✅' : 'Connect to Serial';
-  const serialButtonVariant = isConnected ? 'outline-secondary' : 'primary';
+  let firmwareText = "";
+  if (firmwareVersion !== 0) {
+    firmwareText = `(v${firmwareVersion}) `
+  }
+  const serialButtonText = isConnected ? 'Connected ' + firmwareText + '✅' : 'Connect to Serial';
+  const connectButtonVariant = 'primary'; // Always use primary
+  const connectButtonStyle = isConnected ? { backgroundColor: '#e6e6e6', borderColor: '#d5d5d5', color: '#333' } : {};
 
-  const uploadButtonVariant = isConnected ? 'primary' : 'outline-secondary';
+  const uploadButtonClass = 'outline-primary';
+  const uploadButtonColor = isConnected ? { backgroundColor: '#f05f40', borderColor: '#f05f40', color: 'white' } : {};
 
   return (
     <ErrorBoundary>
-      <Split initialPrimarySize={autonomousCollapsed ? '85vw' : '70vw'}>
+      <Split initialPrimarySize={"70vw"}>
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
             <div style={{ display: 'flex', 
@@ -461,7 +590,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
       USB/UART Drivers
     </a>
     <a
-      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
+      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
       download
     >
       Firmware
@@ -477,6 +606,8 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
   onClick={handleConnect}
   className="mb-3 connect-serial-button"
   disabled={isConnected}
+  style={connectButtonStyle}
+  variant={connectButtonVariant}
 >
   {serialButtonText}
 </Button>
@@ -485,9 +616,9 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
               <Button
                 onClick={handleSend}
                 className="mb-3"
-                style={{ marginLeft: '10px' }}
+                style={{ marginLeft: '10px', ...uploadButtonColor }}
                 disabled={!isConnected || isUploading} // Disable during upload for better UX
-                variant={uploadButtonVariant}
+                variant={uploadButtonClass}
               >
                 {isUploading ? (
                   <Spinner
@@ -559,9 +690,9 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
   <Button
     onClick={handleSend}
     className="mb-3"
-    style={{ marginLeft: '20px' }}
+    style={{ marginLeft: '20px', ...uploadButtonColor }}
     disabled={!isConnected || isUploading}
-    variant={uploadButtonVariant}
+    variant={uploadButtonClass}
   >
                 {isUploading ? (
                   <Spinner
@@ -605,23 +736,18 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
 
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
-            <h5>Serial Monitor:</h5>
-            <Form.Check
-  type="checkbox"
-  label="Autoscroll"
-  id="autoscroll"
-  checked={autoScroll}
-  onChange={handleCheckboxChange}
-/>
-
-            <Form.Control
-              as="textarea"
-              value={data.join('')}
-              ref={textareaRef}
-              readOnly
-              style={{ fontFamily: 'monospace', height: '85vh', overflowY: 'scroll' }}
+            <SerialMonitor
+              data={data}
+              autoScroll={autoScroll}
+              onAutoScrollChange={handleCheckboxChange}
+              onClear={handleClearSerialData}
+              height="calc(75vh - 180px)"
+              title=""
             />
             <div style={{ textAlign: 'right', marginTop: '10px' }}>
+              <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
+                <FontAwesomeIcon icon={faCog} />
+              </a>
               <ResetAllButton
                 callback={resetAll}
               />
@@ -629,6 +755,98 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
           </Container>
         </div>
       </Split >
+
+      <Modal 
+        show={showAdminDialog} 
+        onHide={handleAdminDialogClose} 
+        onEntered={() => passwordInputRef.current?.focus()}
+        size="lg"
+        fullscreen="lg-down"
+        dialogClassName="modal-90w"
+        contentClassName="modal-content"
+      >
+        <Modal.Header closeButton className="text-orange">
+          <Modal.Title>Drone Tester</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!isAuthenticated ? (
+            <Form onSubmit={handlePasswordSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  ref={passwordInputRef}
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  autoFocus
+                />
+                {passwordError && (
+                  <Form.Text className="text-danger">{passwordError}</Form.Text>
+                )}
+              </Form.Group>
+              <Button 
+                variant="outline-primary"
+                type="submit"
+                style={{ backgroundColor: '#f05f40', borderColor: '#f05f40', color: 'white' }}
+                className="orange-btn"
+              >
+                Submit
+              </Button>
+            </Form>
+          ) : (
+            <div>
+              {!isConnected ? (
+                <div className="text-danger mb-3">
+                  Board not connected. Please connect board first.
+                </div>
+              ) : firmwareVersion === 0 ? (
+                <div className="text-danger mb-3">
+                  Firmware version not detected. Please upload firmware first.
+                </div>
+              ) : firmwareVersion < 4 ? (
+                <div className="text-danger mb-3">
+                  Firmware version {firmwareVersion} does not support testing drones (firmware must be v4 or higher)
+                </div>
+              ) : null}
+              <Button 
+                variant={uploadButtonClass}
+                onClick={handleTestAllDrones}
+                disabled={firmwareVersion < 4 || !isConnected || isDroneTesting}
+                style={{ marginLeft: '10px', ...uploadButtonColor }}
+                className={isConnected ? "orange-btn" : ""}
+              >
+                {isDroneTesting ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      style={{ marginRight: '5px' }}
+                    />
+                    Testing...
+                  </>
+                ) : (
+                  'Test all drones'
+                )}
+              </Button>
+              
+              <div className="mt-4">
+                <SerialMonitor
+                  data={data}
+                  autoScroll={autoScroll}
+                  onAutoScrollChange={handleCheckboxChange}
+                  onClear={handleClearSerialData}
+                  height="calc(75vh - 180px)"
+                  title=""
+                />
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
     </ErrorBoundary>
 
   );
