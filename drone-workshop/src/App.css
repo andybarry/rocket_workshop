@@ -160,6 +160,7 @@
   transition: height 0.3s;   /* Smooth animate the change in height */
   z-index: 9999;             /* So it stays above other elements */
 }
+<<<<<<< Updated upstream
 
 .gear-icon {
   font-size: 16px; /* Smaller size */
@@ -220,3 +221,85 @@
   color: white !important;
   opacity: 0.65 !important;
 }
+=======
+/* ───── stage‑top banner ───── */
+.workshop-top-bar{
+  width:100%;
+  height:40px;                 /* user spec */
+  background:#f05f40;
+  color:#fff;
+  font-family:'Roboto',sans-serif;
+  font-size:30px;      /* or 1.125rem, 1.2em – pick your size */
+  line-height:35px;    /* keeps single‑line text perfectly centred */
+  display:flex;
+  align-items:center;          /* keep text vertically centred */
+  padding-left:8px;            /* small left margin */
+  gap:6px;                     /* space around the divider */
+  white-space:nowrap;          /* prevent wrap on narrow screens */
+  overflow:hidden;             /* text will fade off‑screen if taller than 10 px */
+}
+
+.workshop-title    {font-weight:700;}
+.workshop-divider  {font-weight:400;}  /* the thin vertical bar */
+.workshop-subtitle {font-weight:100;}
+
+
+/* ───── link bar (dark gray) ───── */
+.workshop-link-bar{
+  width:100%;
+  height:25px;
+  background:#595959;
+  display:flex;
+  align-items:center;      /* vertical centre */
+  padding-left:8px;        /* ←‑‑ same indent as orange bar */
+}
+
+/* keep the links white & bold, but never underlined */
+.workshop-link-bar .download-links a,
+.workshop-link-bar .download-links a:visited,
+.workshop-link-bar .download-links a:hover{
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#ffffff;
+  text-decoration:none !important;
+}
+
+/* spacing: 0 px before the first link, 22 px between the rest */
+.workshop-link-bar .download-links a{margin-left:0;}
+.workshop-link-bar .download-links a + a{margin-left:22px;}
+
+/* optional hover colour (no underline) */
+.workshop-link-bar .download-links a:hover{
+  color:#f05f40;
+}
+
+/* ───── action‑bar (buttons) ───── */
+.workshop-action-bar{
+  background:#efefef;                 /* light‑grey strip               */
+  display:flex;
+  align-items:center;                 /* vertically centre the buttons  */
+  gap:10px;                           /* (optional) space between them  */
+
+  /* 5 px cushion above & below, 15 px inset from the left,
+     0 px on the right because we’re stretching the bar
+     beyond the container’s own padding                       */
+  padding:10px 0 10px 15px;
+
+  /* cancel BOTH of the container’s side paddings (12 px each) so
+     the light‑grey bar spans edge‑to‑edge across the viewport   */
+  margin-left:-12px;
+  margin-right:-12px;
+}
+
+/* remove Bootstrap’s mb‑3 “bottom margin” so the bar stays only 5 px tall */
+.workshop-action-bar .btn{
+  margin-bottom:0 !important;
+}
+
+
+
+/* wipe out only the extra gap above the bar */
+.container:first-of-type{
+  padding-top:0 !important;
+}
+>>>>>>> Stashed changes

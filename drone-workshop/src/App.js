@@ -568,7 +568,42 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
 
   return (
     <ErrorBoundary>
+<<<<<<< Updated upstream
       <Split initialPrimarySize={"70vw"}>
+=======
+      
+      {/* ─────────── TOP BAR ─────────── */}
+<div className="workshop-top-bar">
+  <span className="workshop-title">Robotics Workshop</span>
+  <span className="workshop-divider" aria-hidden="true">|</span>
+  <span className="workshop-subtitle">Drone IDE</span>
+</div>
+{/* ─────────────────────────────── */}
+{/* ─────────── LINK BAR (25 px, dark gray) ─────────── */}
+<div className="workshop-link-bar">
+  <div className="download-links">
+  <a href="#instructions">Instructions</a>
+    <a
+      href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+      target="_blank"
+      rel="noreferrer"
+    >
+      USB/UART Drivers
+    </a>
+    <a
+      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
+      download
+    >
+      Firmware
+    </a>
+    <a href="#feedback">Feedback</a>
+    <a href="#tools">Tools</a>
+  </div>
+</div>
+{/* ──────────────────────────────────────────────── */}
+
+      <Split initialPrimarySize={autonomousCollapsed ? '85vw' : '70vw'}>
+>>>>>>> Stashed changes
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
             <div style={{ display: 'flex', 
@@ -576,6 +611,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
   alignItems: 'center' }}>
             
             
+<<<<<<< Updated upstream
             <h1 className="stageone-heading">
   <span className="stageone-education">Stage One Education</span>
   <span className="drone-workshop"> | Drone Workshop</span>
@@ -596,12 +632,17 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
       Firmware
     </a>
   </div>
+=======
+          
+>>>>>>> Stashed changes
 </div>
 
-<hr />
+
 
             <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
             <Form>
+            <div className="workshop-action-bar">
+
             <Button
   onClick={handleConnect}
   className="mb-3 connect-serial-button"
@@ -632,6 +673,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
                 ) : null}
                 {isUploading ? 'Uploading...' : 'Upload'}
               </Button>
+              </div>
             </Form>
             <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
             <CodeMirror
