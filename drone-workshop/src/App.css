@@ -161,6 +161,7 @@
   z-index: 9999;             /* So it stays above other elements */
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 .gear-icon {
   font-size: 16px; /* Smaller size */
@@ -222,6 +223,8 @@
   opacity: 0.65 !important;
 }
 =======
+=======
+>>>>>>> Stashed changes
 /* ───── stage‑top banner ───── */
 .workshop-top-bar{
   width:100%;
@@ -302,4 +305,7 @@
 .container:first-of-type{
   padding-top:0 !important;
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

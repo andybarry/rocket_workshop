@@ -569,8 +569,11 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
   return (
     <ErrorBoundary>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <Split initialPrimarySize={"70vw"}>
 =======
+=======
+>>>>>>> Stashed changes
       
       {/* ─────────── TOP BAR ─────────── */}
 <div className="workshop-top-bar">
@@ -612,6 +615,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
             
             
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <h1 className="stageone-heading">
   <span className="stageone-education">Stage One Education</span>
   <span className="drone-workshop"> | Drone Workshop</span>
@@ -632,6 +636,9 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
       Firmware
     </a>
   </div>
+=======
+          
+>>>>>>> Stashed changes
 =======
           
 >>>>>>> Stashed changes
