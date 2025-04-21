@@ -448,7 +448,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
             
             
             <h1 className="stageone-heading">
-  <span className="stageone-education">Stage One Education</span>
+  <span className="stageone-education">SSSStage One Education</span>
   <span className="drone-workshop"> | Drone Workshop</span>
 </h1>
 
