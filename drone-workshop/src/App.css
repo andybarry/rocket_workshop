@@ -51,20 +51,20 @@
   font-size: 30px;       /* New text size */
 }
 
-/* Make "Stage One Education" bold & uppercase */
+/* Make “Stage One Education” bold & uppercase */
 .stageone-education {
   font-weight: bold;
   text-transform: uppercase;
 }
 
-/* "Drone Workshop" is not bold */
+/* “Drone Workshop” is not bold */
 .drone-workshop {
   font-weight: normal;
 }
 
 /* For the Connect to Serial button */
 .connect-serial-button {
-  background-color: #f05f40; /* same as #f05f40ff, the "ff" is just 100% alpha */
+  background-color: #f05f40; /* same as #f05f40ff, the “ff” is just 100% alpha */
   color: #ffffff;
   border-color: #f05f40; 
 }
@@ -159,64 +159,4 @@
   overflow: hidden;          /* Hide the code when collapsed */
   transition: height 0.3s;   /* Smooth animate the change in height */
   z-index: 9999;             /* So it stays above other elements */
-}
-
-.gear-icon {
-  font-size: 16px; /* Smaller size */
-  color: lightgray; /* Light gray color */
-  cursor: pointer;
-}
-
-/* Style for modals and form controls with consistent orange theme */
-.modal-content {
-  border-color: transparent !important;
-  border-width: 0 !important;
-  height: 90vh !important; /* Make it 90% of viewport height */
-}
-
-.modal-body {
-  max-height: calc(90vh - 80px) !important; /* Account for header only */
-  overflow-y: auto !important;
-  padding: 1rem 1.5rem !important;
-}
-
-.modal-90w {
-  width: 90% !important;
-  max-width: none !important;
-}
-
-.modal-header {
-  border-bottom-color: #f05f40 !important;
-  padding-bottom: 0.5rem !important;
-}
-
-.form-control:focus {
-  border-color: #f05f40 !important;
-  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.25) !important;
-}
-
-.text-orange {
-  color: #f05f40 !important;
-}
-
-.bg-orange {
-  background-color: #f05f40 !important;
-}
-
-/* Style for disabled buttons to maintain orange theme */
-.btn-outline-primary:disabled,
-.btn-outline-primary.disabled {
-  color: #f05f40 !important;
-  border-color: #f05f40 !important;
-  opacity: 0.65 !important;
-  background-color: transparent !important;
-}
-
-/* Style for orange-background disabled buttons */
-.orange-btn:disabled,
-.orange-btn.disabled {
-  background-color: #f05f40 !important;
-  border-color: #f05f40 !important;
-  color: white !important;
-  opacity: 0.65 !important;
 }
