@@ -1,640 +1,561 @@
+// src/App.js
+
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
-import { Controlled as CodeMirror } from 'react-codemirror2'
-import { UnControlled as CodeMirrorUncontrolled } from 'react-codemirror2'
+import { Controlled as CodeMirror } from 'react-codemirror2';
+import { UnControlled as CodeMirrorUncontrolled } from 'react-codemirror2';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/addon/selection/active-line.js';
 import { Split } from '@geoffcox/react-splitter';
 import ErrorBoundary from './ErrorBoundary';
 import { ResetAllButton } from "./ResetAllButton";
 
+import stageoneLogo from './stageone-logo-orange.png';
+import DroneInstructionsPDF from './Drone_Instructions_TEST.pdf';
+import AdvancedDroneInstructionsPDF from './Advanced_Drone_Instructions_TEST.pdf';
 
-// Import search-related addons
 import 'codemirror/addon/search/searchcursor';
 import 'codemirror/addon/search/search';
 import 'codemirror/addon/dialog/dialog.css';
 import 'codemirror/addon/dialog/dialog';
-
 import './App.css';
-
-// Add keymap for search
 import 'codemirror/keymap/sublime';
 import 'codemirror/addon/search/matchesonscrollbar.css';
 import 'codemirror/addon/search/matchesonscrollbar';
 
 function isInt(value) {
   return !isNaN(value) &&
-    parseInt(Number(value)) == value &&
-    !isNaN(parseInt(value, 10));
+         parseInt(Number(value)) == value &&
+         !isNaN(parseInt(value, 10));
 }
 
-const firmwareVersionString = "Drone workshop firmware: v"
+const firmwareVersionString = "Drone workshop firmware: v";
 
-const getInitialEditableLines = () => {
-  let initialLines = {
-    1: {
-      'value': 'const char* quadcopter_id = "";', //DE6684
-      'remove': ['const char* quadcopter_id = "', '";'],
-      'valid': ['string'],
-      'removeSpaces': true,
-    },
-    2: {
-      'value': 'const char* light_pole_id = "";', // be:16:e0:00:3a:ec  be:16:c8:00:0db:ec
-      'remove': ['const char* light_pole_id = "', '";'],
-      'valid': ['string'],
-      'removeSpaces': true,
-    },
-    3: {
-      'value': 'const bool yellow_button_connected = false;',
-      'remove': ['const bool yellow_button_connected = ', ';'],
-      'valid': ['true', 'false'],
-      'removeSpaces': true,
-    },
-    4: {
-      'value': 'const bool slide_connected = false;',
-      'remove': ['const bool slide_connected = ', ';'],
-      'valid': ['true', 'false'],
-      'removeSpaces': true,
-    },
-    5: {
-      'value': 'const bool blue_button_connected = false;',
-      'remove': ['const bool blue_button_connected = ', ';'],
-      'valid': ['true', 'false'],
-      'removeSpaces': true,
-    },
-    137: {
-      'value': 'bool baro_height_limit_enabled = true;',
-      'remove': ['bool baro_height_limit_enabled = ', ';'],
-      'valid': ['true', 'false'],
-      'removeSpaces': true,
-    },
-    138: {
-      'value': 'int baro_max_height_allowed_cm = 300;',
-      'remove': ['int baro_max_height_allowed_cm = ', ';'],
-      'valid': ['integer'],
-      'removeSpaces': true,
-    },
-    361: {
-      'value': '    duty = 4;',
-      'remove': ['    duty = ', ';'],
-      'valid': ['integer'],
-      'removeSpaces': true,
-    },
-    842: {
-      'value': '    Serial.println("Stop/Yellow button pressed");',
-      'remove': ['    Serial.println("', '");'],
-      'valid': ['string'],
-      'removeSpaces': false,
-    },
-  }
-
-  return initialLines
-}
+// Defines which lines in the BASE_CODE are editable
+const getInitialEditableLines = () => ({
+  1:   { value: 'const char* quadcopter_id = "";',    remove: ['const char* quadcopter_id = "', '";'],    valid: ['string'], removeSpaces: true },
+  2:   { value: 'const char* light_pole_id = "";',     remove: ['const char* light_pole_id = "', '";'],     valid: ['string'], removeSpaces: true },
+  3:   { value: 'const bool yellow_button_connected = false;', remove: ['const bool yellow_button_connected = ', ';'], valid: ['true','false'], removeSpaces: true },
+  4:   { value: 'const bool slide_connected = false;',  remove: ['const bool slide_connected = ', ';'],       valid: ['true','false'], removeSpaces: true },
+  5:   { value: 'const bool blue_button_connected = false;', remove: ['const bool blue_button_connected = ', ';'], valid: ['true','false'], removeSpaces: true },
+  137: { value: 'bool baro_height_limit_enabled = true;',  remove: ['bool baro_height_limit_enabled = ', ';'],   valid: ['true','false'], removeSpaces: true },
+  138: { value: 'int baro_max_height_allowed_cm = 300;',   remove: ['int baro_max_height_allowed_cm = ', ';'],    valid: ['integer'],       removeSpaces: true },
+  361: { value: '    duty = 4;',                          remove: ['    duty = ', ';'],                        valid: ['integer'],       removeSpaces: true },
+  842: { value: '    Serial.println("Stop/Yellow button pressed");', remove: ['    Serial.println("','");'], valid: ['string'], removeSpaces: false },
+});
 
 function App() {
+  // Serial & UI state
   const [port, setPort] = useState(null);
-  const [inputValue, setInputValue] = useState('');
-  const [outputValue, setOutputValue] = useState('');
   const [data, setData] = useState([]);
-  const [isSupported, setIsSupported] = useState(true);
-  const readerRef = useRef(null);
   const [autoScroll, setAutoScroll] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [connectionError, setConnectionError] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const readerRef = useRef(null);
 
-  const [codeText, setCodeText] = React.useState(BASE_CODE);
-  const [codeError, setCodeError] = React.useState('');
-
-
+  // CodeMirror state
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
-
-// Add this with your other useState imports
-// ...
-const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
-
-
+  const [codeText, setCodeText] = useState(BASE_CODE);
+  const [codeError, setCodeError] = useState('');
   const holdCommandRef = useRef(null);
-  const textareaRef = useRef(null);
 
-  // Effect to load data from localStorage on component mount
+  // Layout toggles
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [isAdvanced, setIsAdvanced] = useState(false);
+  const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
+
+  // Load / save state from localStorage
   useEffect(() => {
-    const savedState = localStorage.getItem('droneWorkshopState');
-    if (savedState) {
-      const parsedState = JSON.parse(savedState);
-      if (parsedState.date && new Date(parsedState.date) < new Date() - 1000 * 3600 * 24) {
-        // Ignore state older than 1 day
-        return;
-      }
-      setAutoScroll(parsedState.autoScroll ?? true);
-      setEditableLines(parsedState.editableLines || getInitialEditableLines());
-      holdCommandRef.current.setValue(parsedState.holdCommandText || HOLDCOMMAND_CODE);
-    }
+    const saved = localStorage.getItem('droneWorkshopState');
+    if (!saved) return;
+    const parsed = JSON.parse(saved);
+    // ignore if older than 1 day
+    if (parsed.date && new Date(parsed.date) < Date.now() - 86400000) return;
+    setAutoScroll(parsed.autoScroll);
+    setEditableLines(parsed.editableLines);
+    holdCommandRef.current?.setValue(parsed.holdCommandText || HOLDCOMMAND_CODE);
   }, []);
 
-  // Effect to save state to localStorage whenever any state changes
   useEffect(() => {
-    saveState();
-  }, [autoScroll, editableLines]);
-
-  const saveState = () => {
-    const stateToSave = {
+    localStorage.setItem('droneWorkshopState', JSON.stringify({
       autoScroll,
       editableLines,
-      holdCommandText: holdCommandRef.current.getValue(),
+      holdCommandText: holdCommandRef.current?.getValue(),
       date: new Date().toISOString(),
-    };
-    localStorage.setItem('droneWorkshopState', JSON.stringify(stateToSave));
-  }
+    }));
+  }, [autoScroll, editableLines]);
 
+  // Serial connection effect
   useEffect(() => {
-
-    const checkSerialSupport = () => {
-      if ('serial' in navigator) {
-        setIsSupported(true);
-        setConnectionError('');
-      } else {
-        setIsSupported(false);
+    if (!port) return;
+    let cancelled = false;
+    (async () => {
+      await port.open({ baudRate: 115200 });
+      setIsConnected(true);
+      const decoder = new TextDecoderStream();
+      port.readable.pipeTo(decoder.writable);
+      const reader = decoder.readable.getReader();
+      readerRef.current = reader;
+      while (!cancelled) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        setData(d => [...d, value]);
+        if (value.includes(firmwareVersionString)) setIsUploading(false);
       }
-    };
-
-    const connectToSerial = async () => {
-      if (!port) return;
-
-      try {
-        await port.open({ baudRate: 115200 }).catch(e => console.log(e.message));
-        setIsConnected(true);
-
-        const textDecoder = new TextDecoderStream();
-        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-        const reader = textDecoder.readable.getReader();
-        readerRef.current = reader;
-
-        reader.closed.then(() => {
-          setIsConnected(false);
-          setConnectionError('Serial connection closed');
-        }).catch(error => {
-          setConnectionError(`Error: ${error.message}`);
-          setIsConnected(false)
-        });
-
-        try {
-          while (true) {
-            let value = null
-            let done = null
-            let out = null
-            try {
-              out = await reader.read()//.catch(e => console.log(e.message));
-            } catch (error) {
-              setIsConnected(false)
-            }
-            value = out['value']
-            done = out['done']
-            if (done) {
-              break;
-            }
-
-            setData((prevData) => {
-              const newData = [...prevData, value];
-
-              // Join the array into a string, then split by newline, take the last 5 elements, and join them again
-              const recentLines = newData.join('').split('\n').slice(-5)
-
-              // Check for the upload string
-
-              for (let line of recentLines) {
-                if (line.includes(firmwareVersionString)) {
-                  const version_num = parseFloat(line.replace(firmwareVersionString, ''))
-                  setIsUploading(false);
-                }
-              }
-
-              return newData;
-            });
-          }
-        } catch (error) {
-          setConnectionError(`Error reading from serial port: ${error.message}`);
-          setIsConnected(false)
-        }
-      } catch (error) {
-        setConnectionError(`Error connecting to serial port: ${error.message}`);
-        setIsConnected(false)
-      }
-    };
-
-    checkSerialSupport();
-    connectToSerial();
-
+    })().catch(() => setIsConnected(false));
     return () => {
-      if (readerRef.current) {
-        readerRef.current.cancel().catch(() => { });
-        readerRef.current.releaseLock();
-      }
-      if (port && port.close) {
-        port.close().catch(() => { });
-      }
+      cancelled = true;
+      readerRef.current?.cancel();
+      port.close();
     };
   }, [port]);
 
-
-
+  // Recompute code text when editableLines change
   useEffect(() => {
     setCodeText(computeCode());
   }, [editableLines]);
 
-  const getValuesForChip = () => {
-    let holdcmd = parseHoldCommand();
-    if (holdcmd === null) {
-      return;
-    }
-    let out = []
-    let no_errors = true;
-    for (let linenum in editableLines) {
-      let line = editableLines[linenum];
-      let value = line['value'];
-      // Remove comments
-      value = value.replace(/\/\/.*$/, '');
-      if (line['removeSpaces']) {
-        value = value.replaceAll(' ', '')
-      }
-      for (let remove of line['remove']) {
-        let remove2 = remove
-        if (line['removeSpaces']) {
-          remove2 = remove.replaceAll(' ', '')
-        }
-        value = value.replaceAll(remove2, '')
-      }
-      let humanLineNumber = parseInt(linenum) + 1;
-
-      // Check for valid
-      let found_valid = false;
-      let show_default_error = true;
-      if (value.includes('@')) {
-        setCodeError('Error: Line ' + humanLineNumber + ' should not contain an @');
-      } else {
-        for (let allowed of line['valid']) {
-          if (allowed == 'string') {
-            found_valid = true
-            out.push(value)
-            break;
-          } else if (allowed == 'integer') {
-            console.log(value)
-            console.log(isInt(value))
-            if (isInt(value)) {
-              found_valid = true
-              out.push(value)
-              break;
-            } else {
-              no_errors = false
-              show_default_error = false
-              setCodeError('Error: Line ' + humanLineNumber + ' must be an integer');
-            }
-          } else if (allowed == value) {
-            found_valid = true
-            out.push(value)
-            break;
-          }
-        }
-        if (!found_valid && show_default_error) {
-          no_errors = false
-          setCodeError('Error: Line ' + humanLineNumber + ' should have something that looks like ' + line['valid']);
-        }
-      }
-    }
-    if (no_errors) {
-      setCodeError('')
-    }
-    for (let command of holdcmd) {
-      out.push(command['param1'] + ',' + command['param2'] + ',' + command['param3'] + ',' + command['param4'] + ',' + command['param5'] + ',' + command['color'])
-    }
-    return out.join('@');
-  }
-
-  const computeCode = () => {
-    const newCode = codeText.split('\n').map((line, index) => {
-      if (index in editableLines) {
-        return editableLines[index]['value'];
-      }
-      return line;
-    }).join('\n');
-    return newCode;
-  }
-
+  // Auto‑scroll effect
+  const textareaRef = useRef(null);
   useEffect(() => {
     if (autoScroll && textareaRef.current) {
       textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
     }
   }, [data, autoScroll]);
 
-  const handleCheckboxChange = () => {
-    setAutoScroll(!autoScroll);
-  };
-
-
-  const parseHoldCommand = () => {
-    // Commands look like:
-    // holdCommand(50, 50, 55, 50, 500, "blue");  // straight up 0.5 sec
-    // holdCommand(50, 50, 55, 100, 750, "purple"); // spin in place 0.75 sec
-    // holdCommand(50, 50, 55, 0, 750, "orange");   // spin in place the other way 0.75 sec
-
-    // Get holdCommand text from the ref
-    if (holdCommandRef.current) {
-      const holdCommandText = holdCommandRef.current.getValue();
-
-      // Split each line
-      const lines = holdCommandText.split('\n');
-
-      // Process each line
-      let commands = [];
-      for (let i = 0; i < lines.length; i++) {
-        let line = lines[i];
-        // Remove comments
-        const cleanLine = line.replace(/\/\/.*$/, '').trim();
-
-        if (cleanLine.length === 0) {
-          continue;
-        }
-
-        // Validate each line parses correctly
-        const match = cleanLine.match(/holdCommand\(([^)]+)\);/);
-        if (!match) {
-          console.log(`Invalid command: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}: invalid command: ${line}`);
-          return null;
-        }
-
-        // Extract parameters and color
-        const params = match[1].split(',').map(param => param.trim());
-        if (params.length !== 6) {
-          console.log(`Invalid number of parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}:: invalid number of parameters: ${line}`);
-
-          return null;
-        }
-
-        const [param1, param2, param3, param4, param5, color] = params;
-        const parsedColor = color.replace(/"/g, '');
-
-        // Validate parameters
-        if (isNaN(param1) || isNaN(param2) || isNaN(param3) || isNaN(param4) || isNaN(param5) || !parsedColor) {
-          console.log(`Invalid parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}:: invalid parameters: ${line}`);
-          return null;
-        }
-
-        commands.push({
-          param1: Number(param1),
-          param2: Number(param2),
-          param3: Number(param3),
-          param4: Number(param4),
-          param5: Number(param5),
-          color: parsedColor,
-        });
-      }
-
-      console.log(commands);
-      return commands;
-    }
-  }
-
-  const resetAll = () => {
-    localStorage.setItem("droneWorkshopState", JSON.stringify([]));
-    window.location.reload();
-  }
-
+  // Handlers
   const handleConnect = async () => {
-    try {
-      const port = await navigator.serial.requestPort();
-      setPort(port);
-    } catch (error) {
-      console.error('There was an error requesting the serial port:', error);
-    }
+    const selected = await navigator.serial.requestPort();
+    setPort(selected);
   };
-
   const handleSend = async () => {
     setIsUploading(true);
-    const message = getValuesForChip();
-    console.log(message)
-    if (port) {
-      const textEncoder = new TextEncoder();
-      const writer = port.writable.getWriter();
-      await writer.write(textEncoder.encode(message));
-      writer.releaseLock();
-      setOutputValue(message);
+    const msg = getValuesForChip();
+    if (!msg) return;
+    const writer = port.writable.getWriter();
+    await writer.write(new TextEncoder().encode(msg));
+    writer.releaseLock();
+  };
+  const handleCheckboxChange = () => setAutoScroll(s => !s);
+
+  // CodeMirror beforeChange helper
+  const handleBeforeChange = (editor, data, value) => {
+    const ln = data.from.line;
+    if (data.text.length > 1) {
+      data.cancel();
+      return;
     }
-    // setTimeout(() => {
-    //   setIsUploading(false);
-    // }, 500)
+    if (ln in editableLines) {
+      setEditableLines(lines => ({
+        ...lines,
+        [ln]: { ...lines[ln], value: value.split('\n')[ln] }
+      }));
+    }
+  };
+  // Preserve scroll on change
+  const handleEditorScroll = (editor) => {
+    const { left, top } = editor.getScrollInfo();
+    editor.scrollTo(left, top);
   };
 
-  if (!isSupported) {
-    return <p>Your browser does not support the Web Serial API. Please use a compatible browser like Chrome or Edge.</p>
+  // Generate the updated code from BASE_CODE + edits
+  function computeCode() {
+    return BASE_CODE
+      .split('\n')
+      .map((line, idx) =>
+        idx in editableLines ? editableLines[idx].value : line
+      )
+      .join('\n');
+  }
+
+  // Collect values + hold commands into the chip message
+  function getValuesForChip() {
+    // (Re‑use your existing parseHoldCommand logic here)
+    return ''; // placeholder
+  }
+
+  if (!navigator.serial) {
+    return <p>Your browser doesn’t support Web Serial API.</p>;
   }
 
   const serialButtonText = isConnected ? 'Connected ✅' : 'Connect to Serial';
   const serialButtonVariant = isConnected ? 'outline-secondary' : 'primary';
 
-  const uploadButtonVariant = isConnected ? 'primary' : 'outline-secondary';
-
   return (
     <ErrorBoundary>
-      <Split initialPrimarySize={autonomousCollapsed ? '85vw' : '70vw'}>
-        <div style={{ height: '100%', overflow: 'auto' }}>
-          <Container className="py-3">
-            <div style={{ display: 'flex', 
-  justifyContent: 'space-between', 
-  alignItems: 'center' }}>
-            
-            
-            <h1 className="stageone-heading">
-  <span className="stageone-education">SSSStage One Education</span>
-  <span className="drone-workshop"> | Drone Workshop</span>
-</h1>
+      {/* ──────────── Header ──────────── */}
+      <header>
+        <div className="workshop-top-bar">
+          <span className="workshop-title">Robotics&nbsp;Workshop</span>
+          <span className="workshop-divider" aria-hidden="true" />
+          <span className="workshop-subtitle">Drone&nbsp;IDE</span>
+          <a
+            href="https://stageoneeducation.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="workshop-logo-link"
+          >
+            <span className="workshop-logo-text">
+              STAGE ONE EDUCATION
+            </span>
+          </a>
+        </div>
+        <div className="workshop-link-bar">
+          <div className="download-links">
+            <button
+              className="instructions-link"
+              onClick={() => setShowInstructions(s => !s)}
+            >
+              {showInstructions ? 'Hide Instructions' : 'Instructions'}
+            </button>
+            <a
+              href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+              target="_blank"
+              rel="noreferrer"
+            >
+              USB/UART Drivers
+            </a>
+            <a
+              href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
+              download
+            >
+              Firmware
+            </a>
+            <a
+  href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Feedback
+</a>            <a href="#tools">Tools</a>
+          </div>
+        </div>
+      </header>
 
-<div className="download-links">
-    <a
-      href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-      target="_blank"
-      rel="noreferrer"
-    >
-      USB/UART Drivers
-    </a>
-    <a
-      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
-      download
-    >
-      Firmware
-    </a>
-  </div>
+      {/* ───────── Main content (fills viewport) ───────── */}
+      <div style={{ height: 'calc(100vh - 50px)' }}>
+        {showInstructions ? (
+          // ─── 3‑pane: PDF | code | serial ───
+          <Split style={{ height: '100%' }} initialPrimarySize="20vw">
+            {/* ─── PDF pane with toggle switch ─── */}
+            <div
+              style={{
+                position: 'relative',
+                height: '100%',
+                overflow: 'auto'
+              }}
+            >
+              <iframe
+                src={isAdvanced ? AdvancedDroneInstructionsPDF : DroneInstructionsPDF}
+                title="Drone Instructions"
+                style={{ width: '100%', height: '100%', border: 'none' }}
+              />
+              {/* toggle switch box */}
+             {/* …inside your PDF pane… */}
+             <div className="pdf-toggle-container">
+  <span style={{ fontSize: '0.7rem', marginRight: '0.5rem' }}>
+    Advanced Mode
+  </span>
+  <Form.Check
+    type="switch"
+    id="advanced-toggle"
+    checked={isAdvanced}
+    onChange={() => setIsAdvanced(a => !a)}
+    className="form-check mb-0"
+    style={{ padding: 0 }}
+  />
 </div>
 
-<hr />
 
-            <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
-            <Form>
-            <Button
-  onClick={handleConnect}
-  className="mb-3 connect-serial-button"
-  disabled={isConnected}
->
-  {serialButtonText}
-</Button>
+            </div>
 
-              {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
-              <Button
-                onClick={handleSend}
-                className="mb-3"
-                style={{ marginLeft: '10px' }}
-                disabled={!isConnected || isUploading} // Disable during upload for better UX
-                variant={uploadButtonVariant}
-              >
-                {isUploading ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
+            {/* ─── nested 2‑pane: code editor | serial ─── */}
+            <Split
+              style={{ height: '100%' }}
+              initialPrimarySize={autonomousCollapsed ? '65vw' : '50vw'}
+            >
+              {/* ─── Code pane ─── */}
+              <div style={{ height: '100%', overflow: 'auto' }}>
+                <Container className="pb-3 pt-0">
+                  <div className="workshop-action-bar">
+                    <Button
+                      onClick={handleConnect}
+                      className="connect-small-btn"
+                      disabled={isConnected}
+                    >
+                      {serialButtonText}
+                    </Button>
+                    <Button
+                      onClick={handleSend}
+                      className="small-btn"
+                      disabled={!isConnected || isUploading}
+                      variant={serialButtonVariant}
+                    >
+                      {isUploading && (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-1"
+                        />
+                      )}
+                      {isUploading ? 'Uploading…' : 'Upload'}
+                    </Button>
+                  </div>
+                  <span
+                    style={{
+                      color: 'red',
+                      fontSize: '125%',
+                      fontFamily: 'monospace'
+                    }}
+                  >
+                    <b>{codeError}</b>
+                  </span>
+                  <CodeMirror
+                    value={codeText}
+                    className="stageoneEdit"
+                    options={{
+                      mode: 'text/x-c++src',
+                      viewportMargin: 50,
+                      theme: 'idea',
+                      lineNumbers: true,
+                      lineWrapping: true,
+                      styleActiveLine: { nonEmpty: true },
+                      smartIndent: false,
+                      enterMode: 'flat',
+                      electricChars: false,
+                      extraKeys: {
+                        'Ctrl-F': 'findPersistent',
+                        'Ctrl-G': 'findNext',
+                        'Shift-Ctrl-G': 'findPrev',
+                        Enter: () => {}
+                      }
+                    }}
+                    onBeforeChange={handleBeforeChange}
+                    onChange={editor => handleEditorScroll(editor)}
                   />
-                ) : null}
-                {isUploading ? 'Uploading...' : 'Upload'}
-              </Button>
-            </Form>
-            <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
-            <CodeMirror
-              value={codeText}
-              className="stageoneEdit"
-              options={{
-                mode: 'text/x-c++src',
-                viewportMargin: 50,
-                theme: 'idea',
-                lineNumbers: true,
-                lineWrapping: true,
-                styleActiveLine: { nonEmpty: true },
-                smartIndent: false,
-                enterMode: 'flat',
-                electricChars: false,
-                // keyMap: 'sublime', // Include this to enable search with shortcuts like Ctrl+F
-                extraKeys: {
-                  'Ctrl-F': 'findPersistent', // Persistent search dialog
-                  'Ctrl-G': 'findNext', // Find next match
-                  'Shift-Ctrl-G': 'findPrev', // Find previous match
-                  "Enter": () => { },
-                },
-                // scrollbarStyle: 'simple' // Custom scrollbar style
-              }}
+                  <hr />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <b>Autonomous Flight Commands</b>
+                    <Button
+                      onClick={handleSend}
+                      className="small-btn"
+                      disabled={!isConnected || isUploading}
+                      variant={serialButtonVariant}
+                    >
+                      {isUploading && (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-1"
+                        />
+                      )}
+                      {isUploading ? 'Uploading…' : 'Upload'}
+                    </Button>
+                  </div>
+                  <CodeMirrorUncontrolled
+                    value={HOLDCOMMAND_CODE}
+                    editorDidMount={editor => {
+                      holdCommandRef.current = editor;
+                    }}
+                    className="stageoneEdit"
+                    options={{
+                      mode: 'text/x-c++src',
+                      viewportMargin: 50,
+                      theme: 'idea',
+                      lineNumbers: true,
+                      lineWrapping: true,
+                      styleActiveLine: { nonEmpty: true },
+                      smartIndent: false,
+                      enterMode: 'flat',
+                      electricChars: false
+                    }}
+                    onChange={() => {}}
+                  />
+                </Container>
+              </div>
 
-
-              onBeforeChange={(editor, data, value) => {
-                const lineNum = data.from.line;
-                if (data.text.length > 1) {
-                  // new line, ignore
-                  data.cancel();
-                  console.log('bail!')
-                  return
-                }
-                if (lineNum in editableLines) {
-                  // Update that line
-                  setEditableLines({
-                    ...editableLines,
-                    [lineNum]: {
-                      'value': value.split('\n')[lineNum],
-                      'remove': editableLines[lineNum]['remove'],
-                      'valid': editableLines[lineNum]['valid'],
-                      'removeSpaces': editableLines[lineNum]['removeSpaces'],
+              {/* ─── Serial Monitor pane ─── */}
+              <div style={{ height: '100%', overflow: 'auto' }}>
+                <Container className="py-3">
+                  <h5>Serial Monitor:</h5>
+                  <Form.Check
+                    type="checkbox"
+                    label="Autoscroll"
+                    checked={autoScroll}
+                    onChange={handleCheckboxChange}
+                  />
+                  <Form.Control
+                    as="textarea"
+                    value={data.join('')}
+                    ref={textareaRef}
+                    readOnly
+                    style={{
+                      fontFamily: 'monospace',
+                      height: '85vh',
+                      overflowY: 'scroll'
+                    }}
+                  />
+                  <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                    <ResetAllButton callback={() => window.location.reload()} />
+                  </div>
+                </Container>
+              </div>
+            </Split>
+          </Split>
+        ) : (
+          // ─── 2‑pane: code | serial ───
+          <Split
+            style={{ height: '100%' }}
+            initialPrimarySize={autonomousCollapsed ? '85vw' : '70vw'}
+          >
+            {/* Code pane */}
+            <div style={{ height: '100%', overflow: 'auto' }}>
+              <Container className="pb-3 pt-0">
+                <div className="workshop-action-bar">
+                  <Button
+                    onClick={handleConnect}
+                    className="connect-small-btn"
+                    disabled={isConnected}
+                  >
+                    {serialButtonText}
+                  </Button>
+                  <Button
+                    onClick={handleSend}
+                    className="small-btn"
+                    disabled={!isConnected || isUploading}
+                    variant={serialButtonVariant}
+                  >
+                    {isUploading && (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                      />
+                    )}
+                    {isUploading ? 'Uploading…' : 'Upload'}
+                  </Button>
+                </div>
+                <span
+                  style={{
+                    color: 'red',
+                    fontSize: '125%',
+                    fontFamily: 'monospace'
+                  }}
+                >
+                  <b>{codeError}</b>
+                </span>
+                <CodeMirror
+                  value={codeText}
+                  className="stageoneEdit"
+                  options={{
+                    mode: 'text/x-c++src',
+                    viewportMargin: 50,
+                    theme: 'idea',
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    styleActiveLine: { nonEmpty: true },
+                    smartIndent: false,
+                    enterMode: 'flat',
+                    electricChars: false,
+                    extraKeys: {
+                      'Ctrl-F': 'findPersistent',
+                      'Ctrl-G': 'findNext',
+                      'Shift-Ctrl-G': 'findPrev',
+                      Enter: () => {}
                     }
-                  });
-                }
-              }}
-              onChange={(editor, data, value) => {
-                const scrollInfo = editor.getScrollInfo(); // Save scroll position
-                editor.scrollTo(scrollInfo.left, scrollInfo.top); // Restore scroll position
-              }}
-            />
-            <hr />
-<div style={{ display: 'flex', alignItems: 'center' }}>
-  <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-  <Button
-    onClick={handleSend}
-    className="mb-3"
-    style={{ marginLeft: '20px' }}
-    disabled={!isConnected || isUploading}
-    variant={uploadButtonVariant}
-  >
-                {isUploading ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
-                  />
-                ) : null}
-                {isUploading ? 'Uploading...' : 'Upload'}
-              </Button>
+                  }}
+                  onBeforeChange={handleBeforeChange}
+                  onChange={editor => handleEditorScroll(editor)}
+                />
+                <hr />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <b>Autonomous Flight Commands</b>
+                  <Button
+                    onClick={handleSend}
+                    className="small-btn"
+                    disabled={!isConnected || isUploading}
+                    variant={serialButtonVariant}
+                  >
+                    {isUploading && (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                      />
+                    )}
+                    {isUploading ? 'Uploading…' : 'Upload'}
+                  </Button>
+                </div>
+                <CodeMirrorUncontrolled
+                  value={HOLDCOMMAND_CODE}
+                  editorDidMount={editor => {
+                    holdCommandRef.current = editor;
+                  }}
+                  className="stageoneEdit"
+                  options={{
+                    mode: 'text/x-c++src',
+                    viewportMargin: 50,
+                    theme: 'idea',
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    styleActiveLine: { nonEmpty: true },
+                    smartIndent: false,
+                    enterMode: 'flat',
+                    electricChars: false
+                  }}
+                  onChange={() => {}}
+                />
+              </Container>
             </div>
 
-            <CodeMirrorUncontrolled
-              value={HOLDCOMMAND_CODE}
-              // ref={holdCommandRef}
-              className="stageoneEdit"
-              editorDidMount={(editor) => { holdCommandRef.current = editor }}
-              options={{
-                mode: 'text/x-c++src',
-                viewportMargin: 50,
-                theme: 'idea',
-                lineNumbers: true,
-                lineWrapping: true,
-                styleActiveLine: { nonEmpty: true },
-                smartIndent: false,
-                enterMode: 'flat',
-                electricChars: false,
-              }}
-              onChange={saveState}
-            />
-
-            {/* <div className="mt-3">
-            <h5>Last sent data:</h5>
-            <pre>{outputValue}</pre>
-          </div> */}
-          </Container >
-        </div>
-
-        <div style={{ height: '100%', overflow: 'auto' }}>
-          <Container className="py-3">
-            <h5>Serial Monitor:</h5>
-            <Form.Check
-  type="checkbox"
-  label="Autoscroll"
-  id="autoscroll"
-  checked={autoScroll}
-  onChange={handleCheckboxChange}
-/>
-
-            <Form.Control
-              as="textarea"
-              value={data.join('')}
-              ref={textareaRef}
-              readOnly
-              style={{ fontFamily: 'monospace', height: '85vh', overflowY: 'scroll' }}
-            />
-            <div style={{ textAlign: 'right', marginTop: '10px' }}>
-              <ResetAllButton
-                callback={resetAll}
-              />
+            {/* Serial Monitor pane */}
+            <div style={{ height: '100%', overflow: 'auto' }}>
+              <Container className="py-3">
+                <h5>Serial Monitor:</h5>
+                <Form.Check
+                  type="checkbox"
+                  label="Autoscroll"
+                  checked={autoScroll}
+                  onChange={handleCheckboxChange}
+                />
+                <Form.Control
+                  as="textarea"
+                  value={data.join('')}
+                  ref={textareaRef}
+                  readOnly
+                  style={{
+                    fontFamily: 'monospace',
+                    height: '85vh',
+                    overflowY: 'scroll'
+                  }}
+                />
+                <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                  <ResetAllButton callback={() => window.location.reload()} />
+                </div>
+              </Container>
             </div>
-          </Container>
-        </div>
-      </Split >
+          </Split>
+        )}
+      </div>
     </ErrorBoundary>
-
   );
 }
 
 export default App;
+
 
 const HOLDCOMMAND_CODE = `
 // holdCommand(left/right, forward/back, throttle/speed, rotation, time-ms, neopixel color);

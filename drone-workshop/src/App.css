@@ -43,7 +43,6 @@
 
 
 
-.CodeMirror { min-height: 38vh !important; }
 
 .stageone-heading {
   margin: 0;
@@ -149,14 +148,231 @@
   border-color: #a0a0a0;
 }
 
-.autonomous-panel {
-  position: fixed;           /* Pin to bottom of screen */
-  left: 0;
-  right: 500px;
-  bottom: 0;
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-  overflow: hidden;          /* Hide the code when collapsed */
-  transition: height 0.3s;   /* Smooth animate the change in height */
-  z-index: 9999;             /* So it stays above other elements */
+
+/* ───── stage‑top banner (orange) ───── */
+.workshop-top-bar{
+  width:100%;
+  height:30px;        /* spec size  */
+  font-size:25px;
+  line-height:35px;
+  background:#f05f40;
+  color:#fff;
+  font-family:'Roboto',sans-serif;
+  display:flex;
+  align-items:center;
+  padding-left:8px;
+  gap:6px;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+/* ───── link bar (dark gray) ───── */
+.workshop-link-bar{
+  width:100%;
+  height:20px;
+  background:#595959;
+  display:flex;
+  align-items:center;   /* centres the .download-links div itself */
+  padding-left:8px;
+}
+
+/* turn the wrapper into a flex row so the <a> tags centre vertically */
+.workshop-link-bar .download-links{
+  display:flex;
+  align-items:center;   /* vertical‑centre the links */
+}
+
+/* keep the links white & bold, but never underlined */
+.workshop-link-bar .download-links a,
+.workshop-link-bar .download-links a:visited,
+.workshop-link-bar .download-links a:hover{
+  font-family:'Roboto',sans-serif;
+  font-size:12px;
+  font-weight:100;
+  color:#ffffff;
+  text-decoration:none!important;
+}
+
+/* spacing: 0 px before the first link, 22 px between the rest */
+.workshop-link-bar .download-links a{margin-left:0;}
+.workshop-link-bar .download-links a + a{margin-left:22px;}
+
+/* optional hover colour */
+.workshop-link-bar .download-links a:hover{
+  color:#f05f40;
+}
+
+
+/* ───── action‑bar (buttons) ───── */
+.workshop-action-bar{
+  background:#efefef;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:5px 50px;   /* inner cushion */
+  margin:0 -12px;
+}
+
+/* remove Bootstrap’s mb‑3 “bottom margin” so the bar stays only 5 px tall */
+.workshop-action-bar .btn{
+  margin-bottom:0 !important;
+}
+/* weight tweaks for the orange banner */
+/* heavier “Robotics Workshop” + lighter “Drone IDE” */
+.workshop-title   { font-weight:600; }   /* Roboto 900 ‑‑ heavy bold */
+.workshop-subtitle{ font-weight:300; }   /* Roboto 300 ‑‑ thin */
+
+/* vertically‑centred 1 px divider */
+.workshop-divider{
+  align-self:center;            /* rely on flex centering */
+  width:1px;
+  height:60%;                   /* 60 % of bar height (adjust if you prefer) */
+  background:currentColor;      /* same white the text uses */
+  opacity:.65;                  /* slightly softer */
+  margin:0 3px;                 /* keep the 6 px gap you had */
+}
+/* clickable wrapper – pushes to the end and centres logo vertically */
+.workshop-logo-link{
+  margin-left:auto;         /* flex spacer */
+  margin-right:8px;        /* gap from right edge */
+  display:flex;             /* makes the link its own flex‑box */
+  align-items:center;       /* vertical‑centre the img inside */
+  cursor:pointer;
+}
+
+/* logo image */
+.workshop-logo{
+  width:120px;
+  height:auto;
+  object-fit:contain;
+  /* no margins needed here */
+}
+/* make the Upload button match the Serial‑Connect one */
+.upload-button{
+  height:32px;        /* total button height */
+  min-width:100px;    /* enough for “Uploading…” */
+  padding:0 14px;     /* no extra vertical padding, keep some horizontal */
+  line-height:30px;   /* text/Spinner centred vertically */
+}
+
+/* optional: keep colour consistent with the orange palette */
+.upload-button.btn-primary{
+  background:#f05f40;
+  border-color:#f05f40;
+}
+.upload-button.btn-primary:hover{
+  background:#e64a2c;
+  border-color:#e64a2c;
+}
+/* ─── caret style for expand / collapse ─── */
+.autonomous-toggle{
+  font-size:18px;      /* caret size */
+  line-height:1;
+  color:#000;
+  text-decoration:none;
+  cursor:pointer;
+}
+.autonomous-toggle:hover{
+  color:#f05f40;       /* Stage One orange on hover */
+}
+/* ─── autonomous‑panel: slides up / down at screen bottom ─── */
+
+/* vertical splitter bar between the two editors */
+.splitter-orientation-vertical,           /* v4.x */
+.react-splitter-vertical {                /* v3.x */
+  background: #d0d0d0;   /* light‑grey bar */
+  height: 6px !important;
+  cursor: row-resize;
+}
+.splitter-orientation-vertical:hover,
+.react-splitter-vertical:hover {
+  background: #f05f40;   /* Stage‑One orange on hover */
+}
+/* splitter handles */
+.gutter            { background:#ddd; opacity:.6; }
+.gutter-vertical   { width:6px;  cursor:col-resize; }
+.gutter-horizontal { height:6px; cursor:row-resize; }
+/* Make the CodeMirror editor taller */
+/* Let CodeMirror fill its pane; the splitter now sets the height */
+/* link‑bar toggle looks like the other links */
+.instructions-link{
+  background:none;
+  border:none;
+  color:#ffffff;
+  font-family:'Roboto',sans-serif;
+  font-size:12px;
+  font-weight:100;
+  margin-left:0px;
+  margin-right:22px;
+  cursor:pointer;
+}
+.instructions-link:hover{
+  color:#f05f40;
+}
+.small-btn {
+  padding: 5px 8px !important;    /* override bootstrap defaults */
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  min-width: auto !important;     /* shrink to content width */
+  margin-left:10px;
+
+}
+
+.connect-small-btn {
+  padding: 5px 8px !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  min-width: auto !important;
+
+  /* make the fill orange */
+  background-color: #f05f40 !important;
+  /* match the border to the fill */
+  border-color:    #f05f40 !important;
+  /* white text for contrast */
+  color:           #ffffff !important;
+}
+.pdf-toggle-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 10;
+  background: rgba(219, 219, 219, 0.9);
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  display: flex;            /* horizontal layout */
+  flex-direction: row;      /* row, not column */
+  align-items: center;      /* vertical center */
+  gap: 0.1rem;              /* space between text & switch */
+}
+
+.pdf-toggle-container .form-check {
+  display: inline-flex;     /* force inline flex */
+  align-items: center;      /* center the actual input */
+  margin: 0;                /* remove default margins */
+}
+
+.pdf-toggle-container .form-check-input {
+  margin: 0;                /* kill extra top/bottom margins */
+  /* no rotation or weird transforms */
+  transform: none !important;
+}
+
+/* remove the underline and force white text on all states */
+.workshop-logo-link {
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+.workshop-logo-link:hover,
+.workshop-logo-link:visited,
+.workshop-logo-link:active {
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+.workshop-logo-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: #ffffff;
+  text-decoration: none;
 }
