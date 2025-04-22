@@ -24,6 +24,127 @@ import 'codemirror/keymap/sublime';
 import 'codemirror/addon/search/matchesonscrollbar.css';
 import 'codemirror/addon/search/matchesonscrollbar';
 
+
+
+
+// … your existing imports …
+
+// ─── Add this (or replace your old) right after your imports ───
+const DRIVER_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>USB/UART Drivers</title>
+  <style>
+    body { margin:0; font-family: 'Roboto', sans-serif; }
+    .workshop-top-bar {
+      width:100%; height:30px; background:#f05f40; color:#fff;
+      display:flex; align-items:center; padding:0 8px; gap:6px;
+      font-size:14px; font-weight:600;
+    }
+    .workshop-divider {
+      width:1px; height:60%; background:currentColor; opacity:.65;
+      margin:0 6px;
+    }
+    .workshop-subtitle { font-weight:300; }
+    .workshop-logo-link {
+      margin-left:auto; text-decoration:none; color:#fff;
+      font-size:10px; font-weight:700;
+    }
+    body { padding:2rem; line-height:1.5; }
+    h1 { color:#f05f40; margin-top:1rem; }
+    h2 { color:#333; margin-top:1.5rem; }
+    ol, ul { margin-top:0.5em; padding-left:1.2em; }
+    li { margin-bottom:0.75em; }
+    code { background:#eee; padding:0.1em 0.3em; border-radius:3px; }
+    a { color:#0066cc; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <!-- ──────────── Header ──────────── -->
+  <header>
+    <div class="workshop-top-bar">
+      <span class="workshop-title">Robotics&nbsp;Workshop</span>
+      <span class="workshop-divider" aria-hidden="true"></span>
+      <span class="workshop-subtitle">USB/UART Drivers</span>
+      <a href="https://stageoneeducation.com/" target="_blank" rel="noopener noreferrer" class="workshop-logo-link">
+        STAGE ONE EDUCATION
+      </a>
+    </div>
+  </header>
+
+  <!-- ───────── Page content ───────── -->
+  <h1>Connected the ESP32 UART port to the laptop USB port.
+</h1>
+<hr/>
+  <h2>Check if the Driver is Installed:</h2>
+  <ol>
+    <li>
+      <strong>Open Device Manager:</strong>
+      Press <code>Windows + X</code> and select “Device Manager” from the menu.
+    </li>
+    <li>
+      <strong>Expand Ports (COM &amp; LPT):</strong>
+      Click the ▶︎ next to “Ports (COM &amp; LPT).”
+    </li>
+    <li>
+      <strong>Look for Silicon Labs:</strong>
+      You should see “Silicon Labs CP210x USB to UART Bridge.” That confirms the driver is installed.
+    </li>
+    <li>
+      <strong>If you don’t see it, install the driver manually</strong>
+        </ol><hr/>
+
+      <h2>Download the Driver:</h2>
+<ol>
+      <h3>Step 1: Download the CP210x Universal Windows Driver</h3>
+      <ul>
+        <li>Go to the Silicon Labs CP210x download page:
+          <br/>
+          <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+             target="_blank"
+             rel="noopener noreferrer">
+            Download CP210x Driver ZIP
+          </a>
+        </li>
+      </ul>
+      <h3>Step 2: Extract the Driver ZIP</h3>
+      <ul>
+        <li>Locate the downloaded ZIP file in your Downloads folder.</li>
+        <li>Right‑click it and choose “Extract All…”</li>
+        <li>Pick a destination (e.g., Desktop) and extract.</li>
+      </ul>
+      <h3>Step 3: Install the CP210x Driver</h3>
+      <ul>
+        <li>Open Device Manager again and expand “Ports (COM & LPT).”</li>
+        <li>If you see an “Unknown device” or no CP210x, right‑click and choose “Update driver.”</li>
+        <li>Select “Browse my computer for driver software.”</li>
+        <li>Navigate to the folder where you extracted the ZIP, click “Next,” and let Windows install.</li>
+      </ul>
+      <h3>Step 4: Verify Installation</h3>
+      <ul>
+        <li>Once installation completes, you should see “Silicon Labs CP210x USB to UART Bridge” under Ports.</li>
+        <li>Restart your PC if prompted, then re‑open Device Manager to confirm.</li>
+      </ul>
+    </li>
+  </ol><hr/>
+</body>
+</html>`;
+
+
+
+
+
+
+
+
+
+
+
+
+
 function isInt(value) {
   return !isNaN(value) &&
          parseInt(Number(value)) == value &&
@@ -182,6 +303,9 @@ function App() {
   const serialButtonText = isConnected ? 'Connected ✅' : 'Connect to Serial';
   const serialButtonVariant = isConnected ? 'outline-secondary' : 'primary';
 
+
+
+  
   return (
     <ErrorBoundary>
       {/* ──────────── Header ──────────── */}
@@ -209,13 +333,20 @@ function App() {
             >
               {showInstructions ? 'Hide Instructions' : 'Instructions'}
             </button>
-            <a
-              href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-              target="_blank"
-              rel="noreferrer"
-            >
-              USB/UART Drivers
-            </a>
+            <button
+  type="button"
+  className="instructions-link"
+  onClick={e => {
+    e.preventDefault();
+    const w = window.open("", "_blank");
+    w.document.write(DRIVER_HTML);
+    w.document.close();
+  }}
+>
+  USB/UART Drivers
+</button>
+
+
             <a
               href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv3.ino"
               download
@@ -337,28 +468,32 @@ function App() {
                     onBeforeChange={handleBeforeChange}
                     onChange={editor => handleEditorScroll(editor)}
                   />
-                  <hr />
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <b>Autonomous Flight Commands</b>
-                    <Button
-                      onClick={handleSend}
-                      className="small-btn"
-                      disabled={!isConnected || isUploading}
-                      variant={serialButtonVariant}
-                    >
-                      {isUploading && (
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-1"
-                        />
-                      )}
-                      {isUploading ? 'Uploading…' : 'Upload'}
-                    </Button>
-                  </div>
+<hr />
+{/* ─── Autonomous command bar ─── */}
+<div className="autonomous-bar">
+<span className="autonomous-label">Autonomous Flight Commands</span>
+
+  <Button
+    onClick={handleSend}
+    className="small-btn"
+    disabled={!isConnected || isUploading}
+    variant={serialButtonVariant}
+  >
+    {isUploading && (
+      <Spinner
+        as="span"
+        animation="border"
+        size="sm"
+        role="status"
+        aria-hidden="true"
+        className="me-1"
+      />
+    )}
+    {isUploading ? 'Uploading…' : 'Upload'}
+  </Button>
+</div>
+
+
                   <CodeMirrorUncontrolled
                     value={HOLDCOMMAND_CODE}
                     editorDidMount={editor => {
@@ -477,28 +612,31 @@ function App() {
                   onBeforeChange={handleBeforeChange}
                   onChange={editor => handleEditorScroll(editor)}
                 />
-                <hr />
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <b>Autonomous Flight Commands</b>
-                  <Button
-                    onClick={handleSend}
-                    className="small-btn"
-                    disabled={!isConnected || isUploading}
-                    variant={serialButtonVariant}
-                  >
-                    {isUploading && (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-1"
-                      />
-                    )}
-                    {isUploading ? 'Uploading…' : 'Upload'}
-                  </Button>
-                </div>
+               <hr />
+{/* ─── Autonomous command bar ─── */}
+<div className="autonomous-bar">
+<span className="autonomous-label">Autonomous Flight Commands</span>
+
+  <Button
+    onClick={handleSend}
+    className="small-btn"
+    disabled={!isConnected || isUploading}
+    variant={serialButtonVariant}
+  >
+    {isUploading && (
+      <Spinner
+        as="span"
+        animation="border"
+        size="sm"
+        role="status"
+        aria-hidden="true"
+        className="me-1"
+      />
+    )}
+    {isUploading ? 'Uploading…' : 'Upload'}
+  </Button>
+</div>
+
                 <CodeMirrorUncontrolled
                   value={HOLDCOMMAND_CODE}
                   editorDidMount={editor => {

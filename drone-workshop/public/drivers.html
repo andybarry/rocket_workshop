@@ -1,0 +1,34 @@
+<!-- public/drivers.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>USB/UART Drivers</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; line-height: 1.5; }
+    h1 { color: #f05f40; }
+    ol { margin-top: 1em; }
+    li { margin-bottom: 0.5em; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Check if the Driver is Installed</h1>
+  <ol>
+    <li><strong>Open Device Manager:</strong> Press <code>Windows + X</code> and select “Device Manager.”</li>
+    <li><strong>Expand Ports (COM & LPT):</strong> Click the ▶︎ next to “Ports (COM & LPT).”</li>
+    <li><strong>Look for Silicon Labs:</strong> You should see “Silicon Labs CP210x USB to UART Bridge.” If it’s there, the driver is installed.</li>
+    <li><strong>If you don’t see it:</strong> 
+      <ul>
+        <li>Download and install the CP210x driver from Silicon Labs:  
+          <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads" target="_blank" rel="noopener noreferrer">
+            Silicon Labs CP210x Driver
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</body>
+</html>
