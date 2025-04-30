@@ -1065,6 +1065,7 @@ void WiFiEvent(WiFiEvent_t event) {
       Serial.print("\nWiFi connected! IP address: ");
       Serial.println(WiFi.localIP());
       //initializes the UDP state and transfer buffer
+      udp = WiFiUDP();
       udp.begin(WiFi.localIP(), udpPort);
       udp.begin(WiFi.localIP(), udpRxPort);
       connected = true;
