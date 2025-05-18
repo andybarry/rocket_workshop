@@ -95,11 +95,11 @@ const getInitialEditableLines = () => {
 }
 
 // SerialMonitor component
-const SerialMonitor = ({ 
-  data, 
-  autoScroll, 
-  onAutoScrollChange, 
-  onClear, 
+const SerialMonitor = ({
+  data,
+  autoScroll,
+  onAutoScrollChange,
+  onClear,
   height = '85vh',
   title = "Serial Monitor"
 }) => {
@@ -138,9 +138,9 @@ const SerialMonitor = ({
         value={data.join('')}
         ref={localTextareaRef}
         readOnly
-        style={{ 
-          fontFamily: 'monospace', 
-          height: height, 
+        style={{
+          fontFamily: 'monospace',
+          height: height,
           overflowY: 'scroll',
           marginBottom: '0.5rem'
         }}
@@ -168,9 +168,9 @@ function App() {
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
-// Add this with your other useState imports
-// ...
-const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
+  // Add this with your other useState imports
+  // ...
+  const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
 
 
   const holdCommandRef = useRef(null);
@@ -348,7 +348,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
         }
         value = value.replaceAll(remove2, '')
       }
-      
+
 
       // Check for valid
       let found_valid = false;
@@ -571,46 +571,48 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
       <Split initialPrimarySize={"70vw"}>
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
-            <div style={{ display: 'flex', 
-  justifyContent: 'space-between', 
-  alignItems: 'center' }}>
-            
-            
-            <h1 className="stageone-heading">
-  <span className="stageone-education">Stage One Education</span>
-  <span className="drone-workshop"> | Drone Workshop</span>
-</h1>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
 
-<div className="download-links">
-    <a
-      href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-      target="_blank"
-      rel="noreferrer"
-    >
-      USB/UART Drivers
-    </a>
-    <a
-      href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
-      download
-    >
-      Firmware
-    </a>
-  </div>
-</div>
 
-<hr />
+              <h1 className="stageone-heading">
+                <span className="stageone-education">Stage One Education</span>
+                <span className="drone-workshop"> | Drone Workshop</span>
+              </h1>
+
+              <div className="download-links">
+                <a
+                  href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  USB/UART Drivers
+                </a>
+                <a
+                  href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
+                  download
+                >
+                  Firmware
+                </a>
+              </div>
+            </div>
+
+            <hr />
 
             <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
             <Form>
-            <Button
-  onClick={handleConnect}
-  className="mb-3 connect-serial-button"
-  disabled={isConnected}
-  style={connectButtonStyle}
-  variant={connectButtonVariant}
->
-  {serialButtonText}
-</Button>
+              <Button
+                onClick={handleConnect}
+                className="mb-3 connect-serial-button"
+                disabled={isConnected}
+                style={connectButtonStyle}
+                variant={connectButtonVariant}
+              >
+                {serialButtonText}
+              </Button>
 
               {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
               <Button
@@ -685,15 +687,15 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
               }}
             />
             <hr />
-<div style={{ display: 'flex', alignItems: 'center' }}>
-  <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-  <Button
-    onClick={handleSend}
-    className="mb-3"
-    style={{ marginLeft: '20px', ...uploadButtonColor }}
-    disabled={!isConnected || isUploading}
-    variant={uploadButtonClass}
-  >
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
+              <Button
+                onClick={handleSend}
+                className="mb-3"
+                style={{ marginLeft: '20px', ...uploadButtonColor }}
+                disabled={!isConnected || isUploading}
+                variant={uploadButtonClass}
+              >
                 {isUploading ? (
                   <Spinner
                     as="span"
@@ -756,9 +758,9 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
         </div>
       </Split >
 
-      <Modal 
-        show={showAdminDialog} 
-        onHide={handleAdminDialogClose} 
+      <Modal
+        show={showAdminDialog}
+        onHide={handleAdminDialogClose}
         onEntered={() => passwordInputRef.current?.focus()}
         size="lg"
         fullscreen="lg-down"
@@ -785,7 +787,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
                   <Form.Text className="text-danger">{passwordError}</Form.Text>
                 )}
               </Form.Group>
-              <Button 
+              <Button
                 variant="outline-primary"
                 type="submit"
                 style={{ backgroundColor: '#f05f40', borderColor: '#f05f40', color: 'white' }}
@@ -809,7 +811,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
                   Firmware version {firmwareVersion} does not support testing drones (firmware must be v4 or higher)
                 </div>
               ) : null}
-              <Button 
+              <Button
                 variant={uploadButtonClass}
                 onClick={handleTestAllDrones}
                 disabled={firmwareVersion < 4 || !isConnected || isDroneTesting}
@@ -832,7 +834,7 @@ const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
                   'Test all drones'
                 )}
               </Button>
-              
+
               <div className="mt-4">
                 <SerialMonitor
                   data={data}
