@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Generator 45 - Round 5</title>
+
+  <style>
+    /*******************************************************
+     * TRAFFIC LIGHT STYLES
+     *******************************************************/
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 10px;
+      width: 80px;
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px auto;
+      transition: background-color 0.3s;
+    }
+    .inactive-red {
+      background-color: #ffb3b321;
+    }
+    .inactive-green {
+      background-color: #b3ffb324;
+    }
+    .red {
+      background-color: red;
+    }
+    .green {
+      background-color: green;
+    }
+
+    /*******************************************************
+     * CIRCLES (ROUND 5)
+     *******************************************************/
+    #boxesRound5 {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0;
+    }
+    .circleRound5 {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px;
+      display: inline-block;
+      position: relative; /* needed for pseudo-elements */
+      border: 2px solid black;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+    }
+    /* Circle label above the circle */
+    .circleRound5 span {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      background-color: transparent;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-size: 1.5em;
+    }
+    .circle-container-round5 {
+      display: inline-block;
+      margin: 30px 20px;
+      text-align: center;
+    }
+    /* Hidden by default; shown when user toggles code box */
+    .label-below-round5 {
+      display: none;
+      font-size: 20px;
+    }
+
+    /*******************************************************
+     * NEW: PSEUDO-ELEMENTS FOR "R" / "G" INSIDE CIRCLES
+     *******************************************************/
+    .circleRound5.red::after {
+      content: "R";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .circleRound5.green::after {
+      content: "G";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /*******************************************************
+     * BUTTON STYLES
+     *******************************************************/
+    .btn {
+      cursor: pointer;
+      font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 300px;
+      padding: 10px 20px;
+      outline: none;
+      box-shadow: none;
+      transition: all .3s;
+    }
+    .btn:focus, .btn:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* --- Red button --- */
+    #colorRed5 {
+      background-color: #fff !important;
+      color: red !important;
+      border: 2px solid red !important;
+    }
+    #colorRed5.active {
+      background-color: red !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Green button --- */
+    #colorGreen5 {
+      background-color: #fff !important;
+      color: green !important;
+      border: 2px solid green !important;
+    }
+    #colorGreen5.active {
+      background-color: green !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Run button (Orange) --- */
+    #runButton5 {
+      background-color: #fff !important;
+      color: #f05f40 !important;
+      border: 2px solid #f05f40 !important;
+      padding: 10px 20px !important;
+    }
+    #runButton5.active {
+      background-color: #f05f40 !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Show Code (R5) button (Gray) --- */
+    #toggleCodeBox5 {
+      background-color: #fff !important;
+      color: #666 !important;
+      padding: 10px 20px !important;
+    }
+    #toggleCodeBox5.active {
+      background-color: #999 !important; 
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /*******************************************************
+     * CODE BOX (R5)
+     *******************************************************/
+    .code-box5 {
+      width: 60%;
+      margin: 20px auto; 
+      height: 300px;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.4em;
+      overflow-y: scroll;
+      border-radius: 6px;
+      border: 2px solid #333;
+      padding: 10px;
+      position: relative;
+      white-space: pre;
+      display: none; /* hidden by default */
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Round 5: Traffic Light & Buttons -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h4>Select state of the traffic light (Round 5)</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed5" class="btn">Red</button>
+    <button id="colorGreen5" class="btn">Green</button>
+
+    <br><br>
+
+    <div class="traffic-light" id="trafficLight5">
+      <div class="light inactive-red" id="redCircle5"></div>
+      <div class="light inactive-green" id="greenCircle5"></div>
+    </div>
+
+    <br><br>
+  </div>
+
+  <!-- Run Button (Round 5) -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="runButton5" class="btn">Run (R5)</button>
+  </div>
+
+  <!-- Circles for Round 5: A1..A20 -->
+  <div id="nodesContainer5" style="text-align: center;">
+    <div id="boxesRound5">
+      <!-- Generate 20 circles -->
+      {% for i in (1..20) %}
+      <div class="circle-container-round5">
+        <div class="circleRound5" id="boxRound5_{{ i }}">
+          <span>A{{ i }}</span>
+        </div>
+        <span class="label-below-round5">???</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Code box Round 5 -->
+  <div id="codeBox5" class="code-box5"></div>
+
+  <div style="text-align: center; margin: 20px;">
+    <button id="toggleCodeBox5" class="btn">Show Code (R5)</button>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /*****************************************
+   * 1) WEIGHTS FOR A1..A20
+   *****************************************/
+  const inputNodesRound5 = [
+    { weight: 5 }, // A1
+    { weight: 2 }, // A2
+    { weight: 1 }, // A3
+    { weight: 4 }, // A4
+    { weight: 1 }, // A5
+    { weight: 5 }, // A6
+    { weight: 2 }, // A7
+    { weight: 1 }, // A8
+    { weight: 4 }, // A9
+    { weight: 1 }, // A10
+    { weight: 5 }, // A11
+    { weight: 2 }, // A12
+    { weight: 1 }, // A13
+    { weight: 4 }, // A14
+    { weight: 1 }, // A15
+    { weight: 5 }, // A16
+    { weight: 2 }, // A17
+    { weight: 1 }, // A18
+    { weight: 4 }, // A19
+    { weight: 1 }  // A20
+  ];
+
+  /*****************************************
+   * 1A) SET LABELS FOR ROUND 5
+   *****************************************/
+  function setLabelsRound5() {
+    const circleContainers = document.querySelectorAll('.circle-container-round5');
+    circleContainers.forEach((container, index) => {
+      const labelBelow = container.querySelector('.label-below-round5');
+      const w = inputNodesRound5[index].weight;
+      // Convert weight to percentage
+      const pct = ((w / 6) * 100).toFixed(1) + '%';
+      labelBelow.textContent = pct;
+    });
+  }
+
+  // Call it on page load so the labels get updated from "???" to "X%"
+  setLabelsRound5();
+
+  /*****************************************
+   * 2) DOM ELEMENTS + STATE
+   *****************************************/
+  let selectedColor5     = null;
+  let codeBoxVisible5    = false;
+  let codeLines5         = [];
+
+  const colorRed5        = document.getElementById('colorRed5');
+  const colorGreen5      = document.getElementById('colorGreen5');
+  const redCircle5       = document.getElementById('redCircle5');
+  const greenCircle5     = document.getElementById('greenCircle5');
+  const runButton5       = document.getElementById('runButton5');
+  const codeBox5         = document.getElementById('codeBox5');
+  const toggleCodeBox5   = document.getElementById('toggleCodeBox5');
+
+  // Expose this if you need it externally
+  window.selectedTrafficLightColorRound5 = null;
+
+  /*****************************************
+   * 3) BUTTON CLICK HANDLERS
+   *****************************************/
+  // -- Red
+  colorRed5.addEventListener('click', function() {
+    selectedColor5 = 'red';
+    colorRed5.classList.add('active');
+    colorGreen5.classList.remove('active');
+
+    redCircle5.classList.remove('inactive-red');
+    redCircle5.classList.add('red');
+    greenCircle5.classList.remove('green');
+    greenCircle5.classList.add('inactive-green');
+
+    window.selectedTrafficLightColorRound5 = 'RED';
+    if (window.updateNetworkStatusTable5) {
+      window.updateNetworkStatusTable5();
+    }
+  });
+
+  // -- Green
+  colorGreen5.addEventListener('click', function() {
+    selectedColor5 = 'green';
+    colorGreen5.classList.add('active');
+    colorRed5.classList.remove('active');
+
+    greenCircle5.classList.remove('inactive-green');
+    greenCircle5.classList.add('green');
+    redCircle5.classList.remove('red');
+    redCircle5.classList.add('inactive-red');
+
+    window.selectedTrafficLightColorRound5 = 'GREEN';
+    if (window.updateNetworkStatusTable5) {
+      window.updateNetworkStatusTable5();
+    }
+  });
+
+  // -- RUN (Round 5)
+  runButton5.addEventListener('click', function() {
+    runButton5.classList.toggle('active');
+
+    if (!selectedColor5) {
+      alert('Select Red or Green for Round 5 before running.');
+      return;
+    }
+
+    // For each A1..A20, pick color based on diceRoll vs. weight
+    const circleEls = document.querySelectorAll('.circleRound5');
+    circleEls.forEach((circleEl, idx) => {
+      const diceRoll   = Math.floor(Math.random() * 6) + 1;
+      const nodeWeight = inputNodesRound5[idx].weight;
+
+      let finalColor;
+      if (diceRoll <= nodeWeight) {
+        // Node color = user-chosen color
+        finalColor = selectedColor5;
+      } else {
+        // Opposite color
+        finalColor = (selectedColor5 === 'red') ? 'green' : 'red';
+      }
+
+      // Clear out old color classes, apply the new color
+      circleEl.classList.remove('red', 'green');
+      circleEl.classList.add(finalColor);
+    });
+  });
+
+  // -- Show/Hide Code Box + Labels
+  toggleCodeBox5.addEventListener('click', function(){
+    codeBoxVisible5 = !codeBoxVisible5;
+    if (codeBoxVisible5) {
+      // Show code box
+      codeBox5.style.display = 'block';
+      toggleCodeBox5.textContent = 'Hide Code (R5)';
+      scrollCode5();
+
+      // Show node weights
+      const labels = document.querySelectorAll('.label-below-round5');
+      labels.forEach(lb => lb.style.display = 'block');
+    } else {
+      // Hide code box
+      codeBox5.style.display = 'none';
+      toggleCodeBox5.textContent = 'Show Code (R5)';
+
+      // Hide node weights
+      const labels = document.querySelectorAll('.label-below-round5');
+      labels.forEach(lb => lb.style.display = 'none');
+    }
+  });
+
+  /*****************************************
+   * 4) TYPEWRITER CODE BOX
+   *****************************************/
+  function buildSnippet5() {
+    return `
+/******************************************************
+ * Round 5 Node Generator (45)
+ * Weighted Dice Logic:
+ *   If diceRoll <= nodeWeight, node = user-chosen color
+ *   Else node = opposite color
+ * Also: 'R' in center if red, 'G' if green
+ ******************************************************/
+const inputNodesRound5 = [
+  { weight: 5 }, // A1
+  { weight: 2 }, // A2
+  { weight: 1 }, // A3
+  { weight: 4 }, // A4
+  { weight: 1 }, // A5
+  { weight: 5 }, // A6
+  { weight: 2 }, // A7
+  { weight: 1 }, // A8
+  { weight: 4 }, // A9
+  { weight: 1 }, // A10
+  { weight: 5 }, // A11
+  { weight: 2 }, // A12
+  { weight: 1 }, // A13
+  { weight: 4 }, // A14
+  { weight: 1 }, // A15
+  { weight: 5 }, // A16
+  { weight: 2 }, // A17
+  { weight: 1 }, // A18
+  { weight: 4 }, // A19
+  { weight: 1 }  // A20
+];
+
+// Display weights below each circle as X% (weight/6 * 100)
+function setLabelsRound5() {
+  // ...
+}
+    `;
+  }
+
+  function scrollCode5() {
+    codeBox5.innerHTML = "";
+    codeLines5 = buildSnippet5().split('\n');
+    let idx = 0;
+    const timer = setInterval(() => {
+      if (idx < codeLines5.length) {
+        codeBox5.innerHTML += codeLines5[idx] + "\n";
+        codeBox5.scrollTop = codeBox5.scrollHeight;
+        idx++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 80);
+  }
+});
+</script>
+
+</body>
+</html>

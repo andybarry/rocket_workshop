@@ -1,0 +1,352 @@
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">Engineering Drawing</h2>
+          <p style="margin-right:0;">
+            <em>Document your designs to be reproduced</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:200px;"></div>
+        <img 
+            src="img/tutorial/fuselage-drawing-5-dark.png" 
+            alt="assembly-iso" 
+            style="width:300px; height:auto;"
+        >
+
+
+      </div>
+    </div>
+  </header>
+
+
+    {% include section.html param="top" %}
+
+    <h3 class="section-heading">{% include step_counter.html %} Create a 2D Drawing</h3>
+        
+    {% include tutorial-video.html path="videos/drawing/open-drawing1" %}
+    
+    <ul>
+      <li>Click the "<strong>+</strong>" button <img src="img/tutorial/plus_button.png" /></li>
+      <li>Select <strong>Create Drawing</strong></li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Inserting the nosecone</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/open-nosecone1" %}
+    
+    <ul>
+      <li>Select the <strong>Insert View</strong> tool</li>
+      <li>Select <strong>Insert</strong></li>
+      <li>Click the nosecone</li>
+      <li>Place the part on the drawing</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Inserting the fuselage</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/open-fuselage" %}
+    
+    <ul>
+      <li>Select the <strong>Insert View</strong> tool</li>
+      <li>Select <strong>Insert</strong></li>
+      <li>Click the fuselage</li>
+      <li>Place the part on the drawing</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Inserting the fins+booster</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/open-fins-booster" %}
+    
+    <ul>
+      <li>Select the <strong>Insert View</strong> tool</li>
+      <li>Select <strong>Insert</strong></li>
+      <li>Click the fins+booster</li>
+      <li>Place the part on the drawing</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Scaling the Drawing</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/scale" %}
+    
+    <ul>
+      <li>Right click on the drawing</li>
+      <li>Select <strong>sheet properties</strong></li>
+      <li>Set the desired scale</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Moving Drawing Views</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/move" %}
+    
+    <ul>
+      <li>Click and drag to reposition your part views.</li>
+      <li>Keep related views aligned.</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Adding Text</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/text" %}
+    
+    <ul>
+      <li>Select the <strong>A</strong> (note) icon</li>
+      <li>Place the note box in the desired location</li>
+      <li>Customize font, size, and color as needed.</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Adding Dimensions</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/dimension" %}
+    
+    <ul>
+      <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+      <li>Click on the points you want to dimension</li>
+      <li>Customize significant figures, font, size, and color as needed.</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Creating an Assembly View</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/assembly-view" %}
+    
+    <ul>
+      <li>Select the <strong>Insert View</strong> tool</li>
+      <li>Select <strong>Insert</strong></li>
+      <li>Select <strong>Assemblies</strong></li>
+      <li>Click the Rocket Assembly</li>
+      <li>Place the assembly on the drawing</li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Creating an Isometric Assembly View</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/assembly-iso" %}
+    
+    <ul>
+      <li>Double click on the assembly view</li>
+      <li>Change the <strong>view orientation</strong> to <strong>isometric</strong></li>
+    </ul>
+    
+    {% include section.html %}
+    
+    <h3 class="section-heading">{% include step_counter.html %} Adding a Title Box</h3>
+            
+    {% include tutorial-video.html path="videos/drawing/title-box" %}
+    
+    <ul>
+      <li>Double click the title box</li>
+      <li>Add your text</li>
+      <li>Include drawing information such as name, date, and revision.</li>
+    </ul>
+
+    {% include section.html %}
+
+    <h2>2D Engineering Drawing Best Practices</h2>
+<hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+<ul style="list-style:none; padding:0; margin:0;">
+
+  <!-- 1. Keep It Neat -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#keepItNeat">
+      <strong>Keep It Neat</strong> &raquo;
+    </a>
+    <div class="collapse" id="keepItNeat">
+      Make sure all lines and letters are clean, clear, and easy to read.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 2. Use the Right Scale -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#useRightScale">
+      <strong>Use the Right Scale</strong> &raquo;
+    </a>
+    <div class="collapse" id="useRightScale">
+      Draw objects so the size on paper makes sense compared to the real object. 
+      If something is too big or too small, use a scale that keeps your drawing readable.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 3. Label Everything Clearly -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#labelEverything">
+      <strong>Label Everything Clearly</strong> &raquo;
+    </a>
+    <div class="collapse" id="labelEverything">
+      Every important part of your drawing (like lengths, widths, or heights) needs 
+      a clear dimension so others know exactly how big things are.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 4. Use Standard Symbols and Abbreviations -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#standardSymbols">
+      <strong>Use Standard Symbols and Abbreviations</strong> &raquo;
+    </a>
+    <div class="collapse" id="standardSymbols">
+      Engineers often use common symbols (like Ø for diameter). Using these standard 
+      symbols and abbreviations avoids confusion.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 5. Stick to Standard Line Types -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#standardLines">
+      <strong>Stick to Standard Line Types</strong> &raquo;
+    </a>
+    <div class="collapse" id="standardLines">
+      Different lines can mean different things: solid lines for visible edges, 
+      dashed lines for hidden edges, and so on.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 6. Include Multiple Views -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#multipleViews">
+      <strong>Include Multiple Views</strong> &raquo;
+    </a>
+    <div class="collapse" id="multipleViews">
+      Show objects from the front, top, and side if needed. More views help people 
+      understand the shape and details of your design.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 7. Add a Title Block -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#titleBlock">
+      <strong>Add a Title Block</strong> &raquo;
+    </a>
+    <div class="collapse" id="titleBlock">
+      A small box on your drawing can list the part name, who drew it, the date, 
+      and any important notes.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 8. Use a Neat and Consistent Font -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#consistentFont">
+      <strong>Use a Neat and Consistent Font</strong> &raquo;
+    </a>
+    <div class="collapse" id="consistentFont">
+      Your text should be easy to read and look the same across your entire drawing.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 9. Provide Enough Dimensions, But Not Too Many -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#enoughDimensions">
+      <strong>Provide Enough Dimensions, But Not Too Many</strong> &raquo;
+    </a>
+    <div class="collapse" id="enoughDimensions">
+      Give all the measurements needed to build or understand the object. 
+      Too many repeated dimensions can be confusing.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 10. Check for Accuracy -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#accuracy">
+      <strong>Check for Accuracy</strong> &raquo;
+    </a>
+    <div class="collapse" id="accuracy">
+      Make sure your measurements and labels are correct. Even small errors can 
+      cause big problems later.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 11. Highlight Important Details -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#importantDetails">
+      <strong>Highlight Important Details</strong> &raquo;
+    </a>
+    <div class="collapse" id="importantDetails">
+      If something is critical (like a small hole or a special cut), make a note 
+      or add a close-up view to show it clearly.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 12. Follow Drawing Standards -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#drawingStandards">
+      <strong>Follow Drawing Standards</strong> &raquo;
+    </a>
+    <div class="collapse" id="drawingStandards">
+      Different companies or groups may have specific rules on how drawings should look. 
+      Follow them so everyone's drawings match.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 13. Keep Track of Changes -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#trackChanges">
+      <strong>Keep Track of Changes</strong> &raquo;
+    </a>
+    <div class="collapse" id="trackChanges">
+      If you make updates, note what changed and when (known as a revision). 
+      This helps everyone know which version is current.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 14. Use Section Views When Needed -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#sectionViews">
+      <strong>Use Section Views When Needed</strong> &raquo;
+    </a>
+    <div class="collapse" id="sectionViews">
+      “Cut” your object in the drawing to show what the inside looks like. 
+      This helps people understand holes, grooves, or other hidden features.
+    </div>
+  </li>
+  <br/>
+
+  <!-- 15. Ask for Feedback -->
+  <li>
+    <a class="btn help-button" data-toggle="collapse" data-target="#askFeedback">
+      <strong>Ask for Feedback</strong> &raquo;
+    </a>
+    <div class="collapse" id="askFeedback">
+      Share your drawing with others to find mistakes or confusing spots. 
+      Fixing
+
+
+    
+
+    {% include section.html param="bottom" %}

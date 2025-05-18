@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fuselage Tutorial Example</title>
+
+  <!-- SIMPLE TOGGLE SWITCH STYLING -->
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #f05f40;
+    }
+    input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+
+    /* OPTIONAL sticky behavior for the toggle box */
+    .sticky-advanced-box {
+      position: sticky;
+      top: 50px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+<header class="not-full-page">
+  <div class="header-content" 
+       style="display:flex; 
+              justify-content:center; 
+              align-items:center; 
+              margin-left:-100px;">
+    <div class="header-content-inner" 
+         style="display:flex; 
+                align-items:center; 
+                justify-content:center; 
+                text-align:right;">
+      <!-- Text on the left -->
+      <div>
+        <h2 style="margin-bottom:10px;">FUSELAGE</h2>
+        <p style="margin-right:0;">
+          <em>Build the nosecone tether connection</em>
+        </p>
+      </div>
+      <!-- Vertical line and image -->
+      <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+      <img 
+          src="img/tutorial/fuselage-iso-2.png" 
+          alt="fuselage-iso" 
+          style="width:150px; height:auto;"
+      >
+    </div>
+  </div>
+</header>
+
+<!-- Google Analytics / Conversion Tracking Script, etc. -->
+<script>
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-716077034/Gb8hCKikh6gBEOrvudUC',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
+
+  function gtag_class_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-716077034/gD7mCInOxqgBEOrvudUC',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
+
+  function payment() {
+    gtag('event', 'click', {
+      'event_category': 'purchase',
+      'event_label': 'rocket_tutorial_495',
+      'event_value': '1'
+    });
+
+    gtag_report_conversion();
+    document.getElementById('main_page').setAttribute('style', 'display: inline');
+    document.getElementById('payment').setAttribute('style', 'display: none');
+    document.getElementById('payment_complete').setAttribute('style', 'display: inline');
+  }
+
+  function payment_class() {
+    gtag('event', 'click', {
+      'event_category': 'purchase',
+      'event_label': 'rocket_tutorial_class',
+      'event_value': '1'
+    });
+
+    gtag_class_report_conversion();
+    document.getElementById('main_page').setAttribute('style', 'display: inline');
+    document.getElementById('payment').setAttribute('style', 'display: none');
+    document.getElementById('payment_complete').setAttribute('style', 'display: inline');
+  }
+</script>
+
+<section class="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+        
+        <!-- 1) rocket-nav.html include (if relevant) -->
+        {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+
+
+        
+
+        <!-- ========== ADVANCED LEARNING MODE BOX ========== -->
+        <div id="advanced-learning-toggle"
+             style="border: 2px solid #f05f40; 
+                    padding: 10px; 
+                    margin-bottom: 20px;
+                    border-radius: 15px;
+                    background-color: #fff;
+                    z-index: 9999;">
+          <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
+            Engineering Drawings Only
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode()" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <!-- End of toggle -->
+        <section class="top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      
+                      <h3 class="section-heading">{% include step_counter.html %} Create a plane for the nosecone tether sketch</h3>
+                      <ul>
+                          <li>Now we'll add a spot for the nosecone and parachute to tie on to</li>
+                          <ul>
+                              <li><img src="img/tutorial/rocket_thread_string_s_arrow.jpg" class="tutorial-video" /></li>
+                          </ul>
+                          <br />
+                          <li>Start a new plane with the plane tool <img src="img/tutorial/plane_tool.png" /></li>
+                          <li>Select the top <strong>face</strong> of your tube (the side opposite of where it connects to the lower body).</li>
+                          <li>Set the offset to <strong>1.25 in</strong></li>
+                          <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#opposite_offset">Another way &raquo;</a></li>
+                              <li class="collapse" id="opposite_offset">
+                                  <ul><li>You can use negative offsets to also flip the direction in one step (-1.25 in).</li></ul>
+                              </li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Start the sketch for the nosecone tether holder</h3>
+                      <ul>
+                          <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
+                          <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
+                          <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
+                          <li>Click the <strong>inside</strong> circle on the body tube</li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+  
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Sketch the outside of the tether holder</h3>
+                      <ul>
+                          <li>Deselect the "Use (Project/Convert)" tool by pressing <strong>Esc</strong></li>
+                          <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                          <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                          <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_a">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_a">
+                                  <ul><li>The 3-point (standard) arc, a sketch tool, uses the letter <code>a</code>.</li></ul>
+                              </li>
+                          <li>Set the first point on the circle, above the centerline</li>
+                          <li>Set the second point on the circle, below the centerline</li>
+                          <li>Set the third point so the arc is in inside the tube</li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_2" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the circle</h3>
+                      <ul>
+                          <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_i">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_i">
+                                  <ul><li>Many of the sketch constraints also use keyboard shortcuts.</li>
+                                  <li>Rather than teach you each one, you can learn them by viewing the displayed letter in dropdown menus or hovering over the tool's name in the interface.</li>
+                                  <li>Note that "circle" is <code>c</code>, so "coincident" must be something else.</li>
+                                  </ul>
+                              </li>
+                          <li>Select the point that is the <strong>center of the arc</strong> you just created</li>
+                          <li>Select the bold circle, and you'll see the point jump onto the circle</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#constraints">What <em>is</em> a constraint? &raquo;</a></li>
+                              <li class="collapse" id="constraints">
+                                  <ul><li>Constraints fully define the elements of your sketch.</li>
+                                  <li>A sketch that is not fully constrained can be dragged around into different positions</li>
+                                  <li>A fully defined sketch is in exactly the one possible position</li>
+                                  <ul><li>and the lines turn from blue to black</li></ul>
+                                  <li>If you didn't constrain your sketches, your final result could fall within a range of possibilities.  Don't leave your CAD models to chance.</li></ul>
+                              </li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_1_new" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the centerline</h3>
+                      <ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the arc's center</li>
+                          <li>Select the origin point, and you'll see the point jump to the line and turn black</li>
+                          <ul><li>(black = fully constrained)</li></ul>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_2_new" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Draw the center circle</h3>
+                      <ul>
+                          <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                          <li>Draw a circle anywhere inside your arc and the tube (make it small)</li>
+                          <ul><li>(we'll constrain it in a moment to be exactly where we want)</li></ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the circle's center</li>
+                          <li>Select the origin and you should see the circle snap to the center</li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch4" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the left gap</h3>
+                      <ul>
+                          <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                          <li>Click the circle's edge</li>
+                          <li>Click the tube's circle that you have been using</li>
+                          <li>Set the dimension to <strong>0.01 in</strong></li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_left_gap" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the circle's diameter</h3>
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Select the circle</li>
+                              <li>Set the dimension to <strong>0.13 in</strong></li>
+                          </ul>
+                          
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the gap on the other side</h3>
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Click the circle's edge</li>
+                              <li>Click your 3-point arc</li>
+                              <li>Set the dimension to <strong>0.025 in</strong></li>
+                          </ul>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how everything turned black? &raquo;</a></li>
+                          <ul class="collapse" id="fully-defined">
+                              <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                              <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                          </ul>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_right_gap" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+  
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Trim the outer circle, finish sketch</h3>
+                      <ul>
+                          <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_m">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_m">
+                                  <ul><li>Since <code>t</code> is taken by "tangent", we use the last letter <code>m</code> for "trim".</li></ul>
+                              </li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#no_trim">Don't see the trim icon? &raquo;</a></li>
+                              <li class="collapse" id="no_trim">
+                                  <ul><li>On narrow screens, items are hidden in menus. Trim collapses into the menu with sketch fillet <img src="img/tutorial/sketch_fillet.png" /></li></ul>
+                              </li>
+                          <li>Select the part of the circle outside of the arc</li>
+                          <!--<li>Click the green check <img src="img/tutorial/green_check.png" /></li>-->
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Extrude the tether holder</h3>
+                                          <ul>
+                          <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                          <!--<li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>-->
+                          <li>Confirm that your newly created sketch <img src="img/tutorial/sketch_3.png" /> is selected. </li>
+                          <li>Set the depth to <strong>0.75 in</strong></li>
+                          <li>Click the "Opposite direction" <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go towards the bottom of the part</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_extrude" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Fillet the tether holder</h3>
+                      <ul>
+                          <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                          <li>Click the arc on the edge of the tube and the holder</li>
+                          <li>Set the radius to <strong>0.15 in</strong></li>
+                          <li>Select the same arc on the bottom of the holder</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/fillet_nosecone_holder" %}
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-left">
+                      <h3 class="section-heading">{% include step_counter.html %} Exit section view</h3>
+                      <ul>
+                          <li>Select the view cube menu <img src="img/tutorial/view_menu.png" /></li>
+                          <li>Select "Turn section view off"</li>
+                      </ul>
+                      {% include tutorial-video.html path="videos/middle-body/finish_middle_body" %}
+  
+                      <br /><br />
+  
+                      {% include rocket-nav.html title="Fuselage Tutorial" num_pages="3" %}
+                      <br />
+  
+                      <h2 class="text-center">You finished the fuselage!</h2>
+                      <hr class="long" />
+  
+  {% assign page_filename = page.path | split:'/' | last %}
+  {% assign is_teams = page_filename |split:'-' | first %}
+  {% if is_teams == "teams" %}
+      {% assign teams_prefix = "teams-" %}
+                      {% include teams-end-of-section.html exclude="middle-body" %}
+  {% else %}
+                      <a href="lower-body1.html" class="portfolio-box">
+                          <img src="img/portfolio/lower-body.jpg" class="img-responsive" style="margin: auto" alt="">
+                          <div class="portfolio-box-caption">
+                              <div class="portfolio-box-caption-content">
+                                  <div class="project-category text-faded">
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                      <h2 class="text-center">Next up are the <a href="lower-body1.html">fins + booster</a></h2>
+                      <hr class="long" />
+      {% assign teams_prefix = "" %}
+  {% endif %}
+                  </div>
+              </div>
+          </div>
+      </section>
+  
+
+
+
+<!-- ============ UPDATED ADVANCED MODE SCRIPT =============== -->
+<script>
+  function toggleAdvancedMode() {
+    const checkbox = document.getElementById('advancedModeSwitch');
+    const advancedBox = document.getElementById('advanced-learning-toggle');
+    const isChecked = checkbox.checked;
+
+    // OPTIONAL: Make the toggle box "sticky" if ON
+    if (isChecked) {
+      advancedBox.classList.add('sticky-advanced-box');
+    } else {
+      advancedBox.classList.remove('sticky-advanced-box');
+    }
+
+    // 1) Insert or remove engineering drawings
+    const allH3s = document.querySelectorAll('h3.section-heading');
+    if (isChecked) {
+      allH3s.forEach((h3) => {
+        const headingText = h3.textContent.trim();
+
+        // ---- Display fuselage-drawing-1.png ----
+        if (
+          headingText.includes("Create a sketch") ||
+          headingText.includes("Draw the outer body circle") ||
+          headingText.includes("Dimension the outer body circle") ||
+          headingText.includes("Draw the inner circle") ||
+          headingText.includes("Extrude the body")
+        ) {
+          let existingImg = h3.querySelector('.advanced-learning-pdf');
+          if (!existingImg) {
+            const img = document.createElement('img');
+            img.src = "img/tutorial/fuselage-drawing-1.png";
+            img.alt = "fuselage-drawing-1";
+            img.width = 400;
+            img.classList.add('advanced-learning-pdf');
+            img.style.display = 'block';
+            img.style.margin = '10px 0';
+            h3.appendChild(img);
+          }
+        }
+        // ---- Display fuselage-drawing-2.png ----
+        else if (
+          headingText.includes("change view to look at the bottom of the fuselage") ||
+          headingText.includes("Start a sketch on the lower stage connection tube") ||
+          headingText.includes("Finish the connector tube sketch") ||
+          headingText.includes("Extrude the connector")
+        ) {
+          let existingImg = h3.querySelector('.advanced-learning-pdf');
+          if (!existingImg) {
+            const img = document.createElement('img');
+            img.src = "img/tutorial/fuselage-drawing-2.png";
+            img.alt = "fuselage-drawing-2";
+            img.width = 400;
+            img.classList.add('advanced-learning-pdf');
+            img.style.display = 'block';
+            img.style.margin = '10px 0';
+            h3.appendChild(img);
+          }
+        }
+        // ---- Display fuselage-drawing-3.png ----
+        else if (headingText.includes("Fillet the body connector ring")) {
+          let existingImg = h3.querySelector('.advanced-learning-pdf');
+          if (!existingImg) {
+            const img = document.createElement('img');
+            img.src = "img/tutorial/fuselage-drawing-3.png";
+            img.alt = "fuselage-drawing-3";
+            img.width = 400;
+            img.classList.add('advanced-learning-pdf');
+            img.style.display = 'block';
+            img.style.margin = '10px 0';
+            h3.appendChild(img);
+          }
+        }
+        // ---- Display fuselage-drawing-4.png ----
+        else if (
+          headingText.includes("Create a plane for the nosecone tether sketch") ||
+          headingText.includes("Start the sketch for the nosecone tether holder") ||
+          headingText.includes("Sketch the outside of the tether holder") ||
+          headingText.includes("Constrain the arc's center to the circle") ||
+          headingText.includes("Constrain the arc's center to the centerline") ||
+          headingText.includes("Draw the center circle") ||
+          headingText.includes("Dimension the left gap") ||
+          headingText.includes("Dimension the circle's diameter") ||
+          headingText.includes("Dimension the gap on the other side") ||
+          headingText.includes("Draw the tether attachment sketch") || 
+          headingText.includes("Dimension the tether attachment") ||
+          headingText.includes("Trim the outer circle, finish sketch") ||
+          headingText.includes("Extrude the tether holder")
+        ) {
+          let existingImg = h3.querySelector('.advanced-learning-pdf');
+          if (!existingImg) {
+            const img = document.createElement('img');
+            img.src = "img/tutorial/fuselage-drawing-4.png";
+            img.alt = "fuselage-drawing-4";
+            img.width = 400;
+            img.classList.add('advanced-learning-pdf');
+            img.style.display = 'block';
+            img.style.margin = '10px 0';
+            h3.appendChild(img);
+          }
+        }
+        // ---- Display fuselage-drawing-5.png ----
+        else if (headingText.includes("Fillet the tether holder")) {
+          let existingImg = h3.querySelector('.advanced-learning-pdf');
+          if (!existingImg) {
+            const img = document.createElement('img');
+            img.src = "img/tutorial/fuselage-drawing-5.png";
+            img.alt = "fuselage-drawing-5";
+            img.width = 400;
+            img.classList.add('advanced-learning-pdf');
+            img.style.display = 'block';
+            img.style.margin = '10px 0';
+            h3.appendChild(img);
+          }
+        }
+      });
+    } else {
+      // Remove all inserted images
+      allH3s.forEach((h3) => {
+        const existingImg = h3.querySelector('.advanced-learning-pdf');
+        if (existingImg) {
+          h3.removeChild(existingImg);
+        }
+      });
+    }
+
+    // 2) Hide or restore all <ul> instructions (Procedures...)
+    // 3) Hide or restore all videos (Video...)
+    allH3s.forEach((h3, index) => {
+      if (isChecked) {
+        // =========== TOGGLE ON (COLLAPSIBLE) ===========
+        // If this heading wasn't already processed
+        if (!h3.hasAttribute('data-collapse-bound')) {
+          h3.setAttribute('data-collapse-bound', 'true');
+
+          // ============== PROCEDURES ==============
+          const procButton = document.createElement('a');
+          procButton.className = "btn help-button";
+          const procID = "procedures_block_" + index;
+          procButton.setAttribute('data-toggle', 'collapse');
+          procButton.setAttribute('data-target', '#' + procID);
+          procButton.innerHTML = "Procedures... &raquo;";
+          // Append the "Procedures..." button right after the heading text
+          h3.appendChild(document.createTextNode(' '));
+          h3.appendChild(procButton);
+
+          const procDiv = document.createElement('div');
+          procDiv.className = "collapse";
+          procDiv.id = procID;
+
+          // Store all <ul> instructions in a data attribute, then move them
+          h3.setAttribute('data-original-lists', '');
+          let nextElem = h3.nextElementSibling;
+          while (nextElem && !nextElem.matches('h3.section-heading')) {
+            if (nextElem.tagName && nextElem.tagName.toLowerCase() === 'ul') {
+              const existingVal = h3.getAttribute('data-original-lists');
+              // Separate each UL with <!--SPLIT-->
+              h3.setAttribute('data-original-lists', existingVal + '<!--SPLIT-->' + nextElem.outerHTML);
+              procDiv.appendChild(nextElem);
+            }
+            nextElem = nextElem.nextElementSibling;
+          }
+          // Insert the Procedures block below this heading
+          h3.parentNode.insertBefore(procDiv, nextElem);
+
+          // ============== VIDEO ==============
+          const vidButton = document.createElement('a');
+          vidButton.className = "btn help-button";
+          const vidID = "video_block_" + index;
+          vidButton.setAttribute('data-toggle', 'collapse');
+          vidButton.setAttribute('data-target', '#' + vidID);
+          vidButton.innerHTML = "Video... &raquo;";
+          // Append the "Video..." button AFTER the Procedures button
+          h3.appendChild(document.createTextNode(' '));
+          h3.appendChild(vidButton);
+
+          const vidDiv = document.createElement('div');
+          vidDiv.className = "collapse";
+          vidDiv.id = vidID;
+
+          // We'll store any "video" snippet in data-original-videos
+          h3.setAttribute('data-original-videos', '');
+          let scanVideo = h3.nextElementSibling;
+          while (scanVideo && !scanVideo.matches('h3.section-heading')) {
+            // Simple check for embedded videos or <iframe> code
+            const videoHTML = scanVideo.outerHTML.toLowerCase();
+            const isVideoSnippet = (
+              videoHTML.indexOf("videos/") >= 0 ||
+              videoHTML.indexOf("tutorial-video") >= 0 ||
+              videoHTML.indexOf("<iframe") >= 0
+            );
+            if (isVideoSnippet) {
+              const existingVidVal = h3.getAttribute('data-original-videos');
+              h3.setAttribute('data-original-videos', existingVidVal + '<!--SPLIT-->' + scanVideo.outerHTML);
+              vidDiv.appendChild(scanVideo);
+            }
+            scanVideo = scanVideo.nextElementSibling;
+          }
+          // Insert the Video block below the Procedures block
+          h3.parentNode.insertBefore(vidDiv, nextElem);
+        }
+      } else {
+        // ============= TOGGLE OFF => REVERT ============
+
+        // If already collapsed once, restore
+        if (h3.hasAttribute('data-collapse-bound')) {
+
+          // Remove the collapsible DIV for Procedures
+          const procID = "procedures_block_" + index;
+          const procDiv = document.getElementById(procID);
+          if (procDiv) {
+            procDiv.parentNode.removeChild(procDiv);
+          }
+          // Re-inject the <ul>
+          const originalLists = h3.getAttribute('data-original-lists');
+          if (originalLists) {
+            const splitted = originalLists.split('<!--SPLIT-->');
+            splitted.forEach((ulHTML) => {
+              if (ulHTML.trim() !== '') {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = ulHTML;
+                while (tempDiv.firstChild) {
+                  h3.parentNode.insertBefore(tempDiv.firstChild, h3.nextElementSibling);
+                }
+              }
+            });
+            h3.removeAttribute('data-original-lists');
+          }
+
+          // Remove the collapsible DIV for Videos
+          const vidID = "video_block_" + index;
+          const vidDiv = document.getElementById(vidID);
+          if (vidDiv) {
+            vidDiv.parentNode.removeChild(vidDiv);
+          }
+          // Re-inject the videos
+          const originalVideos = h3.getAttribute('data-original-videos');
+          if (originalVideos) {
+            const splittedVid = originalVideos.split('<!--SPLIT-->');
+            splittedVid.forEach((vidHTML) => {
+              if (vidHTML.trim() !== '') {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = vidHTML;
+                while (tempDiv.firstChild) {
+                  h3.parentNode.insertBefore(tempDiv.firstChild, h3.nextElementSibling);
+                }
+              }
+            });
+            h3.removeAttribute('data-original-videos');
+          }
+
+          // Remove the "Procedures..." and "Video..." buttons
+          const buttons = h3.querySelectorAll('a.btn.help-button[data-toggle="collapse"]');
+          buttons.forEach((btn) => h3.removeChild(btn));
+
+          h3.removeAttribute('data-collapse-bound');
+        }
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Stage One Education, LLC
+title: "Stage One Education | Hands-on AI, Robotics & Mechanical Engineering Workshops"
+description: "Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
 ---
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -44,76 +45,120 @@ title: Stage One Education, LLC
 <body id="page-top" style="margin-top: 70px">
 
     {% include navigation.html %}
-    <body id="page-top">
 
-        <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Our Workshops</span>
-        <hr class="main-page-hr" />
+    <h1 style="text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 30px; font-weight: bold; margin: 0; padding: 0;">
+        <span class="workshop-title-main" style="display: block;">STAGE ONE EDUCATION</span>
+      </h1>
+      
+      <div class="orange-line" style="display: block; margin: 2px auto; width: 350px; height: 1px; background-color: #f05f40; border: none; padding: 0;"></div>
+      
+      <h2 style="text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 23px; font-weight: normal; margin: 0; padding: 0;">
+        <span class="workshop-subtitle-main" style="display: block;">Hands-on Engineering Workshops</span>
+      </h2>
+      <br/>
 
+<hr class="main-page-hr" />      
+      
+<h2 class="workshop-title">Our workshops:</h2>
 
             
-<section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
+<section style="padding-top: 10px;" id="tab-section" class="tab-section less-padding">
     <div class="container" id="ai">
 
-<!-- First Workshop Box --> 
+<!-- First Workshop Box -->  
 <div class="row align-items-stretch">
     <div class="col-sm-4 text-center">
         <a href="ai-workshop.html" class="workshop-main-button">
 
             <!-- Title Section -->
-            <div class="main-button-title-text">
-                Artificial Intelligence<br>
-            </div>
+            <h2 class="main-button-title-text">Artificial Intelligence</h2>
+            <br/>
 
             <!-- Image Section -->
             <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
                 <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
                     <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
                 </div>
+
+                <!-- Container to hold both the cloud and the image -->
+                <div
+                  style="
+                    position: absolute;
+                    top: 28%;
+                    left: 40%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                  "
+                >
+                  <!-- 'Cloud' element: a white circle at 50% opacity, with some blur to soften edges -->
+                  <div
+                    style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+
+                  <!-- Rocket image on top of the cloud -->
+                  <img
+                    src="img/nn-nobg.png"
+                    alt="Rocket Image"
+                    style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;"
+                  />
+                </div>
             </div>
 
+            <!-- Text Section with h3 Title added -->
             <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-                <ul style="list-style: none; padding: 0; margin: 0; font-family: 'Roboto', sans-serif; font-size: 14px;" class="workshop-button-content-ul">
-                    <li style="margin-bottom: 10px;">Discover AI Neural Networks</li>
-                    <li style="margin-bottom: 10px;">Use the latest AI models:
-                        <ul style="list-style: none; padding-left: 0; margin: 0;">
-                            <li>text, image, and music</li>
-                        </ul>
-                    </li>
-                    <li style="margin-bottom: 10px;">AI ethics discussion</li>
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Discover AI Neural Networks</h3>
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Use the latest AI models:
+                    <ul style="list-style: none; padding-left: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;"><em>text, image, and music</em></li>                    </ul></h3>
+                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 10px;">AI ethics discussion</h3>    
+
                 </ul>
             </div>
-            
+
         </a>
     </div>
 
 
 
-      <!-- Second Workshop Box -->
+<!-- Second Workshop Box -->
 <div class="col-sm-4 text-center">
     <a href="robotics-workshop.html" class="workshop-main-button">
 
         <!-- Title Section -->
-        <div class="main-button-title-text">
-            Robotics<br><br>
+        <h2 class="main-button-title-text">Robotics</h2>
+        <br/><br/>
+
+        <!-- Image Section with Overlay -->
+        <div style="position: relative; display: inline-block;">
+            <!-- Base Image -->
+            <img src="img/robotics_placeholder.jpg"
+                 alt="Robotics Placeholder"
+                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
+
+            <!-- Overlay Image -->
+            <img src="img/drone.png"
+                 alt="Drone Image"
+                 style="
+                    position: absolute;
+                    top: 75%;
+                    left: 20%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    width: 150px;
+                    height: 150px;
+                    object-fit: contain;
+                 ">
         </div>
 
-    <!-- Image Section -->
-    <div>
-        <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
-    </div>
+<!-- Text Section with h3 Title added -->
+<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px; padding-top: 15px;">Fly mini drones</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Build a circuit for drone control</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Program for autonomous flight</h3>
+</div>
 
-
-        <!-- Text Section (Removed Scroll) -->
-        <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-            <ul class="workshop-button-content-ul">
-                <li style="margin-bottom: 10px;">Fly mini drones</li>
-                <li style="margin-bottom: 10px;">Build a circuit for drone control</li>
-                <li style="margin-bottom: 10px;">Program for autonomous flight</li>
-            </ul>
-        </div>
-        
     </a>
 </div>
+
 
 
 
@@ -122,9 +167,8 @@ title: Stage One Education, LLC
     <a href="rocket-workshop.html" class="workshop-main-button">
 
         <!-- Title Section -->
-        <div class="main-button-title-text">
-            Mechanical Engineering
-        </div>
+        <h2 class="main-button-title-text">Mechanical Engineering</h2>
+        <br/>
 
              <!-- Video Section -->
              <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
@@ -132,23 +176,37 @@ title: Stage One Education, LLC
                     <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
                 </video>
+
+                <img src="img/rocket-assem-iso.png"
+            alt="Rocket Image"
+            style="
+               position: absolute;
+               top: 50%;
+               left: 75%;
+               transform: translate(-50%, -50%);
+               pointer-events: none;
+               width: 200px;
+               height: auto;
+               object-fit: contain;
+            ">
                 
             </div>
 
-        <!-- Text Section (Removed Scroll) -->
-        <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-            <ul class="workshop-button-content-ul">
-                <li style="margin-bottom: 10px;">Use professional CAD software</li>
-                <li style="margin-bottom: 10px;">Design a multi-part model rocket</li>
-                <li style="margin-bottom: 10px;">Explore 3D printing</li>
-            </ul>
-        </div>
+<!-- Text Section with h3 Title added -->
+<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px; padding-top: 15px;">Use professional CAD software</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Design a multi-part model rocket</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Explore 3D printing</h3>
+</div>
+
         
     </a>
 </div>
 </div>
 
     </div>
+
+
 </section>
 
 
@@ -157,21 +215,24 @@ title: Stage One Education, LLC
 <hr class="main-page-hr" />
 
 
+
+
     <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px">
         
         <!-- Hands-on Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;"> 
             <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
             <h3 class="about-title-text">hands-on</h3>
-            <p class="about-body-text">Do engineering in the first minute, no prior experience needed, experiences for all ages.</p>
+            <h4 class="about-body-text" style="line-height: 1.6;">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
         </div>
-
-            <!-- Turn-key Box -->
-            <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
-                <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
-                <h3 class="about-title-text">turn-key</h3>
-                <p class="about-body-text">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</p>
-            </div>
+        
+        
+        <!-- Turn-key Box -->
+        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+            <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
+            <h3 class="about-title-text">turn-key</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
+        </div>
 
         <!-- Curriculum Box -->
         <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
@@ -187,7 +248,7 @@ title: Stage One Education, LLC
         <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
             <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
             <h3 class="about-title-text">experienced</h3>
-            <p class="about-body-text">Since 2013, Stage One Education has provided hands-on engineering workshops to 15,000+ participants.</p>
+            <h4 class="about-body-text" style="line-height: 1.6;">Since 2013, Stage One Education has provided hands-on engineering workshops to 15,000+ participants.</h4>
         </div>
 
         <!-- Safe & Exciting Box -->
@@ -199,6 +260,7 @@ title: Stage One Education, LLC
                 <li class="about-body-text">Your mind will be blown!</li>
             </ul>
         </div>
+
     </div>
 
 
@@ -209,7 +271,7 @@ title: Stage One Education, LLC
 
 
 <hr class="main-page-hr" />
-<span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Feedback</span>
+<span class="workshop-title">Feedback</span>
 <hr class="main-page-hr" />
 
 
@@ -217,51 +279,119 @@ title: Stage One Education, LLC
 
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
-<div style="overflow: hidden; margin-top: 40px; max-width: 1000px; margin: 20px auto; white-space: nowrap; position: relative;">
+<div style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
     <div class="scroll-container">
-        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
 
         <!-- Duplicate images for smooth continuous scroll effect -->
-        <img src="img/feedback1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-        <img src="img/feedback4.jpg" alt="Feedback 4" class="scroll-image">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
     </div>
 </div>
 
 <!-- Keyframes for continuous scroll without fade effect -->
 <style>
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
     }
-    100% {
-        transform: translateX(-50%);
+    
+    /* Container for smooth scroll */
+    .scroll-container {
+        display: inline-block;
+        animation: scroll 45s linear infinite;
+        white-space: nowrap;
+        cursor: grab; /* Change cursor to indicate draggable area */
+        overflow: hidden; /* Hide scrollbar */
     }
-}
-
-/* Container for smooth scroll */
-.scroll-container {
-    display: inline-block;
-    animation: scroll 40s linear infinite;
-    white-space: nowrap;
-    padding-bottom: 20px;
-}
-
-/* Apply size and spacing to each image */
-.scroll-image {
-    display: inline-block;
-    width: 400px; /* Increased width */
-    height: auto; /* Adjusted height to maintain aspect ratio */
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adjust margin between images */
-    margin-right: 40px;
-}
+    
+    /* Apply size and spacing to each image */
+    .scroll-image {
+        display: inline-block;
+        width: 400px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 40px;
+    }
+    
+    /* Pause scroll animation on hover */
+    .scroll-container:hover {
+        animation-play-state: paused;
+    }
+    
+    /* Cursor changes when dragging */
+    .scroll-container.active {
+        cursor: grabbing;
+    }
+    
+    /* Hide scrollbar */
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    </style>
+    
+    <!-- JavaScript to control drag functionality -->
+    <script>
+        // Get the scroll container
+        const scrollContainer = document.getElementById('robotics-scroll-container');
+    
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+    
+        // Stop the continuous scroll animation on mouse over
+        scrollContainer.addEventListener('mouseover', () => {
+            scrollContainer.style.animationPlayState = 'paused';
+        });
+    
+        // Resume the continuous scroll animation on mouse leave
+        scrollContainer.addEventListener('mouseout', () => {
+            if (!isDragging) {
+                scrollContainer.style.animationPlayState = 'running';
+            }
+        });
+    
+        // Mouse down event to start dragging
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            scrollContainer.classList.add('active');
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+    
+        // Mouse leave event to stop dragging
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            scrollContainer.classList.remove('active');
+        });
+    
+        // Mouse up event to stop dragging
+        scrollContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+            scrollContainer.classList.remove('active');
+        });
+    
+        // Mouse move event to enable dragging functionality
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX); // Distance scrolled
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+    </script>
 </style>
 
 </style>
@@ -338,12 +468,8 @@ title: Stage One Education, LLC
 <span class="workshop-title" style="display: block; height: 40px; background-color: white;"></span>
 
 
-<div style="text-align: right; margin-top: 10px;">
-    <!-- Copyright Text on its own line -->
-    <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
-        &copy; 2024 Stage One Education, LLC
-    </span>
-</div>
+{% include copyright.html %}
+
 
 <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
 

@@ -1,0 +1,401 @@
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">Measuring</h2>
+          <p style="margin-right:0;">
+            <em>digital designs to physical reality</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:200px;"></div>
+        <img 
+            src="img/tutorial/caliper-iso-dark.png" 
+            alt="assembly-iso" 
+            style="width:300px; height:auto;"
+        >
+
+
+      </div>
+    </div>
+  </header>
+
+
+    {% include section.html param="top" %}
+<ul>
+
+  <h2>Create a <a href="https://en.wikipedia.org/wiki/Digital_twin">Digital Twin</a></h2>
+
+  <ul class="collapse" id="fillet-definition">
+    <li><a href="https://en.wikipedia.org/wiki/Fillet_(mechanics)">Fillet</a>: &ldquo;a rounding of an interior or exterior corner of a part design.&rdquo;</li>
+</ul>
+
+  <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+    <p>Your measurements 
+    are only as accurate as the smallest increments on your tool,
+     so pay attention to the details. Every fraction counts
+      toward capturing the true form of your design. </p> 
+      <br/>
+
+    <img 
+    src="img/tutorial/launch-pad.jpg" 
+    alt="launch-pad" 
+    style="width:100px; height:auto;"
+  />
+   
+
+ 
+  <br/>  <br/>  <br/>
+
+
+  <h2>How to use a Digital Caliper</h2>
+  <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+<img 
+  src="img/tutorial/caliper-0.png" 
+  alt="caliper" 
+  style="width:500px; height:auto;"
+/>
+
+
+<ul style="list-style:none; padding:0; margin:0;">
+  <!-- Power On -->
+  <li>
+    <strong>Power</strong><br>
+    Press the <em>ON/OFF</em> button
+  </li>
+  <br/>
+
+  <!-- Zero -->
+  <li>
+    <strong>Zero</strong><br>
+    Close the jaws fully so they just touch, then press the <em>ZERO</em> button 
+    to set your baseline at 0.00. This ensures precise measurements every time.
+
+ <!-- Collapsible trigger for Tips -->
+ <li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#tips-section">
+    Tips &raquo;
+  </a>
+</li>
+
+<!-- Collapsible content for Tips -->
+<ul class="collapse" id="tips-section">
+  <li>Keep jaws clean and free of debris for best accuracy.</li>
+  <li>Apply light pressure—over-tightening can skew measurements.</li>
+  <li>Zero out frequently (especially after bumps or temperature changes).</li>
+</ul>
+<br/>
+  <!-- Units -->
+  <li>
+    <strong>Units</strong><br>
+    Use the <em>mm/in</em> button (or equivalent) to switch between metric (millimeters) 
+    and imperial (inches).
+  </li>
+  <br/>
+
+  <!-- Measuring Techniques -->
+  <li>
+    <h3><strong>Measuring</strong></h3><br/>
+    <img 
+      src="img/tutorial/caliper-ABC.png" 
+      alt="caliper" 
+      style="width:500px; height:auto;"
+    />
+    <br/><br/>
+  </li>
+  <br/>
+
+  <!-- Measuring Points -->
+  <li>
+     
+
+    <ul style="list-style:none; padding:0; margin:0;">
+      <!-- A = Outside Jaws -->
+      <li>
+        <strong>A = Outside Jaws</strong><br/>
+        <em>Used for measuring the external dimensions of an object.</em><br/>
+    
+        <!-- Collapsible trigger for A -->
+        <li>
+          <a class="btn help-button" data-toggle="collapse" data-target="#a-definition">
+            How to Measure Outside Dimensions? &raquo;
+          </a>
+        </li>
+    
+        <!-- Collapsible content for A -->
+        <ul class="collapse" id="a-definition">
+          <li>
+            1. Place your object between the <em>Outside Jaws (A)</em>.<br/>
+            2. Gently slide the jaws until they fit snugly against the object’s sides.<br/>
+            3. Read the measurement on the digital display.
+          </li>
+        </ul>
+    
+        <br/><br/>
+      </li>
+    
+      <!-- B = Inside Jaws -->
+      <li>
+        <strong>B = Inside Jaws</strong><br/>
+        <em>Used for measuring the internal dimensions (e.g., holes or openings).</em><br/>
+    
+        <!-- Collapsible trigger for B -->
+        <li>
+          <a class="btn help-button" data-toggle="collapse" data-target="#b-definition">
+            How to Measure Inside Dimensions? &raquo;
+          </a>
+        </li>
+    
+        <!-- Collapsible content for B -->
+        <ul class="collapse" id="b-definition">
+          <li>
+            1. Open the <em>Inside Jaws (B)</em> inside the hole or space.<br/>
+            2. Carefully expand the jaws until they contact the interior walls.<br/>
+            3. Check the digital readout for the measurement.
+          </li>
+        </ul>
+    
+        <br/><br/>
+      </li>
+    
+      <!-- C = Depth Gauge -->
+      <li>
+        <strong>C = Depth Gauge</strong><br/>
+        <em>Used for measuring the depth of holes, recesses, or slots.</em><br/>
+    
+        <!-- Collapsible trigger for C -->
+        <li>
+          <a class="btn help-button" data-toggle="collapse" data-target="#c-definition">
+            How to Measure Depth? &raquo;
+          </a>
+        </li>
+    
+        <!-- Collapsible content for C -->
+        <ul class="collapse" id="c-definition">
+          <li>
+            1. Insert the <em>Depth Gauge (C)</em> into the hole or recess.<br/>
+            2. Slide the main scale down until you reach the bottom.<br/>
+            3. Read the displayed depth on the digital screen.
+          </li>
+        </ul>
+    
+        <br/><br/>
+      </li>
+    
+       <!-- Manual Reading (Analog Scale) -->
+  <li>
+    <strong>Manual Reading (Analog Scale)</strong><br/>
+    <em>Use this if the battery is dead or to confirm the digital measurement.</em><br/>
+
+    <!-- Collapsible trigger for Manual Reading -->
+    <li>
+      <a class="btn help-button" data-toggle="collapse" data-target="#manual-reading">
+        How to Perform Manual Reading? &raquo;
+      </a>
+    </li>
+
+    <!-- Collapsible content for Manual Reading -->
+    <ul class="collapse" id="manual-reading">
+      <li>
+        1. Locate the etched scale on the caliper’s beam.<br/>
+        2. Align the sliding scale to approximate your measurement.<br/>
+        3. Note the reading where the scales line up.
+      </li>
+    </ul>
+    <br/><br/>
+
+
+
+    <h2>Other Measuring Tools</h2>
+    <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+    
+    <ul style="list-style:none; padding:0; margin:0;">
+      <!-- Ruler / Tape Measure -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#rulerTape">
+          <strong>Ruler / Tape Measure</strong> &raquo;
+        </a>
+        <div class="collapse" id="rulerTape">
+          Go-to for quick, straightforward measurements.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Ruler" target="_blank">Ruler (Wiki)</a> /
+          <a href="https://en.wikipedia.org/wiki/Tape_measure" target="_blank">Tape Measure (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Calipers -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#calipers">
+          <strong>Calipers (Digital, Dial, or Vernier)</strong> &raquo;
+        </a>
+        <div class="collapse" id="calipers">
+          Essential for precise external, internal, and depth measurements.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Calipers" target="_blank">Calipers (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Micrometers -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#micrometers">
+          <strong>Micrometers</strong> &raquo;
+        </a>
+        <div class="collapse" id="micrometers">
+          Used for highly accurate thickness or diameter measurements.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Micrometer_(device)" target="_blank">Micrometer (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Height Gauges -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#heightGauges">
+          <strong>Height Gauges</strong> &raquo;
+        </a>
+        <div class="collapse" id="heightGauges">
+          Excellent for measuring vertical distances from a surface plate.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Height_gauge" target="_blank">Height Gauge (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Dial Indicators -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#dialIndicators">
+          <strong>Dial Indicators</strong> &raquo;
+        </a>
+        <div class="collapse" id="dialIndicators">
+          Ideal for detecting small linear deviations and alignment issues.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Dial_indicator" target="_blank">Dial Indicator (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Feeler Gauges -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#feelerGauges">
+          <strong>Feeler Gauges</strong> &raquo;
+        </a>
+        <div class="collapse" id="feelerGauges">
+          Useful for measuring narrow gaps or clearances.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Feeler_gauge" target="_blank">Feeler Gauge (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Depth Gauges -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#depthGauges">
+          <strong>Depth Gauges (Including Depth Micrometers)</strong> &raquo;
+        </a>
+        <div class="collapse" id="depthGauges">
+          Specialized for measuring the depth of holes or recesses.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Depth_gauge" target="_blank">Depth Gauge (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Bore Gauges -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#boreGauges">
+          <strong>Bore Gauges</strong> &raquo;
+        </a>
+        <div class="collapse" id="boreGauges">
+          Designed for internal diameter measurements.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Bore_gauge" target="_blank">Bore Gauge (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Laser Distance Meters -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#laserDistance">
+          <strong>Laser Distance Meters</strong> &raquo;
+        </a>
+        <div class="collapse" id="laserDistance">
+          Quick, non-contact measurement of moderate distances.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Laser_rangefinder" target="_blank">Laser Rangefinder (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Gauge Blocks -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#gaugeBlocks">
+          <strong>Gauge Blocks (Slip Gauges)</strong> &raquo;
+        </a>
+        <div class="collapse" id="gaugeBlocks">
+          Precision standards used to calibrate or verify other measuring tools.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Gauge_block" target="_blank">Gauge Block (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Optical Comparators -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#opticalComparators">
+          <strong>Optical Comparators (Profile Projectors)</strong> &raquo;
+        </a>
+        <div class="collapse" id="opticalComparators">
+          Project an enlarged part silhouette for detailed dimensional checks.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Optical_comparator" target="_blank">Optical Comparator (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- Coordinate Measuring Machines (CMM) -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#cmm">
+          <strong>Coordinate Measuring Machines (CMM)</strong> &raquo;
+        </a>
+        <div class="collapse" id="cmm">
+          Automated, high-accuracy 3D measurement of complex geometries.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/Coordinate-measuring_machine" target="_blank">CMM (Wiki)</a>
+        </div>
+      </li>
+      <br/>
+    
+      <!-- 3D Scanners -->
+      <li>
+        <a class="btn help-button" data-toggle="collapse" data-target="#scanners">
+          <strong>3D Scanners (Laser or Structured Light)</strong> &raquo;
+        </a>
+        <div class="collapse" id="scanners">
+          Capture full surface geometry, yielding dimensional data when properly calibrated.
+          <br/>
+          <a href="https://en.wikipedia.org/wiki/3D_scanner" target="_blank">3D Scanner (Wiki)</a>
+        </div>
+      </li>
+    </ul>
+    
+    
+
+    
+                   
+                     
+                </div>
+            </div>
+        </div>
+    </section>

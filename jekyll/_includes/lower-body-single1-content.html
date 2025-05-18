@@ -1,0 +1,149 @@
+        
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">FINS + BOOSTER</h2>
+          <p style="margin-right:0;">
+            <em>Providing aerodynamic stability and housing the propulsion system</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/lower-body-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+   
+   
+   
+                  {% include section.html param="topnav" %}
+                    
+                    {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+                    
+                    
+        {% include adv-drawing-toggle.html %}
+
+
+                    <h3 class="section-heading">{% include step_counter.html %} Create a new part studio</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_part_studio" %}
+                    {% include written-instructions.html %}
+                      <ul>
+                        <li>Click the "<strong>+</strong>" button</li>
+                        <ul><li><img src="img/tutorial/plus_button.png" /></li></ul>
+                        <li>Select <strong>Create Part Studio</strong></li>
+                        <li><img src="img/tutorial/create_part_studio.png" /></li>
+                    </ul>
+
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Rename your part studio</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/rename_lower_body" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Right-click on the <strong>Part Studio 1</strong> tab on the bottom left <img src="img/tutorial/part_studio1.png" /></li>
+                        <li>Select <em>Rename</em></li>
+                        <ul><li><img src="img/tutorial/rename_menu_item.png" /></li></ul>
+                        <br />
+                        <li>Rename it to "<strong>Lower Body</strong>"</li>
+                    </ul>
+
+    
+          {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Create a sketch</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_sketch" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Select a <strong>sketch plane</strong>.  Use the <strong>Top</strong> <img src="img/tutorial/top_side_menu.png" /> plane.</li>
+                        <!-- <ul><li><img src="img/tutorial/top_plane.png" height="150" /></li></ul> -->
+                        <ul><li><img src="img/tutorial/top_features.png" /> <span style="display:inline-block; width: 10%; text-align: center;"><i class="fa fa-long-arrow-right"></i> </span><img src="img/tutorial/top_plane_sketch_box.png" /></li></ul>
+                        <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                        <li>Make sure you have selected the <strong>Top</strong> plane. In the upper right, you should see "Top Plane" under <em>sketch plane</em></li>
+                    </ul>
+
+    
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the outer body circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_outer_body_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle.  <strong>Be sure to snap it to the origin</strong>.
+                    </ul>
+
+
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Dimension the outer body circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/dimension_outer_body_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click on your circle and set its diameter to <strong>0.781</strong></li>
+                    </ul>
+
+    
+         {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Draw the inner circle</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/create_inner_body_circle" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle inside your first circle.  <strong>Be sure to snap it to the origin</strong>.
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click <em>first</em> on the outer circle and <em>then</em> on the inner circle and set the difference between them to <strong>0.025</strong></li>
+                    </ul>
+
+    
+        {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Extrude the body</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/extrude_lower_body" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Set the <em>Depth</em> to <strong>4.0 in</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                   </ul>
+
+        {% include section.html %}
+
+                    <h3 class="section-heading">{% include step_counter.html %} Use the camera to look at the body</h3>
+                    {% include adv-drawing.html path="img/tutorial/fins-booster-drawing-1.png" %}
+                    {% include tutorial-video.html path="videos/lower-body/look_at_extrude1" %}
+                    {% include written-instructions.html %}
+                    <ul>
+                        <li>Hold the <strong>right mouse button</strong> to view your tube from different angles</li>
+                        <li>Zoom in and out using the <strong>mouse wheel</strong></li>
+                    </ul>
+
+        {% include section.html param="bottom" %}
+        {% include rocket-nav.html title="Fins + Booster Tutorial" num_pages="4" %}
+
+
+    

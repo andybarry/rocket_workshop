@@ -89,8 +89,8 @@ aside {
 
 .navbar-default {
     border-color: rgba(34,34,34,.05);
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -98,7 +98,7 @@ aside {
 
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 700;
     color: #f05f40;
 }
@@ -547,6 +547,16 @@ body {
     overflow: hidden;
 }
 
+.adv-drawing-container {
+    display: none;
+}
+
+.adv-drawing {
+    max-width: 100%;
+    max-height: 60vh; /* 60% of viewport height */
+    overflow: hidden;
+}
+
 .half-width-image {
     width: 100%;
 }
@@ -571,40 +581,153 @@ ul.help-button {
     margin-top: -5px;
 }
 
-.nav-button-stageone {
+
+
+.button-container {
+    display: inline-flex;
+    gap: 50px; /* 50px horizontal space between the two buttons */
+    margin-top: 20px; /* Optional spacing below the hr */
+}
+
+.custom-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid #f05f40;
+    height: 200px;
+    width: 200px; /* Adjust as needed */
+    cursor: pointer;
+    border-radius: 30px;
     font-family: 'Roboto', sans-serif;
-    color: white !important;
+    color: #f05f40;
     text-align: center;
-    background-color: #f05f40 !important;
-    border-radius: 50px;
-    font-weight: 450 !important;
-    margin: 5px;
-    padding: 2px 10px !important;
-    border: 0.5px solid white;
-    max-width: 200px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
-.nav-button-stageone:hover {
+.custom-button i {
+    font-size: 40px; /* Adjust icon size as needed */
+    margin-bottom: 10px; /* Space between icon and text */
+    color: #f05f40;
+}
+
+.custom-button span {
+    color: #f05f40;
+    font-size: 20px; /* Adjust as needed */
+}
+
+.custom-button:hover {
+    background-color: #f05f40;
+    color: #fff;
+}
+
+.custom-button:hover i {
+    color: #fff;
+}
+
+.custom-button:hover span {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a.heading-hover {
+    color: #777 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-default .navbar-nav > li > a.heading-hover:hover {
     color: #f05f40 !important;
-    background-color: white !important;
-    border-color: #f05f40;
 }
 
-.nav-button-stageone-highlight {
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    border-radius: 50px;
-    margin: 5px;
-    padding: 2px 10px !important;
-    font-weight: 500;
-    max-width: 200px;
+/* Add this at the end of your CSS */
+.navbar-default .navbar-nav > li > a.heading-hover.always-hovered {
     color: #f05f40 !important;
-    background-color: white !important;
-    border: 0.5px solid #f05f40;
 }
 
-.nav-button-stageone-highlight:hover {
-    color: white !important;
-    background-color: #f05f40 !important;
-    border-color: white;
+
+.step-video {
+    margin-bottom: 10px;
+}
+
+
+.video-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar-container {
+    position: relative;
+    bottom: 9px;
+    left: 10px;
+    height: 2px;
+    background: transparent;
+  }
+  
+  
+  .progress-bar {
+    background:  #a1a1a1; /* Bar color */
+    height: 100%;
+    margin-top: 3px;
+    margin-left: 4px;
+    transition: width 0.25s linear; /* Smoother transition */
+  }
+  
+  /* Icons container at bottom right */
+  .control-icons {
+    position: relative;
+    /* bottom: -9px;
+    left: -13px; */
+    pointer-events: none; /* icons shouldn't interfere with hovering */
+  }
+  
+  .play-icon, .pause-icon {
+    display: none;
+    color: #a1a1a1;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    line-height: 1;
+  }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    vertical-align: middle;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background-color: #aaa;
+    cursor: pointer;
+    transition: .3s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: .3s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #f05f40;
+}
+input:checked + .slider:before {
+    transform: translateX(18px);
 }

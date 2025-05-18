@@ -1,0 +1,71 @@
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+{% assign teams_prefix = "teams-" %}
+{% else %}
+{% assign teams_prefix = "" %}
+{% endif %}
+
+
+
+<section id="getting_started">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2>Getting started</h2>
+                <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+                <p style="margin: 0; border:0;">A complete introduction to Onshape CAD by designing a fully-functional
+                    model rocket.</p><br />
+
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <p>We recommend a split-screen layout:</p>
+                <h3 class="section-heading">{% include step_counter.html %} Set up windows in split view</h3>
+                <ul>
+                    <p><img src="img/tutorial/split_screen_sketch.png" style="max-width: 100%;" /></p>
+                    <li>Use <strong>Windows key + Left Arrow</strong> to move one browser to the left</li>
+                    <li>Use <strong>Windows key + Right Arrow</strong> to move the other browser to the right</li>
+                    <li>Consider making the tutorial thinner than the CAD window so more of the controls are fully
+                        visible in the view.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h3 class="section-heading">{% include step_counter.html %} Create a <strong>Hobbyist / Maker</strong>
+                    onshape account</h3>
+                <ul>
+                    <li>Head to the <a
+                            href="https://cad.onshape.com/signup2?basicdataid=113b147e-2347-49b0-8c52-32e785704419&extendeddataid=4175c8b5-4f16-4b3a-b61a-19646bb51c0b&enable_cookie=check&approveUser=yes&locale=en_US&hsCtaTracking=c3153aac-7793-4d1f-9f64-5f9a78544b2c%7Cba6f18c9-5891-4db3-946d-91fb5aa60ad9"
+                            target="_blank">create free account</a> page at Onshape</li>
+                    <li>Create an account</li>
+                    <ul>
+                        <li><strong>Select Hobbyist / Maker</strong> for the easiest signup process<br /><img
+                                style="max-width: 100%;" src="img/tutorial/hobbyist_maker.png" /></li>
+                    </ul>
+                    <li>On page 2:</li>
+                    <ul>
+                        <li>Company name: <strong>Stage One Education</strong></li>
+                        <li>Industry: <strong>Education</strong></li>
+                        <li>Number of CAD users at your company: <strong>1</strong></li>
+                        <li>Current CAD system: <strong>Onshape</strong></li>
+                        <li>Level of interest in purchasing a new CAD system: <strong>No interest</strong></li>
+                        <li>Timeframe for you decision: <strong>No timeframe</strong></li>
+                        <li>Title / position: <strong>Student</strong></li>
+                        <li>Mobile phone number: <strong>your phone number</strong></li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+Microsoft Windows [Version 10.0.22631.4751]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\robbi>cd C:\Users\YourName\Documents\GitHub\rocket_workshop\drone-workshop
+The system cannot find the path specified.
+
+C:\Users\robbi>\Documents\GitHub\rocket_workshop\drone-workshop
+The system cannot find the path specified.
+
+C:\Users\robbi>cd documents
+
+C:\Users\robbi\Documents>github
+
+
+C:\Users\robbi\Documents>cd github
+
+C:\Users\robbi\Documents\GitHub>cd rocket_workshop
+
+C:\Users\robbi\Documents\GitHub\rocket_workshop>cd drone-workshop
+
+npm run start

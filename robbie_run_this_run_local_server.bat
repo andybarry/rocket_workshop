@@ -1,2 +1,4 @@
 
-jekyll serve --source jekyll --destination www
+call jekyll serve --source jekyll --destination www
+
+pause

@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Robotics / Electronics Workshop | Stage One Education, LLC
+title: Robotics / Electronics Workshop | Stage One Education
+description: Master drone flight control with Arduino & ESP32 at Stage One Education’s Robotics Workshop. Enjoy hands-on electronics and coding—no experience needed!
 ---
 
 <head>
@@ -11,27 +12,25 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
 
     {% include navigation.html %}
 
-    <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
+    <div style="height: 50px;"></div> <!-- Adjust height to match your navbar's height -->
 
     <!-- Title Section -->
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div style="margin: 0 auto; text-align: center;">
-                    <span class="workshop-title"
-                        style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
+                    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
                         Robotics Workshop
-                    </span>
-
-                    <span class="workshop-title"
-                        style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px;">Electronics
-                        & Coding</span>
-
+                    </h2>
+    
+                    <h3 class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px; font-weight: thin;">Electronics & Coding</h3>
+    
                 </div>
             </div>
-
-            <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
         </div>
+    
+        <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
 
         <!-- Section with Background Image -->
         <style>
@@ -197,7 +196,7 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
 
         <div class="row">
 
-            <div style="position: relative;  height: 190px; background-color: white; overflow: hidden;">
+            <div style="position: relative;  height: 230px; background-color: white; overflow: hidden;">
                 <!-- Add Horizontal Moving Drone Images from left to right -->
                 <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
                     style="top: 10%; left: -150px;" />
@@ -235,6 +234,16 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
                         rel="noopener noreferrer" class="glow-button">
                         Instructions
                     </a>
+                    
+                    <!-- Feedback Survey Link with matching spacing but no glow -->
+                    <a href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/" 
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    class="feedback-spacing">
+                    Feedback Survey
+                    </a>
+
+
                 </div>
 
                 <!-- Overlay Div -->
@@ -243,7 +252,7 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
         </div>
 
 
-        <hr class="thin-hr" />
+     
 
         <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
         <div style="max-width: 100%; margin: 5px auto;">
@@ -263,28 +272,66 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
                             style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
+
+                        
                         <div class="tab-content tab-active"
-                            style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
-                            <ul>
-                                <li>Immerse yourself in hands-on circuit-building and software development.</li>
-                                <li>
-                                    With the goal of achieving autonomous flight of a small toy RC drone,
-                                    participants collaborate on:
-                                    <ul style="list-style-type: circle; padding-left: 20px;">
-                                        <li>hardware</li>
-                                        <li>software design</li>
-                                        <li>learning problem-solving and debugging skills</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 2.5;">
+                     <ul>
+                       <li>
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                           Immerse yourself in hands-on circuit-building and software development.
+                         </h3>
+                       </li>
+                       <li>
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                           With the goal of achieving autonomous flight of a small toy RC drone, participants collaborate on:
+                         </h3>
+                         <ul style="list-style-type: circle; padding-left: 20px;">
+                           <li>
+                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                               hardware
+                             </h3>
+                           </li>
+                           <li>
+                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                               software design
+                             </h3>
+                           </li>
+                           <li>
+                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                               learning problem-solving and debugging skills
+                             </h3>
+                           </li>
+                         </ul>
+                       </li>
+                     </ul>
+                   </div>
+                   
+
+
+
                     </div>
                 </div>
                 <!-- Image Section -->
                 <div class="col-lg-6 col-md-6 col-sm-6" style="flex: 1; display: flex; justify-content: center;">
                     <img src="img/robotics_placeholder.jpg" alt="Workshop Placeholder"
                         style="width: 300px; height: auto; object-fit: cover;">
-                </div>
+             
+                         <!-- Overlay Image -->
+            <img src="img/drone.png"
+            alt="Drone Image"
+            style="
+               position: absolute;
+               top: 60%;
+               left: 70%;
+               transform: translate(-50%, -50%);
+               pointer-events: none;
+               width: 150px;
+               height: 150px;
+               object-fit: contain;
+            ">
+
+                    </div>
             </div>
         </section>
 
@@ -305,23 +352,23 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
             <div
                 style="overflow: hidden; margin-top: 50px; margin: 20px auto; white-space: nowrap; position: relative;">
                 <div class="scroll-container">
-                    <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image"
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image"
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image"
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image"
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image"
                         style="margin-right: 40px;">
 
                     <!-- Duplicate images for smooth continuous scroll effect -->
-                    <img src="img/robotics_feedback_1.jpg" alt="Feedback 1" class="scroll-image"
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_2.jpg" alt="Feedback 2" class="scroll-image"
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_3.jpg" alt="Feedback 3" class="scroll-image"
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
                         style="margin-right: 40px;">
-                    <img src="img/robotics_feedback_4.jpg" alt="Feedback 4" class="scroll-image">
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image">
                 </div>
             </div>
 
@@ -340,7 +387,7 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
                 /* Container for smooth scroll */
                 .scroll-container {
                     display: inline-block;
-                    animation: scroll 40s linear infinite;
+                    animation: scroll 60s linear infinite;
                     white-space: nowrap;
                     padding-bottom: 20px;
                     animation-play-state: running;
@@ -421,20 +468,15 @@ title: Robotics / Electronics Workshop | Stage One Education, LLC
             <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
 
             <div class="text-center">
-                <img src="img/robotics-timeline.svg" alt="Robotics Workshop Timeline" class="horizontal-image">
-                <img src="img/robotics-timeline-vertical.svg" alt="Robotics Workshop Timeline" class="vertical-image">
+                <img src="img/robotics-timeline-drone.png" alt="Robotics Workshop Timeline" class="horizontal-image">
             </div>
         </div>
 
 
 
         <!-- Footer Section -->
-        <div style="text-align: right; margin-top: 10px;">
-            <span class="workshop-title"
-                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
-                &copy; 2024 Stage One Education, LLC
-            </span>
-        </div>
+        {% include copyright.html %}
+
     </div>
 
 </body>

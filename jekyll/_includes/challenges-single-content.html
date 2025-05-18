@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenges</title>
+
+  <style>
+    /* Make buttons stack vertically and add spacing */
+    .button-container {
+      display: flex;
+      flex-direction: column; /* stack vertically */
+      align-items: flex-start; /* align all buttons to the left */
+      margin-top: 20px;
+    }
+
+    .custom-button-group {
+      background-color: #ddd;       /* Matches the button color */
+      border-radius: 15px;
+      width: 500px;
+      margin-bottom: 10px;          /* Spacing between groups */
+      overflow: hidden;             /* Ensures corners remain visible */
+    }
+
+    /* Actual button (anchor) styling */
+    .custom-button {
+      position: relative;
+      /* Fallback color if image doesn't load */
+      background-color: #ddd;
+
+      /* ↓↓ CHANGED from 125% to 100% ↓↓ */
+      background-size: 100%;  /* Default size so we can zoom IN on hover */
+      background-position: center;
+      background-repeat: no-repeat;
+
+      transition: background-size .7s ease;  /* Smooth transition */
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 15px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0;
+      text-decoration: none;
+      color: #ddd;
+    }
+
+    /* Pseudo-element for the 50% white overlay */
+    .custom-button::before {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.2);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .custom-button span {
+      display: block;
+      position: relative;
+      z-index: 1;
+      font-size: 50px;
+      margin: 0 auto; 
+      font-family: 'Roboto', sans-serif;
+      white-space: nowrap;         
+      text-align: center;
+      overflow: hidden;            
+      text-overflow: ellipsis;     
+    }
+
+    /* Hover styles: zoom in */
+    .custom-button:hover {
+      color: #f05f40;
+      text-decoration: none;
+      border: 2px solid #f05f40;
+
+      /* ↓↓ CHANGED from 105% to 125% ↓↓ */
+      background-size: 110%;  /* Zoom in */
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="not-full-page">
+  <div class="header-content" 
+       style="display:flex; 
+              justify-content:center; 
+              align-items:center; 
+              margin-left:-250px;">
+    <div class="header-content-inner" 
+         style="display:flex; 
+                align-items:center; 
+                justify-content:center; 
+                text-align:right;">
+      <!-- Text on the left -->
+      <div>
+        <h2 style="margin-bottom:10px;">CHALLENGES</h2>
+        <p style="margin-right:0;">
+          <em>
+            Building off your completed rocket assembly, test and expand 
+            your skills
+          </em>
+        </p>
+      </div>
+      <!-- Vertical line and image -->
+      <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+      <img 
+          src="img/tutorial/rocket-assem-iso.png" 
+          alt="fuselage-iso" 
+          style="width:150px; height:auto;"
+      >
+    </div>
+  </div>
+</header>
+
+
+
+
+<section class="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+
+        <div class="header-content header-content-top">
+          <div class="header-content-inner">
+              <h1>Select your challenge</h1>
+              <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+              <!-- Updated button container with vertically stacked links -->
+              <div class="button-container">
+
+{% include challenges-single-content-buttons.html %}
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

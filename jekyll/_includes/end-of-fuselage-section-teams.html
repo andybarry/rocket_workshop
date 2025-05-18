@@ -1,0 +1,18 @@
+{% include section.html param="top" %}
+
+<h2 class="text-center">You finished the fuselage!</h2>
+<hr class="long" />
+
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+{% assign teams_prefix = "teams-" %}
+{% include teams-end-of-section.html exclude="middle-body" %}
+{% else %}
+
+    <img src="img/portfolio/middle-body.jpg" class="img-responsive" style="margin: auto" alt="">
+
+
+{% assign teams_prefix = "" %}
+{% endif %}
+{% include section.html param="bottom" %}

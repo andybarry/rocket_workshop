@@ -1,6 +1,7 @@
 ---
 layout: default
-title: CAD / Rocket Workshop | Stage One Education, LLC
+title: Mechanical Engineering Workshop | Stage One Education
+description: Experience mechanical engineering fundamentals in this CAD & Rocket Workshop—build virtual rockets, explore 3D printing, and master design. No experience needed!
 ---
 
 <head>
@@ -14,28 +15,27 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
 
     {% include navigation.html %}
 
-    <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
+    <div style="height: 50px;"></div> <!-- Adjust height to match your navbar's height -->
 
-    <!-- Title Section -->
-    <div style="max-width: 100%; margin: 0 auto; text-align: center;">
-        <span class="workshop-title"
-            style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold;">
-            Mechanical Engineering Workshop
-        </span>
-    </div>
+   <!-- Title Section -->
+<div style="max-width: 100%; margin: 0 auto; text-align: center;">
+    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold;">
+        Mechanical Engineering Workshop
+    </h2>
+</div>
+
+<div class="container">
+    <h3 class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px; font-weight: thin;
+">
+        Computer-Aided Design (CAD) & 3D Printing
+    </h3>
 
 
-    <div class="container">
-
-
-        <span class="workshop-title"
-            style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color:rgb(100, 100, 100); font-size: 20px;">Computer-Aided
-            Design (CAD) & 3D Printing</span>
         <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
         <!-- Section with Background Video Loop -->
         <div style="position: relative; margin: 0 auto; height: 200px; background-color: white; overflow: hidden;">
-            <div align="center" class="video-background autosize" style="height: 100%; width: 100%;">
+            <div class="video-background autosize" style="height: 100%; width: 100%;">
                 <video autoplay loop muted playsinline style="width: 100%; height: auto;">
                     <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
@@ -43,15 +43,36 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
                 </video>
             </div>
 
-            <!-- Title Section with Button -->
-            <div class="button-container"
-                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
-                <!-- First Button: Drone Workshop Link -->
-                <a href="https://stageoneeducation.com/cad-tutorial/index.html" target="_blank"
-                    rel="noopener noreferrer" class="glow-button">
-                    Start
-                </a>
-            </div>
+<!-- Title Section with Button -->
+<div class="button-container"
+     style="position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;">
+    
+    <!-- First Button: Drone Workshop Link -->
+    <a href="cad-tutorial/index-single.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="glow-button"
+       style="margin-bottom: 20px;">
+       Start
+    </a>
+
+    <!-- Feedback Survey Link -->
+    <a href="https://feedback.stageoneeducation.com/workshop-feedback/mechanical-engineering-feedback-survey/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="feedback-spacing">
+       Feedback Survey
+    </a>
+
+</div>
+
 
             <!-- Overlay Div -->
             <div class="overlay"></div>
@@ -135,14 +156,32 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
                             style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
+
+                        
                         <div class="tab-content tab-active"
-                            style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
-                            <ul>
-                                <li>Explore the world of engineering and discover CAD (computer aided design)</li>
-                                <li>Build a three-part (virtual) rocket using a professional CAD platform</li>
-                                <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
-                            </ul>
-                        </div>
+                        style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 2.5;">
+                     <ul>
+                       <li>
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                           Explore the world of engineering and discover CAD (computer aided design)
+                         </h3>
+                       </li>
+                       <li>
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                           Build a three-part (virtual) rocket using a professional CAD platform
+                         </h3>
+                       </li>
+                       <li>
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
+                           With our comprehensive online tutorial, master CAD in just a few hours!
+                         </h3>
+                       </li>
+                     </ul>
+                   </div>
+                   
+
+
+
                     </div>
                 </div>
                 <!-- Image Section -->
@@ -170,18 +209,18 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
         <div
             style="overflow: hidden; margin-top: 40px; margin: 20px auto; white-space: nowrap; position: relative;">
             <div class="scroll-container">
-                <img src="img/me_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_5.jpg" alt="Feedback 5" class="scroll-image">
+                <img src="img/me_feedback_1.png" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.png" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.png" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.png" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.png" alt="Feedback 5" class="scroll-image">
 
                 <!-- Duplicate images for smooth continuous scroll effect -->
-                <img src="img/me_feedback_1.jpg" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_2.jpg" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_3.jpg" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_4.jpg" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/me_feedback_5.jpg" alt="Feedback 5" class="scroll-image">
+                <img src="img/me_feedback_1.png" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.png" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.png" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.png" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.png" alt="Feedback 5" class="scroll-image">
             </div>
         </div>
 
@@ -201,7 +240,7 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
             /* Container for smooth scroll */
             .scroll-container {
                 display: inline-block;
-                animation: scroll 40s linear infinite;
+                animation: scroll 60s linear infinite;
                 white-space: nowrap;
                 padding-bottom: 20px;
             }
@@ -291,11 +330,7 @@ title: CAD / Rocket Workshop | Stage One Education, LLC
         </div>
 
 
-        <div style="text-align: right; margin-top: 30px;">
-            <span class="workshop-title"
-                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
-                &copy; 2024 Stage One Education, LLC
-            </span>
-        </div>
+        {% include copyright.html %}
+
     </div>
 </body>

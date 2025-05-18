@@ -132,7 +132,7 @@ aside {
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    font-weight: 10;
     color: #f05f40;
 }
 
@@ -145,7 +145,7 @@ aside {
 .navbar-default .nav>li>a:focus {
     text-transform: uppercase;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 50;
     color: #222;
 }
 
@@ -618,6 +618,7 @@ body {
     max-width: 500px;
     margin: auto;
     padding-right: 20px;
+    
 }
 
 #cyclingPoster {
@@ -705,9 +706,65 @@ body {
         display: block;
         text-align: center;
         font-family: 'Roboto', sans-serif;
-        color: #f05f40;
+        color:#464444;
         font-size: 20px;
     }
+
+/* Main title (H1) styling */
+.workshop-title-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;  /* Remove any default padding if present */
+  }
+  
+  /* Horizontal line (div) styling */
+  .orange-line {
+    display: block;
+    margin: 2px auto;        /* 2px above and below, centered horizontally */
+    width: 355px;            /* You can adjust this width as needed */
+    height: 1px;            /* 1px high line */
+    background-color: #f05f40;
+    border: none;           /* Ensure no default hr border applies */
+    padding: 0;
+  }
+  
+  /* Subtitle (H2) styling */
+  .workshop-subtitle-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40;
+    font-size: 23px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;  /* Ensures no extra space around the text */
+  }
+  
+  /* Example: minimal line if you still want after the subtitle */
+  .main-page-hr {
+    margin: 0;  /* Removes default spacing if it's an <hr> or styled line */
+    padding: 0;
+    border: none;
+    /* You can keep or remove other styling here as needed */
+  }
+  
+  .workshop-caption-main {
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color:#6f6f6f;
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;  /* Ensures no extra space around the text */
+  }
+
+
 
 .workshop-subtitle {
     font-size: 24px;
@@ -949,10 +1006,11 @@ inline-quote-container {
     background-color: #f05f40 !important;
     border-radius: 50px;
     font-weight: 450 !important;
-    margin: 5px;
+    margin: 5px 5px 0 5px;
     padding: 2px 10px !important;
     border: 0.5px solid white;
     max-width: 200px;
+    
 }
 
 .nav-button-stageone:hover {
@@ -965,7 +1023,7 @@ inline-quote-container {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     border-radius: 50px;
-    margin: 5px;
+    margin: 5px 5px 0 5px;
     padding: 2px 10px !important;
     font-weight: 500;
     max-width: 200px;
@@ -980,20 +1038,61 @@ inline-quote-container {
     border-color: white;
 }
 
+
+.nav-button-stageone-inverted {
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40 !important;          /* was white */
+    text-align: center;
+    background-color: white !important; /* was #f05f40 */
+    border-radius: 50px;
+    font-weight: 450 !important;
+    margin: 5px;
+    padding: 2px 10px !important;
+    border: 0.5px solid #f05f40;       /* was white */
+    max-width: 200px;
+}
+
+.nav-button-stageone-inverted:hover {
+    color: white !important;           /* was #f05f40 */
+    background-color: #f05f40 !important; /* was white */
+    border-color: white;               /* was #f05f40 */
+}
+
+.nav-button-stageone-highlight-inverted {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    border-radius: 50px;
+    margin: 5px;
+    padding: 2px 10px !important;
+    font-weight: 500;
+    max-width: 200px;
+    color: white !important;           /* was #f05f40 */
+    background-color: #f05f40 !important; /* was white */
+    border: 0.5px solid white;         /* was #f05f40 */
+}
+
+.nav-button-stageone-highlight-inverted:hover {
+    color: #f05f40 !important;         /* was white */
+    background-color: white !important;   /* was #f05f40 */
+    border-color: #f05f40;             /* was white */
+}
+
+
+
 .workshop-main-button {
     display: block;
     margin: auto;
     margin-bottom: 20px;
     width: 300px;
     height: 475px;
-    border: 3px solid #f05f40;
+    border: 1px solid #f05f40;
     border-radius: 50px;
     background-color: white;
     color: rgb(100, 100, 100);
 }
 
 .workshop-main-button > .main-button-title-text {
-    padding: 20px 0;
+    padding: 0px 0;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
@@ -1065,9 +1164,18 @@ inline-quote-container {
     border: none;
     height: 1px;
     max-width: 85%;
-    background-color: #f05f40;
+    background-color: #464444;;
     margin: 5px auto;
 }
+
+.main-page-hr-short {
+    border: none;
+    height: 1px;
+    max-width: 25%;
+    background-color: #464444;;
+    margin: 5px auto;
+}
+
 .thin-hr {
     border: none;
     height: 1px;
@@ -1143,3 +1251,54 @@ text-decoration: none; /* Remove underline on hover */
     position: relative;
     z-index: 2;
 }
+    /* Top Images (Unchanged) */
+    .scroll-image {
+        width: 400px; /* Original larger images */
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #f05f40;
+
+    }
+
+    /* Bottom Images Container (Horizontal) */
+    .horizontal-gallery {
+        display: flex;
+        flex-wrap: nowrap;     /* Keep images on one line */
+        justify-content: center;
+        gap: 10px;
+        max-width: 90%;
+        margin: 40px auto;     /* Center the container */
+        overflow-x: auto;      /* Allow horizontal scroll if too wide */
+       }
+
+    /* Smaller Images at the Bottom */
+    .small-image {
+        width: 300px;          /* Adjust size as needed */
+        height: auto;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #f05f40;
+
+    }
+    .feedback-spacing {
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        font-weight: 100;
+        color: #f05f40;
+        text-align: center;
+        padding: 1px 15px;
+        border-radius: 50px;
+        margin: 10px 5px;
+        flex-basis: calc(20% - 10px);
+        text-decoration: none;
+        display: block;
+        position: relative;
+        z-index: 2;
+        /* No glow animation */
+    }
+    
+
+    

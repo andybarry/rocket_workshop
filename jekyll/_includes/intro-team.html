@@ -1,0 +1,49 @@
+{% assign page_filename = page.path | split:'/' | last %}
+{% assign is_teams = page_filename |split:'-' | first %}
+{% if is_teams == "teams" %}
+    {% assign teams_prefix = "teams-" %}
+{% else %}
+    {% assign teams_prefix = "" %}
+{% endif %}
+
+<meta name="Description" content="Learn CAD / Onshape by building a fully-functional model rocket with a GIF at each step.">
+<header class="video-background">
+    <div class="header-content header-content-top">
+        <div class="header-content-inner">
+            <h1>explore Computer-Aided Design (CAD)<br/>as you create a virtual rocket</h1>
+            <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+            <h2>zero to rockets in 4 hours</h2>
+            <div style="width:80%; margin: 0 auto; text-align:center;">
+                <img 
+                    src="img/tutorial/rocket-assem-exploded-view.png" 
+                    alt="Intro Placeholder" 
+                    style="width:30%; display:inline-block; vertical-align:middle;"
+                >
+                <a href="#getting_started" class="btn btn-primary btn-xl page-scroll" 
+                style="display:inline-block; vertical-align:center;">
+                <i class="fa fa-arrow-down"></i> Get started <i class="fa fa-arrow-down"></i>
+             </a>
+                <img 
+                    src="img/tutorial/rocket-assem-iso.png" 
+                    alt="Intro Placeholder" 
+                    style="width:30%; display:inline-block; vertical-align:middle;"
+                >
+            </div>
+<!--
+            <ol style="font-size: 17px">
+                <li>Learn professional-grade CAD</li>
+                <li>Design a fully-functional model rocket</li>
+                <li>3D print your rocket</li>
+                <li>Go flying</li>
+            </ol>
+-->
+        </div>
+    </div>
+    <div align="center" class="video-background autosize">
+        <video autoplay loop muted playsinline class="video-background ">
+            <source src="videos/intro-video3.webm" type="video/webm">
+            <source src="videos/intro-video3.mp4" type="video/mp4">
+        </video>
+    </div>
+</header>
+

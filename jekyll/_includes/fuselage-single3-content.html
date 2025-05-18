@@ -1,0 +1,251 @@
+{% include section.html param="topnav" %}
+
+       
+        {% include adv-drawing-toggle.html %}
+
+                      
+                      <h3 class="section-heading">{% include step_counter.html %} Create a plane for the nosecone tether sketch</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/create_plane_nosecone_tether" %} 
+                      {% include written-instructions.html %}
+
+                      <ul>
+                        
+                          <li>Now we'll add a spot for the nosecone and parachute to tie on to</li>
+                          <ul>
+                              <li><img src="img/tutorial/rocket_thread_string_s_arrow.jpg" class="tutorial-video" /></li>
+                          </ul>
+                          <br />
+                          <li>Start a new plane with the plane tool <img src="img/tutorial/plane_tool.png" /></li>
+                          <li>Select the top <strong>face</strong> of your tube (the side opposite of where it connects to the lower body).</li>
+                          <li>Set the offset to <strong>1.25 in</strong></li>
+                          <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#opposite_offset">Another way &raquo;</a></li>
+                              <li class="collapse" id="opposite_offset">
+                                  <ul><li>You can use negative offsets to also flip the direction in one step (-1.25 in).</li></ul>
+                              </li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+        
+      
+      {% include section.html %}
+         
+                      <h3 class="section-heading">{% include step_counter.html %} Start the sketch for the nosecone tether holder</h3>
+                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2" %}
+                      {% include written-instructions.html %}
+                      
+                      <ul>
+                          <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
+                          <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
+                          <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
+                          <li>Click the <strong>inside</strong> circle on the body tube</li>
+                      </ul>
+            
+     {% include section.html %}
+
+      
+                      <h3 class="section-heading">{% include step_counter.html %} Sketch the outside of the tether holder</h3>
+                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_2" %}
+                      {% include written-instructions.html %}
+                      
+                      <ul>
+                          <li>Deselect the "Use (Project/Convert)" tool by pressing <strong>Esc</strong></li>
+                          <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                          <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                          <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_a">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_a">
+                                  <ul><li>The 3-point (standard) arc, a sketch tool, uses the letter <code>a</code>.</li></ul>
+                              </li>
+                          <li>Set the first point on the circle, above the centerline</li>
+                          <li>Set the second point on the circle, below the centerline</li>
+                          <li>Set the third point so the arc is in inside the tube</li>
+                      </ul>
+   
+      
+       {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the circle</h3>
+                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_1_new" %}
+                      {% include written-instructions.html %}
+
+                      <ul>
+                          <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_i">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_i">
+                                  <ul><li>Many of the sketch constraints also use keyboard shortcuts.</li>
+                                  <li>Rather than teach you each one, you can learn them by viewing the displayed letter in dropdown menus or hovering over the tool's name in the interface.</li>
+                                  <li>Note that "circle" is <code>c</code>, so "coincident" must be something else.</li>
+                                  </ul>
+                              </li>
+                          <li>Select the point that is the <strong>center of the arc</strong> you just created</li>
+                          <li>Select the bold circle, and you'll see the point jump onto the circle</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#constraints">What <em>is</em> a constraint? &raquo;</a></li>
+                              <li class="collapse" id="constraints">
+                                  <ul><li>Constraints fully define the elements of your sketch.</li>
+                                  <li>A sketch that is not fully constrained can be dragged around into different positions</li>
+                                  <li>A fully defined sketch is in exactly the one possible position</li>
+                                  <ul><li>and the lines turn from blue to black</li></ul>
+                                  <li>If you didn't constrain your sketches, your final result could fall within a range of possibilities.  Don't leave your CAD models to chance.</li></ul>
+                              </li>
+                      </ul>
+
+      
+         {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Constrain the arc's center to the centerline</h3>
+                                      
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch3_2" %}
+                      {% include written-instructions.html %}
+                     
+                      <ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the arc's center</li>
+                          <li>Select the origin point, and you'll see the point jump to the line and turn black</li>
+                          <ul><li>(black = fully constrained)</li></ul>
+                      </ul>
+        
+           {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Draw the center circle</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch4.1" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                          <li>Draw a circle anywhere inside your arc and the tube (make it small)</li>
+                          <ul><li>(we'll constrain it in a moment to be exactly where we want)</li></ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the circle's center</li>
+                          <li>Select the origin and you should see the circle snap to the center</li>
+                      </ul>
+
+      
+            {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the left gap</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_left_gap" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                          <li>Click the circle's edge</li>
+                          <li>Click the tube's circle that you have been using</li>
+                          <li>Set the dimension to <strong>0.01 in</strong></li>
+                      </ul>
+
+      
+            {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the circle's diameter</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Select the circle</li>
+                              <li>Set the dimension to <strong>0.13 in</strong></li>
+                          </ul>
+                          
+                      </ul>
+
+      
+            {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Dimension the gap on the other side</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Click the circle's edge</li>
+                              <li>Click your 3-point arc</li>
+                              <li>Set the dimension to <strong>0.025 in</strong></li>
+                          </ul>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how everything turned black? &raquo;</a></li>
+                          <ul class="collapse" id="fully-defined">
+                              <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                              <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                          </ul>
+                      </ul>
+                      
+  
+      
+                {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Trim the outer circle, finish sketch</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_m">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_m">
+                                  <ul><li>Since <code>t</code> is taken by "tangent", we use the last letter <code>m</code> for "trim".</li></ul>
+                              </li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#no_trim">Don't see the trim icon? &raquo;</a></li>
+                              <li class="collapse" id="no_trim">
+                                  <ul><li>On narrow screens, items are hidden in menus. Trim collapses into the menu with sketch fillet <img src="img/tutorial/sketch_fillet.png" /></li></ul>
+                              </li>
+                          <li>Select the part of the circle outside of the arc</li>
+                          <!--<li>Click the green check <img src="img/tutorial/green_check.png" /></li>-->
+                      </ul>
+
+      
+                 {% include section.html %}
+
+                      <h3 class="section-heading">{% include step_counter.html %} Extrude the tether holder</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-4.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/nosecone_tether_holder_sketch_rev2_extrude" %}
+                      {% include written-instructions.html %}
+                          <ul>
+                          <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                          <!--<li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>-->
+                          <li>Confirm that your newly created sketch <img src="img/tutorial/sketch_3.png" /> is selected. </li>
+                          <li>Set the depth to <strong>0.75 in</strong></li>
+                          <li>Click the "Opposite direction" <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go towards the bottom of the part</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+
+      
+                {% include section.html %}
+                      <h3 class="section-heading">{% include step_counter.html %} Fillet the tether holder</h3>
+                      {% include adv-drawing.html path="img/tutorial/fuselage-drawing-5.png" %}
+                      {% include tutorial-video.html path="videos/middle-body/fillet_nosecone_holder" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                          <li>Click the arc on the edge of the tube and the holder</li>
+                          <li>Set the radius to <strong>0.15 in</strong></li>
+                          <li>Select the same arc on the bottom of the holder</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+                
+      
+                {% include section.html %}
+                      <h3 class="section-heading">{% include step_counter.html %} Exit section view</h3>
+                      {% include tutorial-video.html path="videos/middle-body/finish_middle_body" %}
+                      {% include written-instructions.html %}
+                      <ul>
+                          <li>Select the view cube menu <img src="img/tutorial/view_menu.png" /></li>
+                          <li>Select "Turn section view off"</li>
+                      </ul>
+                    
+
+                      {% include section.html %}
+                      <h3 class="section-heading"> {% include step_counter.html %} Part Volume = 0.301 in<sup>3</sup> </h3>           
+                      <ul>
+                      <li>Select "mass properties" <img src="img/tutorial/mass_properties_icon.png" /></li>
+                      <li>Select "Part1"</li>
+                      </ul>
+           {% include section.html param="bottom" %}
+

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Generator 27 - Round 7</title>
+
+  <style>
+    /*******************************************************
+     * TRAFFIC LIGHT STYLES
+     *******************************************************/
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 10px;
+      width: 80px;
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px auto;
+      transition: background-color 0.3s;
+    }
+    .inactive-red {
+      background-color: #ffb3b321;
+    }
+    .inactive-green {
+      background-color: #b3ffb324;
+    }
+    .red {
+      background-color: red;
+    }
+    .green {
+      background-color: green;
+    }
+
+    /*******************************************************
+     * CIRCLES (ROUND 7)
+     *******************************************************/
+    #boxesRound7 {
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0; /* so inline-blocks don't have extra spacing */
+    }
+    .circleRound7 {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0;
+      display: inline-block;
+      line-height: 50px;
+      border: 2px solid black;
+      position: relative;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+      margin: 10px;
+    }
+    .circleRound7 span {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      background-color: transparent;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-size: 1.5em;
+    }
+    .circle-container-round7 {
+      display: inline-block;
+      margin: 30px 20px;
+      text-align: center;
+      vertical-align: top; /* keep them aligned neatly */
+    }
+    /* Hidden by default; shown when user toggles code box */
+    .label-below-round7 {
+      display: none;
+      font-size: 20px;
+    }
+
+    /*******************************************************
+     * NEW: PSEUDO-ELEMENTS FOR "R" / "G" INSIDE CIRCLES
+     *******************************************************/
+    .circleRound7.red::after {
+      content: "R";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .circleRound7.green::after {
+      content: "G";
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /*******************************************************
+     * BUTTON STYLES
+     *******************************************************/
+    .btn {
+      cursor: pointer;
+      font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 300px;
+      padding: 10px 20px;
+      outline: none;
+      box-shadow: none;
+      transition: all .3s;
+    }
+    .btn:focus, .btn:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* --- Red button --- */
+    #colorRed7 {
+      background-color: #fff !important;
+      color: red !important;
+      border: 2px solid red !important;
+    }
+    #colorRed7.active {
+      background-color: red !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Green button --- */
+    #colorGreen7 {
+      background-color: #fff !important;
+      color: green !important;
+      border: 2px solid green !important;
+    }
+    #colorGreen7.active {
+      background-color: green !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Run button (Orange) --- */
+    #runButton7 {
+      background-color: #fff !important;
+      color: #f05f40 !important;
+      border: 2px solid #f05f40 !important;
+      padding: 10px 20px !important;
+    }
+    #runButton7.active {
+      background-color: #f05f40 !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* --- Show Code (R7) button (Gray) --- */
+    #toggleCodeBox7 {
+      background-color: #fff !important;
+      color: #666 !important;
+      padding: 10px 20px !important;
+    }
+    #toggleCodeBox7.active {
+      background-color: #999 !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /*******************************************************
+     * CODE BOX (R7)
+     *******************************************************/
+    .code-box7 {
+      width: 60%;
+      margin: 20px auto; 
+      height: 300px;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.4em;
+      overflow-y: scroll;
+      border-radius: 6px;
+      border: 2px solid #333;
+      padding: 10px;
+      position: relative;
+      white-space: pre;
+      display: none; /* hidden by default */
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Round 7: Traffic Light & Buttons -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h4>Select state of the traffic light</h4>
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="colorRed7" class="btn">Red</button>
+    <button id="colorGreen7" class="btn">Green</button>
+
+    <br><br>
+
+    <div class="traffic-light" id="trafficLight7">
+      <div class="light inactive-red" id="redCircle7"></div>
+      <div class="light inactive-green" id="greenCircle7"></div>
+    </div>
+
+    <br><br>
+  </div>
+
+  <!-- Run Button (Round 7) -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="runButton7" class="btn">Run (R7)</button>
+  </div>
+
+  <!-- Circles for Round 7: A1..A12 -->
+  <div id="nodesContainer7" style="text-align: center;">
+    <div id="boxesRound7">
+      <!-- Generate 12 circles; insert <br> after the 5th one -->
+      {% for i in (1..12) %}
+      <div class="circle-container-round7">
+        <div class="circleRound7" id="boxRound7_{{ i }}">
+          <span>A{{ i }}</span>
+        </div>
+        <span class="label-below-round7">???</span>
+      </div>
+      {% if i == 6 %}
+        <br/>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Code box Round 7 -->
+  <div id="codeBox7" class="code-box7"></div>
+
+  <div style="text-align: center; margin: 20px;">
+    <button id="toggleCodeBox7" class="btn">Show Code (R7)</button>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /*****************************************
+   * 1) Node Weights for Round 7 (A1..A12)
+   *****************************************/
+  const inputNodesRound7 = [
+    { weight: 5 }, // A1
+    { weight: 2 }, // A2
+    { weight: 1 }, // A3
+    { weight: 4 }, // A4
+    { weight: 1 }, // A5
+    { weight: 5 }, // A6
+    { weight: 2 }, // A7
+    { weight: 1 }, // A8
+    { weight: 4 }, // A9
+    { weight: 1 }, // A10
+    { weight: 5 }, // A11
+    { weight: 2 }  // A12
+  ];
+
+  /*****************************************
+   * 1A) SET LABELS FOR ROUND 7
+   *****************************************/
+  function setLabelsRound7() {
+    const circleContainers = document.querySelectorAll('.circle-container-round7');
+    circleContainers.forEach((container, index) => {
+      const labelBelow = container.querySelector('.label-below-round7');
+      const w = inputNodesRound7[index].weight;
+      // Convert weight to percentage
+      const pct = ((w / 6) * 100).toFixed(1) + '%';
+      labelBelow.textContent = pct;
+    });
+  }
+
+  // Call it on page load so the labels get updated from "???" to "X%"
+  setLabelsRound7();
+
+  /*****************************************
+   * 2) DOM ELEMENTS + STATE
+   *****************************************/
+  let selectedColor7    = null;
+  let codeBoxVisible7   = false;
+  let codeLines7        = [];
+
+  const colorRed7       = document.getElementById('colorRed7');
+  const colorGreen7     = document.getElementById('colorGreen7');
+  const redCircle7      = document.getElementById('redCircle7');
+  const greenCircle7    = document.getElementById('greenCircle7');
+  const runButton7      = document.getElementById('runButton7');
+  const codeBox7        = document.getElementById('codeBox7');
+  const toggleCodeBox7  = document.getElementById('toggleCodeBox7');
+
+  // Expose this if you need it externally
+  window.selectedTrafficLightColorRound7 = null;
+
+  /*****************************************
+   * 3) BUTTON CLICK HANDLERS
+   *****************************************/
+  // -- Red
+  colorRed7.addEventListener('click', function() {
+    selectedColor7 = 'red';
+    colorRed7.classList.add('active');
+    colorGreen7.classList.remove('active');
+
+    redCircle7.classList.remove('inactive-red');
+    redCircle7.classList.add('red');
+    greenCircle7.classList.remove('green');
+    greenCircle7.classList.add('inactive-green');
+
+    window.selectedTrafficLightColorRound7 = 'RED';
+    if (window.updateNetworkStatusTable7) {
+      window.updateNetworkStatusTable7();
+    }
+  });
+
+  // -- Green
+  colorGreen7.addEventListener('click', function() {
+    selectedColor7 = 'green';
+    colorGreen7.classList.add('active');
+    colorRed7.classList.remove('active');
+
+    greenCircle7.classList.remove('inactive-green');
+    greenCircle7.classList.add('green');
+    redCircle7.classList.remove('red');
+    redCircle7.classList.add('inactive-red');
+
+    window.selectedTrafficLightColorRound7 = 'GREEN';
+    if (window.updateNetworkStatusTable7) {
+      window.updateNetworkStatusTable7();
+    }
+  });
+
+  // -- RUN (Round 7)
+  runButton7.addEventListener('click', function() {
+    runButton7.classList.toggle('active');
+
+    if (!selectedColor7) {
+      alert('Select Red or Green for Round 7 before running.');
+      return;
+    }
+
+    // For each A1..A12, pick color based on diceRoll vs. weight
+    const circleEls = document.querySelectorAll('.circleRound7');
+    circleEls.forEach((circleEl, idx) => {
+      const diceRoll   = Math.floor(Math.random() * 6) + 1;
+      const nodeWeight = inputNodesRound7[idx].weight;
+
+      let finalColor;
+      if (diceRoll <= nodeWeight) {
+        // Node color = user-chosen color
+        finalColor = selectedColor7;
+      } else {
+        // Opposite color
+        finalColor = (selectedColor7 === 'red') ? 'green' : 'red';
+      }
+
+      // Clear out old color classes, apply the new color
+      circleEl.classList.remove('red', 'green');
+      circleEl.classList.add(finalColor);
+    });
+  });
+
+  // -- Show/Hide Code Box + Labels
+  toggleCodeBox7.addEventListener('click', function(){
+    codeBoxVisible7 = !codeBoxVisible7;
+    if (codeBoxVisible7) {
+      // Show code box
+      codeBox7.style.display = 'block';
+      toggleCodeBox7.textContent = 'Hide Code (R7)';
+      scrollCode7();
+
+      // Show node weights
+      const labels = document.querySelectorAll('.label-below-round7');
+      labels.forEach(lb => lb.style.display = 'block');
+    } else {
+      // Hide code box
+      codeBox7.style.display = 'none';
+      toggleCodeBox7.textContent = 'Show Code (R7)';
+
+      // Hide node weights
+      const labels = document.querySelectorAll('.label-below-round7');
+      labels.forEach(lb => lb.style.display = 'none');
+    }
+  });
+
+  /*****************************************
+   * 4) TYPEWRITER CODE BOX
+   *****************************************/
+  function buildSnippet7() {
+    return `
+/******************************************************
+ * Round 7 Node Generator
+ * Weighted Dice Logic:
+ *   If diceRoll <= nodeWeight, node = user-chosen color
+ *   Else node = opposite color
+ ******************************************************/
+const inputNodesRound7 = [
+  { weight: 5 }, // A1
+  { weight: 2 }, // A2
+  { weight: 1 }, // A3
+  { weight: 4 }, // A4
+  { weight: 1 }, // A5
+  { weight: 5 }, // A6
+  { weight: 2 }, // A7
+  { weight: 1 }, // A8
+  { weight: 4 }, // A9
+  { weight: 1 }, // A10
+  { weight: 5 }, // A11
+  { weight: 2 }  // A12
+];
+
+// Display weights below each circle as X% (weight/6 * 100)
+function setLabelsRound7() {
+  // ...
+}
+    `;
+  }
+
+  function scrollCode7() {
+    codeBox7.innerHTML = "";
+    codeLines7 = buildSnippet7().split('\n');
+    let idx = 0;
+    const timer = setInterval(() => {
+      if (idx < codeLines7.length) {
+        codeBox7.innerHTML += codeLines7[idx] + "\n";
+        codeBox7.scrollTop = codeBox7.scrollHeight;
+        idx++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 80);
+  }
+});
+</script>
+
+</body>
+</html>

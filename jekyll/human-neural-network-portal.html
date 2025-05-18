@@ -1,0 +1,121 @@
+---
+layout: default
+title: Portal Human Neural Network | Stage One Education, LLC
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Node Portal</title>
+  <style>
+    /* Basic styling to place two PDFs side by side */
+    .pdf-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .pdf-container iframe {
+      width: 30%;
+      height: 300px;
+      border: 1px solid #ccc;
+    }
+
+    /* START Button styling */
+    #toggleRound2Btn {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out; /* for a smoother hover effect */
+    }
+    #toggleRound2Btn:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+        /* Dropdown styling */
+        #participantsDropdown {
+      font-size: 2rem;       /* Makes the text larger */
+      color: #f05f40;         /* Text color */
+      padding: 8px 12px;      /* Increase box size */
+      border: 2px solid #f05f40;
+      border-radius: 8px;
+      background-color: #fff;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bolder;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  {% include navigation-ai.html %}
+
+  <!-- MAIN CONTENT -->
+  <div style="text-align: center; margin-top: 70px;">
+    <div style="width: 70%; margin: 0 auto; text-align: center;">
+      <h1 style="font-family: 'Roboto', sans-serif; color: #f05f40; font-weight: bold;">Human Neural Network</h1>
+      <hr style="border: none; height: 2px; width: 800px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+    </div>
+    <br/>
+    <img src="img/class-nn.png" alt="class network" style="width: 400px;">
+
+    <br>
+    <h3>Select the number of participants</h3>
+
+    <!-- Dropdown -->
+    <select id="participantsDropdown" onchange="updatePDFs()">
+      <option value="27">27</option>
+      <!-- <option value="36">36</option> -->
+      <option value="45">45</option>
+      <!-- <option value="63">63</option> -->
+    </select>
+    <br><br>
+
+    
+
+    <!-- PDFs displayed side by side -->
+    <div class="pdf-container">
+      <iframe id="pdfFrame1" src="img/1st-HL-27.pdf"></iframe>
+      <iframe id="pdfFrame2" src="img/2nd-HL-27.pdf"></iframe>
+    </div>
+    <br><br>
+
+    <h4>Every human will need:</h4>
+    <li>Printed (B) or (C) Human Neural Network sheet</li>
+    <li>Pencil</li>
+    <li>6-sided die</li>
+
+    <br><br>
+
+    <!-- START Button -->
+    <a href="human-neural-network-27.html" target="_blank" id="toggleRound2Btn">START</a>
+    <br><br>
+  </div>
+
+  <script>
+    function updatePDFs() {
+      var chosen = document.getElementById("participantsDropdown").value;
+      
+      // Update iframes to show the chosen PDFs
+      document.getElementById("pdfFrame1").src = "img/1st-HL-" + chosen + ".pdf";
+      document.getElementById("pdfFrame2").src = "img/2nd-HL-" + chosen + ".pdf";
+      
+      // Update the START button link
+      document.getElementById("toggleRound2Btn").href = "human-neural-network-" + chosen + ".html";
+    }
+  </script>
+
+  {% include copyright.html %}
+</body>
+</html>

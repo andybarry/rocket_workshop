@@ -1,0 +1,943 @@
+---
+layout: default
+title: 45 Human Neural Network | Stage One Education, LLC
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Interactive Table with Traffic Light &amp; Decision (8 Rounds) – Updated</title>
+  
+  <!-- GLOBAL STYLE -->
+  <style>
+    /* -------------------------------------
+       SLIDER CONTAINER + ARROW STYLES
+       ------------------------------------- */
+    .slider-container {
+      width: 100%; 
+      display: flex;
+      text-align: center;
+      transition: transform 0.5s ease;
+      margin: 0;
+      padding: 0;
+    }
+    .round-container {
+      width: 100%;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    #arrowRightContainer {
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: transparent;
+      border: none;
+    }
+    #arrowLeft {
+      position: fixed;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 0; 
+      height: 0;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-right: 80px solid #f05f40; 
+    }
+    #arrowLeft .arrow-text {
+      position: absolute;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      top: 50%;
+      left: 50%;
+      transform: translate(60%, -40%);
+      pointer-events: none;
+    }
+    #arrowRight {
+      position: relative; 
+      cursor: pointer;
+      margin-bottom: 0.5em; 
+      background: transparent;
+      border: none;
+      width: 0;
+      height: 0;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-left: 80px solid #f05f40;
+     }
+    #arrowRight .arrow-text {
+      position: absolute;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      top: 50%;
+      left: 50%;
+      transform: translate(-160%, -40%);
+      pointer-events: none;
+    }
+
+    /* Different IDs for Round 1 and Round 2 "Update Weights" buttons */
+    #toggleRound2BtnR1 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound2BtnR1:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound3BtnR2 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound3BtnR2:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound4BtnR3 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound4BtnR3:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+
+    #toggleRound5BtnR4 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound5BtnR4:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound6BtnR5 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound6BtnR5:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound7BtnR6 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound7BtnR6:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    #toggleRound8BtnR7 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound8BtnR7:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+    #toggleRound9BtnR8 {
+      font-size: 2rem;
+      background-color: #f05f40;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    #toggleRound9BtnR8:hover {
+      background-color: #fff;
+      color: #f05f40;
+      border: 2px solid #f05f40; 
+    }
+
+    /* Traffic lights (generic) */
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 5px;
+      width: 40px;
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      margin: 5px auto;
+      transition: background-color 0.3s;
+    }
+    .inactive-red {
+      background-color: #ffb3b321; 
+    }
+    .inactive-green {
+      background-color: #b3ffb324;
+    }
+    .red {
+      background-color: red;
+    }
+    .green {
+      background-color: green;
+    }
+
+    /* Round n red/green buttons */
+    .btn {
+      cursor: pointer;
+      font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 300px;
+      padding: 8px 15px;
+      outline: none;
+      box-shadow: none;
+      transition: all .3s;
+      margin: 0 5px;
+    }
+    #colorRed, 
+    #colorRed2, 
+    #colorRed3, 
+    #colorRed4, 
+    #colorRed5, 
+    #colorRed6, 
+    #colorRed7, 
+    #colorRed8 {
+      background-color: #fff !important;
+      color: red !important;
+      border: 2px solid red !important;
+    }
+    #colorRed.active,
+    #colorRed2.active,
+    #colorRed3.active,
+    #colorRed4.active,
+    #colorRed5.active,
+    #colorRed6.active,
+    #colorRed7.active,
+    #colorRed8.active {
+      background-color: red !important;
+      color: #fff !important;
+      border: none !important;
+    }
+    #colorGreen, 
+    #colorGreen2, 
+    #colorGreen3, 
+    #colorGreen4, 
+    #colorGreen5, 
+    #colorGreen6, 
+    #colorGreen7, 
+    #colorGreen8 {
+      background-color: #fff !important;
+      color: green !important;
+      border: 2px solid green !important;
+    }
+    #colorGreen.active,
+    #colorGreen2.active,
+    #colorGreen3.active,
+    #colorGreen4.active,
+    #colorGreen5.active,
+    #colorGreen6.active,
+    #colorGreen7.active,
+    #colorGreen8.active {
+      background-color: green !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+    /* Interactive table */
+    .interactive-table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .interactive-table th,
+    .interactive-table td {
+      border: 1px solid #ddd;
+      padding: 6px;
+      width: 80px;
+      height: 38px;
+    }
+    .interactive-table th {
+      background-color: #f05f40;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+    .interactive-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .interactive-table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .row-red {
+      background-color: red !important;
+      color: #ffffff !important;
+    }
+    .row-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+    .select-red {
+      background-color: red !important; 
+      color: #ffffff !important;
+    }
+    .select-green {
+      background-color: green !important;
+      color: #ffffff !important;
+    }
+
+    .decision-table {
+      width: 30%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .decision-table th,
+    .decision-table td {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+    .decision-table th {
+      background-color: #f05f40;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Overlay inputs (optional) */
+    #userInputOverlays {
+      position: relative; 
+    }
+    .overlay-input-box {
+      position: absolute;
+      z-index: 99999999999999999 !important;
+      background-color: #fff !important;
+      color: #000 !important;
+      border: 1px solid #ffffff;
+      font-size: 1em;
+      padding: 6px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .hidden-overlays .overlay-input-box {
+      display: none;
+    }
+
+    .title-box-a {
+      display: inline-block;          
+      background-color: #a4c2f4ff;    
+      color: #000;                    
+      border: 2px solid #000;         
+      border-radius: 8px;             
+      padding: 8px 16px;              
+      margin: 20px auto;              
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+    .title-box-b {
+      display: inline-block;          
+      background: linear-gradient(to right, #ffabd6ff, #ffe2bfff);
+      color: #000;                    
+      border: 2px solid #000;         
+      border-radius: 8px;             
+      padding: 8px 16px;              
+      margin: 20px auto;              
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+    .title-box-summary {
+      display: inline-block;          
+      background-color: rgb(200, 200, 200); 
+      color: #000;                            
+      border: 2px solid #000;                
+      border-radius: 8px;                    
+      padding: 8px 16px;                     
+      margin: 20px auto;                     
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+    .title-box-out {
+      display: inline-block;          
+      background-color: #b6d7a8ff;    
+      color: #000;                    
+      border: 2px solid #000;         
+      border-radius: 8px;             
+      padding: 8px 16px;              
+      margin: 20px auto;              
+      font-size: 1.8em;
+      font-weight: 600;
+      width: 80%;
+    }
+
+    /* bigger traffic light style */
+    .traffic-light {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: black;
+      border-radius: 10px;
+      padding: 10px;
+      width: 80px;
+      text-align: center;
+    }
+    .traffic-light .light {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px auto;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+
+{% include navigation-ai.html %}
+
+<!-- LEFT ARROW -->
+<button id="arrowLeft" onclick="prevRound()">
+  <span class="arrow-text">ROUND 0</span>
+</button>
+
+<!-- RIGHT ARROW + Round 2 button -->
+<div id="arrowRightContainer">
+  <button id="arrowRight" onclick="nextRound()">
+    <span id="rightArrowText" class="arrow-text"></span>
+  </button>
+</div>
+
+<!-- Rounds slider -->
+<div class="slider-container" id="sliderContainer">
+  
+  {% include node-output-45-round1.html %}
+  {% include node-output-45-round2.html %}
+  {% include node-output-45-round3.html %}
+  {% include node-output-45-round4.html %}
+  {% include node-output-45-round5.html %}
+  {% include node-output-45-round6.html %}
+  {% include node-output-45-round7.html %}
+  {% include node-output-45-round8.html %}
+
+</div>
+
+
+{% include copyright.html %}
+
+
+<script>
+  let currentRound = 0; // 0-based: Round 1 = index 0, Round 2 = index 1, ...
+  const slider = document.getElementById('sliderContainer');
+  const arrowLeft = document.getElementById('arrowLeft');
+  const arrowRight = document.getElementById('arrowRight');
+  const rightArrowText = document.getElementById('rightArrowText');
+
+  function showRound(index) {
+    slider.style.transform = "translateX(-" + (index * 100) + "%)";
+    currentRound = index;
+
+    if (currentRound === 0) {
+      arrowLeft.style.display = 'none';
+    } else {
+      arrowLeft.style.display = 'block';
+      arrowLeft.querySelector('.arrow-text').textContent = "ROUND " + currentRound;
+    }
+
+    if (currentRound === 7) {
+      arrowRight.style.display = 'none';
+    } else {
+      arrowRight.style.display = 'block';
+      rightArrowText.textContent = "ROUND " + (currentRound + 2);
+    }
+
+    // --- If we are showing Round 2 (index=1), call updateRow2(...) for each node
+    if (index === 1) {
+      for (let i = 1; i <= 15; i++) {
+        updateRow2(i);
+      }
+      // NEW: Re-fetch Round 1 sum/status from localStorage
+      const storedStatus = localStorage.getItem('round1NetworkStatus');
+      const storedSum    = localStorage.getItem('round1NetworkSum');
+      if (storedStatus !== null) {
+        const r1StatusCell = document.getElementById('networkStatusCellR1');
+        if (r1StatusCell) r1StatusCell.textContent = storedStatus;
+      }
+      if (storedSum !== null) {
+        const r1SumCell = document.getElementById('networkSumCellR1');
+        if (r1SumCell) r1SumCell.textContent = storedSum;
+      }
+    }
+// NEW: If showing Round 3 (index=2), we copy the displayed Round 1 & Round 2 summary into Round 3
+if (index === 2) {
+    // 1) Make sure Round 3 recalculations happen:
+    for (let i = 1; i <= 15; i++) {
+      updateRow3(i);
+    }
+
+    // 2) Grab Round 1's *displayed* status & sum from the DOM
+    const round1StatusEl = document.getElementById('networkStatusCell');
+    const round1SumEl    = document.getElementById('networkSumCell');
+
+    // Place them into Round 3’s summary row for Round 1
+    if (round1StatusEl && round1SumEl) {
+      const r1StatusCell3 = document.getElementById('networkStatusCellR1_3');
+      const r1SumCell3    = document.getElementById('networkSumCellR1_3');
+      if (r1StatusCell3) r1StatusCell3.textContent = round1StatusEl.textContent;
+      if (r1SumCell3)    r1SumCell3.textContent    = round1SumEl.textContent;
+    }
+
+    // 3) Grab Round 2's *displayed* status & sum from the DOM
+    const round2StatusEl = document.getElementById('networkStatusCell2');
+    const round2SumEl    = document.getElementById('networkSumCell2');
+
+    // Place them into Round 3’s summary row for Round 2
+    if (round2StatusEl && round2SumEl) {
+      const r2StatusCell3 = document.getElementById('networkStatusCellR2_3');
+      const r2SumCell3    = document.getElementById('networkSumCellR2_3');
+      if (r2StatusCell3) r2StatusCell3.textContent = round2StatusEl.textContent;
+      if (r2SumCell3)    r2SumCell3.textContent    = round2SumEl.textContent;
+    }
+  }
+
+ // If showing Round 4 (index=3), copy the displayed Round 1, 2, and 3 summary into Round 4
+if (index === 3) {
+  // 1) Make sure Round 4 recalculations happen:
+  for (let i = 1; i <= 15; i++) {
+    updateRow4(i);
+  }
+
+  // 2) Grab Round 1's displayed status & sum from the DOM (same ones used by Round 1)
+  const round1StatusEl = document.getElementById('networkStatusCell');
+  const round1SumEl    = document.getElementById('networkSumCell');
+
+  // Place them into Round 4’s summary row for Round 1
+  if (round1StatusEl && round1SumEl) {
+    const r1StatusCell4 = document.getElementById('networkStatusCellR1_4');
+    const r1SumCell4    = document.getElementById('networkSumCellR1_4');
+    if (r1StatusCell4) r1StatusCell4.textContent = round1StatusEl.textContent;
+    if (r1SumCell4)    r1SumCell4.textContent    = round1SumEl.textContent;
+  }
+
+  // 3) Grab Round 2's displayed status & sum from the DOM (same ones used by Round 2)
+  const round2StatusEl = document.getElementById('networkStatusCell2');
+  const round2SumEl    = document.getElementById('networkSumCell2');
+
+  // Place them into Round 4’s summary row for Round 2
+  if (round2StatusEl && round2SumEl) {
+    const r2StatusCell4 = document.getElementById('networkStatusCellR2_4');
+    const r2SumCell4    = document.getElementById('networkSumCellR2_4');
+    if (r2StatusCell4) r2StatusCell4.textContent = round2StatusEl.textContent;
+    if (r2SumCell4)    r2SumCell4.textContent    = round2SumEl.textContent;
+  }
+
+  // 4) Grab Round 3's displayed status & sum from the DOM (same ones used by Round 3)
+  const round3StatusEl = document.getElementById('networkStatusCell3');
+  const round3SumEl    = document.getElementById('networkSumCell3');
+
+  // Place them into Round 4’s summary row for Round 3
+  if (round3StatusEl && round3SumEl) {
+    const r3StatusCell4 = document.getElementById('networkStatusCellR3_4');
+    const r3SumCell4    = document.getElementById('networkSumCellR3_4');
+    if (r3StatusCell4) r3StatusCell4.textContent = round3StatusEl.textContent;
+    if (r3SumCell4)    r3SumCell4.textContent    = round3SumEl.textContent;
+  }
+}
+
+
+// If showing Round 5 (index=4), recalc Round 5 and copy Round 1..4 summary into Round 5
+if (index === 4) {
+  // 1) Recalc Round 5
+  for (let i = 1; i <= 15; i++) {
+    updateRow5(i);
+  }
+
+  // 2) Grab Round 1's displayed status & sum
+  const round1StatusEl = document.getElementById('networkStatusCell');
+  const round1SumEl    = document.getElementById('networkSumCell');
+  // Place them into Round 5’s summary row for Round 1
+  if (round1StatusEl && round1SumEl) {
+    const r1StatusCell5 = document.getElementById('networkStatusCellR1_5');
+    const r1SumCell5    = document.getElementById('networkSumCellR1_5');
+    if (r1StatusCell5) r1StatusCell5.textContent = round1StatusEl.textContent;
+    if (r1SumCell5)    r1SumCell5.textContent    = round1SumEl.textContent;
+  }
+
+  // 3) Grab Round 2's displayed status & sum
+  const round2StatusEl = document.getElementById('networkStatusCell2');
+  const round2SumEl    = document.getElementById('networkSumCell2');
+  // Place them into Round 5’s summary row for Round 2
+  if (round2StatusEl && round2SumEl) {
+    const r2StatusCell5 = document.getElementById('networkStatusCellR2_5');
+    const r2SumCell5    = document.getElementById('networkSumCellR2_5');
+    if (r2StatusCell5) r2StatusCell5.textContent = round2StatusEl.textContent;
+    if (r2SumCell5)    r2SumCell5.textContent    = round2SumEl.textContent;
+  }
+
+  // 4) Grab Round 3's displayed status & sum
+  const round3StatusEl = document.getElementById('networkStatusCell3');
+  const round3SumEl    = document.getElementById('networkSumCell3');
+  // Place them into Round 5’s summary row for Round 3
+  if (round3StatusEl && round3SumEl) {
+    const r3StatusCell5 = document.getElementById('networkStatusCellR3_5');
+    const r3SumCell5    = document.getElementById('networkSumCellR3_5');
+    if (r3StatusCell5) r3StatusCell5.textContent = round3StatusEl.textContent;
+    if (r3SumCell5)    r3SumCell5.textContent    = round3SumEl.textContent;
+  }
+
+  // 5) Grab Round 4's displayed status & sum
+  const round4StatusEl = document.getElementById('networkStatusCell4');
+  const round4SumEl    = document.getElementById('networkSumCell4');
+  // Place them into Round 5’s summary row for Round 4
+  if (round4StatusEl && round4SumEl) {
+    const r4StatusCell5 = document.getElementById('networkStatusCellR4_5');
+    const r4SumCell5    = document.getElementById('networkSumCellR4_5');
+    if (r4StatusCell5) r4StatusCell5.textContent = round4StatusEl.textContent;
+    if (r4SumCell5)    r4SumCell5.textContent    = round4SumEl.textContent;
+  }
+}
+
+// If showing Round 6 (index=5), recalc Round 6 and copy Round 1..5 summaries into Round 6
+if (index === 5) {
+  // 1) Recalc Round 6 for each C node (C1..C9)
+  for (let i = 1; i <= 15; i++) {
+    updateRow6(i);
+  }
+
+  // 2) Grab Round 1's displayed status & sum from the DOM
+  const round1StatusEl = document.getElementById('networkStatusCell');
+  const round1SumEl    = document.getElementById('networkSumCell');
+  // Place them into Round 6’s summary row for Round 1
+  if (round1StatusEl && round1SumEl) {
+    const r1StatusCell6 = document.getElementById('networkStatusCellR1_6');
+    const r1SumCell6    = document.getElementById('networkSumCellR1_6');
+    if (r1StatusCell6) r1StatusCell6.textContent = round1StatusEl.textContent;
+    if (r1SumCell6)    r1SumCell6.textContent    = round1SumEl.textContent;
+  }
+
+  // 3) Grab Round 2's displayed status & sum
+  const round2StatusEl = document.getElementById('networkStatusCell2');
+  const round2SumEl    = document.getElementById('networkSumCell2');
+  // Place them into Round 6’s summary row for Round 2
+  if (round2StatusEl && round2SumEl) {
+    const r2StatusCell6 = document.getElementById('networkStatusCellR2_6');
+    const r2SumCell6    = document.getElementById('networkSumCellR2_6');
+    if (r2StatusCell6) r2StatusCell6.textContent = round2StatusEl.textContent;
+    if (r2SumCell6)    r2SumCell6.textContent    = round2SumEl.textContent;
+  }
+
+  // 4) Grab Round 3's displayed status & sum
+  const round3StatusEl = document.getElementById('networkStatusCell3');
+  const round3SumEl    = document.getElementById('networkSumCell3');
+  // Place them into Round 6’s summary row for Round 3
+  if (round3StatusEl && round3SumEl) {
+    const r3StatusCell6 = document.getElementById('networkStatusCellR3_6');
+    const r3SumCell6    = document.getElementById('networkSumCellR3_6');
+    if (r3StatusCell6) r3StatusCell6.textContent = round3StatusEl.textContent;
+    if (r3SumCell6)    r3SumCell6.textContent    = round3SumEl.textContent;
+  }
+
+  // 5) Grab Round 4's displayed status & sum
+  const round4StatusEl = document.getElementById('networkStatusCell4');
+  const round4SumEl    = document.getElementById('networkSumCell4');
+  // Place them into Round 6’s summary row for Round 4
+  if (round4StatusEl && round4SumEl) {
+    const r4StatusCell6 = document.getElementById('networkStatusCellR4_6');
+    const r4SumCell6    = document.getElementById('networkSumCellR4_6');
+    if (r4StatusCell6) r4StatusCell6.textContent = round4StatusEl.textContent;
+    if (r4SumCell6)    r4SumCell6.textContent    = round4SumEl.textContent;
+  }
+
+  // 6) Grab Round 5's displayed status & sum
+  const round5StatusEl = document.getElementById('networkStatusCell5');
+  const round5SumEl    = document.getElementById('networkSumCell5');
+  // Place them into Round 6’s summary row for Round 5
+  if (round5StatusEl && round5SumEl) {
+    const r5StatusCell6 = document.getElementById('networkStatusCellR5_6');
+    const r5SumCell6    = document.getElementById('networkSumCellR5_6');
+    if (r5StatusCell6) r5StatusCell6.textContent = round5StatusEl.textContent;
+    if (r5SumCell6)    r5SumCell6.textContent    = round5SumEl.textContent;
+  }
+}
+
+
+// --- NEW ROUND 7 ---
+  // If showing Round 7 (index=6), recalc Round 7 and copy Round 1..6 summaries into Round 7
+  if (index === 6) {
+    // 1) Recalc Round 7 for each C node (C1..C9)
+    for (let i = 1; i <= 15; i++) {
+      updateRow7(i);
+    }
+
+    // 2) Grab Round 1's displayed status & sum
+    const round1StatusEl = document.getElementById('networkStatusCell');
+    const round1SumEl    = document.getElementById('networkSumCell');
+    // Place them into Round 7’s summary row for Round 1
+    if (round1StatusEl && round1SumEl) {
+      const r1StatusCell7 = document.getElementById('networkStatusCellR1_7');
+      const r1SumCell7    = document.getElementById('networkSumCellR1_7');
+      if (r1StatusCell7) r1StatusCell7.textContent = round1StatusEl.textContent;
+      if (r1SumCell7)    r1SumCell7.textContent    = round1SumEl.textContent;
+    }
+
+    // 3) Grab Round 2's displayed status & sum
+    const round2StatusEl = document.getElementById('networkStatusCell2');
+    const round2SumEl    = document.getElementById('networkSumCell2');
+    // Place them into Round 7’s summary row for Round 2
+    if (round2StatusEl && round2SumEl) {
+      const r2StatusCell7 = document.getElementById('networkStatusCellR2_7');
+      const r2SumCell7    = document.getElementById('networkSumCellR2_7');
+      if (r2StatusCell7) r2StatusCell7.textContent = round2StatusEl.textContent;
+      if (r2SumCell7)    r2SumCell7.textContent    = round2SumEl.textContent;
+    }
+
+    // 4) Grab Round 3's displayed status & sum
+    const round3StatusEl = document.getElementById('networkStatusCell3');
+    const round3SumEl    = document.getElementById('networkSumCell3');
+    // Place them into Round 7’s summary row for Round 3
+    if (round3StatusEl && round3SumEl) {
+      const r3StatusCell7 = document.getElementById('networkStatusCellR3_7');
+      const r3SumCell7    = document.getElementById('networkSumCellR3_7');
+      if (r3StatusCell7) r3StatusCell7.textContent = round3StatusEl.textContent;
+      if (r3SumCell7)    r3SumCell7.textContent    = round3SumEl.textContent;
+    }
+
+    // 5) Grab Round 4's displayed status & sum
+    const round4StatusEl = document.getElementById('networkStatusCell4');
+    const round4SumEl    = document.getElementById('networkSumCell4');
+    // Place them into Round 7’s summary row for Round 4
+    if (round4StatusEl && round4SumEl) {
+      const r4StatusCell7 = document.getElementById('networkStatusCellR4_7');
+      const r4SumCell7    = document.getElementById('networkSumCellR4_7');
+      if (r4StatusCell7) r4StatusCell7.textContent = round4StatusEl.textContent;
+      if (r4SumCell7)    r4SumCell7.textContent    = round4SumEl.textContent;
+    }
+
+    // 6) Grab Round 5's displayed status & sum
+    const round5StatusEl = document.getElementById('networkStatusCell5');
+    const round5SumEl    = document.getElementById('networkSumCell5');
+    // Place them into Round 7’s summary row for Round 5
+    if (round5StatusEl && round5SumEl) {
+      const r5StatusCell7 = document.getElementById('networkStatusCellR5_7');
+      const r5SumCell7    = document.getElementById('networkSumCellR5_7');
+      if (r5StatusCell7) r5StatusCell7.textContent = round5StatusEl.textContent;
+      if (r5SumCell7)    r5SumCell7.textContent    = round5SumEl.textContent;
+    }
+
+    // 7) Grab Round 6's displayed status & sum
+    const round6StatusEl = document.getElementById('networkStatusCell6');
+    const round6SumEl    = document.getElementById('networkSumCell6');
+    // Place them into Round 7’s summary row for Round 6
+    if (round6StatusEl && round6SumEl) {
+      const r6StatusCell7 = document.getElementById('networkStatusCellR6_7');
+      const r6SumCell7    = document.getElementById('networkSumCellR6_7');
+      if (r6StatusCell7) r6StatusCell7.textContent = round6StatusEl.textContent;
+      if (r6SumCell7)    r6SumCell7.textContent    = round6SumEl.textContent;
+    }
+  }
+
+  // --- NEW ROUND 8 ---
+  // If showing Round 8 (index=7), recalc Round 8 and copy Round 1..7 summaries into Round 8
+  if (index === 7) {
+    // 1) Recalc Round 8 for each C node (C1..C9)
+    for (let i = 1; i <= 15; i++) {
+      updateRow8(i);
+    }
+
+    // 2) Round 1
+    const round1StatusEl = document.getElementById('networkStatusCell');
+    const round1SumEl    = document.getElementById('networkSumCell');
+    if (round1StatusEl && round1SumEl) {
+      const r1StatusCell8 = document.getElementById('networkStatusCellR1_8');
+      const r1SumCell8    = document.getElementById('networkSumCellR1_8');
+      if (r1StatusCell8) r1StatusCell8.textContent = round1StatusEl.textContent;
+      if (r1SumCell8)    r1SumCell8.textContent    = round1SumEl.textContent;
+    }
+
+    // 3) Round 2
+    const round2StatusEl = document.getElementById('networkStatusCell2');
+    const round2SumEl    = document.getElementById('networkSumCell2');
+    if (round2StatusEl && round2SumEl) {
+      const r2StatusCell8 = document.getElementById('networkStatusCellR2_8');
+      const r2SumCell8    = document.getElementById('networkSumCellR2_8');
+      if (r2StatusCell8) r2StatusCell8.textContent = round2StatusEl.textContent;
+      if (r2SumCell8)    r2SumCell8.textContent    = round2SumEl.textContent;
+    }
+
+    // 4) Round 3
+    const round3StatusEl = document.getElementById('networkStatusCell3');
+    const round3SumEl    = document.getElementById('networkSumCell3');
+    if (round3StatusEl && round3SumEl) {
+      const r3StatusCell8 = document.getElementById('networkStatusCellR3_8');
+      const r3SumCell8    = document.getElementById('networkSumCellR3_8');
+      if (r3StatusCell8) r3StatusCell8.textContent = round3StatusEl.textContent;
+      if (r3SumCell8)    r3SumCell8.textContent    = round3SumEl.textContent;
+    }
+
+    // 5) Round 4
+    const round4StatusEl = document.getElementById('networkStatusCell4');
+    const round4SumEl    = document.getElementById('networkSumCell4');
+    if (round4StatusEl && round4SumEl) {
+      const r4StatusCell8 = document.getElementById('networkStatusCellR4_8');
+      const r4SumCell8    = document.getElementById('networkSumCellR4_8');
+      if (r4StatusCell8) r4StatusCell8.textContent = round4StatusEl.textContent;
+      if (r4SumCell8)    r4SumCell8.textContent    = round4SumEl.textContent;
+    }
+
+    // 6) Round 5
+    const round5StatusEl = document.getElementById('networkStatusCell5');
+    const round5SumEl    = document.getElementById('networkSumCell5');
+    if (round5StatusEl && round5SumEl) {
+      const r5StatusCell8 = document.getElementById('networkStatusCellR5_8');
+      const r5SumCell8    = document.getElementById('networkSumCellR5_8');
+      if (r5StatusCell8) r5StatusCell8.textContent = round5StatusEl.textContent;
+      if (r5SumCell8)    r5SumCell8.textContent    = round5SumEl.textContent;
+    }
+
+    // 7) Round 6
+    const round6StatusEl = document.getElementById('networkStatusCell6');
+    const round6SumEl    = document.getElementById('networkSumCell6');
+    if (round6StatusEl && round6SumEl) {
+      const r6StatusCell8 = document.getElementById('networkStatusCellR6_8');
+      const r6SumCell8    = document.getElementById('networkSumCellR6_8');
+      if (r6StatusCell8) r6StatusCell8.textContent = round6StatusEl.textContent;
+      if (r6SumCell8)    r6SumCell8.textContent    = round6SumEl.textContent;
+    }
+
+    // 8) Round 7
+    const round7StatusEl = document.getElementById('networkStatusCell7');
+    const round7SumEl    = document.getElementById('networkSumCell7');
+    if (round7StatusEl && round7SumEl) {
+      const r7StatusCell8 = document.getElementById('networkStatusCellR7_8');
+      const r7SumCell8    = document.getElementById('networkSumCellR7_8');
+      if (r7StatusCell8) r7StatusCell8.textContent = round7StatusEl.textContent;
+      if (r7SumCell8)    r7SumCell8.textContent    = round7SumEl.textContent;
+    }
+  }
+
+
+
+
+
+
+  }
+
+  function nextRound() {
+    if (currentRound < 7) {
+      showRound(currentRound + 1);
+    }
+  }
+
+  function prevRound() {
+    if (currentRound > 0) {
+      showRound(currentRound - 1);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    showRound(0);
+  });
+</script>
+
+<script>
+  // For dynamically setting participant count in node-generator if needed
+  window.addEventListener('DOMContentLoaded', function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var c = urlParams.get('count') || '45';
+    var dd = document.getElementById('participantsDropdown');
+    if (dd) {
+      dd.value = c;
+      dd.dispatchEvent(new Event('change'));
+    }
+  });
+</script>
+
+</body>
+</html>

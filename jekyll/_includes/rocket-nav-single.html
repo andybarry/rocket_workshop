@@ -1,46 +1,48 @@
-{% comment %}
-Extract page details:
-- Assumes pages are named fuselage-single1.html, fuselage-single2.html, etc.
-{% endcomment %}
+{% assign section1 = page.url | split:'/' | last %}
 {% assign page_filename = page.path | split:'/' | last %}
-{% assign page_stem = page_filename | replace:'.html','' %}
-{% assign section = "fuselage-single" %}
-{% assign page_num_str = page_stem | replace:section,'' %}
-{% if page_num_str == "" %}
-    {% assign page_num_str = "1" %}
+{% assign page_num = section1 | replace:'.html', '' | slice: -1 %}
+{% assign section = section1 | split:page_num | first %}
+{% assign is_teams = page_filename | split:'-' | first %}
+{% if page_filename == "index-single.html" %}
+    {% assign section = "fuselage-single" %}
+    {% assign page_num = "1" %}
 {% endif %}
-{% assign page_num = page_num_str | plus:0 %}
-{% assign total_pages = include.num_pages | plus:0 %}
+{% assign page_num_minus_one = page_num | minus:1 %}
 
-<!-- Page Navigation -->
-<p style="text-align: center" class="navigation-numbers">
-    <strong>{{ include.title }}</strong><br>
+{% if is_teams != "teams" and section == "fuselage-single" %}
+    {% assign one_is_index = "true" %}
+{% endif %}
 
-    <!-- Previous Button -->
-    {% if page_num > 1 %}
-        <a href="{{ section }}{{ page_num | minus:1 }}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">
-            <i class="fa fa-arrow-left"></i> Previous
-        </a>
+<!--Page nav-->
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>{{ include.title }} </strong><br>
+    {% if page_num != "1" and page_filename != "index-single.html" %}
+        {% if one_is_index == "true" and page_num_minus_one == 1 %}
+            <a href="index-single.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        {% else %}
+            <a href="{{ section }}{{ page_num | minus:1}}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        {% endif %}
     {% endif %}
-
-    <!-- Page Numbers -->
     Page:
-    {% for i in (1..total_pages) %}
-        {% if i == page_num %}
+    {% assign page_num_int = page_num|plus: 0 %}
+    {% assign num_pages_int = include.num_pages|plus: 0 %}
+    {% for i in (1..include.num_pages) %}
+        {% if i == page_num_int %}
             <strong>{{ i }}</strong>
         {% else %}
-            <a href="{{ section }}{{ i }}.html">{{ i }}</a>
+            {% if i == 1 and one_is_index == "true" %}
+                <a href="index-single.html">{{ i }}</a>
+            {% else %}
+                <a href="{{ section }}{{ i }}.html">{{ i }}</a>
+            {% endif %}
         {% endif %}
-        {% if i < total_pages %}
+        
+        {% if i != num_pages_int or include.num_pages != page_num %}
             |
         {% endif %}
     {% endfor %}
-
-    <!-- Next Button -->
-    {% if page_num < total_pages %}
-        <a href="{{ section }}{{ page_num | plus:1 }}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">
-            Next <i class="fa fa-arrow-right"></i>
-        </a>
+    {% if include.num_pages != page_num %}
+        <a href="{{ section }}{{ page_num | plus:1 }}.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
     {% endif %}
 </p>
-<!-- End Page Navigation -->
+<!--Page nav-->
