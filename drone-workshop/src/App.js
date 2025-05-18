@@ -116,37 +116,43 @@ const SerialMonitor = ({
 
   return (
     <>
-      <h5>{title}</h5>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-        <Form.Check
-          type="checkbox"
-          label="Autoscroll"
-          checked={autoScroll}
-          onChange={onAutoScrollChange}
-        />
-        <Button
-          variant="outline-primary"
-          onClick={onClear}
-          size="sm"
-          style={{ color: '#f05f40', borderColor: '#f05f40', backgroundColor: 'transparent' }}
-          className="orange-btn"
-        >
-          Clear
-        </Button>
-      </div>
+      <div style={{ display: 'flex', flexFlow: 'column', height: '100%' }}>
+        <div style={{ flex: '0 1 auto' }}>
+          <h5>{title}</h5>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <Form.Check
+              type="checkbox"
+              label="Autoscroll"
+              checked={autoScroll}
+              onChange={onAutoScrollChange}
+            />
+            <Button
+              variant="outline-primary"
+              onClick={onClear}
+              size="sm"
+              style={{ color: '#f05f40', borderColor: '#f05f40', backgroundColor: 'transparent' }}
+              className="orange-btn"
+            >
+              Clear
+            </Button>
+          </div>
+        </div>
 
-      <Form.Control
-        as="textarea"
-        value={data.join('')}
-        ref={localTextareaRef}
-        readOnly
-        style={{
-          fontFamily: 'monospace',
-          height: height,
-          overflowY: 'scroll',
-          marginBottom: '0.5rem'
-        }}
-      />
+        <div style={{ flex: '1 1 auto' }}>
+          <Form.Control
+            as="textarea"
+            value={data.join('')}
+            ref={localTextareaRef}
+            readOnly
+            style={{
+              fontFamily: 'monospace',
+              height: height,
+              overflowY: 'scroll',
+              marginBottom: '0.5rem'
+            }}
+          />
+        </div>
+      </div>
     </>
   );
 };
@@ -202,7 +208,9 @@ function App() {
       let elementPosition = document.getElementById('codeMirror1')?.getBoundingClientRect();
       if (!elementPosition) return;
 
-      let elementHeight = windowHeight - elementPosition.top - 20; // 20px padding
+      const padding = 30;
+
+      let elementHeight = windowHeight - elementPosition.top - padding;
 
       if (showAutonomous) {
         let autonomousTitle = document.getElementById('autonomousDiv')?.getBoundingClientRect();
@@ -213,9 +221,9 @@ function App() {
         console.log('autonomousHeight', autonomousHeight);
 
         // Recompute the element height with 2 code mirrors and the title
-        const heightAvilable = windowHeight - elementPosition.top - 20 - autonomousHeight;
+        const heightAvilable = windowHeight - elementPosition.top - padding - autonomousHeight;
         console.log('window', windowHeight, 'heightAvilable', heightAvilable);
-        elementHeight = heightAvilable / 2; // 20px padding
+        elementHeight = heightAvilable / 2;
       }
       let codemirrorSize = `${elementHeight}px`;
       setCodeMirrorHeight(codemirrorSize);
@@ -852,34 +860,27 @@ function App() {
                       onChange={saveState}
                     />
                   </div>
-
-                  {/* <div className="mt-3">
-              <h5>Last sent data:</h5>
-              <pre>{outputValue}</pre>
-            </div> */}
                 </div>
               </Container >
             </div>
-            <div style={{ height: '100%', overflow: 'auto' }}>
-              <Container className="py-3">
-                <h4>Serial Monitor</h4>
-                <SerialMonitor
-                  data={data}
-                  autoScroll={autoScroll}
-                  onAutoScrollChange={handleCheckboxChange}
-                  onClear={handleClearSerialData}
-                  height="calc(75vh - 180px)"
-                  title=""
+            <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'auto', padding: '10px' }}>
+              <h4>Serial Monitor</h4>
+              <SerialMonitor
+                data={data}
+                autoScroll={autoScroll}
+                onAutoScrollChange={handleCheckboxChange}
+                onClear={handleClearSerialData}
+                height="100%"
+                title=""
+              />
+              <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
+                  <FontAwesomeIcon icon={faCog} />
+                </a>
+                <ResetAllButton
+                  callback={resetAll}
                 />
-                <div style={{ textAlign: 'right', marginTop: '10px' }}>
-                  <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
-                    <FontAwesomeIcon icon={faCog} />
-                  </a>
-                  <ResetAllButton
-                    callback={resetAll}
-                  />
-                </div>
-              </Container>
+              </div>
             </div>
           </Split>
         </div>
