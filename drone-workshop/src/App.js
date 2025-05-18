@@ -10,6 +10,8 @@ import ErrorBoundary from './ErrorBoundary';
 import { ResetAllButton } from "./ResetAllButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import DroneInstructionsPDF from './Drone_Instructions.pdf';
+import AdvancedDroneInstructionsPDF from './Advanced_Drone_Instructions.pdf';
 
 
 // Import search-related addons
@@ -165,6 +167,7 @@ function App() {
   const [codeError, setCodeError] = React.useState('');
   const [codeMirrorHeight, setCodeMirrorHeight] = useState('88vh');
   const [showAutonomous, setShowAutonomous] = useState(false);
+  const [isAdvanced, setIsAdvanced] = useState(false);
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
@@ -212,7 +215,7 @@ function App() {
         // Recompute the element height with 2 code mirrors and the title
         const heightAvilable = windowHeight - elementPosition.top - 20 - autonomousHeight;
         console.log('window', windowHeight, 'heightAvilable', heightAvilable);
-        elementHeight = heightAvilable/2; // 20px padding
+        elementHeight = heightAvilable / 2; // 20px padding
       }
       let codemirrorSize = `${elementHeight}px`;
       setCodeMirrorHeight(codemirrorSize);
@@ -302,7 +305,11 @@ function App() {
           setIsConnected(false);
           setConnectionError('Serial connection closed');
         }).catch(error => {
-          setConnectionError(`Error: ${error.message}`);
+          let extraMessage = "";
+          if (error.message.includes("Buffer overrun")) {
+            extraMessage = " (try refreshing the page)";
+          }
+          setConnectionError(`Error: ${error.message} ${extraMessage}`);
           setIsConnected(false)
         });
 
@@ -634,6 +641,13 @@ function App() {
     codemirrorSize = "38vh"
   }
 
+  const basePdf = isAdvanced
+    ? AdvancedDroneInstructionsPDF   // e.g. "/docs/advanced.pdf"
+    : DroneInstructionsPDF;          // e.g. "/docs/basic.pdf"
+
+  // Important: put the hash *after* any query string the URL might already have
+  const pdfUrl =
+    `${basePdf}#view=FitH&navpanes=0&toolbar=0&scrollbar=0`;  // or …#zoom=page-width
 
 
 
@@ -651,7 +665,29 @@ function App() {
         </h1>
 
         <div className="download-links">
-          <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads" target="_blank">Instructions</a>
+          <label
+            htmlFor="advanced-mode"
+            className="advanced-toggle"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              cursor: "pointer",
+              marginRight: "0.75rem",      // space before the first link
+              color: 'white',
+              marginLeft: '15px',
+            }}
+          >
+            <input
+              id="advanced-mode"
+              type="checkbox"
+              checked={isAdvanced}
+              onChange={(e) => setIsAdvanced(e.target.checked)}
+              style={{ marginRight: "0.35rem" }}
+            />
+            Advanced mode
+          </label>
+
+          <a href="https://stageoneeducation.com/Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank">Instructions</a>
           <a
             href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
             target="_blank">
@@ -669,170 +705,183 @@ function App() {
         </div>
       </div>
 
-      <Split initialPrimarySize={"70vw"}>
-        <div style={{ height: '100%', overflow: 'auto' }}>
-          <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
+      <Split initialPrimarySize={"15vw"}>
+        <div style={{
+          height: '100%',
+        }}
+        >
+          <iframe
+            src={pdfUrl}
+            title="Drone Instructions"
+            style={{ width: '100%', height: '100%', border: 'none' }}
+          />
+        </div>
+        <div>
+          <Split initialPrimarySize={"60vw"}>
+            <div style={{ height: '100%', overflow: 'auto' }}>
+              <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
 
 
-            <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
-            <Form>
-              <Button
-                onClick={handleConnect}
-                className="mb-3 connect-serial-button"
-                disabled={isConnected}
-                style={connectButtonStyle}
-                variant={connectButtonVariant}
-              >
-                {serialButtonText}
-              </Button>
+                <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
+                <Form>
+                  <Button
+                    onClick={handleConnect}
+                    className="mb-3 connect-serial-button"
+                    disabled={isConnected}
+                    style={connectButtonStyle}
+                    variant={connectButtonVariant}
+                  >
+                    {serialButtonText}
+                  </Button>
 
-              {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
-              <Button
-                onClick={handleSend}
-                className="mb-3"
-                style={{ marginLeft: '10px', ...uploadButtonColor }}
-                disabled={!isConnected || isUploading} // Disable during upload for better UX
-                variant={uploadButtonClass}
-              >
-                {isUploading ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
-                  />
-                ) : null}
-                {isUploading ? 'Uploading...' : 'Upload'}
-              </Button>
-            </Form>
-            <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
-            <div id="codeMirror1">
-              <CodeMirror
-                value={codeText}
-                className="full-height"
-                options={{
-                  mode: 'text/x-c++src',
-                  viewportMargin: 50,
-                  theme: 'idea',
-                  lineNumbers: true,
-                  lineWrapping: true,
-                  styleActiveLine: { nonEmpty: true },
-                  smartIndent: false,
-                  enterMode: 'flat',
-                  electricChars: false,
-                  // keyMap: 'sublime', // Include this to enable search with shortcuts like Ctrl+F
-                  extraKeys: {
-                    'Ctrl-F': 'findPersistent', // Persistent search dialog
-                    'Ctrl-G': 'findNext', // Find next match
-                    'Shift-Ctrl-G': 'findPrev', // Find previous match
-                    "Enter": () => { },
-                  },
-                  // scrollbarStyle: 'simple' // Custom scrollbar style
-                }}
+                  {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
+                  <Button
+                    onClick={handleSend}
+                    className="mb-3"
+                    style={{ marginLeft: '10px', ...uploadButtonColor }}
+                    disabled={!isConnected || isUploading} // Disable during upload for better UX
+                    variant={uploadButtonClass}
+                  >
+                    {isUploading ? (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
+                      />
+                    ) : null}
+                    {isUploading ? 'Uploading...' : 'Upload'}
+                  </Button>
+                </Form>
+                <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
+                <div id="codeMirror1">
+                  <CodeMirror
+                    value={codeText}
+                    className="full-height"
+                    options={{
+                      mode: 'text/x-c++src',
+                      viewportMargin: 50,
+                      theme: 'idea',
+                      lineNumbers: true,
+                      lineWrapping: true,
+                      styleActiveLine: { nonEmpty: true },
+                      smartIndent: false,
+                      enterMode: 'flat',
+                      electricChars: false,
+                      // keyMap: 'sublime', // Include this to enable search with shortcuts like Ctrl+F
+                      extraKeys: {
+                        'Ctrl-F': 'findPersistent', // Persistent search dialog
+                        'Ctrl-G': 'findNext', // Find next match
+                        'Shift-Ctrl-G': 'findPrev', // Find previous match
+                        "Enter": () => { },
+                      },
+                      // scrollbarStyle: 'simple' // Custom scrollbar style
+                    }}
 
 
-                onBeforeChange={(editor, data, value) => {
-                  const lineNum = data.from.line;
-                  if (data.text.length > 1) {
-                    // new line, ignore
-                    data.cancel();
-                    console.log('bail!')
-                    return
-                  }
-                  if (lineNum in editableLines) {
-                    // Update that line
-                    setEditableLines({
-                      ...editableLines,
-                      [lineNum]: {
-                        'value': value.split('\n')[lineNum],
-                        'remove': editableLines[lineNum]['remove'],
-                        'valid': editableLines[lineNum]['valid'],
-                        'removeSpaces': editableLines[lineNum]['removeSpaces'],
+                    onBeforeChange={(editor, data, value) => {
+                      const lineNum = data.from.line;
+                      if (data.text.length > 1) {
+                        // new line, ignore
+                        data.cancel();
+                        console.log('bail!')
+                        return
                       }
-                    });
-                  }
-                }}
-                onChange={(editor, data, value) => {
-                  const scrollInfo = editor.getScrollInfo(); // Save scroll position
-                  editor.scrollTo(scrollInfo.left, scrollInfo.top); // Restore scroll position
-                }}
-              />
-            </div>
-            <div style={{ display: autonomousDisp, marginTop: '15px' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }} id="autonomousDiv">
-                <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-                <Button
-                  onClick={handleSend}
-                  className="mb-3"
-                  style={{ marginLeft: '20px', ...uploadButtonColor }}
-                  disabled={!isConnected || isUploading}
-                  variant={uploadButtonClass}
-                >
-                  {isUploading ? (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
+                      if (lineNum in editableLines) {
+                        // Update that line
+                        setEditableLines({
+                          ...editableLines,
+                          [lineNum]: {
+                            'value': value.split('\n')[lineNum],
+                            'remove': editableLines[lineNum]['remove'],
+                            'valid': editableLines[lineNum]['valid'],
+                            'removeSpaces': editableLines[lineNum]['removeSpaces'],
+                          }
+                        });
+                      }
+                    }}
+                    onChange={(editor, data, value) => {
+                      const scrollInfo = editor.getScrollInfo(); // Save scroll position
+                      editor.scrollTo(scrollInfo.left, scrollInfo.top); // Restore scroll position
+                    }}
+                  />
+                </div>
+                <div style={{ display: autonomousDisp, marginTop: '15px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }} id="autonomousDiv">
+                    <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
+                    <Button
+                      onClick={handleSend}
+                      className="mb-3"
+                      style={{ marginLeft: '20px', ...uploadButtonColor }}
+                      disabled={!isConnected || isUploading}
+                      variant={uploadButtonClass}
+                    >
+                      {isUploading ? (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
+                        />
+                      ) : null}
+                      {isUploading ? 'Uploading...' : 'Upload'}
+                    </Button>
+                  </div>
+
+                  <div id="codeMirror2">
+                    <CodeMirrorUncontrolled
+                      value={HOLDCOMMAND_CODE}
+                      // ref={holdCommandRef}
+                      className="stageoneEdit"
+                      editorDidMount={(editor) => { holdCommandRef.current = editor }}
+                      options={{
+                        mode: 'text/x-c++src',
+                        viewportMargin: 50,
+                        theme: 'idea',
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        styleActiveLine: { nonEmpty: true },
+                        smartIndent: false,
+                        enterMode: 'flat',
+                        electricChars: false,
+                      }}
+                      onChange={saveState}
                     />
-                  ) : null}
-                  {isUploading ? 'Uploading...' : 'Upload'}
-                </Button>
-              </div>
+                  </div>
 
-              <div id="codeMirror2">
-                <CodeMirrorUncontrolled
-                  value={HOLDCOMMAND_CODE}
-                  // ref={holdCommandRef}
-                  className="stageoneEdit"
-                  editorDidMount={(editor) => { holdCommandRef.current = editor }}
-                  options={{
-                    mode: 'text/x-c++src',
-                    viewportMargin: 50,
-                    theme: 'idea',
-                    lineNumbers: true,
-                    lineWrapping: true,
-                    styleActiveLine: { nonEmpty: true },
-                    smartIndent: false,
-                    enterMode: 'flat',
-                    electricChars: false,
-                  }}
-                  onChange={saveState}
-                />
-              </div>
-
-              {/* <div className="mt-3">
+                  {/* <div className="mt-3">
               <h5>Last sent data:</h5>
               <pre>{outputValue}</pre>
             </div> */}
+                </div>
+              </Container >
             </div>
-          </Container >
-        </div>
-
-        <div style={{ height: '100%', overflow: 'auto' }}>
-          <Container className="py-3">
-            <h4>Serial Monitor</h4>
-            <SerialMonitor
-              data={data}
-              autoScroll={autoScroll}
-              onAutoScrollChange={handleCheckboxChange}
-              onClear={handleClearSerialData}
-              height="calc(75vh - 180px)"
-              title=""
-            />
-            <div style={{ textAlign: 'right', marginTop: '10px' }}>
-              <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
-                <FontAwesomeIcon icon={faCog} />
-              </a>
-              <ResetAllButton
-                callback={resetAll}
-              />
+            <div style={{ height: '100%', overflow: 'auto' }}>
+              <Container className="py-3">
+                <h4>Serial Monitor</h4>
+                <SerialMonitor
+                  data={data}
+                  autoScroll={autoScroll}
+                  onAutoScrollChange={handleCheckboxChange}
+                  onClear={handleClearSerialData}
+                  height="calc(75vh - 180px)"
+                  title=""
+                />
+                <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                  <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
+                    <FontAwesomeIcon icon={faCog} />
+                  </a>
+                  <ResetAllButton
+                    callback={resetAll}
+                  />
+                </div>
+              </Container>
             </div>
-          </Container>
+          </Split>
         </div>
       </Split >
 
@@ -892,7 +941,7 @@ function App() {
               <Button
                 variant={uploadButtonClass}
                 onClick={handleTestAllDrones}
-                disabled={firmwareVersion < 4 || !isConnected || isDroneTesting}
+                // disabled={firmwareVersion < 4 || !isConnected || isDroneTesting}
                 style={{ marginLeft: '10px', ...uploadButtonColor }}
                 className={isConnected ? "orange-btn" : ""}
               >
