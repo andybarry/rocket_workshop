@@ -42,27 +42,27 @@ const getInitialEditableLines = () => {
       'removeSpaces': true,
     },
     2: {
-      'value': 'const char* light_pole_id = "";', // be:16:e0:00:3a:ec  be:16:c8:00:0db:ec
-      'remove': ['const char* light_pole_id = "', '";'],
-      'valid': ['string'],
-      'removeSpaces': true,
-    },
-    3: {
       'value': 'const bool yellow_button_connected = false;',
       'remove': ['const bool yellow_button_connected = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
     },
-    4: {
+    3: {
       'value': 'const bool slide_connected = false;',
       'remove': ['const bool slide_connected = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
     },
-    5: {
+    4: {
       'value': 'const bool blue_button_connected = false;',
       'remove': ['const bool blue_button_connected = ', ';'],
       'valid': ['true', 'false'],
+      'removeSpaces': true,
+    },
+    17: {
+      'value': 'const char* light_pole_id = "";', // be:16:e0:00:3a:ec  be:16:c8:00:0db:ec
+      'remove': ['const char* light_pole_id = "', '";'],
+      'valid': ['string'],
       'removeSpaces': true,
     },
     137: {
@@ -72,7 +72,7 @@ const getInitialEditableLines = () => {
       'removeSpaces': true,
     },
     138: {
-      'value': 'int baro_max_height_allowed_cm = 300;',
+      'value': 'int baro_max_height_allowed_cm = 150;',
       'remove': ['int baro_max_height_allowed_cm = ', ';'],
       'valid': ['integer'],
       'removeSpaces': true,
@@ -151,7 +151,6 @@ const SerialMonitor = ({
 
 function App() {
   const [port, setPort] = useState(null);
-  const [inputValue, setInputValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
   const [data, setData] = useState([]);
   const [isSupported, setIsSupported] = useState(true);
@@ -164,17 +163,13 @@ function App() {
 
   const [codeText, setCodeText] = React.useState(BASE_CODE);
   const [codeError, setCodeError] = React.useState('');
-
+  const [codeMirrorHeight, setCodeMirrorHeight] = useState('88vh');
+  const [showAutonomous, setShowAutonomous] = useState(false);
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
-  // Add this with your other useState imports
-  // ...
-  const [autonomousCollapsed, setAutonomousCollapsed] = useState(true);
-
 
   const holdCommandRef = useRef(null);
-  const dialogTextareaRef = useRef(null);
 
   const [showAdminDialog, setShowAdminDialog] = useState(false);
   const [password, setPassword] = useState('');
@@ -197,6 +192,70 @@ function App() {
       holdCommandRef.current.setValue(parsedState.holdCommandText || HOLDCOMMAND_CODE);
     }
   }, []);
+
+  useEffect(() => {
+    const adjustCodeMirrorHeight = () => {
+      const windowHeight = window.innerHeight;
+      let elementPosition = document.getElementById('codeMirror1')?.getBoundingClientRect();
+      if (!elementPosition) return;
+
+      let elementHeight = windowHeight - elementPosition.top - 20; // 20px padding
+
+      if (showAutonomous) {
+        let autonomousTitle = document.getElementById('autonomousDiv')?.getBoundingClientRect();
+        if (!autonomousTitle) return;
+        // Get the height of the autonomous title
+        const autonomousHeight = autonomousTitle.height;
+
+        console.log('autonomousHeight', autonomousHeight);
+
+        // Recompute the element height with 2 code mirrors and the title
+        const heightAvilable = windowHeight - elementPosition.top - 20 - autonomousHeight;
+        console.log('window', windowHeight, 'heightAvilable', heightAvilable);
+        elementHeight = heightAvilable/2; // 20px padding
+      }
+      let codemirrorSize = `${elementHeight}px`;
+      setCodeMirrorHeight(codemirrorSize);
+    };
+
+    // Adjust on mount
+    adjustCodeMirrorHeight();
+
+    // Adjust on resize
+    window.addEventListener('resize', adjustCodeMirrorHeight);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('resize', adjustCodeMirrorHeight);
+    };
+  }, [codeMirrorHeight, showAutonomous]);
+
+  useEffect(() => {
+    console.log('CodeMirror height updated:', codeMirrorHeight);
+    const element = document.querySelector('.CodeMirror');
+
+    if (element) {
+      const currentStyle = element.getAttribute('style') || '';
+      const minHeightRule = `min-height: ${codeMirrorHeight} !important`;
+
+      // Remove any existing min-height rule and trim excess semicolons
+      let cleanedStyle = currentStyle
+        .replace(/min-height:[^;]*;?/gi, '')
+        .split(';')
+        .map(s => s.trim())
+        .filter(Boolean) // Remove empty strings
+        .join('; ');
+
+      // Append new min-height rule correctly
+      const newStyle = cleanedStyle
+        ? `${cleanedStyle}; ${minHeightRule};`
+        : `${minHeightRule};`;
+
+      element.setAttribute('style', newStyle);
+      console.log(element);
+    }
+  }, [codeMirrorHeight]);
+
 
   // Effect to save state to localStorage whenever any state changes
   useEffect(() => {
@@ -312,6 +371,8 @@ function App() {
 
   useEffect(() => {
     setCodeText(computeCode());
+    const showAutonomous = (editableLines[4].value.includes("true"));
+    setShowAutonomous(showAutonomous);
   }, [editableLines]);
 
   const getValuesForChip = () => {
@@ -566,41 +627,52 @@ function App() {
   const uploadButtonClass = 'outline-primary';
   const uploadButtonColor = isConnected ? { backgroundColor: '#f05f40', borderColor: '#f05f40', color: 'white' } : {};
 
+  let autonomousDisp = "none"
+  let codemirrorSize = "88vh"
+  if (showAutonomous) {
+    autonomousDisp = ""
+    codemirrorSize = "38vh"
+  }
+
+
+
+
   return (
     <ErrorBoundary>
+      <div
+        style={{
+          alignItems: 'center',
+          backgroundColor: "#f05f40ff",
+        }}>
+
+        <h1 className="stageone-heading">
+          <span className="stageone-education">Robotics Workshop</span>
+          <span className="drone-workshop"> | Drone IDE</span>
+        </h1>
+
+        <div className="download-links">
+          <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads" target="_blank">Instructions</a>
+          <a
+            href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+            target="_blank">
+            USB/UART Drivers
+          </a>
+          <a
+            href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
+            download="QuadWiFiPoleBTWebSerialv4.ino"
+            target="_blank"
+          >
+            Firmware
+          </a>
+          <a href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/" target="_blank">Feedback</a>
+          <a href="" target="_blank">Tools</a>
+        </div>
+      </div>
+
       <Split initialPrimarySize={"70vw"}>
         <div style={{ height: '100%', overflow: 'auto' }}>
-          <Container className="py-3">
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}>
+          <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
 
-
-              <h1 className="stageone-heading">
-                <span className="stageone-education">Stage One Education</span>
-                <span className="drone-workshop"> | Drone Workshop</span>
-              </h1>
-
-              <div className="download-links">
-                <a
-                  href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  USB/UART Drivers
-                </a>
-                <a
-                  href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
-                  download
-                >
-                  Firmware
-                </a>
-              </div>
-            </div>
-
-            <hr />
 
             <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
             <Form>
@@ -636,108 +708,114 @@ function App() {
               </Button>
             </Form>
             <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
-            <CodeMirror
-              value={codeText}
-              className="stageoneEdit"
-              options={{
-                mode: 'text/x-c++src',
-                viewportMargin: 50,
-                theme: 'idea',
-                lineNumbers: true,
-                lineWrapping: true,
-                styleActiveLine: { nonEmpty: true },
-                smartIndent: false,
-                enterMode: 'flat',
-                electricChars: false,
-                // keyMap: 'sublime', // Include this to enable search with shortcuts like Ctrl+F
-                extraKeys: {
-                  'Ctrl-F': 'findPersistent', // Persistent search dialog
-                  'Ctrl-G': 'findNext', // Find next match
-                  'Shift-Ctrl-G': 'findPrev', // Find previous match
-                  "Enter": () => { },
-                },
-                // scrollbarStyle: 'simple' // Custom scrollbar style
-              }}
+            <div id="codeMirror1">
+              <CodeMirror
+                value={codeText}
+                className="full-height"
+                options={{
+                  mode: 'text/x-c++src',
+                  viewportMargin: 50,
+                  theme: 'idea',
+                  lineNumbers: true,
+                  lineWrapping: true,
+                  styleActiveLine: { nonEmpty: true },
+                  smartIndent: false,
+                  enterMode: 'flat',
+                  electricChars: false,
+                  // keyMap: 'sublime', // Include this to enable search with shortcuts like Ctrl+F
+                  extraKeys: {
+                    'Ctrl-F': 'findPersistent', // Persistent search dialog
+                    'Ctrl-G': 'findNext', // Find next match
+                    'Shift-Ctrl-G': 'findPrev', // Find previous match
+                    "Enter": () => { },
+                  },
+                  // scrollbarStyle: 'simple' // Custom scrollbar style
+                }}
 
 
-              onBeforeChange={(editor, data, value) => {
-                const lineNum = data.from.line;
-                if (data.text.length > 1) {
-                  // new line, ignore
-                  data.cancel();
-                  console.log('bail!')
-                  return
-                }
-                if (lineNum in editableLines) {
-                  // Update that line
-                  setEditableLines({
-                    ...editableLines,
-                    [lineNum]: {
-                      'value': value.split('\n')[lineNum],
-                      'remove': editableLines[lineNum]['remove'],
-                      'valid': editableLines[lineNum]['valid'],
-                      'removeSpaces': editableLines[lineNum]['removeSpaces'],
-                    }
-                  });
-                }
-              }}
-              onChange={(editor, data, value) => {
-                const scrollInfo = editor.getScrollInfo(); // Save scroll position
-                editor.scrollTo(scrollInfo.left, scrollInfo.top); // Restore scroll position
-              }}
-            />
-            <hr />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-              <Button
-                onClick={handleSend}
-                className="mb-3"
-                style={{ marginLeft: '20px', ...uploadButtonColor }}
-                disabled={!isConnected || isUploading}
-                variant={uploadButtonClass}
-              >
-                {isUploading ? (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
-                  />
-                ) : null}
-                {isUploading ? 'Uploading...' : 'Upload'}
-              </Button>
+                onBeforeChange={(editor, data, value) => {
+                  const lineNum = data.from.line;
+                  if (data.text.length > 1) {
+                    // new line, ignore
+                    data.cancel();
+                    console.log('bail!')
+                    return
+                  }
+                  if (lineNum in editableLines) {
+                    // Update that line
+                    setEditableLines({
+                      ...editableLines,
+                      [lineNum]: {
+                        'value': value.split('\n')[lineNum],
+                        'remove': editableLines[lineNum]['remove'],
+                        'valid': editableLines[lineNum]['valid'],
+                        'removeSpaces': editableLines[lineNum]['removeSpaces'],
+                      }
+                    });
+                  }
+                }}
+                onChange={(editor, data, value) => {
+                  const scrollInfo = editor.getScrollInfo(); // Save scroll position
+                  editor.scrollTo(scrollInfo.left, scrollInfo.top); // Restore scroll position
+                }}
+              />
             </div>
+            <div style={{ display: autonomousDisp, marginTop: '15px' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }} id="autonomousDiv">
+                <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
+                <Button
+                  onClick={handleSend}
+                  className="mb-3"
+                  style={{ marginLeft: '20px', ...uploadButtonColor }}
+                  disabled={!isConnected || isUploading}
+                  variant={uploadButtonClass}
+                >
+                  {isUploading ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
+                    />
+                  ) : null}
+                  {isUploading ? 'Uploading...' : 'Upload'}
+                </Button>
+              </div>
 
-            <CodeMirrorUncontrolled
-              value={HOLDCOMMAND_CODE}
-              // ref={holdCommandRef}
-              className="stageoneEdit"
-              editorDidMount={(editor) => { holdCommandRef.current = editor }}
-              options={{
-                mode: 'text/x-c++src',
-                viewportMargin: 50,
-                theme: 'idea',
-                lineNumbers: true,
-                lineWrapping: true,
-                styleActiveLine: { nonEmpty: true },
-                smartIndent: false,
-                enterMode: 'flat',
-                electricChars: false,
-              }}
-              onChange={saveState}
-            />
+              <div id="codeMirror2">
+                <CodeMirrorUncontrolled
+                  value={HOLDCOMMAND_CODE}
+                  // ref={holdCommandRef}
+                  className="stageoneEdit"
+                  editorDidMount={(editor) => { holdCommandRef.current = editor }}
+                  options={{
+                    mode: 'text/x-c++src',
+                    viewportMargin: 50,
+                    theme: 'idea',
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    styleActiveLine: { nonEmpty: true },
+                    smartIndent: false,
+                    enterMode: 'flat',
+                    electricChars: false,
+                  }}
+                  onChange={saveState}
+                />
+              </div>
 
-            {/* <div className="mt-3">
-            <h5>Last sent data:</h5>
-            <pre>{outputValue}</pre>
-          </div> */}
+              {/* <div className="mt-3">
+              <h5>Last sent data:</h5>
+              <pre>{outputValue}</pre>
+            </div> */}
+            </div>
           </Container >
         </div>
 
         <div style={{ height: '100%', overflow: 'auto' }}>
           <Container className="py-3">
+            <h4>Serial Monitor</h4>
             <SerialMonitor
               data={data}
               autoScroll={autoScroll}
@@ -871,7 +949,6 @@ holdCommand(50, 50, 55, 0, 750, "orange");   // spin in place the other way 0.75
 
 const BASE_CODE = `
 const char* quadcopter_id = "";
-const char* light_pole_id = "";
 const bool yellow_button_connected = false;
 const bool slide_connected = false;
 const bool blue_button_connected = false;
@@ -887,6 +964,7 @@ const bool blue_button_connected = false;
 #include <NimBLEDevice.h> // Bluetooth low-energy library
 // --------------------------------------
 
+const char* light_pole_id = "";
 
 void AutonomousFlightFromBlueButton() {
   Serial.println("Running automous commands!");

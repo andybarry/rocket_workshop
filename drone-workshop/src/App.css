@@ -45,16 +45,19 @@
 
 .CodeMirror { min-height: 38vh !important; }
 
+
 .stageone-heading {
   margin: 0;
-  color: #f05f40ff;      /* Keep your desired color here */
+  background-color: #f05f40ff;
+  color: white;      /* Keep your desired color here */
   font-size: 30px;       /* New text size */
+  margin-left: 10px;
+  margin-bottom: 3px;
 }
 
 /* Make "Stage One Education" bold & uppercase */
 .stageone-education {
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 /* "Drone Workshop" is not bold */
@@ -74,9 +77,14 @@
   border-color: #e64a2c;
 }
 
+.download-links {
+  background-color: #434343ff;
+  margin-bottom: 3px;
+}
+
 /* For the two links (USB/UART Drivers and Firmware) */
 .download-links a {
-  color: #4b4b4b;
+  color: white;
   text-decoration: none;
   margin-left: 20px; /* If you want to keep some spacing as in your inline style */
 }
