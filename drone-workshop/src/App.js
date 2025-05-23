@@ -42,54 +42,63 @@ const getInitialEditableLines = () => {
       'remove': ['const char* quadcopter_id = "', '";'],
       'valid': ['string'],
       'removeSpaces': true,
+      'chipIndex': 0,
     },
     2: {
       'value': 'const bool yellow_button_connected = false;',
       'remove': ['const bool yellow_button_connected = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
+      'chipIndex': 2,
     },
     3: {
       'value': 'const bool slide_connected = false;',
       'remove': ['const bool slide_connected = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
+      'chipIndex': 3,
     },
     4: {
       'value': 'const bool blue_button_connected = false;',
       'remove': ['const bool blue_button_connected = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
+      'chipIndex': 4,
     },
     17: {
       'value': 'const char* light_pole_id = "";', // be:16:e0:00:3a:ec  be:16:c8:00:0db:ec
       'remove': ['const char* light_pole_id = "', '";'],
       'valid': ['string'],
       'removeSpaces': true,
+      'chipIndex': 1,
     },
     137: {
       'value': 'bool baro_height_limit_enabled = true;',
       'remove': ['bool baro_height_limit_enabled = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
+      'chipIndex': 5,
     },
     138: {
       'value': 'int baro_max_height_allowed_cm = 150;',
       'remove': ['int baro_max_height_allowed_cm = ', ';'],
       'valid': ['integer'],
       'removeSpaces': true,
+      'chipIndex': 6,
     },
     361: {
       'value': '    duty = 4;',
       'remove': ['    duty = ', ';'],
       'valid': ['integer'],
       'removeSpaces': true,
+      'chipIndex': 7,
     },
     842: {
       'value': '    Serial.println("Stop/Yellow button pressed");',
       'remove': ['    Serial.println("', '");'],
       'valid': ['string'],
       'removeSpaces': false,
+      'chipIndex': 8,
     },
   }
 
@@ -201,6 +210,19 @@ function App() {
       holdCommandRef.current.setValue(parsedState.holdCommandText || HOLDCOMMAND_CODE);
     }
   }, []);
+
+  const getCodeLineOrder = () => {
+    let out = []
+    let out2 = []
+    console.log("editableLines", editableLines)
+    for (let val in editableLines) {
+      out.push([editableLines[val]['chipIndex'], val])
+    }
+    for (let val of out.sort((a, b) => a[0] - b[0])) {
+      out2.push(val[1])
+    }
+    return out2
+  }
 
   useEffect(() => {
     const adjustCodeMirrorHeight = () => {
@@ -398,7 +420,8 @@ function App() {
     }
     let out = []
     let no_errors = true;
-    for (let linenum in editableLines) {
+    for (let linenum of getCodeLineOrder()) {
+      console.log("Checking line: " + linenum)
       let line = editableLines[linenum];
       let value = line['value'];
       let humanLineNumber = parseInt(linenum) + 1;
@@ -806,6 +829,7 @@ function App() {
                             'remove': editableLines[lineNum]['remove'],
                             'valid': editableLines[lineNum]['valid'],
                             'removeSpaces': editableLines[lineNum]['removeSpaces'],
+                            'chipIndex': editableLines[lineNum]['chipIndex'],
                           }
                         });
                       }
