@@ -690,10 +690,14 @@ function App() {
           backgroundColor: "#f05f40ff",
         }}>
 
-        <h1 className="stageone-heading">
-          <span className="stageone-education">Robotics Workshop</span>
-          <span className="drone-workshop"> | Drone IDE</span>
-        </h1>
+<div className="orange-bar">
+  <h1 className="stageone-heading">
+    <span className="stageone-education">Robotics Workshop</span>
+    <span className="drone-workshop"> | Drone IDE</span>
+  </h1>
+
+  <span className="stageone-org">STAGE ONE EDUCATION</span>
+</div>
 
         <div className="download-links">
           <label
@@ -732,7 +736,6 @@ function App() {
             Firmware
           </a>
           <a href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/" target="_blank">Feedback</a>
-          <a href="" target="_blank">Tools</a>
         </div>
       </div>
 
@@ -888,8 +891,9 @@ function App() {
               </Container >
             </div>
             <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'auto', padding: '10px' }}>
-              <h4>Serial Monitor</h4>
-              <SerialMonitor
+<div className="serial-monitor">
+  <h4>Serial Monitor</h4>
+</div>              <SerialMonitor
                 data={data}
                 autoScroll={autoScroll}
                 onAutoScrollChange={handleCheckboxChange}

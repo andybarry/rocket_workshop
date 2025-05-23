@@ -46,12 +46,44 @@
 .CodeMirror { min-height: 38vh !important; }
 
 
+
+/* 1.  NEW wrapper for the orange band */
+.orange-bar {
+  display: flex;                 /* lay children out in a row          */
+  justify-content: space-between;/* push heading left, label right     */
+  align-items: center;           /* vertical-centre both               */
+  background: #f05f40ff;         /* the solid orange you already use   */
+  padding: 0 12px;               /* bit of left/right breathing room   */
+}
+
+/* 2.  NEW right-side label */
+.stageone-org {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 600;              /* optional – makes it pop            */
+  letter-spacing: .4px;          /* optional – readability             */
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
 .stageone-heading {
   margin: 0;
   background-color: #f05f40ff;
   color: white;      /* Keep your desired color here */
   font-size: 30px;       /* New text size */
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-bottom: 3px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.stageone-heading-right {
+  margin: 0;
+  background-color: #f05f40ff;
+  color: white;      /* Keep your desired color here */
+  font-size: 10px;       /* New text size */
+  margin-right: 10px;
   margin-bottom: 3px;
 }
 
@@ -63,6 +95,7 @@
 /* "Drone Workshop" is not bold */
 .drone-workshop {
   font-weight: normal;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* For the Connect to Serial button */
@@ -79,7 +112,11 @@
 
 .download-links {
   background-color: #434343ff;
+  font-size: 13px;
   margin-bottom: 3px;
+  font-family: 'Roboto', sans-serif;
+  display: flex;          /* put label + links on a flex row          */
+  align-items: center;    /* vertically center every child in the row */
 }
 
 /* For the two links (USB/UART Drivers and Firmware) */
@@ -89,9 +126,13 @@
   margin-left: 20px; /* If you want to keep some spacing as in your inline style */
 }
 
+#advanced-mode[type="checkbox"] {
+  accent-color: #f05f40;   /* Stage One orange */
+}
+
 .download-links a:hover {
-  color: #e64a2c;
-  text-decoration: underline; /* or whatever hover styling you prefer */
+  color: #f05f40;
+  text-decoration: none; /* or whatever hover styling you prefer */
 }
 /* App.css (or another global stylesheet) */
 
@@ -227,4 +268,11 @@
   border-color: #f05f40 !important;
   color: white !important;
   opacity: 0.65 !important;
+}
+
+
+/* App.css */
+.serial-monitor {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold; 
 }
