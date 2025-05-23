@@ -1,0 +1,198 @@
+---
+layout: default
+title: UART-USB-Driver | Stage One Education, LLC
+---
+
+<!-- page-specific styles -->
+<style>
+  /* import Roboto */
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
+
+  /* push the page down so nothing is hidden under the fixed header + sub-header */
+  body#page-top {
+    padding-top: 55px; /* 40px header + 15px sub-header */
+  }
+
+  /* fixed 40px-high orange top bar */
+  header.app-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 40px !important;
+    min-height: 0 !important;
+    line-height: 40px;        /* match the height for vertical centering */
+    background-color: #f05f40;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* lighter “| Drone IDE” text */
+  header.app-header .subtitle {
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  /* fixed 15px-high dark-gray bar immediately below */
+  .sub-header-bar {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #414141; /* dark gray */
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    z-index: 999;
+  }
+  .driver-instructions {
+  /* set Roboto as the font */
+  font-family: 'Roboto', sans-serif;
+
+  /* constrain width to 70% of its container and center it */
+  width: 50%;
+  margin: 0 auto;
+
+  /* keep text left-justified */
+  text-align: left;
+
+  /* optional: give a little breathing room */
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+/* if you need the headings or strong tags to be heavier/lighter: */
+.driver-instructions strong,
+.driver-instructions h2,
+.driver-instructions h3 {
+  font-weight: 500; /* or 700 for bolder */
+}
+
+.highlight-box {
+    background-color: #f05f40;  /* orange fill */
+    color: #ffffff;             /* white text */
+    border-radius: 15px;         /* rounded corners */
+    padding: 0.75rem 1rem;      /* space inside the box */
+    display: inline-block;      /* shrink-wrap to content */
+  }
+  .highlight-box h3 {
+    margin: 0;                  /* remove default h3 margin */
+    font-weight: bold;          /* keep text bold */
+  }
+
+.thin-line {
+  height: 1px;
+  background-color: #ccc;
+  margin: 1.5rem 0;
+}
+
+
+
+</style>
+
+<body id="page-top">
+
+  <!-- orange header -->
+  <header class="app-header">
+    Robotics Workshop<span class="subtitle">| Drone IDE</span>
+  </header>
+
+    <div class="sub-header-bar">
+    UART/USB – Driver
+  </div>
+<br/>
+ 
+    <!-- driver installation instructions -->
+    <section class="driver-instructions">
+      
+<div class="highlight-box">
+  <h3>Connect laptop to ESP32 UART port via USB cable</h3>
+</div>
+<br/>
+<div class="thin-line"></div>
+
+      <h2 style="font-weight: bold;">Check if the Driver is Installed</h2>
+      <ol>
+        <li>Open Device Manager: Press <kbd>Windows</kbd> + <kbd>X</kbd> and select <em>Device Manager</em>.</li>
+        <li>In Device Manager, expand the <em>Ports (COM &amp; LPT)</em> section.</li>
+        <li>Look for <em>Silicon Labs CP210x USB to UART Bridge</em>. If it appears, the driver is installed. If not, you’ll need to install it manually.</li>
+      </ol>
+<div class="thin-line"></div>
+
+      <h2 style="font-weight: bold;">Download the Driver</h2>
+      <h3>Step 1: Download the CP210x Universal Windows Driver</h3>
+      <ul>
+<li>
+  Go to the Silicon Labs:
+  <a
+    href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    CP210x driver download page</a>.
+</li>
+        <li>Download the <em>CP210x Universal Windows Driver</em>.</li>
+        <li>Once downloaded, find the ZIP file in your Downloads folder.</li>
+      </ul>
+
+      <h3>Step 2: Extract the Driver</h3>
+      <ul>
+        <li>Locate the downloaded ZIP file in your Downloads folder.</li>
+        <li>Right-click the file and select <em>Extract All…</em>.</li>
+        <li>Choose a destination folder (e.g., your Desktop) for the extracted files.</li>
+      </ul>
+
+      <h3>Step 3: Install the CP210x Driver</h3>
+      <ol>
+        <li>Open Device Manager again (if it’s not still open).</li>
+        <li>Expand the <em>Ports (COM &amp; LPT)</em> section.</li>
+        <li>If you see an <em>Unknown device</em> or not yet listed CP210x entry, right-click it; otherwise right-click the existing <em>Silicon Labs CP210x USB to UART Bridge</em>.</li>
+        <li>Select <em>Update driver</em> from the context menu.</li>
+        <li>Choose <em>Browse my computer for driver software</em>.</li>
+        <li>Click <em>Browse</em> and navigate to the folder where you extracted the driver files.</li>
+        <li>Click <em>Next</em> to begin the installation.</li>
+      </ol>
+
+      <h3>Update the Driver</h3>
+      <ol>
+        <li>Windows will install the driver. Once complete, you should see <em>Silicon Labs CP210x USB to UART Bridge</em> listed under <em>Ports (COM &amp; LPT)</em>.</li>
+      </ol>
+
+      <div class="thin-line"></div>
+
+
+<h2 style="font-weight: bold;">Verify the Installation</h2>
+     <ul>
+        <li>Restart your computer if prompted or if the driver doesn’t appear immediately.</li>
+        <li>Open Device Manager and confirm the CP210x driver appears under <em>Ports (COM &amp; LPT)</em>.</li>
+      </ul>
+    </section>
+
+ <br/>
+ <br/>
+
+  <!-- existing page content -->
+  <div class="page-content">
+    {% include copyright.html %}
+
+    <span class="workshop-title"
+          style="display: block;
+                 height: 10px;
+                 background-color: white;">
+    </span>
+
+    <!-- … the rest of your page markup … -->
+  </div>
+
+</body>
