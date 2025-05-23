@@ -724,8 +724,10 @@ function App() {
 
           <a href="https://stageoneeducation.com/Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank">Instructions</a>
           <a
-            href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads"
-            target="_blank">
+            href="https://stageoneeducation.com/UART-USB-Driver.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             USB/UART Drivers
           </a>
           <a

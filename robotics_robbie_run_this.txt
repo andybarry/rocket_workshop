@@ -19,3 +19,10 @@ C:\Users\robbi\Documents\GitHub>cd rocket_workshop
 C:\Users\robbi\Documents\GitHub\rocket_workshop>cd drone-workshop
 
 npm run start
+
+
+
+
+new: 
+C:\Users\robbi>cd documents\github\rocket_workshop\drone-workshop
+npm run start
