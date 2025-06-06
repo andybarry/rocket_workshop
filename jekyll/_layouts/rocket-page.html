@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 {% assign page_filename = page.path | split:'/' | last %}
@@ -10,604 +10,414 @@
 {% endif %}
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
 
-    <title>{{ page.title }}</title>
+  <title>{{ page.title }}</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
-    <!-- Custom Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-          rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
 
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
 
-    <!-- Additional custom styling -->
-    <style>
-      /* Navbar transition styling */
-      #mainNav {
-        background-color: transparent;
-        transition: background-color 0.3s ease;
-        border-bottom: none;
-      }
-      #mainNav.scrolled {
-        background-color: #fff;
-        border-bottom: 1px solid #d5d5d5;
-      }
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
 
-      /* Default hover styling */
-      .heading-hover {
-        color: gray;
-        transition: color 0.3s ease;
-        text-decoration: none;
-      }
-      .heading-hover:hover {
-        color: #f05f40;
-      }
-      
-      /* Special class to make the link appear hovered permanently */
-      .always-hovered {
-        color: #f05f40 !important;
-      }
-      
-      /* Override any text-transform that might be forcing uppercase globally */
-      .navbar-brand, .navbar-brand * {
-        text-transform: none !important;
-      }
-    </style>
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
 
-    <!-- Removed scripts that control scrolling behavior -->
-    <!-- <script src="video_play_at_scroll.js"></script> -->
-    <!-- <script src="js/creative.js"></script> -->
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-86650838-1');
-      gtag('config', 'AW-716077034');
-    </script>
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const toggleSwitch = document.getElementById("advancedModeSwitch");
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
 
-    // Restore the saved state from localStorage
-    const savedState = localStorage.getItem("advancedModeEnabled");
-    if (savedState !== null) {
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
         toggleSwitch.checked = savedState === "true";
         toggleAdvancedMode2(toggleSwitch.checked);
-    }
+      }
 
-    // Add event listener for changes
-    toggleSwitch.addEventListener("change", function () {
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
         localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
     });
-  });
   </script>
 </head>
 
 <body id="page-top">
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar" style="background-color: white;"></span>
-                    <span class="icon-bar" style="background-color: white;"></span>
-                    <span class="icon-bar" style="background-color: white;"></span>
-                </button>
-                
-<!-- Ensures no forced uppercase -->
-<a class="navbar-brand page-scroll" href="portal.html"
-   style="display:flex; align-items:center; text-transform:none;">
-  {% if page_filename == "portal.html" %}
-    <!-- Larger text on the portal page (logo removed) -->
-    <span style="font-size:20px;">
-      <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
-      <span style="text-transform:none; font-weight:normal; color: #777;">
-        <!-- Mechanical Engineering Workshop -->
-      </span>
-    </span>
-  {% else %}
-    <!-- All other pages: text only, no logo -->
-    <span style="font-size:15px;">
-      <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
-      <span style="text-transform:none; font-weight:normal; color: #777;">
-        <!-- Mechanical Engineering Workshop -->
-      </span>
-    </span>
-  {% endif %}
-</a>
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
 
-            </div>
-            
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-top: 5px;">
-                <div style="display: flex; flex-direction: row; align-items: center; width: 100%; height: 45px;">
-                    <!-- Left side: Logo and text -->
-                    <div style="display: flex; flex-direction: row; align-items: center; margin-left: 100px;">
-                        <a href="index.html" style="display:flex; align-items:center;">
-                            <img src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
-                                 style="width: 200px; height: auto; margin-right:0;">
-                        </a>
-                        <div style="display: flex; flex-direction: column; color: white; font-weight: bold; 
-                                    border-left: 2px solid white; border-bottom: 3px solid #f05f40; 
-                                    padding-left: 0; margin-left: 10px;
-                                    line-height: 1; height: 45px; justify-content: center;">
-                            <span style="font-size:18px; font-family:'Roboto', sans-serif; margin-left: 10px; line-height:1;">
-                                MECHANICAL ENGINEERING
-                            </span>
-                            <span style="font-size:18px; font-family:'Roboto', sans-serif; margin-left: 10px; line-height:1;">
-                                WORKSHOP
-                            </span>
-                        </div>
-                    </div>
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
 
-            <!-- Navigation links always visible except on portal.html -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                {% if page_filename != "portal.html" %}
-                <ul class="nav navbar-nav navbar-right">
-
-
-
-
-                    <!-- ADDED ICON FOR team -->
-                    {% if page.path contains "team" %}
-                      <li class="navbar-text" style="text-align:center; margin-right: 15px;">
-                        <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
-                      </li>
-                    {% endif %}
-
-
-
-                    
-                    <!-- END ICON -->
-
-                    {% if page.path contains "team" %}
-                    <!-- If "team" is in the URL, go to index-team.html -->
-                    <li><a id="getting-started-link" class="heading-hover" href="index-team.html">Getting Started</a></li>
-                  {% else %}
-                    <!-- If NOT "team" in the URL, go to index-single.html -->
-                    <li><a id="getting-started-link" class="heading-hover" href="index-single.html">Getting Started</a></li>
-                  {% endif %}
-                                      
-                    
-                    {% if page.path contains "team" %}
-                    <!-- If "team" is in the URL, go to fuselage-team2.html -->
-                    <li><a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">Fuselage</a></li>
-                  {% else %}
-                    <!-- If NOT "team" in the URL, go to fuselage-single2.html -->
-                    <li><a id="fuselage-link" class="heading-hover" href="fuselage-single2.html">Fuselage</a></li>
-                  {% endif %}
-
-
-                  {% if page.path contains "team" %}
-                  <!-- If "team" is in the URL, go to lower-body-team1.html -->
-                  <li><a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">Fins+Booster</a></li>
-                {% else %}
-                  <!-- If NOT "team" in the URL, go to lower-body-single1.html -->
-                  <li><a id="fins-booster-link" class="heading-hover" href="lower-body-single1.html">Fins+Booster</a></li>
-                {% endif %}
-                
-
-                {% if page.path contains "team" %}
-                <!-- If "team" is in the URL, go to nosecone-team1.html -->
-                <li><a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">Nosecone</a></li>
-              {% else %}
-                <!-- If NOT "team" in the URL, go to nosecone-single1.html -->
-                <li><a id="nosecone-link" class="heading-hover" href="nosecone-single1.html">Nosecone</a></li>
-              {% endif %}
-              
-
-              {% if page.path contains "team" %}
-              <!-- If "team" is in the URL, go to assembly-team1.html -->
-              <li><a id="assembly-link" class="heading-hover" href="assembly-team1.html">Assembly</a></li>
-            {% else %}
-              <!-- If NOT "team" in the URL, go to assembly-single1.html -->
-              <li><a id="assembly-link" class="heading-hover" href="assembly-single1.html">Assembly</a></li>
-            {% endif %}
-            
-
-            {% if page.path contains "team" %}
-            <!-- If "team" is in the URL, go to challenges-team.html -->
-            <li><a id="challenges-link" class="heading-hover" href="challenges-team.html">Challenges</a></li>
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          {% if page_filename == "portal.html" %}
+            <!-- Larger text on the portal page (logo removed) -->
+            <span style="font-size:20px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
           {% else %}
-            <!-- If NOT "team" in the URL, go to challenges-single.html -->
-            <li><a id="challenges-link" class="heading-hover" href="challenges-single.html">Challenges</a></li>
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
           {% endif %}
-          
+        </a>
+      </div>
 
-                </ul>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
 
-      
-    {{ content }}
-    
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/wow.min.js"></script>
+        <!-- Only show links when NOT on portal.html -->
+        {% if page_filename != "portal.html" %}
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
 
-    <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // If on index-single.html, highlight "Getting Started"
-        if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1) {
-          var link = document.getElementById('getting-started-link');
-          if (link) {
-            link.classList.add('always-hovered');
-          }
-        }
+          <!-- Optional “team” icon when on a team page -->
+          {% if page.path contains "team" %}
+            <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+              <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+            </li>
+          {% endif %}
 
-        if (window.location.href.indexOf('index-team.html') !== -1) {
-  var link = document.getElementById('getting-started-link');
-  if (link) {
-    link.classList.add('always-hovered');
-  }
-}
+          <!-- Getting Started -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-team.html">
+                Getting Started
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-single.html">
+                Getting Started
+              </a>
+            </li>
+          {% endif %}
 
+          <!-- Fuselage -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">
+                Fuselage
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-single2.html">
+                Fuselage
+              </a>
+            </li>
+          {% endif %}
 
+          <!-- Fins + Booster -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">
+                Fins+Booster
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-single1.html">
+                Fins+Booster
+              </a>
+            </li>
+          {% endif %}
 
+          <!-- Nosecone -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">
+                Nosecone
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-single1.html">
+                Nosecone
+              </a>
+            </li>
+          {% endif %}
 
-        // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
-        if (window.location.href.indexOf('fuselage-single1.html') !== -1) {
-          var fuselageLink = document.getElementById('getting-started-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
+          <!-- Assembly -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-team1.html">
+                Assembly
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-single1.html">
+                Assembly
+              </a>
+            </li>
+          {% endif %}
 
-        
-        // ***** ADDED THIS BLOCK FOR FUSELAGE-SINGLE2.HTML *****
-        if (window.location.href.indexOf('fuselage-single2.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
+          <!-- Challenges -->
+          {% if page.path contains "team" %}
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-team.html">
+                Challenges
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-single.html">
+                Challenges
+              </a>
+            </li>
+          {% endif %}
 
+        </ul>
+        {% endif %}
 
- if (window.location.href.indexOf('fuselage-single3.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
- 
+      </div>
+    </div>
+  </nav>
 
- if (window.location.href.indexOf('lower-body-single1.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
+  {{ content }}
 
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
 
-        if (window.location.href.indexOf('lower-body-single2.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-
-        if (window.location.href.indexOf('lower-body-single3.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('lower-body-single4.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-        if (window.location.href.indexOf('nosecone-single1.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('nosecone-single2.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-        if (window.location.href.indexOf('nosecone-single3.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('assembly-single1.html') !== -1) {
-          var fuselageLink = document.getElementById('assembly-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-single.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-single-design.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-        if (window.location.href.indexOf('challenges-single-printing.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-single-measuring.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-        if (window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('fuselage-team1.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('fuselage-team2.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('fuselage-team3.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('fuselage-team4.html') !== -1) {
-          var fuselageLink = document.getElementById('fuselage-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('lower-body-team1.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-        if (window.location.href.indexOf('lower-body-team2.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('lower-body-team3.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('lower-body-team4.html') !== -1) {
-          var fuselageLink = document.getElementById('fins-booster-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('nosecone-team1.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('nosecone-team2.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('nosecone-team3.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('nosecone-team4.html') !== -1) {
-          var fuselageLink = document.getElementById('nosecone-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-        if (window.location.href.indexOf('assembly-team1.html') !== -1) {
-          var fuselageLink = document.getElementById('assembly-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-team.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-team-design.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-team-printing.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-team-measuring.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-        if (window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
-          var fuselageLink = document.getElementById('challenges-link');
-          if (fuselageLink) {
-            fuselageLink.classList.add('always-hovered');
-          }
-        }
-
-
-
-
-
-
-
-      });
-
-
-      
-
-      // Add scroll event to change navbar background
-      window.addEventListener('scroll', function() {
-        var navbar = document.getElementById('mainNav');
-        if (window.scrollY > 200) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
-    </script>
-
-    <script>
-      function toggleAdvancedMode2(isAdvMode) {
-        const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
-        elements.forEach((element) => {
-          if (isAdvMode) {
-            element.style.display = 'block';
-          } else {
-            element.style.display = 'none';
-          }
-        });
-
-        const text_elements = document.querySelectorAll('.step-instructions, .step-video');
-
-        // Instructions are usually just plain visible, but in advanced mode we want to apply the
-        // collapsed class to make them hidden under the collapsed mode.
-        text_elements.forEach((element) => {
-          if (isAdvMode) {
-            element.classList.add('collapse');
-            element.classList.remove('video-container');
-          } else {
-            element.classList.remove('collapse');
-            element.classList.add('video-container');
-          }
-        });
-
-
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
       }
-    </script>
 
-<script>
-  function updateProgressBar(video) {
-    const progressBar = video.parentElement.querySelector('.progress-bar');
-    const duration = video.duration;
-    const currentTime = video.currentTime;
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
 
-    if (!isNaN(duration) && duration > 0) {
-      const percentage = (currentTime / duration);
-      progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
     }
-  }
+  </script>
 
-  function updatePlayPauseIcon(id) {
-    const video = document.getElementById('video-' + id);
-    const playIcon = document.getElementById('play-button-' + id);
-    const pauseIcon = document.getElementById('pause-button-' + id);
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
 
-    if (video.paused) {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-    } else {
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
     }
-  }
 
-  function togglePlayPause(id) {
-    const video = document.getElementById('video-' + id);
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
 
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
     }
-  }
-</script>
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
 
 </body>
 </html>
