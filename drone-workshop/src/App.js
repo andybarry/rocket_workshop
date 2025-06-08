@@ -43,6 +43,7 @@ const getInitialEditableLines = () => {
       'valid': ['string'],
       'removeSpaces': true,
       'chipIndex': 0,
+      'version': 0,
     },
     2: {
       'value': 'const bool yellow_button_connected = false;',
@@ -50,6 +51,7 @@ const getInitialEditableLines = () => {
       'valid': ['true', 'false'],
       'removeSpaces': true,
       'chipIndex': 2,
+      'version': 0,
     },
     3: {
       'value': 'const bool slide_connected = false;',
@@ -57,6 +59,7 @@ const getInitialEditableLines = () => {
       'valid': ['true', 'false'],
       'removeSpaces': true,
       'chipIndex': 3,
+      'version': 0,
     },
     4: {
       'value': 'const bool blue_button_connected = false;',
@@ -64,6 +67,7 @@ const getInitialEditableLines = () => {
       'valid': ['true', 'false'],
       'removeSpaces': true,
       'chipIndex': 4,
+      'version': 0,
     },
     17: {
       'value': 'const char* light_pole_id = "";', // be:16:e0:00:3a:ec  be:16:c8:00:0db:ec
@@ -71,6 +75,7 @@ const getInitialEditableLines = () => {
       'valid': ['string'],
       'removeSpaces': true,
       'chipIndex': 1,
+      'version': 0,
     },
     137: {
       'value': 'bool baro_height_limit_enabled = true;',
@@ -78,6 +83,7 @@ const getInitialEditableLines = () => {
       'valid': ['true', 'false'],
       'removeSpaces': true,
       'chipIndex': 5,
+      'version': 0,
     },
     138: {
       'value': 'int baro_max_height_allowed_cm = 150;',
@@ -85,6 +91,15 @@ const getInitialEditableLines = () => {
       'valid': ['integer'],
       'removeSpaces': true,
       'chipIndex': 6,
+      'version': 0,
+    },
+    139: {
+      'value': 'int baro_max_height_throttle_at_limit = 100;',
+      'remove': ['int baro_max_height_throttle_at_limit = ', ';'],
+      'valid': ['integer'],
+      'removeSpaces': true,
+      'chipIndex': 9,
+      'version': 4.1,
     },
     361: {
       'value': '    duty = 4;',
@@ -92,6 +107,7 @@ const getInitialEditableLines = () => {
       'valid': ['integer'],
       'removeSpaces': true,
       'chipIndex': 7,
+      'version': 0,
     },
     842: {
       'value': '    Serial.println("Stop/Yellow button pressed");',
@@ -99,6 +115,7 @@ const getInitialEditableLines = () => {
       'valid': ['string'],
       'removeSpaces': false,
       'chipIndex': 8,
+      'version': 0,
     },
   }
 
@@ -132,6 +149,7 @@ const SerialMonitor = ({
             <Form.Check
               type="checkbox"
               label="Autoscroll"
+              id="autoscroll-checkbox"
               checked={autoScroll}
               onChange={onAutoScrollChange}
             />
@@ -155,6 +173,7 @@ const SerialMonitor = ({
             readOnly
             style={{
               fontFamily: 'monospace',
+              fontSize: '80%',
               height: height,
               overflowY: 'scroll',
               marginBottom: '0.5rem'
@@ -193,8 +212,10 @@ function App() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDroneTesting, setIsDroneTesting] = useState(false);
+  const [droneTestingString, setDroneTestingString] = useState("");
   const passwordInputRef = useRef(null);
+
+  const LOCAL_STORAGE_VERSION = "1.0"
 
   // Effect to load data from localStorage on component mount
   useEffect(() => {
@@ -205,8 +226,26 @@ function App() {
         // Ignore state older than 1 day
         return;
       }
+      if (!parsedState.version || parsedState.version != LOCAL_STORAGE_VERSION) {
+        // older version
+        return;
+      }
       setAutoScroll(parsedState.autoScroll ?? true);
-      setEditableLines(parsedState.editableLines || getInitialEditableLines());
+
+      const init_lines = getInitialEditableLines()
+      if (parsedState.editableLines) {
+        
+        const len_initial_lines = Object.keys(init_lines).length
+        const len_storage_lines = Object.keys(parsedState.editableLines).length
+
+        if (len_initial_lines != len_storage_lines) {
+          setEditableLines(init_lines);
+        } else {
+          setEditableLines(parsedState.editableLines);
+        }
+      } else {
+        setEditableLines(init_lines);
+      }
       holdCommandRef.current.setValue(parsedState.holdCommandText || HOLDCOMMAND_CODE);
     }
   }, []);
@@ -221,6 +260,7 @@ function App() {
     for (let val of out.sort((a, b) => a[0] - b[0])) {
       out2.push(val[1])
     }
+    console.log(out2)
     return out2
   }
 
@@ -240,11 +280,8 @@ function App() {
         // Get the height of the autonomous title
         const autonomousHeight = autonomousTitle.height;
 
-        console.log('autonomousHeight', autonomousHeight);
-
         // Recompute the element height with 2 code mirrors and the title
         const heightAvilable = windowHeight - elementPosition.top - padding - autonomousHeight;
-        console.log('window', windowHeight, 'heightAvilable', heightAvilable);
         elementHeight = heightAvilable / 2;
       }
       let codemirrorSize = `${elementHeight}px`;
@@ -264,7 +301,6 @@ function App() {
   }, [codeMirrorHeight, showAutonomous]);
 
   useEffect(() => {
-    console.log('CodeMirror height updated:', codeMirrorHeight);
     const element = document.querySelector('.CodeMirror');
 
     if (element) {
@@ -285,7 +321,6 @@ function App() {
         : `${minHeightRule};`;
 
       element.setAttribute('style', newStyle);
-      console.log(element);
     }
   }, [codeMirrorHeight]);
 
@@ -301,6 +336,7 @@ function App() {
       editableLines,
       holdCommandText: holdCommandRef.current.getValue(),
       date: new Date().toISOString(),
+      version: LOCAL_STORAGE_VERSION,
     };
     localStorage.setItem('droneWorkshopState', JSON.stringify(stateToSave));
   }
@@ -344,6 +380,7 @@ function App() {
         });
 
         try {
+          let last_line = 0
           while (true) {
             let value = null
             let done = null
@@ -363,7 +400,15 @@ function App() {
               const newData = [...prevData, value];
 
               // Join the array into a string, then split by newline, take the last 5 elements, and join them again
-              const recentLines = newData.join('').split('\n').slice(-5)
+              const lines = newData.join('').split('\n')
+              const num_new_lines = lines.length - last_line + 1;
+              let recentLines = []
+              if (num_new_lines > 0) {
+                recentLines = lines.slice(-num_new_lines)
+              }
+
+              last_line = lines.length;
+
 
               // Check for the upload string and drone test completion
               for (let line of recentLines) {
@@ -373,7 +418,7 @@ function App() {
                   setIsUploading(false);
                 }
                 if (line.includes("Done testing all drones")) {
-                  setIsDroneTesting(false);
+                  setDroneTestingString("");
                 }
               }
 
@@ -413,7 +458,8 @@ function App() {
   }, [editableLines]);
 
   const getValuesForChip = () => {
-    console.log("Getting values for chip version: " + firmwareVersion)
+    const chipVersion = parseFloat(firmwareVersion)
+    console.log("Getting values for chip version: " + chipVersion)
     let holdcmd = parseHoldCommand();
     if (holdcmd === null) {
       return "";
@@ -421,10 +467,17 @@ function App() {
     let out = []
     let no_errors = true;
     for (let linenum of getCodeLineOrder()) {
-      console.log("Checking line: " + linenum)
+      // console.log("Checking line: " + linenum)
       let line = editableLines[linenum];
       let value = line['value'];
       let humanLineNumber = parseInt(linenum) + 1;
+      let version = line['version']
+
+      if (version > chipVersion && chipVersion > 0) {
+        console.log(`Skipping ${value} for firmware version: required ${version} > chip ${chipVersion}`)
+        continue
+      }
+
       // Remove comments
       value = value.replace(/\/\/.*$/, '');
       if (line['removeSpaces']) {
@@ -448,12 +501,12 @@ function App() {
         value = value.replaceAll(remove2, '')
       }
 
-
       // Check for valid
       let found_valid = false;
       let show_default_error = true;
       if (value.includes('@')) {
         setCodeError('Error: Line ' + humanLineNumber + ' should not contain an @');
+        no_errors = false
       } else {
         for (let allowed of line['valid']) {
           if (allowed == 'string') {
@@ -461,8 +514,6 @@ function App() {
             out.push(value)
             break;
           } else if (allowed == 'integer') {
-            console.log(value)
-            console.log(isInt(value))
             if (isInt(value)) {
               found_valid = true
               out.push(value)
@@ -489,7 +540,6 @@ function App() {
     } else {
       return "";
     }
-
     for (let command of holdcmd) {
       out.push(command['param1'] + ',' + command['param2'] + ',' + command['param3'] + ',' + command['param4'] + ',' + command['param5'] + ',' + command['color'])
     }
@@ -547,7 +597,7 @@ function App() {
         const params = match[1].split(',').map(param => param.trim());
         if (params.length !== 6) {
           console.log(`Invalid number of parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}:: invalid number of parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: invalid number of parameters: ${line}`);
 
           return null;
         }
@@ -558,7 +608,25 @@ function App() {
         // Validate parameters
         if (isNaN(param1) || isNaN(param2) || isNaN(param3) || isNaN(param4) || isNaN(param5) || !parsedColor) {
           console.log(`Invalid parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}:: invalid parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: invalid parameters: ${line}`);
+          return null;
+        }
+
+        if (param1 > 100 || param2 > 100 || param3 > 100 || param4 > 100) {
+          console.log(`Invalid parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter > 100: ${line}`);
+          return null;
+        }
+
+        if (param1 < 0 || param2 < 0 || param3 < 0 || param4 < 0) {
+          console.log(`Invalid parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter > 100: ${line}`);
+          return null;
+        }
+
+        if (param5 < 0) {
+          console.log(`Invalid parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: time < 0: ${line}`);
           return null;
         }
 
@@ -572,7 +640,6 @@ function App() {
         });
       }
 
-      console.log(commands);
       return commands;
     }
   }
@@ -622,7 +689,7 @@ function App() {
 
   const handleAdminDialogClose = () => {
     setShowAdminDialog(false);
-    setIsDroneTesting(false); // Reset testing state when dialog closes
+    setDroneTestingString(""); // Reset testing state when dialog closes
   };
 
   const handlePasswordSubmit = (e) => {
@@ -635,13 +702,15 @@ function App() {
     }
   };
 
-  const handleTestAllDrones = async () => {
+  const handleTestAllDrones = async (serial_string) => {
     // send the command "test_all_drones"
-    setIsDroneTesting(true);
+
+    setDroneTestingString(serial_string);
+
     if (port) {
       const textEncoder = new TextEncoder();
       const writer = port.writable.getWriter();
-      await writer.write(textEncoder.encode("test_all_drones"));
+      await writer.write(textEncoder.encode(serial_string));
       writer.releaseLock();
     }
   };
@@ -681,7 +750,6 @@ function App() {
     `${basePdf}#view=FitH&navpanes=0&toolbar=0&scrollbar=0`;  // or …#zoom=page-width
 
 
-
   return (
     <ErrorBoundary>
       <div
@@ -690,14 +758,14 @@ function App() {
           backgroundColor: "#f05f40ff",
         }}>
 
-<div className="orange-bar">
-  <h1 className="stageone-heading">
-    <span className="stageone-education">Robotics Workshop</span>
-    <span className="drone-workshop"> | Drone IDE</span>
-  </h1>
+        <div className="orange-bar">
+          <h1 className="stageone-heading">
+            <span className="stageone-education">Robotics Workshop</span>
+            <span className="drone-workshop"> | Drone IDE</span>
+          </h1>
 
-  <span className="stageone-org">STAGE ONE EDUCATION</span>
-</div>
+          <span className="stageone-org">STAGE ONE EDUCATION</span>
+        </div>
 
         <div className="download-links">
           <label
@@ -731,8 +799,8 @@ function App() {
             USB/UART Drivers
           </a>
           <a
-            href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4.ino"
-            download="QuadWiFiPoleBTWebSerialv4.ino"
+            href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4_1.ino"
+            download="QuadWiFiPoleBTWebSerialv4_1.ino"
             target="_blank"
           >
             Firmware
@@ -741,7 +809,11 @@ function App() {
         </div>
       </div>
 
-      <Split initialPrimarySize={"15vw"}>
+      {/* 614
+      893
+      401 */}
+
+      <Split initialPrimarySize={"32vw"} minPrimarySize={"5vw"} minSecondarySize={"10vw"}>
         <div style={{
           height: '100%',
         }}
@@ -753,7 +825,7 @@ function App() {
           />
         </div>
         <div>
-          <Split initialPrimarySize={"60vw"}>
+          <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"}>
             <div style={{ height: '100%', overflow: 'auto' }}>
               <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
 
@@ -835,6 +907,7 @@ function App() {
                             'valid': editableLines[lineNum]['valid'],
                             'removeSpaces': editableLines[lineNum]['removeSpaces'],
                             'chipIndex': editableLines[lineNum]['chipIndex'],
+                            'version': editableLines[lineNum]['version'],
                           }
                         });
                       }
@@ -893,9 +966,9 @@ function App() {
               </Container >
             </div>
             <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'auto', padding: '10px' }}>
-<div className="serial-monitor">
-  <h4>Serial Monitor</h4>
-</div>              <SerialMonitor
+              <div className="serial-monitor">
+                <h4>Serial Monitor</h4>
+              </div>              <SerialMonitor
                 data={data}
                 autoScroll={autoScroll}
                 onAutoScrollChange={handleCheckboxChange}
@@ -971,12 +1044,12 @@ function App() {
               ) : null}
               <Button
                 variant={uploadButtonClass}
-                onClick={handleTestAllDrones}
-                // disabled={firmwareVersion < 4 || !isConnected || isDroneTesting}
+                onClick={() => { handleTestAllDrones("test_all_drones") }}
+                disabled={!isConnected || isUploading}
                 style={{ marginLeft: '10px', ...uploadButtonColor }}
                 className={isConnected ? "orange-btn" : ""}
               >
-                {isDroneTesting ? (
+                {droneTestingString == "test_all_drones" ? (
                   <>
                     <Spinner
                       as="span"
@@ -989,7 +1062,31 @@ function App() {
                     Testing...
                   </>
                 ) : (
-                  'Test all drones'
+                  'Spin up all drones'
+                )}
+              </Button>
+
+              <Button
+                variant={uploadButtonClass}
+                onClick={() => { handleTestAllDrones("test_all_drones_flying2") }}
+                disabled={!isConnected || isUploading}
+                style={{ marginLeft: '10px', ...uploadButtonColor }}
+                className={isConnected ? "orange-btn" : ""}
+              >
+                {droneTestingString == "test_all_drones_flying2" ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      style={{ marginRight: '5px' }}
+                    />
+                    Testing...
+                  </>
+                ) : (
+                  'Pop up all drones'
                 )}
               </Button>
 
@@ -1025,6 +1122,7 @@ const HOLDCOMMAND_CODE = `
 holdCommand(50, 50, 55, 50, 500, "blue");  // straight up 0.5 sec
 holdCommand(50, 50, 55, 100, 750, "purple"); // spin in place 0.75 sec
 holdCommand(50, 50, 55, 0, 750, "orange");   // spin in place the other way 0.75 sec
+holdCommand(50, 50, 25, 0, 750, "yellow");   // land
 `
 
 const BASE_CODE = `

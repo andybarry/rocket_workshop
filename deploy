@@ -9,6 +9,10 @@ if [ "$(pwd)" != "$TARGET_DIR" ]; then
     exit 1
 fi
 
+cd drone-workshop
+npm run build
+cd ..
+
 echo "Building site..."
 jekyll build --source jekyll --destination www "$@"
 
