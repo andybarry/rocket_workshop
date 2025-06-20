@@ -790,7 +790,7 @@ function App() {
             Advanced mode
           </label>
 
-          <a href="https://stageoneeducation.com/Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank">Instructions</a>
+          <a href={pdfUrl} target="_blank">Instructions</a>
           <a
             href="https://stageoneeducation.com/UART-USB-Driver.html"
             target="_blank"
