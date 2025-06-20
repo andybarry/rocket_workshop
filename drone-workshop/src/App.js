@@ -747,7 +747,7 @@ function App() {
 
   // Important: put the hash *after* any query string the URL might already have
   const pdfUrl =
-    `${basePdf}#view=FitH&navpanes=0&toolbar=0&scrollbar=0`;  // or …#zoom=page-width
+    `${basePdf}#view=FitH&navpanes=0&toolbar=1&scrollbar=0`;  // or …#zoom=page-width
 
 
   return (
