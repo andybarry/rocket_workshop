@@ -78,7 +78,7 @@ const getInitialEditableLines = () => {
       'version': 0,
     },
     137: {
-      'value': 'bool baro_height_limit_enabled = true;',
+      'value': 'bool baro_height_limit_enabled = false;',
       'remove': ['bool baro_height_limit_enabled = ', ';'],
       'valid': ['true', 'false'],
       'removeSpaces': true,
