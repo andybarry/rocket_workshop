@@ -247,647 +247,266 @@ function App() {
 
   return (
     <div className="app">
-      {/* Header Bar */}
-      <header className="header-bar">
-        <div className="header-content">
-          <span className="header-bold">STAGE ONE EDUCATION</span>
-          <div className="header-divider"></div>
-          <span className="header-regular">Artificial Intelligence Workshop</span>
-        </div>
-      </header>
+      {/* Fixed Header Section */}
+      <div className="fixed-header">
+        {/* Header Bar */}
+        <header className="header-bar">
+          <div className="header-content">
+            <span className="header-left">Artificial Intelligence Workshop</span>
+            <div className="header-divider"></div>
+            <span className="header-center">Human Neural Network</span>
+            <div className="header-spacer"></div>
+            <span className="header-right">STAGE ONE EDUCATION</span>
+          </div>
+        </header>
 
-      <div className="main-content">
-        <div className="title-section">
+        {/* Fixed Title Section */}
+        <div className="fixed-title-section">
           <h2 className="round-title">Round 1</h2>
-          <h3 className="network-title">Human Neural Network - 27</h3>
           <div className="horizontal-line"></div>
-          <div className="image-container">
-            <img src="/27-nn.png" alt="27 participant human neural network" className="content-image" />
-          </div>
-          <div className="text-box">
-            <span className="text-box-content">Sensor Nodes (A)</span>
-          </div>
-          {!isHidden && (
-            <div className="traffic-light-section">
-              <p className="instruction-text">Select state of the traffic light</p>
-              <div className="button-container">
-                <button 
-                  className={`red-button ${selectedButton === 'red' ? 'selected' : ''}`}
-                  onClick={() => handleButtonClick('red')}
-                >
-                  Red
-                </button>
-                <button 
-                  className={`green-button ${selectedButton === 'green' ? 'selected' : ''}`}
-                  onClick={() => handleButtonClick('green')}
-                >
-                  Green
-                </button>
-              </div>
-              <div className="traffic-light-display">
-                <div className="traffic-light-housing">
-                  <div 
-                    className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
-                  ></div>
-                  <div 
-                    className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
-                  ></div>
-                </div>
-              </div>
+        </div>
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="scrollable-content">
+        <div className="main-content">
+          <div className="title-section">
+            <div className="image-container">
+              <img src="/27-nn.png" alt="27 participant human neural network" className="content-image" />
             </div>
-          )}
-          <div className="hide-button-container">
-            <button 
-              className={`hide-button ${isHidden ? 'selected' : ''}`}
-              onClick={toggleHide}
-            >
-              {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
-            </button>
-          </div>
-          <div className="run-button-container">
-            <button 
-              className={`run-button ${hasRunRound1 ? 'selected' : ''}`}
-              onClick={handleRunRound1}
-            >
-              Run Round 1
-            </button>
-          </div>
-          <div className="circles-section">
-            <div className="circles-grid">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
-                <div key={num} className="circle-item">
-                  <span className="circle-label">A{num}</span>
-                  {showCode && (
-                    <span className="probability-text">
-                      {((circleWeights[num-1].weight / 6) * 100).toFixed(1)}%
-                    </span>
-                  )}
-                  <div className={`circle ${circleColors[num-1]}`}>
-                    {circleColors[num-1] === 'red' && <span className="circle-text">R</span>}
-                    {circleColors[num-1] === 'green' && <span className="circle-text">G</span>}
+            <div className="text-box">
+              <span className="text-box-content">Sensor Nodes (A)</span>
+            </div>
+            
+            {!isHidden && (
+              <div className="traffic-light-section">
+                <p className="instruction-text">Select state of the traffic light</p>
+                <div className="button-container">
+                  <button 
+                    className={`red-button ${selectedButton === 'red' ? 'selected' : ''}`}
+                    onClick={() => handleButtonClick('red')}
+                  >
+                    Red
+                  </button>
+                  <button 
+                    className={`green-button ${selectedButton === 'green' ? 'selected' : ''}`}
+                    onClick={() => handleButtonClick('green')}
+                  >
+                    Green
+                  </button>
+                </div>
+                <div className="traffic-light-display">
+                  <div className="traffic-light-housing">
+                    <div 
+                      className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
+                    ></div>
+                    <div 
+                      className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
+                    ></div>
                   </div>
                 </div>
-              ))}
-            </div>
-      </div>
-          <div className="show-code-button-container">
-            <button 
-              className={`show-code-button ${showCode ? 'selected' : ''}`}
-              onClick={toggleShowCode}
-            >
-              {showCode ? 'Hide Code' : 'Show Code'}
-        </button>
-          </div>
-          <div className="hidden-layer-text-box">
-            <span className="hidden-layer-text-content">Hidden Layer Nodes (B&C)</span>
-          </div>
-          <div className="node-instructions">
-            <p className="b-node-instruction">(B) Nodes: Write down sensor input and roll the dice</p>
-            <p className="c-node-instruction">(C) Nodes: Find your connections, write down your input, and roll the dice</p>
-          </div>
-          <div className="output-text-box">
-            <span className="output-text-box-content">Output Node (OUT)</span>
-          </div>
-          <div className="table-container">
-            <table className="output-table">
-              <thead>
-                <tr>
-                  <th>Node</th>
-                  <th>Input</th>
-                  <th>Numeric</th>
-                  <th>×</th>
-                  <th>Weight</th>
-                  <th>=</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>C1</td>
-                  <td className={inputSelections[0] === 'red' ? 'input-cell-red' : inputSelections[0] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[0]} 
-                      onChange={(e) => handleInputChange(0, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 0, 1)}
-                      data-row="0" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[0]} 
-                      onChange={(e) => handleNumericChange(0, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 0, 2)}
-                      data-row="0" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[0]} 
-                      onChange={(e) => handleWeightChange(0, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 0, 4)}
-                      data-row="0" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[0]} 
-                      onChange={(e) => handleValueChange(0, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 0, 6)}
-                      data-row="0" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C2</td>
-                  <td className={inputSelections[1] === 'red' ? 'input-cell-red' : inputSelections[1] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[1]} 
-                      onChange={(e) => handleInputChange(1, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 1, 1)}
-                      data-row="1" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[1]} 
-                      onChange={(e) => handleNumericChange(1, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 1, 2)}
-                      data-row="1" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[1]} 
-                      onChange={(e) => handleWeightChange(1, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 1, 4)}
-                      data-row="1" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[1]} 
-                      onChange={(e) => handleValueChange(1, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 1, 6)}
-                      data-row="1" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C3</td>
-                  <td className={inputSelections[2] === 'red' ? 'input-cell-red' : inputSelections[2] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[2]} 
-                      onChange={(e) => handleInputChange(2, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 2, 1)}
-                      data-row="2" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[2]} 
-                      onChange={(e) => handleNumericChange(2, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 2, 2)}
-                      data-row="2" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[2]} 
-                      onChange={(e) => handleWeightChange(2, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 2, 4)}
-                      data-row="2" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[2]} 
-                      onChange={(e) => handleValueChange(2, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 2, 6)}
-                      data-row="2" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C4</td>
-                  <td className={inputSelections[3] === 'red' ? 'input-cell-red' : inputSelections[3] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[3]} 
-                      onChange={(e) => handleInputChange(3, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 3, 1)}
-                      data-row="3" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[3]} 
-                      onChange={(e) => handleNumericChange(3, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 3, 2)}
-                      data-row="3" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[3]} 
-                      onChange={(e) => handleWeightChange(3, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 3, 4)}
-                      data-row="3" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[3]} 
-                      onChange={(e) => handleValueChange(3, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 3, 6)}
-                      data-row="3" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C5</td>
-                  <td className={inputSelections[4] === 'red' ? 'input-cell-red' : inputSelections[4] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[4]} 
-                      onChange={(e) => handleInputChange(4, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 4, 1)}
-                      data-row="4" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[4]} 
-                      onChange={(e) => handleNumericChange(4, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 4, 2)}
-                      data-row="4" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[4]} 
-                      onChange={(e) => handleWeightChange(4, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 4, 4)}
-                      data-row="4" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[4]} 
-                      onChange={(e) => handleValueChange(4, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 4, 6)}
-                      data-row="4" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C6</td>
-                  <td className={inputSelections[5] === 'red' ? 'input-cell-red' : inputSelections[5] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[5]} 
-                      onChange={(e) => handleInputChange(5, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 5, 1)}
-                      data-row="5" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[5]} 
-                      onChange={(e) => handleNumericChange(5, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 5, 2)}
-                      data-row="5" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[5]} 
-                      onChange={(e) => handleWeightChange(5, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 5, 4)}
-                      data-row="5" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[5]} 
-                      onChange={(e) => handleValueChange(5, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 5, 6)}
-                      data-row="5" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C7</td>
-                  <td className={inputSelections[6] === 'red' ? 'input-cell-red' : inputSelections[6] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[6]} 
-                      onChange={(e) => handleInputChange(6, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 6, 1)}
-                      data-row="6" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[6]} 
-                      onChange={(e) => handleNumericChange(6, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 6, 2)}
-                      data-row="6" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[6]} 
-                      onChange={(e) => handleWeightChange(6, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 6, 4)}
-                      data-row="6" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[6]} 
-                      onChange={(e) => handleValueChange(6, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 6, 6)}
-                      data-row="6" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C8</td>
-                  <td className={inputSelections[7] === 'red' ? 'input-cell-red' : inputSelections[7] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[7]} 
-                      onChange={(e) => handleInputChange(7, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 7, 1)}
-                      data-row="7" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[7]} 
-                      onChange={(e) => handleNumericChange(7, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 7, 2)}
-                      data-row="7" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[7]} 
-                      onChange={(e) => handleWeightChange(7, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 7, 4)}
-                      data-row="7" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[7]} 
-                      onChange={(e) => handleValueChange(7, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 7, 6)}
-                      data-row="7" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>C9</td>
-                  <td className={inputSelections[8] === 'red' ? 'input-cell-red' : inputSelections[8] === 'green' ? 'input-cell-green' : ''}>
-                    <select 
-                      value={inputSelections[8]} 
-                      onChange={(e) => handleInputChange(8, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 8, 1)}
-                      data-row="8" 
-                      data-column="1"
-                    >
-                      <option value="">Select</option>
-                      <option value="red">Red</option>
-                      <option value="green">Green</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select 
-                      value={numericValues[8]} 
-                      onChange={(e) => handleNumericChange(8, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 8, 2)}
-                      data-row="8" 
-                      data-column="2"
-                    >
-                      <option value="">Select</option>
-                      <option value="1">1</option>
-                      <option value="-1">-1</option>
-                    </select>
-                  </td>
-                  <td>×</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={weightValues[8]} 
-                      onChange={(e) => handleWeightChange(8, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 8, 4)}
-                      data-row="8" 
-                      data-column="4"
-                    />
-                  </td>
-                  <td>=</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={valueResults[8]} 
-                      onChange={(e) => handleValueChange(8, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, 8, 6)}
-                      data-row="8" 
-                      data-column="6"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="auto-buttons-container">
-            <div className="auto-button-column">
-              <button className={`auto-button ${isAutoNumericActive ? 'active' : ''}`} onClick={handleAutoNumeric}>
-                Auto
+              </div>
+            )}
+            
+            <div className="hide-button-container">
+              <button 
+                className={`hide-button ${isHidden ? 'selected' : ''}`}
+                onClick={toggleHide}
+              >
+                {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
               </button>
             </div>
-            <div className="auto-button-column">
-              <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
-                Auto
+            
+            <div className="run-button-container">
+              <button 
+                className={`run-button ${hasRunRound1 ? 'selected' : ''}`}
+                onClick={handleRunRound1}
+              >
+                Run Round 1
               </button>
             </div>
-            <div className="auto-button-column">
-              <button className={`auto-button ${isAutoValueActive ? 'active' : ''}`} onClick={handleAutoValue}>
-                Auto
+            
+            <div className="circles-section">
+              <div className="circles-grid">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
+                  <div key={num} className="circle-item">
+                    <span className="circle-label">A{num}</span>
+                    {showCode && (
+                      <span className="probability-text">
+                        {((circleWeights[num-1].weight / 6) * 100).toFixed(1)}%
+                      </span>
+                    )}
+                    <div className={`circle ${circleColors[num-1]}`}>
+                      {circleColors[num-1] === 'red' && <span className="circle-text">R</span>}
+                      {circleColors[num-1] === 'green' && <span className="circle-text">G</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="show-code-button-container">
+              <button 
+                className={`show-code-button ${showCode ? 'selected' : ''}`}
+                onClick={toggleShowCode}
+              >
+                {showCode ? 'Hide Code' : 'Show Code'}
               </button>
             </div>
-          </div>
-          <div className="summary-table-container">
-            <table className="summary-table">
-              <tbody>
-                <tr>
-                  <td>Sum of (C) Node Values</td>
-                  <td>Network Decision</td>
-                </tr>
-                <tr>
-                  <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{sumOfValues}</td>
-                  <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{networkDecision}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="traffic-light-display">
-            <div className="traffic-light-housing">
-              <div
-                className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
-              ></div>
-              <div
-                className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
-              ></div>
+            
+            <div className="hidden-layer-text-box">
+              <span className="hidden-layer-text-content">Hidden Layer Nodes (B&C)</span>
             </div>
-          </div>
-          <div className="summary-text-box">
-            <span className="summary-text-box-content">Summary</span>
-          </div>
-          <div className="summary-details-container">
-            <table className="summary-details-table">
-              <tbody>
-                <tr>
-                  <td>Round</td>
-                  <td>Network Status</td>
-                  <td>Sum</td>
-                </tr>
-                <tr>
-                  <td>{roundNumber}</td>
-                  <td>{networkStatus}</td>
-                  <td>{sumOfValues}</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+            
+            <div className="node-instructions">
+              <p className="b-node-instruction">(B) Nodes: Write down sensor input and roll the dice</p>
+              <p className="c-node-instruction">(C) Nodes: Find your connections, write down your input, and roll the dice</p>
+            </div>
+            
+            <div className="output-text-box">
+              <span className="output-text-box-content">Output Node (OUT)</span>
+            </div>
+            
+            <div className="table-container">
+              <table className="output-table">
+                <thead>
+                  <tr>
+                    <th>Node</th>
+                    <th>Input</th>
+                    <th>Numeric</th>
+                    <th>×</th>
+                    <th>Weight</th>
+                    <th>=</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                    <tr key={index}>
+                      <td>C{index}</td>
+                      <td className={inputSelections[index-1] === 'red' ? 'input-cell-red' : inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
+                        <select 
+                          value={inputSelections[index-1]} 
+                          onChange={(e) => handleInputChange(index-1, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, index-1, 1)}
+                          data-row={index-1} 
+                          data-column="1"
+                        >
+                          <option value="">Select</option>
+                          <option value="red">Red</option>
+                          <option value="green">Green</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select 
+                          value={numericValues[index-1]} 
+                          onChange={(e) => handleNumericChange(index-1, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, index-1, 2)}
+                          data-row={index-1} 
+                          data-column="2"
+                        >
+                          <option value="">Select</option>
+                          <option value="1">1</option>
+                          <option value="-1">-1</option>
+                        </select>
+                      </td>
+                      <td>×</td>
+                      <td>
+                        <input 
+                          type="text" 
+                          value={weightValues[index-1]} 
+                          onChange={(e) => handleWeightChange(index-1, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
+                          data-row={index-1} 
+                          data-column="4"
+                        />
+                      </td>
+                      <td>=</td>
+                      <td>
+                        <input 
+                          type="text" 
+                          value={valueResults[index-1]} 
+                          onChange={(e) => handleValueChange(index-1, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
+                          data-row={index-1} 
+                          data-column="6"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="auto-buttons-container">
+              <div className="auto-button-column">
+                <button className={`auto-button ${isAutoNumericActive ? 'active' : ''}`} onClick={handleAutoNumeric}>
+                  Auto
+                </button>
+              </div>
+              <div className="auto-button-column">
+                <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
+                  Auto
+                </button>
+              </div>
+              <div className="auto-button-column">
+                <button className={`auto-button ${isAutoValueActive ? 'active' : ''}`} onClick={handleAutoValue}>
+                  Auto
+                </button>
+              </div>
+            </div>
+            
+            <div className="summary-table-container">
+              <table className="summary-table">
+                <tbody>
+                  <tr>
+                    <td>Sum of (C) Node Values</td>
+                    <td>Network Decision</td>
+                  </tr>
+                  <tr>
+                    <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{sumOfValues}</td>
+                    <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{networkDecision}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="traffic-light-display">
+              <div className="traffic-light-housing">
+                <div
+                  className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
+                ></div>
+                <div
+                  className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
+                ></div>
+              </div>
+            </div>
+            
+            <div className="summary-text-box">
+              <span className="summary-text-box-content">Summary</span>
+            </div>
+            
+            <div className="summary-details-container">
+              <table className="summary-details-table">
+                <tbody>
+                  <tr>
+                    <td>Round</td>
+                    <td>Network Status</td>
+                    <td>Sum</td>
+                  </tr>
+                  <tr>
+                    <td>{roundNumber}</td>
+                    <td>{networkStatus}</td>
+                    <td>{sumOfValues}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
