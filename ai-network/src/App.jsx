@@ -23,6 +23,68 @@ function App() {
   const [networkDecision, setNetworkDecision] = useState('') // track network decision
   const [roundNumber, setRoundNumber] = useState(1) // track current round
   const [networkStatus, setNetworkStatus] = useState('') // track if network decision is correct
+  const [showNetworkDecision, setShowNetworkDecision] = useState(false)
+  const [showTrafficLight, setShowTrafficLight] = useState(true) // track if network decision table is shown
+
+  const handleSensorBoxClick = () => {
+    // Scroll to position where Sensor Nodes A appears right below the horizontal line
+    const sensorBox = document.querySelector('.text-box')
+    if (sensorBox) {
+      const rect = sensorBox.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const horizontalLinePosition = 95 // Position right below the horizontal line
+      
+      window.scrollTo({
+        top: Math.max(0, absoluteTop - horizontalLinePosition),
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleHiddenLayerBoxClick = () => {
+    // Scroll to position where Hidden Layer Nodes appears right below the horizontal line
+    const hiddenLayerBox = document.querySelector('.hidden-layer-text-box')
+    if (hiddenLayerBox) {
+      const rect = hiddenLayerBox.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const horizontalLinePosition = 95 // Position right below the horizontal line
+      
+      window.scrollTo({
+        top: Math.max(0, absoluteTop - horizontalLinePosition),
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleOutputBoxClick = () => {
+    // Scroll to position where Output Node appears right below the horizontal line
+    const outputBox = document.querySelector('.output-text-box')
+    if (outputBox) {
+      const rect = outputBox.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const horizontalLinePosition = 95 // Position right below the horizontal line
+      
+      window.scrollTo({
+        top: Math.max(0, absoluteTop - horizontalLinePosition),
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleSummaryBoxClick = () => {
+    // Scroll to position where Summary appears right below the horizontal line
+    const summaryBox = document.querySelector('.summary-text-box')
+    if (summaryBox) {
+      const rect = summaryBox.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const horizontalLinePosition = 95 // Position right below the horizontal line
+      
+      window.scrollTo({
+        top: Math.max(0, absoluteTop - horizontalLinePosition),
+        behavior: 'smooth'
+      })
+    }
+  }
 
   const cycleLights = () => {
     setLightStates(prevStates => {
@@ -53,6 +115,19 @@ function App() {
 
   const toggleShowCode = () => {
     setShowCode(!showCode)
+  }
+
+  const toggleNetworkDecision = () => {
+    const newShowState = !showNetworkDecision
+    setShowNetworkDecision(newShowState)
+    // Calculate summary when showing the network decision
+    if (newShowState) {
+      calculateSummary()
+    }
+  }
+
+  const toggleTrafficLight = () => {
+    setShowTrafficLight(!showTrafficLight)
   }
 
   const handleInputChange = (index, value) => {
@@ -142,25 +217,30 @@ function App() {
     
     setSumOfValues(sum.toString())
     
-    // Determine network decision
+    // Determine network decision locally first
+    let decision
     if (sum > 0) {
-      setNetworkDecision('Green')
+      decision = 'Green'
     } else if (sum < 0) {
-      setNetworkDecision('Red')
+      decision = 'Red'
     } else {
-      setNetworkDecision('Undecided')
+      decision = 'Undecided'
     }
+    
+    setNetworkDecision(decision)
 
-    // Determine network status
-    if (sum === 0) {
+    // Determine network status using the local decision
+    if (!selectedButton) {
+      setNetworkStatus('') // No traffic light selected
+    } else if (sum === 0) {
       setNetworkStatus('Undecided')
-    } else if (selectedButton === 'red' && networkDecision === 'Red') {
+    } else if (selectedButton === 'red' && decision === 'Red') {
       setNetworkStatus('Correct')
-    } else if (selectedButton === 'green' && networkDecision === 'Green') {
+    } else if (selectedButton === 'green' && decision === 'Green') {
       setNetworkStatus('Correct')
-    } else if (selectedButton === 'red' && networkDecision === 'Green') {
+    } else if (selectedButton === 'red' && decision === 'Green') {
       setNetworkStatus('Incorrect')
-    } else if (selectedButton === 'green' && networkDecision === 'Red') {
+    } else if (selectedButton === 'green' && decision === 'Red') {
       setNetworkStatus('Incorrect')
     } else {
       setNetworkStatus('')
@@ -169,7 +249,9 @@ function App() {
 
   useEffect(() => {
     calculateSummary()
-  }, [valueResults])
+  }, [valueResults, selectedButton])
+
+
 
   const handleKeyDown = (e, rowIndex, columnIndex) => {
     if (e.key === 'Tab') {
@@ -271,10 +353,17 @@ function App() {
       <div className="scrollable-content">
         <div className="main-content">
           <div className="title-section">
+            <div className="image-title-box">
+              <span className="image-title-text">27 participant Human Neural Network</span>
+            </div>
             <div className="image-container">
               <img src="/27-nn.png" alt="27 participant human neural network" className="content-image" />
             </div>
-            <div className="text-box">
+            <div 
+              className="text-box"
+              onClick={handleSensorBoxClick}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="text-box-content">Sensor Nodes (A)</span>
             </div>
             
@@ -295,6 +384,14 @@ function App() {
                     Green
                   </button>
                 </div>
+                <div className="hide-button-container">
+                  <button 
+                    className={`hide-button ${isHidden ? 'selected' : ''}`}
+                    onClick={toggleHide}
+                  >
+                    {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
+                  </button>
+                </div>
                 <div className="traffic-light-display">
                   <div className="traffic-light-housing">
                     <div 
@@ -308,14 +405,16 @@ function App() {
               </div>
             )}
             
-            <div className="hide-button-container">
-              <button 
-                className={`hide-button ${isHidden ? 'selected' : ''}`}
-                onClick={toggleHide}
-              >
-                {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
-              </button>
-            </div>
+            {isHidden && (
+              <div className="hide-button-container">
+                <button 
+                  className={`hide-button ${isHidden ? 'selected' : ''}`}
+                  onClick={toggleHide}
+                >
+                  {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
+                </button>
+              </div>
+            )}
             
             <div className="run-button-container">
               <button 
@@ -354,7 +453,11 @@ function App() {
               </button>
             </div>
             
-            <div className="hidden-layer-text-box">
+            <div 
+              className="hidden-layer-text-box"
+              onClick={handleHiddenLayerBoxClick}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="hidden-layer-text-content">Hidden Layer Nodes (B&C)</span>
             </div>
             
@@ -363,7 +466,11 @@ function App() {
               <p className="c-node-instruction">(C) Nodes: Find your connections, write down your input, and roll the dice</p>
             </div>
             
-            <div className="output-text-box">
+            <div 
+              className="output-text-box"
+              onClick={handleOutputBoxClick}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="output-text-box-content">Output Node (OUT)</span>
             </div>
             
@@ -456,33 +563,67 @@ function App() {
               </div>
             </div>
             
-            <div className="summary-table-container">
-              <table className="summary-table">
-                <tbody>
-                  <tr>
-                    <td>Sum of (C) Node Values</td>
-                    <td>Network Decision</td>
-                  </tr>
-                  <tr>
-                    <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{sumOfValues}</td>
-                    <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{networkDecision}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <div className="orange-horizontal-line"></div>
             
-            <div className="traffic-light-display">
-              <div className="traffic-light-housing">
-                <div
-                  className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
-                ></div>
-                <div
-                  className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
-                ></div>
+            <div className="compute-decision-button-container">
+              <button 
+                className={`compute-decision-button ${showNetworkDecision ? 'selected' : ''}`}
+                onClick={toggleNetworkDecision}
+              >
+                Compute the Network Decision
+              </button>
+            </div>
+
+            {showNetworkDecision && (
+              <div className="summary-table-container">
+                <table className="summary-table">
+                  <tbody>
+                    <tr>
+                      <td>Sum of (C) Node Values</td>
+                      <td>Network Decision</td>
+                    </tr>
+                    <tr>
+                      <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{sumOfValues}</td>
+                      <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{networkDecision}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
+            )}
+
+            <div className="summary-horizontal-line"></div>
             
-            <div className="summary-text-box">
+            <div className="traffic-light-state-button-container">
+              <button 
+                className={`traffic-light-state-button ${showTrafficLight ? 'selected' : ''}`}
+                onClick={toggleTrafficLight}
+              >
+                Traffic Light State
+              </button>
+            </div>
+
+            {showTrafficLight && (
+              <div className="traffic-light-display">
+                <div className="traffic-light-housing">
+                  <div
+                    className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
+                  >
+                    {selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                  </div>
+                  <div
+                    className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
+                  >
+                    {selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div 
+              className="summary-text-box"
+              onClick={handleSummaryBoxClick}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="summary-text-box-content">Summary</span>
             </div>
             
@@ -499,16 +640,63 @@ function App() {
                     <td>{networkStatus}</td>
                     <td>{sumOfValues}</td>
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
+            
+            <div className="summary-table-horizontal-line"></div>
+            
+            <div className="bar-graph-container">
+              <h3 className="bar-graph-title">Node Weights</h3>
+              <div className="bar-graph">
+                <div className="bar-graph-y-axis">
+                  <div className="y-axis-label">Weight</div>
+                  <div className="y-axis-scale">
+                    <span>180</span>
+                    <span>90</span>
+                    <span>0</span>
+                    <span>-90</span>
+                    <span>-180</span>
+                  </div>
+                </div>
+                <div className="bar-graph-chart">
+                  <div className="bar-graph-grid">
+                    {Array.from({length: 5}, (_, i) => (
+                      <div key={i} className="grid-line"></div>
+                    ))}
+                  </div>
+                  <div className="bars-container">
+                    {weightValues.map((weight, index) => {
+                      const weightNum = parseFloat(weight) || 0;
+                      const maxHeight = 100; // 100px for full scale
+                      const barHeight = Math.abs(weightNum) * maxHeight / 180; // Scale to ±180
+                      const isNegative = weightNum < 0;
+                      
+                      return (
+                        <div key={index} className="bar-column">
+                          <div className="bar-wrapper">
+                            <div 
+                              className={`bar ${isNegative ? 'negative' : 'positive'}`}
+                              style={{
+                                height: `${barHeight}px`,
+                                marginTop: isNegative ? '100px' : `${100 - barHeight}px`
+                              }}
+                            ></div>
+                          </div>
+                          <div className="bar-label">C{index + 1}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      
+      <div className="copyright-footer">
+        © 2025 Stage One Education, LLC
       </div>
     </div>
   )
