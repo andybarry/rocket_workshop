@@ -24,7 +24,8 @@ function App() {
   const [roundNumber, setRoundNumber] = useState(1) // track current round
   const [networkStatus, setNetworkStatus] = useState('') // track if network decision is correct
   const [showNetworkDecision, setShowNetworkDecision] = useState(false)
-  const [showTrafficLight, setShowTrafficLight] = useState(true) // track if network decision table is shown
+  const [showTrafficLight, setShowTrafficLight] = useState(false) // track if network decision table is shown
+  const [showUpdateWeightsTable, setShowUpdateWeightsTable] = useState(false) // track if update weights table is shown
 
   const handleSensorBoxClick = () => {
     // Scroll to position where Sensor Nodes A appears right below the horizontal line
@@ -86,6 +87,24 @@ function App() {
     }
   }
 
+  const handleUpdateWeights = () => {
+    // Show the update weights table
+    setShowUpdateWeightsTable(true)
+    
+    // Scroll to position where Output Node table appears right below the horizontal line
+    const outputBox = document.querySelector('.output-text-box')
+    if (outputBox) {
+      const rect = outputBox.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const horizontalLinePosition = 95 // Position right below the horizontal line
+      
+      window.scrollTo({
+        top: Math.max(0, absoluteTop - horizontalLinePosition),
+        behavior: 'smooth'
+      })
+    }
+  }
+
   const cycleLights = () => {
     setLightStates(prevStates => {
       const newStates = [...prevStates]
@@ -134,6 +153,19 @@ function App() {
     const newSelections = [...inputSelections]
     newSelections[index] = value
     setInputSelections(newSelections)
+    
+    // If auto numeric is active, update numeric values
+    if (isAutoNumericActive) {
+      const newNumericValues = [...numericValues]
+      if (value === 'red') {
+        newNumericValues[index] = '-1'
+      } else if (value === 'green') {
+        newNumericValues[index] = '1'
+      } else {
+        newNumericValues[index] = ''
+      }
+      setNumericValues(newNumericValues)
+    }
   }
 
   const handleNumericChange = (index, value) => {
@@ -209,6 +241,40 @@ function App() {
     }
   }
 
+  // Function to calculate values automatically when inputs change
+  const calculateValues = () => {
+    // Update numeric values if auto numeric is active
+    if (isAutoNumericActive) {
+      const newNumericValues = inputSelections.map(input => {
+        if (input === 'red') {
+          return '-1'
+        } else if (input === 'green') {
+          return '1'
+        } else {
+          return ''
+        }
+      })
+      setNumericValues(newNumericValues)
+    }
+    
+    // Update weight values if auto weight is active
+    if (isAutoWeightActive) {
+      const newWeightValues = Array(9).fill('20')
+      setWeightValues(newWeightValues)
+    }
+    
+    // Update value results if auto value is active
+    if (isAutoValueActive) {
+      const newValueResults = Array(9).fill('')
+      for (let i = 0; i < 9; i++) {
+        const numericValue = numericValues[i] === '' ? 0 : parseFloat(numericValues[i])
+        const weightValue = weightValues[i] === '' ? 0 : parseFloat(weightValues[i])
+        newValueResults[i] = Math.round(numericValue * weightValue).toString()
+      }
+      setValueResults(newValueResults)
+    }
+  }
+
   const calculateSummary = () => {
     // Calculate sum of all values
     const sum = valueResults.reduce((total, value) => {
@@ -248,8 +314,9 @@ function App() {
   }
 
   useEffect(() => {
+    calculateValues()
     calculateSummary()
-  }, [valueResults, selectedButton])
+  }, [numericValues, weightValues, isAutoValueActive, isAutoNumericActive, isAutoWeightActive, valueResults, selectedButton, inputSelections])
 
 
 
@@ -474,94 +541,151 @@ function App() {
               <span className="output-text-box-content">Output Node (OUT)</span>
             </div>
             
-            <div className="table-container">
-              <table className="output-table">
-                <thead>
-                  <tr>
-                    <th>Node</th>
-                    <th>Input</th>
-                    <th>Numeric</th>
-                    <th>×</th>
-                    <th>Weight</th>
-                    <th>=</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-                    <tr key={index}>
-                      <td>C{index}</td>
-                      <td className={inputSelections[index-1] === 'red' ? 'input-cell-red' : inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
-                        <select 
-                          value={inputSelections[index-1]} 
-                          onChange={(e) => handleInputChange(index-1, e.target.value)}
-                          onKeyDown={(e) => handleKeyDown(e, index-1, 1)}
-                          data-row={index-1} 
-                          data-column="1"
-                        >
-                          <option value="">Select</option>
-                          <option value="red">Red</option>
-                          <option value="green">Green</option>
-                        </select>
-                      </td>
+            <div className="tables-wrapper">
+              <div className="table-container">
+                <table className="output-table">
+                  <thead>
+                    <tr>
+                      <th>Node</th>
+                      <th>Input</th>
+                      <th>Numeric</th>
+                      <th>×</th>
+                      <th>Weight</th>
+                      <th>=</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                      <tr key={index}>
+                        <td>C{index}</td>
+                        <td className={inputSelections[index-1] === 'red' ? 'input-cell-red' : inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
+                          <select 
+                            value={inputSelections[index-1]} 
+                            onChange={(e) => handleInputChange(index-1, e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e, index-1, 1)}
+                            data-row={index-1} 
+                            data-column="1"
+                          >
+                            <option value="">Select</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                          </select>
+                        </td>
+                        <td>
+                          {isAutoNumericActive ? (
+                            <span>{numericValues[index-1]}</span>
+                          ) : (
+                            <select 
+                              value={numericValues[index-1]} 
+                              onChange={(e) => handleNumericChange(index-1, e.target.value)}
+                              onKeyDown={(e) => handleKeyDown(e, index-1, 2)}
+                              data-row={index-1} 
+                              data-column="2"
+                            >
+                              <option value="">Select</option>
+                              <option value="1">1</option>
+                              <option value="-1">-1</option>
+                            </select>
+                          )}
+                        </td>
+                        <td>×</td>
+                        <td>
+                          {isAutoWeightActive ? (
+                            <span>{weightValues[index-1]}</span>
+                          ) : (
+                            <input 
+                              type="text" 
+                              value={weightValues[index-1]} 
+                              onChange={(e) => handleWeightChange(index-1, e.target.value)}
+                              onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
+                              data-row={index-1} 
+                              data-column="4"
+                            />
+                          )}
+                        </td>
+                        <td>=</td>
+                        <td>
+                          {isAutoValueActive ? (
+                            <span>{valueResults[index-1]}</span>
+                          ) : (
+                            <input 
+                              type="text" 
+                              value={valueResults[index-1]} 
+                              onChange={(e) => handleValueChange(index-1, e.target.value)}
+                              onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
+                              data-row={index-1} 
+                              data-column="6"
+                            />
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                    {/* Auto buttons row */}
+                    <tr className="auto-buttons-row">
+                      <td></td> {/* Node column - empty */}
+                      <td></td> {/* Input column - empty */}
                       <td>
-                        <select 
-                          value={numericValues[index-1]} 
-                          onChange={(e) => handleNumericChange(index-1, e.target.value)}
-                          onKeyDown={(e) => handleKeyDown(e, index-1, 2)}
-                          data-row={index-1} 
-                          data-column="2"
-                        >
-                          <option value="">Select</option>
-                          <option value="1">1</option>
-                          <option value="-1">-1</option>
-                        </select>
+                        <button className={`auto-button ${isAutoNumericActive ? 'active' : ''}`} onClick={handleAutoNumeric}>
+                          Auto
+                        </button>
                       </td>
-                      <td>×</td>
+                      <td></td> {/* × column - empty */}
                       <td>
-                        <input 
-                          type="text" 
-                          value={weightValues[index-1]} 
-                          onChange={(e) => handleWeightChange(index-1, e.target.value)}
-                          onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
-                          data-row={index-1} 
-                          data-column="4"
-                        />
+                        <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
+                          Auto
+                        </button>
                       </td>
-                      <td>=</td>
+                      <td></td> {/* = column - empty */}
                       <td>
-                        <input 
-                          type="text" 
-                          value={valueResults[index-1]} 
-                          onChange={(e) => handleValueChange(index-1, e.target.value)}
-                          onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
-                          data-row={index-1} 
-                          data-column="6"
-                        />
+                        <button className={`auto-button ${isAutoValueActive ? 'active' : ''}`} onClick={handleAutoValue}>
+                          Auto
+                        </button>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
+              
+              {showUpdateWeightsTable && (
+                <div className="update-weights-table-container">
+                  <table className="update-weights-table">
+                    <thead>
+                      <tr>
+                        <th>Node</th>
+                        <th>Weight</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                        <tr key={index}>
+                          <td>C{index}</td>
+                          <td>
+                            <input 
+                              type="text" 
+                              value={weightValues[index-1]} 
+                              onChange={(e) => handleWeightChange(index-1, e.target.value)}
+                              className="update-weight-input"
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                      {/* Auto button row for update weights table */}
+                      <tr className="update-weights-auto-row">
+                        <td></td> {/* Node column - empty */}
+                        <td>
+                          <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
+                            Auto
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
             
-            <div className="auto-buttons-container">
-              <div className="auto-button-column">
-                <button className={`auto-button ${isAutoNumericActive ? 'active' : ''}`} onClick={handleAutoNumeric}>
-                  Auto
-                </button>
-              </div>
-              <div className="auto-button-column">
-                <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
-                  Auto
-                </button>
-              </div>
-              <div className="auto-button-column">
-                <button className={`auto-button ${isAutoValueActive ? 'active' : ''}`} onClick={handleAutoValue}>
-                  Auto
-                </button>
-              </div>
-            </div>
+
             
             <div className="orange-horizontal-line"></div>
             
@@ -647,49 +771,51 @@ function App() {
             <div className="summary-table-horizontal-line"></div>
             
             <div className="bar-graph-container">
-              <h3 className="bar-graph-title">Node Weights</h3>
-              <div className="bar-graph">
-                <div className="bar-graph-y-axis">
-                  <div className="y-axis-label">Weight</div>
-                  <div className="y-axis-scale">
-                    <span>180</span>
-                    <span>90</span>
-                    <span>0</span>
-                    <span>-90</span>
-                    <span>-180</span>
-                  </div>
-                </div>
-                <div className="bar-graph-chart">
-                  <div className="bar-graph-grid">
-                    {Array.from({length: 5}, (_, i) => (
-                      <div key={i} className="grid-line"></div>
-                    ))}
-                  </div>
-                  <div className="bars-container">
-                    {weightValues.map((weight, index) => {
-                      const weightNum = parseFloat(weight) || 0;
-                      const maxHeight = 100; // 100px for full scale
-                      const barHeight = Math.abs(weightNum) * maxHeight / 180; // Scale to ±180
-                      const isNegative = weightNum < 0;
-                      
-                      return (
-                        <div key={index} className="bar-column">
-                          <div className="bar-wrapper">
-                            <div 
-                              className={`bar ${isNegative ? 'negative' : 'positive'}`}
-                              style={{
-                                height: `${barHeight}px`,
-                                marginTop: isNegative ? '100px' : `${100 - barHeight}px`
-                              }}
-                            ></div>
-                          </div>
-                          <div className="bar-label">C{index + 1}</div>
-                        </div>
-                      );
-                    })}
+              <h3 className="bar-graph-title">C Node Weights (Round 1)</h3>
+              <div className="bar-graph-wrapper">
+                <div className="bar-graph">
+                  <div className="bar-graph-chart">
+                    <div className="bar-graph-axes">
+                      <div className="bar-graph-y-axis"></div>
+                      <div className="bar-graph-zero-line"></div>
+                      <div className="bars-container">
+                        {weightValues.map((weight, index) => {
+                          const weightNum = parseFloat(weight) || 0;
+                          // Domain: [-120, 120], so 20 is a very small bar
+                          const maxHeight = 100; // 100px for full scale (-120 to 120 range)
+                          const barHeight = Math.max(1, Math.abs(weightNum / 120) * maxHeight); // Scale to -120 to 120 range
+                          const isNegative = weightNum < 0;
+                          
+                          return (
+                            <div key={index} className="bar-column">
+                              <div className="bar-wrapper">
+                                <div 
+                                  className={`bar ${isNegative ? 'negative' : ''}`}
+                                  style={{
+                                    height: `${barHeight}px`,
+                                    marginTop: isNegative ? `${100 + barHeight}px` : `${100 - barHeight}px`
+                                  }}
+                                >
+                                  <div className={`bar-value ${isNegative ? 'bar-value-negative' : ''}`}>
+                                    {weightNum}
+                                  </div>
+                                  <div className={`bar-label ${isNegative ? 'bar-label-negative' : ''}`}>C{index + 1}</div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+            
+            <div className="update-weights-button-container">
+              <button className="update-weights-button" onClick={handleUpdateWeights}>
+                Update Weights
+              </button>
             </div>
           </div>
         </div>
