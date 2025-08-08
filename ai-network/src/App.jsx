@@ -17,6 +17,9 @@ function App() {
   const [isAutoNumericActive, setIsAutoNumericActive] = useState(false) // track if auto numeric is active
   const [previousWeightValues, setPreviousWeightValues] = useState(Array(9).fill('')) // track previous weight values
   const [isAutoWeightActive, setIsAutoWeightActive] = useState(false) // track if auto weight is active
+  const [isUpdateWeightsAutoActive, setIsUpdateWeightsAutoActive] = useState(false) // track if update weights auto is active
+  const [updateWeightsValues, setUpdateWeightsValues] = useState(Array(9).fill('')) // track independent weight values for update weights table
+  const [previousUpdateWeightsValues, setPreviousUpdateWeightsValues] = useState(Array(9).fill('')) // track previous update weights values
   const [previousValueResults, setPreviousValueResults] = useState(Array(9).fill('')) // track previous value results
   const [isAutoValueActive, setIsAutoValueActive] = useState(false) // track if auto value is active
   const [sumOfValues, setSumOfValues] = useState('') // track sum of C node values
@@ -180,6 +183,12 @@ function App() {
     setWeightValues(newWeightValues)
   }
 
+  const handleUpdateWeightChange = (index, value) => {
+    const newUpdateWeightsValues = [...updateWeightsValues]
+    newUpdateWeightsValues[index] = value
+    setUpdateWeightsValues(newUpdateWeightsValues)
+  }
+
   const handleValueChange = (index, value) => {
     const newValueResults = [...valueResults]
     newValueResults[index] = value
@@ -219,6 +228,52 @@ function App() {
       // Restore previous values
       setWeightValues([...previousWeightValues])
       setIsAutoWeightActive(false)
+    }
+  }
+
+  const handleUpdateWeightsAuto = () => {
+    if (!isUpdateWeightsAutoActive) {
+      // Save current values and apply learning algorithm
+      setPreviousUpdateWeightsValues([...updateWeightsValues])
+      setPreviousWeightValues([...weightValues])
+      
+      if (!selectedButton) {
+        alert('Please select a traffic light color first!')
+        return
+      }
+      
+      const newUpdateWeightsValues = [...updateWeightsValues]
+      const newMainWeightsValues = [...weightValues]
+      
+      // Apply learning algorithm: +10 if C node input matches traffic light, -10 if doesn't match
+      for (let i = 0; i < 9; i++) {
+        const cNodeInput = inputSelections[i]
+        const currentUpdateWeight = parseFloat(updateWeightsValues[i]) || 0
+        const currentMainWeight = parseFloat(weightValues[i]) || 0
+        
+        if (cNodeInput === selectedButton) {
+          // Match: add 10 to both tables
+          newUpdateWeightsValues[i] = (currentUpdateWeight + 10).toString()
+          newMainWeightsValues[i] = (currentMainWeight + 10).toString()
+        } else if (cNodeInput === 'red' || cNodeInput === 'green') {
+          // Doesn't match but has a value: subtract 10 from both tables
+          newUpdateWeightsValues[i] = (currentUpdateWeight - 10).toString()
+          newMainWeightsValues[i] = (currentMainWeight - 10).toString()
+        } else {
+          // No input selected: keep current weights
+          newUpdateWeightsValues[i] = currentUpdateWeight.toString()
+          newMainWeightsValues[i] = currentMainWeight.toString()
+        }
+      }
+      
+      setUpdateWeightsValues(newUpdateWeightsValues)
+      setWeightValues(newMainWeightsValues)
+      setIsUpdateWeightsAutoActive(true)
+    } else {
+      // Restore previous values for both tables
+      setUpdateWeightsValues([...previousUpdateWeightsValues])
+      setWeightValues([...previousWeightValues])
+      setIsUpdateWeightsAutoActive(false)
     }
   }
 
@@ -316,7 +371,7 @@ function App() {
   useEffect(() => {
     calculateValues()
     calculateSummary()
-  }, [numericValues, weightValues, isAutoValueActive, isAutoNumericActive, isAutoWeightActive, valueResults, selectedButton, inputSelections])
+  }, [numericValues, weightValues, isAutoValueActive, isAutoNumericActive, isAutoWeightActive, isUpdateWeightsAutoActive, updateWeightsValues, valueResults, selectedButton, inputSelections])
 
 
 
@@ -661,12 +716,16 @@ function App() {
                         <tr key={index}>
                           <td>C{index}</td>
                           <td>
-                            <input 
-                              type="text" 
-                              value={weightValues[index-1]} 
-                              onChange={(e) => handleWeightChange(index-1, e.target.value)}
-                              className="update-weight-input"
-                            />
+                            {isUpdateWeightsAutoActive ? (
+                              <span>{updateWeightsValues[index-1]}</span>
+                            ) : (
+                              <input 
+                                type="text" 
+                                value={updateWeightsValues[index-1]} 
+                                onChange={(e) => handleUpdateWeightChange(index-1, e.target.value)}
+                                className="update-weight-input"
+                              />
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -674,7 +733,7 @@ function App() {
                       <tr className="update-weights-auto-row">
                         <td></td> {/* Node column - empty */}
                         <td>
-                          <button className={`auto-button ${isAutoWeightActive ? 'active' : ''}`} onClick={handleAutoWeight}>
+                          <button className={`auto-button ${isUpdateWeightsAutoActive ? 'active' : ''}`} onClick={handleUpdateWeightsAuto}>
                             Auto
                           </button>
                         </td>

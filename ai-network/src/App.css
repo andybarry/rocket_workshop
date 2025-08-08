@@ -632,6 +632,7 @@ html, body {
   font-size: 1rem;
   table-layout: fixed;
   height: auto;
+  min-height: 400px;
 }
 
 .output-table th {
@@ -671,6 +672,8 @@ html, body {
   background: white;
   cursor: pointer;
   color: black;
+  height: 2.4rem;
+  box-sizing: border-box;
 }
 
 .output-table select:focus {
@@ -711,6 +714,7 @@ html, body {
   color: black;
   box-sizing: border-box;
   text-align: center;
+  height: 2.4rem;
 }
 
 .output-table input[type="text"]:focus {
@@ -1041,7 +1045,7 @@ html, body {
   font-size: 1rem;
   table-layout: fixed;
   height: auto;
-  min-height: 0;
+  min-height: 400px;
 }
 
 .update-weights-table th {
@@ -1089,6 +1093,21 @@ html, body {
 .update-weight-input:focus {
   outline: none;
   border-color: #f05f40ff;
+}
+
+.update-weights-table td span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: black;
+  padding: 0.3rem;
+  box-sizing: border-box;
+  height: 2.4rem;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .bar-label {
@@ -1424,6 +1443,7 @@ html, body {
   .output-table input[type="text"] {
     padding: 0.2rem;
     font-size: 0.8rem;
+    height: 2.2rem;
   }
 
   .update-weights-table {
@@ -1496,6 +1516,7 @@ html, body {
   .output-table input[type="text"] {
     padding: 0.15rem;
     font-size: 0.7rem;
+    height: 2rem;
   }
 
   .update-weights-table {
