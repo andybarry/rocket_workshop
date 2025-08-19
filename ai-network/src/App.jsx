@@ -24,11 +24,19 @@ function App() {
   const [isAutoValueActive, setIsAutoValueActive] = useState(false) // track if auto value is active
   const [sumOfValues, setSumOfValues] = useState('') // track sum of C node values
   const [networkDecision, setNetworkDecision] = useState('') // track network decision
-  const [roundNumber, setRoundNumber] = useState(1) // track current round
+
   const [networkStatus, setNetworkStatus] = useState('') // track if network decision is correct
   const [showNetworkDecision, setShowNetworkDecision] = useState(false)
   const [showTrafficLight, setShowTrafficLight] = useState(false) // track if network decision table is shown
   const [showUpdateWeightsTable, setShowUpdateWeightsTable] = useState(false) // track if update weights table is shown
+  const [isHiddenLayerExpanded, setIsHiddenLayerExpanded] = useState(false) // track if hidden layer content is expanded
+  const [isOutputNodeExpanded, setIsOutputNodeExpanded] = useState(false) // track if output node content is expanded
+  const [isSummaryExpanded, setIsSummaryExpanded] = useState(false) // track if summary content is expanded
+  // Round selection removed - only Round 1 is displayed
+
+
+
+
 
   const handleSensorBoxClick = () => {
     // Scroll to position where Sensor Nodes A appears right below the horizontal line
@@ -89,6 +97,26 @@ function App() {
       })
     }
   }
+
+  const toggleHiddenLayer = () => {
+    setIsHiddenLayerExpanded(!isHiddenLayerExpanded)
+  }
+
+  const toggleOutputNode = () => {
+    setIsOutputNodeExpanded(!isOutputNodeExpanded)
+  }
+
+  const toggleSummary = () => {
+    setIsSummaryExpanded(!isSummaryExpanded)
+  }
+
+  // Round selection removed - only Round 1 is displayed
+
+  // Round offset calculation removed - no longer needed
+
+  // Round selection removed - only Round 1 is displayed
+
+  // Round offset calculation removed - only centering Round 1
 
   const handleUpdateWeights = () => {
     // Show the update weights table
@@ -379,6 +407,14 @@ function App() {
 
 
 
+
+
+
+
+
+
+
+
   const handleKeyDown = (e, rowIndex, columnIndex) => {
     if (e.key === 'Tab') {
       e.preventDefault()
@@ -468,9 +504,29 @@ function App() {
           </div>
         </header>
 
-        {/* Fixed Title Section */}
+                {/* Fixed Title Section */}
         <div className="fixed-title-section">
-          <h2 className="round-title">Round 1</h2>
+          <div className="round-titles-container">
+                         <div className="round-titles-wrapper">
+               <div className="left-container">
+                 {/* Left container content can go here */}
+               </div>
+               <div className="centered-round-container">
+                 <div className="triangle-left"></div>
+                 <span className="round-title-main">
+                   <h2>Round 1</h2>
+                 </span>
+                 <div className="triangle-right"></div>
+               </div>
+               <div className="right-rounds-container">
+                 {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((roundNum) => (
+                   <span key={roundNum} className="round-number-box">
+                     Round {roundNum}
+                   </span>
+                 ))}
+               </div>
+             </div>
+          </div>
           <div className="horizontal-line"></div>
         </div>
       </div>
@@ -581,45 +637,50 @@ function App() {
             
             <div 
               className="hidden-layer-text-box"
-              onClick={handleHiddenLayerBoxClick}
+              onClick={toggleHiddenLayer}
               style={{ cursor: 'pointer' }}
             >
               <span className="hidden-layer-text-content">Hidden Layer Nodes</span>
+              <span className="expand-text">{isHiddenLayerExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            <div className="node-instructions">
-              <div className="b-node-section">
-                <h3 className="b-node-title">B Nodes</h3>
-                <p className="b-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="sensor-node-text">Sensor Node</span> inputs</p>
-                <p className="b-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
-                <p className="b-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
+            {isHiddenLayerExpanded && (
+              <div className="node-instructions">
+                <div className="b-node-section">
+                  <h3 className="b-node-title">B Nodes</h3>
+                  <p className="b-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="sensor-node-text">Sensor Node</span> inputs</p>
+                  <p className="b-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                  <p className="b-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
+                </div>
+                
+                <div className="center-section">
+                  <h3 className="everyone-text">Everyone get up!</h3>
+                  <p className="connections-text">Find your connections</p>
+                </div>
+                
+                <div className="c-node-section">
+                  <h3 className="c-node-title">C Nodes</h3>
+                  <p className="c-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="b-node-text">B Node</span> inputs</p>
+                  <p className="c-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                  <p className="c-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
+                </div>
               </div>
-              
-              <div className="center-section">
-                <h3 className="everyone-text">Everyone get up!</h3>
-                <p className="connections-text">Find your connections</p>
-              </div>
-              
-              <div className="c-node-section">
-                <h3 className="c-node-title">C Nodes</h3>
-                <p className="c-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="b-node-text">B Node</span> inputs</p>
-                <p className="c-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
-                <p className="c-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
-              </div>
-            </div>
+            )}
             
             <div 
               className="output-text-box"
-              onClick={handleOutputBoxClick}
+              onClick={toggleOutputNode}
               style={{ cursor: 'pointer' }}
             >
               <span className="output-text-box-content">Output Node</span>
+              <span className="expand-text">{isOutputNodeExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            <div className="tables-wrapper">
-              <div className="table-container">
-                {showUpdateWeightsTable && <h3 className="round-1-title">(Round 1)</h3>}
-                <table className="output-table">
+            {isOutputNodeExpanded && (
+              <div className="tables-wrapper">
+                <div className="table-container">
+
+                  <table className="output-table">
                   <thead>
                     <tr>
                       <th>Node</th>
@@ -725,7 +786,6 @@ function App() {
               
               {showUpdateWeightsTable && (
                 <div className="update-weights-table-container">
-                  <h3 className="round-2-title">(Round 2)</h3>
                   <table className="update-weights-table">
                     <thead>
                       <tr>
@@ -763,12 +823,13 @@ function App() {
                     </tbody>
                   </table>
                 </div>
-              )}
+                            )}
             </div>
+            )}
             
-
-            
-            <div className="orange-horizontal-line"></div>
+            {isOutputNodeExpanded && (
+              <>
+                <div className="orange-horizontal-line"></div>
             
             <div className="compute-decision-button-container">
               <button 
@@ -823,81 +884,86 @@ function App() {
                 </div>
               </div>
             )}
+              </>
+            )}
             
             <div 
               className="summary-text-box"
-              onClick={handleSummaryBoxClick}
+              onClick={toggleSummary}
               style={{ cursor: 'pointer' }}
             >
               <span className="summary-text-box-content">Summary</span>
+              <span className="expand-text">{isSummaryExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            <div className="summary-details-container">
-              <table className="summary-details-table">
-                <tbody>
-                  <tr>
-                    <td>Round</td>
-                    <td>Network Status</td>
-                    <td>Sum</td>
-                  </tr>
-                  <tr>
-                    <td>{roundNumber}</td>
-                    <td>{networkStatus}</td>
-                    <td>{sumOfValues}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <div className="summary-table-horizontal-line"></div>
-            
-            <div className="bar-graph-container">
-              <h3 className="bar-graph-title">C Node Weights (Round 1)</h3>
-              <div className="bar-graph-wrapper">
-                <div className="bar-graph">
-                  <div className="bar-graph-chart">
-                    <div className="bar-graph-axes">
-                      <div className="bar-graph-y-axis"></div>
-                      <div className="bar-graph-zero-line"></div>
-                      <div className="bars-container">
-                        {weightValues.map((weight, index) => {
-                          const weightNum = parseFloat(weight) || 0;
-                          // Domain: [-120, 120], so 20 is a very small bar
-                          const maxHeight = 100; // 100px for full scale (-120 to 120 range)
-                          const barHeight = Math.max(1, Math.abs(weightNum / 120) * maxHeight); // Scale to -120 to 120 range
-                          const isNegative = weightNum < 0;
-                          
-                          return (
-                            <div key={index} className="bar-column">
-                              <div className="bar-wrapper">
-                                <div 
-                                  className={`bar ${isNegative ? 'negative' : ''}`}
-                                  style={{
-                                    height: `${barHeight}px`,
-                                    marginTop: isNegative ? `${100 + barHeight}px` : `${100 - barHeight}px`
-                                  }}
-                                >
-                                  <div className={`bar-value ${isNegative ? 'bar-value-negative' : ''}`}>
-                                    {weightNum}
+            {isSummaryExpanded && (
+              <>
+                <div className="summary-details-container">
+                  <table className="summary-details-table">
+                    <tbody>
+                      <tr>
+                        <td>Network Status</td>
+                        <td>Sum</td>
+                      </tr>
+                      <tr>
+                        <td>{networkStatus}</td>
+                        <td>{sumOfValues}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div className="summary-table-horizontal-line"></div>
+                
+                <div className="bar-graph-container">
+                  <h3 className="bar-graph-title">C Node Weights</h3>
+                  <div className="bar-graph-wrapper">
+                    <div className="bar-graph">
+                      <div className="bar-graph-chart">
+                        <div className="bar-graph-axes">
+                          <div className="bar-graph-y-axis"></div>
+                          <div className="bar-graph-zero-line"></div>
+                          <div className="bars-container">
+                            {weightValues.map((weight, index) => {
+                              const weightNum = parseFloat(weight) || 0;
+                              // Domain: [-120, 120], so 20 is a very small bar
+                              const maxHeight = 100; // 100px for full scale (-120 to 120 range)
+                              const barHeight = Math.max(1, Math.abs(weightNum / 120) * maxHeight); // Scale to -120 to 120 range
+                              const isNegative = weightNum < 0;
+                              
+                              return (
+                                <div key={index} className="bar-column">
+                                  <div className="bar-wrapper">
+                                    <div 
+                                      className={`bar ${isNegative ? 'negative' : ''}`}
+                                      style={{
+                                        height: `${barHeight}px`,
+                                        marginTop: isNegative ? `${100 + barHeight}px` : `${100 - barHeight}px`
+                                      }}
+                                    >
+                                      <div className={`bar-value ${isNegative ? 'bar-value-negative' : ''}`}>
+                                        {weightNum}
+                                      </div>
+                                      <div className={`bar-label ${isNegative ? 'bar-label-negative' : ''}`}>C{index + 1}</div>
+                                    </div>
                                   </div>
-                                  <div className={`bar-label ${isNegative ? 'bar-label-negative' : ''}`}>C{index + 1}</div>
                                 </div>
-                              </div>
-                            </div>
-                          );
-                        })}
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            
-            <div className="update-weights-button-container">
-              <button className="update-weights-button" onClick={handleUpdateWeights}>
-                Update Weights
-              </button>
-            </div>
+                
+                <div className="update-weights-button-container">
+                  <button className="update-weights-button" onClick={handleUpdateWeights}>
+                    Update Weights
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
