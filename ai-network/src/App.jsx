@@ -242,21 +242,25 @@ function App() {
         return
       }
       
-      const newUpdateWeightsValues = [...updateWeightsValues]
+      // Initialize updateWeightsValues with current weightValues if they're empty
+      const currentUpdateWeights = updateWeightsValues.every(val => val === '') ? [...weightValues] : [...updateWeightsValues]
+      
+      const newUpdateWeightsValues = [...currentUpdateWeights]
       const newMainWeightsValues = [...weightValues]
       
-      // Apply learning algorithm: +10 if C node input matches traffic light, -10 if doesn't match
+      // Apply learning algorithm: +10 if C node input matches the selected traffic light, -10 if doesn't match
       for (let i = 0; i < 9; i++) {
-        const cNodeInput = inputSelections[i]
-        const currentUpdateWeight = parseFloat(updateWeightsValues[i]) || 0
+        const cNodeInput = inputSelections[i] // This is what's displayed in the main table's Input column
+        const currentUpdateWeight = parseFloat(currentUpdateWeights[i]) || 0
         const currentMainWeight = parseFloat(weightValues[i]) || 0
         
         if (cNodeInput === selectedButton) {
-          // Match: add 10 to both tables
+          // C node input matches the selected traffic light: add 10 to both tables
           newUpdateWeightsValues[i] = (currentUpdateWeight + 10).toString()
           newMainWeightsValues[i] = (currentMainWeight + 10).toString()
         } else if (cNodeInput === 'red' || cNodeInput === 'green') {
-          // Doesn't match but has a value: subtract 10 from both tables
+          // C node input doesn't match the selected traffic light: subtract 10 from both tables
+          // Note: weights can be negative or zero
           newUpdateWeightsValues[i] = (currentUpdateWeight - 10).toString()
           newMainWeightsValues[i] = (currentMainWeight - 10).toString()
         } else {
@@ -486,7 +490,7 @@ function App() {
               onClick={handleSensorBoxClick}
               style={{ cursor: 'pointer' }}
             >
-              <span className="text-box-content">Sensor Nodes (A)</span>
+              <span className="text-box-content">Sensor Nodes</span>
             </div>
             
             {!isHidden && (
@@ -580,12 +584,28 @@ function App() {
               onClick={handleHiddenLayerBoxClick}
               style={{ cursor: 'pointer' }}
             >
-              <span className="hidden-layer-text-content">Hidden Layer Nodes (B&C)</span>
+              <span className="hidden-layer-text-content">Hidden Layer Nodes</span>
             </div>
             
             <div className="node-instructions">
-              <p className="b-node-instruction">(B) Nodes: Write down sensor input and roll the dice</p>
-              <p className="c-node-instruction">(C) Nodes: Find your connections, write down your input, and roll the dice</p>
+              <div className="b-node-section">
+                <h3 className="b-node-title">B Nodes</h3>
+                <p className="b-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="sensor-node-text">Sensor Node</span> inputs</p>
+                <p className="b-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                <p className="b-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
+              </div>
+              
+              <div className="center-section">
+                <h3 className="everyone-text">Everyone get up!</h3>
+                <p className="connections-text">Find your connections</p>
+              </div>
+              
+              <div className="c-node-section">
+                <h3 className="c-node-title">C Nodes</h3>
+                <p className="c-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="b-node-text">B Node</span> inputs</p>
+                <p className="c-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                <p className="c-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
+              </div>
             </div>
             
             <div 
@@ -593,11 +613,12 @@ function App() {
               onClick={handleOutputBoxClick}
               style={{ cursor: 'pointer' }}
             >
-              <span className="output-text-box-content">Output Node (OUT)</span>
+              <span className="output-text-box-content">Output Node</span>
             </div>
             
             <div className="tables-wrapper">
               <div className="table-container">
+                {showUpdateWeightsTable && <h3 className="round-1-title">(Round 1)</h3>}
                 <table className="output-table">
                   <thead>
                     <tr>
@@ -704,6 +725,7 @@ function App() {
               
               {showUpdateWeightsTable && (
                 <div className="update-weights-table-container">
+                  <h3 className="round-2-title">(Round 2)</h3>
                   <table className="update-weights-table">
                     <thead>
                       <tr>

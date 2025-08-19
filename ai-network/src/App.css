@@ -557,20 +557,178 @@ html, body {
   text-align: center;
 }
 
-.b-node-instruction {
+.node-instructions {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1rem;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.b-node-section {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  border: 3px solid #ffabd6;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+}
+
+.c-node-section {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  border: 3px solid #ffe599ff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+}
+
+.center-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.everyone-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #f05f40ff;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.connections-text {
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
+  font-weight: normal;
+  color: #333;
+  text-align: center;
+}
+
+.b-node-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffabd6;
+  margin-bottom: 0.3rem;
+  text-align: center;
+  width: 100%;
+  -webkit-text-stroke: 0.15px black;
+  text-stroke: 0.15px black;
+  text-shadow: 
+    -0.15px -0.15px 0 #000,
+    0.15px -0.15px 0 #000,
+    -0.15px 0.15px 0 #000,
+    0.15px 0.15px 0 #000;
+}
+
+.c-node-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffe599ff;
+  margin-bottom: 0.3rem;
+  text-align: center;
+  width: 100%;
+  -webkit-text-stroke: 0.15px black;
+  text-stroke: 0.15px black;
+  text-shadow: 
+    -0.15px -0.15px 0 #000,
+    0.15px -0.15px 0 #000,
+    -0.15px 0.15px 0 #000,
+    0.15px 0.15px 0 #000;
+}
+
+.b-node-instruction {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
+  text-align: left;
+  width: 100%;
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .c-node-instruction {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 5rem;
+  margin-bottom: 0.2rem;
+  text-align: left;
+  width: 100%;
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.sensor-node-text {
+  color: #a4c2f4ff;
+  font-weight: bold;
+  -webkit-text-stroke: 0.2px black;
+  text-stroke: 0.2px black;
+  text-shadow: 
+    -0.2px -0.2px 0 #000,
+    0.2px -0.2px 0 #000,
+    -0.2px 0.2px 0 #000,
+    0.2px 0.2px 0 #000;
+}
+
+.die-image {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 0 0.2rem;
+}
+
+.b-node-text {
+  color: #ffabd6;
+  font-weight: bold;
+  -webkit-text-stroke: 0.1px black;
+  text-stroke: 0.1px black;
+  text-shadow: 
+    -0.1px -0.1px 0 #000,
+    0.1px -0.1px 0 #000,
+    -0.1px 0.1px 0 #000,
+    0.1px 0.1px 0 #000;
+}
+
+.step-number {
+  font-weight: 900;
+  color: #ffabd6;
+  margin-right: 0.3rem;
+  -webkit-text-stroke: 0.15px black;
+  text-stroke: 0.15px black;
+  text-shadow: 
+    -0.15px -0.15px 0 #000,
+    0.15px -0.15px 0 #000,
+    -0.15px 0.15px 0 #000,
+    0.15px 0.15px 0 #000;
+}
+
+.c-node-section .step-number {
+  color: #ffe599ff;
+  -webkit-text-stroke: 0.15px black;
+  text-stroke: 0.15px black;
+  text-shadow: 
+    -0.15px -0.15px 0 #000,
+    0.15px -0.15px 0 #000,
+    -0.15px 0.15px 0 #000,
+    0.15px 0.15px 0 #000;
 }
 
 .output-text-box {
@@ -579,7 +737,7 @@ html, body {
   border: 2px solid black;
   border-radius: 8px;
   padding: 0;
-  margin: 1rem auto 0 auto;
+  margin: 3rem auto 4rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -611,6 +769,7 @@ html, body {
   margin-right: auto;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 /* When inside tables-wrapper, remove the margin */
@@ -622,6 +781,33 @@ html, body {
   width: 15%;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.round-2-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.round-1-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .output-table {
@@ -1394,6 +1580,27 @@ html, body {
 }
 
 @media (max-width: 768px) {
+  .node-instructions {
+    width: 90%;
+    gap: 1rem;
+  }
+  
+  .b-node-section,
+  .c-node-section {
+    padding: 0.2rem 0.15rem;
+  }
+  
+  .b-node-instruction,
+  .c-node-instruction {
+    font-size: 1rem;
+    max-width: 250px;
+  }
+  
+  .b-node-title,
+  .c-node-title {
+    font-size: 1.5rem;
+  }
+  
   .circles-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.8rem;
@@ -1463,6 +1670,29 @@ html, body {
 }
 
 @media (max-width: 480px) {
+  .node-instructions {
+    width: 95%;
+    gap: 0.8rem;
+    flex-direction: column;
+  }
+  
+  .b-node-section,
+  .c-node-section {
+    padding: 0.15rem 0.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .b-node-instruction,
+  .c-node-instruction {
+    font-size: 0.9rem;
+    max-width: 200px;
+  }
+  
+  .b-node-title,
+  .c-node-title {
+    font-size: 1.3rem;
+  }
+  
   .scrollable-content {
     margin-top: 160px; /* Adjust for mobile screens */
   }
