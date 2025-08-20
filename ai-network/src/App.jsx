@@ -3,42 +3,86 @@ import './App.css'
 import { useEffect } from 'react'
 
 function App() {
-  const [lightStates, setLightStates] = useState([false, false, false]) // [top, middle, bottom]
-  const [selectedButton, setSelectedButton] = useState(null) // 'red' or 'green' or null
-  const [isHidden, setIsHidden] = useState(false) // to track if traffic light section is hidden
-  const [circleColors, setCircleColors] = useState(Array(12).fill('gray')) // track circle colors
-  const [showCode, setShowCode] = useState(false) // to track if code/probabilities are shown
-  const [hasRunCurrentRound, setHasRunCurrentRound] = useState(false) // to track if current round has been executed
-  const [inputSelections, setInputSelections] = useState(Array(9).fill('')) // track dropdown selections for C1-C9
-  const [numericValues, setNumericValues] = useState(Array(9).fill('')) // track numeric input values for C1-C9
-  const [weightValues, setWeightValues] = useState(Array(9).fill('')) // track weight input values for C1-C9
-  const [valueResults, setValueResults] = useState(Array(9).fill('')) // track value results for C1-C9
-  const [previousNumericValues, setPreviousNumericValues] = useState(Array(9).fill('')) // track previous numeric values
-  const [isAutoNumericActive, setIsAutoNumericActive] = useState(false) // track if auto numeric is active
-  const [previousWeightValues, setPreviousWeightValues] = useState(Array(9).fill('')) // track previous weight values
-  const [isAutoWeightActive, setIsAutoWeightActive] = useState(false) // track if auto weight is active
-  const [isUpdateWeightsAutoActive, setIsUpdateWeightsAutoActive] = useState(false) // track if update weights auto is active
-  const [updateWeightsValues, setUpdateWeightsValues] = useState(Array(9).fill('')) // track independent weight values for update weights table
-  const [previousUpdateWeightsValues, setPreviousUpdateWeightsValues] = useState(Array(9).fill('')) // track previous update weights values
-  const [previousValueResults, setPreviousValueResults] = useState(Array(9).fill('')) // track previous value results
-  const [isAutoValueActive, setIsAutoValueActive] = useState(false) // track if auto value is active
-  const [sumOfValues, setSumOfValues] = useState('') // track sum of C node values
-  const [networkDecision, setNetworkDecision] = useState('') // track network decision
-
-  const [networkStatus, setNetworkStatus] = useState('') // track if network decision is correct
-  const [showNetworkDecision, setShowNetworkDecision] = useState(false)
-  const [showTrafficLight, setShowTrafficLight] = useState(false) // track if network decision table is shown
-  const [showUpdateWeightsTable, setShowUpdateWeightsTable] = useState(false) // track if update weights table is shown
-  const [isHiddenLayerExpanded, setIsHiddenLayerExpanded] = useState(false) // track if hidden layer content is expanded
-  const [isOutputNodeExpanded, setIsOutputNodeExpanded] = useState(false) // track if output node content is expanded
-  const [isSummaryExpanded, setIsSummaryExpanded] = useState(false) // track if summary content is expanded
   const [currentRound, setCurrentRound] = useState(1) // track current round for navigation
+  const [roundsData, setRoundsData] = useState({
+    1: {
+      lightStates: [false, false, false], // [top, middle, bottom]
+      selectedButton: null, // 'red' or 'green' or null
+      isHidden: false, // to track if traffic light section is hidden
+      circleColors: Array(12).fill('gray'), // track circle colors
+      showCode: false, // to track if code/probabilities are shown
+      hasRun: false, // to track if current round has been executed
+      inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
+      numericValues: Array(9).fill(''), // track numeric input values for C1-C9
+      weightValues: Array(9).fill(''), // track weight input values for C1-C9
+      valueResults: Array(9).fill(''), // track value results for C1-C9
+      previousNumericValues: Array(9).fill(''), // track previous numeric values
+      isAutoNumericActive: false, // track if auto numeric is active
+      previousWeightValues: Array(9).fill(''), // track previous weight values
+      isAutoWeightActive: false, // track if auto weight is active
+      isUpdateWeightsAutoActive: false, // track if update weights auto is active
+      updateWeightsValues: Array(9).fill('20'), // track independent weight values for update weights table, start with 20
+      previousUpdateWeightsValues: Array(9).fill(''), // track previous update weights values
+      previousValueResults: Array(9).fill(''), // track previous value results
+      isAutoValueActive: false, // track if auto value is active
+      sumOfValues: '', // track sum of C node values
+      networkDecision: '', // track network decision
+      networkStatus: '', // track if network decision is correct
+      showNetworkDecision: false,
+      showTrafficLight: false, // track if network decision table is shown
+      showUpdateWeightsTable: false, // track if update weights table is shown
+      isHiddenLayerExpanded: false, // track if hidden layer content is expanded
+      isOutputNodeExpanded: false, // track if output node content is expanded
+      isSummaryExpanded: false, // track if summary content is expanded
+      sensorBoxClicked: false
+    },
+    2: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill('20'),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    }
+  });
   const [colorScheme, setColorScheme] = useState('orange') // track color scheme: 'orange' or 'gray'
   // Round selection removed - only Round 1 is displayed
 
 
 
 
+
+  // Helper functions to get and set current round data
+  const getCurrentRoundData = () => roundsData[currentRound];
+  const setCurrentRoundData = (updates) => {
+    setRoundsData(prev => ({
+      ...prev,
+      [currentRound]: { ...prev[currentRound], ...updates }
+    }));
+  };
 
   const handleSensorBoxClick = () => {
     // Scroll to position where Sensor Nodes A appears right below the horizontal line
@@ -101,16 +145,16 @@ function App() {
   }
 
   const toggleHiddenLayer = () => {
-    setIsHiddenLayerExpanded(!isHiddenLayerExpanded)
-  }
+    setCurrentRoundData({ isHiddenLayerExpanded: !getCurrentRoundData().isHiddenLayerExpanded });
+  };
 
   const toggleOutputNode = () => {
-    setIsOutputNodeExpanded(!isOutputNodeExpanded)
-  }
+    setCurrentRoundData({ isOutputNodeExpanded: !getCurrentRoundData().isOutputNodeExpanded });
+  };
 
   const toggleSummary = () => {
-    setIsSummaryExpanded(!isSummaryExpanded)
-  }
+    setCurrentRoundData({ isSummaryExpanded: !getCurrentRoundData().isSummaryExpanded });
+  };
 
   // Round selection removed - only Round 1 is displayed
 
@@ -122,19 +166,15 @@ function App() {
 
   const handleLeftArrowClick = () => {
     if (currentRound > 1) {
-      setCurrentRound(currentRound - 1)
-      setHasRunCurrentRound(false) // Reset execution state when changing rounds
-      setCircleColors(Array(12).fill('gray')) // Reset circle colors
+      setCurrentRound(currentRound - 1);
     }
-  }
+  };
 
   const handleRightArrowClick = () => {
     if (currentRound < 10) {
-      setCurrentRound(currentRound + 1)
-      setHasRunCurrentRound(false) // Reset execution state when changing rounds
-      setCircleColors(Array(12).fill('gray')) // Reset circle colors
+      setCurrentRound(currentRound + 1);
     }
-  }
+  };
 
   const handleColorSchemeChange = (scheme) => {
     console.log('Color scheme changing to:', scheme)
@@ -142,8 +182,49 @@ function App() {
   }
 
   const handleUpdateWeights = () => {
-    // Show the update weights table
-    setShowUpdateWeightsTable(true)
+    const currentData = getCurrentRoundData();
+    
+    // Initialize updateWeightsValues with base weights of 20 for Round 1
+    const newUpdateWeightsValues = Array(9).fill('20')
+    
+    // Show the update weights table and initialize weights
+    setCurrentRoundData({ 
+      showUpdateWeightsTable: true,
+      updateWeightsValues: newUpdateWeightsValues,
+      isUpdateWeightsAutoActive: false // Reset auto state when showing table
+    })
+    
+    // If we have traffic light and C node inputs, automatically calculate weights
+    if (currentData.selectedButton && currentData.inputSelections.some(input => input === 'red' || input === 'green')) {
+      // Auto-calculate weights after a short delay to ensure table is rendered
+      setTimeout(() => {
+        // Auto-calculate weights without user interaction
+        const trafficLightState = currentData.selectedButton
+        const cNodeInputs = currentData.inputSelections
+        const newUpdateWeightsValues = []
+        
+        for (let i = 0; i < 9; i++) {
+          const cNodeInput = cNodeInputs[i]
+          
+          if (cNodeInput === trafficLightState) {
+            // MATCH: C node input matches traffic light color
+            newUpdateWeightsValues[i] = '30'
+          } else if (cNodeInput === 'red' || cNodeInput === 'green') {
+            // MISMATCH: C node input doesn't match traffic light color
+            newUpdateWeightsValues[i] = '10'
+          } else {
+            // NO INPUT: C node has no input selected
+            newUpdateWeightsValues[i] = '20'
+          }
+        }
+        
+        // Update the weights and set auto mode active
+        setCurrentRoundData({ 
+          updateWeightsValues: newUpdateWeightsValues,
+          isUpdateWeightsAutoActive: true
+        })
+      }, 100)
+    }
     
     // Scroll to position where Output Node table appears right below the horizontal line
     const outputBox = document.querySelector('.output-text-box')
@@ -160,238 +241,301 @@ function App() {
   }
 
   const cycleLights = () => {
-    setLightStates(prevStates => {
-      const newStates = [...prevStates]
-      
-      // Find the first false (off) light and turn it on
-      const firstOffIndex = newStates.findIndex(state => !state)
-      
-      if (firstOffIndex !== -1) {
-        // Turn on the first off light
-        newStates[firstOffIndex] = true
-      } else {
-        // All lights are on, turn them all off
-        newStates.fill(false)
-      }
-      
-      return newStates
-    })
+    const currentData = getCurrentRoundData();
+    const newStates = [...currentData.lightStates]
+    
+    // Find the first false (off) light and turn it on
+    const firstOffIndex = newStates.findIndex(state => !state)
+    
+    if (firstOffIndex !== -1) {
+      // Turn on the first off light
+      newStates[firstOffIndex] = true
+    } else {
+      // All lights are on, turn them all off
+      newStates.fill(false)
+    }
+    
+    setCurrentRoundData({ lightStates: newStates })
   }
 
   const handleButtonClick = (buttonType) => {
-    setSelectedButton(buttonType)
-  }
+    setCurrentRoundData({ selectedButton: buttonType });
+  };
 
   const toggleHide = () => {
-    setIsHidden(!isHidden)
-  }
+    setCurrentRoundData({ isHidden: !getCurrentRoundData().isHidden });
+  };
 
   const toggleShowCode = () => {
-    setShowCode(!showCode)
-  }
+    setCurrentRoundData({ showCode: !getCurrentRoundData().showCode });
+  };
 
   const toggleNetworkDecision = () => {
-    const newShowState = !showNetworkDecision
-    setShowNetworkDecision(newShowState)
+    const newShowState = !getCurrentRoundData().showNetworkDecision;
+    setCurrentRoundData({ showNetworkDecision: newShowState });
     // Calculate summary when showing the network decision
     if (newShowState) {
-      calculateSummary()
+      calculateSummary();
     }
-  }
+  };
 
   const toggleTrafficLight = () => {
-    setShowTrafficLight(!showTrafficLight)
-  }
+    setCurrentRoundData({ showTrafficLight: !getCurrentRoundData().showTrafficLight });
+  };
 
   const handleInputChange = (index, value) => {
-    const newSelections = [...inputSelections]
+    const currentData = getCurrentRoundData();
+    const newSelections = [...currentData.inputSelections]
     newSelections[index] = value
-    setInputSelections(newSelections)
-    
-    // If auto numeric is active, update numeric values
-    if (isAutoNumericActive) {
-      const newNumericValues = [...numericValues]
-      if (value === 'red') {
-        newNumericValues[index] = '-1'
-      } else if (value === 'green') {
-        newNumericValues[index] = '1'
-      } else {
-        newNumericValues[index] = ''
-      }
-      setNumericValues(newNumericValues)
-    }
+    setCurrentRoundData({ inputSelections: newSelections })
+    // Numeric values will NOT be automatically updated - user must select manually or use auto button
   }
 
   const handleNumericChange = (index, value) => {
-    const newNumericValues = [...numericValues]
+    const currentData = getCurrentRoundData();
+    const newNumericValues = [...currentData.numericValues]
     newNumericValues[index] = value
-    setNumericValues(newNumericValues)
+    setCurrentRoundData({ numericValues: newNumericValues })
+    // Also deactivate auto numeric mode when user manually changes a value
+    if (currentData.isAutoNumericActive) {
+      setCurrentRoundData({ isAutoNumericActive: false })
+    }
+    // Value results will be automatically updated via useEffect
   }
 
   const handleWeightChange = (index, value) => {
-    const newWeightValues = [...weightValues]
+    const currentData = getCurrentRoundData();
+    const newWeightValues = [...currentData.weightValues]
     newWeightValues[index] = value
-    setWeightValues(newWeightValues)
+    setCurrentRoundData({ weightValues: newWeightValues })
+    // Value results will be automatically updated via useEffect
+    // Also deactivate auto weight mode when user manually changes a weight
+    if (currentData.isAutoWeightActive) {
+      setCurrentRoundData({ isAutoWeightActive: false })
+    }
   }
 
   const handleUpdateWeightChange = (index, value) => {
-    const newUpdateWeightsValues = [...updateWeightsValues]
+    const currentData = getCurrentRoundData();
+    const newUpdateWeightsValues = [...currentData.updateWeightsValues]
     newUpdateWeightsValues[index] = value
-    setUpdateWeightsValues(newUpdateWeightsValues)
+    setCurrentRoundData({ updateWeightsValues: newUpdateWeightsValues })
+    
+    // Deactivate auto mode when user manually changes a weight
+    if (currentData.isUpdateWeightsAutoActive) {
+      setCurrentRoundData({ isUpdateWeightsAutoActive: false })
+    }
   }
 
   const handleValueChange = (index, value) => {
-    const newValueResults = [...valueResults]
+    const currentData = getCurrentRoundData();
+    const newValueResults = [...currentData.valueResults]
     newValueResults[index] = value
-    setValueResults(newValueResults)
+    setCurrentRoundData({ valueResults: newValueResults })
+    // Also deactivate auto value mode when user manually changes a value
+    if (currentData.isAutoValueActive) {
+      setCurrentRoundData({ isAutoValueActive: false })
+    }
+    // Summary will be automatically updated via useEffect
   }
 
   const handleAutoNumeric = () => {
-    if (!isAutoNumericActive) {
+    const currentData = getCurrentRoundData();
+    if (!currentData.isAutoNumericActive) {
       // Save current values and apply auto-fill
-      setPreviousNumericValues([...numericValues])
-      const newNumericValues = inputSelections.map(input => {
-        if (input === 'red') {
-          return '-1'
-        } else if (input === 'green') {
-          return '1'
-        } else {
-          return '' // Keep empty if no input selection
-        }
+      setCurrentRoundData({ 
+        previousNumericValues: [...currentData.numericValues],
+        numericValues: currentData.inputSelections.map(input => {
+          if (input === 'red') {
+            return '-1'
+          } else if (input === 'green') {
+            return '1'
+          } else {
+            return '' // Keep empty if no input selection
+          }
+        }),
+        isAutoNumericActive: true
       })
-      setNumericValues(newNumericValues)
-      setIsAutoNumericActive(true)
     } else {
       // Restore previous values
-      setNumericValues([...previousNumericValues])
-      setIsAutoNumericActive(false)
+      setCurrentRoundData({ 
+        numericValues: [...currentData.previousNumericValues],
+        isAutoNumericActive: false
+      })
     }
   }
 
   const handleAutoWeight = () => {
-    if (!isAutoWeightActive) {
+    const currentData = getCurrentRoundData();
+    if (!currentData.isAutoWeightActive) {
       // Save current values and apply auto-fill
-      setPreviousWeightValues([...weightValues])
-      const newWeightValues = Array(9).fill('20')
-      setWeightValues(newWeightValues)
-      setIsAutoWeightActive(true)
+      setCurrentRoundData({ 
+        previousWeightValues: [...currentData.weightValues],
+        weightValues: Array(9).fill('20'),
+        isAutoWeightActive: true
+      })
     } else {
-      // Restore previous values
-      setWeightValues([...previousWeightValues])
-      setIsAutoWeightActive(false)
+      // Restore previous values and deactivate auto
+      setCurrentRoundData({ 
+        weightValues: [...currentData.previousWeightValues],
+        isAutoWeightActive: false
+      })
     }
   }
 
   const handleUpdateWeightsAuto = () => {
-    if (!isUpdateWeightsAutoActive) {
-      // Save current values and apply learning algorithm
-      setPreviousUpdateWeightsValues([...updateWeightsValues])
-      setPreviousWeightValues([...weightValues])
-      
-      if (!selectedButton) {
+    const currentData = getCurrentRoundData();
+    if (!currentData.isUpdateWeightsAutoActive) {
+      // Check if traffic light state is selected
+      if (!currentData.selectedButton) {
         alert('Please select a traffic light color first!')
         return
       }
       
-      // Initialize updateWeightsValues with current weightValues if they're empty
-      const currentUpdateWeights = updateWeightsValues.every(val => val === '') ? [...weightValues] : [...updateWeightsValues]
+      // Check if C node inputs are selected
+      const hasInputs = currentData.inputSelections.some(input => input === 'red' || input === 'green')
+      if (!hasInputs) {
+        alert('Please select inputs for C nodes first!')
+        return
+      }
       
-      const newUpdateWeightsValues = [...currentUpdateWeights]
-      const newMainWeightsValues = [...weightValues]
+      // Save current values before applying auto
+      setCurrentRoundData({ 
+        previousUpdateWeightsValues: [...currentData.updateWeightsValues],
+        isUpdateWeightsAutoActive: true
+      })
       
-      // Apply learning algorithm: +10 if C node input matches the selected traffic light, -10 if doesn't match
+      // LEARNING ALGORITHM: Calculate updated C node weights
+      // Step 1: Get the traffic light state the user selected (red or green)
+      const trafficLightState = currentData.selectedButton
+      
+      // Step 2: Get the C node inputs from the main table
+      const cNodeInputs = currentData.inputSelections
+      
+      // Step 3: Calculate updated weights for each C node
+      const newUpdateWeightsValues = []
+      
       for (let i = 0; i < 9; i++) {
-        const cNodeInput = inputSelections[i] // This is what's displayed in the main table's Input column
-        const currentUpdateWeight = parseFloat(currentUpdateWeights[i]) || 0
-        const currentMainWeight = parseFloat(weightValues[i]) || 0
+        const cNodeInput = cNodeInputs[i]  // C1, C2, C3... C9 input state
         
-        if (cNodeInput === selectedButton) {
-          // C node input matches the selected traffic light: add 10 to both tables
-          newUpdateWeightsValues[i] = (currentUpdateWeight + 10).toString()
-          newMainWeightsValues[i] = (currentMainWeight + 10).toString()
+        if (cNodeInput === trafficLightState) {
+          // MATCH: C node input matches traffic light color
+          // Display 30
+          newUpdateWeightsValues[i] = '30'
         } else if (cNodeInput === 'red' || cNodeInput === 'green') {
-          // C node input doesn't match the selected traffic light: subtract 10 from both tables
-          // Note: weights can be negative or zero
-          newUpdateWeightsValues[i] = (currentUpdateWeight - 10).toString()
-          newMainWeightsValues[i] = (currentMainWeight - 10).toString()
+          // MISMATCH: C node input doesn't match traffic light color
+          // Display 10
+          newUpdateWeightsValues[i] = '10'
         } else {
-          // No input selected: keep current weights
-          newUpdateWeightsValues[i] = currentUpdateWeight.toString()
-          newMainWeightsValues[i] = currentMainWeight.toString()
+          // NO INPUT: C node has no input selected
+          // Display 20
+          newUpdateWeightsValues[i] = '20'
         }
       }
       
-      setUpdateWeightsValues(newUpdateWeightsValues)
-      setWeightValues(newMainWeightsValues)
-      setIsUpdateWeightsAutoActive(true)
+      // Step 4: Update the Node Weight table with calculated weights
+      setCurrentRoundData({ 
+        updateWeightsValues: newUpdateWeightsValues,
+        isUpdateWeightsAutoActive: true  // Ensure this stays true after updating weights
+      })
+      
+
+      
     } else {
-      // Restore previous values for both tables
-      setUpdateWeightsValues([...previousUpdateWeightsValues])
-      setWeightValues([...previousWeightValues])
-      setIsUpdateWeightsAutoActive(false)
+      // Restore previous values and deactivate auto
+      setCurrentRoundData({ 
+        updateWeightsValues: [...currentData.previousUpdateWeightsValues],
+        isUpdateWeightsAutoActive: false
+      })
     }
   }
 
   const handleAutoValue = () => {
-    if (!isAutoValueActive) {
+    const currentData = getCurrentRoundData();
+    if (!currentData.isAutoValueActive) {
       // Save current values and apply auto-fill
-      setPreviousValueResults([...valueResults])
-      const newValueResults = Array(9).fill('')
-      for (let i = 0; i < 9; i++) {
-        const numericValue = numericValues[i] === '' ? 0 : parseFloat(numericValues[i])
-        const weightValue = weightValues[i] === '' ? 0 : parseFloat(weightValues[i])
-        newValueResults[i] = Math.round(numericValue * weightValue).toString()
-      }
-      setValueResults(newValueResults)
-      setIsAutoValueActive(true)
+      setCurrentRoundData({ 
+        previousValueResults: [...currentData.valueResults],
+        valueResults: Array(9).fill('').map((_, i) => {
+          const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i])
+          const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i])
+          return Math.round(numericValue * weightValue).toString()
+        }),
+        isAutoValueActive: true
+      })
     } else {
-      // Restore previous values
-      setValueResults([...previousValueResults])
-      setIsAutoValueActive(false)
+      // Restore previous values and deactivate auto
+      setCurrentRoundData({ 
+        valueResults: [...currentData.previousValueResults],
+        isAutoValueActive: false
+      })
     }
   }
 
   // Function to calculate values automatically when inputs change
   const calculateValues = () => {
-    // Update numeric values if auto numeric is active
-    if (isAutoNumericActive) {
-      const newNumericValues = inputSelections.map(input => {
-        if (input === 'red') {
-          return '-1'
-        } else if (input === 'green') {
-          return '1'
-        } else {
-          return ''
-        }
-      })
-      setNumericValues(newNumericValues)
-    }
+    const currentData = getCurrentRoundData();
     
-    // Update weight values if auto weight is active
-    if (isAutoWeightActive) {
-      const newWeightValues = Array(9).fill('20')
-      setWeightValues(newWeightValues)
-    }
-    
-    // Update value results if auto value is active
-    if (isAutoValueActive) {
-      const newValueResults = Array(9).fill('')
-      for (let i = 0; i < 9; i++) {
-        const numericValue = numericValues[i] === '' ? 0 : parseFloat(numericValues[i])
-        const weightValue = weightValues[i] === '' ? 0 : parseFloat(weightValues[i])
-        newValueResults[i] = Math.round(numericValue * weightValue).toString()
+    // Calculate numeric values based on input selections (only if auto numeric is active)
+    const newNumericValues = currentData.inputSelections.map(input => {
+      if (input === 'red') {
+        return '-1'
+      } else if (input === 'green') {
+        return '1'
+      } else {
+        return ''
       }
-      setValueResults(newValueResults)
+    })
+    
+    // Calculate weight values (only if auto weight is active)
+    const newWeightValues = Array(9).fill('20')
+    
+    // Calculate value results based on current numeric and weight values (only if auto value is active)
+    const newValueResults = Array(9).fill('')
+    for (let i = 0; i < 9; i++) {
+      const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i])
+      const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i])
+      newValueResults[i] = Math.round(numericValue * weightValue).toString()
     }
+    
+    // Initialize update weights values if they're empty
+    let newUpdateWeightsValues = [...currentData.updateWeightsValues]
+    if (newUpdateWeightsValues.every(val => val === '')) {
+      newUpdateWeightsValues = Array(9).fill('20') // Start with base weights of 20 for Round 1
+    }
+    
+    // Update values based on auto button states
+    const updates = {}
+    
+    // Update numeric values if auto numeric is active (real-time updates when input changes)
+    if (currentData.isAutoNumericActive) {
+      updates.numericValues = newNumericValues
+    }
+    
+    // Update weight values if auto weight is active (real-time updates when input changes)
+    if (currentData.isAutoWeightActive) {
+      updates.weightValues = newWeightValues
+    }
+    
+    // Update value results if auto value is active (real-time updates when any values change)
+    if (currentData.isAutoValueActive) {
+      updates.valueResults = newValueResults
+    }
+    
+    // Always update update weights values
+    updates.updateWeightsValues = newUpdateWeightsValues
+    
+    // Update values in one call for efficiency
+    setCurrentRoundData(updates)
   }
 
   const calculateSummary = () => {
     // Calculate sum of all values
-    const sum = valueResults.reduce((total, value) => {
+    const sum = getCurrentRoundData().valueResults.reduce((total, value) => {
       return total + (value === '' ? 0 : parseFloat(value))
     }, 0)
     
-    setSumOfValues(sum.toString())
+    setCurrentRoundData({ sumOfValues: sum.toString() });
     
     // Determine network decision locally first
     let decision
@@ -403,30 +547,81 @@ function App() {
       decision = 'Undecided'
     }
     
-    setNetworkDecision(decision)
+    setCurrentRoundData({ networkDecision: decision });
 
     // Determine network status using the local decision
-    if (!selectedButton) {
-      setNetworkStatus('') // No traffic light selected
+    if (!getCurrentRoundData().selectedButton) {
+      setCurrentRoundData({ networkStatus: '' }); // No traffic light selected
     } else if (sum === 0) {
-      setNetworkStatus('Undecided')
-    } else if (selectedButton === 'red' && decision === 'Red') {
-      setNetworkStatus('Correct')
-    } else if (selectedButton === 'green' && decision === 'Green') {
-      setNetworkStatus('Correct')
-    } else if (selectedButton === 'red' && decision === 'Green') {
-      setNetworkStatus('Incorrect')
-    } else if (selectedButton === 'green' && decision === 'Red') {
-      setNetworkStatus('Incorrect')
+      setCurrentRoundData({ networkStatus: 'Undecided' });
+    } else if (getCurrentRoundData().selectedButton === 'red' && decision === 'Red') {
+      setCurrentRoundData({ networkStatus: 'Correct' });
+    } else if (getCurrentRoundData().selectedButton === 'green' && decision === 'Green') {
+      setCurrentRoundData({ networkStatus: 'Correct' });
+    } else if (getCurrentRoundData().selectedButton === 'red' && decision === 'Green') {
+      setCurrentRoundData({ networkStatus: 'Incorrect' });
+    } else if (getCurrentRoundData().selectedButton === 'green' && decision === 'Red') {
+      setCurrentRoundData({ networkStatus: 'Incorrect' });
     } else {
-      setNetworkStatus('')
+      setCurrentRoundData({ networkStatus: '' });
     }
   }
 
   useEffect(() => {
-    calculateValues()
+    // Only calculate values if we have some data to work with (not on initial empty load)
+    const currentData = getCurrentRoundData();
+    if (currentData.inputSelections.some(val => val !== '') || 
+        currentData.numericValues.some(val => val !== '') || 
+        currentData.weightValues.some(val => val !== '') ||
+        currentData.valueResults.some(val => val !== '')) {
+      calculateValues()
+    }
     calculateSummary()
-  }, [numericValues, weightValues, isAutoValueActive, isAutoNumericActive, isAutoWeightActive, isUpdateWeightsAutoActive, updateWeightsValues, valueResults, selectedButton, inputSelections])
+    
+    // Auto-update weights if update weights table is shown and we have the necessary data
+    if (currentData.showUpdateWeightsTable && 
+        currentData.selectedButton && 
+        currentData.inputSelections.some(input => input === 'red' || input === 'green') &&
+        !currentData.isUpdateWeightsAutoActive) {
+      
+      const trafficLightState = currentData.selectedButton
+      const cNodeInputs = currentData.inputSelections
+      const newUpdateWeightsValues = []
+      
+      for (let i = 0; i < 9; i++) {
+        const cNodeInput = cNodeInputs[i]
+        
+        if (cNodeInput === trafficLightState) {
+          // MATCH: C node input matches traffic light color
+          newUpdateWeightsValues[i] = '30'
+        } else if (cNodeInput === 'red' || cNodeInput === 'green') {
+          // MISMATCH: C node input doesn't match traffic light color
+          newUpdateWeightsValues[i] = '10'
+        } else {
+          // NO INPUT: C node has no input selected
+          newUpdateWeightsValues[i] = '20'
+        }
+      }
+      
+      // Update the weights and set auto mode active
+      setCurrentRoundData({ 
+        updateWeightsValues: newUpdateWeightsValues,
+        isUpdateWeightsAutoActive: true
+      })
+    }
+  }, [
+    currentRound,
+    getCurrentRoundData().inputSelections,
+    getCurrentRoundData().numericValues,
+    getCurrentRoundData().weightValues,
+    getCurrentRoundData().valueResults,
+    getCurrentRoundData().updateWeightsValues,
+    getCurrentRoundData().selectedButton,
+    getCurrentRoundData().isAutoValueActive,
+    getCurrentRoundData().isAutoNumericActive,
+    getCurrentRoundData().isAutoWeightActive,
+    getCurrentRoundData().showUpdateWeightsTable
+  ])
 
 
 
@@ -490,7 +685,8 @@ function App() {
   ]
 
   const handleRunCurrentRound = () => {
-    if (!selectedButton) {
+    const currentData = getCurrentRoundData();
+    if (!currentData.selectedButton) {
       alert('Please select a traffic light color first!')
       return
     }
@@ -502,14 +698,16 @@ function App() {
       // If random value is less than weight, circle matches selected color
       // Otherwise, it's the opposite color
       if (randomValue < weight) {
-        return selectedButton // red or green
+        return currentData.selectedButton // red or green
       } else {
-        return selectedButton === 'red' ? 'green' : 'red'
+        return currentData.selectedButton === 'red' ? 'green' : 'red'
       }
     })
 
-    setCircleColors(newCircleColors)
-    setHasRunCurrentRound(true)
+    setCurrentRoundData({ 
+      circleColors: newCircleColors,
+      hasRun: true 
+    });
   }
 
   return (
@@ -592,18 +790,18 @@ function App() {
               <span className="text-box-content">Sensor Nodes</span>
             </div>
             
-            {!isHidden && (
+            {!getCurrentRoundData().isHidden && (
               <div className="traffic-light-section">
                 <p className="instruction-text">Select state of the traffic light</p>
                 <div className="button-container">
                   <button 
-                    className={`red-button ${selectedButton === 'red' ? 'selected' : ''}`}
+                    className={`red-button ${getCurrentRoundData().selectedButton === 'red' ? 'selected' : ''}`}
                     onClick={() => handleButtonClick('red')}
                   >
                     Red
                   </button>
                   <button 
-                    className={`green-button ${selectedButton === 'green' ? 'selected' : ''}`}
+                    className={`green-button ${getCurrentRoundData().selectedButton === 'green' ? 'selected' : ''}`}
                     onClick={() => handleButtonClick('green')}
                   >
                     Green
@@ -611,39 +809,39 @@ function App() {
                 </div>
                 <div className="hide-button-container">
                   <button 
-                    className={`hide-button ${isHidden ? 'selected' : ''}`}
+                    className={`hide-button ${getCurrentRoundData().isHidden ? 'selected' : ''}`}
                     onClick={toggleHide}
                   >
-                    {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
+                    {getCurrentRoundData().isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
                   </button>
                 </div>
                 <div className="traffic-light-display">
                   <div className="traffic-light-housing">
                     <div 
-                      className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
+                      className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
                     ></div>
                     <div 
-                      className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
+                      className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
                     ></div>
                   </div>
                 </div>
               </div>
             )}
             
-            {isHidden && (
+            {getCurrentRoundData().isHidden && (
               <div className="hide-button-container">
                 <button 
-                  className={`hide-button ${isHidden ? 'selected' : ''}`}
+                  className={`hide-button ${getCurrentRoundData().isHidden ? 'selected' : ''}`}
                   onClick={toggleHide}
                 >
-                  {isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
+                  {getCurrentRoundData().isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
                 </button>
               </div>
             )}
             
             <div className="run-button-container">
               <button 
-                className={`run-button ${hasRunCurrentRound ? 'selected' : ''} ${colorScheme}`}
+                className={`run-button ${getCurrentRoundData().hasRun ? 'selected' : ''} ${colorScheme}`}
                 onClick={handleRunCurrentRound}
               >
                 Run Round {currentRound}
@@ -655,14 +853,14 @@ function App() {
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
                   <div key={num} className="circle-item">
                     <span className="circle-label">A{num}</span>
-                    {showCode && (
+                    {getCurrentRoundData().showCode && (
                       <span className="probability-text">
                         {((circleWeights[num-1].weight / 6) * 100).toFixed(1)}%
                       </span>
                     )}
-                    <div className={`circle ${circleColors[num-1]}`}>
-                      {circleColors[num-1] === 'red' && <span className="circle-text">R</span>}
-                      {circleColors[num-1] === 'green' && <span className="circle-text">G</span>}
+                    <div className={`circle ${getCurrentRoundData().circleColors[num-1]}`}>
+                      {getCurrentRoundData().circleColors[num-1] === 'red' && <span className="circle-text">R</span>}
+                      {getCurrentRoundData().circleColors[num-1] === 'green' && <span className="circle-text">G</span>}
                     </div>
                   </div>
                 ))}
@@ -671,10 +869,10 @@ function App() {
             
             <div className="show-code-button-container">
               <button 
-                className={`show-code-button ${showCode ? 'selected' : ''}`}
+                className={`show-code-button ${getCurrentRoundData().showCode ? 'selected' : ''}`}
                 onClick={toggleShowCode}
               >
-                {showCode ? 'Hide Code' : 'Show Code'}
+                                  {getCurrentRoundData().showCode ? 'Hide Code' : 'Show Code'}
               </button>
             </div>
             
@@ -684,10 +882,10 @@ function App() {
               style={{ cursor: 'pointer' }}
             >
               <span className="hidden-layer-text-content">Hidden Layer Nodes</span>
-              <span className="expand-text">{isHiddenLayerExpanded ? '(Collapse)' : '(Expand)'}</span>
+                                <span className="expand-text">{getCurrentRoundData().isHiddenLayerExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            {isHiddenLayerExpanded && (
+            {getCurrentRoundData().isHiddenLayerExpanded && (
               <div className="node-instructions">
                 <div className="b-node-section">
                   <h3 className="b-node-title">B Nodes</h3>
@@ -716,10 +914,10 @@ function App() {
               style={{ cursor: 'pointer' }}
             >
               <span className="output-text-box-content">Output Node</span>
-              <span className="expand-text">{isOutputNodeExpanded ? '(Collapse)' : '(Expand)'}</span>
+                                <span className="expand-text">{getCurrentRoundData().isOutputNodeExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            {isOutputNodeExpanded && (
+            {getCurrentRoundData().isOutputNodeExpanded && (
               <>
                 <div className="tables-wrapper">
                   <div className="table-container">
@@ -739,9 +937,9 @@ function App() {
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
                           <tr key={index}>
                             <td>C{index}</td>
-                            <td className={inputSelections[index-1] === 'red' ? 'input-cell-red' : inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
+                            <td className={getCurrentRoundData().inputSelections[index-1] === 'red' ? 'input-cell-red' : getCurrentRoundData().inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
                               <select 
-                                value={inputSelections[index-1]} 
+                                value={getCurrentRoundData().inputSelections[index-1]} 
                                 onChange={(e) => handleInputChange(index-1, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(e, index-1, 1)}
                                 data-row={index-1} 
@@ -753,11 +951,11 @@ function App() {
                               </select>
                             </td>
                             <td>
-                              {isAutoNumericActive ? (
-                                <span>{numericValues[index-1]}</span>
+                                                              {getCurrentRoundData().isAutoNumericActive ? (
+                                <span>{getCurrentRoundData().numericValues[index-1]}</span>
                               ) : (
                                 <select 
-                                  value={numericValues[index-1]} 
+                                  value={getCurrentRoundData().numericValues[index-1]} 
                                   onChange={(e) => handleNumericChange(index-1, e.target.value)}
                                   onKeyDown={(e) => handleKeyDown(e, index-1, 2)}
                                   data-row={index-1} 
@@ -771,12 +969,12 @@ function App() {
                             </td>
                             <td>×</td>
                             <td>
-                              {isAutoWeightActive ? (
-                                <span>{weightValues[index-1]}</span>
+                                                              {getCurrentRoundData().isAutoWeightActive ? (
+                                <span>{getCurrentRoundData().weightValues[index-1]}</span>
                               ) : (
                                 <input 
                                   type="text" 
-                                  value={weightValues[index-1]} 
+                                  value={getCurrentRoundData().weightValues[index-1]} 
                                   onChange={(e) => handleWeightChange(index-1, e.target.value)}
                                   onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
                                   data-row={index-1} 
@@ -786,12 +984,12 @@ function App() {
                             </td>
                             <td>=</td>
                             <td>
-                              {isAutoValueActive ? (
-                                <span>{valueResults[index-1]}</span>
+                                                              {getCurrentRoundData().isAutoValueActive ? (
+                                <span>{getCurrentRoundData().valueResults[index-1]}</span>
                               ) : (
                                 <input 
                                   type="text" 
-                                  value={valueResults[index-1]} 
+                                  value={getCurrentRoundData().valueResults[index-1]} 
                                   onChange={(e) => handleValueChange(index-1, e.target.value)}
                                   onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
                                   data-row={index-1} 
@@ -806,19 +1004,19 @@ function App() {
                           <td></td> {/* Node column - empty */}
                           <td></td> {/* Input column - empty */}
                           <td>
-                            <button className={`auto-button ${isAutoNumericActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoNumeric}>
+                            <button className={`auto-button ${getCurrentRoundData().isAutoNumericActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoNumeric}>
                               Auto
                             </button>
                           </td>
                           <td></td> {/* × column - empty */}
                           <td>
-                            <button className={`auto-button ${isAutoWeightActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoWeight}>
+                            <button className={`auto-button ${getCurrentRoundData().isAutoWeightActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoWeight}>
                               Auto
                             </button>
                           </td>
                           <td></td> {/* = column - empty */}
                           <td>
-                            <button className={`auto-button ${isAutoValueActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoValue}>
+                            <button className={`auto-button ${getCurrentRoundData().isAutoValueActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoValue}>
                               Auto
                             </button>
                           </td>
@@ -827,7 +1025,7 @@ function App() {
                     </table>
                   </div>
                   
-                  {showUpdateWeightsTable && (
+                  {getCurrentRoundData().showUpdateWeightsTable && (
                     <div className="update-weights-table-container">
                       <table className={`update-weights-table ${colorScheme}`}>
                         <thead>
@@ -841,14 +1039,20 @@ function App() {
                             <tr key={index}>
                               <td>C{index}</td>
                               <td>
-                                {isUpdateWeightsAutoActive ? (
-                                  <span>{updateWeightsValues[index-1]}</span>
+                                {getCurrentRoundData().isUpdateWeightsAutoActive ? (
+                                  <span style={{fontWeight: 'bold', color: '#333'}}>
+                                    {getCurrentRoundData().updateWeightsValues[index-1] || '20'}
+                                  </span>
                                 ) : (
                                   <input 
                                     type="text" 
-                                    value={updateWeightsValues[index-1]} 
-                                    onChange={(e) => handleUpdateWeightChange(index-1, e.target.value)}
+                                    value={getCurrentRoundData().updateWeightsValues[index-1] || '20'}
+                                    data-index={index-1}
+                                    onChange={(e) => {
+                                      handleUpdateWeightChange(index-1, e.target.value)
+                                    }}
                                     className="update-weight-input"
+                                    placeholder="20"
                                   />
                                 )}
                               </td>
@@ -858,11 +1062,13 @@ function App() {
                           <tr className="update-weights-auto-row">
                             <td></td> {/* Node column - empty */}
                             <td>
-                              <button className={`auto-button ${isUpdateWeightsAutoActive ? 'active' : ''} ${colorScheme}`} onClick={handleUpdateWeightsAuto}>
+                              <button className={`auto-button ${getCurrentRoundData().isUpdateWeightsAutoActive ? 'active' : ''} ${colorScheme}`} onClick={handleUpdateWeightsAuto}>
                                 Auto
                               </button>
                             </td>
                           </tr>
+                          
+
                         </tbody>
                       </table>
                     </div>
@@ -871,20 +1077,20 @@ function App() {
               </>
             )}
             
-            {isOutputNodeExpanded && (
+            {getCurrentRoundData().isOutputNodeExpanded && (
               <>
                 <div className="orange-horizontal-line"></div>
             
                 <div className="compute-decision-button-container">
                   <button 
-                    className={`compute-decision-button ${showNetworkDecision ? 'selected' : ''} ${colorScheme}`}
+                    className={`compute-decision-button ${getCurrentRoundData().showNetworkDecision ? 'selected' : ''} ${colorScheme}`}
                     onClick={toggleNetworkDecision}
                   >
                     Compute the Network Decision
                   </button>
                 </div>
 
-                {showNetworkDecision && (
+                {getCurrentRoundData().showNetworkDecision && (
                   <div className="summary-table-container">
                     <table className={`summary-table ${colorScheme}`}>
                       <tbody>
@@ -893,8 +1099,8 @@ function App() {
                           <td>Network Decision</td>
                         </tr>
                         <tr>
-                          <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{sumOfValues}</td>
-                          <td className={networkDecision === 'Red' ? 'summary-cell-red' : networkDecision === 'Green' ? 'summary-cell-green' : ''}>{networkDecision}</td>
+                          <td className={getCurrentRoundData().networkDecision === 'Red' ? 'summary-cell-red' : getCurrentRoundData().networkDecision === 'Green' ? 'summary-cell-green' : ''}>{getCurrentRoundData().sumOfValues}</td>
+                          <td className={getCurrentRoundData().networkDecision === 'Red' ? 'summary-cell-red' : getCurrentRoundData().networkDecision === 'Green' ? 'summary-cell-green' : ''}>{getCurrentRoundData().networkDecision}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -903,25 +1109,25 @@ function App() {
 
                 <div className="traffic-light-state-button-container">
                   <button 
-                    className={`traffic-light-state-button ${showTrafficLight ? 'selected' : ''} ${colorScheme}`}
+                    className={`traffic-light-state-button ${getCurrentRoundData().showTrafficLight ? 'selected' : ''} ${colorScheme}`}
                     onClick={toggleTrafficLight}
                   >
                     Traffic Light State
                   </button>
                 </div>
 
-                {showTrafficLight && (
+                {getCurrentRoundData().showTrafficLight && (
                   <div className="traffic-light-display">
                     <div className="traffic-light-housing">
                       <div
-                        className={`traffic-light-red ${selectedButton === 'red' ? 'active' : 'inactive'}`}
+                        className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
                       >
-                        {selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                        {getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
                       </div>
                       <div
-                        className={`traffic-light-green ${selectedButton === 'green' ? 'active' : 'inactive'}`}
+                        className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
                       >
-                        {selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                        {getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
                       </div>
                     </div>
                   </div>
@@ -935,10 +1141,10 @@ function App() {
               style={{ cursor: 'pointer' }}
             >
               <span className="summary-text-box-content">Summary</span>
-              <span className="expand-text">{isSummaryExpanded ? '(Collapse)' : '(Expand)'}</span>
+                                <span className="expand-text">{getCurrentRoundData().isSummaryExpanded ? '(Collapse)' : '(Expand)'}</span>
             </div>
             
-            {isSummaryExpanded && (
+            {getCurrentRoundData().isSummaryExpanded && (
               <>
                 <div className="summary-details-container">
                   <table className={`summary-details-table ${colorScheme}`}>
@@ -948,8 +1154,8 @@ function App() {
                         <td>Sum</td>
                       </tr>
                       <tr>
-                        <td>{networkStatus}</td>
-                        <td>{sumOfValues}</td>
+                        <td>{getCurrentRoundData().networkStatus}</td>
+                        <td>{getCurrentRoundData().sumOfValues}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -964,7 +1170,7 @@ function App() {
                           <div className="bar-graph-y-axis"></div>
                           <div className="bar-graph-zero-line"></div>
                           <div className="bars-container">
-                            {weightValues.map((weight, index) => {
+                            {getCurrentRoundData().weightValues.map((weight, index) => {
                               const weightNum = parseFloat(weight) || 0;
                               // Domain: [-120, 120], so 20 is a very small bar
                               const maxHeight = 100; // 100px for full scale (-120 to 120 range)

@@ -1038,6 +1038,8 @@ html {
   position: relative;
 }
 
+
+
 .output-table {
   width: 100%;
   border-collapse: collapse;
@@ -1189,6 +1191,12 @@ html {
   vertical-align: middle;
   height: 25px;
 }
+
+
+
+
+
+
 
 .auto-button {
   background: #f0f0f0;
