@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Neural Network - Stage One Education</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Reset all link colors globally */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: inherit;
+        }
+
+        a:link {
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
+        a:active {
+            color: inherit;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('./NN-background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            color: #333;
+            animation: backgroundZoom 30s ease-in-out infinite;
+        }
+
+        @keyframes backgroundZoom {
+            0%, 100% {
+                background-size: 100% auto;
+            }
+            20% {
+                background-size: 105% auto;
+            }
+            30% {
+                background-size: 102% auto;
+            }
+            40% {
+                background-size: 107% auto;
+            }
+            60% {
+                background-size: 100% auto;
+            }
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: #f05f40ff;
+            color: white;
+            width: 100%;
+            padding: 0.15rem 0;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            width: 100%;
+            margin: 0;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            line-height: 1;
+        }
+
+        .header-left {
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        .header-divider {
+            width: 2px;
+            height: 20px;
+            background: white;
+        }
+
+        .header-center {
+            font-weight: normal;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        .header-spacer {
+            flex: 1;
+        }
+
+        .header-right {
+            font-weight: bold;
+            font-size: 0.7rem;
+            text-align: center;
+            line-height: 1;
+        }
+
+        /* Header Links */
+        .header-left a,
+        .header-center a,
+        .header-right a,
+        .header-left a:link,
+        .header-center a:link,
+        .header-right a:link,
+        .header-left a:visited,
+        .header-center a:visited,
+        .header-right a:visited,
+        .header-left a:hover,
+        .header-center a:hover,
+        .header-right a:hover,
+        .header-left a:active,
+        .header-center a:active,
+        .header-right a:active,
+        .header-left a:focus,
+        .header-center a:focus,
+        .header-right a:focus {
+            color: white !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .header-left a:hover,
+        .header-center a:hover,
+        .header-right a:hover {
+            text-decoration: underline !important;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            text-align: center;
+            margin-top: 55px;
+        }
+
+        .participant-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #434343ff;
+            margin-bottom: 2rem;
+        }
+
+        .image-container {
+            margin: 1rem auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .class-image {
+            max-width: 20%;
+            height: auto;
+        }
+
+        /* Title above image */
+        .image-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f05f40ff;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Activity info below title */
+        .activity-info {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #434343ff;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Subtitle below main title */
+        .subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #f05f40ff;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Horizontal line */
+        .title-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, white, #ccc 20%, #ccc 80%, white);
+            margin: 1rem auto 2rem auto;
+            max-width: 600px;
+        }
+
+        /* Descriptive text below line */
+        .description-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #777;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dropdown-container {
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .participant-dropdown {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #f05f40ff;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            min-width: 80px;
+        }
+
+        .participant-dropdown:focus {
+            border-color: #d0452e;
+            box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.2);
+        }
+
+        .pdf-viewers-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        .pdf-viewer {
+            flex: 1;
+            max-width: 350px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 200px;
+            border: none;
+            background: #f8f9fa;
+        }
+
+        /* PDF Controls */
+        .pdf-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-top: 1px solid #ccc;
+        }
+
+        .pdf-control-btn {
+            background: white;
+            color: #f05f40ff;
+            border: 1px solid #f05f40ff;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-control-btn:hover {
+            background: #f05f40ff;
+            color: white;
+        }
+
+        /* PDF Labels */
+        .pdf-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.2rem;
+            padding: 0.5rem;
+        }
+
+        .left-label {
+            color: #ffabd6ff;
+            -webkit-text-stroke: 0.3px #333;
+            text-stroke: 0.3px #333;
+        }
+
+        .right-label {
+            color: #ffe2bfff;
+            -webkit-text-stroke: 0.3px #333;
+            text-stroke: 0.3px #333;
+        }
+
+        .pdf-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            color: #434343ff;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Requirements Section */
+        .requirements-section {
+            margin: 3rem auto;
+            max-width: 600px;
+            padding: 0 1rem;
+        }
+
+        .requirements-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #434343ff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .requirements-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .requirements-list li {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .requirements-list li:before {
+            content: "•";
+            color: #434343ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -0.1rem;
+        }
+
+        .die-image {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+
+        .pencil-image {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+
+        /* Text Colors */
+        .pink-text {
+            color: #ffabd6ff;
+            -webkit-text-stroke: 0.3px #333;
+            text-stroke: 0.3px #333;
+        }
+
+        .yellow-text {
+            color: #ffe2bfff;
+            -webkit-text-stroke: 0.3px #333;
+            text-stroke: 0.3px #333;
+        }
+
+        /* Sub Requirements List */
+        .sub-requirements-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 2rem;
+        }
+
+        .sub-requirements-list li {
+            font-size: 0.9rem;
+            color: #434343ff;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .sub-requirements-list li:before {
+            content: "◦";
+            color: #434343ff;
+            font-weight: bold;
+            font-size: 0.5rem;
+            position: absolute;
+            left: 0;
+            top: -0.1rem;
+        }
+
+        /* Horizontal line */
+        .horizontal-line {
+            width: 100%;
+            height: 0.5px;
+            background: #eee;
+            margin: 0;
+            border: none;
+            margin-bottom: 0.5rem;
+            position: relative;
+            bottom: -2rem;
+        }
+
+        /* Footer */
+        .copyright-footer {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .footer-bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 0 1rem;
+        }
+
+        .copyright-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .version-number {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 1rem;
+            font-size: 0.5rem;
+            color: #ccc;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .color-scheme-footer {
+            text-align: center;
+        }
+
+        .color-scheme-footer select {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            padding: 0.25rem;
+            border: 1px solid #999;
+            border-radius: 3px;
+            background: white;
+            color: #999;
+        }
+
+        /* Instructor Slides Button */
+        .instructor-slides-button {
+            background: white;
+            color: #f05f40ff;
+            border: 2px solid #f05f40ff;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            margin: 2rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .instructor-slides-button:hover {
+            background: #f05f40ff;
+            color: white;
+        }
+
+        .instructor-slides-button:focus {
+            border-color: #d0452e;
+            box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.2);
+        }
+
+        /* START Button */
+        .start-button {
+            background: white;
+            color: #f05f40ff;
+            border: 2px solid #f05f40ff;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            margin: 1rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .start-button:hover {
+            background: #f05f40ff;
+            color: white;
+        }
+
+        .start-button:focus {
+            border-color: #d0452e;
+            box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header Section -->
+    <div class="fixed-header">
+        <!-- Header Bar -->
+        <header class="header-bar">
+            <div class="header-content">
+                <a 
+                    href="https://stageoneeducation.com/ai-workshop.html" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="header-left"
+                >
+                    Artificial Intelligence Workshop
+                </a>
+                <div class="header-divider"></div>
+                <a 
+                    href="https://stageoneeducation.com/human-neural-network.html" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="header-center"
+                >
+                    Human Neural Network
+                </a>
+                <div class="header-spacer"></div>
+                <a 
+                    href="https://stageoneeducation.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="header-right"
+                >
+                    STAGE ONE EDUCATION
+                </a>
+            </div>
+        </header>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="image-title">Human Neural Network</h1>
+        
+        <div class="activity-info">Activity length: 45–60 minutes | All Ages | No Experience Needed</div>
+        
+        <div class="image-container">
+            <img src="class-nn.png" alt="Class Neural Network" class="class-image">
+        </div>
+        
+        <div class="description-text">
+            Join an interactive game of telephone where each participant becomes a node in our classroom-sized neural network. Gain an intuitive grasp of neural networks and their learning processes, no math and no computers.
+        </div>
+        
+        <div class="title-divider"></div>
+        
+        <h2 class="participant-title">Select the number of participants</h2>
+        
+        <div class="dropdown-container">
+            <select id="participant-select" class="participant-dropdown" onchange="updatePDFs()">
+                <option value="27">27</option>
+                <option value="45">45</option>
+            </select>
+        </div>
+        
+        <div class="pdf-viewers-container">
+            <div class="pdf-viewer">
+                <div class="pdf-label left-label">1st Hidden Layer - B</div>
+                <div class="pdf-subtitle">all sheets must be used</div>
+                <iframe id="pdf-left" src="1st-HL-27.pdf" class="pdf-frame" title="PDF Viewer 1"></iframe>
+                <div class="pdf-controls">
+                    <button class="pdf-control-btn" onclick="downloadPDF('pdf-left')">Download</button>
+                    <button class="pdf-control-btn" onclick="printPDF('pdf-left')">Print</button>
+                </div>
+            </div>
+            <div class="pdf-viewer">
+                <div class="pdf-label right-label">2nd Hidden Layer - C</div>
+                <div class="pdf-subtitle">all sheets must be used</div>
+                <iframe id="pdf-right" src="2nd-HL-27.pdf" class="pdf-frame" title="PDF Viewer 2"></iframe>
+                <div class="pdf-controls">
+                    <button class="pdf-control-btn" onclick="downloadPDF('pdf-right')">Download</button>
+                    <button class="pdf-control-btn" onclick="printPDF('pdf-right')">Print</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="requirements-section">
+            <h3 class="requirements-title">Every human will need:</h3>
+            <ul class="requirements-list">
+                <li>Printed <strong class="pink-text">(1st Hidden Layer - B)</strong> or <strong class="yellow-text">(2nd Hidden Layer - C)</strong> sheet</li>
+                <li>Pencil <img src="pencil.nn.png" alt="Pencil" class="pencil-image"></li>
+                <li>6-sided die <img src="die.png" alt="6-sided die" class="die-image"></li>
+            </ul>
+        </div>
+        
+        <div class="title-divider"></div>
+        
+        <button class="instructor-slides-button">Instructor Slides</button>
+        
+        <button class="start-button">Start</button>
+    </div>
+    
+    <script>
+        function updatePDFs() {
+            const select = document.getElementById('participant-select');
+            const leftPDF = document.getElementById('pdf-left');
+            const rightPDF = document.getElementById('pdf-right');
+            
+            if (select.value === '27') {
+                leftPDF.src = '1st-HL-27.pdf';
+                rightPDF.src = '2nd-HL-27.pdf';
+            } else if (select.value === '45') {
+                leftPDF.src = '1st-HL-45.pdf';
+                rightPDF.src = '2nd-HL-45.pdf';
+            }
+        }
+        
+        function downloadPDF(pdfId) {
+            const pdfFrame = document.getElementById(pdfId);
+            const pdfUrl = pdfFrame.src;
+            
+            // Create a temporary link element to trigger download
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = pdfUrl.split('/').pop(); // Extract filename from URL
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function printPDF(pdfId) {
+            const pdfFrame = document.getElementById(pdfId);
+            const pdfUrl = pdfFrame.src;
+            
+            // Open PDF in new window for printing
+            const printWindow = window.open(pdfUrl, '_blank');
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
+        
+        // Set default PDFs for 27 participants on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePDFs();
+        });
+
+        // Color scheme change function
+        function handleColorSchemeChange(scheme) {
+            console.log('Color scheme changing to:', scheme);
+            // For now, just log the change since this page doesn't have the full color scheme implementation
+            // In a full implementation, this would update the header and button colors
+        }
+    </script>
+    
+                    <div class="horizontal-line"></div>
+                <div class="copyright-footer">
+                    © 2025 Stage One Education, LLC
+                    <div class="version-number">V25.8</div>
+                </div>
+</body>
+</html>
