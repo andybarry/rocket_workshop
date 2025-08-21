@@ -21,7 +21,7 @@ function App() {
       previousWeightValues: Array(9).fill(''), // track previous weight values
       isAutoWeightActive: false, // track if auto weight is active
       isUpdateWeightsAutoActive: false, // track if update weights auto is active
-      updateWeightsValues: Array(9).fill('20'), // track independent weight values for update weights table, start with 20
+      updateWeightsValues: Array(9).fill(''), // track independent weight values for update weights table, start with blank
       previousUpdateWeightsValues: Array(9).fill(''), // track previous update weights values
       previousValueResults: Array(9).fill(''), // track previous value results
       isAutoValueActive: false, // track if auto value is active
@@ -52,7 +52,255 @@ function App() {
       previousWeightValues: Array(9).fill(''),
       isAutoWeightActive: false,
       isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill('20'),
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    3: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    4: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    5: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    6: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    7: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    8: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    9: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
+      previousUpdateWeightsValues: Array(9).fill(''),
+      previousValueResults: Array(9).fill(''),
+      isAutoValueActive: false,
+      sumOfValues: '',
+      networkDecision: '',
+      networkStatus: '',
+      showNetworkDecision: false,
+      showTrafficLight: false,
+      showUpdateWeightsTable: false,
+      isHiddenLayerExpanded: false,
+      isOutputNodeExpanded: false,
+      isSummaryExpanded: false,
+      sensorBoxClicked: false
+    },
+    10: {
+      lightStates: [false, false, false],
+      selectedButton: null,
+      isHidden: false,
+      circleColors: Array(12).fill('gray'),
+      showCode: false,
+      hasRun: false,
+      inputSelections: Array(9).fill(''),
+      numericValues: Array(9).fill(''),
+      weightValues: Array(9).fill(''),
+      valueResults: Array(9).fill(''),
+      previousNumericValues: Array(9).fill(''),
+      isAutoNumericActive: false,
+      previousWeightValues: Array(9).fill(''),
+      isAutoWeightActive: false,
+      isUpdateWeightsAutoActive: false,
+      updateWeightsValues: Array(9).fill(''),
       previousUpdateWeightsValues: Array(9).fill(''),
       previousValueResults: Array(9).fill(''),
       isAutoValueActive: false,
@@ -166,13 +414,69 @@ function App() {
 
   const handleLeftArrowClick = () => {
     if (currentRound > 1) {
-      setCurrentRound(currentRound - 1);
+      // Carry over weights from current round to previous round if needed
+      const currentData = getCurrentRoundData();
+      const previousRound = currentRound - 1;
+      
+      // Determine which weights to carry over
+      let weightsToCarry = Array(9).fill('20'); // Default weights
+      
+      // Priority: 1) Auto-calculated weights, 2) Manually entered weights, 3) Default weights
+      if (currentData.showUpdateWeightsTable) {
+        if (currentData.isUpdateWeightsAutoActive && currentData.updateWeightsValues.some(w => w !== '')) {
+          // Use the auto-calculated weights (any calculated values)
+          weightsToCarry = [...currentData.updateWeightsValues];
+        } else if (currentData.updateWeightsValues.some(w => w !== '')) {
+          // Use manually entered weights
+          weightsToCarry = [...currentData.updateWeightsValues];
+        }
+      }
+      
+      // Update the previous round's weight values
+      setRoundsData(prev => ({
+        ...prev,
+        [previousRound]: {
+          ...prev[previousRound],
+          weightValues: weightsToCarry
+        }
+      }));
+      
+      console.log(`Carrying over weights to Round ${previousRound}:`, weightsToCarry);
+      setCurrentRound(previousRound);
     }
   };
 
   const handleRightArrowClick = () => {
     if (currentRound < 10) {
-      setCurrentRound(currentRound + 1);
+      // Carry over the updated weights from the current round to the next round
+      const currentData = getCurrentRoundData();
+      const nextRound = currentRound + 1;
+      
+      // Determine which weights to carry over
+      let weightsToCarry = Array(9).fill('20'); // Default weights
+      
+      // Priority: 1) Auto-calculated weights, 2) Manually entered weights, 3) Default weights
+      if (currentData.showUpdateWeightsTable) {
+        if (currentData.isUpdateWeightsAutoActive && currentData.updateWeightsValues.some(w => w !== '')) {
+          // Use the auto-calculated weights (any calculated values)
+          weightsToCarry = [...currentData.updateWeightsValues];
+        } else if (currentData.updateWeightsValues.some(w => w !== '')) {
+          // Use manually entered weights
+          weightsToCarry = [...currentData.updateWeightsValues];
+        }
+      }
+      
+      // Update the next round's weight values
+      setRoundsData(prev => ({
+        ...prev,
+        [nextRound]: {
+          ...prev[nextRound],
+          weightValues: weightsToCarry
+        }
+      }));
+      
+      console.log(`Carrying over weights to Round ${nextRound}:`, weightsToCarry);
+      setCurrentRound(nextRound);
     }
   };
 
@@ -184,47 +488,15 @@ function App() {
   const handleUpdateWeights = () => {
     const currentData = getCurrentRoundData();
     
-    // Initialize updateWeightsValues with base weights of 20 for Round 1
-    const newUpdateWeightsValues = Array(9).fill('20')
+    // Initialize updateWeightsValues with empty strings to show blank input boxes
+    const newUpdateWeightsValues = Array(9).fill('')
     
-    // Show the update weights table and initialize weights
+    // Show the update weights table and initialize weights as blank
     setCurrentRoundData({ 
       showUpdateWeightsTable: true,
       updateWeightsValues: newUpdateWeightsValues,
       isUpdateWeightsAutoActive: false // Reset auto state when showing table
     })
-    
-    // If we have traffic light and C node inputs, automatically calculate weights
-    if (currentData.selectedButton && currentData.inputSelections.some(input => input === 'red' || input === 'green')) {
-      // Auto-calculate weights after a short delay to ensure table is rendered
-      setTimeout(() => {
-        // Auto-calculate weights without user interaction
-        const trafficLightState = currentData.selectedButton
-        const cNodeInputs = currentData.inputSelections
-        const newUpdateWeightsValues = []
-        
-        for (let i = 0; i < 9; i++) {
-          const cNodeInput = cNodeInputs[i]
-          
-          if (cNodeInput === trafficLightState) {
-            // MATCH: C node input matches traffic light color
-            newUpdateWeightsValues[i] = '30'
-          } else if (cNodeInput === 'red' || cNodeInput === 'green') {
-            // MISMATCH: C node input doesn't match traffic light color
-            newUpdateWeightsValues[i] = '10'
-          } else {
-            // NO INPUT: C node has no input selected
-            newUpdateWeightsValues[i] = '20'
-          }
-        }
-        
-        // Update the weights and set auto mode active
-        setCurrentRoundData({ 
-          updateWeightsValues: newUpdateWeightsValues,
-          isUpdateWeightsAutoActive: true
-        })
-      }, 100)
-    }
     
     // Scroll to position where Output Node table appears right below the horizontal line
     const outputBox = document.querySelector('.output-text-box')
@@ -415,21 +687,20 @@ function App() {
       // Step 3: Calculate updated weights for each C node
       const newUpdateWeightsValues = []
       
+      // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weights
       for (let i = 0; i < 9; i++) {
-        const cNodeInput = cNodeInputs[i]  // C1, C2, C3... C9 input state
+        const cNodeInput = cNodeInputs[i]
+        const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
         
         if (cNodeInput === trafficLightState) {
-          // MATCH: C node input matches traffic light color
-          // Display 30
-          newUpdateWeightsValues[i] = '30'
+          // MATCH: Add 10 to current weight
+          newUpdateWeightsValues[i] = (currentWeight + 10).toString()
         } else if (cNodeInput === 'red' || cNodeInput === 'green') {
-          // MISMATCH: C node input doesn't match traffic light color
-          // Display 10
-          newUpdateWeightsValues[i] = '10'
+          // MISMATCH: Subtract 10 from current weight (allow negative values)
+          newUpdateWeightsValues[i] = (currentWeight - 10).toString()
         } else {
-          // NO INPUT: C node has no input selected
-          // Display 20
-          newUpdateWeightsValues[i] = '20'
+          // NO INPUT: Keep current weight
+          newUpdateWeightsValues[i] = currentWeight.toString()
         }
       }
       
@@ -439,12 +710,35 @@ function App() {
         isUpdateWeightsAutoActive: true  // Ensure this stays true after updating weights
       })
       
-
+      console.log(`Round ${currentRound} unified weight calculation:`, {
+        round: currentRound,
+        trafficLightState,
+        cNodeInputs,
+        currentWeights: currentData.weightValues,
+        newWeights: newUpdateWeightsValues
+      })
+      
+      // Detailed debugging for each node
+      for (let i = 0; i < 9; i++) {
+        const cNodeInput = cNodeInputs[i]
+        const currentWeight = parseInt(currentData.weightValues[i]) || 0
+        const newWeight = newUpdateWeightsValues[i]
+        
+        console.log(`Node C${i+1}:`, {
+          input: cNodeInput,
+          currentWeight: currentWeight,
+          trafficLightState: trafficLightState,
+          isMatch: cNodeInput === trafficLightState,
+          calculation: cNodeInput === trafficLightState ? `${currentWeight} + 10 = ${currentWeight + 10}` : `${currentWeight} - 10 = ${currentWeight - 10}`,
+          newWeight: newWeight
+        })
+      }
       
     } else {
-      // Restore previous values and deactivate auto
+      // When deactivating auto, show blank input boxes for user editing
+      // Clear the calculated weights and show empty input boxes
       setCurrentRoundData({ 
-        updateWeightsValues: [...currentData.previousUpdateWeightsValues],
+        updateWeightsValues: Array(9).fill(''),
         isUpdateWeightsAutoActive: false
       })
     }
@@ -498,12 +792,6 @@ function App() {
       newValueResults[i] = Math.round(numericValue * weightValue).toString()
     }
     
-    // Initialize update weights values if they're empty
-    let newUpdateWeightsValues = [...currentData.updateWeightsValues]
-    if (newUpdateWeightsValues.every(val => val === '')) {
-      newUpdateWeightsValues = Array(9).fill('20') // Start with base weights of 20 for Round 1
-    }
-    
     // Update values based on auto button states
     const updates = {}
     
@@ -522,8 +810,10 @@ function App() {
       updates.valueResults = newValueResults
     }
     
-    // Always update update weights values
-    updates.updateWeightsValues = newUpdateWeightsValues
+    // Only update update weights values if auto mode is active
+    if (currentData.isUpdateWeightsAutoActive) {
+      updates.updateWeightsValues = currentData.updateWeightsValues
+    }
     
     // Update values in one call for efficiency
     setCurrentRoundData(updates)
@@ -579,35 +869,61 @@ function App() {
     calculateSummary()
     
     // Auto-update weights if update weights table is shown and we have the necessary data
+    // Only run this if the user has explicitly activated auto mode
     if (currentData.showUpdateWeightsTable && 
         currentData.selectedButton && 
         currentData.inputSelections.some(input => input === 'red' || input === 'green') &&
-        !currentData.isUpdateWeightsAutoActive) {
+        currentData.isUpdateWeightsAutoActive) {
       
       const trafficLightState = currentData.selectedButton
       const cNodeInputs = currentData.inputSelections
       const newUpdateWeightsValues = []
       
+      // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weights
       for (let i = 0; i < 9; i++) {
         const cNodeInput = cNodeInputs[i]
+        const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
         
         if (cNodeInput === trafficLightState) {
-          // MATCH: C node input matches traffic light color
-          newUpdateWeightsValues[i] = '30'
+          // MATCH: Add 10 to current weight
+          newUpdateWeightsValues[i] = (currentWeight + 10).toString()
         } else if (cNodeInput === 'red' || cNodeInput === 'green') {
-          // MISMATCH: C node input doesn't match traffic light color
-          newUpdateWeightsValues[i] = '10'
+          // MISMATCH: Subtract 10 from current weight (allow negative values)
+          newUpdateWeightsValues[i] = (currentWeight - 10).toString()
         } else {
-          // NO INPUT: C node has no input selected
-          newUpdateWeightsValues[i] = '20'
+          // NO INPUT: Keep current weight
+          newUpdateWeightsValues[i] = currentWeight.toString()
         }
       }
       
-      // Update the weights and set auto mode active
+      // Update the weights (but don't change auto mode - let user control it)
       setCurrentRoundData({ 
-        updateWeightsValues: newUpdateWeightsValues,
-        isUpdateWeightsAutoActive: true
+        updateWeightsValues: newUpdateWeightsValues
       })
+      
+      console.log(`useEffect Round ${currentRound} unified weight calculation:`, {
+        round: currentRound,
+        trafficLightState,
+        cNodeInputs,
+        currentWeights: currentData.weightValues,
+        newWeights: newUpdateWeightsValues
+      })
+      
+      // Detailed debugging for each node in useEffect
+      for (let i = 0; i < 9; i++) {
+        const cNodeInput = cNodeInputs[i]
+        const currentWeight = parseInt(currentData.weightValues[i]) || 0
+        const newWeight = newUpdateWeightsValues[i]
+        
+        console.log(`useEffect Node C${i+1}:`, {
+          input: cNodeInput,
+          currentWeight: currentWeight,
+          trafficLightState: trafficLightState,
+          isMatch: cNodeInput === trafficLightState,
+          calculation: cNodeInput === trafficLightState ? `${currentWeight} + 10 = ${currentWeight + 10}` : `${currentWeight} - 10 = ${currentWeight - 10}`,
+          newWeight: newWeight
+        })
+      }
     }
   }, [
     currentRound,
@@ -969,17 +1285,25 @@ function App() {
                             </td>
                             <td>×</td>
                             <td>
-                                                              {getCurrentRoundData().isAutoWeightActive ? (
-                                <span>{getCurrentRoundData().weightValues[index-1]}</span>
+                              {currentRound === 1 ? (
+                                // Round 1: Allow editing with auto button functionality
+                                getCurrentRoundData().isAutoWeightActive ? (
+                                  <span>{getCurrentRoundData().weightValues[index-1]}</span>
+                                ) : (
+                                  <input 
+                                    type="text" 
+                                    value={getCurrentRoundData().weightValues[index-1]} 
+                                    onChange={(e) => handleWeightChange(index-1, e.target.value)}
+                                    onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
+                                    data-row={index-1} 
+                                    data-column="4"
+                                  />
+                                )
                               ) : (
-                                <input 
-                                  type="text" 
-                                  value={getCurrentRoundData().weightValues[index-1]} 
-                                  onChange={(e) => handleWeightChange(index-1, e.target.value)}
-                                  onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
-                                  data-row={index-1} 
-                                  data-column="4"
-                                />
+                                // Round 2+: Show weights as read-only (carried over from previous round)
+                                <span style={{fontWeight: 'bold', color: '#333'}}>
+                                  {getCurrentRoundData().weightValues[index-1]}
+                                </span>
                               )}
                             </td>
                             <td>=</td>
@@ -1010,9 +1334,14 @@ function App() {
                           </td>
                           <td></td> {/* × column - empty */}
                           <td>
-                            <button className={`auto-button ${getCurrentRoundData().isAutoWeightActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoWeight}>
-                              Auto
-                            </button>
+                            {currentRound === 1 ? (
+                              <button className={`auto-button ${getCurrentRoundData().isAutoWeightActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoWeight}>
+                                Auto
+                              </button>
+                            ) : (
+                              // Round 2+: No auto button for weights (weights are read-only)
+                              <span></span>
+                            )}
                           </td>
                           <td></td> {/* = column - empty */}
                           <td>
@@ -1041,18 +1370,18 @@ function App() {
                               <td>
                                 {getCurrentRoundData().isUpdateWeightsAutoActive ? (
                                   <span style={{fontWeight: 'bold', color: '#333'}}>
-                                    {getCurrentRoundData().updateWeightsValues[index-1] || '20'}
+                                    {getCurrentRoundData().updateWeightsValues[index-1]}
                                   </span>
                                 ) : (
                                   <input 
                                     type="text" 
-                                    value={getCurrentRoundData().updateWeightsValues[index-1] || '20'}
+                                    value={getCurrentRoundData().updateWeightsValues[index-1]}
                                     data-index={index-1}
                                     onChange={(e) => {
                                       handleUpdateWeightChange(index-1, e.target.value)
                                     }}
                                     className="update-weight-input"
-                                    placeholder="20"
+                                    placeholder=""
                                   />
                                 )}
                               </td>
@@ -1150,13 +1479,39 @@ function App() {
                   <table className={`summary-details-table ${colorScheme}`}>
                     <tbody>
                       <tr>
+                        <td>Round</td>
                         <td>Network Status</td>
                         <td>Sum</td>
                       </tr>
-                      <tr>
-                        <td>{getCurrentRoundData().networkStatus}</td>
-                        <td>{getCurrentRoundData().sumOfValues}</td>
-                      </tr>
+                      {currentRound === 1 ? (
+                        // Round 1: Show only current round data
+                        <tr>
+                          <td>1</td>
+                          <td>{getCurrentRoundData().networkStatus}</td>
+                          <td>{getCurrentRoundData().sumOfValues}</td>
+                        </tr>
+                      ) : (
+                        // Round 2+: Show all previous rounds and current round data
+                        <>
+                          {/* Show all previous rounds */}
+                          {Array.from({ length: currentRound - 1 }, (_, index) => {
+                            const roundNumber = index + 1;
+                            return (
+                              <tr key={`round-${roundNumber}`}>
+                                <td>{roundNumber}</td>
+                                <td>{roundsData[roundNumber]?.networkStatus || ''}</td>
+                                <td>{roundsData[roundNumber]?.sumOfValues || ''}</td>
+                              </tr>
+                            );
+                          })}
+                          {/* Show current round */}
+                          <tr>
+                            <td>{currentRound}</td>
+                            <td>{getCurrentRoundData().networkStatus}</td>
+                            <td>{getCurrentRoundData().sumOfValues}</td>
+                          </tr>
+                        </>
+                      )}
                     </tbody>
                   </table>
                 </div>
