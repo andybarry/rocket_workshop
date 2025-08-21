@@ -1018,12 +1018,13 @@ html {
 }
 
 .table-container {
-  width: 60%;
+  width: 65%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   justify-content: center;
   position: relative;
+  overflow-x: auto;
 }
 
 /* When inside tables-wrapper, remove the margin */
@@ -1049,12 +1050,13 @@ html {
   table-layout: fixed;
   height: auto;
   min-height: 400px;
+  min-width: 450px;
 }
 
 .output-table th {
   background: #f05f40ff;
   color: white;
-  padding: 0.4rem;
+  padding: 0.3rem;
   text-align: center;
   font-weight: bold;
   border: 1px solid #ccc;
@@ -1066,6 +1068,7 @@ html {
   border: 1px solid #ccc;
   min-height: 25px;
   height: 25px;
+  box-sizing: border-box;
 }
 
 .output-table tbody tr:nth-child(odd) {
@@ -1080,16 +1083,19 @@ html {
 
 .output-table select {
   width: 100%;
-  padding: 0.3rem;
+  padding: 0.4rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: normal;
   background: white;
   cursor: pointer;
   color: black;
   height: 2.4rem;
   box-sizing: border-box;
+  text-align: center;
+  min-width: 60px;
 }
 
 .output-table select:focus {
@@ -1121,11 +1127,12 @@ html {
 
 .output-table input[type="text"] {
   width: 100%;
-  padding: 0.3rem;
+  padding: 0.4rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   background: white;
   color: black;
   box-sizing: border-box;
@@ -1148,15 +1155,25 @@ html {
   width: 100%;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   color: black;
-  padding: 0.3rem;
+  padding: 0.4rem;
   box-sizing: border-box;
   height: 2.4rem;
   line-height: 1.2;
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+/* Optimize column widths for compact layout */
+.output-table th:nth-child(1), .output-table td:nth-child(1) { width: 11%; } /* Node */
+.output-table th:nth-child(2), .output-table td:nth-child(2) { width: 15%; } /* Input */
+.output-table th:nth-child(3), .output-table td:nth-child(3) { width: 14%; } /* Numeric */
+.output-table th:nth-child(4), .output-table td:nth-child(4) { width: 7%; }  /* × */
+.output-table th:nth-child(5), .output-table td:nth-child(5) { width: 14%; } /* Weight */
+.output-table th:nth-child(6), .output-table td:nth-child(6) { width: 7%; }  /* = */
+.output-table th:nth-child(7), .output-table td:nth-child(7) { width: 15%; } /* Value */
 
 .auto-buttons-row {
   background: transparent;
@@ -1642,7 +1659,8 @@ html {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   background: white;
   color: black;
   box-sizing: border-box;
@@ -1660,7 +1678,8 @@ html {
   width: 100%;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   color: black;
   padding: 0.3rem;
   box-sizing: border-box;
@@ -1692,6 +1711,31 @@ html {
 
 .color-scheme-footer {
   text-align: center;
+}
+
+.reset-button {
+  background: white;
+  color: #999;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  margin-left: 1rem;
+}
+
+.reset-button:hover {
+  background: #f5f5f5;
+  border-color: #999;
+  color: #666;
+}
+
+.reset-button:active {
+  background: #e5e5e5;
+  transform: translateY(1px);
 }
 
 .color-scheme-footer select {
@@ -1781,6 +1825,8 @@ html {
   border: 1px solid #ccc;
   min-height: 25px;
   background: white;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .summary-table tr:first-child td {
@@ -1789,14 +1835,201 @@ html {
   font-weight: bold;
 }
 
+/* Ensure the second row is always visible */
+.summary-table tr:nth-child(2) td {
+  min-height: 30px;
+  background: #f8f8f8;
+  color: #666;
+  font-style: italic;
+}
+
+/* Style for placeholder text when no data is present */
+.summary-table tr:nth-child(2) td {
+  color: #666;
+}
+
 .summary-cell-red {
-  background: #ff0000 !important;
-  color: white !important;
+  background: white !important;
+  color: black !important;
 }
 
 .summary-cell-green {
+  background: white !important;
+  color: black !important;
+}
+
+/* Row-based color styling for the entire second row */
+.summary-table tr:nth-child(2).summary-row-red {
+  background: #ff0000 !important;
+}
+
+.summary-table tr:nth-child(2).summary-row-red td {
+  background: #ff0000 !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.summary-table tr:nth-child(2).summary-row-green {
+  background: #008000ff !important;
+}
+
+.summary-table tr:nth-child(2).summary-row-green td {
   background: #008000ff !important;
   color: white !important;
+  font-weight: bold !important;
+}
+
+/* Ensure cells with content override the default second row styling */
+.summary-table tr:nth-child(2) td.summary-cell-red,
+.summary-table tr:nth-child(2) td.summary-cell-green {
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* Fan Blade Rectangle Styling */
+.fan-blade-rectangle {
+  width: 250px; /* Increased width to match button above */
+  height: 100px; /* Half the width */
+  background: #333; /* Dark gray */
+  margin: 1rem auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 1rem;
+  position: relative; /* For positioning the text */
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden; /* Completely hidden */
+}
+
+/* GPU fan center hub */
+.fan-circle::after {
+  content: '';
+  position: absolute;
+  width: 16px; /* Larger hub for thicker blades */
+  height: 16px;
+  background: radial-gradient(circle, #777 0%, #555 30%, #333 60%, #111 100%);
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #444;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6), 0 2px 4px rgba(255,255,255,0.15);
+  z-index: 2;
+}
+
+/* GPU text */
+.fan-blade-rectangle::after {
+  content: 'GPU';
+  position: absolute;
+  bottom: 4px; /* Lowered from 8px to 4px */
+  right: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: #f05f40ff; /* Bold orange color */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  z-index: 3;
+}
+
+/* Fan speed animation classes */
+.fan-blade-rectangle.visible {
+  opacity: 1; /* Make visible */
+  visibility: visible; /* Show the GPU */
+}
+
+.fan-blade-rectangle.hidden {
+  opacity: 0; /* Hidden */
+  visibility: hidden; /* Completely hidden */
+}
+
+/* Fan speed - constant high RPM */
+.fan-blades {
+  animation: spin 0.2s linear infinite; /* Very fast constant spinning */
+}
+
+/* Styling for calculated values in the main table */
+.calculated-value {
+  font-weight: bold !important;
+  color: #333 !important;
+  display: block !important;
+  text-align: center !important;
+  padding: 0.2rem !important;
+  background: #f8f8f8 !important;
+  border-radius: 4px !important;
+  min-height: 2rem !important;
+  line-height: 2rem !important;
+}
+
+.fan-circle {
+  width: 60px;
+  height: 60px;
+  background: #f0f0f0; /* Light gray background */
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #e0e0e0; /* Subtle border for definition */
+}
+
+/* New 6-blade fan where all blades touch the edge of the white circle */
+.new-fan-blades {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: spin 2s linear infinite;
+}
+
+.new-blade {
+  position: absolute;
+  width: 30px; /* Blade extends from center to edge (radius of 60px circle) */
+  height: 8px; /* Thicker blades for more depth */
+  background: linear-gradient(90deg, #777 0%, #555 25%, #333 50%, #222 75%, #111 100%);
+  border-radius: 4px;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 50%;
+  margin-top: -4px;
+  /* GPU fan blade styling with curved edges */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
+  border: 1px solid #444;
+  /* Curved leading and trailing edges */
+  clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%);
+}
+
+/* Position 10 blades in a circle (360° ÷ 10 = 36°) with GPU styling */
+.new-blade-1 { transform: translateX(0px) rotate(0deg) skewY(-15deg); }
+.new-blade-2 { transform: translateX(0px) rotate(36deg) skewY(-15deg); }
+.new-blade-3 { transform: translateX(0px) rotate(72deg) skewY(-15deg); }
+.new-blade-4 { transform: translateX(0px) rotate(108deg) skewY(-15deg); }
+.new-blade-5 { transform: translateX(0px) rotate(144deg) skewY(-15deg); }
+.new-blade-6 { transform: translateX(0px) rotate(180deg) skewY(-15deg); }
+.new-blade-7 { transform: translateX(0px) rotate(216deg) skewY(-15deg); }
+.new-blade-8 { transform: translateX(0px) rotate(252deg) skewY(-15deg); }
+.new-blade-9 { transform: translateX(0px) rotate(288deg) skewY(-15deg); }
+.new-blade-10 { transform: translateX(0px) rotate(324deg) skewY(-15deg); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* GPU fan center hub */
+.fan-circle::after {
+  content: '';
+  position: absolute;
+  width: 16px; /* Larger hub for thicker blades */
+  height: 16px;
+  background: radial-gradient(circle, #777 0%, #555 30%, #333 60%, #111 100%);
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #444;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6), 0 2px 4px rgba(255,255,255,0.15);
+  z-index: 2;
 }
 
 .summary-text-box {
@@ -1860,6 +2093,8 @@ html {
   border: 1px solid #ccc;
   min-height: 25px;
   background: white;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 /* Color scheme dropdown */
@@ -2185,7 +2420,7 @@ html {
   }
 
   .table-container {
-    width: 90%;
+    width: 95%;
   }
 
   .auto-buttons-container {
@@ -2319,4 +2554,68 @@ html {
     padding: 0.15rem;
     font-size: 0.7rem;
   }
+}
+
+/* Global table value styling - make all table values larger and bold */
+.output-table td,
+.summary-table td,
+.summary-details-table td,
+.update-weights-table td {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+}
+
+.output-table input[type="text"],
+.update-weight-input {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+}
+
+.output-table td span,
+.update-weights-table td span {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+}
+
+/* Make Input and Numeric column selects not bold */
+.output-table td:nth-child(2) select,
+.output-table td:nth-child(3) select {
+  font-weight: normal !important;
+}
+
+/* Make × and = symbols not bold */
+.output-table td:nth-child(4),
+.output-table td:nth-child(6) {
+  font-weight: normal !important;
+}
+
+/* Make the displayed values in Input and Numeric columns bold */
+.output-table td:nth-child(2) span,
+.output-table td:nth-child(3) span {
+  font-weight: bold !important;
+}
+
+/* Make the actual dropdown options bold when selected */
+.output-table td:nth-child(2) select option,
+.output-table td:nth-child(3) select option {
+  font-weight: bold !important;
+}
+
+/* Make the selected value text in Input and Numeric dropdowns bold */
+.output-table td:nth-child(2) select:not([size]),
+.output-table td:nth-child(3) select:not([size]) {
+  font-weight: bold !important;
+}
+
+/* Ensure the displayed text in Input and Numeric columns is bold */
+.output-table td:nth-child(2),
+.output-table td:nth-child(3) {
+  font-weight: bold !important;
+}
+
+/* Style for empty select dropdowns to show clean appearance */
+.output-table td:nth-child(2) select:not([value*="red"]):not([value*="green"]),
+.output-table td:nth-child(3) select:not([value*="1"]):not([value*="-1"]) {
+  color: black;
+  font-style: normal;
 }

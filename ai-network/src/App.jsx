@@ -3,318 +3,53 @@ import './App.css'
 import { useEffect } from 'react'
 
 function App() {
+  // Helper function to create complete round data
+  const createRoundData = (roundNumber) => ({
+    lightStates: [false, false, false], // [top, middle, bottom]
+    selectedButton: null, // 'red' or 'green' or null
+    isHidden: false, // to track if traffic light section is hidden
+    circleColors: Array(12).fill('gray'), // track circle colors
+    showCode: false, // to track if code/probabilities are shown
+    hasRun: false, // to track if current round has been executed
+    inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
+    numericValues: Array(9).fill(''), // track numeric input values for C1-C9
+    weightValues: Array(9).fill(roundNumber === 1 ? '' : '20'), // track weight input values for C1-C9
+    valueResults: Array(9).fill(''), // track value results for C1-C9
+    previousNumericValues: Array(9).fill(''), // track previous numeric values
+    isAutoNumericActive: false, // track if auto numeric is active
+    previousWeightValues: Array(9).fill(''), // track previous weight values
+    isAutoWeightActive: false, // track if auto weight is active
+    isUpdateWeightsAutoActive: false, // track if update weights auto is active
+    updateWeightsValues: Array(9).fill(''), // track independent weight values for update weights table, start with blank
+    previousUpdateWeightsValues: Array(9).fill(''), // track previous update weights values
+    previousValueResults: Array(9).fill(''), // track previous value results
+    isAutoValueActive: false, // track if auto value is active
+    sumOfValues: '', // track sum of C node values
+    networkDecision: '', // track network decision
+    networkStatus: '', // track if network decision is correct
+    showNetworkDecision: false,
+    showTrafficLight: false, // track if network decision table is shown
+    showUpdateWeightsTable: false, // track if update weights table is shown
+    isHiddenLayerExpanded: false, // track if hidden layer content is expanded
+    isOutputNodeExpanded: false, // track if output node content is expanded
+    isSummaryExpanded: false, // track if summary content is expanded
+    sensorBoxClicked: false,
+    gpuAnimationState: 'idle', // 'idle', 'sliding-down', 'spinning', 'sliding-up'
+    gpuFanSpeed: 0 // 0-4 for fan speed levels
+  });
+
   const [currentRound, setCurrentRound] = useState(1) // track current round for navigation
   const [roundsData, setRoundsData] = useState({
-    1: {
-      lightStates: [false, false, false], // [top, middle, bottom]
-      selectedButton: null, // 'red' or 'green' or null
-      isHidden: false, // to track if traffic light section is hidden
-      circleColors: Array(12).fill('gray'), // track circle colors
-      showCode: false, // to track if code/probabilities are shown
-      hasRun: false, // to track if current round has been executed
-      inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
-      numericValues: Array(9).fill(''), // track numeric input values for C1-C9
-      weightValues: Array(9).fill(''), // track weight input values for C1-C9
-      valueResults: Array(9).fill(''), // track value results for C1-C9
-      previousNumericValues: Array(9).fill(''), // track previous numeric values
-      isAutoNumericActive: false, // track if auto numeric is active
-      previousWeightValues: Array(9).fill(''), // track previous weight values
-      isAutoWeightActive: false, // track if auto weight is active
-      isUpdateWeightsAutoActive: false, // track if update weights auto is active
-      updateWeightsValues: Array(9).fill(''), // track independent weight values for update weights table, start with blank
-      previousUpdateWeightsValues: Array(9).fill(''), // track previous update weights values
-      previousValueResults: Array(9).fill(''), // track previous value results
-      isAutoValueActive: false, // track if auto value is active
-      sumOfValues: '', // track sum of C node values
-      networkDecision: '', // track network decision
-      networkStatus: '', // track if network decision is correct
-      showNetworkDecision: false,
-      showTrafficLight: false, // track if network decision table is shown
-      showUpdateWeightsTable: false, // track if update weights table is shown
-      isHiddenLayerExpanded: false, // track if hidden layer content is expanded
-      isOutputNodeExpanded: false, // track if output node content is expanded
-      isSummaryExpanded: false, // track if summary content is expanded
-      sensorBoxClicked: false
-    },
-    2: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    3: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    4: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    5: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    6: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    7: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    8: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    9: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    },
-    10: {
-      lightStates: [false, false, false],
-      selectedButton: null,
-      isHidden: false,
-      circleColors: Array(12).fill('gray'),
-      showCode: false,
-      hasRun: false,
-      inputSelections: Array(9).fill(''),
-      numericValues: Array(9).fill(''),
-      weightValues: Array(9).fill(''),
-      valueResults: Array(9).fill(''),
-      previousNumericValues: Array(9).fill(''),
-      isAutoNumericActive: false,
-      previousWeightValues: Array(9).fill(''),
-      isAutoWeightActive: false,
-      isUpdateWeightsAutoActive: false,
-      updateWeightsValues: Array(9).fill(''),
-      previousUpdateWeightsValues: Array(9).fill(''),
-      previousValueResults: Array(9).fill(''),
-      isAutoValueActive: false,
-      sumOfValues: '',
-      networkDecision: '',
-      networkStatus: '',
-      showNetworkDecision: false,
-      showTrafficLight: false,
-      showUpdateWeightsTable: false,
-      isHiddenLayerExpanded: false,
-      isOutputNodeExpanded: false,
-      isSummaryExpanded: false,
-      sensorBoxClicked: false
-    }
+    1: createRoundData(1),
+    2: createRoundData(2),
+    3: createRoundData(3),
+    4: createRoundData(4),
+    5: createRoundData(5),
+    6: createRoundData(6),
+    7: createRoundData(7),
+    8: createRoundData(8),
+    9: createRoundData(9),
+    10: createRoundData(10)
   });
   const [colorScheme, setColorScheme] = useState('orange') // track color scheme: 'orange' or 'gray'
   // Round selection removed - only Round 1 is displayed
@@ -542,17 +277,229 @@ function App() {
     setCurrentRoundData({ showCode: !getCurrentRoundData().showCode });
   };
 
+  const startGPUAnimation = () => {
+    // GPU is hidden - do not show
+    setCurrentRoundData({ gpuAnimationState: 'hidden' });
+  };
+
+  const calculateProgressiveValues = () => {
+    const currentData = getCurrentRoundData();
+    const totalNodes = 9;
+    const delayPerNode = 500; // 0.5 seconds per node
+    
+    console.log('Starting progressive value calculation...');
+    
+    // Start with empty values and reset sum
+    const emptyValues = Array(9).fill('');
+    setCurrentRoundData({ 
+      valueResults: emptyValues,
+      sumOfValues: '0',
+      networkDecision: 'Undecided'
+    });
+    
+    // Progressively reveal values one by one
+    for (let i = 0; i < totalNodes; i++) {
+      setTimeout(() => {
+        console.log(`Processing node ${i + 1} at ${i * delayPerNode}ms`);
+        
+        // Calculate the value for this node
+        const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i]);
+        const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i]);
+        const calculatedValue = Math.round(numericValue * weightValue).toString();
+        
+        // Update the state with the new value
+        setCurrentRoundData(prevData => {
+          const newValueResults = [...prevData.valueResults];
+          newValueResults[i] = calculatedValue;
+          
+          // Calculate current sum based on visible values
+          const visibleValues = newValueResults.slice(0, i + 1);
+          const currentSum = visibleValues.reduce((sum, val) => sum + (parseInt(val) || 0), 0);
+          
+          // Create progressive sum display showing each addition step
+          let progressiveSumDisplay = '';
+          if (i === 0) {
+            progressiveSumDisplay = `C1 (${calculatedValue})`;
+          } else {
+            const steps = [];
+            for (let j = 0; j <= i; j++) {
+              if (newValueResults[j] !== '') {
+                steps.push(`C${j + 1} (${newValueResults[j]})`);
+              }
+            }
+            progressiveSumDisplay = steps.join(' + ');
+          }
+          
+          // Update network decision based on current sum
+          let currentDecision = 'Undecided';
+          if (currentSum > 0) {
+            currentDecision = 'Red';
+          } else if (currentSum < 0) {
+            currentDecision = 'Green';
+          }
+          
+          console.log(`Node ${i + 1}: Value = ${calculatedValue}, Progressive Sum = ${progressiveSumDisplay}, Current Sum = ${currentSum}, Decision = ${currentDecision}`);
+          
+          return {
+            valueResults: newValueResults,
+            sumOfValues: progressiveSumDisplay,
+            networkDecision: currentDecision
+          };
+        });
+        
+        // No animations or effects - just update the values
+        console.log(`Updated value cell ${i} with calculated value: ${calculatedValue}`);
+        
+      }, i * delayPerNode);
+    }
+  };
+
+  // Add GPU state to all rounds that don't have it (run first)
+  useEffect(() => {
+    const updatedRoundsData = { ...roundsData };
+    let hasChanges = false;
+    
+    for (let round = 1; round <= 10; round++) {
+      if (!updatedRoundsData[round].hasOwnProperty('gpuAnimationState')) {
+        updatedRoundsData[round] = {
+          ...updatedRoundsData[round],
+          gpuAnimationState: 'idle',
+          gpuFanSpeed: 0
+        };
+        hasChanges = true;
+      }
+    }
+    
+    if (hasChanges) {
+      setRoundsData(updatedRoundsData);
+    }
+  }, []);
+
+  // Load saved data from localStorage on component mount (run after GPU state is added)
+  useEffect(() => {
+    // Wait a bit to ensure initial state is set up
+    const timer = setTimeout(() => {
+      const savedData = localStorage.getItem('aiNetworkData');
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          console.log('Found saved data:', parsedData);
+          
+          if (parsedData.roundsData) {
+            console.log('Loading roundsData:', parsedData.roundsData);
+            // Ensure all rounds have the complete structure by merging with createRoundData
+            const completeRoundsData = {};
+            for (let round = 1; round <= 10; round++) {
+              if (parsedData.roundsData[round]) {
+                completeRoundsData[round] = {
+                  ...createRoundData(round),
+                  ...parsedData.roundsData[round]
+                };
+              } else {
+                completeRoundsData[round] = createRoundData(round);
+              }
+            }
+            setRoundsData(completeRoundsData);
+          }
+          if (parsedData.currentRound) {
+            console.log('Loading currentRound:', parsedData.currentRound);
+            setCurrentRound(parsedData.currentRound);
+          }
+          if (parsedData.colorScheme) {
+            console.log('Loading colorScheme:', parsedData.colorScheme);
+            setColorScheme(parsedData.colorScheme);
+          }
+          console.log('Successfully loaded saved data from localStorage');
+        } catch (error) {
+          console.error('Error loading saved data:', error);
+        }
+      } else {
+        console.log('No saved data found in localStorage');
+      }
+    }, 200); // Increased delay to ensure initial state is ready
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Save data to localStorage whenever any important state changes (run last)
+  useEffect(() => {
+    // Only save if we have actual data (not just initial state)
+    if (Object.keys(roundsData).length > 0) {
+      const dataToSave = {
+        roundsData,
+        currentRound,
+        colorScheme,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+      console.log('Data saved to localStorage:', dataToSave);
+    }
+  }, [roundsData, currentRound, colorScheme]);
+
   const toggleNetworkDecision = () => {
     const newShowState = !getCurrentRoundData().showNetworkDecision;
     setCurrentRoundData({ showNetworkDecision: newShowState });
+    
     // Calculate summary when showing the network decision
     if (newShowState) {
-      calculateSummary();
+      // Start GPU animation sequence
+      startGPUAnimation();
+      
+      // Start progressive value calculation
+      calculateProgressiveValues();
     }
   };
 
   const toggleTrafficLight = () => {
     setCurrentRoundData({ showTrafficLight: !getCurrentRoundData().showTrafficLight });
+  };
+
+  const resetAllData = () => {
+    // Clear localStorage
+    localStorage.removeItem('aiNetworkData');
+    
+    // Reset to initial state
+    setCurrentRound(1);
+    setColorScheme('orange');
+    
+    // Reset all rounds data to initial state using the helper function
+    const initialRoundsData = {
+      1: createRoundData(1),
+      2: createRoundData(2),
+      3: createRoundData(3),
+      4: createRoundData(4),
+      5: createRoundData(5),
+      6: createRoundData(6),
+      7: {
+        inputSelections: Array(9).fill(''),
+        numericValues: Array(9).fill(''),
+        weightValues: Array(9).fill('20'),
+        valueResults: Array(9).fill(''),
+        isAutoNumericActive: false,
+        isAutoWeightActive: false,
+        isAutoValueActive: false,
+        showNetworkDecision: false,
+        sumOfValues: '0',
+        networkDecision: 'Undecided',
+        networkStatus: '',
+        isOutputNodeExpanded: false,
+        showUpdateWeightsTable: false,
+        isUpdateWeightsAutoActive: false,
+        updateWeightsValues: Array(9).fill(''),
+        isSummaryExpanded: false,
+        showTrafficLight: false,
+        selectedButton: '',
+        gpuAnimationState: 'idle',
+        gpuFanSpeed: 0
+      },
+      8: createRoundData(8),
+      9: createRoundData(9),
+      10: createRoundData(10)
+    };
+    
+    setRoundsData(initialRoundsData);
+    
+    console.log('All data has been reset to initial state');
   };
 
   const handleInputChange = (index, value) => {
@@ -854,6 +801,72 @@ function App() {
       setCurrentRoundData({ networkStatus: 'Incorrect' });
     } else {
       setCurrentRoundData({ networkStatus: '' });
+    }
+  }
+
+  const calculateSummaryWithProgressiveDisplay = () => {
+    // First, clear the sum to show it's calculating
+    setCurrentRoundData({ sumOfValues: 'Calculating...' });
+    
+    // Get the current value results
+    const valueResults = getCurrentRoundData().valueResults;
+    
+    // Progressive sum calculation with 0.5 second delays
+    // Use a recursive approach to avoid closure issues
+    const addNodeProgressively = (index, currentSum) => {
+      if (index >= 9) {
+        // All nodes processed, calculate final decision
+        let decision;
+        if (currentSum > 0) {
+          decision = 'Green';
+        } else if (currentSum < 0) {
+          decision = 'Red';
+        } else {
+          decision = 'Undecided';
+        }
+        
+        // Update network decision and status
+        setCurrentRoundData({ 
+          networkDecision: decision,
+          networkStatus: calculateNetworkStatus(decision, currentSum)
+        });
+        return;
+      }
+      
+      // Add current node value
+      const value = valueResults[index] === '' ? 0 : parseFloat(valueResults[index]);
+      const newSum = currentSum + value;
+      
+      // Update the sum display
+      setCurrentRoundData({ sumOfValues: newSum.toString() });
+      
+      // Schedule next node
+      setTimeout(() => {
+        addNodeProgressively(index + 1, newSum);
+      }, 500); // 0.5 second delay
+    };
+    
+    // Start the progressive calculation
+    addNodeProgressively(0, 0);
+  }
+
+  const calculateNetworkStatus = (decision, sum) => {
+    const currentData = getCurrentRoundData();
+    
+    if (!currentData.selectedButton) {
+      return ''; // No traffic light selected
+    } else if (sum === 0) {
+      return 'Undecided';
+    } else if (currentData.selectedButton === 'red' && decision === 'Red') {
+      return 'Correct';
+    } else if (currentData.selectedButton === 'green' && decision === 'Green') {
+      return 'Correct';
+    } else if (currentData.selectedButton === 'red' && decision === 'Green') {
+      return 'Incorrect';
+    } else if (currentData.selectedButton === 'green' && decision === 'Red') {
+      return 'Incorrect';
+    } else {
+      return '';
     }
   }
 
@@ -1261,7 +1274,7 @@ function App() {
                                 data-row={index-1} 
                                 data-column="1"
                               >
-                                <option value="">Select</option>
+                                <option value=""></option>
                                 <option value="red">Red</option>
                                 <option value="green">Green</option>
                               </select>
@@ -1277,7 +1290,7 @@ function App() {
                                   data-row={index-1} 
                                   data-column="2"
                                 >
-                                  <option value="">Select</option>
+                                  <option value=""></option>
                                   <option value="1">1</option>
                                   <option value="-1">-1</option>
                                 </select>
@@ -1307,17 +1320,16 @@ function App() {
                               )}
                             </td>
                             <td>=</td>
-                            <td>
-                                                              {getCurrentRoundData().isAutoValueActive ? (
-                                <span>{getCurrentRoundData().valueResults[index-1]}</span>
+                                                        <td data-row={index-1} data-column="6">
+                              {getCurrentRoundData().showNetworkDecision && getCurrentRoundData().valueResults[index-1] !== '' ? (
+                                <span className="calculated-value">{getCurrentRoundData().valueResults[index-1]}</span>
                               ) : (
                                 <input 
                                   type="text" 
                                   value={getCurrentRoundData().valueResults[index-1]} 
                                   onChange={(e) => handleValueChange(index-1, e.target.value)}
                                   onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
-                                  data-row={index-1} 
-                                  data-column="6"
+                                  placeholder=""
                                 />
                               )}
                             </td>
@@ -1419,22 +1431,76 @@ function App() {
                   </button>
                 </div>
 
-                {getCurrentRoundData().showNetworkDecision && (
-                  <div className="summary-table-container">
-                    <table className={`summary-table ${colorScheme}`}>
-                      <tbody>
-                        <tr>
-                          <td>Sum of (C) Node Values</td>
-                          <td>Network Decision</td>
-                        </tr>
-                        <tr>
-                          <td className={getCurrentRoundData().networkDecision === 'Red' ? 'summary-cell-red' : getCurrentRoundData().networkDecision === 'Green' ? 'summary-cell-green' : ''}>{getCurrentRoundData().sumOfValues}</td>
-                          <td className={getCurrentRoundData().networkDecision === 'Red' ? 'summary-cell-red' : getCurrentRoundData().networkDecision === 'Green' ? 'summary-cell-green' : ''}>{getCurrentRoundData().networkDecision}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                {/* Fan Blade Rectangle */}
+                <div className={`fan-blade-rectangle ${
+                  getCurrentRoundData().gpuAnimationState === 'visible' ? 'visible' : 'hidden'
+                }`}>
+                  <div className="fan-circle">
+                    <div className="new-fan-blades">
+                      <div className="new-blade new-blade-1"></div>
+                      <div className="new-blade new-blade-2"></div>
+                      <div className="new-blade new-blade-3"></div>
+                      <div className="new-blade new-blade-4"></div>
+                      <div className="new-blade new-blade-5"></div>
+                      <div className="new-blade new-blade-6"></div>
+                      <div className="new-blade new-blade-7"></div>
+                      <div className="new-blade new-blade-8"></div>
+                      <div className="new-blade new-blade-9"></div>
+                      <div className="new-blade new-blade-10"></div>
+                    </div>
                   </div>
-                )}
+                  <div className="fan-circle">
+                    <div className="new-fan-blades">
+                      <div className="new-blade new-blade-1"></div>
+                      <div className="new-blade new-blade-2"></div>
+                      <div className="new-blade new-blade-3"></div>
+                      <div className="new-blade new-blade-4"></div>
+                      <div className="new-blade new-blade-5"></div>
+                      <div className="new-blade new-blade-6"></div>
+                      <div className="new-blade new-blade-7"></div>
+                      <div className="new-blade new-blade-8"></div>
+                      <div className="new-blade new-blade-9"></div>
+                      <div className="new-blade new-blade-10"></div>
+                    </div>
+                  </div>
+                  <div className="fan-circle">
+                    <div className="new-fan-blades">
+                      <div className="new-blade new-blade-1"></div>
+                      <div className="new-blade new-blade-2"></div>
+                      <div className="new-blade new-blade-3"></div>
+                      <div className="new-blade new-blade-4"></div>
+                      <div className="new-blade new-blade-5"></div>
+                      <div className="new-blade new-blade-6"></div>
+                      <div className="new-blade new-blade-7"></div>
+                      <div className="new-blade new-blade-8"></div>
+                      <div className="new-blade new-blade-9"></div>
+                      <div className="new-blade new-blade-10"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Network Decision table - Always visible */}
+                <div className="summary-table-container">
+                  <table className={`summary-table ${colorScheme}`}>
+                    <tbody>
+                      <tr>
+                        <td>Sum of (C) Node Values</td>
+                        <td>Network Decision</td>
+                      </tr>
+                      <tr className={
+                        getCurrentRoundData().showNetworkDecision && getCurrentRoundData().networkDecision === 'Red' ? 'summary-row-red' :
+                        getCurrentRoundData().showNetworkDecision && getCurrentRoundData().networkDecision === 'Green' ? 'summary-row-green' : ''
+                      }>
+                        <td>
+                          {getCurrentRoundData().showNetworkDecision ? getCurrentRoundData().sumOfValues : '0'}
+                        </td>
+                        <td>
+                          {getCurrentRoundData().showNetworkDecision ? getCurrentRoundData().networkDecision : 'Undecided'}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
                 <div className="traffic-light-state-button-container">
                   <button 
@@ -1588,6 +1654,9 @@ function App() {
           </div>
           <div className="copyright-text">© 2025 Stage One Education, LLC</div>
           <div className="version-number">V25.8</div>
+          <button className="reset-button" onClick={resetAllData}>
+            Reset
+          </button>
         </div>
       </div>
     </div>
