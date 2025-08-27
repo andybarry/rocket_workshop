@@ -683,6 +683,11 @@ html {
   position: relative;
 }
 
+.circle {
+  background: #ccc;
+  border-color: #ccc;
+}
+
 .circle.red {
   background: #ff0000;
   border-color: #ff0000;

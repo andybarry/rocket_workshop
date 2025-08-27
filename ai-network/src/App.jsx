@@ -8,7 +8,7 @@ function App() {
     lightStates: [false, false, false], // [top, middle, bottom]
     selectedButton: null, // 'red' or 'green' or null
     isHidden: false, // to track if traffic light section is hidden
-    circleColors: Array(12).fill('gray'), // track circle colors
+    circleColors: Array(12).fill(''), // track circle colors - start empty
     showCode: false, // to track if code/probabilities are shown
     hasRun: false, // to track if current round has been executed
     inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
@@ -62,11 +62,21 @@ function App() {
 
   // Helper functions to get and set current round data
   const getCurrentRoundData = () => roundsData[currentRound];
+
+
   const setCurrentRoundData = (updates) => {
-    setRoundsData(prev => ({
-      ...prev,
-      [currentRound]: { ...prev[currentRound], ...updates }
-    }));
+    console.log(`setCurrentRoundData called for round ${currentRound}:`, updates);
+    console.log(`Previous state for round ${currentRound}:`, roundsData[currentRound]);
+    
+    setRoundsData(prev => {
+      const newState = {
+        ...prev,
+        [currentRound]: { ...prev[currentRound], ...updates }
+      };
+      
+      console.log(`New state for round ${currentRound}:`, newState[currentRound]);
+      return newState;
+    });
   };
 
   const handleSensorBoxClick = () => {
@@ -435,6 +445,11 @@ function App() {
           const parsedData = JSON.parse(savedData);
           console.log('Found saved data:', parsedData);
           
+          // Debug: Check what's in the current round's circleColors
+          if (parsedData.roundsData && parsedData.roundsData[1]) {
+            console.log('Current round 1 circleColors from localStorage:', parsedData.roundsData[1].circleColors);
+          }
+          
           if (parsedData.roundsData) {
             console.log('Loading roundsData:', parsedData.roundsData);
             // Ensure all rounds have the complete structure by merging with createRoundData
@@ -445,49 +460,59 @@ function App() {
                 const savedRound = parsedData.roundsData[round];
                 const defaultRound = createRoundData(round);
                 
+                // Debug: Log what we're about to merge
+                console.log(`Round ${round} - Before merge:`, {
+                  savedCircleColors: savedRound.circleColors,
+                  defaultCircleColors: defaultRound.circleColors
+                });
+                
+                // Bypass merge logic and use saved data directly for critical properties
                 completeRoundsData[round] = {
                   ...defaultRound,
-                  ...savedRound,
-                  // Ensure critical user input arrays are properly restored
-                  inputSelections: savedRound.inputSelections || defaultRound.inputSelections,
-                  numericValues: savedRound.numericValues || defaultRound.numericValues,
-                  weightValues: savedRound.weightValues || defaultRound.weightValues,
-                  valueResults: savedRound.valueResults || defaultRound.valueResults,
-                  updateWeightsValues: savedRound.updateWeightsValues || defaultRound.updateWeightsValues,
-                  circleColors: savedRound.circleColors || defaultRound.circleColors,
-                  // Preserve auto button states
-                  isAutoNumericActive: savedRound.isAutoNumericActive || false,
-                  isAutoWeightActive: savedRound.isAutoWeightActive || false,
-                  isAutoValueActive: savedRound.isAutoValueActive || false,
-                  isUpdateWeightsAutoActive: savedRound.isUpdateWeightsAutoActive || false,
-                  // Preserve UI states
-                  showNetworkDecision: savedRound.showNetworkDecision || false,
-                  showTrafficLight: savedRound.showTrafficLight || false,
-                  showUpdateWeightsTable: savedRound.showUpdateWeightsTable || false,
-                  isHidden: savedRound.isHidden || false,
-                  isHiddenLayerExpanded: savedRound.isHiddenLayerExpanded || false,
-                  isOutputNodeExpanded: savedRound.isOutputNodeExpanded || false,
-                  isSummaryExpanded: savedRound.isSummaryExpanded || false,
-                  // Preserve traffic light selection
-                  selectedButton: savedRound.selectedButton || null,
-                  // Preserve calculated values
-                  sumOfValues: savedRound.sumOfValues || '0',
-                  networkDecision: savedRound.networkDecision || 'Undecided',
-                  networkStatus: savedRound.networkStatus || '',
-                  hasRun: savedRound.hasRun || false
+                  ...savedRound
                 };
+                
+                // Explicitly handle circleColors to ensure they're preserved
+                if (savedRound.circleColors && Array.isArray(savedRound.circleColors) && savedRound.circleColors.length === 12) {
+                  // Check if the saved colors actually contain red/ggreen values
+                  const hasValidColors = savedRound.circleColors.some(color => color === 'red' || color === 'green');
+                  if (hasValidColors) {
+                    completeRoundsData[round].circleColors = savedRound.circleColors;
+                    console.log(`Round ${round} - Using saved circleColors with valid colors:`, savedRound.circleColors);
+                  } else {
+                    console.log(`Round ${round} - Saved circleColors exist but are empty strings, using defaults`);
+                    completeRoundsData[round].circleColors = defaultRound.circleColors;
+                  }
+                } else {
+                  console.log(`Round ${round} - No valid saved circleColors, using defaults`);
+                  completeRoundsData[round].circleColors = defaultRound.circleColors;
+                }
+                
+                // Debug: Log what we got after merge
+                console.log(`Round ${round} - After merge:`, {
+                  finalCircleColors: completeRoundsData[round].circleColors,
+                  savedCircleColors: savedRound.circleColors
+                });
                 
                 console.log(`Round ${round} loaded:`, {
                   inputSelections: completeRoundsData[round].inputSelections,
                   selectedButton: completeRoundsData[round].selectedButton,
                   hasRun: completeRoundsData[round].hasRun,
-                  circleColors: completeRoundsData[round].circleColors
+                  circleColors: completeRoundsData[round].circleColors,
+                  savedCircleColors: savedRound.circleColors,
+                  defaultCircleColors: defaultRound.circleColors,
+                  circleColorsLength: savedRound.circleColors ? savedRound.circleColors.length : 'undefined',
+                  isCircleColorsArray: Array.isArray(savedRound.circleColors)
                 });
               } else {
                 completeRoundsData[round] = createRoundData(round);
               }
             }
             setRoundsData(completeRoundsData);
+            
+            // Debug: Log the final loaded data for round 1
+            console.log('Final loaded data for round 1:', completeRoundsData[1]);
+            console.log('Final circleColors for round 1:', completeRoundsData[1]?.circleColors);
           }
           if (parsedData.currentRound) {
             console.log('Loading currentRound:', parsedData.currentRound);
@@ -516,18 +541,7 @@ function App() {
       if (!savedData) {
         setTimeout(() => {
           const initialData = {
-            roundsData: {
-              1: createRoundData(1),
-              2: createRoundData(2),
-              3: createRoundData(3),
-              4: createRoundData(4),
-              5: createRoundData(5),
-              6: createRoundData(6),
-              7: createRoundData(7),
-              8: createRoundData(8),
-              9: createRoundData(9),
-              10: createRoundData(10)
-            },
+            roundsData,
             currentRound: 1,
             colorScheme: 'orange',
             timestamp: Date.now()
@@ -545,7 +559,9 @@ function App() {
   useEffect(() => {
     // Only save if component is initialized and we have actual data
     if (isInitialized && Object.keys(roundsData).length > 0) {
-      console.log('State changed, saving to localStorage...');
+      console.log('State changed, automatic save to localStorage...');
+      console.log('Current round circleColors being automatically saved:', roundsData[currentRound]?.circleColors);
+      
       const dataToSave = {
         roundsData,
         currentRound,
@@ -555,7 +571,7 @@ function App() {
       
       try {
         localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
-        console.log('Data saved to localStorage:', dataToSave);
+        console.log('Data automatically saved to localStorage:', dataToSave);
       } catch (error) {
         console.error('Error saving to localStorage:', error);
         // If localStorage is full, try to clear old data and save again
@@ -587,15 +603,13 @@ function App() {
       calculateProgressiveValues();
     }
     
-    // Save data immediately after toggling network decision
-    setTimeout(() => saveDataToLocalStorage(), 100);
+    // Data will be automatically saved by the useEffect when roundsData changes
   };
 
   const toggleTrafficLight = () => {
     setCurrentRoundData({ showTrafficLight: !getCurrentRoundData().showTrafficLight });
     
-    // Save data immediately after toggling traffic light state
-    setTimeout(() => saveDataToLocalStorage(), 100);
+    // Data will be automatically saved by the useEffect when roundsData changes
   };
 
   // Function to manually save data to localStorage
@@ -613,6 +627,11 @@ function App() {
         colorScheme,
         timestamp: Date.now()
       };
+      
+      // Debug: Log what's being saved for the current round
+      console.log('Saving data for current round:', currentRound);
+      console.log('Current round circleColors being saved:', roundsData[currentRound]?.circleColors);
+      
       localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
       console.log('Data manually saved to localStorage:', dataToSave);
       
@@ -690,7 +709,7 @@ function App() {
         lightStates: [false, false, false],
         selectedButton: null,
         isHidden: false,
-        circleColors: Array(12).fill('gray'),
+        circleColors: Array(12).fill(''),
         showCode: false,
         hasRun: false,
         inputSelections: Array(9).fill(''),
@@ -741,7 +760,7 @@ function App() {
             lightStates: [false, false, false],
             selectedButton: null,
             isHidden: false,
-            circleColors: Array(12).fill('gray'),
+            circleColors: Array(12).fill(''),
             showCode: false,
             hasRun: false,
             inputSelections: Array(9).fill(''),
@@ -1354,13 +1373,17 @@ function App() {
       }
     })
 
+    console.log(`Round ${currentRound} - About to update state with new circle colors:`, newCircleColors);
+    
     setCurrentRoundData({ 
       circleColors: newCircleColors,
       hasRun: true 
     });
     
-    // Save data immediately after running the round
-    setTimeout(() => saveDataToLocalStorage(), 100);
+    console.log(`Round ${currentRound} - New circle colors generated:`, newCircleColors);
+    
+    // Data will be automatically saved by the useEffect when roundsData changes
+    console.log(`Round ${currentRound} - State updated, automatic save will occur`);
   }
 
   // Debug: Log current state
