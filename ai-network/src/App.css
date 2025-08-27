@@ -1252,9 +1252,14 @@ html {
   border-radius: 1px;
 }
 
+.network-decision-section {
+  margin-top: 0.25rem;
+  margin-bottom: 2rem;
+}
+
 .compute-decision-button-container {
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: center;
 }
@@ -1286,7 +1291,7 @@ html {
 }
 
 .summary-table-container {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
@@ -1717,10 +1722,10 @@ html {
   background: white;
   color: #999;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+  padding: 0.15rem 0.4rem;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.4rem;
   cursor: pointer;
   transition: all 0.2s ease;
   outline: none;
@@ -1740,8 +1745,8 @@ html {
 
 .color-scheme-footer select {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.8rem;
-  padding: 0.25rem;
+  font-size: 0.4rem;
+  padding: 0.15rem 0.4rem;
   border: 1px solid #999;
   border-radius: 3px;
   background: white;
@@ -1753,8 +1758,8 @@ html {
   font-size: 0.8rem;
   color: #999;
   text-align: center;
-  padding: 2rem 0;
-  margin-top: 0.5rem;
+  padding: 1rem 0;
+  margin-top: 0.25rem;
   position: relative;
 }
 
@@ -1772,15 +1777,23 @@ html {
   padding: 0 1rem;
 }
 
+.right-side-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .version-number {
   font-size: 0.5rem;
   color: #ccc;
   font-family: 'Roboto', sans-serif;
+  text-align: right;
+  width: 100%;
 }
 
 .traffic-light-state-button-container {
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -1891,7 +1904,7 @@ html {
   width: 250px; /* Increased width to match button above */
   height: 100px; /* Half the width */
   background: #333; /* Dark gray */
-  margin: 1rem auto;
+  margin: 0.25rem auto;
   display: flex;
   justify-content: space-around;
   align-items: center;

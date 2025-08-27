@@ -52,6 +52,8 @@ function App() {
     10: createRoundData(10)
   });
   const [colorScheme, setColorScheme] = useState('orange') // track color scheme: 'orange' or 'gray'
+  const [isInitialized, setIsInitialized] = useState(false) // track if component is fully initialized
+  const [resetCounter, setResetCounter] = useState(0) // track reset count to force re-renders
   // Round selection removed - only Round 1 is displayed
 
 
@@ -129,14 +131,23 @@ function App() {
 
   const toggleHiddenLayer = () => {
     setCurrentRoundData({ isHiddenLayerExpanded: !getCurrentRoundData().isHiddenLayerExpanded });
+    
+    // Save data immediately after toggling hidden layer state
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const toggleOutputNode = () => {
     setCurrentRoundData({ isOutputNodeExpanded: !getCurrentRoundData().isOutputNodeExpanded });
+    
+    // Save data immediately after toggling output node state
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const toggleSummary = () => {
     setCurrentRoundData({ isSummaryExpanded: !getCurrentRoundData().isSummaryExpanded });
+    
+    // Save data immediately after toggling summary state
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   // Round selection removed - only Round 1 is displayed
@@ -178,6 +189,9 @@ function App() {
       
       console.log(`Carrying over weights to Round ${previousRound}:`, weightsToCarry);
       setCurrentRound(previousRound);
+      
+      // Save data immediately after round navigation
+      setTimeout(() => saveDataToLocalStorage(), 100);
     }
   };
 
@@ -212,12 +226,18 @@ function App() {
       
       console.log(`Carrying over weights to Round ${nextRound}:`, weightsToCarry);
       setCurrentRound(nextRound);
+      
+      // Save data immediately after round navigation
+      setTimeout(() => saveDataToLocalStorage(), 100);
     }
   };
 
   const handleColorSchemeChange = (scheme) => {
     console.log('Color scheme changing to:', scheme)
     setColorScheme(scheme)
+    
+    // Save data immediately after color scheme change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleUpdateWeights = () => {
@@ -245,6 +265,9 @@ function App() {
         behavior: 'smooth'
       })
     }
+    
+    // Save data immediately after showing update weights table
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const cycleLights = () => {
@@ -263,23 +286,38 @@ function App() {
     }
     
     setCurrentRoundData({ lightStates: newStates })
+    
+    // Save data immediately after cycling lights
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleButtonClick = (buttonType) => {
     setCurrentRoundData({ selectedButton: buttonType });
+    
+    // Save data immediately after traffic light selection
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const toggleHide = () => {
     setCurrentRoundData({ isHidden: !getCurrentRoundData().isHidden });
+    
+    // Save data immediately after toggling hide state
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const toggleShowCode = () => {
     setCurrentRoundData({ showCode: !getCurrentRoundData().showCode });
+    
+    // Save data immediately after toggling show code state
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const startGPUAnimation = () => {
     // GPU is hidden - do not show
     setCurrentRoundData({ gpuAnimationState: 'hidden' });
+    
+    // Save data after GPU animation state change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const calculateProgressiveValues = () => {
@@ -333,9 +371,9 @@ function App() {
           // Update network decision based on current sum
           let currentDecision = 'Undecided';
           if (currentSum > 0) {
-            currentDecision = 'Red';
-          } else if (currentSum < 0) {
             currentDecision = 'Green';
+          } else if (currentSum < 0) {
+            currentDecision = 'Red';
           }
           
           console.log(`Node ${i + 1}: Value = ${calculatedValue}, Progressive Sum = ${progressiveSumDisplay}, Current Sum = ${currentSum}, Decision = ${currentDecision}`);
@@ -350,12 +388,16 @@ function App() {
         // No animations or effects - just update the values
         console.log(`Updated value cell ${i} with calculated value: ${calculatedValue}`);
         
+        // Save data after each progressive value update
+        setTimeout(() => saveDataToLocalStorage(), 100);
+        
       }, i * delayPerNode);
     }
   };
 
   // Add GPU state to all rounds that don't have it (run first)
   useEffect(() => {
+    console.log('GPU state useEffect running...');
     const updatedRoundsData = { ...roundsData };
     let hasChanges = false;
     
@@ -371,14 +413,22 @@ function App() {
     }
     
     if (hasChanges) {
+      console.log('Adding GPU state to rounds...');
       setRoundsData(updatedRoundsData);
+      
+      // Save data after adding GPU state to rounds
+      setTimeout(() => saveDataToLocalStorage(), 100);
+    } else {
+      console.log('No GPU state changes needed');
     }
   }, []);
 
   // Load saved data from localStorage on component mount (run after GPU state is added)
   useEffect(() => {
-    // Wait a bit to ensure initial state is set up
+    console.log('Data loading useEffect running...');
+    // Wait for the component to be fully mounted and initial state set
     const timer = setTimeout(() => {
+      console.log('Loading data from localStorage...');
       const savedData = localStorage.getItem('aiNetworkData');
       if (savedData) {
         try {
@@ -391,10 +441,48 @@ function App() {
             const completeRoundsData = {};
             for (let round = 1; round <= 10; round++) {
               if (parsedData.roundsData[round]) {
+                // Deep merge to ensure all user inputs are preserved
+                const savedRound = parsedData.roundsData[round];
+                const defaultRound = createRoundData(round);
+                
                 completeRoundsData[round] = {
-                  ...createRoundData(round),
-                  ...parsedData.roundsData[round]
+                  ...defaultRound,
+                  ...savedRound,
+                  // Ensure critical user input arrays are properly restored
+                  inputSelections: savedRound.inputSelections || defaultRound.inputSelections,
+                  numericValues: savedRound.numericValues || defaultRound.numericValues,
+                  weightValues: savedRound.weightValues || defaultRound.weightValues,
+                  valueResults: savedRound.valueResults || defaultRound.valueResults,
+                  updateWeightsValues: savedRound.updateWeightsValues || defaultRound.updateWeightsValues,
+                  circleColors: savedRound.circleColors || defaultRound.circleColors,
+                  // Preserve auto button states
+                  isAutoNumericActive: savedRound.isAutoNumericActive || false,
+                  isAutoWeightActive: savedRound.isAutoWeightActive || false,
+                  isAutoValueActive: savedRound.isAutoValueActive || false,
+                  isUpdateWeightsAutoActive: savedRound.isUpdateWeightsAutoActive || false,
+                  // Preserve UI states
+                  showNetworkDecision: savedRound.showNetworkDecision || false,
+                  showTrafficLight: savedRound.showTrafficLight || false,
+                  showUpdateWeightsTable: savedRound.showUpdateWeightsTable || false,
+                  isHidden: savedRound.isHidden || false,
+                  isHiddenLayerExpanded: savedRound.isHiddenLayerExpanded || false,
+                  isOutputNodeExpanded: savedRound.isOutputNodeExpanded || false,
+                  isSummaryExpanded: savedRound.isSummaryExpanded || false,
+                  // Preserve traffic light selection
+                  selectedButton: savedRound.selectedButton || null,
+                  // Preserve calculated values
+                  sumOfValues: savedRound.sumOfValues || '0',
+                  networkDecision: savedRound.networkDecision || 'Undecided',
+                  networkStatus: savedRound.networkStatus || '',
+                  hasRun: savedRound.hasRun || false
                 };
+                
+                console.log(`Round ${round} loaded:`, {
+                  inputSelections: completeRoundsData[round].inputSelections,
+                  selectedButton: completeRoundsData[round].selectedButton,
+                  hasRun: completeRoundsData[round].hasRun,
+                  circleColors: completeRoundsData[round].circleColors
+                });
               } else {
                 completeRoundsData[round] = createRoundData(round);
               }
@@ -412,29 +500,79 @@ function App() {
           console.log('Successfully loaded saved data from localStorage');
         } catch (error) {
           console.error('Error loading saved data:', error);
+          // If there's an error, clear corrupted data and start fresh
+          localStorage.removeItem('aiNetworkData');
+          console.log('Cleared corrupted localStorage data');
         }
       } else {
         console.log('No saved data found in localStorage');
       }
-    }, 200); // Increased delay to ensure initial state is ready
+      
+      // Mark component as initialized after loading attempt
+      console.log('Marking component as initialized...');
+      setIsInitialized(true);
+      
+      // Save initial state if no saved data was found
+      if (!savedData) {
+        setTimeout(() => {
+          const initialData = {
+            roundsData: {
+              1: createRoundData(1),
+              2: createRoundData(2),
+              3: createRoundData(3),
+              4: createRoundData(4),
+              5: createRoundData(5),
+              6: createRoundData(6),
+              7: createRoundData(7),
+              8: createRoundData(8),
+              9: createRoundData(9),
+              10: createRoundData(10)
+            },
+            currentRound: 1,
+            colorScheme: 'orange',
+            timestamp: Date.now()
+          };
+          localStorage.setItem('aiNetworkData', JSON.stringify(initialData));
+          console.log('Initial state saved to localStorage');
+        }, 100);
+      }
+    }, 500); // Increased delay to ensure component is fully mounted
 
     return () => clearTimeout(timer);
   }, []);
 
   // Save data to localStorage whenever any important state changes (run last)
   useEffect(() => {
-    // Only save if we have actual data (not just initial state)
-    if (Object.keys(roundsData).length > 0) {
+    // Only save if component is initialized and we have actual data
+    if (isInitialized && Object.keys(roundsData).length > 0) {
+      console.log('State changed, saving to localStorage...');
       const dataToSave = {
         roundsData,
         currentRound,
         colorScheme,
         timestamp: Date.now()
       };
-      localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
-      console.log('Data saved to localStorage:', dataToSave);
+      
+      try {
+        localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+        console.log('Data saved to localStorage:', dataToSave);
+      } catch (error) {
+        console.error('Error saving to localStorage:', error);
+        // If localStorage is full, try to clear old data and save again
+        try {
+          localStorage.clear();
+          localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+          console.log('Data saved to localStorage after clearing:', dataToSave);
+        } catch (clearError) {
+          console.error('Failed to save data even after clearing localStorage:', clearError);
+        }
+      }
+    } else if (!isInitialized) {
+      console.log('Component not yet initialized, skipping save');
+    } else {
+      console.log('No rounds data available, skipping save');
     }
-  }, [roundsData, currentRound, colorScheme]);
+  }, [roundsData, currentRound, colorScheme, isInitialized]);
 
   const toggleNetworkDecision = () => {
     const newShowState = !getCurrentRoundData().showNetworkDecision;
@@ -448,10 +586,93 @@ function App() {
       // Start progressive value calculation
       calculateProgressiveValues();
     }
+    
+    // Save data immediately after toggling network decision
+    setTimeout(() => saveDataToLocalStorage(), 100);
   };
 
   const toggleTrafficLight = () => {
     setCurrentRoundData({ showTrafficLight: !getCurrentRoundData().showTrafficLight });
+    
+    // Save data immediately after toggling traffic light state
+    setTimeout(() => saveDataToLocalStorage(), 100);
+  };
+
+  // Function to manually save data to localStorage
+  const saveDataToLocalStorage = () => {
+    // Only save if component is initialized
+    if (!isInitialized) {
+      console.log('Component not yet initialized, skipping save');
+      return;
+    }
+    
+    try {
+      const dataToSave = {
+        roundsData,
+        currentRound,
+        colorScheme,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+      console.log('Data manually saved to localStorage:', dataToSave);
+      
+      // Verify the save was successful
+      const savedData = localStorage.getItem('aiNetworkData');
+      if (savedData) {
+        console.log('Data successfully verified in localStorage');
+      } else {
+        console.error('Data was not saved to localStorage');
+      }
+    } catch (error) {
+      console.error('Error manually saving to localStorage:', error);
+    }
+  };
+
+  // Function to check current localStorage content for debugging
+  const checkLocalStorage = () => {
+    const savedData = localStorage.getItem('aiNetworkData');
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        console.log('Current localStorage content:', parsedData);
+        return parsedData;
+      } catch (error) {
+        console.error('Error parsing localStorage data:', error);
+        return null;
+      }
+    } else {
+      console.log('No data in localStorage');
+      return null;
+    }
+  };
+
+  // Function to test localStorage by saving some test data
+  const testLocalStorage = () => {
+    console.log('Testing localStorage...');
+    const testData = {
+      test: 'data',
+      timestamp: Date.now()
+    };
+    localStorage.setItem('testData', JSON.stringify(testData));
+    
+    const retrieved = localStorage.getItem('testData');
+    if (retrieved) {
+      console.log('localStorage test successful:', JSON.parse(retrieved));
+    } else {
+      console.error('localStorage test failed');
+    }
+  };
+
+  // Function to force save current state for testing
+  const forceSave = () => {
+    console.log('Force saving current state...');
+    console.log('Current state:', {
+      roundsData,
+      currentRound,
+      colorScheme,
+      isInitialized
+    });
+    saveDataToLocalStorage();
   };
 
   const resetAllData = () => {
@@ -462,42 +683,97 @@ function App() {
     setCurrentRound(1);
     setColorScheme('orange');
     
-    // Reset all rounds data to initial state using the helper function
-    const initialRoundsData = {
-      1: createRoundData(1),
-      2: createRoundData(2),
-      3: createRoundData(3),
-      4: createRoundData(4),
-      5: createRoundData(5),
-      6: createRoundData(6),
-      7: {
+    // Create completely fresh round data
+    const freshRoundsData = {};
+    for (let i = 1; i <= 10; i++) {
+      freshRoundsData[i] = {
+        lightStates: [false, false, false],
+        selectedButton: null,
+        isHidden: false,
+        circleColors: Array(12).fill('gray'),
+        showCode: false,
+        hasRun: false,
         inputSelections: Array(9).fill(''),
         numericValues: Array(9).fill(''),
-        weightValues: Array(9).fill('20'),
+        weightValues: Array(9).fill(i === 1 ? '' : '20'),
         valueResults: Array(9).fill(''),
+        previousNumericValues: Array(9).fill(''),
         isAutoNumericActive: false,
+        previousWeightValues: Array(9).fill(''),
         isAutoWeightActive: false,
-        isAutoValueActive: false,
-        showNetworkDecision: false,
-        sumOfValues: '0',
-        networkDecision: 'Undecided',
-        networkStatus: '',
-        isOutputNodeExpanded: false,
-        showUpdateWeightsTable: false,
         isUpdateWeightsAutoActive: false,
         updateWeightsValues: Array(9).fill(''),
-        isSummaryExpanded: false,
+        previousUpdateWeightsValues: Array(9).fill(''),
+        previousValueResults: Array(9).fill(''),
+        isAutoValueActive: false,
+        sumOfValues: '',
+        networkDecision: '',
+        networkStatus: '',
+        showNetworkDecision: false,
         showTrafficLight: false,
-        selectedButton: '',
+        showUpdateWeightsTable: false,
+        isHiddenLayerExpanded: false,
+        isOutputNodeExpanded: false,
+        isSummaryExpanded: false,
+        sensorBoxClicked: false,
         gpuAnimationState: 'idle',
         gpuFanSpeed: 0
-      },
-      8: createRoundData(8),
-      9: createRoundData(9),
-      10: createRoundData(10)
-    };
+      };
+    }
     
-    setRoundsData(initialRoundsData);
+    // Force immediate state update with fresh data
+    setRoundsData(freshRoundsData);
+    
+    // Increment reset counter to force complete re-renders
+    setResetCounter(prev => prev + 1);
+    
+    // Force a complete re-render and prevent useEffect interference
+    setIsInitialized(false);
+    
+    // Use a longer timeout to ensure all effects have run and then force a clean state
+    setTimeout(() => {
+      setIsInitialized(true);
+      // Force another clean state update to override any useEffect interference
+      setRoundsData(prev => {
+        const overrideData = {};
+        for (let i = 1; i <= 10; i++) {
+          overrideData[i] = {
+            lightStates: [false, false, false],
+            selectedButton: null,
+            isHidden: false,
+            circleColors: Array(12).fill('gray'),
+            showCode: false,
+            hasRun: false,
+            inputSelections: Array(9).fill(''),
+            numericValues: Array(9).fill(''),
+            weightValues: Array(9).fill(i === 1 ? '' : '20'),
+            valueResults: Array(9).fill(''),
+            previousNumericValues: Array(9).fill(''),
+            isAutoNumericActive: false,
+            previousWeightValues: Array(9).fill(''),
+            isAutoWeightActive: false,
+            isUpdateWeightsAutoActive: false,
+            updateWeightsValues: Array(9).fill(''),
+            previousUpdateWeightsValues: Array(9).fill(''),
+            previousValueResults: Array(9).fill(''),
+            isAutoValueActive: false,
+            sumOfValues: '',
+            networkDecision: '',
+            networkStatus: '',
+            showNetworkDecision: false,
+            showTrafficLight: false,
+            showUpdateWeightsTable: false,
+            isHiddenLayerExpanded: false,
+            isOutputNodeExpanded: false,
+            isSummaryExpanded: false,
+            sensorBoxClicked: false,
+            gpuAnimationState: 'idle',
+            gpuFanSpeed: 0
+          };
+        }
+        return overrideData;
+      });
+    }, 200);
     
     console.log('All data has been reset to initial state');
   };
@@ -508,6 +784,9 @@ function App() {
     newSelections[index] = value
     setCurrentRoundData({ inputSelections: newSelections })
     // Numeric values will NOT be automatically updated - user must select manually or use auto button
+    
+    // Save data immediately after user input change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleNumericChange = (index, value) => {
@@ -520,6 +799,9 @@ function App() {
       setCurrentRoundData({ isAutoNumericActive: false })
     }
     // Value results will be automatically updated via useEffect
+    
+    // Save data immediately after user input change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleWeightChange = (index, value) => {
@@ -532,6 +814,9 @@ function App() {
     if (currentData.isAutoWeightActive) {
       setCurrentRoundData({ isAutoWeightActive: false })
     }
+    
+    // Save data immediately after user input change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleUpdateWeightChange = (index, value) => {
@@ -544,6 +829,9 @@ function App() {
     if (currentData.isUpdateWeightsAutoActive) {
       setCurrentRoundData({ isUpdateWeightsAutoActive: false })
     }
+    
+    // Save data immediately after user input change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleValueChange = (index, value) => {
@@ -556,6 +844,9 @@ function App() {
       setCurrentRoundData({ isAutoValueActive: false })
     }
     // Summary will be automatically updated via useEffect
+    
+    // Save data immediately after user input change
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleAutoNumeric = () => {
@@ -582,6 +873,9 @@ function App() {
         isAutoNumericActive: false
       })
     }
+    
+    // Save data immediately after auto button activation/deactivation
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleAutoWeight = () => {
@@ -600,6 +894,9 @@ function App() {
         isAutoWeightActive: false
       })
     }
+    
+    // Save data immediately after auto button activation/deactivation
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleUpdateWeightsAuto = () => {
@@ -634,7 +931,7 @@ function App() {
       // Step 3: Calculate updated weights for each C node
       const newUpdateWeightsValues = []
       
-      // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weights
+      // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weight
       for (let i = 0; i < 9; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
@@ -689,6 +986,9 @@ function App() {
         isUpdateWeightsAutoActive: false
       })
     }
+    
+    // Save data immediately after auto button activation/deactivation
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const handleAutoValue = () => {
@@ -711,6 +1011,9 @@ function App() {
         isAutoValueActive: false
       })
     }
+    
+    // Save data immediately after auto button activation/deactivation
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   // Function to calculate values automatically when inputs change
@@ -764,6 +1067,9 @@ function App() {
     
     // Update values in one call for efficiency
     setCurrentRoundData(updates)
+    
+    // Save data after auto-calculating values
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const calculateSummary = () => {
@@ -802,6 +1108,9 @@ function App() {
     } else {
       setCurrentRoundData({ networkStatus: '' });
     }
+    
+    // Save data after calculating summary
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
 
   const calculateSummaryWithProgressiveDisplay = () => {
@@ -830,6 +1139,9 @@ function App() {
           networkDecision: decision,
           networkStatus: calculateNetworkStatus(decision, currentSum)
         });
+        
+        // Save data after progressive summary calculation
+        setTimeout(() => saveDataToLocalStorage(), 100);
         return;
       }
       
@@ -839,6 +1151,9 @@ function App() {
       
       // Update the sum display
       setCurrentRoundData({ sumOfValues: newSum.toString() });
+      
+      // Save data after each progressive sum update
+      setTimeout(() => saveDataToLocalStorage(), 100);
       
       // Schedule next node
       setTimeout(() => {
@@ -914,6 +1229,9 @@ function App() {
         updateWeightsValues: newUpdateWeightsValues
       })
       
+      // Save data after auto-updating weights
+      setTimeout(() => saveDataToLocalStorage(), 100);
+      
       console.log(`useEffect Round ${currentRound} unified weight calculation:`, {
         round: currentRound,
         trafficLightState,
@@ -938,6 +1256,9 @@ function App() {
         })
       }
     }
+    
+    // Save data after any value calculations
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }, [
     currentRound,
     getCurrentRoundData().inputSelections,
@@ -1037,7 +1358,23 @@ function App() {
       circleColors: newCircleColors,
       hasRun: true 
     });
+    
+    // Save data immediately after running the round
+    setTimeout(() => saveDataToLocalStorage(), 100);
   }
+
+  // Debug: Log current state
+  console.log('Component rendering with state:', {
+    isInitialized,
+    currentRound,
+    roundsDataKeys: Object.keys(roundsData),
+    round1Data: roundsData[1] ? {
+      inputSelections: roundsData[1].inputSelections,
+      selectedButton: roundsData[1].selectedButton,
+      hasRun: roundsData[1].hasRun,
+      circleColors: roundsData[1].circleColors
+    } : 'No round 1 data'
+  });
 
   return (
     <div className="app">
@@ -1248,7 +1585,7 @@ function App() {
             
             {getCurrentRoundData().isOutputNodeExpanded && (
               <>
-                <div className="tables-wrapper">
+                <div className="tables-wrapper" key={`tables-${resetCounter}`}>
                   <div className="table-container">
                     <table className={`output-table ${colorScheme}`}>
                       <thead>
@@ -1421,112 +1758,71 @@ function App() {
             {getCurrentRoundData().isOutputNodeExpanded && (
               <>
                 <div className="orange-horizontal-line"></div>
-            
-                <div className="compute-decision-button-container">
-                  <button 
-                    className={`compute-decision-button ${getCurrentRoundData().showNetworkDecision ? 'selected' : ''} ${colorScheme}`}
-                    onClick={toggleNetworkDecision}
-                  >
-                    Compute the Network Decision
-                  </button>
-                </div>
 
-                {/* Fan Blade Rectangle */}
-                <div className={`fan-blade-rectangle ${
-                  getCurrentRoundData().gpuAnimationState === 'visible' ? 'visible' : 'hidden'
-                }`}>
-                  <div className="fan-circle">
-                    <div className="new-fan-blades">
-                      <div className="new-blade new-blade-1"></div>
-                      <div className="new-blade new-blade-2"></div>
-                      <div className="new-blade new-blade-3"></div>
-                      <div className="new-blade new-blade-4"></div>
-                      <div className="new-blade new-blade-5"></div>
-                      <div className="new-blade new-blade-6"></div>
-                      <div className="new-blade new-blade-7"></div>
-                      <div className="new-blade new-blade-8"></div>
-                      <div className="new-blade new-blade-9"></div>
-                      <div className="new-blade new-blade-10"></div>
-                    </div>
+                {/* Network Decision section - Button, table, and traffic light button grouped together */}
+                <div className="network-decision-section">
+                  <div className="compute-decision-button-container">
+                    <button 
+                      className={`compute-decision-button ${getCurrentRoundData().showNetworkDecision ? 'selected' : ''} ${colorScheme}`}
+                      onClick={toggleNetworkDecision}
+                    >
+                      Compute the Network Decision
+                    </button>
                   </div>
-                  <div className="fan-circle">
-                    <div className="new-fan-blades">
-                      <div className="new-blade new-blade-1"></div>
-                      <div className="new-blade new-blade-2"></div>
-                      <div className="new-blade new-blade-3"></div>
-                      <div className="new-blade new-blade-4"></div>
-                      <div className="new-blade new-blade-5"></div>
-                      <div className="new-blade new-blade-6"></div>
-                      <div className="new-blade new-blade-7"></div>
-                      <div className="new-blade new-blade-8"></div>
-                      <div className="new-blade new-blade-9"></div>
-                      <div className="new-blade new-blade-10"></div>
-                    </div>
-                  </div>
-                  <div className="fan-circle">
-                    <div className="new-fan-blades">
-                      <div className="new-blade new-blade-1"></div>
-                      <div className="new-blade new-blade-2"></div>
-                      <div className="new-blade new-blade-3"></div>
-                      <div className="new-blade new-blade-4"></div>
-                      <div className="new-blade new-blade-5"></div>
-                      <div className="new-blade new-blade-6"></div>
-                      <div className="new-blade new-blade-7"></div>
-                      <div className="new-blade new-blade-8"></div>
-                      <div className="new-blade new-blade-9"></div>
-                      <div className="new-blade new-blade-10"></div>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Network Decision table - Always visible */}
-                <div className="summary-table-container">
-                  <table className={`summary-table ${colorScheme}`}>
-                    <tbody>
-                      <tr>
-                        <td>Sum of (C) Node Values</td>
-                        <td>Network Decision</td>
-                      </tr>
-                      <tr className={
-                        getCurrentRoundData().showNetworkDecision && getCurrentRoundData().networkDecision === 'Red' ? 'summary-row-red' :
-                        getCurrentRoundData().showNetworkDecision && getCurrentRoundData().networkDecision === 'Green' ? 'summary-row-green' : ''
-                      }>
-                        <td>
-                          {getCurrentRoundData().showNetworkDecision ? getCurrentRoundData().sumOfValues : '0'}
-                        </td>
-                        <td>
-                          {getCurrentRoundData().showNetworkDecision ? getCurrentRoundData().networkDecision : 'Undecided'}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="traffic-light-state-button-container">
-                  <button 
-                    className={`traffic-light-state-button ${getCurrentRoundData().showTrafficLight ? 'selected' : ''} ${colorScheme}`}
-                    onClick={toggleTrafficLight}
-                  >
-                    Traffic Light State
-                  </button>
-                </div>
-
-                {getCurrentRoundData().showTrafficLight && (
-                  <div className="traffic-light-display">
-                    <div className="traffic-light-housing">
-                      <div
-                        className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
-                      >
-                        {getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                  {/* Network Decision table and Traffic Light State button - Only visible after Compute button is pressed */}
+                  {getCurrentRoundData().showNetworkDecision && (
+                    <>
+                      <div className="summary-table-container">
+                        <table className={`summary-table ${colorScheme}`}>
+                          <tbody>
+                            <tr>
+                              <td>Sum of (C) Node Values</td>
+                              <td>Network Decision</td>
+                            </tr>
+                            <tr className={
+                              getCurrentRoundData().networkDecision === 'Red' ? 'summary-row-red' :
+                              getCurrentRoundData().networkDecision === 'Green' ? 'summary-row-green' : ''
+                            }>
+                              <td>
+                                {getCurrentRoundData().sumOfValues}
+                              </td>
+                              <td>
+                                {getCurrentRoundData().networkDecision}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div
-                        className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
-                      >
-                        {getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+
+                      <div className="traffic-light-state-button-container">
+                        <button 
+                          className={`traffic-light-state-button ${getCurrentRoundData().showTrafficLight ? 'selected' : ''} ${colorScheme}`}
+                          onClick={toggleTrafficLight}
+                        >
+                          Traffic Light State
+                        </button>
                       </div>
-                    </div>
-                  </div>
-                )}
+
+                      {getCurrentRoundData().showTrafficLight && (
+                        <div className="traffic-light-display">
+                          <div className="traffic-light-housing">
+                            <div
+                              className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
+                            >
+                              {getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                            </div>
+                            <div
+                              className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
+                            >
+                              {getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
               </>
             )}
             
@@ -1653,10 +1949,12 @@ function App() {
             </select>
           </div>
           <div className="copyright-text">© 2025 Stage One Education, LLC</div>
-          <div className="version-number">V25.8</div>
-          <button className="reset-button" onClick={resetAllData}>
-            Reset
-          </button>
+          <div className="right-side-container">
+            <button className="reset-button" onClick={resetAllData}>
+              Reset
+            </button>
+            <div className="version-number">V25.8</div>
+          </div>
         </div>
       </div>
     </div>
