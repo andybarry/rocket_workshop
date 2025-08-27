@@ -6,8 +6,8 @@ function App() {
   // Helper function to create complete round data
   const createRoundData = (roundNumber) => ({
     lightStates: [false, false, false], // [top, middle, bottom]
-    selectedButton: null, // 'red' or 'green' or null
-    isHidden: false, // to track if traffic light section is hidden
+    selectedButton: roundNumber === 1 ? 'green' : null, // Round 1 always green, others null initially
+    isHidden: roundNumber === 1 ? true : false, // Round 1 starts hidden, others visible initially
     circleColors: Array(12).fill(''), // track circle colors - start empty
     showCode: false, // to track if code/probabilities are shown
     hasRun: false, // to track if current round has been executed
@@ -707,8 +707,8 @@ function App() {
     for (let i = 1; i <= 10; i++) {
       freshRoundsData[i] = {
         lightStates: [false, false, false],
-        selectedButton: null,
-        isHidden: false,
+        selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
+        isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
         circleColors: Array(12).fill(''),
         showCode: false,
         hasRun: false,
@@ -758,8 +758,8 @@ function App() {
         for (let i = 1; i <= 10; i++) {
           overrideData[i] = {
             lightStates: [false, false, false],
-            selectedButton: null,
-            isHidden: false,
+            selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
+            isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
             circleColors: Array(12).fill(''),
             showCode: false,
             hasRun: false,
@@ -1355,31 +1355,65 @@ function App() {
 
   const handleRunCurrentRound = () => {
     const currentData = getCurrentRoundData();
-    if (!currentData.selectedButton) {
+    
+    // For Round 1, no traffic light selection is needed
+    if (currentRound !== 1 && !currentData.selectedButton) {
       alert('Please select a traffic light color first!')
       return
     }
 
-    const newCircleColors = circleWeights.map((circle, index) => {
-      const weight = circle.weight
-      const randomValue = Math.random() * 6 // Random value between 0 and 6
+    let newCircleColors;
+    
+    if (currentRound === 1) {
+      // Round 1: A1 always Green, A2 always Red, others use weighted random
+      newCircleColors = circleWeights.map((circle, index) => {
+        if (index === 0) { // A1
+          return 'green';
+        } else if (index === 1) { // A2
+          return 'red';
+        } else {
+          // For A3-A12, use weighted random with green traffic light
+          const weight = circle.weight;
+          const randomValue = Math.random() * 6; // Random value between 0 and 6
+          
+          // If random value is less than weight, circle matches green
+          // Otherwise, it's red
+          if (randomValue < weight) {
+            return 'green';
+          } else {
+            return 'red';
+          }
+        }
+      });
       
-      // If random value is less than weight, circle matches selected color
-      // Otherwise, it's the opposite color
-      if (randomValue < weight) {
-        return currentData.selectedButton // red or green
-      } else {
-        return currentData.selectedButton === 'red' ? 'green' : 'red'
-      }
-    })
+      // Set selectedButton to 'green' for Round 1 to maintain consistency
+      setCurrentRoundData({ 
+        selectedButton: 'green',
+        circleColors: newCircleColors,
+        hasRun: true 
+      });
+    } else {
+      // Other rounds: Use normal weighted random logic
+      newCircleColors = circleWeights.map((circle, index) => {
+        const weight = circle.weight;
+        const randomValue = Math.random() * 6; // Random value between 0 and 6
+        
+        // If random value is less than weight, circle matches selected color
+        // Otherwise, it's the opposite color
+        if (randomValue < weight) {
+          return currentData.selectedButton; // red or green
+        } else {
+          return currentData.selectedButton === 'red' ? 'green' : 'red';
+        }
+      });
+      
+      setCurrentRoundData({ 
+        circleColors: newCircleColors,
+        hasRun: true 
+      });
+    }
 
     console.log(`Round ${currentRound} - About to update state with new circle colors:`, newCircleColors);
-    
-    setCurrentRoundData({ 
-      circleColors: newCircleColors,
-      hasRun: true 
-    });
-    
     console.log(`Round ${currentRound} - New circle colors generated:`, newCircleColors);
     
     // Data will be automatically saved by the useEffect when roundsData changes
@@ -1481,21 +1515,46 @@ function App() {
             
             {!getCurrentRoundData().isHidden && (
               <div className="traffic-light-section">
-                <p className="instruction-text">Select state of the traffic light</p>
-                <div className="button-container">
-                  <button 
-                    className={`red-button ${getCurrentRoundData().selectedButton === 'red' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('red')}
-                  >
-                    Red
-                  </button>
-                  <button 
-                    className={`green-button ${getCurrentRoundData().selectedButton === 'green' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('green')}
-                  >
-                    Green
-                  </button>
-                </div>
+                {currentRound === 1 ? (
+                  // Round 1: Show traffic light as green when visible
+                  <>
+                    <div className="traffic-light-display">
+                      <div className="traffic-light-housing">
+                        <div className="traffic-light-red inactive"></div>
+                        <div className="traffic-light-green active"></div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  // Other rounds: Normal selection functionality
+                  <>
+                    <p className="instruction-text">Select state of the traffic light</p>
+                    <div className="button-container">
+                      <button 
+                        className={`red-button ${getCurrentRoundData().selectedButton === 'red' ? 'selected' : ''}`}
+                        onClick={() => handleButtonClick('red')}
+                      >
+                        Red
+                      </button>
+                      <button 
+                        className={`green-button ${getCurrentRoundData().selectedButton === 'green' ? 'selected' : ''}`}
+                        onClick={() => handleButtonClick('green')}
+                      >
+                        Green
+                      </button>
+                    </div>
+                    <div className="traffic-light-display">
+                      <div className="traffic-light-housing">
+                        <div 
+                          className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
+                        ></div>
+                        <div 
+                          className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
+                        ></div>
+                      </div>
+                    </div>
+                  </>
+                )}
                 <div className="hide-button-container">
                   <button 
                     className={`hide-button ${getCurrentRoundData().isHidden ? 'selected' : ''}`}
@@ -1503,16 +1562,6 @@ function App() {
                   >
                     {getCurrentRoundData().isHidden ? 'Show Traffic Light' : 'Hide Traffic Light'}
                   </button>
-                </div>
-                <div className="traffic-light-display">
-                  <div className="traffic-light-housing">
-                    <div 
-                      className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
-                    ></div>
-                    <div 
-                      className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
-                    ></div>
-                  </div>
                 </div>
               </div>
             )}
@@ -1831,14 +1880,14 @@ function App() {
                         <div className="traffic-light-display">
                           <div className="traffic-light-housing">
                             <div
-                              className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
+                              className={`traffic-light-red ${currentRound === 1 ? 'inactive' : getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
                             >
-                              {getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                              {currentRound === 1 ? '' : getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
                             </div>
                             <div
-                              className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
+                              className={`traffic-light-green ${currentRound === 1 ? 'active' : getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
                             >
-                              {getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                              {currentRound === 1 ? <span className="traffic-light-letter">G</span> : getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
                             </div>
                           </div>
                         </div>
