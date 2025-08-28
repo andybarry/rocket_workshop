@@ -13,7 +13,7 @@ function App() {
     hasRun: false, // to track if current round has been executed
     inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
     numericValues: Array(9).fill(''), // track numeric input values for C1-C9
-    weightValues: Array(9).fill(roundNumber === 1 ? '' : '20'), // track weight input values for C1-C9
+    weightValues: Array(9).fill('20'), // track weight input values for C1-C9 - all rounds start at 20
     valueResults: Array(9).fill(''), // track value results for C1-C9
     previousNumericValues: Array(9).fill(''), // track previous numeric values
     isAutoNumericActive: false, // track if auto numeric is active
@@ -170,35 +170,45 @@ function App() {
 
   const handleLeftArrowClick = () => {
     if (currentRound > 1) {
-      // Carry over weights from current round to previous round if needed
-      const currentData = getCurrentRoundData();
-      const previousRound = currentRound - 1;
+      const targetRound = currentRound - 1;
       
-      // Determine which weights to carry over
-      let weightsToCarry = Array(9).fill('20'); // Default weights
+      // Find the last round with updated weights (starting from the target round and going backwards)
+      let sourceRound = null;
+      let sourceWeights = Array(9).fill('20'); // Default weights
       
-      // Priority: 1) Auto-calculated weights, 2) Manually entered weights, 3) Default weights
-      if (currentData.showUpdateWeightsTable) {
-        if (currentData.isUpdateWeightsAutoActive && currentData.updateWeightsValues.some(w => w !== '')) {
-          // Use the auto-calculated weights (any calculated values)
-          weightsToCarry = [...currentData.updateWeightsValues];
-        } else if (currentData.updateWeightsValues.some(w => w !== '')) {
-          // Use manually entered weights
-          weightsToCarry = [...currentData.updateWeightsValues];
+      // Look for the most recent round with updated weights
+      for (let round = targetRound - 1; round >= 1; round--) {
+        const roundData = roundsData[round];
+        if (roundData && roundData.showUpdateWeightsTable) {
+          // Check if this round has updated weights
+          if (roundData.isUpdateWeightsAutoActive && roundData.updateWeightsValues.some(w => w !== '')) {
+            sourceWeights = [...roundData.updateWeightsValues];
+            sourceRound = round;
+            break;
+          } else if (roundData.updateWeightsValues.some(w => w !== '')) {
+            sourceWeights = [...roundData.updateWeightsValues];
+            sourceRound = round;
+            break;
+          }
         }
       }
       
-      // Update the previous round's weight values
+      // If no previous round has updated weights, use Round 1 weights (which start at 20)
+      if (sourceRound === null) {
+        sourceWeights = Array(9).fill('20');
+      }
+      
+      // Update the target round's weight values
       setRoundsData(prev => ({
         ...prev,
-        [previousRound]: {
-          ...prev[previousRound],
-          weightValues: weightsToCarry
+        [targetRound]: {
+          ...prev[targetRound],
+          weightValues: sourceWeights
         }
       }));
       
-      console.log(`Carrying over weights to Round ${previousRound}:`, weightsToCarry);
-      setCurrentRound(previousRound);
+      console.log(`Carrying weights from Round ${sourceRound || 1} to Round ${targetRound}:`, sourceWeights);
+      setCurrentRound(targetRound);
       
       // Save data immediately after round navigation
       setTimeout(() => saveDataToLocalStorage(), 100);
@@ -207,11 +217,10 @@ function App() {
 
   const handleRightArrowClick = () => {
     if (currentRound < 10) {
-      // Carry over the updated weights from the current round to the next round
+      const targetRound = currentRound + 1;
       const currentData = getCurrentRoundData();
-      const nextRound = currentRound + 1;
       
-      // Determine which weights to carry over
+      // Determine which weights to carry over from the current round
       let weightsToCarry = Array(9).fill('20'); // Default weights
       
       // Priority: 1) Auto-calculated weights, 2) Manually entered weights, 3) Default weights
@@ -223,19 +232,24 @@ function App() {
           // Use manually entered weights
           weightsToCarry = [...currentData.updateWeightsValues];
         }
+      } else {
+        // If no update weights table is shown, carry over the current weight values
+        if (currentData.weightValues.some(w => w !== '')) {
+          weightsToCarry = [...currentData.weightValues];
+        }
       }
       
       // Update the next round's weight values
       setRoundsData(prev => ({
         ...prev,
-        [nextRound]: {
-          ...prev[nextRound],
+        [targetRound]: {
+          ...prev[targetRound],
           weightValues: weightsToCarry
         }
       }));
       
-      console.log(`Carrying over weights to Round ${nextRound}:`, weightsToCarry);
-      setCurrentRound(nextRound);
+      console.log(`Carrying over weights to Round ${targetRound}:`, weightsToCarry);
+      setCurrentRound(targetRound);
       
       // Save data immediately after round navigation
       setTimeout(() => saveDataToLocalStorage(), 100);
@@ -337,12 +351,10 @@ function App() {
     
     console.log('Starting progressive value calculation...');
     
-    // Start with empty values and reset sum
+    // Start with empty values - sum will be handled by animation function
     const emptyValues = Array(9).fill('');
     setCurrentRoundData({ 
-      valueResults: emptyValues,
-      sumOfValues: '0',
-      networkDecision: 'Undecided'
+      valueResults: emptyValues
     });
     
     // Progressively reveal values one by one
@@ -360,43 +372,12 @@ function App() {
           const newValueResults = [...prevData.valueResults];
           newValueResults[i] = calculatedValue;
           
-          // Calculate current sum based on visible values
-          const visibleValues = newValueResults.slice(0, i + 1);
-          const currentSum = visibleValues.reduce((sum, val) => sum + (parseInt(val) || 0), 0);
-          
-          // Create progressive sum display showing each addition step
-          let progressiveSumDisplay = '';
-          if (i === 0) {
-            progressiveSumDisplay = `C1 (${calculatedValue})`;
-          } else {
-            const steps = [];
-            for (let j = 0; j <= i; j++) {
-              if (newValueResults[j] !== '') {
-                steps.push(`C${j + 1} (${newValueResults[j]})`);
-              }
-            }
-            progressiveSumDisplay = steps.join(' + ');
-          }
-          
-          // Update network decision based on current sum
-          let currentDecision = 'Undecided';
-          if (currentSum > 0) {
-            currentDecision = 'Green';
-          } else if (currentSum < 0) {
-            currentDecision = 'Red';
-          }
-          
-          console.log(`Node ${i + 1}: Value = ${calculatedValue}, Progressive Sum = ${progressiveSumDisplay}, Current Sum = ${currentSum}, Decision = ${currentDecision}`);
+          console.log(`Updated value cell ${i} with calculated value: ${calculatedValue}`);
           
           return {
-            valueResults: newValueResults,
-            sumOfValues: progressiveSumDisplay,
-            networkDecision: currentDecision
+            valueResults: newValueResults
           };
         });
-        
-        // No animations or effects - just update the values
-        console.log(`Updated value cell ${i} with calculated value: ${calculatedValue}`);
         
         // Save data after each progressive value update
         setTimeout(() => saveDataToLocalStorage(), 100);
@@ -599,11 +580,242 @@ function App() {
       // Start GPU animation sequence
       startGPUAnimation();
       
-      // Start progressive value calculation
-      calculateProgressiveValues();
+      // Start value column animation sequence (this will handle both highlighting and sum updates)
+      animateValueColumn();
     }
     
     // Data will be automatically saved by the useEffect when roundsData changes
+  };
+
+  // Function to animate the value column cells one by one
+  const animateValueColumn = () => {
+    const totalNodes = 9;
+    const animationDuration = 500; // 0.5 seconds per cell
+    const currentData = getCurrentRoundData();
+    
+    console.log('Starting value column animation sequence...');
+    
+    // Start with empty sum and show that we're starting
+    setCurrentRoundData({ 
+      sumOfValues: 'Starting calculation...',
+      networkDecision: 'Undecided'
+    });
+    
+    // Also update the display immediately
+    const summaryCell = document.querySelector('.summary-table tr:nth-child(2) td:first-child');
+    if (summaryCell) {
+      summaryCell.innerHTML = 'Starting calculation...';
+    }
+    
+    // Set initial row background color to white (undecided)
+    const tableRow = summaryCell?.closest('tr');
+    if (tableRow) {
+      tableRow.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+      tableRow.classList.add('summary-row-undecided');
+    }
+    
+    // Wait a moment before starting the animation sequence
+    setTimeout(() => {
+      setCurrentRoundData({ 
+        sumOfValues: '0',
+        networkDecision: 'Undecided'
+      });
+      
+      // Also update the display
+      if (summaryCell) {
+        summaryCell.innerHTML = '0';
+      }
+      
+      // Ensure row background color is still white for undecided state
+      if (tableRow) {
+        tableRow.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+        tableRow.classList.add('summary-row-undecided');
+      }
+    }, 500);
+    
+    // Animate each cell from C1 to C9
+    for (let i = 0; i < totalNodes; i++) {
+      setTimeout(() => {
+        // Get the value cell element for the current node
+        const valueCell = document.querySelector(`[data-row="${i}"][data-column="7"]`);
+        console.log(`Animating cell ${i + 1} (C${i + 1}):`, valueCell);
+        
+        if (valueCell) {
+          // Add animation class to make text bold and larger
+          valueCell.classList.add('value-animation');
+          console.log(`Added animation class to C${i + 1}`);
+          
+          // Calculate the cumulative sum up to this point
+          let cumulativeSum = 0;
+          let cumulativeDisplay = '';
+          let hasValidValues = false;
+          
+          // Process all cells from C1 up to the current cell (i)
+          for (let j = 0; j <= i; j++) {
+            const numericValue = currentData.numericValues[j] === '' ? 0 : parseFloat(currentData.numericValues[j]);
+            const weightValue = currentData.weightValues[j] === '' ? 0 : parseFloat(currentData.weightValues[j]);
+            const calculatedValue = Math.round(numericValue * weightValue);
+            
+            console.log(`Processing cell ${j + 1}: numeric=${numericValue}, weight=${weightValue}, calculated=${calculatedValue}`);
+            
+            // Only include cells that have actual calculated values (not 0 from empty inputs)
+            if (numericValue !== 0 && weightValue !== 0) {
+              if (!hasValidValues) {
+                cumulativeDisplay = `C${j + 1} (${calculatedValue})`;
+                hasValidValues = true;
+              } else {
+                cumulativeDisplay += ` + C${j + 1} (${calculatedValue})`;
+              }
+              cumulativeSum += calculatedValue;
+              console.log(`Added C${j + 1} to cumulative sum: ${cumulativeDisplay} = ${cumulativeSum}`);
+            } else {
+              console.log(`Skipping C${j + 1} - no valid values`);
+            }
+            
+            // Add visual indicator for the currently active cell
+            if (j === i) {
+              cumulativeDisplay += ` ← [Processing]`;
+            }
+          }
+          
+          // If no valid values found, show 0
+          if (!hasValidValues) {
+            cumulativeDisplay = '0';
+            cumulativeSum = 0;
+          } else {
+            // Remove the processing indicator for the final display
+            cumulativeDisplay = cumulativeDisplay.replace(' ← [Processing]', '');
+            // Add the final total to the display
+            cumulativeDisplay += ` = ${cumulativeSum}`;
+          }
+          
+          console.log(`Final cumulative display: "${cumulativeDisplay}"`);
+          console.log(`Final cumulative sum: ${cumulativeSum}`);
+          
+          // Update the sum display to show cumulative addition as each cell is highlighted
+          console.log(`About to update state with cumulative sum: ${cumulativeDisplay} and decision: ${cumulativeSum > 0 ? 'Green' : cumulativeSum < 0 ? 'Red' : 'Undecided'}`);
+          
+          // Add visual feedback to the summary table (bottom left cell)
+          const summaryCell = document.querySelector('.summary-table tr:nth-child(2) td:first-child');
+          if (summaryCell) {
+            summaryCell.classList.add('updating');
+            // Directly update the cell content to show only the cumulative sum value
+            summaryCell.innerHTML = cumulativeSum.toString();
+            // Remove the updating class after a short delay
+            setTimeout(() => {
+              summaryCell.classList.remove('updating');
+            }, 300);
+          }
+          
+          // Determine the current decision based on cumulative sum
+          let currentDecision = 'Undecided';
+          
+          if (cumulativeSum > 0) {
+            currentDecision = 'Green';
+          } else if (cumulativeSum < 0) {
+            currentDecision = 'Red';
+          } else {
+            currentDecision = 'Undecided';
+          }
+          
+          setCurrentRoundData(prevData => {
+            console.log(`Previous state: sumOfValues=${prevData.sumOfValues}, networkDecision=${prevData.networkDecision}`);
+            return {
+              ...prevData,
+              sumOfValues: cumulativeDisplay,
+              networkDecision: currentDecision
+            };
+          });
+          
+          // Update the network decision display (bottom right cell) to show just the decision
+          const networkDecisionCell = document.querySelector('.summary-table tr:nth-child(2) td:nth-child(2)');
+          if (networkDecisionCell) {
+            // Add a brief highlight effect to the network decision cell
+            networkDecisionCell.classList.add('updating');
+            // Show just the decision text without explanation
+            networkDecisionCell.innerHTML = `<span class="summary-row-${currentDecision.toLowerCase()}">${currentDecision}</span>`;
+            setTimeout(() => {
+              networkDecisionCell.classList.remove('updating');
+            }, 300);
+          }
+          
+          // Update background colors for both cells based on the decision
+          if (summaryCell) {
+            // Remove any existing color classes
+            summaryCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+            // Add the appropriate color class
+            summaryCell.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
+          }
+          
+          if (networkDecisionCell) {
+            // Remove any existing color classes
+            networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+            // Add the appropriate color class
+            networkDecisionCell.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
+          }
+          
+          // Update the table row background color in real-time
+          const tableRow = summaryCell?.closest('tr');
+          if (tableRow) {
+            // Remove any existing row color classes
+            tableRow.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+            // Add the appropriate row color class
+            tableRow.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
+          }
+          
+          console.log(`Updated cumulative sum to: ${cumulativeDisplay} = ${cumulativeSum}`);
+          
+          // Remove animation class after 0.5 seconds
+          setTimeout(() => {
+            valueCell.classList.remove('value-animation');
+            console.log(`Removed animation class from C${i + 1}`);
+          }, animationDuration);
+        } else {
+          console.warn(`Could not find value cell for C${i + 1}`);
+        }
+      }, i * animationDuration);
+    }
+    
+    // Add completion message after all cells are processed
+    setTimeout(() => {
+      const summaryCell = document.querySelector('.summary-table tr:nth-child(2) td:first-child');
+      if (summaryCell) {
+        // Ensure the final cumulative sum value is displayed (not the formula)
+        const finalData = getCurrentRoundData();
+        // Extract just the numeric value from the sumOfValues string
+        const finalSumMatch = finalData.sumOfValues.match(/= (-?\d+)$/);
+        const finalSumValue = finalSumMatch ? finalSumMatch[1] : finalData.sumOfValues;
+        summaryCell.innerHTML = finalSumValue;
+      }
+      
+      // Also finalize the network decision display (bottom right cell)
+      const networkDecisionCell = document.querySelector('.summary-table tr:nth-child(2) td:nth-child(2)');
+      if (networkDecisionCell) {
+        const finalDecision = getCurrentRoundData().networkDecision;
+        networkDecisionCell.innerHTML = `<span class="summary-row-${finalDecision.toLowerCase()}">${finalDecision}</span>`;
+      }
+      
+      // Ensure final background colors are set for both cells
+      if (summaryCell) {
+        const finalDecision = getCurrentRoundData().networkDecision;
+        summaryCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+        summaryCell.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
+      }
+      
+      if (networkDecisionCell) {
+        const finalDecision = getCurrentRoundData().networkDecision;
+        networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+        networkDecisionCell.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
+      }
+      
+      // Ensure final row background color is set correctly
+      const tableRow = summaryCell?.closest('tr');
+      if (tableRow) {
+        const finalDecision = getCurrentRoundData().networkDecision;
+        tableRow.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+        tableRow.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
+      }
+    }, (totalNodes * animationDuration) + 500);
   };
 
   const toggleTrafficLight = () => {
@@ -714,7 +926,7 @@ function App() {
         hasRun: false,
         inputSelections: Array(9).fill(''),
         numericValues: Array(9).fill(''),
-        weightValues: Array(9).fill(i === 1 ? '' : '20'),
+        weightValues: Array(9).fill('20'), // All rounds start at 20
         valueResults: Array(9).fill(''),
         previousNumericValues: Array(9).fill(''),
         isAutoNumericActive: false,
@@ -765,7 +977,7 @@ function App() {
             hasRun: false,
             inputSelections: Array(9).fill(''),
             numericValues: Array(9).fill(''),
-            weightValues: Array(9).fill(i === 1 ? '' : '20'),
+            weightValues: Array(9).fill('20'), // All rounds start at 20
             valueResults: Array(9).fill(''),
             previousNumericValues: Array(9).fill(''),
             isAutoNumericActive: false,
@@ -1319,9 +1531,9 @@ function App() {
       } else if (columnIndex === 4) { // Weight column
         nextRow = rowIndex + 1
         nextColumn = 4
-      } else if (columnIndex === 6) { // Value column
+      } else if (columnIndex === 7) { // Value column
         nextRow = rowIndex + 1
-        nextColumn = 6
+        nextColumn = 7
       }
       
       // If we're at the last row, wrap to the first row
@@ -1512,6 +1724,7 @@ function App() {
             >
               <span className="text-box-content">Sensor Nodes</span>
             </div>
+
             
             {!getCurrentRoundData().isHidden && (
               <div className="traffic-light-section">
@@ -1521,7 +1734,9 @@ function App() {
                     <div className="traffic-light-display">
                       <div className="traffic-light-housing">
                         <div className="traffic-light-red inactive"></div>
-                        <div className="traffic-light-green active"></div>
+                        <div className="traffic-light-green active">
+                          <span className="traffic-light-letter">G</span>
+                        </div>
                       </div>
                     </div>
                   </>
@@ -1547,10 +1762,14 @@ function App() {
                       <div className="traffic-light-housing">
                         <div 
                           className={`traffic-light-red ${getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
-                        ></div>
+                        >
+                          {getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                        </div>
                         <div 
                           className={`traffic-light-green ${getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
-                        ></div>
+                        >
+                          {getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                        </div>
                       </div>
                     </div>
                   </>
@@ -1729,7 +1948,7 @@ function App() {
                               )}
                             </td>
                             <td>=</td>
-                                                        <td data-row={index-1} data-column="6">
+                                                        <td data-row={index-1} data-column="7">
                               {getCurrentRoundData().showNetworkDecision && getCurrentRoundData().valueResults[index-1] !== '' ? (
                                 <span className="calculated-value">{getCurrentRoundData().valueResults[index-1]}</span>
                               ) : (
@@ -1737,7 +1956,7 @@ function App() {
                                   type="text" 
                                   value={getCurrentRoundData().valueResults[index-1]} 
                                   onChange={(e) => handleValueChange(index-1, e.target.value)}
-                                  onKeyDown={(e) => handleKeyDown(e, index-1, 6)}
+                                  onKeyDown={(e) => handleKeyDown(e, index-1, 7)}
                                   placeholder=""
                                 />
                               )}
@@ -1854,7 +2073,8 @@ function App() {
                             </tr>
                             <tr className={
                               getCurrentRoundData().networkDecision === 'Red' ? 'summary-row-red' :
-                              getCurrentRoundData().networkDecision === 'Green' ? 'summary-row-green' : ''
+                              getCurrentRoundData().networkDecision === 'Green' ? 'summary-row-green' : 
+                              getCurrentRoundData().networkDecision === 'Undecided' ? 'summary-row-undecided' : ''
                             }>
                               <td>
                                 {getCurrentRoundData().sumOfValues}

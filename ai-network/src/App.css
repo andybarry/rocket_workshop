@@ -708,6 +708,8 @@ html {
   text-align: center;
 }
 
+
+
 .probability-text {
   font-family: 'Roboto', sans-serif;
   font-size: 1.1rem;
@@ -1029,7 +1031,7 @@ html {
   display: flex;
   justify-content: center;
   position: relative;
-  overflow-x: auto;
+  overflow: hidden; /* Hide any overflow */
 }
 
 /* When inside tables-wrapper, remove the margin */
@@ -1056,6 +1058,8 @@ html {
   height: auto;
   min-height: 400px;
   min-width: 450px;
+  max-width: 100%; /* Ensure table doesn't exceed container width */
+  overflow: hidden; /* Hide any overflow */
 }
 
 .output-table th {
@@ -1074,6 +1078,8 @@ html {
   min-height: 25px;
   height: 25px;
   box-sizing: border-box;
+  overflow: hidden; /* Hide any overflow in cells */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .output-table tbody tr:nth-child(odd) {
@@ -1897,6 +1903,16 @@ html {
   font-weight: bold !important;
 }
 
+.summary-table tr:nth-child(2).summary-row-undecided {
+  background: white !important;
+}
+
+.summary-table tr:nth-child(2).summary-row-undecided td {
+  background: white !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
 /* Ensure cells with content override the default second row styling */
 .summary-table tr:nth-child(2) td.summary-cell-red,
 .summary-table tr:nth-child(2) td.summary-cell-green {
@@ -2439,6 +2455,7 @@ html {
 
   .table-container {
     width: 95%;
+    overflow: hidden; /* Hide any overflow on tablets */
   }
 
   .auto-buttons-container {
@@ -2535,6 +2552,7 @@ html {
 
   .table-container {
     width: 95%;
+    overflow: hidden; /* Hide any overflow on mobile */
   }
 
   .auto-buttons-container {
@@ -2636,4 +2654,164 @@ html {
 .output-table td:nth-child(3) select:not([value*="1"]):not([value*="-1"]) {
   color: black;
   font-style: normal;
+}
+
+/* Value column animation styles */
+.value-animation {
+  animation: valuePulse 0.5s ease-in-out;
+  background-color: #ffeb3b !important; /* Yellow background during animation */
+  border: 2px solid #ff9800 !important; /* Orange border during animation */
+  overflow: hidden; /* Prevent overflow during animation */
+  max-width: 100%; /* Ensure animation doesn't exceed cell width */
+  position: relative;
+}
+
+/* Add a pulsing indicator for the currently active cell */
+.value-animation::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 152, 0, 0.3), transparent);
+  animation: activePulse 0.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes activePulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Sum display styling for cumulative updates (bottom left cell) */
+.summary-table tr:nth-child(2) td:first-child {
+  font-family: 'Courier New', monospace; /* Use monospace font for better alignment */
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding: 0.75rem;
+  text-align: left;
+  word-break: break-word;
+  min-height: 80px; /* Ensure enough height for cumulative sum display */
+  vertical-align: top;
+  background-color: #f8f9fa; /* Light background to make sum more visible */
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+/* Enhanced styling for the cumulative sum display (bottom left cell) */
+.summary-table tr:nth-child(2) td:first-child:not(:empty) {
+  font-weight: 600;
+  color: #495057;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+
+
+/* Special styling for Network Decision cell (bottom right cell) */
+.summary-table tr:nth-child(2) td:nth-child(2):not(:empty) {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  min-height: 80px;
+  vertical-align: top;
+}
+
+/* Color coding for Network Decision values (bottom right cell) */
+.summary-table tr:nth-child(2) td:nth-child(2):not(:empty) .summary-row-green {
+  color: white;
+  font-weight: bold;
+}
+
+.summary-table tr:nth-child(2) td:nth-child(2):not(:empty) .summary-row-red {
+  color: white;
+  font-weight: bold;
+}
+
+.summary-table tr:nth-child(2) td:nth-child(2):not(:empty) .summary-row-undecided {
+  color: black;
+  font-weight: bold;
+}
+
+/* Background colors for both bottom cells based on decision */
+.summary-table tr:nth-child(2) td.summary-row-green {
+  background-color: rgba(40, 167, 69, 0.15) !important;
+  border-color: #28a745 !important;
+}
+
+.summary-table tr:nth-child(2) td.summary-row-red {
+  background-color: rgba(220, 53, 69, 0.15) !important;
+  border-color: #dc3545 !important;
+}
+
+.summary-table tr:nth-child(2) td.summary-row-undecided {
+  background-color: rgba(108, 117, 125, 0.15) !important;
+  border-color: #6c757d !important;
+}
+
+/* Remove borders from the Network Decision cell (second column of second row) */
+.summary-table tr:nth-child(2) td:nth-child(2) {
+  border: none !important;
+}
+
+/* Style for the Sum of (C) Node Values text (first column of second row) */
+.summary-table tr:nth-child(2) td:first-child {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  font-style: normal;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Style for the decision text (bottom right cell) */
+.summary-table tr:nth-child(2) td:nth-child(2) .summary-row-green,
+.summary-table tr:nth-child(2) td:nth-child(2) .summary-row-red,
+.summary-table tr:nth-child(2) td:nth-child(2) .summary-row-undecided {
+  font-size: 1.1rem;
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  border: none;
+}
+
+/* Animation for when the sum updates */
+.summary-table tr:nth-child(2) td:first-child.updating,
+.summary-table tr:nth-child(2) td:nth-child(2).updating {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  transform: scale(1.02);
+}
+
+
+
+@keyframes valuePulse {
+  0% {
+    font-size: 1.1rem;
+    font-weight: bold;
+    transform: scale(1);
+  }
+  50% {
+    font-size: 1.5rem;
+    font-weight: 900;
+    transform: scale(1.1);
+  }
+  100% {
+    font-size: 1.1rem;
+    font-weight: bold;
+    transform: scale(1);
+  }
+}
+
+/* Ensure the animation applies to both input fields and spans in the value column */
+.output-table td[data-column="7"].value-animation input[type="text"],
+.output-table td[data-column="7"].value-animation span {
+  animation: valuePulse 0.5s ease-in-out;
 }
