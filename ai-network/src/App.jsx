@@ -4,25 +4,25 @@ import { useEffect } from 'react'
 
 function App() {
   // Helper function to create complete round data
-  const createRoundData = (roundNumber) => ({
+  const createRoundData = (roundNumber, is45NetworkPage = false) => ({
     lightStates: [false, false, false], // [top, middle, bottom]
     selectedButton: roundNumber === 1 ? 'green' : null, // Round 1 always green, others null initially
     isHidden: roundNumber === 1 ? true : false, // Round 1 starts hidden, others visible initially
-    circleColors: Array(12).fill(''), // track circle colors - start empty
-    showCode: false, // to track if code/probabilities are shown
+    circleColors: Array(is45NetworkPage ? 20 : 12).fill(''), // track circle colors - start empty
+    showCode: false, // to track if code/probabilities is shown
     hasRun: false, // to track if current round has been executed
-    inputSelections: Array(9).fill(''), // track dropdown selections for C1-C9
-    numericValues: Array(9).fill(''), // track numeric input values for C1-C9
-    weightValues: Array(9).fill('20'), // track weight input values for C1-C9 - all rounds start at 20
-    valueResults: Array(9).fill(''), // track value results for C1-C9
-    previousNumericValues: Array(9).fill(''), // track previous numeric values
+    inputSelections: Array(is45NetworkPage ? 15 : 9).fill(''), // track dropdown selections for C1-C15 or C1-C9
+    numericValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track numeric input values for C1-C15 or C1-C9
+    weightValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track weight input values for C1-C15 or C1-C9 - start empty
+    valueResults: Array(is45NetworkPage ? 15 : 9).fill(''), // track value results for C1-C15 or C1-C9
+    previousNumericValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track previous numeric values
     isAutoNumericActive: false, // track if auto numeric is active
-    previousWeightValues: Array(9).fill(''), // track previous weight values
+    previousWeightValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track previous weight values
     isAutoWeightActive: false, // track if auto weight is active
     isUpdateWeightsAutoActive: false, // track if update weights auto is active
-    updateWeightsValues: Array(9).fill(''), // track independent weight values for update weights table, start with blank
-    previousUpdateWeightsValues: Array(9).fill(''), // track previous update weights values
-    previousValueResults: Array(9).fill(''), // track previous value results
+    updateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track independent weight values for update weights table, start with blank
+    previousUpdateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''), // track previous update weights values
+    previousValueResults: Array(is45NetworkPage ? 15 : 9).fill(''), // track previous value results
     isAutoValueActive: false, // track if auto value is active
     sumOfValues: '', // track sum of C node values
     networkDecision: '', // track network decision
@@ -40,20 +40,21 @@ function App() {
 
   const [currentRound, setCurrentRound] = useState(1) // track current round for navigation
   const [roundsData, setRoundsData] = useState({
-    1: createRoundData(1),
-    2: createRoundData(2),
-    3: createRoundData(3),
-    4: createRoundData(4),
-    5: createRoundData(5),
-    6: createRoundData(6),
-    7: createRoundData(7),
-    8: createRoundData(8),
-    9: createRoundData(9),
-    10: createRoundData(10)
+    1: createRoundData(1, false),
+    2: createRoundData(2, false),
+    3: createRoundData(3, false),
+    4: createRoundData(4, false),
+    5: createRoundData(5, false),
+    6: createRoundData(6, false),
+    7: createRoundData(7, false),
+    8: createRoundData(8, false),
+    9: createRoundData(9, false),
+    10: createRoundData(10, false)
   });
   const [colorScheme, setColorScheme] = useState('orange') // track color scheme: 'orange' or 'gray'
   const [isInitialized, setIsInitialized] = useState(false) // track if component is fully initialized
   const [resetCounter, setResetCounter] = useState(0) // track reset count to force re-renders
+  const [is45Network, setIs45Network] = useState(false) // track if we're on the 45-network page
   // Round selection removed - only Round 1 is displayed
 
 
@@ -174,7 +175,7 @@ function App() {
       
       // Find the last round with updated weights (starting from the target round and going backwards)
       let sourceRound = null;
-      let sourceWeights = Array(9).fill('20'); // Default weights
+      let sourceWeights = Array(is45Network ? 15 : 9).fill(''); // Default weights
       
       // Look for the most recent round with updated weights
       for (let round = targetRound - 1; round >= 1; round--) {
@@ -195,7 +196,7 @@ function App() {
       
       // If no previous round has updated weights, use Round 1 weights (which start at 20)
       if (sourceRound === null) {
-        sourceWeights = Array(9).fill('20');
+        sourceWeights = Array(is45Network ? 15 : 9).fill('');
       }
       
       // Update the target round's weight values
@@ -221,7 +222,7 @@ function App() {
       const currentData = getCurrentRoundData();
       
       // Determine which weights to carry over from the current round
-      let weightsToCarry = Array(9).fill('20'); // Default weights
+      let weightsToCarry = Array(is45Network ? 15 : 9).fill(''); // Default weights
       
       // Priority: 1) Auto-calculated weights, 2) Manually entered weights, 3) Default weights
       if (currentData.showUpdateWeightsTable) {
@@ -346,7 +347,7 @@ function App() {
 
   const calculateProgressiveValues = () => {
     const currentData = getCurrentRoundData();
-    const totalNodes = 9;
+    const totalNodes = is45Network ? 15 : 9;
     const delayPerNode = 500; // 0.5 seconds per node
     
     console.log('Starting progressive value calculation...');
@@ -385,6 +386,37 @@ function App() {
       }, i * delayPerNode);
     }
   };
+
+  // Detect if we're on the 45-network page
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    setIs45Network(is45NetworkPage);
+    console.log('Current path:', currentPath, 'Is 45-network:', is45NetworkPage);
+    
+    // Update rounds data with correct sensor node count
+    if (is45NetworkPage) {
+      const updatedRoundsData = {};
+      for (let i = 1; i <= 10; i++) {
+        updatedRoundsData[i] = createRoundData(i, true);
+      }
+      setRoundsData(updatedRoundsData);
+    }
+    
+    // Clear any existing weight data to ensure weights start empty
+    if (is45NetworkPage) {
+      setTimeout(() => {
+        const currentData = getCurrentRoundData();
+        if (currentData.weightValues.some(w => w === '20')) {
+          console.log('Clearing existing weight data to start fresh');
+          setCurrentRoundData({
+            weightValues: Array(15).fill(''),
+            isAutoWeightActive: false
+          });
+        }
+      }, 100);
+    }
+  }, []);
 
   // Add GPU state to all rounds that don't have it (run first)
   useEffect(() => {
@@ -589,7 +621,7 @@ function App() {
 
   // Function to animate the value column cells one by one
   const animateValueColumn = () => {
-    const totalNodes = 9;
+    const totalNodes = is45Network ? 15 : 9;
     const animationDuration = 500; // 0.5 seconds per cell
     const currentData = getCurrentRoundData();
     
@@ -921,21 +953,21 @@ function App() {
         lightStates: [false, false, false],
         selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
         isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
-        circleColors: Array(12).fill(''),
+        circleColors: Array(is45Network ? 20 : 12).fill(''),
         showCode: false,
         hasRun: false,
-        inputSelections: Array(9).fill(''),
-        numericValues: Array(9).fill(''),
-        weightValues: Array(9).fill('20'), // All rounds start at 20
-        valueResults: Array(9).fill(''),
-        previousNumericValues: Array(9).fill(''),
+        inputSelections: Array(is45Network ? 15 : 9).fill(''),
+        numericValues: Array(is45Network ? 15 : 9).fill(''),
+        weightValues: Array(is45Network ? 15 : 9).fill(''), // All rounds start empty
+        valueResults: Array(is45Network ? 15 : 9).fill(''),
+        previousNumericValues: Array(is45Network ? 15 : 9).fill(''),
         isAutoNumericActive: false,
-        previousWeightValues: Array(9).fill(''),
+        previousWeightValues: Array(is45Network ? 15 : 9).fill(''),
         isAutoWeightActive: false,
         isUpdateWeightsAutoActive: false,
-        updateWeightsValues: Array(9).fill(''),
-        previousUpdateWeightsValues: Array(9).fill(''),
-        previousValueResults: Array(9).fill(''),
+        updateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
+        previousUpdateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
+        previousValueResults: Array(is45Network ? 15 : 9).fill(''),
         isAutoValueActive: false,
         sumOfValues: '',
         networkDecision: '',
@@ -972,21 +1004,21 @@ function App() {
             lightStates: [false, false, false],
             selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
             isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
-            circleColors: Array(12).fill(''),
+            circleColors: Array(is45Network ? 20 : 12).fill(''),
             showCode: false,
             hasRun: false,
-            inputSelections: Array(9).fill(''),
-            numericValues: Array(9).fill(''),
-            weightValues: Array(9).fill('20'), // All rounds start at 20
-            valueResults: Array(9).fill(''),
-            previousNumericValues: Array(9).fill(''),
+            inputSelections: Array(is45Network ? 15 : 9).fill(''),
+            numericValues: Array(is45Network ? 15 : 9).fill(''),
+            weightValues: Array(is45Network ? 15 : 9).fill(''), // All rounds start empty
+            valueResults: Array(is45Network ? 15 : 9).fill(''),
+            previousNumericValues: Array(is45Network ? 15 : 9).fill(''),
             isAutoNumericActive: false,
-            previousWeightValues: Array(9).fill(''),
+            previousWeightValues: Array(is45Network ? 15 : 9).fill(''),
             isAutoWeightActive: false,
             isUpdateWeightsAutoActive: false,
-            updateWeightsValues: Array(9).fill(''),
-            previousUpdateWeightsValues: Array(9).fill(''),
-            previousValueResults: Array(9).fill(''),
+            updateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
+            previousUpdateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
+            previousValueResults: Array(is45Network ? 15 : 9).fill(''),
             isAutoValueActive: false,
             sumOfValues: '',
             networkDecision: '',
@@ -1115,7 +1147,7 @@ function App() {
       // Save current values and apply auto-fill
       setCurrentRoundData({ 
         previousWeightValues: [...currentData.weightValues],
-        weightValues: Array(9).fill('20'),
+        weightValues: Array(is45Network ? 15 : 9).fill('20'),
         isAutoWeightActive: true
       })
     } else {
@@ -1163,7 +1195,8 @@ function App() {
       const newUpdateWeightsValues = []
       
       // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weight
-      for (let i = 0; i < 9; i++) {
+      const totalNodes = is45Network ? 15 : 9;
+      for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
         
@@ -1226,9 +1259,10 @@ function App() {
     const currentData = getCurrentRoundData();
     if (!currentData.isAutoValueActive) {
       // Save current values and apply auto-fill
+      const totalNodes = is45Network ? 15 : 9;
       setCurrentRoundData({ 
         previousValueResults: [...currentData.valueResults],
-        valueResults: Array(9).fill('').map((_, i) => {
+        valueResults: Array(totalNodes).fill('').map((_, i) => {
           const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i])
           const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i])
           return Math.round(numericValue * weightValue).toString()
@@ -1263,11 +1297,12 @@ function App() {
     })
     
     // Calculate weight values (only if auto weight is active)
-    const newWeightValues = Array(9).fill('20')
+    const newWeightValues = Array(is45Network ? 15 : 9).fill('')
     
     // Calculate value results based on current numeric and weight values (only if auto value is active)
-    const newValueResults = Array(9).fill('')
-    for (let i = 0; i < 9; i++) {
+    const totalNodes = is45Network ? 15 : 9;
+    const newValueResults = Array(totalNodes).fill('')
+    for (let i = 0; i < totalNodes; i++) {
       const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i])
       const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i])
       newValueResults[i] = Math.round(numericValue * weightValue).toString()
@@ -1537,7 +1572,8 @@ function App() {
       }
       
       // If we're at the last row, wrap to the first row
-      if (nextRow >= 9) {
+      const maxRows = is45Network ? 15 : 9;
+      if (nextRow >= maxRows) {
         nextRow = 0
       }
       
@@ -1550,7 +1586,28 @@ function App() {
   }
 
   // Weighted probability system for circles
-  const circleWeights = [
+  const circleWeights = is45Network ? [
+    { weight: 5 }, // A1
+    { weight: 2 }, // A2
+    { weight: 1 }, // A3
+    { weight: 4 }, // A4
+    { weight: 1 }, // A5
+    { weight: 5 }, // A6
+    { weight: 2 }, // A7
+    { weight: 1 }, // A8
+    { weight: 4 }, // A9
+    { weight: 1 }, // A10
+    { weight: 5 }, // A11
+    { weight: 2 }, // A12
+    { weight: 1 }, // A13
+    { weight: 4 }, // A14
+    { weight: 1 }, // A15
+    { weight: 5 }, // A16
+    { weight: 2 }, // A17
+    { weight: 1 }, // A18
+    { weight: 4 }, // A19
+    { weight: 1 }  // A20
+  ] : [
     { weight: 5 }, // A1
     { weight: 2 }, // A2
     { weight: 1 }, // A3
@@ -1642,8 +1699,14 @@ function App() {
       selectedButton: roundsData[1].selectedButton,
       hasRun: roundsData[1].hasRun,
       circleColors: roundsData[1].circleColors
-    } : 'No round 1 data'
+    } : 'No round 1 data',
+    is45Network
   });
+
+  // Ensure we have valid data before rendering
+  if (!roundsData || Object.keys(roundsData).length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="app">
@@ -1712,10 +1775,17 @@ function App() {
         <div className="main-content">
           <div className="title-section">
             <div className="image-title-box">
-              <span className="image-title-text">27 participant Human Neural Network</span>
+              <span className="image-title-text">
+                {is45Network ? '45 participant Human Neural Network' : '27 participant Human Neural Network'}
+              </span>
             </div>
             <div className="image-container">
-              <img src="/27-nn.png" alt="27 participant human neural network" className="content-image" />
+              <img 
+                src={is45Network ? "/45-nn.png" : "/27-nn.png"} 
+                alt={is45Network ? "45 participant human neural network" : "27 participant human neural network"} 
+                className="content-image" 
+                style={is45Network ? { width: '70%', maxWidth: '70%' } : {}}
+              />
             </div>
             <div 
               className="text-box"
@@ -1806,9 +1876,34 @@ function App() {
             </div>
             
             <div className="circles-section">
-              <div className="circles-grid">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
-                  <div key={num} className="circle-item">
+              <div 
+                className="circles-grid"
+                style={is45Network ? { 
+                  justifyContent: 'center',
+                  display: 'flex !important',
+                  flexWrap: 'wrap',
+                  maxWidth: '70%',
+                  margin: '0 auto',
+                  gap: '10px',
+                  width: '100%',
+                  gridTemplateColumns: 'none !important',
+                  grid: 'none !important',
+                  gridTemplateRows: 'none !important',
+                  gridAutoColumns: 'none !important',
+                  gridAutoRows: 'none !important'
+                } : {}}
+              >
+                {Array.from({ length: is45Network ? 20 : 12 }, (_, i) => i + 1).map((num) => (
+                  <div 
+                    key={num} 
+                    className="circle-item"
+                    style={is45Network ? {
+                      flex: '0 0 calc(14.285% - 1px) !important',
+                      minWidth: 'calc(14.285% - 1px) !important',
+                      maxWidth: 'calc(14.285% - 1px) !important',
+                      width: 'calc(14.285% - 1px) !important'
+                    } : {}}
+                  >
                     <span className="circle-label">A{num}</span>
                     {getCurrentRoundData().showCode && (
                       <span className="probability-text">
@@ -1828,6 +1923,7 @@ function App() {
               <button 
                 className={`show-code-button ${getCurrentRoundData().showCode ? 'selected' : ''}`}
                 onClick={toggleShowCode}
+                style={is45Network ? { width: '120px' } : {}}
               >
                                   {getCurrentRoundData().showCode ? 'Hide Code' : 'Show Code'}
               </button>
@@ -1891,7 +1987,7 @@ function App() {
                         </tr>
                       </thead>
                       <tbody>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                        {Array.from({ length: is45Network ? 15 : 9 }, (_, i) => i + 1).map((index) => (
                           <tr key={index}>
                             <td>C{index}</td>
                             <td className={getCurrentRoundData().inputSelections[index-1] === 'red' ? 'input-cell-red' : getCurrentRoundData().inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
@@ -1927,17 +2023,18 @@ function App() {
                             <td>×</td>
                             <td>
                               {currentRound === 1 ? (
-                                // Round 1: Allow editing with auto button functionality
+                                // Round 1: Show input box by default, only show "20" when auto is active
                                 getCurrentRoundData().isAutoWeightActive ? (
                                   <span>{getCurrentRoundData().weightValues[index-1]}</span>
                                 ) : (
                                   <input 
                                     type="text" 
-                                    value={getCurrentRoundData().weightValues[index-1]} 
+                                    value={getCurrentRoundData().weightValues[index-1] || ''} 
                                     onChange={(e) => handleWeightChange(index-1, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(e, index-1, 4)}
                                     data-row={index-1} 
                                     data-column="4"
+                                    placeholder=""
                                   />
                                 )
                               ) : (
@@ -2004,7 +2101,7 @@ function App() {
                           </tr>
                         </thead>
                         <tbody>
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                          {Array.from({ length: is45Network ? 15 : 9 }, (_, i) => i + 1).map((index) => (
                             <tr key={index}>
                               <td>C{index}</td>
                               <td>
