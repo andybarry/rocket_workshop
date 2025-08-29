@@ -394,28 +394,28 @@ function App() {
     setIs45Network(is45NetworkPage);
     console.log('Current path:', currentPath, 'Is 45-network:', is45NetworkPage);
     
-    // Update rounds data with correct sensor node count
+    // Update rounds data with correct sensor node count, but preserve existing data
     if (is45NetworkPage) {
-      const updatedRoundsData = {};
-      for (let i = 1; i <= 10; i++) {
-        updatedRoundsData[i] = createRoundData(i, true);
-      }
-      setRoundsData(updatedRoundsData);
+      setRoundsData(prev => {
+        const updatedRoundsData = { ...prev };
+        for (let i = 1; i <= 10; i++) {
+          if (!updatedRoundsData[i] || !updatedRoundsData[i].hasOwnProperty('inputSelections') || updatedRoundsData[i].inputSelections.length !== 15) {
+            // Only create new round data if it doesn't exist or has wrong structure
+            const existingData = updatedRoundsData[i] || {};
+            updatedRoundsData[i] = {
+              ...createRoundData(i, true),
+              ...existingData,
+              // Preserve existing weight values if they exist
+              weightValues: existingData.weightValues && existingData.weightValues.length === 15 ? existingData.weightValues : Array(15).fill(''),
+              isAutoWeightActive: existingData.isAutoWeightActive || false
+            };
+          }
+        }
+        return updatedRoundsData;
+      });
     }
     
-    // Clear any existing weight data to ensure weights start empty
-    if (is45NetworkPage) {
-      setTimeout(() => {
-        const currentData = getCurrentRoundData();
-        if (currentData.weightValues.some(w => w === '20')) {
-          console.log('Clearing existing weight data to start fresh');
-          setCurrentRoundData({
-            weightValues: Array(15).fill(''),
-            isAutoWeightActive: false
-          });
-        }
-      }, 100);
-    }
+    // Remove the code that clears weight data - we want to preserve auto-set weights
   }, []);
 
   // Add GPU state to all rounds that don't have it (run first)
@@ -518,7 +518,15 @@ function App() {
                   isCircleColorsArray: Array.isArray(savedRound.circleColors)
                 });
               } else {
-                completeRoundsData[round] = createRoundData(round);
+                // Create new round data but preserve any existing weight values
+                const existingData = completeRoundsData[round] || {};
+                completeRoundsData[round] = {
+                  ...createRoundData(round),
+                  ...existingData,
+                  // Preserve existing weight values if they exist
+                  weightValues: existingData.weightValues && existingData.weightValues.length > 0 ? existingData.weightValues : createRoundData(round).weightValues,
+                  isAutoWeightActive: existingData.isAutoWeightActive || false
+                };
               }
             }
             setRoundsData(completeRoundsData);
@@ -1297,6 +1305,7 @@ function App() {
     })
     
     // Calculate weight values (only if auto weight is active)
+    // Don't create new weight values - preserve existing ones when auto is active
     const newWeightValues = Array(is45Network ? 15 : 9).fill('')
     
     // Calculate value results based on current numeric and weight values (only if auto value is active)
@@ -1316,10 +1325,8 @@ function App() {
       updates.numericValues = newNumericValues
     }
     
-    // Update weight values if auto weight is active (real-time updates when input changes)
-    if (currentData.isAutoWeightActive) {
-      updates.weightValues = newWeightValues
-    }
+    // Don't update weight values when auto weight is active - preserve the "20" values
+    // The auto weight button already sets the weight values, so we don't need to change them here
     
     // Update value results if auto value is active (real-time updates when any values change)
     if (currentData.isAutoValueActive) {
