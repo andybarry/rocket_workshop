@@ -1186,6 +1186,231 @@ html {
 .output-table th:nth-child(6), .output-table td:nth-child(6) { width: 7%; }  /* = */
 .output-table th:nth-child(7), .output-table td:nth-child(7) { width: 15%; } /* Value */
 
+/* Ensure table maintains fixed dimensions */
+.output-table {
+  table-layout: fixed !important;
+  width: 100% !important;
+}
+
+/* Individual cell hover effects - yellow border highlighting */
+.output-table th:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.3rem !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+}
+
+/* Data row cell hover effects with enhanced font size */
+.output-table tbody td:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+}
+
+/* Enhanced font size for interactive elements in data rows */
+.output-table tbody td:hover input,
+.output-table tbody td:hover select,
+.output-table tbody td:hover .auto-fill-input {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Enhanced font size for select elements specifically */
+.output-table tbody td:hover select {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Enhanced font size for span elements (auto-displayed values) */
+.output-table tbody td:hover span {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Prevent row 1 (header row) from expanding */
+.output-table thead tr {
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+}
+
+.output-table thead th {
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+}
+
+/* Prevent column width changes on hover */
+.output-table th:hover,
+.output-table td:hover {
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+}
+
+/* Ensure update weights table maintains fixed dimensions */
+.update-weights-table {
+  table-layout: fixed !important;
+  width: 100% !important;
+}
+
+/* Update weights table header cell hover effects */
+.update-weights-table th:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.3rem !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+}
+
+/* Update weights table data row cell hover effects with enhanced font size */
+.update-weights-table tbody td:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+}
+
+/* Enhanced font size for interactive elements in update weights table data rows */
+.update-weights-table tbody td:hover input,
+.update-weights-table tbody td:hover select,
+.update-weights-table tbody td:hover .auto-fill-input {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Enhanced font size for select elements in update weights table specifically */
+.update-weights-table tbody td:hover select {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Enhanced font size for span elements in update weights table (auto-displayed values) */
+.update-weights-table tbody td:hover span {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+}
+
+/* Summary table hover effects - yellow border highlighting and font size increase */
+.summary-table {
+  table-layout: fixed !important;
+  width: 100% !important;
+}
+
+.summary-table th:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.3rem !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.summary-table tbody td:hover {
+  border: 3px solid #ffeb3b !important;
+  font-size: 1.3rem !important;
+  line-height: 1.2 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* Enhanced font size for interactive elements in summary table */
+.summary-table tbody td:hover input,
+.summary-table tbody td:hover select,
+.summary-table tbody td:hover span {
+  font-size: 1.3rem !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* Prevent update weights table row 1 (header row) from expanding */
+.update-weights-table thead tr {
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+}
+
+.update-weights-table thead th {
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+}
+
+/* Prevent update weights table column width changes on hover */
+.update-weights-table th:hover,
+.update-weights-table td:hover {
+  width: inherit !important;
+  min-width: inherit !important;
+  max-width: inherit !important;
+}
+
 .auto-buttons-row {
   background: transparent;
   border-top: 2px solid #ccc;
@@ -2743,6 +2968,14 @@ html {
 
 /* Background colors for both bottom cells based on decision */
 .summary-table tr:nth-child(2) td.summary-row-green {
+  background-color: #008000ff !important;
+  border-color: #008000ff !important;
+  color: white !important;
+}
+
+/* Ensure summary table green exactly matches main table green */
+.summary-table tr:nth-child(2).summary-row-green,
+.summary-table tr:nth-child(2).summary-row-green td {
   background-color: #008000ff !important;
   border-color: #008000ff !important;
   color: white !important;

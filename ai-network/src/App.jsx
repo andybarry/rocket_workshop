@@ -80,6 +80,14 @@ function App() {
         console.log(`Weight values updated for round ${currentRound}:`, updates.weightValues);
       }
       
+      // Add specific logging for updateWeightsValues changes
+      if (updates.updateWeightsValues) {
+        console.log(`updateWeightsValues updated for round ${currentRound}:`, {
+          length: updates.updateWeightsValues.length,
+          values: updates.updateWeightsValues
+        });
+      }
+      
       console.log(`New state for round ${currentRound}:`, newState[currentRound]);
       return newState;
     });
@@ -303,8 +311,13 @@ function App() {
   const handleUpdateWeights = () => {
     const currentData = getCurrentRoundData();
     
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    
     // Initialize updateWeightsValues with empty strings to show blank input boxes
-    const newUpdateWeightsValues = Array(9).fill('')
+    const newUpdateWeightsValues = Array(totalNodes).fill('')
     
     // Show the update weights table and initialize weights as blank
     setCurrentRoundData({ 
@@ -430,14 +443,26 @@ function App() {
     const currentPath = window.location.pathname;
     const is45NetworkPage = currentPath.includes('45-network');
     setIs45Network(is45NetworkPage);
-    console.log('Current path:', currentPath, 'Is 45-network:', is45NetworkPage);
+                console.log('Current path:', currentPath, 'Is 45-network:', is45NetworkPage);
+            
+            // Debug: Log the current state of updateWeightsValues for round 1
+            if (roundsData[1]) {
+              console.log('Round 1 updateWeightsValues before update:', {
+                length: roundsData[1].updateWeightsValues?.length,
+                values: roundsData[1].updateWeightsValues
+              });
+            }
     
     // Update rounds data with correct sensor node count, but preserve existing data
     if (is45NetworkPage) {
       setRoundsData(prev => {
         const updatedRoundsData = { ...prev };
         for (let i = 1; i <= 10; i++) {
-          if (!updatedRoundsData[i] || !updatedRoundsData[i].hasOwnProperty('inputSelections') || updatedRoundsData[i].inputSelections.length !== 15) {
+          if (!updatedRoundsData[i] || 
+              !updatedRoundsData[i].hasOwnProperty('inputSelections') || 
+              updatedRoundsData[i].inputSelections.length !== 15 ||
+              !updatedRoundsData[i].hasOwnProperty('updateWeightsValues') ||
+              updatedRoundsData[i].updateWeightsValues.length !== 15) {
             // Only create new round data if it doesn't exist or has wrong structure
             const existingData = updatedRoundsData[i] || {};
             updatedRoundsData[i] = {
@@ -445,10 +470,18 @@ function App() {
               ...existingData,
               // Preserve existing weight values if they exist
               weightValues: existingData.weightValues && existingData.weightValues.length === 15 ? existingData.weightValues : Array(15).fill(''),
+              updateWeightsValues: existingData.updateWeightsValues && existingData.updateWeightsValues.length === 15 ? existingData.updateWeightsValues : Array(15).fill(''),
               isAutoWeightActive: existingData.isAutoWeightActive || false
             };
           }
         }
+        
+        // Debug: Log the updated state of updateWeightsValues for round 1
+        console.log('Round 1 updateWeightsValues after update:', {
+          length: updatedRoundsData[1]?.updateWeightsValues?.length,
+          values: updatedRoundsData[1]?.updateWeightsValues
+        });
+        
         return updatedRoundsData;
       });
     }
@@ -569,6 +602,7 @@ function App() {
                   ...existingData,
                   // Preserve existing weight values if they exist
                   weightValues: existingData.weightValues && existingData.weightValues.length > 0 ? existingData.weightValues : createRoundData(round, is45NetworkPage).weightValues,
+                  updateWeightsValues: existingData.updateWeightsValues && existingData.updateWeightsValues.length > 0 ? existingData.updateWeightsValues : createRoundData(round, is45NetworkPage).updateWeightsValues,
                   isAutoWeightActive: existingData.isAutoWeightActive || false
                 };
               }
@@ -578,6 +612,10 @@ function App() {
             // Debug: Log the final loaded data for round 1
             console.log('Final loaded data for round 1:', completeRoundsData[1]);
             console.log('Final circleColors for round 1:', completeRoundsData[1]?.circleColors);
+            console.log('Final updateWeightsValues for round 1:', {
+              length: completeRoundsData[1]?.updateWeightsValues?.length,
+              values: completeRoundsData[1]?.updateWeightsValues
+            });
           }
           if (parsedData.currentRound) {
             console.log('Loading currentRound:', parsedData.currentRound);
@@ -676,11 +714,55 @@ function App() {
       // Start GPU animation sequence
       startGPUAnimation();
       
-      // Start value column animation sequence (this will handle both highlighting and sum updates)
-      animateValueColumn();
+      // Calculate and display the final sum and network decision immediately without animation
+      calculateAndDisplayNetworkDecision();
     }
     
     // Data will be automatically saved by the useEffect when roundsData changes
+  };
+
+  // Function to calculate and display network decision without animation
+  const calculateAndDisplayNetworkDecision = () => {
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    const currentData = getCurrentRoundData();
+    
+    console.log('Calculating network decision without animation...');
+    
+    // Calculate value results for all nodes and display them in the table
+    const newValueResults = Array(totalNodes).fill('');
+    let totalSum = 0;
+    
+    for (let i = 0; i < totalNodes; i++) {
+      const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i]);
+      const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i]);
+      const calculatedValue = Math.round(numericValue * weightValue);
+      
+      // Store the calculated value in the value results array
+      newValueResults[i] = calculatedValue.toString();
+      
+      // Add to total sum
+      totalSum += calculatedValue;
+    }
+    
+    // Determine the network decision based on the total sum
+    let networkDecision = 'Undecided';
+    if (totalSum > 0) {
+      networkDecision = 'Green';
+    } else if (totalSum < 0) {
+      networkDecision = 'Red';
+    }
+    
+    // Update the state with the calculated values and value results
+    setCurrentRoundData({
+      valueResults: newValueResults,
+      sumOfValues: totalSum.toString(),
+      networkDecision: networkDecision
+    });
+    
+    console.log(`Network decision calculated: sum=${totalSum}, decision=${networkDecision}`);
   };
 
   // Function to animate the value column cells one by one
@@ -1181,9 +1263,26 @@ function App() {
 
   const handleUpdateWeightChange = (index, value) => {
     const currentData = getCurrentRoundData();
-    const newUpdateWeightsValues = [...currentData.updateWeightsValues]
-    newUpdateWeightsValues[index] = value
-    setCurrentRoundData({ updateWeightsValues: newUpdateWeightsValues })
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    
+    // Ensure the array has the correct length
+    let newUpdateWeightsValues = [...currentData.updateWeightsValues];
+    if (newUpdateWeightsValues.length !== totalNodes) {
+      console.log('Fixing updateWeightsValues array length:', {
+        currentLength: newUpdateWeightsValues.length,
+        expectedLength: totalNodes,
+        is45NetworkPage: is45NetworkPage
+      });
+      newUpdateWeightsValues = Array(totalNodes).fill('').map((_, i) => 
+        currentData.updateWeightsValues[i] || ''
+      );
+    }
+    
+    newUpdateWeightsValues[index] = value;
+    setCurrentRoundData({ updateWeightsValues: newUpdateWeightsValues });
     
     // Deactivate auto mode when user manually changes a weight
     if (currentData.isUpdateWeightsAutoActive) {
@@ -1268,6 +1367,11 @@ function App() {
 
   const handleUpdateWeightsAuto = () => {
     const currentData = getCurrentRoundData();
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    
     if (!currentData.isUpdateWeightsAutoActive) {
       // Check if traffic light state is selected
       if (!currentData.selectedButton) {
@@ -1296,34 +1400,56 @@ function App() {
       const cNodeInputs = currentData.inputSelections
       
       // Step 3: Calculate updated weights for each C node
-      const newUpdateWeightsValues = []
+      const newUpdateWeightsValues = Array(totalNodes).fill('')
+      
+      console.log('Starting weight calculation for', totalNodes, 'nodes');
+      console.log('Current weightValues length:', currentData.weightValues?.length);
+      console.log('Current inputSelections length:', currentData.inputSelections?.length);
       
       // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weight
-      // Determine the correct node count based on the current URL path, not the state
-      const currentPath = window.location.pathname;
-      const is45NetworkPage = currentPath.includes('45-network');
-      const totalNodes = is45NetworkPage ? 15 : 9;
       for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
         
+        console.log(`Processing node ${i + 1}: input=${cNodeInput}, currentWeight=${currentWeight}, trafficLightState=${trafficLightState}`);
+        
         if (cNodeInput === trafficLightState) {
           // MATCH: Add 10 to current weight
           newUpdateWeightsValues[i] = (currentWeight + 10).toString()
+          console.log(`Node ${i + 1}: MATCH - ${currentWeight} + 10 = ${currentWeight + 10}`);
         } else if (cNodeInput === 'red' || cNodeInput === 'green') {
           // MISMATCH: Subtract 10 from current weight (allow negative values)
           newUpdateWeightsValues[i] = (currentWeight - 10).toString()
+          console.log(`Node ${i + 1}: MISMATCH - ${currentWeight} - 10 = ${currentWeight - 10}`);
         } else {
           // NO INPUT: Keep current weight
           newUpdateWeightsValues[i] = currentWeight.toString()
+          console.log(`Node ${i + 1}: NO INPUT - keeping ${currentWeight}`);
         }
       }
       
       // Step 4: Update the Node Weight table with calculated weights
+      console.log('About to set updateWeightsValues:', {
+        arrayLength: newUpdateWeightsValues.length,
+        values: newUpdateWeightsValues,
+        totalNodes: totalNodes,
+        is45NetworkPage: is45NetworkPage
+      });
+      
       setCurrentRoundData({ 
         updateWeightsValues: newUpdateWeightsValues,
         isUpdateWeightsAutoActive: true  // Ensure this stays true after updating weights
       })
+      
+      // Debug: Check what happened after setting the data
+      setTimeout(() => {
+        const updatedData = getCurrentRoundData();
+        console.log('After setCurrentRoundData - updateWeightsValues:', {
+          length: updatedData.updateWeightsValues?.length,
+          values: updatedData.updateWeightsValues,
+          isUpdateWeightsAutoActive: updatedData.isUpdateWeightsAutoActive
+        });
+      }, 50);
       
       console.log(`Round ${currentRound} unified weight calculation:`, {
         round: currentRound,
@@ -1591,12 +1717,17 @@ function App() {
         currentData.inputSelections.some(input => input === 'red' || input === 'green') &&
         currentData.isUpdateWeightsAutoActive) {
       
+      // Determine the correct node count based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const totalNodes = is45NetworkPage ? 15 : 9;
+      
       const trafficLightState = currentData.selectedButton
       const cNodeInputs = currentData.inputSelections
-      const newUpdateWeightsValues = []
+      const newUpdateWeightsValues = Array(totalNodes).fill('')
       
       // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weights
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
         
@@ -1629,7 +1760,7 @@ function App() {
       })
       
       // Detailed debugging for each node in useEffect
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0
         const newWeight = newUpdateWeightsValues[i]
@@ -2099,20 +2230,20 @@ function App() {
                     <table className={`output-table ${colorScheme}`}>
                       <thead>
                         <tr>
-                          <th>Node</th>
-                          <th>Input</th>
-                          <th>Numeric</th>
-                          <th>×</th>
-                          <th>Weight</th>
-                          <th>=</th>
-                          <th>Value</th>
+                          <th className="column-node">Node</th>
+                          <th className="column-input">Input</th>
+                          <th className="column-numeric">Numeric</th>
+                          <th className="column-multiply">×</th>
+                          <th className="column-weight">Weight</th>
+                          <th className="column-equals">=</th>
+                          <th className="column-value">Value</th>
                         </tr>
                       </thead>
                       <tbody>
                         {Array.from({ length: is45Network ? 15 : 9 }, (_, i) => i + 1).map((index) => (
                           <tr key={index}>
-                            <td>C{index}</td>
-                            <td className={getCurrentRoundData().inputSelections[index-1] === 'red' ? 'input-cell-red' : getCurrentRoundData().inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}>
+                            <td className="column-node">C{index}</td>
+                            <td className={`column-input ${getCurrentRoundData().inputSelections[index-1] === 'red' ? 'input-cell-red' : getCurrentRoundData().inputSelections[index-1] === 'green' ? 'input-cell-green' : ''}`}>
                               <select 
                                 value={getCurrentRoundData().inputSelections[index-1]} 
                                 onChange={(e) => handleInputChange(index-1, e.target.value)}
@@ -2125,8 +2256,8 @@ function App() {
                                 <option value="green">Green</option>
                               </select>
                             </td>
-                            <td>
-                                                              {getCurrentRoundData().isAutoNumericActive ? (
+                            <td className="column-numeric">
+                              {getCurrentRoundData().isAutoNumericActive ? (
                                 <span>{getCurrentRoundData().numericValues[index-1]}</span>
                               ) : (
                                 <select 
@@ -2142,8 +2273,8 @@ function App() {
                                 </select>
                               )}
                             </td>
-                            <td>×</td>
-                            <td>
+                            <td className="column-multiply">×</td>
+                            <td className="column-weight">
                               {currentRound === 1 ? (
                                 // Round 1: Show input box by default, only show "20" when auto is active
                                 getCurrentRoundData().isAutoWeightActive ? (
@@ -2166,8 +2297,8 @@ function App() {
                                 </span>
                               )}
                             </td>
-                            <td>=</td>
-                                                        <td data-row={index-1} data-column="7">
+                            <td className="column-equals">=</td>
+                                                        <td className="column-value" data-row={index-1} data-column="7">
                               {getCurrentRoundData().showNetworkDecision && getCurrentRoundData().valueResults[index-1] !== '' ? (
                                 <span className="calculated-value">{getCurrentRoundData().valueResults[index-1]}</span>
                               ) : (
@@ -2184,15 +2315,15 @@ function App() {
                         ))}
                         {/* Auto buttons row */}
                         <tr className="auto-buttons-row">
-                          <td></td> {/* Node column - empty */}
-                          <td></td> {/* Input column - empty */}
-                          <td>
+                          <td className="column-node"></td> {/* Node column - empty */}
+                          <td className="column-input"></td> {/* Input column - empty */}
+                          <td className="column-numeric">
                             <button className={`auto-button ${getCurrentRoundData().isAutoNumericActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoNumeric}>
                               Auto
                             </button>
                           </td>
-                          <td></td> {/* × column - empty */}
-                          <td>
+                          <td className="column-multiply"></td> {/* × column - empty */}
+                          <td className="column-weight">
                             {currentRound === 1 ? (
                               <button className={`auto-button ${getCurrentRoundData().isAutoWeightActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoWeight}>
                                 Auto
@@ -2202,8 +2333,8 @@ function App() {
                               <span></span>
                             )}
                           </td>
-                          <td></td> {/* = column - empty */}
-                          <td>
+                          <td className="column-equals"></td> {/* = column - empty */}
+                          <td className="column-value">
                             <button className={`auto-button ${getCurrentRoundData().isAutoValueActive ? 'active' : ''} ${colorScheme}`} onClick={handleAutoValue}>
                               Auto
                             </button>
@@ -2218,15 +2349,15 @@ function App() {
                       <table className={`update-weights-table ${colorScheme}`}>
                         <thead>
                           <tr>
-                            <th>Node</th>
-                            <th>Weight</th>
+                            <th className="column-node">Node</th>
+                            <th className="column-weight">Weight</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {Array.from({ length: is45Network ? 15 : 9 }, (_, i) => i + 1).map((index) => (
+                          {Array.from({ length: window.location.pathname.includes('45-network') ? 15 : 9 }, (_, i) => i + 1).map((index) => (
                             <tr key={index}>
-                              <td>C{index}</td>
-                              <td>
+                              <td className="column-node">C{index}</td>
+                              <td className="column-weight">
                                 {getCurrentRoundData().isUpdateWeightsAutoActive ? (
                                   <span style={{fontWeight: 'bold', color: '#333'}}>
                                     {getCurrentRoundData().updateWeightsValues[index-1]}
@@ -2248,8 +2379,8 @@ function App() {
                           ))}
                           {/* Auto button row for update weights table */}
                           <tr className="update-weights-auto-row">
-                            <td></td> {/* Node column - empty */}
-                            <td>
+                            <td className="column-node"></td> {/* Node column - empty */}
+                            <td className="column-weight">
                               <button className={`auto-button ${getCurrentRoundData().isUpdateWeightsAutoActive ? 'active' : ''} ${colorScheme}`} onClick={handleUpdateWeightsAuto}>
                                 Auto
                               </button>
@@ -2280,8 +2411,8 @@ function App() {
                     </button>
                   </div>
 
-                  {/* Network Decision table and Traffic Light State button - Always visible on 45-network page, or after Compute button is pressed on 27-network page */}
-                  {(getCurrentRoundData().showNetworkDecision || window.location.pathname.includes('45-network')) && (
+                  {/* Network Decision table and Traffic Light State button - Only visible after Compute button is pressed */}
+                  {getCurrentRoundData().showNetworkDecision && (
                     <>
                       <div className="summary-table-container">
                         <table className={`summary-table ${colorScheme}`}>
