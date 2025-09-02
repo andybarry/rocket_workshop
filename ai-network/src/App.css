@@ -1891,6 +1891,7 @@ html {
   background: #ff0000 !important;
   color: white !important;
   font-weight: bold !important;
+  font-style: normal !important;
 }
 
 .summary-table tr:nth-child(2).summary-row-green {
@@ -1901,6 +1902,7 @@ html {
   background: #008000ff !important;
   color: white !important;
   font-weight: bold !important;
+  font-style: normal !important;
 }
 
 .summary-table tr:nth-child(2).summary-row-undecided {
@@ -2741,8 +2743,9 @@ html {
 
 /* Background colors for both bottom cells based on decision */
 .summary-table tr:nth-child(2) td.summary-row-green {
-  background-color: rgba(40, 167, 69, 0.15) !important;
-  border-color: #28a745 !important;
+  background-color: #008000ff !important;
+  border-color: #008000ff !important;
+  color: white !important;
 }
 
 .summary-table tr:nth-child(2) td.summary-row-red {

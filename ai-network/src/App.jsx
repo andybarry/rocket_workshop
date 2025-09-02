@@ -75,6 +75,11 @@ function App() {
         [currentRound]: { ...prev[currentRound], ...updates }
       };
       
+      // Add specific logging for weight values changes
+      if (updates.weightValues) {
+        console.log(`Weight values updated for round ${currentRound}:`, updates.weightValues);
+      }
+      
       console.log(`New state for round ${currentRound}:`, newState[currentRound]);
       return newState;
     });
@@ -199,14 +204,29 @@ function App() {
         sourceWeights = Array(is45Network ? 15 : 9).fill('');
       }
       
-      // Update the target round's weight values
-      setRoundsData(prev => ({
-        ...prev,
-        [targetRound]: {
-          ...prev[targetRound],
-          weightValues: sourceWeights
+      // Update the target round's weight values while preserving Round 1's weight values
+      setRoundsData(prev => {
+        const updatedRoundsData = {
+          ...prev,
+          [targetRound]: {
+            ...prev[targetRound],
+            weightValues: sourceWeights
+          }
+        };
+        
+        // Ensure Round 1's weight values are preserved if they exist
+        if (prev[1] && prev[1].weightValues && prev[1].weightValues.some(w => w !== '')) {
+          console.log('handleLeftArrowClick: Preserving Round 1 weight values:', prev[1].weightValues);
+          updatedRoundsData[1] = {
+            ...updatedRoundsData[1],
+            weightValues: [...prev[1].weightValues]
+          };
+        } else {
+          console.log('handleLeftArrowClick: No Round 1 weight values to preserve');
         }
-      }));
+        
+        return updatedRoundsData;
+      });
       
       console.log(`Carrying weights from Round ${sourceRound || 1} to Round ${targetRound}:`, sourceWeights);
       setCurrentRound(targetRound);
@@ -240,14 +260,29 @@ function App() {
         }
       }
       
-      // Update the next round's weight values
-      setRoundsData(prev => ({
-        ...prev,
-        [targetRound]: {
-          ...prev[targetRound],
-          weightValues: weightsToCarry
+      // Update the next round's weight values while preserving Round 1's weight values
+      setRoundsData(prev => {
+        const updatedRoundsData = {
+          ...prev,
+          [targetRound]: {
+            ...prev[targetRound],
+            weightValues: weightsToCarry
+          }
+        };
+        
+        // Ensure Round 1's weight values are preserved if they exist
+        if (prev[1] && prev[1].weightValues && prev[1].weightValues.some(w => w !== '')) {
+          console.log('handleRightArrowClick: Preserving Round 1 weight values:', prev[1].weightValues);
+          updatedRoundsData[1] = {
+            ...updatedRoundsData[1],
+            weightValues: [...prev[1].weightValues]
+          };
+        } else {
+          console.log('handleRightArrowClick: No Round 1 weight values to preserve');
         }
-      }));
+        
+        return updatedRoundsData;
+      });
       
       console.log(`Carrying over weights to Round ${targetRound}:`, weightsToCarry);
       setCurrentRound(targetRound);
@@ -347,13 +382,16 @@ function App() {
 
   const calculateProgressiveValues = () => {
     const currentData = getCurrentRoundData();
-    const totalNodes = is45Network ? 15 : 9;
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
     const delayPerNode = 500; // 0.5 seconds per node
     
     console.log('Starting progressive value calculation...');
     
     // Start with empty values - sum will be handled by animation function
-    const emptyValues = Array(9).fill('');
+    const emptyValues = Array(totalNodes).fill('');
     setCurrentRoundData({ 
       valueResults: emptyValues
     });
@@ -452,7 +490,12 @@ function App() {
     // Wait for the component to be fully mounted and initial state set
     const timer = setTimeout(() => {
       console.log('Loading data from localStorage...');
-      const savedData = localStorage.getItem('aiNetworkData');
+      // Use different localStorage keys for 27 and 45 networks
+      // Determine the correct key based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+      const savedData = localStorage.getItem(storageKey);
       if (savedData) {
         try {
           const parsedData = JSON.parse(savedData);
@@ -471,7 +514,7 @@ function App() {
               if (parsedData.roundsData[round]) {
                 // Deep merge to ensure all user inputs are preserved
                 const savedRound = parsedData.roundsData[round];
-                const defaultRound = createRoundData(round);
+                const defaultRound = createRoundData(round, is45NetworkPage);
                 
                 // Debug: Log what we're about to merge
                 console.log(`Round ${round} - Before merge:`, {
@@ -486,8 +529,9 @@ function App() {
                 };
                 
                 // Explicitly handle circleColors to ensure they're preserved
-                if (savedRound.circleColors && Array.isArray(savedRound.circleColors) && savedRound.circleColors.length === 12) {
-                  // Check if the saved colors actually contain red/ggreen values
+                const expectedCircleCount = is45NetworkPage ? 20 : 12;
+                if (savedRound.circleColors && Array.isArray(savedRound.circleColors) && savedRound.circleColors.length === expectedCircleCount) {
+                  // Check if the saved colors actually contain red/green values
                   const hasValidColors = savedRound.circleColors.some(color => color === 'red' || color === 'green');
                   if (hasValidColors) {
                     completeRoundsData[round].circleColors = savedRound.circleColors;
@@ -497,7 +541,7 @@ function App() {
                     completeRoundsData[round].circleColors = defaultRound.circleColors;
                   }
                 } else {
-                  console.log(`Round ${round} - No valid saved circleColors, using defaults`);
+                  console.log(`Round ${round} - No valid saved circleColors (expected ${expectedCircleCount}, got ${savedRound.circleColors?.length || 0}), using defaults`);
                   completeRoundsData[round].circleColors = defaultRound.circleColors;
                 }
                 
@@ -521,10 +565,10 @@ function App() {
                 // Create new round data but preserve any existing weight values
                 const existingData = completeRoundsData[round] || {};
                 completeRoundsData[round] = {
-                  ...createRoundData(round),
+                  ...createRoundData(round, is45NetworkPage),
                   ...existingData,
                   // Preserve existing weight values if they exist
-                  weightValues: existingData.weightValues && existingData.weightValues.length > 0 ? existingData.weightValues : createRoundData(round).weightValues,
+                  weightValues: existingData.weightValues && existingData.weightValues.length > 0 ? existingData.weightValues : createRoundData(round, is45NetworkPage).weightValues,
                   isAutoWeightActive: existingData.isAutoWeightActive || false
                 };
               }
@@ -547,7 +591,7 @@ function App() {
         } catch (error) {
           console.error('Error loading saved data:', error);
           // If there's an error, clear corrupted data and start fresh
-          localStorage.removeItem('aiNetworkData');
+          localStorage.removeItem(storageKey);
           console.log('Cleared corrupted localStorage data');
         }
       } else {
@@ -561,13 +605,19 @@ function App() {
       // Save initial state if no saved data was found
       if (!savedData) {
         setTimeout(() => {
+          // Create proper initial rounds data based on the network type
+          const initialRoundsData = {};
+          for (let i = 1; i <= 10; i++) {
+            initialRoundsData[i] = createRoundData(i, is45NetworkPage);
+          }
+          
           const initialData = {
-            roundsData,
+            roundsData: initialRoundsData,
             currentRound: 1,
             colorScheme: 'orange',
             timestamp: Date.now()
           };
-          localStorage.setItem('aiNetworkData', JSON.stringify(initialData));
+          localStorage.setItem(storageKey, JSON.stringify(initialData));
           console.log('Initial state saved to localStorage');
         }, 100);
       }
@@ -590,15 +640,21 @@ function App() {
         timestamp: Date.now()
       };
       
+      // Use different localStorage keys for 27 and 45 networks
+      // Determine the correct key based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+      
       try {
-        localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+        localStorage.setItem(storageKey, JSON.stringify(dataToSave));
         console.log('Data automatically saved to localStorage:', dataToSave);
       } catch (error) {
         console.error('Error saving to localStorage:', error);
         // If localStorage is full, try to clear old data and save again
         try {
           localStorage.clear();
-          localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+          localStorage.setItem(storageKey, JSON.stringify(dataToSave));
           console.log('Data saved to localStorage after clearing:', dataToSave);
         } catch (clearError) {
           console.error('Failed to save data even after clearing localStorage:', clearError);
@@ -629,7 +685,10 @@ function App() {
 
   // Function to animate the value column cells one by one
   const animateValueColumn = () => {
-    const totalNodes = is45Network ? 15 : 9;
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
     const animationDuration = 500; // 0.5 seconds per cell
     const currentData = getCurrentRoundData();
     
@@ -676,18 +735,25 @@ function App() {
     // Animate each cell from C1 to C9
     for (let i = 0; i < totalNodes; i++) {
       setTimeout(() => {
+        // First, remove animation class from all previous cells
+        for (let prev = 0; prev < i; prev++) {
+          const prevValueCell = document.querySelector(`[data-row="${prev}"][data-column="7"]`);
+          if (prevValueCell) {
+            prevValueCell.classList.remove('value-animation');
+          }
+        }
+        
         // Get the value cell element for the current node
         const valueCell = document.querySelector(`[data-row="${i}"][data-column="7"]`);
         console.log(`Animating cell ${i + 1} (C${i + 1}):`, valueCell);
         
         if (valueCell) {
-          // Add animation class to make text bold and larger
+          // Add animation class to make text bold and larger for current cell only
           valueCell.classList.add('value-animation');
           console.log(`Added animation class to C${i + 1}`);
           
           // Calculate the cumulative sum up to this point
           let cumulativeSum = 0;
-          let cumulativeDisplay = '';
           let hasValidValues = false;
           
           // Process all cells from C1 up to the current cell (i)
@@ -698,42 +764,26 @@ function App() {
             
             console.log(`Processing cell ${j + 1}: numeric=${numericValue}, weight=${weightValue}, calculated=${calculatedValue}`);
             
-            // Only include cells that have actual calculated values (not 0 from empty inputs)
+            // Include ALL cells in the cumulative sum calculation, even if they have zero values
+            // This ensures all cells are processed in the animation sequence
+            cumulativeSum += calculatedValue;
             if (numericValue !== 0 && weightValue !== 0) {
-              if (!hasValidValues) {
-                cumulativeDisplay = `C${j + 1} (${calculatedValue})`;
-                hasValidValues = true;
-              } else {
-                cumulativeDisplay += ` + C${j + 1} (${calculatedValue})`;
-              }
-              cumulativeSum += calculatedValue;
-              console.log(`Added C${j + 1} to cumulative sum: ${cumulativeDisplay} = ${cumulativeSum}`);
+              hasValidValues = true;
+              console.log(`Added C${j + 1} to cumulative sum: ${cumulativeSum}`);
             } else {
-              console.log(`Skipping C${j + 1} - no valid values`);
-            }
-            
-            // Add visual indicator for the currently active cell
-            if (j === i) {
-              cumulativeDisplay += ` ← [Processing]`;
+              console.log(`C${j + 1} has zero values, but still included in cumulative sum: ${cumulativeSum}`);
             }
           }
           
           // If no valid values found, show 0
           if (!hasValidValues) {
-            cumulativeDisplay = '0';
             cumulativeSum = 0;
-          } else {
-            // Remove the processing indicator for the final display
-            cumulativeDisplay = cumulativeDisplay.replace(' ← [Processing]', '');
-            // Add the final total to the display
-            cumulativeDisplay += ` = ${cumulativeSum}`;
           }
           
-          console.log(`Final cumulative display: "${cumulativeDisplay}"`);
           console.log(`Final cumulative sum: ${cumulativeSum}`);
           
           // Update the sum display to show cumulative addition as each cell is highlighted
-          console.log(`About to update state with cumulative sum: ${cumulativeDisplay} and decision: ${cumulativeSum > 0 ? 'Green' : cumulativeSum < 0 ? 'Red' : 'Undecided'}`);
+          console.log(`About to update state with cumulative sum: ${cumulativeSum} and decision: ${cumulativeSum > 0 ? 'Green' : cumulativeSum < 0 ? 'Red' : 'Undecided'}`);
           
           // Add visual feedback to the summary table (bottom left cell)
           const summaryCell = document.querySelector('.summary-table tr:nth-child(2) td:first-child');
@@ -762,7 +812,7 @@ function App() {
             console.log(`Previous state: sumOfValues=${prevData.sumOfValues}, networkDecision=${prevData.networkDecision}`);
             return {
               ...prevData,
-              sumOfValues: cumulativeDisplay,
+              sumOfValues: cumulativeSum.toString(),
               networkDecision: currentDecision
             };
           });
@@ -803,7 +853,7 @@ function App() {
             tableRow.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
           }
           
-          console.log(`Updated cumulative sum to: ${cumulativeDisplay} = ${cumulativeSum}`);
+          console.log(`Updated cumulative sum to: ${cumulativeSum}`);
           
           // Remove animation class after 0.5 seconds
           setTimeout(() => {
@@ -818,14 +868,39 @@ function App() {
     
     // Add completion message after all cells are processed
     setTimeout(() => {
+      // Clean up: Remove animation class from all value cells
+      for (let j = 0; j < totalNodes; j++) {
+        const valueCell = document.querySelector(`[data-row="${j}"][data-column="7"]`);
+        if (valueCell) {
+          valueCell.classList.remove('value-animation');
+        }
+      }
+      
       const summaryCell = document.querySelector('.summary-table tr:nth-child(2) td:first-child');
       if (summaryCell) {
-        // Ensure the final cumulative sum value is displayed (not the formula)
+        // Calculate the final total sum for display
         const finalData = getCurrentRoundData();
-        // Extract just the numeric value from the sumOfValues string
-        const finalSumMatch = finalData.sumOfValues.match(/= (-?\d+)$/);
-        const finalSumValue = finalSumMatch ? finalSumMatch[1] : finalData.sumOfValues;
-        summaryCell.innerHTML = finalSumValue;
+        let finalTotalSum = 0;
+        
+        // Calculate the total sum of all value cells
+        for (let j = 0; j < totalNodes; j++) {
+          const numericValue = finalData.numericValues[j] === '' ? 0 : parseFloat(finalData.numericValues[j]);
+          const weightValue = finalData.weightValues[j] === '' ? 0 : parseFloat(finalData.weightValues[j]);
+          const calculatedValue = Math.round(numericValue * weightValue);
+          
+          if (numericValue !== 0 && weightValue !== 0) {
+            finalTotalSum += calculatedValue;
+          }
+        }
+        
+        // Display the final total sum
+        summaryCell.innerHTML = finalTotalSum.toString();
+        
+        // Update the state with the final total sum
+        setCurrentRoundData(prevData => ({
+          ...prevData,
+          sumOfValues: finalTotalSum.toString()
+        }));
       }
       
       // Also finalize the network decision display (bottom right cell)
@@ -884,11 +959,17 @@ function App() {
       console.log('Saving data for current round:', currentRound);
       console.log('Current round circleColors being saved:', roundsData[currentRound]?.circleColors);
       
-      localStorage.setItem('aiNetworkData', JSON.stringify(dataToSave));
+      // Use different localStorage keys for 27 and 45 networks
+      // Determine the correct key based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+      
+      localStorage.setItem(storageKey, JSON.stringify(dataToSave));
       console.log('Data manually saved to localStorage:', dataToSave);
       
       // Verify the save was successful
-      const savedData = localStorage.getItem('aiNetworkData');
+      const savedData = localStorage.getItem(storageKey);
       if (savedData) {
         console.log('Data successfully verified in localStorage');
       } else {
@@ -901,7 +982,11 @@ function App() {
 
   // Function to check current localStorage content for debugging
   const checkLocalStorage = () => {
-    const savedData = localStorage.getItem('aiNetworkData');
+    // Determine the correct key based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+    const savedData = localStorage.getItem(storageKey);
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
@@ -947,8 +1032,12 @@ function App() {
   };
 
   const resetAllData = () => {
-    // Clear localStorage
-    localStorage.removeItem('aiNetworkData');
+    // Clear localStorage for the appropriate network type
+    // Determine the correct key based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+    localStorage.removeItem(storageKey);
     
     // Reset to initial state
     setCurrentRound(1);
@@ -961,21 +1050,21 @@ function App() {
         lightStates: [false, false, false],
         selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
         isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
-        circleColors: Array(is45Network ? 20 : 12).fill(''),
+        circleColors: Array(is45NetworkPage ? 20 : 12).fill(''),
         showCode: false,
         hasRun: false,
-        inputSelections: Array(is45Network ? 15 : 9).fill(''),
-        numericValues: Array(is45Network ? 15 : 9).fill(''),
-        weightValues: Array(is45Network ? 15 : 9).fill(''), // All rounds start empty
-        valueResults: Array(is45Network ? 15 : 9).fill(''),
-        previousNumericValues: Array(is45Network ? 15 : 9).fill(''),
+        inputSelections: Array(is45NetworkPage ? 15 : 9).fill(''),
+        numericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        weightValues: Array(is45NetworkPage ? 15 : 9).fill(''), // All rounds start empty
+        valueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousNumericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
         isAutoNumericActive: false,
-        previousWeightValues: Array(is45Network ? 15 : 9).fill(''),
+        previousWeightValues: Array(is45NetworkPage ? 15 : 9).fill(''),
         isAutoWeightActive: false,
         isUpdateWeightsAutoActive: false,
-        updateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
-        previousUpdateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
-        previousValueResults: Array(is45Network ? 15 : 9).fill(''),
+        updateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousUpdateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousValueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
         isAutoValueActive: false,
         sumOfValues: '',
         networkDecision: '',
@@ -1012,21 +1101,21 @@ function App() {
             lightStates: [false, false, false],
             selectedButton: i === 1 ? 'green' : null, // Round 1 always green, others null initially
             isHidden: i === 1 ? true : false, // Round 1 starts hidden, others visible initially
-            circleColors: Array(is45Network ? 20 : 12).fill(''),
+            circleColors: Array(is45NetworkPage ? 20 : 12).fill(''),
             showCode: false,
             hasRun: false,
-            inputSelections: Array(is45Network ? 15 : 9).fill(''),
-            numericValues: Array(is45Network ? 15 : 9).fill(''),
-            weightValues: Array(is45Network ? 15 : 9).fill(''), // All rounds start empty
-            valueResults: Array(is45Network ? 15 : 9).fill(''),
-            previousNumericValues: Array(is45Network ? 15 : 9).fill(''),
+            inputSelections: Array(is45NetworkPage ? 15 : 9).fill(''),
+            numericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+            weightValues: Array(is45NetworkPage ? 15 : 9).fill(''), // All rounds start empty
+            valueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
+            previousNumericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
             isAutoNumericActive: false,
-            previousWeightValues: Array(is45Network ? 15 : 9).fill(''),
+            previousWeightValues: Array(is45NetworkPage ? 15 : 9).fill(''),
             isAutoWeightActive: false,
             isUpdateWeightsAutoActive: false,
-            updateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
-            previousUpdateWeightsValues: Array(is45Network ? 15 : 9).fill(''),
-            previousValueResults: Array(is45Network ? 15 : 9).fill(''),
+            updateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+            previousUpdateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+            previousValueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
             isAutoValueActive: false,
             sumOfValues: '',
             networkDecision: '',
@@ -1153,13 +1242,20 @@ function App() {
     const currentData = getCurrentRoundData();
     if (!currentData.isAutoWeightActive) {
       // Save current values and apply auto-fill
+      // Determine the correct node count based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const totalNodes = is45NetworkPage ? 15 : 9;
+      
+      console.log(`handleAutoWeight: Setting weight values to 20 for round ${currentRound}`);
       setCurrentRoundData({ 
         previousWeightValues: [...currentData.weightValues],
-        weightValues: Array(is45Network ? 15 : 9).fill('20'),
+        weightValues: Array(totalNodes).fill('20'),
         isAutoWeightActive: true
       })
     } else {
       // Restore previous values and deactivate auto
+      console.log(`handleAutoWeight: Restoring previous weight values for round ${currentRound}:`, currentData.previousWeightValues);
       setCurrentRoundData({ 
         weightValues: [...currentData.previousWeightValues],
         isAutoWeightActive: false
@@ -1203,7 +1299,10 @@ function App() {
       const newUpdateWeightsValues = []
       
       // UNIFIED LOGIC FOR ALL ROUNDS: Add/subtract 10 from current weight
-      const totalNodes = is45Network ? 15 : 9;
+      // Determine the correct node count based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const totalNodes = is45NetworkPage ? 15 : 9;
       for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0 // Get current weight from main table, default to 0 if empty
@@ -1235,7 +1334,7 @@ function App() {
       })
       
       // Detailed debugging for each node
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < totalNodes; i++) {
         const cNodeInput = cNodeInputs[i]
         const currentWeight = parseInt(currentData.weightValues[i]) || 0
         const newWeight = newUpdateWeightsValues[i]
@@ -1254,7 +1353,7 @@ function App() {
       // When deactivating auto, show blank input boxes for user editing
       // Clear the calculated weights and show empty input boxes
       setCurrentRoundData({ 
-        updateWeightsValues: Array(9).fill(''),
+        updateWeightsValues: Array(totalNodes).fill(''),
         isUpdateWeightsAutoActive: false
       })
     }
@@ -1267,7 +1366,10 @@ function App() {
     const currentData = getCurrentRoundData();
     if (!currentData.isAutoValueActive) {
       // Save current values and apply auto-fill
-      const totalNodes = is45Network ? 15 : 9;
+      // Determine the correct node count based on the current URL path, not the state
+      const currentPath = window.location.pathname;
+      const is45NetworkPage = currentPath.includes('45-network');
+      const totalNodes = is45NetworkPage ? 15 : 9;
       setCurrentRoundData({ 
         previousValueResults: [...currentData.valueResults],
         valueResults: Array(totalNodes).fill('').map((_, i) => {
@@ -1306,10 +1408,13 @@ function App() {
     
     // Calculate weight values (only if auto weight is active)
     // Don't create new weight values - preserve existing ones when auto is active
-    const newWeightValues = Array(is45Network ? 15 : 9).fill('')
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    const newWeightValues = Array(totalNodes).fill('')
     
     // Calculate value results based on current numeric and weight values (only if auto value is active)
-    const totalNodes = is45Network ? 15 : 9;
     const newValueResults = Array(totalNodes).fill('')
     for (let i = 0; i < totalNodes; i++) {
       const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i])
@@ -1346,10 +1451,20 @@ function App() {
   }
 
   const calculateSummary = () => {
-    // Calculate sum of all values
-    const sum = getCurrentRoundData().valueResults.reduce((total, value) => {
-      return total + (value === '' ? 0 : parseFloat(value))
-    }, 0)
+    // Calculate sum of all values directly from numeric and weight values
+    const currentData = getCurrentRoundData();
+    // Determine the correct node count based on the current URL path, not the state
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const totalNodes = is45NetworkPage ? 15 : 9;
+    
+    let sum = 0;
+    for (let i = 0; i < totalNodes; i++) {
+      const numericValue = currentData.numericValues[i] === '' ? 0 : parseFloat(currentData.numericValues[i]);
+      const weightValue = currentData.weightValues[i] === '' ? 0 : parseFloat(currentData.weightValues[i]);
+      const calculatedValue = Math.round(numericValue * weightValue);
+      sum += calculatedValue;
+    }
     
     setCurrentRoundData({ sumOfValues: sum.toString() });
     
@@ -2165,8 +2280,8 @@ function App() {
                     </button>
                   </div>
 
-                  {/* Network Decision table and Traffic Light State button - Only visible after Compute button is pressed */}
-                  {getCurrentRoundData().showNetworkDecision && (
+                  {/* Network Decision table and Traffic Light State button - Always visible on 45-network page, or after Compute button is pressed on 27-network page */}
+                  {(getCurrentRoundData().showNetworkDecision || window.location.pathname.includes('45-network')) && (
                     <>
                       <div className="summary-table-container">
                         <table className={`summary-table ${colorScheme}`}>
@@ -2191,30 +2306,35 @@ function App() {
                         </table>
                       </div>
 
-                      <div className="traffic-light-state-button-container">
-                        <button 
-                          className={`traffic-light-state-button ${getCurrentRoundData().showTrafficLight ? 'selected' : ''} ${colorScheme}`}
-                          onClick={toggleTrafficLight}
-                        >
-                          Traffic Light State
-                        </button>
-                      </div>
-
-                      {getCurrentRoundData().showTrafficLight && (
-                        <div className="traffic-light-display">
-                          <div className="traffic-light-housing">
-                            <div
-                              className={`traffic-light-red ${currentRound === 1 ? 'inactive' : getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
+                      {/* Only show traffic light state button if network decision has been computed */}
+                      {getCurrentRoundData().showNetworkDecision && (
+                        <>
+                          <div className="traffic-light-state-button-container">
+                            <button 
+                              className={`traffic-light-state-button ${getCurrentRoundData().showTrafficLight ? 'selected' : ''} ${colorScheme}`}
+                              onClick={toggleTrafficLight}
                             >
-                              {currentRound === 1 ? '' : getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
-                            </div>
-                            <div
-                              className={`traffic-light-green ${currentRound === 1 ? 'active' : getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
-                            >
-                              {currentRound === 1 ? <span className="traffic-light-letter">G</span> : getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
-                            </div>
+                              Traffic Light State
+                            </button>
                           </div>
-                        </div>
+
+                          {getCurrentRoundData().showTrafficLight && (
+                            <div className="traffic-light-display">
+                              <div className="traffic-light-housing">
+                                <div
+                                  className={`traffic-light-red ${currentRound === 1 ? 'inactive' : getCurrentRoundData().selectedButton === 'red' ? 'active' : 'inactive'}`}
+                                >
+                                  {currentRound === 1 ? '' : getCurrentRoundData().selectedButton === 'red' && <span className="traffic-light-letter">R</span>}
+                                </div>
+                                <div
+                                  className={`traffic-light-green ${currentRound === 1 ? 'active' : getCurrentRoundData().selectedButton === 'green' ? 'active' : 'inactive'}`}
+                                >
+                                  {currentRound === 1 ? <span className="traffic-light-letter">G</span> : getCurrentRoundData().selectedButton === 'green' && <span className="traffic-light-letter">G</span>}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </>
                       )}
                     </>
                   )}

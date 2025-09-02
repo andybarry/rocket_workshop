@@ -634,7 +634,7 @@
         
         <button class="instructor-slides-button">Instructor Slides</button>
         
-        <button class="start-button">Start</button>
+        <button class="start-button" onclick="startNetwork()">Start</button>
     </div>
     
     <script>
@@ -686,6 +686,20 @@
             console.log('Color scheme changing to:', scheme);
             // For now, just log the change since this page doesn't have the full color scheme implementation
             // In a full implementation, this would update the header and button colors
+        }
+        
+        // Start Network function
+        function startNetwork() {
+            const select = document.getElementById('participant-select');
+            const selectedValue = select.value;
+            
+            if (selectedValue === '27') {
+                // Open the main page (27 network) in a new tab
+                window.open('http://localhost:5173/', '_blank');
+            } else if (selectedValue === '45') {
+                // Open the 45 network page in a new tab
+                window.open('http://localhost:5173/45-network.html', '_blank');
+            }
         }
     </script>
     

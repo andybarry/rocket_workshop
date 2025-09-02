@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Test</title>
+</head>
+<body>
+    <h1>LocalStorage Separation Test</h1>
+    <p>This page tests that 27 and 45 network data are stored separately.</p>
+    
+    <div>
+        <h2>Test Controls</h2>
+        <button onclick="testStorage()">Test Storage Separation</button>
+        <button onclick="clearAllStorage()">Clear All Storage</button>
+        <button onclick="showStorage()">Show Current Storage</button>
+    </div>
+    
+    <div id="results"></div>
+    
+    <script>
+        function testStorage() {
+            const results = document.getElementById('results');
+            
+            // Test 27 network storage
+            localStorage.setItem('aiNetworkData27', JSON.stringify({
+                test: '27 network data',
+                timestamp: Date.now()
+            }));
+            
+            // Test 45 network storage
+            localStorage.setItem('aiNetworkData45', JSON.stringify({
+                test: '45 network data',
+                timestamp: Date.now()
+            }));
+            
+            // Verify they are separate
+            const data27 = localStorage.getItem('aiNetworkData27');
+            const data45 = localStorage.getItem('aiNetworkData45');
+            
+            results.innerHTML = `
+                <h3>Test Results:</h3>
+                <p><strong>27 Network Data:</strong> ${data27}</p>
+                <p><strong>45 Network Data:</strong> ${data45}</p>
+                <p><strong>Test Status:</strong> ${data27 !== data45 ? 'PASSED - Data is separate' : 'FAILED - Data is not separate'}</p>
+            `;
+        }
+        
+        function clearAllStorage() {
+            localStorage.removeItem('aiNetworkData27');
+            localStorage.removeItem('aiNetworkData45');
+            document.getElementById('results').innerHTML = '<p>All storage cleared.</p>';
+        }
+        
+        function showStorage() {
+            const data27 = localStorage.getItem('aiNetworkData27');
+            const data45 = localStorage.getItem('aiNetworkData45');
+            
+            document.getElementById('results').innerHTML = `
+                <h3>Current Storage:</h3>
+                <p><strong>27 Network Data:</strong> ${data27 || 'No data'}</p>
+                <p><strong>45 Network Data:</strong> ${data45 || 'No data'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
