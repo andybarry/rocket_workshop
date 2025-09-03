@@ -904,11 +904,13 @@ function App() {
           if (networkDecisionCell) {
             // Add a brief highlight effect to the network decision cell
             networkDecisionCell.classList.add('updating');
-            // Show just the decision text without explanation
-            networkDecisionCell.innerHTML = `<span class="summary-row-${currentDecision.toLowerCase()}">${currentDecision}</span>`;
+            // The text content will be updated by React state, just add the updating class
             setTimeout(() => {
               networkDecisionCell.classList.remove('updating');
-            }, 300);
+              // Add the appropriate color class after the updating animation is done
+              networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+              networkDecisionCell.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
+            }, 1000);
           }
           
           // Update background colors for both cells based on the decision
@@ -919,13 +921,6 @@ function App() {
             summaryCell.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
           }
           
-          if (networkDecisionCell) {
-            // Remove any existing color classes
-            networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
-            // Add the appropriate color class
-            networkDecisionCell.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
-          }
-          
           // Update the table row background color in real-time
           const tableRow = summaryCell?.closest('tr');
           if (tableRow) {
@@ -933,6 +928,7 @@ function App() {
             tableRow.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
             // Add the appropriate row color class
             tableRow.classList.add(`summary-row-${currentDecision.toLowerCase()}`);
+            console.log('Applied row class:', `summary-row-${currentDecision.toLowerCase()}`);
           }
           
           console.log(`Updated cumulative sum to: ${cumulativeSum}`);
@@ -989,7 +985,10 @@ function App() {
       const networkDecisionCell = document.querySelector('.summary-table tr:nth-child(2) td:nth-child(2)');
       if (networkDecisionCell) {
         const finalDecision = getCurrentRoundData().networkDecision;
-        networkDecisionCell.innerHTML = `<span class="summary-row-${finalDecision.toLowerCase()}">${finalDecision}</span>`;
+        console.log('Final network decision:', finalDecision);
+        // Add the appropriate color class for the final decision
+        networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
+        networkDecisionCell.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
       }
       
       // Ensure final background colors are set for both cells
@@ -997,12 +996,6 @@ function App() {
         const finalDecision = getCurrentRoundData().networkDecision;
         summaryCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
         summaryCell.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
-      }
-      
-      if (networkDecisionCell) {
-        const finalDecision = getCurrentRoundData().networkDecision;
-        networkDecisionCell.classList.remove('summary-row-red', 'summary-row-green', 'summary-row-undecided');
-        networkDecisionCell.classList.add(`summary-row-${finalDecision.toLowerCase()}`);
       }
       
       // Ensure final row background color is set correctly
@@ -2490,7 +2483,7 @@ function App() {
                       <tr>
                         <td>Round</td>
                         <td>Network Status</td>
-                        <td>Sum</td>
+                        <td>Sum of (C) Nodes</td>
                       </tr>
                       {currentRound === 1 ? (
                         // Round 1: Show only current round data
@@ -2600,7 +2593,7 @@ function App() {
             <button className="reset-button" onClick={resetAllData}>
               Reset
             </button>
-            <div className="version-number">V25.8</div>
+            <div className="version-number">V25.9</div>
           </div>
         </div>
       </div>
