@@ -489,6 +489,48 @@ function App() {
     // Remove the code that clears weight data - we want to preserve auto-set weights
   }, []);
 
+  // Mouse tracking for yellow highlight glow
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      // Update CSS custom properties for mouse position
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    };
+
+    const handleMouseDown = (e) => {
+      // Check if right mouse button is pressed (button 2)
+      if (e.button === 2) {
+        document.body.classList.add('right-mouse-down');
+      }
+    };
+
+    const handleMouseUp = (e) => {
+      // Remove the class when any mouse button is released
+      document.body.classList.remove('right-mouse-down');
+    };
+
+    const handleContextMenu = (e) => {
+      // Prevent default context menu when right mouse button is held
+      e.preventDefault();
+    };
+
+    // Add event listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    // Cleanup function
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      // Remove the class when component unmounts
+      document.body.classList.remove('right-mouse-down');
+    };
+  }, []);
+
   // Add GPU state to all rounds that don't have it (run first)
   useEffect(() => {
     console.log('GPU state useEffect running...');
@@ -2125,29 +2167,23 @@ function App() {
               <div 
                 className="circles-grid"
                 style={is45Network ? { 
+                  display: 'grid !important',
+                  gridTemplateColumns: 'repeat(5, 1fr) !important',
                   justifyContent: 'center',
-                  display: 'flex !important',
-                  flexWrap: 'wrap',
                   maxWidth: '70%',
                   margin: '0 auto',
                   gap: '10px',
                   width: '100%',
-                  gridTemplateColumns: 'none !important',
-                  grid: 'none !important',
-                  gridTemplateRows: 'none !important',
-                  gridAutoColumns: 'none !important',
-                  gridAutoRows: 'none !important'
+                  placeItems: 'center'
                 } : {}}
               >
                 {Array.from({ length: is45Network ? 20 : 12 }, (_, i) => i + 1).map((num) => (
                   <div 
                     key={num} 
                     className="circle-item"
-                    style={is45Network ? {
-                      flex: '0 0 calc(14.285% - 1px) !important',
-                      minWidth: 'calc(14.285% - 1px) !important',
-                      maxWidth: 'calc(14.285% - 1px) !important',
-                      width: 'calc(14.285% - 1px) !important'
+                    style={is45Network && num >= 19 ? {
+                      justifySelf: 'center',
+                      gridColumn: num === 19 ? '3' : '4'
                     } : {}}
                   >
                     <span className="circle-label">A{num}</span>

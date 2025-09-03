@@ -50,6 +50,44 @@ html, body {
   background: white;
 }
 
+/* Yellow highlight glow for right mouse button */
+body.right-mouse-down::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(
+    circle 50px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 0, 0.6) 0%,
+    rgba(255, 255, 0, 0.3) 30%,
+    transparent 70%
+  );
+  transition: none;
+}
+
+/* Enhanced glow effect */
+body.right-mouse-down::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle 80px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 0, 0.4) 0%,
+    rgba(255, 255, 0, 0.15) 50%,
+    transparent 80%
+  );
+  transition: none;
+}
+
 /* Fixed Header Section */
 .fixed-header {
   position: fixed;
@@ -425,6 +463,12 @@ html {
   max-width: 60%;
   height: auto;
   border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.content-image:hover {
+  transform: scale(1.02);
 }
 
 .traffic-light-section {
@@ -767,6 +811,12 @@ html {
   height: 35px;
   max-width: 1200px;
   min-width: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.text-box:hover {
+  box-shadow: 0 0 15px rgba(164, 194, 244, 0.8);
 }
 
 .text-box-content {
@@ -777,6 +827,11 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
+}
+
+.text-box:hover .text-box-content {
+  font-size: 1.35rem;
 }
 
 .hidden-layer-text-box {
@@ -794,6 +849,12 @@ html {
   position: relative;
   max-width: 1200px;
   min-width: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hidden-layer-text-box:hover {
+  box-shadow: 0 0 15px rgba(255, 171, 214, 0.8);
 }
 
 .hidden-layer-text-content {
@@ -807,6 +868,11 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
+}
+
+.hidden-layer-text-box:hover .hidden-layer-text-content {
+  font-size: 1.35rem;
 }
 
 .expand-text {
@@ -1023,6 +1089,12 @@ html {
   position: relative;
   max-width: 1200px;
   min-width: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.output-text-box:hover {
+  box-shadow: 0 0 15px rgba(182, 215, 168, 0.8);
 }
 
 .output-text-box-content {
@@ -1036,6 +1108,11 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
+}
+
+.output-text-box:hover .output-text-box-content {
+  font-size: 1.35rem;
 }
 
 .tables-wrapper {
@@ -1104,7 +1181,7 @@ html {
   text-align: center;
   font-weight: bold;
   border: 1px solid #ccc;
-  font-size: 0.7rem; /* Reduced font size for table headers */
+  font-size: 0.9rem; /* Increased font size for table headers */
 }
 
 .output-table td {
@@ -1276,7 +1353,7 @@ html {
 /* Individual cell hover effects - yellow border highlighting */
 .output-table th:hover {
   border: 3px solid #ffeb3b !important;
-  font-size: 0.8rem !important;
+  font-size: 0.9rem !important;
   line-height: 1.2 !important;
   height: 25px !important;
   min-height: 25px !important;
@@ -1295,7 +1372,7 @@ html {
 /* Data row cell hover effects with enhanced font size */
 .output-table tbody td:hover {
   border: 3px solid #ffeb3b !important;
-  font-size: 0.9rem !important;
+  font-size: 1.2rem !important;
   font-weight: bold !important;
   line-height: 1.2 !important;
   height: 25px !important;
@@ -1316,19 +1393,19 @@ html {
 .output-table tbody td:hover input,
 .output-table tbody td:hover select,
 .output-table tbody td:hover .auto-fill-input {
-  font-size: 0.9rem !important;
+  font-size: 1.2rem !important;
   font-weight: bold !important;
 }
 
 /* Enhanced font size for select elements specifically */
 .output-table tbody td:hover select {
-  font-size: 0.9rem !important;
+  font-size: 1.2rem !important;
   font-weight: bold !important;
 }
 
 /* Enhanced font size for span elements (auto-displayed values) */
 .output-table tbody td:hover span {
-  font-size: 0.9rem !important;
+  font-size: 1.2rem !important;
   font-weight: bold !important;
 }
 
@@ -1376,8 +1453,8 @@ html {
   table-layout: fixed !important;
   width: 100% !important;
   height: auto !important;
-  min-height: 400px;
-  max-height: 500px;
+  min-height: 400px !important;
+  max-height: 500px !important;
 }
 
 .update-weights-table th {
@@ -1393,7 +1470,7 @@ html {
   margin: 0 !important;
   text-align: center !important;
   vertical-align: middle !important;
-  font-size: 0.7rem !important; /* Reduced font size for table headers */
+  font-size: 0.9rem !important; /* Increased font size for table headers */
 }
 
 .update-weights-table tbody td {
@@ -1414,7 +1491,7 @@ html {
 /* Update weights table header cell hover effects */
 .update-weights-table th:hover {
   border: 3px solid #ffeb3b !important;
-  font-size: 0.8rem !important;
+  font-size: 1.1rem !important;
   line-height: 1.2 !important;
   height: 25px !important;
   min-height: 25px !important;
@@ -1448,6 +1525,8 @@ html {
   margin: 0 !important;
   text-align: center !important;
   vertical-align: middle !important;
+  transform: none !important;
+  display: table-cell !important;
 }
 
 /* Enhanced font size for interactive elements in update weights table data rows */
@@ -1456,6 +1535,10 @@ html {
 .update-weights-table tbody td:hover .auto-fill-input {
   font-size: 1.4rem !important;
   font-weight: bold !important;
+  height: 2.4rem !important;
+  max-height: 2.4rem !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 /* Enhanced font size for select elements in update weights table specifically */
@@ -1468,6 +1551,11 @@ html {
 .update-weights-table tbody td:hover span {
   font-size: 1.4rem !important;
   font-weight: bold !important;
+  height: 2.4rem !important;
+  max-height: 2.4rem !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  line-height: 2.4rem !important;
 }
 
 /* Summary table hover effects - yellow border highlighting and font size increase */
@@ -1597,14 +1685,14 @@ html {
 }
 
 .auto-buttons-row td {
-  padding: 0.4rem;
+  padding: 0.2rem;
   text-align: center;
   border: none !important;
   background: transparent;
   vertical-align: middle;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
+  height: 20px;
+  min-height: 20px;
+  max-height: 20px;
 }
 
 .update-weights-auto-row {
@@ -1613,6 +1701,9 @@ html {
   border-left: none !important;
   border-right: none !important;
   border-bottom: none !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
 }
 
 .update-weights-table .update-weights-auto-row td {
@@ -1631,6 +1722,8 @@ html {
   min-width: inherit !important;
   max-width: inherit !important;
   margin: 0 !important;
+  font-size: inherit !important;
+  line-height: 1.2 !important;
 }
 
 .update-weights-table .update-weights-auto-row td:hover {
@@ -1738,11 +1831,11 @@ html {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 40%;
+  width: 45%;
   margin-left: auto;
   margin-right: auto;
-  min-width: 300px;
-  max-width: 500px;
+  min-width: 250px;
+  max-width: 450px;
 }
 
 .summary-horizontal-line {
@@ -1997,6 +2090,21 @@ html {
   transform: translateY(100%);
 }
 
+/* Bar hover effect - yellow border highlight */
+.bar:hover {
+  border: 3px solid #ffeb3b !important;
+  box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.bar.negative:hover {
+  border: 3px solid #ffeb3b !important;
+  box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+  transform: translateY(100%) scale(1.05);
+  z-index: 10;
+}
+
 .bar-value {
   position: absolute;
   top: -20px;
@@ -2089,6 +2197,7 @@ html {
   overflow: hidden;
   box-sizing: border-box;
   vertical-align: middle;
+  font-size: 0.9rem; /* Increased font size for table headers */
 }
 
 .update-weights-table td {
@@ -2290,8 +2399,8 @@ html {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   table-layout: fixed;
-  min-width: 300px;
-  max-width: 500px;
+  min-width: 250px;
+  max-width: 450px;
 }
 
 .summary-table td {
@@ -2545,6 +2654,12 @@ html {
   position: relative;
   max-width: 1200px;
   min-width: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.summary-text-box:hover {
+  box-shadow: 0 0 15px rgba(128, 128, 128, 0.8);
 }
 
 .summary-text-box-content {
@@ -2558,6 +2673,11 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
+}
+
+.summary-text-box:hover .summary-text-box-content {
+  font-size: 1.35rem;
 }
 
 .summary-text-box .expand-text {
@@ -2568,9 +2688,11 @@ html {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
-  width: 60%;
+  width: 45%;
   margin-left: auto;
   margin-right: auto;
+  min-width: 250px;
+  max-width: 450px;
 }
 
 .summary-details-table {
@@ -3076,9 +3198,9 @@ html {
     display: inline-block;
   }
   
-  /* Reduced hover font size for tablets */
+  /* Enhanced hover font size for tablets */
   .output-table tbody td:hover select {
-    font-size: 0.95rem !important;
+    font-size: 1.1rem !important;
     font-weight: bold !important;
   }
 
@@ -3230,9 +3352,9 @@ html {
     line-height: 1;
   }
   
-  /* Reduced hover font size for medium screens */
+  /* Enhanced hover font size for medium screens */
   .output-table tbody td:hover select {
-    font-size: 1.0rem !important;
+    font-size: 1.2rem !important;
     font-weight: bold !important;
   }
   
@@ -3367,9 +3489,9 @@ html {
     line-height: 1;
   }
   
-  /* Reduced hover font size for mobile */
+  /* Enhanced hover font size for mobile */
   .output-table tbody td:hover select {
-    font-size: 0.9rem !important;
+    font-size: 1.1rem !important;
     font-weight: bold !important;
   }
   
@@ -3585,9 +3707,9 @@ html {
     line-height: 1;
   }
   
-  /* Reduced hover font size for very small screens */
+  /* Enhanced hover font size for very small screens */
   .output-table tbody td:hover select {
-    font-size: 0.8rem !important;
+    font-size: 1.0rem !important;
     font-weight: bold !important;
   }
   
