@@ -2074,6 +2074,11 @@ function App() {
                 className="content-image" 
                 style={is45Network ? { width: '70%', maxWidth: '70%' } : {}}
               />
+              {currentRound === 1 && (
+                <button className="reset-button-image" onClick={resetAllData}>
+                  Reset
+                </button>
+              )}
             </div>
             <div 
               className="text-box"

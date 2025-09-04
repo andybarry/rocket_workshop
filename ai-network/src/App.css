@@ -457,6 +457,7 @@ html {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .content-image {
@@ -469,6 +470,34 @@ html {
 
 .content-image:hover {
   transform: scale(1.02);
+}
+
+.reset-button-image {
+  background: white;
+  color: #999;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 0.15rem 0.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  position: absolute;
+  top: -1.5rem;
+  right: 1.0rem;
+  margin: 0;
+}
+
+.reset-button-image:hover {
+  background: #f5f5f5;
+  border-color: #999;
+  color: #666;
+}
+
+.reset-button-image:active {
+  background: #e5e5e5;
+  transform: translateY(1px);
 }
 
 .traffic-light-section {
