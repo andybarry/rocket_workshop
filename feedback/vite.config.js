@@ -8,12 +8,13 @@ export default defineConfig({
     port: 5174,
     strictPort: true
   },
-  base: '/feedback.html',
+  base: '/',
   build: {
     outDir: 'dist',
     rollupOptions: {
       input: {
-        feedback: './index.html'
+        feedback: './index.html',
+        'feedback-data': './feedback-data.html'
       }
     }
   }
