@@ -734,3 +734,193 @@ html, body {
 .spreadsheet-cell.selected:hover .cell-input {
   background-color: #e3f2fd !important;
 }
+
+/* AI Feedback Survey Styles */
+.main-content {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.main-content h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.main-content p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.survey-form {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(240, 95, 64, 0.2);
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-group:hover {
+  box-shadow: 0 4px 12px rgba(240, 95, 64, 0.4);
+}
+
+.form-group label {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.form-group label.required::after {
+  content: " *";
+  color: #f05f40;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  background-color: white;
+  color: #333;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #f05f40;
+  box-shadow: 0 0 0 3px rgba(240, 95, 64, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #e1e5e9;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  min-height: 44px;
+}
+
+.radio-option:hover {
+  background-color: #f0f0f0;
+  border-color: #f05f40;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 0.5rem;
+  transform: scale(1.0);
+  align-self: center;
+  flex-shrink: 0;
+  accent-color: #f05f40;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"]:checked {
+  background-color: #f05f40;
+  border-color: #f05f40;
+}
+
+.radio-option label {
+  font-weight: normal;
+  text-align: left;
+  flex: 1;
+  cursor: pointer;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-option input[type="radio"]:checked + label {
+  color: #f05f40;
+  font-weight: normal;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+  background-color: #fff3e0;
+  border-color: #f05f40;
+}
+
+.submit-button {
+  background-color: #f05f40;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #e04a2b;
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+}
+
+.success-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  color: #155724;
+  margin-top: 1rem;
+}
+
+.success-message h2 {
+  color: #155724;
+  margin-bottom: 1rem;
+}
