@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function FeedbackData() {
@@ -14,6 +14,104 @@ function FeedbackData() {
   const [isSelecting, setIsSelecting] = useState(false)
   const [selectionStart, setSelectionStart] = useState(null)
   const [cellData, setCellData] = useState({})
+  const [feedbackData, setFeedbackData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [deleteRowIndex, setDeleteRowIndex] = useState(null)
+
+  // Fetch feedback data from backend
+  useEffect(() => {
+    const fetchFeedbackData = async () => {
+      try {
+        setLoading(true)
+        console.log('Fetching data for workshop:', selectedWorkshop)
+        
+        // Try multiple endpoints in case of connectivity issues
+        const endpoints = [
+          `http://localhost:3001/api/feedback/${selectedWorkshop}`,
+          `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+        ]
+        
+        let response = null
+        for (const endpoint of endpoints) {
+          try {
+            console.log('Trying endpoint:', endpoint)
+            response = await fetch(endpoint, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              mode: 'cors'
+            })
+            if (response.ok) {
+              console.log('Success with endpoint:', endpoint)
+              break
+            }
+          } catch (err) {
+            console.log('Failed with endpoint:', endpoint, err.message)
+            continue
+          }
+        }
+        
+        if (response && response.ok) {
+          const data = await response.json()
+          console.log('Received data:', data)
+          setFeedbackData(data)
+          setError(null)
+        } else {
+          console.error('All endpoints failed')
+          setError('Failed to fetch feedback data - server may be down')
+        }
+      } catch (err) {
+        console.error('Fetch error:', err)
+        setError('Network error: ' + err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchFeedbackData()
+  }, [selectedWorkshop])
+
+  // Convert feedback data to spreadsheet format
+  const convertFeedbackToSpreadsheet = () => {
+    const spreadsheetData = {}
+    
+    feedbackData.forEach((feedback, rowIndex) => {
+      const columns = [
+        feedback.date || '',
+        feedback['workshop-location'] || '',
+        feedback['had-fun'] || '',
+        feedback['favorite-part'] || '',
+        feedback['challenged-appropriately'] || '',
+        feedback['ai-tools-before'] || '',
+        feedback['ai-tools-after'] || '',
+        feedback['neural-networks-before'] || '',
+        feedback['neural-networks-after'] || '',
+        feedback['instructor'] || '',
+        feedback['instructor-prepared'] || '',
+        feedback['instructor-knowledgeable'] || '',
+        feedback['workshop-comparison'] || '',
+        feedback['comments'] || '',
+        '' // Empty column
+      ]
+      
+      columns.forEach((value, colIndex) => {
+        const cellId = `${rowIndex}-${colIndex}`
+        spreadsheetData[cellId] = value
+      })
+    })
+    
+    return spreadsheetData
+  }
+
+  // Update cell data when feedback data changes
+  useEffect(() => {
+    if (feedbackData.length > 0) {
+      const spreadsheetData = convertFeedbackToSpreadsheet()
+      setCellData(spreadsheetData)
+    }
+  }, [feedbackData])
 
   const handleMouseDown = (e, columnIndex) => {
     e.preventDefault()
@@ -166,6 +264,94 @@ function FeedbackData() {
         clearSelectedCells()
       }
     }
+  }
+
+  const handleRowNumberDoubleClick = (rowIndex) => {
+    // Only allow delete for rows that have actual data
+    if (rowIndex < feedbackData.length) {
+      setDeleteRowIndex(rowIndex)
+    }
+  }
+
+  const handleDeleteRow = async (rowIndex) => {
+    if (rowIndex >= feedbackData.length) return
+    
+    const feedbackToDelete = feedbackData[rowIndex]
+    console.log('Attempting to delete feedback:', feedbackToDelete)
+    
+    if (!feedbackToDelete.id) {
+      console.error('No ID found for feedback entry:', feedbackToDelete)
+      alert('Cannot delete: No ID found for this feedback entry.')
+      return
+    }
+
+    try {
+      // Delete from backend
+      const endpoints = [
+        `http://localhost:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`,
+        `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
+      ]
+      
+      let response = null
+      let lastError = null
+      
+      for (const endpoint of endpoints) {
+        try {
+          console.log('Trying delete endpoint:', endpoint)
+          response = await fetch(endpoint, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+            credentials: 'include'
+          })
+          console.log('Delete response status:', response.status)
+          console.log('Delete response headers:', response.headers)
+          if (response.ok) {
+            const responseData = await response.json()
+            console.log('Delete response data:', responseData)
+            break
+          } else {
+            const errorText = await response.text()
+            console.error('Delete failed with status:', response.status, 'Error:', errorText)
+            lastError = errorText
+          }
+        } catch (err) {
+          console.error('Delete request failed:', err)
+          lastError = err.message
+          continue
+        }
+      }
+
+      if (response && response.ok) {
+        // Remove from local state
+        const newFeedbackData = feedbackData.filter((_, index) => index !== rowIndex)
+        setFeedbackData(newFeedbackData)
+        
+        // Clear any cell data for this row
+        const newCellData = { ...cellData }
+        for (let colIndex = 0; colIndex < 15; colIndex++) {
+          const cellId = `${rowIndex}-${colIndex}`
+          delete newCellData[cellId]
+        }
+        setCellData(newCellData)
+        
+        // Hide delete button
+        setDeleteRowIndex(null)
+        console.log('Successfully deleted feedback entry')
+      } else {
+        console.error('Failed to delete feedback. Last error:', lastError)
+        alert(`Failed to delete feedback: ${lastError || 'Unknown error'}`)
+      }
+    } catch (err) {
+      console.error('Delete error:', err)
+      alert(`Error deleting feedback: ${err.message}`)
+    }
+  }
+
+  const handleClickAway = () => {
+    setDeleteRowIndex(null)
   }
 
   const renderCharts = () => {
@@ -492,7 +678,7 @@ function FeedbackData() {
         </div>
       </div>
       
-      <div className="spreadsheet-controls" style={{ marginTop: '40px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px' }}>
+      <div className="spreadsheet-controls" style={{ marginTop: '40px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <label className="lock-cells-checkbox">
           <input 
             type="checkbox" 
@@ -501,6 +687,26 @@ function FeedbackData() {
           />
           Lock Cells
         </label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {loading && <span style={{ color: '#666' }}>Loading...</span>}
+          {error && <span style={{ color: 'red' }}>Error: {error}</span>}
+          <button 
+            onClick={() => window.location.reload()} 
+            style={{ 
+              padding: '5px 10px', 
+              backgroundColor: '#f05f40', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '3px',
+              cursor: 'pointer'
+            }}
+          >
+            Refresh Data
+          </button>
+          <span style={{ color: '#666', fontSize: '14px' }}>
+            {feedbackData.length} responses
+          </span>
+        </div>
       </div>
       
       <div className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
@@ -617,10 +823,39 @@ function FeedbackData() {
               ))
             )}
           </div>
-          <div className="spreadsheet-body">
-            {Array.from({ length: 1000 }, (_, rowIndex) => (
+          <div className="spreadsheet-body" onClick={handleClickAway}>
+            {Array.from({ length: Math.max(100, feedbackData.length + 10) }, (_, rowIndex) => (
               <div key={rowIndex} className="spreadsheet-row">
-                <div className="row-number">{rowIndex + 1}</div>
+                <div 
+                  className="row-number" 
+                  onDoubleClick={() => handleRowNumberDoubleClick(rowIndex)}
+                  style={{ cursor: rowIndex < feedbackData.length ? 'pointer' : 'default' }}
+                >
+                  {deleteRowIndex === rowIndex ? (
+                    <button
+                      className="delete-button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDeleteRow(rowIndex)
+                      }}
+                      style={{
+                        background: '#ff4444',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '3px',
+                        padding: '2px 6px',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        width: '100%',
+                        height: '100%'
+                      }}
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    rowIndex + 1
+                  )}
+                </div>
                 {Array.from({ length: 15 }, (_, colIndex) => {
                   const cellId = `${rowIndex}-${colIndex}`
                   const isSelected = selectedCells.has(cellId)

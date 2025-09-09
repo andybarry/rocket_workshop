@@ -27,7 +27,7 @@ function AIFeedbackSurvey() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     // Check if at least one field is filled out
@@ -38,8 +38,58 @@ function AIFeedbackSurvey() {
       return
     }
     
-    console.log('Survey Data:', formData)
-    setSubmitted(true)
+    try {
+      // Add current date to the form data
+      const submissionData = {
+        ...formData,
+        date: new Date().toLocaleDateString()
+      }
+      
+      console.log('Submitting data:', submissionData)
+      
+      // Try multiple endpoints in case of connectivity issues
+      const endpoints = [
+        'http://localhost:3001/api/feedback',
+        'http://127.0.0.1:3001/api/feedback'
+      ]
+      
+      let response = null
+      for (const endpoint of endpoints) {
+        try {
+          console.log('Trying endpoint:', endpoint)
+          response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+              workshopType: 'AI',
+              feedbackData: submissionData
+            })
+          })
+          if (response.ok) {
+            console.log('Success with endpoint:', endpoint)
+            break
+          }
+        } catch (err) {
+          console.log('Failed with endpoint:', endpoint, err.message)
+          continue
+        }
+      }
+      
+      if (response && response.ok) {
+        const result = await response.json()
+        console.log('Survey Data submitted successfully:', result)
+        setSubmitted(true)
+      } else {
+        console.error('All endpoints failed or response not ok')
+        alert('Failed to submit feedback. Please check that the server is running and try again.')
+      }
+    } catch (error) {
+      console.error('Network error:', error)
+      alert('Network error. Please check your connection and try again.')
+    }
   }
 
   if (submitted) {
