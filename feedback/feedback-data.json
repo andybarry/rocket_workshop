@@ -2,7 +2,7 @@
   "AI": [
     {
       "workshop-location": "Ann Arbor, MI",
-      "had-fun": "Neutral",
+      "had-fun": "Strongly Agree",
       "favorite-part": "",
       "challenged-appropriately": "",
       "ai-tools-before": "",
@@ -15,10 +15,68 @@
       "workshop-comparison": "",
       "comments": "",
       "date": "9/9/2025",
-      "timestamp": "2025-09-09T20:21:25.550Z",
-      "id": "1757449285550nwr986bs9"
+      "timestamp": "2025-09-09T21:07:16.100Z",
+      "id": "1757452036100yaprfeol9"
+    },
+    {
+      "workshop-location": "Orlando, FL",
+      "had-fun": "",
+      "favorite-part": "",
+      "challenged-appropriately": "",
+      "ai-tools-before": "",
+      "ai-tools-after": "",
+      "neural-networks-before": "",
+      "neural-networks-after": "",
+      "instructor": "",
+      "instructor-prepared": "",
+      "instructor-knowledgeable": "",
+      "workshop-comparison": "",
+      "comments": "",
+      "date": "9/9/2025",
+      "timestamp": "2025-09-09T21:07:31.541Z",
+      "id": "1757452051541u55ncmwb9"
     }
   ],
-  "Robotics": [],
-  "Mechanical": []
+  "Robotics": [
+    {
+      "workshop-location": "Houston, TX",
+      "had-fun": "",
+      "favorite-part": "bbbb",
+      "challenged-appropriately": "",
+      "learned-electronics": "",
+      "confident-electronics": "",
+      "next-electronics": "",
+      "recommend-workshop": "",
+      "instructor": "",
+      "instructor-prepared": "",
+      "instructor-knowledgeable": "",
+      "workshop-comparison": "",
+      "comments": "",
+      "date": "9/9/2025",
+      "timestamp": "2025-09-09T20:56:03.530Z",
+      "id": "17574513635303oybns8e1"
+    }
+  ],
+  "Mechanical": [
+    {
+      "workshop-location": "Atlanta, GA",
+      "had-fun": "Strongly Disagree",
+      "favorite-part": "",
+      "knowledgeable-3d-design": "",
+      "can-design-cad": "",
+      "something-to-design": "",
+      "well-paced": "",
+      "recommend-next-year": "",
+      "instructor": "",
+      "instructor-prepared": "",
+      "instructor-knowledgeable": "",
+      "workshop-comparison": "",
+      "comments": "",
+      "engineering-principles-before": "Average Understanding",
+      "engineering-principles-after": "Minimal Knowledge",
+      "date": "9/9/2025",
+      "timestamp": "2025-09-09T20:55:17.399Z",
+      "id": "175745131739908q954x5m"
+    }
+  ]
 }

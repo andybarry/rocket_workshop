@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import './App.css'
 
-function AIFeedbackSurvey() {
+function RoboticsFeedbackSurvey() {
   const [formData, setFormData] = useState({
     'workshop-location': '',
     'had-fun': '',
     'favorite-part': '',
     'challenged-appropriately': '',
-    'ai-tools-before': '',
-    'ai-tools-after': '',
-    'neural-networks-before': '',
-    'neural-networks-after': '',
+    'learned-electronics': '',
+    'confident-electronics': '',
+    'next-electronics': '',
+    'recommend-workshop': '',
     'instructor': '',
     'instructor-prepared': '',
     'instructor-knowledgeable': '',
@@ -64,7 +64,7 @@ function AIFeedbackSurvey() {
             },
             mode: 'cors',
             body: JSON.stringify({
-              workshopType: 'AI',
+              workshopType: 'Robotics',
               feedbackData: submissionData
             })
           })
@@ -96,7 +96,7 @@ function AIFeedbackSurvey() {
     return (
       <div className="app">
         <header className="header-bar">
-          <div className="header-left">Artificial Intelligence Feedback Survey</div>
+          <div className="header-left">Robotics Feedback Survey</div>
           <div className="header-center"></div>
           <div className="header-right">STAGE ONE EDUCATION</div>
         </header>
@@ -114,13 +114,13 @@ function AIFeedbackSurvey() {
   return (
     <div className="app">
       <header className="header-bar">
-        <div className="header-left">Artificial Intelligence Feedback Survey</div>
+        <div className="header-left">Robotics Feedback Survey</div>
         <div className="header-center"></div>
         <div className="header-right">STAGE ONE EDUCATION</div>
       </header>
       
       <main className="main-content">
-        <h1>Artificial Intelligence Workshop Feedback Survey</h1>
+        <h1>Robotics Workshop Feedback Survey</h1>
         <p>Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</p>
         
         <form className="survey-form" onSubmit={handleSubmit}>
@@ -128,7 +128,7 @@ function AIFeedbackSurvey() {
           <div className="form-group">
             <label>I did this workshop in</label>
             <div className="radio-options">
-              {['Ann Arbor, MI', 'Atlanta, GA', 'Berkeley, CA', 'Boston, MA', 'Houston, TX', 'Los Angeles, CA', 'New Haven, CT', 'Orlando, FL', 'Washington, D.C.'].map((location, index) => (
+              {['Ann Arbor, MI', 'Atlanta, GA', 'Berkeley, CA', 'Boston, MA', 'Houston, TX', 'Los Angeles, CA', 'New Haven, CT', 'Orlando, FL', 'San Francisco, CA', 'Washington, D.C.'].map((location, index) => (
                 <div key={index} className="radio-option">
                   <input 
                     type="radio" 
@@ -196,81 +196,73 @@ function AIFeedbackSurvey() {
             </div>
           </div>
 
-          {/* AI Tools Before */}
+          {/* Learned Electronics */}
           <div className="form-group">
-            <label>Before this workshop, my comfort with AI tools was</label>
+            <label>I learned how to build and understand basic electronic systems</label>
             <div className="radio-options">
-              {['Minimal Knowledge', 'Basic Understanding', 'Average Understanding', 'Advanced Understanding', 'Strong Conceptual Understanding'].map((option, index) => (
+              {['Strongly Agree', 'Agree', 'Neutral', 'Disagree', 'Strongly Disagree'].map((option, index) => (
                 <div key={index} className="radio-option">
                   <input 
                     type="radio" 
-                    id={`ai-before-${index}`} 
-                    name="ai-tools-before" 
+                    id={`learned-electronics-${index}`} 
+                    name="learned-electronics" 
                     value={option} 
-                    checked={formData['ai-tools-before'] === option}
+                    checked={formData['learned-electronics'] === option}
                     onChange={handleInputChange}
                   />
-                  <label htmlFor={`ai-before-${index}`}>{option}</label>
+                  <label htmlFor={`learned-electronics-${index}`}>{option}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* AI Tools After */}
+          {/* Confident Electronics */}
           <div className="form-group">
-            <label>After this workshop, my comfort with AI tools was</label>
+            <label>After taking this workshop, I feel confident in starting another similar electronics project</label>
             <div className="radio-options">
-              {['Minimal Knowledge', 'Basic Understanding', 'Average Understanding', 'Advanced Understanding', 'Strong Conceptual Understanding'].map((option, index) => (
+              {['Strongly Agree', 'Agree', 'Neutral', 'Disagree', 'Strongly Disagree'].map((option, index) => (
                 <div key={index} className="radio-option">
                   <input 
                     type="radio" 
-                    id={`ai-after-${index}`} 
-                    name="ai-tools-after" 
+                    id={`confident-electronics-${index}`} 
+                    name="confident-electronics" 
                     value={option} 
-                    checked={formData['ai-tools-after'] === option}
+                    checked={formData['confident-electronics'] === option}
                     onChange={handleInputChange}
                   />
-                  <label htmlFor={`ai-after-${index}`}>{option}</label>
+                  <label htmlFor={`confident-electronics-${index}`}>{option}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Neural Networks Before */}
+          {/* Next Electronics */}
           <div className="form-group">
-            <label>Before this workshop, my understanding of neural networks was</label>
-            <div className="radio-options">
-              {['Minimal Knowledge', 'Basic Understanding', 'Average Understanding', 'Advanced Understanding', 'Strong Conceptual Understanding'].map((option, index) => (
-                <div key={index} className="radio-option">
-                  <input 
-                    type="radio" 
-                    id={`nn-before-${index}`} 
-                    name="neural-networks-before" 
-                    value={option} 
-                    checked={formData['neural-networks-before'] === option}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor={`nn-before-${index}`}>{option}</label>
-                </div>
-              ))}
-            </div>
+            <label>In the next electronics workshop, I want to learn how to _______</label>
+            <input 
+              type="text" 
+              name="next-electronics" 
+              placeholder="Your answer"
+              value={formData['next-electronics']}
+              onChange={handleInputChange}
+            />
           </div>
 
-          {/* Neural Networks After */}
+          {/* Recommend Workshop */}
           <div className="form-group">
-            <label>After this workshop, my understanding of neural networks was</label>
+            <label>I would recommend that this workshop be taught again next year</label>
             <div className="radio-options">
-              {['Minimal Knowledge', 'Basic Understanding', 'Average Understanding', 'Advanced Understanding', 'Strong Conceptual Understanding'].map((option, index) => (
+              {['Strongly Agree', 'Agree', 'Neutral', 'Disagree', 'Strongly Disagree'].map((option, index) => (
                 <div key={index} className="radio-option">
                   <input 
                     type="radio" 
-                    id={`nn-after-${index}`} 
-                    name="neural-networks-after" 
+                    id={`recommend-workshop-${index}`} 
+                    name="recommend-workshop" 
                     value={option} 
-                    checked={formData['neural-networks-after'] === option}
+                    checked={formData['recommend-workshop'] === option}
                     onChange={handleInputChange}
                   />
-                  <label htmlFor={`nn-after-${index}`}>{option}</label>
+                  <label htmlFor={`recommend-workshop-${index}`}>{option}</label>
                 </div>
               ))}
             </div>
@@ -367,4 +359,4 @@ function AIFeedbackSurvey() {
   )
 }
 
-export default AIFeedbackSurvey
+export default RoboticsFeedbackSurvey

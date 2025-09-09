@@ -706,8 +706,7 @@ html, body {
 
 .cell-input:disabled {
   background-color: #f5f5f5;
-  color: #999;
-  cursor: not-allowed;
+  color: #000;
 }
 
 .spreadsheet-row:hover .spreadsheet-cell {

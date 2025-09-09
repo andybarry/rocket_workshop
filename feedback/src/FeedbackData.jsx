@@ -9,7 +9,6 @@ function FeedbackData() {
   const [columnWidths, setColumnWidths] = useState(Array(15).fill(150))
   const [isResizing, setIsResizing] = useState(false)
   const [resizeColumn, setResizeColumn] = useState(null)
-  const [cellsLocked, setCellsLocked] = useState(false)
   const [selectedCells, setSelectedCells] = useState(new Set())
   const [isSelecting, setIsSelecting] = useState(false)
   const [selectionStart, setSelectionStart] = useState(null)
@@ -78,23 +77,66 @@ function FeedbackData() {
     const spreadsheetData = {}
     
     feedbackData.forEach((feedback, rowIndex) => {
-      const columns = [
-        feedback.date || '',
-        feedback['workshop-location'] || '',
-        feedback['had-fun'] || '',
-        feedback['favorite-part'] || '',
-        feedback['challenged-appropriately'] || '',
-        feedback['ai-tools-before'] || '',
-        feedback['ai-tools-after'] || '',
-        feedback['neural-networks-before'] || '',
-        feedback['neural-networks-after'] || '',
-        feedback['instructor'] || '',
-        feedback['instructor-prepared'] || '',
-        feedback['instructor-knowledgeable'] || '',
-        feedback['workshop-comparison'] || '',
-        feedback['comments'] || '',
-        '' // Empty column
-      ]
+      let columns = []
+      
+      if (selectedWorkshop === 'AI') {
+        columns = [
+          feedback.date || '',
+          feedback['workshop-location'] || '',
+          feedback['had-fun'] || '',
+          feedback['favorite-part'] || '',
+          feedback['challenged-appropriately'] || '',
+          feedback['ai-tools-before'] || '',
+          feedback['ai-tools-after'] || '',
+          feedback['neural-networks-before'] || '',
+          feedback['neural-networks-after'] || '',
+          feedback['instructor'] || '',
+          feedback['instructor-prepared'] || '',
+          feedback['instructor-knowledgeable'] || '',
+          feedback['workshop-comparison'] || '',
+          feedback['comments'] || '',
+          '' // Empty column
+        ]
+      } else if (selectedWorkshop === 'Robotics') {
+        columns = [
+          feedback.date || '',
+          feedback['workshop-location'] || '',
+          feedback['had-fun'] || '',
+          feedback['favorite-part'] || '',
+          feedback['challenged-appropriately'] || '',
+          feedback['learned-electronics'] || '',
+          feedback['confident-electronics'] || '',
+          feedback['next-electronics'] || '',
+          feedback['recommend-workshop'] || '',
+          feedback['instructor'] || '',
+          feedback['instructor-prepared'] || '',
+          feedback['instructor-knowledgeable'] || '',
+          feedback['workshop-comparison'] || '',
+          feedback['comments'] || '',
+          '' // Empty column
+        ]
+      } else if (selectedWorkshop === 'Mechanical') {
+        columns = [
+          feedback.date || '',
+          feedback['workshop-location'] || '',
+          feedback['had-fun'] || '',
+          feedback['favorite-part'] || '',
+          feedback['knowledgeable-3d-design'] || '',
+          feedback['can-design-cad'] || '',
+          feedback['next-design'] || '',
+          feedback['well-paced'] || '',
+          feedback['recommend-workshop'] || '',
+          feedback['instructor'] || '',
+          feedback['instructor-prepared'] || '',
+          feedback['instructor-knowledgeable'] || '',
+          feedback['workshop-comparison'] || '',
+          feedback['comments'] || '',
+          '' // Empty column
+        ]
+      } else {
+        // Fallback for unknown workshop types
+        columns = Array(15).fill('')
+      }
       
       columns.forEach((value, colIndex) => {
         const cellId = `${rowIndex}-${colIndex}`
@@ -111,7 +153,7 @@ function FeedbackData() {
       const spreadsheetData = convertFeedbackToSpreadsheet()
       setCellData(spreadsheetData)
     }
-  }, [feedbackData])
+  }, [feedbackData, selectedWorkshop])
 
   const handleMouseDown = (e, columnIndex) => {
     e.preventDefault()
@@ -144,8 +186,6 @@ function FeedbackData() {
   }
 
   const handleCellMouseDown = (e, rowIndex, colIndex) => {
-    if (cellsLocked) return
-    
     // Don't prevent default if clicking on input
     if (e.target.tagName === 'INPUT') return
     
@@ -218,8 +258,6 @@ function FeedbackData() {
   }
 
   const handleCellClick = (e, rowIndex, colIndex) => {
-    if (cellsLocked) return
-    
     // Don't handle clicks on input elements
     if (e.target.tagName === 'INPUT') return
     
@@ -350,9 +388,27 @@ function FeedbackData() {
     }
   }
 
-  const handleClickAway = () => {
-    setDeleteRowIndex(null)
-  }
+  // Add click-away functionality to hide delete button when clicking anywhere
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      // Only hide delete button if it's currently showing
+      if (deleteRowIndex !== null) {
+        // Check if the clicked element is the delete button or inside it
+        const isDeleteButton = e.target.closest('.delete-button')
+        if (!isDeleteButton) {
+          setDeleteRowIndex(null)
+        }
+      }
+    }
+
+    // Add event listener to document with capture phase to catch events before stopPropagation
+    document.addEventListener('click', handleDocumentClick, true)
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener('click', handleDocumentClick, true)
+    }
+  }, [deleteRowIndex])
 
   const renderCharts = () => {
     const workshopType = selectedWorkshop
@@ -661,7 +717,7 @@ function FeedbackData() {
             className={`workshop-btn ${selectedWorkshop === 'AI' ? 'active' : ''}`}
             onClick={() => setSelectedWorkshop('AI')}
           >
-            AI Workshop
+            Artificial Intelligence Workshop
           </button>
           <button 
             className={`workshop-btn ${selectedWorkshop === 'Robotics' ? 'active' : ''}`}
@@ -678,15 +734,7 @@ function FeedbackData() {
         </div>
       </div>
       
-      <div className="spreadsheet-controls" style={{ marginTop: '40px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <label className="lock-cells-checkbox">
-          <input 
-            type="checkbox" 
-            checked={cellsLocked}
-            onChange={(e) => setCellsLocked(e.target.checked)}
-          />
-          Lock Cells
-        </label>
+      <div className="spreadsheet-controls" style={{ marginTop: '40px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {loading && <span style={{ color: '#666' }}>Loading...</span>}
           {error && <span style={{ color: 'red' }}>Error: {error}</span>}
@@ -823,7 +871,7 @@ function FeedbackData() {
               ))
             )}
           </div>
-          <div className="spreadsheet-body" onClick={handleClickAway}>
+          <div className="spreadsheet-body">
             {Array.from({ length: Math.max(100, feedbackData.length + 10) }, (_, rowIndex) => (
               <div key={rowIndex} className="spreadsheet-row">
                 <div 
@@ -835,7 +883,6 @@ function FeedbackData() {
                     <button
                       className="delete-button"
                       onClick={(e) => {
-                        e.stopPropagation()
                         handleDeleteRow(rowIndex)
                       }}
                       style={{
@@ -875,9 +922,9 @@ function FeedbackData() {
                         type="text" 
                         className="cell-input"
                         placeholder=""
-                        disabled={cellsLocked}
+                        disabled={true}
                         value={cellValue}
-                        onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
+                        readOnly
                         onClick={(e) => e.stopPropagation()}
                       />
                     </div>
