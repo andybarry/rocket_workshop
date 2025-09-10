@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function FeedbackData() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedLocation, setSelectedLocation] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
   const [columnWidths, setColumnWidths] = useState(() => {
-    const widths = Array(14).fill(150)
-    widths[13] = 300 // Comments/Suggestions/Ideas column - make it wider
+    const widths = Array(15).fill(150)
+    widths[0] = 100 // Date column - make it narrower
+    widths[1] = 100 // Time column - make it narrower
+    widths[14] = 300 // Comments/Suggestions/Ideas column - make it wider
     return widths
   })
   const [isResizing, setIsResizing] = useState(false)
@@ -27,7 +30,30 @@ function FeedbackData() {
     Mechanical: [],
     Instructor: []
   }) // Store deleted rows history for undo, organized by workshop type
-  const [zoomLevel, setZoomLevel] = useState(100) // Zoom level percentage
+  const [zoomLevel, setZoomLevel] = useState(65) // Zoom level percentage - 65% shows all columns, displayed as 100%
+  const [showImportModal, setShowImportModal] = useState(false)
+  const [importData, setImportData] = useState({})
+  const [isImporting, setIsImporting] = useState(false)
+  const [selectedRows, setSelectedRows] = useState([])
+
+  // Password protection function
+  const checkPassword = () => {
+    const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234'
+    const password = prompt('Enter password to access Feedback Data:')
+    if (password === storedPassword) {
+      setIsAuthenticated(true)
+      return true
+    } else if (password !== null) {
+      alert('Incorrect password. Access denied.')
+      return false
+    }
+    return false
+  }
+
+  // Check authentication on component mount
+  useEffect(() => {
+    checkPassword()
+  }, [])
 
   // Function to convert numeric values to text labels for instructor survey
   const convertInstructorValueToText = (value, fieldName) => {
@@ -160,6 +186,7 @@ function FeedbackData() {
     if (selectedWorkshop === 'AI') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -177,6 +204,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Robotics') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -194,6 +222,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Mechanical') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -211,6 +240,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Instructor') {
       headers = [
         'Date',
+        'Time',
         'I instructed a workshop in',
         'What type of session did you instruct?',
         'I felt well-prepared before the event began',
@@ -320,8 +350,11 @@ function FeedbackData() {
               ${feedbackData.map(feedback => {
                 let row = []
                 if (selectedWorkshop === 'AI') {
+                  const formattedDate = formatDateOnly(feedback.date)
+                  const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
                   row = [
-                    feedback.date || '',
+                    formattedDate,
+                    formattedTime,
                     feedback['workshop-location'] || '',
                     feedback['had-fun'] || '',
                     feedback['favorite-part'] || '',
@@ -337,8 +370,11 @@ function FeedbackData() {
                     feedback['comments'] || ''
                   ]
                 } else if (selectedWorkshop === 'Robotics') {
+                  const formattedDate = formatDateOnly(feedback.date)
+                  const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
                   row = [
-                    feedback.date || '',
+                    formattedDate,
+                    formattedTime,
                     feedback['workshop-location'] || '',
                     feedback['had-fun'] || '',
                     feedback['favorite-part'] || '',
@@ -354,8 +390,11 @@ function FeedbackData() {
                     feedback['comments'] || ''
                   ]
                 } else if (selectedWorkshop === 'Mechanical') {
+                  const formattedDate = formatDateOnly(feedback.date)
+                  const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
                   row = [
-                    feedback.date || '',
+                    formattedDate,
+                    formattedTime,
                     feedback['workshop-location'] || '',
                     feedback['had-fun'] || '',
                     feedback['favorite-part'] || '',
@@ -371,8 +410,11 @@ function FeedbackData() {
                     feedback['comments'] || ''
                   ]
                 } else if (selectedWorkshop === 'Instructor') {
+                  const formattedDate = formatDateOnly(feedback.date)
+                  const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
                   row = [
-                    feedback.date || '',
+                    formattedDate,
+                    formattedTime,
                     (() => {
             const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
             const otherText = feedback['instructed-location-other-text'] || ''
@@ -432,6 +474,7 @@ function FeedbackData() {
     if (selectedWorkshop === 'AI') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -449,6 +492,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Robotics') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -466,6 +510,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Mechanical') {
       headers = [
         'Date',
+        'Time',
         'I did this workshop in',
         'I had fun in this workshop',
         'My favorite part of this workshop was',
@@ -483,6 +528,7 @@ function FeedbackData() {
     } else if (selectedWorkshop === 'Instructor') {
       headers = [
         'Date',
+        'Time',
         'I instructed a workshop in',
         'What type of session did you instruct?',
         'I felt well-prepared before the event began',
@@ -503,8 +549,11 @@ function FeedbackData() {
       ...feedbackData.map(feedback => {
         let row = []
         if (selectedWorkshop === 'AI') {
+          const formattedDate = formatDateOnly(feedback.date)
+          const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
           row = [
-            feedback.date || '',
+            formattedDate,
+            formattedTime,
             feedback['workshop-location'] || '',
             feedback['had-fun'] || '',
             feedback['favorite-part'] || '',
@@ -520,8 +569,11 @@ function FeedbackData() {
             feedback['comments'] || ''
           ]
         } else if (selectedWorkshop === 'Robotics') {
+          const formattedDate = formatDateOnly(feedback.date)
+          const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
           row = [
-            feedback.date || '',
+            formattedDate,
+            formattedTime,
             feedback['workshop-location'] || '',
             feedback['had-fun'] || '',
             feedback['favorite-part'] || '',
@@ -537,8 +589,11 @@ function FeedbackData() {
             feedback['comments'] || ''
           ]
         } else if (selectedWorkshop === 'Mechanical') {
+          const formattedDate = formatDateOnly(feedback.date)
+          const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
           row = [
-            feedback.date || '',
+            formattedDate,
+            formattedTime,
             feedback['workshop-location'] || '',
             feedback['had-fun'] || '',
             feedback['favorite-part'] || '',
@@ -554,8 +609,11 @@ function FeedbackData() {
             feedback['comments'] || ''
           ]
         } else if (selectedWorkshop === 'Instructor') {
+          const formattedDate = formatDateOnly(feedback.date)
+          const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
           row = [
-            feedback.date || '',
+            formattedDate,
+            formattedTime,
             (() => {
             const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
             const otherText = feedback['instructed-location-other-text'] || ''
@@ -669,6 +727,7 @@ function FeedbackData() {
       if (response && response.ok) {
         const data = await response.json()
         console.log('Received data:', data)
+        console.log('Sample data structure:', data[0]) // Log first item to see structure
         setFeedbackData(data)
         setError(null)
       } else {
@@ -692,26 +751,92 @@ function FeedbackData() {
     
     // Adjust column widths based on workshop type
     if (selectedWorkshop === 'Instructor') {
-      const widths = Array(9).fill(150)
-      widths[8] = 300 // Comments, suggestions, or ideas column - make it wider
+      const widths = Array(10).fill(150)
+      widths[0] = 100 // Date column - make it narrower
+      widths[1] = 100 // Time column - make it narrower
+      widths[9] = 300 // Comments, suggestions, or ideas column - make it wider
       setColumnWidths(widths)
     } else {
-      const widths = Array(14).fill(150)
-      widths[13] = 300 // Comments/Suggestions/Ideas column - make it wider
+      const widths = Array(15).fill(150)
+      widths[0] = 100 // Date column - make it narrower
+      widths[1] = 100 // Time column - make it narrower
+      widths[14] = 300 // Comments/Suggestions/Ideas column - make it wider
       setColumnWidths(widths)
     }
   }, [selectedWorkshop])
 
+  // Format date only (without timestamp)
+  const formatDateOnly = (date) => {
+    if (!date) return ''
+    
+    try {
+      const dateObj = new Date(date)
+      
+      // Check if date is valid
+      if (isNaN(dateObj.getTime())) {
+        return date // Return original date if invalid
+      }
+      
+      // Format date only in USA ET timezone
+      const options = {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }
+      
+      return dateObj.toLocaleDateString('en-US', options)
+    } catch (error) {
+      console.error('Error formatting date:', error)
+      return date // Return original date if formatting fails
+    }
+  }
+
+  // Format time only from timestamp in USA ET timezone
+  const formatTimeOnly = (date, timestamp) => {
+    if (!date) return ''
+    
+    try {
+      // Use timestamp if available, otherwise use date
+      const dateToUse = timestamp || date
+      const dateObj = new Date(dateToUse)
+      
+      // Check if date is valid
+      if (isNaN(dateObj.getTime())) {
+        return '' // Return empty if invalid
+      }
+      
+      // Format time only in USA ET timezone
+      const options = {
+        timeZone: 'America/New_York',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }
+      
+      return dateObj.toLocaleTimeString('en-US', options)
+    } catch (error) {
+      console.error('Error formatting time:', error)
+      return '' // Return empty if formatting fails
+    }
+  }
+
   // Convert feedback data to spreadsheet format
-  const convertFeedbackToSpreadsheet = () => {
+  const convertFeedbackToSpreadsheet = (dataToConvert = feedbackData) => {
     const spreadsheetData = {}
     
-    feedbackData.forEach((feedback, rowIndex) => {
+    dataToConvert.forEach((feedback, rowIndex) => {
       let columns = []
       
       if (selectedWorkshop === 'AI') {
+        // Format date and time separately
+        const formattedDate = formatDateOnly(feedback.date)
+        const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
+        
         columns = [
-          feedback.date || '',
+          formattedDate,
+          formattedTime,
           feedback['workshop-location'] || '',
           feedback['had-fun'] || '',
           feedback['favorite-part'] || '',
@@ -727,8 +852,13 @@ function FeedbackData() {
           feedback['comments'] || ''
         ]
       } else if (selectedWorkshop === 'Robotics') {
+        // Format date and time separately
+        const formattedDate = formatDateOnly(feedback.date)
+        const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
+        
         columns = [
-          feedback.date || '',
+          formattedDate,
+          formattedTime,
           feedback['workshop-location'] || '',
           feedback['had-fun'] || '',
           feedback['favorite-part'] || '',
@@ -744,8 +874,13 @@ function FeedbackData() {
           feedback['comments'] || ''
         ]
       } else if (selectedWorkshop === 'Mechanical') {
+        // Format date and time separately
+        const formattedDate = formatDateOnly(feedback.date)
+        const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
+        
         columns = [
-          feedback.date || '',
+          formattedDate,
+          formattedTime,
           feedback['workshop-location'] || '',
           feedback['had-fun'] || '',
           feedback['favorite-part'] || '',
@@ -761,8 +896,13 @@ function FeedbackData() {
           feedback['comments'] || ''
         ]
       } else if (selectedWorkshop === 'Instructor') {
+        // Format date and time separately
+        const formattedDate = formatDateOnly(feedback.date)
+        const formattedTime = formatTimeOnly(feedback.date, feedback.timestamp)
+        
         columns = [
-          feedback.date || '',
+          formattedDate,
+          formattedTime,
           (() => {
             const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
             const otherText = feedback['instructed-location-other-text'] || ''
@@ -804,7 +944,40 @@ function FeedbackData() {
   // Update cell data when feedback data changes
   useEffect(() => {
     if (feedbackData.length > 0) {
-      const spreadsheetData = convertFeedbackToSpreadsheet()
+      // Sort feedback data by date and timestamp (newest first)
+      const sortedFeedbackData = [...feedbackData].sort((a, b) => {
+        // Helper function to get the best available timestamp
+        const getBestTimestamp = (item) => {
+          // Try timestamp first, then date, then createdAt, then id as fallback
+          if (item.timestamp) return new Date(item.timestamp)
+          if (item.date) return new Date(item.date)
+          if (item.createdAt) return new Date(item.createdAt)
+          if (item.id) return new Date(item.id) // Some IDs might be timestamps
+          return new Date('1900-01-01') // Fallback for invalid dates
+        }
+        
+        const timeA = getBestTimestamp(a)
+        const timeB = getBestTimestamp(b)
+        
+        // Debug individual comparisons
+        console.log(`Comparing: ${timeA.toISOString()} vs ${timeB.toISOString()} = ${timeB - timeA}`)
+        
+        return timeB - timeA // Descending order (newest first)
+      })
+      
+      // Debug logging to verify sorting
+      console.log('Original feedback data:', feedbackData.map(item => ({ 
+        date: item.date, 
+        timestamp: item.timestamp, 
+        id: item.id 
+      })))
+      console.log('Sorted feedback data:', sortedFeedbackData.map(item => ({ 
+        date: item.date, 
+        timestamp: item.timestamp, 
+        id: item.id 
+      })))
+      
+      const spreadsheetData = convertFeedbackToSpreadsheet(sortedFeedbackData)
       setCellData(spreadsheetData)
     }
   }, [feedbackData, selectedWorkshop])
@@ -1067,6 +1240,111 @@ function FeedbackData() {
     }
   }
 
+  // Handle row selection for multi-row delete
+  const handleRowClick = (rowIndex, event) => {
+    if (event.detail === 2) { // Double click
+      if (selectedRows.length === 0) {
+        // First selection - just select this row
+        setSelectedRows([rowIndex])
+        setDeleteRowIndex(rowIndex)
+      } else {
+        // Already have selections - add this row
+        if (!selectedRows.includes(rowIndex)) {
+          setSelectedRows(prev => [...prev, rowIndex])
+        }
+      }
+    } else if (event.shiftKey && selectedRows.length > 0) {
+      // Shift+click - select range
+      const startRow = Math.min(...selectedRows)
+      const endRow = Math.max(...selectedRows, rowIndex)
+      const newSelection = []
+      
+      for (let i = Math.min(startRow, rowIndex); i <= Math.max(startRow, rowIndex); i++) {
+        newSelection.push(i)
+      }
+      
+      setSelectedRows(newSelection)
+    } else if (event.ctrlKey || event.metaKey) {
+      // Ctrl/Cmd+click - toggle selection
+      if (selectedRows.includes(rowIndex)) {
+        setSelectedRows(prev => prev.filter(r => r !== rowIndex))
+      } else {
+        setSelectedRows(prev => [...prev, rowIndex])
+      }
+    } else {
+      // Regular click - clear selection and select this row
+      setSelectedRows([rowIndex])
+      setDeleteRowIndex(rowIndex)
+    }
+  }
+
+  // Handle multi-row delete
+  const handleMultiRowDelete = async () => {
+    if (selectedRows.length === 0) return
+    
+    const sortedRows = [...selectedRows].sort((a, b) => a - b)
+    
+    try {
+      // Delete rows in reverse order to maintain indices
+      for (let i = sortedRows.length - 1; i >= 0; i--) {
+        const rowIndex = sortedRows[i]
+        if (rowIndex >= feedbackData.length) continue
+        
+        const feedbackToDelete = feedbackData[rowIndex]
+        
+        if (!feedbackToDelete.id) {
+          console.error('No ID found for feedback entry:', feedbackToDelete)
+          continue
+        }
+        
+        // Delete from backend
+        const deleteEndpoints = [
+          `http://localhost:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`,
+          `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
+        ]
+        
+        let response = null
+        for (const endpoint of deleteEndpoints) {
+          try {
+            response = await fetch(endpoint, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              mode: 'cors'
+            })
+            if (response.ok) {
+              break
+            }
+          } catch (err) {
+            continue
+          }
+        }
+        
+        if (response && response.ok) {
+          // Store deleted row for undo
+          setDeletedRows(prev => ({
+            ...prev,
+            [selectedWorkshop]: [...prev[selectedWorkshop], {
+              data: feedbackToDelete,
+              originalIndex: rowIndex
+            }]
+          }))
+        }
+      }
+      
+      // Clear selection and refresh data
+      setSelectedRows([])
+      setDeleteRowIndex(null)
+      await fetchFeedbackData()
+      
+      console.log(`Successfully deleted ${sortedRows.length} row(s)!`)
+    } catch (err) {
+      console.error('Error deleting rows:', err)
+      alert(`Error deleting rows: ${err.message}`)
+    }
+  }
+
   const handleDeleteRow = async (rowIndex) => {
     if (rowIndex >= feedbackData.length) return
     
@@ -1165,8 +1443,9 @@ function FeedbackData() {
 
         await refreshData()
         
-        // Hide delete button
+        // Hide delete button and clear selections
         setDeleteRowIndex(null)
+        setSelectedRows([])
         console.log('Successfully deleted feedback entry')
       } else {
         console.error('Failed to delete feedback. Last error:', lastError)
@@ -1178,16 +1457,17 @@ function FeedbackData() {
     }
   }
 
-  // Add click-away functionality to hide delete button when clicking anywhere
+  // Add click-away functionality to hide delete button and clear selections when clicking anywhere
   useEffect(() => {
     const handleDocumentClick = (e) => {
-      // Only hide delete button if it's currently showing
-      if (deleteRowIndex !== null) {
-        // Check if the clicked element is the delete button or inside it
-        const isDeleteButton = e.target.closest('.delete-button')
-        if (!isDeleteButton) {
-          setDeleteRowIndex(null)
-        }
+      // Check if clicking outside the spreadsheet
+      const isSpreadsheetClick = e.target.closest('.spreadsheet-container')
+      const isDeleteButton = e.target.closest('.delete-button')
+      
+      if (!isSpreadsheetClick && !isDeleteButton) {
+        // Clear selections when clicking outside
+        setSelectedRows([])
+        setDeleteRowIndex(null)
       }
     }
 
@@ -1198,7 +1478,7 @@ function FeedbackData() {
     return () => {
       document.removeEventListener('click', handleDocumentClick, true)
     }
-  }, [deleteRowIndex])
+  }, [])
 
   const renderCharts = () => {
     const workshopType = selectedWorkshop
@@ -1493,44 +1773,293 @@ function FeedbackData() {
     )
   }
 
+  // Handle import data submission
+  const handleImportData = async () => {
+    try {
+      setIsImporting(true)
+      // Get the column headers for the selected workshop
+      let headers = []
+      if (selectedWorkshop === 'AI' || selectedWorkshop === 'Robotics') {
+        headers = [
+          'date',
+          'workshop-location',
+          'had-fun',
+          'favorite-part',
+          'challenged-appropriately',
+          'learned-electronics',
+          'confident-electronics',
+          'next-electronics',
+          'recommend-workshop',
+          'instructor',
+          'instructor-prepared',
+          'instructor-knowledgeable',
+          'workshop-comparison',
+          'comments'
+        ]
+      } else if (selectedWorkshop === 'Mechanical') {
+        headers = [
+          'date',
+          'workshop-location',
+          'had-fun',
+          'favorite-part',
+          'knowledgeable-3d-design',
+          'can-design-cad',
+          'next-design',
+          'well-paced',
+          'recommend-workshop',
+          'instructor',
+          'instructor-prepared',
+          'instructor-knowledgeable',
+          'workshop-comparison',
+          'comments'
+        ]
+      } else if (selectedWorkshop === 'Instructor') {
+        headers = [
+          'date',
+          'instructed-location',
+          'session-type',
+          'well-prepared',
+          'venue-rating',
+          'content-relevance',
+          'schedule-timing',
+          'future-instruct',
+          'comments'
+        ]
+      }
+
+      // Convert import data to feedback entries
+      const importedEntries = []
+      const maxRows = Math.max(...Object.values(importData).map(data => data.split('\n').length))
+      
+      for (let rowIndex = 0; rowIndex < maxRows; rowIndex++) {
+        const entry = {}
+        let hasData = false
+        
+        Object.keys(importData).forEach(columnIndex => {
+          const columnData = importData[columnIndex].split('\n')
+          const value = columnData[rowIndex]?.trim()
+          if (value) {
+            entry[headers[columnIndex]] = value
+            hasData = true
+          }
+        })
+        
+        if (hasData) {
+          importedEntries.push(entry)
+        }
+      }
+
+      if (importedEntries.length === 0) {
+        alert('No data to import. Please paste data into at least one column.')
+        setIsImporting(false)
+        return
+      }
+
+      // Submit imported data to backend one by one
+      const endpoints = [
+        'http://localhost:3001/api/feedback',
+        'http://127.0.0.1:3001/api/feedback'
+      ]
+      
+      let successCount = 0
+      let errorCount = 0
+      
+      for (const entry of importedEntries) {
+        let response = null
+        for (const endpoint of endpoints) {
+          try {
+            response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              mode: 'cors',
+              body: JSON.stringify({
+                workshopType: selectedWorkshop,
+                feedbackData: entry
+              })
+            })
+            if (response.ok) {
+              successCount++
+              break
+            }
+          } catch (err) {
+            continue
+          }
+        }
+        
+        if (!response || !response.ok) {
+          errorCount++
+        }
+      }
+
+      if (successCount > 0) {
+        alert(`Successfully imported ${successCount} entries!${errorCount > 0 ? ` ${errorCount} entries failed.` : ''}`)
+        setShowImportModal(false)
+        setImportData({})
+        // Refresh the data
+        await fetchFeedbackData()
+      } else {
+        alert('Failed to import data. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error importing data:', err)
+      alert(`Error importing data: ${err.message}`)
+    } finally {
+      setIsImporting(false)
+    }
+  }
+
+  // Show password prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="app" style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#f8f9fa'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          padding: '2rem',
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          border: '1px solid #e1e5e9'
+        }}>
+          <h2 style={{ 
+            color: '#333', 
+            marginBottom: '1rem',
+            fontFamily: 'Roboto, sans-serif'
+          }}>
+            Access Restricted
+          </h2>
+          <p style={{ 
+            color: '#666', 
+            marginBottom: '1.5rem',
+            fontFamily: 'Roboto, sans-serif'
+          }}>
+            This page requires password authentication.
+          </p>
+          <button 
+            onClick={checkPassword}
+            style={{
+              backgroundColor: '#f05f40',
+              color: 'white',
+              border: 'none',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '6px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              fontFamily: 'Roboto, sans-serif',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#e04a2b'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#f05f40'
+            }}
+          >
+            Enter Password
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="app" onKeyDown={handleKeyDown} tabIndex={0}>
       <header className="header-bar">
-        <div className="header-left">Workshop Feedback Data</div>
+        <div className="header-left">
+          <span>Workshop Feedback Data</span>
+        </div>
         <div className="header-center"></div>
         <div className="header-right">STAGE ONE EDUCATION</div>
       </header>
       
-      <div className="workshop-buttons-container" style={{ marginTop: '20px' }}>
-        <div className="workshop-buttons">
-          <button 
-            className={`workshop-btn ${selectedWorkshop === 'AI' ? 'active' : ''}`}
-            onClick={() => setSelectedWorkshop('AI')}
+      <div className="workshop-dropdown-container" style={{ marginTop: '20px', marginLeft: '20px', marginRight: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div className="workshop-dropdown-group">
+          <select 
+            className="workshop-dropdown"
+            value={selectedWorkshop}
+            onChange={(e) => setSelectedWorkshop(e.target.value)}
           >
-            Artificial Intelligence Workshop
-          </button>
-          <button 
-            className={`workshop-btn ${selectedWorkshop === 'Robotics' ? 'active' : ''}`}
-            onClick={() => setSelectedWorkshop('Robotics')}
+            <option value="AI">Artificial Intelligence Workshop</option>
+            <option value="Robotics">Robotics Workshop</option>
+            <option value="Mechanical">Mechanical Engineering Workshop</option>
+            <option value="Instructor">Instructor</option>
+          </select>
+          <a 
+            href={
+              selectedWorkshop === 'AI' ? "http://localhost:5174/artificial-intelligence-feedback-survey.html" :
+              selectedWorkshop === 'Robotics' ? "http://localhost:5174/robotics-feedback-survey.html" :
+              selectedWorkshop === 'Mechanical' ? "http://localhost:5174/mechanical-engineering-feedback-survey.html" :
+              "http://localhost:5174/instructor-feedback-survey.html"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="survey-link"
+            style={{
+              fontSize: '12px',
+              color: '#f05f40',
+              textDecoration: 'none',
+              fontWeight: '300',
+              marginLeft: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              transition: 'font-weight 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.fontWeight = 'bold'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.fontWeight = '300'
+            }}
           >
-            Robotics Workshop
-          </button>
-          <button 
-            className={`workshop-btn ${selectedWorkshop === 'Mechanical' ? 'active' : ''}`}
-            onClick={() => setSelectedWorkshop('Mechanical')}
-          >
-            Mechanical Engineering Workshop
-          </button>
-          <button 
-            className={`workshop-btn ${selectedWorkshop === 'Instructor' ? 'active' : ''}`}
-            onClick={() => setSelectedWorkshop('Instructor')}
-          >
-            Instructor
-          </button>
+            survey
+          </a>
         </div>
+        <button 
+          className="feedback-dashboard-btn"
+          onClick={() => window.open('http://localhost:5174/', '_blank')}
+          style={{
+            backgroundColor: 'white',
+            color: '#f05f40',
+            border: '1px solid #f05f40',
+            borderRadius: '4px',
+            padding: '0.5rem 1rem',
+            fontSize: '1rem',
+            fontWeight: '500',
+            fontFamily: 'Roboto, sans-serif',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            height: 'fit-content'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#f05f40'
+            e.target.style.color = 'white'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'white'
+            e.target.style.color = '#f05f40'
+          }}
+          onMouseDown={(e) => {
+            e.target.style.backgroundColor = '#e04a2f'
+            e.target.style.color = 'white'
+          }}
+          onMouseUp={(e) => {
+            e.target.style.backgroundColor = '#f05f40'
+            e.target.style.color = 'white'
+          }}
+        >
+          Feedback Dashboard
+        </button>
       </div>
       
-      <div className="spreadsheet-controls" style={{ marginTop: '20px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="spreadsheet-controls" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {loading && <span style={{ color: '#666' }}>Loading...</span>}
           {error && <span style={{ color: 'red' }}>Error: {error}</span>}
@@ -1551,6 +2080,16 @@ function FeedbackData() {
           <span style={{ color: '#666', fontSize: '14px' }}>
             {feedbackData.length} responses
           </span>
+          {selectedRows.length > 0 && (
+            <span style={{ 
+              color: '#1976d2', 
+              fontSize: '14px', 
+              fontWeight: '500',
+              marginLeft: '10px'
+            }}>
+              {selectedRows.length} row{selectedRows.length > 1 ? 's' : ''} selected
+            </span>
+          )}
         </div>
         
         {/* Zoom Controls - Right Justified */}
@@ -1597,7 +2136,7 @@ function FeedbackData() {
             borderRadius: '3px',
             border: '1px solid #e9ecef'
           }}>
-            {zoomLevel}%
+            {zoomLevel === 65 ? '100' : zoomLevel < 65 ? Math.round((zoomLevel / 65) * 100) : zoomLevel}%
           </span>
           <button 
             onClick={handleZoomIn}
@@ -1633,7 +2172,7 @@ function FeedbackData() {
       </div>
       
       <div className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
-        <div className="spreadsheet" style={{ transform: `scale(${zoomLevel / 100 * 0.65})`, transformOrigin: 'top left' }}>
+        <div className="spreadsheet" style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top left' }}>
           <div className="spreadsheet-header">
             <div className="row-header">
               {deletedRows[selectedWorkshop].length > 0 && (
@@ -1662,6 +2201,7 @@ function FeedbackData() {
             {selectedWorkshop === 'AI' ? (
               [
                 'Date',
+                'Time',
                 'I did this workshop in',
                 'I had fun in this workshop',
                 'My favorite part of this workshop was',
@@ -1692,6 +2232,7 @@ function FeedbackData() {
             ) : selectedWorkshop === 'Robotics' ? (
               [
                 'Date',
+                'Time',
                 'I did this workshop in',
                 'I had fun in this workshop',
                 'My favorite part of this workshop was',
@@ -1722,6 +2263,7 @@ function FeedbackData() {
             ) : selectedWorkshop === 'Mechanical' ? (
               [
                 'Date',
+                'Time',
                 'I did this workshop in',
                 'I had fun in this workshop',
                 'My favorite part of this workshop was',
@@ -1752,6 +2294,7 @@ function FeedbackData() {
             ) : selectedWorkshop === 'Instructor' ? (
               [
                 'Date',
+                'Time',
                 'I instructed a workshop in',
                 'What type of session did you instruct?',
                 'I felt well-prepared before the event began',
@@ -1792,18 +2335,32 @@ function FeedbackData() {
             )}
           </div>
           <div className="spreadsheet-body">
-            {Array.from({ length: Math.max(100, feedbackData.length + 10) }, (_, rowIndex) => (
-              <div key={rowIndex} className="spreadsheet-row">
+            {Array.from({ length: Math.max(100, feedbackData.length + 10) }, (_, rowIndex) => {
+              return (
+              <div 
+                key={rowIndex} 
+                className="spreadsheet-row"
+                onClick={(e) => handleRowClick(rowIndex, e)}
+                style={{
+                  backgroundColor: selectedRows.includes(rowIndex) ? '#e3f2fd' : 'transparent',
+                  cursor: rowIndex < feedbackData.length ? 'pointer' : 'default'
+                }}
+              >
                 <div 
                   className="row-number" 
                   onDoubleClick={() => handleRowNumberDoubleClick(rowIndex)}
-                  style={{ cursor: rowIndex < feedbackData.length ? 'pointer' : 'default' }}
+                  style={{ 
+                    cursor: rowIndex < feedbackData.length ? 'pointer' : 'default',
+                    backgroundColor: selectedRows.includes(rowIndex) ? '#1976d2' : 'transparent',
+                    color: selectedRows.includes(rowIndex) ? 'white' : 'inherit'
+                  }}
                 >
-                  {deleteRowIndex === rowIndex ? (
+                  {selectedRows.length > 0 && selectedRows.includes(rowIndex) ? (
                     <button
                       className="delete-button"
                       onClick={(e) => {
-                        handleDeleteRow(rowIndex)
+                        e.stopPropagation()
+                        handleMultiRowDelete()
                       }}
                       style={{
                         background: '#ff4444',
@@ -1823,7 +2380,7 @@ function FeedbackData() {
                     rowIndex + 1
                   )}
                 </div>
-                {Array.from({ length: selectedWorkshop === 'Instructor' ? 9 : 14 }, (_, colIndex) => {
+                {Array.from({ length: selectedWorkshop === 'Instructor' ? 10 : 15 }, (_, colIndex) => {
                   const cellId = `${rowIndex}-${colIndex}`
                   const isSelected = selectedCells.has(cellId)
                   const cellValue = cellData[cellId] || ''
@@ -1859,12 +2416,13 @@ function FeedbackData() {
                   )
                 })}
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
       
-      {/* Print and CSV Download Buttons - Bottom Right */}
+      {/* Print, CSV Download, and Password Management Buttons - Bottom Right */}
       <div style={{ 
         display: 'flex', 
         justifyContent: 'flex-end', 
@@ -1932,7 +2490,337 @@ function FeedbackData() {
         >
           Download CSV
         </button>
+        <button 
+          onClick={() => {
+            const currentDataPassword = localStorage.getItem('feedbackDataPassword') || '1234';
+            const currentDashboardPassword = localStorage.getItem('dashboardPassword') || '1111';
+            
+            const passwordChoice = prompt(
+              `Current passwords:\nDashboard: ${currentDashboardPassword}\nData: ${currentDataPassword}\n\nWhich password would you like to change?\n1. Dashboard\n2. Data\n\nEnter 1 or 2:`
+            );
+            
+            if (passwordChoice === '1') {
+              const newPassword = prompt(`Current Dashboard password: ${currentDashboardPassword}\n\nEnter new Dashboard password:`, currentDashboardPassword);
+              if (newPassword !== null && newPassword.trim() !== '') {
+                localStorage.setItem('dashboardPassword', newPassword.trim());
+                alert('Dashboard password updated successfully!');
+              }
+            } else if (passwordChoice === '2') {
+              const newPassword = prompt(`Current Data password: ${currentDataPassword}\n\nEnter new Data password:`, currentDataPassword);
+              if (newPassword !== null && newPassword.trim() !== '') {
+                localStorage.setItem('feedbackDataPassword', newPassword.trim());
+                alert('Data password updated successfully!');
+              }
+            } else if (passwordChoice !== null) {
+              alert('Invalid choice. Please enter 1 or 2.');
+            }
+          }}
+          style={{ 
+            padding: '4px 8px', 
+            backgroundColor: 'white', 
+            color: '#666666ff', 
+            border: '1px solid #666666ff', 
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '11px',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease',
+            gap: '4px',
+            height: '24px'
+          }}
+          title="Set Page Password"
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#f5f5f5'
+            e.target.style.borderColor = '#555555'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'white'
+            e.target.style.borderColor = '#666666ff'
+          }}
+        >
+          Set Password
+        </button>
+        <button 
+          onClick={() => setShowImportModal(true)}
+          style={{ 
+            padding: '4px 8px', 
+            backgroundColor: 'white', 
+            color: '#666666ff', 
+            border: '1px solid #666666ff', 
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '11px',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease',
+            gap: '4px',
+            height: '24px'
+          }}
+          title="Import Data from Google Sheets"
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#f5f5f5'
+            e.target.style.borderColor = '#555555'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'white'
+            e.target.style.borderColor = '#666666ff'
+          }}
+        >
+          Import
+        </button>
       </div>
+      
+      {/* Import Modal */}
+      {showImportModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '2rem',
+            borderRadius: '8px',
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            overflow: 'auto',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+          }}>
+            <h3 style={{ marginTop: 0, marginBottom: '1rem', color: '#333' }}>
+              Import Data - {selectedWorkshop} Workshop
+            </h3>
+            <p style={{ marginBottom: '1.5rem', color: '#666', fontSize: '14px' }}>
+              Paste data from Google Sheets column by column. Each column should contain data for one field.
+            </p>
+            
+            <div style={{ marginBottom: '1rem' }}>
+              {selectedWorkshop === 'AI' ? (
+                [
+                  'Date',
+                  'Time',
+                  'I did this workshop in',
+                  'I had fun in this workshop',
+                  'My favorite part of this workshop was',
+                  'This workshop challenged me appropriately',
+                  'I learned how to build and understand basic electronic systems',
+                  'After taking this workshop I feel confident in starting another similar electronics project',
+                  'In the next electronics workshop I want to learn how to _______',
+                  'I would recommend that this workshop be taught again next year',
+                  'Which workshop instructor did you learn the most from?',
+                  'The Stage One instructor(s) were well prepared',
+                  'The Stage One instructor(s) were knowledgeable',
+                  'How does this workshop compare to rest of the activities during your trip?',
+                  'Comments/Suggestions/Ideas (we will read everything you write)'
+                ].map((columnName, index) => (
+                  <div key={index} style={{ marginBottom: '1rem' }}>
+                    <label style={{ 
+                      display: 'block', 
+                      marginBottom: '0.5rem', 
+                      fontWeight: '500',
+                      fontSize: '13px',
+                      color: '#333'
+                    }}>
+                      {columnName}:
+                    </label>
+                    <textarea
+                      value={importData[index] || ''}
+                      onChange={(e) => setImportData(prev => ({ ...prev, [index]: e.target.value }))}
+                      placeholder={`Paste ${columnName} data here...`}
+                      style={{
+                        width: '100%',
+                        height: '80px',
+                        padding: '0.5rem',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        fontFamily: 'monospace',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+                ))
+              ) : selectedWorkshop === 'Robotics' ? (
+                [
+                  'Date',
+                  'Time',
+                  'I did this workshop in',
+                  'I had fun in this workshop',
+                  'My favorite part of this workshop was',
+                  'This workshop challenged me appropriately',
+                  'I learned how to build and understand basic electronic systems',
+                  'After taking this workshop I feel confident in starting another similar electronics project',
+                  'In the next electronics workshop I want to learn how to _______',
+                  'I would recommend that this workshop be taught again next year',
+                  'Which workshop instructor did you learn the most from?',
+                  'The Stage One instructor(s) were well prepared',
+                  'The Stage One instructor(s) were knowledgeable',
+                  'How does this workshop compare to rest of the activities during your trip?',
+                  'Comments/Suggestions/Ideas (we will read everything you write)'
+                ].map((columnName, index) => (
+                  <div key={index} style={{ marginBottom: '1rem' }}>
+                    <label style={{ 
+                      display: 'block', 
+                      marginBottom: '0.5rem', 
+                      fontWeight: '500',
+                      fontSize: '13px',
+                      color: '#333'
+                    }}>
+                      {columnName}:
+                    </label>
+                    <textarea
+                      value={importData[index] || ''}
+                      onChange={(e) => setImportData(prev => ({ ...prev, [index]: e.target.value }))}
+                      placeholder={`Paste ${columnName} data here...`}
+                      style={{
+                        width: '100%',
+                        height: '80px',
+                        padding: '0.5rem',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        fontFamily: 'monospace',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+                ))
+              ) : selectedWorkshop === 'Mechanical' ? (
+                [
+                  'Date',
+                  'Time',
+                  'I did this workshop in',
+                  'I had fun in this workshop',
+                  'My favorite part of this workshop was',
+                  'I am more knowledgeable about 3D design after this workshop',
+                  'I think I can design something using CAD on my own',
+                  'Something I\'d like to try designing next is',
+                  'The workshop was well paced',
+                  'I would recommend that this workshop be taught again next year',
+                  'Which workshop instructor did you learn the most from?',
+                  'The Stage One instructor(s) were well prepared',
+                  'The Stage One instructor(s) were knowledgeable',
+                  'How does this workshop compare to rest of the activities during your trip?',
+                  'Comments/Suggestions/Ideas (we will read everything you write)'
+                ].map((columnName, index) => (
+                  <div key={index} style={{ marginBottom: '1rem' }}>
+                    <label style={{ 
+                      display: 'block', 
+                      marginBottom: '0.5rem', 
+                      fontWeight: '500',
+                      fontSize: '13px',
+                      color: '#333'
+                    }}>
+                      {columnName}:
+                    </label>
+                    <textarea
+                      value={importData[index] || ''}
+                      onChange={(e) => setImportData(prev => ({ ...prev, [index]: e.target.value }))}
+                      placeholder={`Paste ${columnName} data here...`}
+                      style={{
+                        width: '100%',
+                        height: '80px',
+                        padding: '0.5rem',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        fontFamily: 'monospace',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+                ))
+              ) : selectedWorkshop === 'Instructor' ? (
+                [
+                  'Date',
+                  'Time',
+                  'I instructed a workshop in',
+                  'What type of session did you instruct?',
+                  'I felt well-prepared before the event began',
+                  'How would you rate the workshop venue?',
+                  'How would you rate the workshop content?',
+                  'How would you rate the workshop schedule and timing?',
+                  'Would you instruct future workshops with Stage One Education?',
+                  'Comments, suggestions, or ideas'
+                ].map((columnName, index) => (
+                  <div key={index} style={{ marginBottom: '1rem' }}>
+                    <label style={{ 
+                      display: 'block', 
+                      marginBottom: '0.5rem', 
+                      fontWeight: '500',
+                      fontSize: '13px',
+                      color: '#333'
+                    }}>
+                      {columnName}:
+                    </label>
+                    <textarea
+                      value={importData[index] || ''}
+                      onChange={(e) => setImportData(prev => ({ ...prev, [index]: e.target.value }))}
+                      placeholder={`Paste ${columnName} data here...`}
+                      style={{
+                        width: '100%',
+                        height: '80px',
+                        padding: '0.5rem',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        fontFamily: 'monospace',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+                ))
+              ) : null}
+            </div>
+            
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => {
+                  setShowImportModal(false)
+                  setImportData({})
+                }}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleImportData}
+                disabled={isImporting}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: isImporting ? '#ccc' : '#f05f40',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: isImporting ? 'not-allowed' : 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                {isImporting ? 'Importing...' : 'Submit'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       <footer className="footer">
         <div className="footer-content">

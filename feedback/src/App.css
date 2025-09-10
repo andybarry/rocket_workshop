@@ -52,6 +52,33 @@ html, body {
 .header-left {
   font-size: 1.3rem !important;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.instructor-feedback-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.instructor-feedback-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.instructor-feedback-btn:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
 }
 
 .header-center {
@@ -59,10 +86,63 @@ html, body {
   font-weight: normal;
 }
 
+.feedback-dashboard-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.feedback-dashboard-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.feedback-dashboard-btn:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
+}
+
 .header-right {
   font-size: 0.7rem !important;
   font-weight: bold;
   text-align: center;
+}
+
+.gear-icon-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 2rem 0 0;
+  background-color: white;
+}
+
+.gear-icon-btn {
+  background-color: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.gear-icon-btn:hover {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.gear-icon-btn:active {
+  color: rgba(0, 0, 0, 0.8);
+  transform: translateY(1px);
 }
 
 .charts-title {
@@ -107,11 +187,58 @@ html, body {
   border-color: #d1d5db;
 }
 
-.workshop-buttons {
+.workshop-dropdown-container {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.workshop-dropdown-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.workshop-dropdown {
+  background-color: white;
+  color: #f05f40;
+  border: 1px solid #f05f40;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: none;
+  min-width: 300px;
+}
+
+.workshop-dropdown:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+}
+
+.workshop-dropdown:hover {
+  background-color: #f05f40;
+  color: white;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+}
+
+.workshop-dropdown:active {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+  transform: translateY(1px);
+}
+
+.workshop-dropdown:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .workshop-btn {
@@ -119,9 +246,9 @@ html, body {
   color: #f05f40;
   border: 1px solid #f05f40;
   padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 15px;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -166,7 +293,7 @@ html, body {
   background-color: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin: 2rem auto;
+  margin: 0 auto 2rem auto;
   padding: 1rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 85%;
@@ -373,7 +500,7 @@ html, body {
 .footer {
   margin-top: 0;
   margin-bottom: 0;
-  padding: 0.5rem 0;
+  padding: 0.1rem 0;
   position: relative;
   background: transparent;
 }
@@ -537,7 +664,7 @@ html, body {
   color: #999;
   text-align: center;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.1rem 0;
 }
 
 /* Spreadsheet Styles */
@@ -584,7 +711,7 @@ html, body {
 
 .spreadsheet-container {
   overflow: auto;
-  max-height: 70vh;
+  max-height: 75vh;
   border: 1px solid #dadce0;
   border-radius: 4px;
   background-color: white;
@@ -909,6 +1036,48 @@ html, body {
   line-height: 1.6;
   margin-bottom: 2rem;
   text-align: center;
+}
+
+/* Survey title section - now part of the main form container */
+.survey-title-section {
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  border: none;
+}
+
+.survey-title-section h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.survey-title-section p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 0;
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stage-one-branding {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #f05f40;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
 }
 
 .survey-form {

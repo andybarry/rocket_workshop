@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function InstructorFeedbackSurvey() {
@@ -15,6 +15,10 @@ function InstructorFeedbackSurvey() {
     'comments': ''
   })
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    document.title = 'Instructor Feedback Survey'
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -96,6 +100,18 @@ function InstructorFeedbackSurvey() {
   }
 
   if (submitted) {
+    // Simple fade transition to Stage One Education website after 5 seconds
+    setTimeout(() => {
+      // Add fade out effect to current page
+      document.body.style.transition = 'opacity 1s ease-in-out'
+      document.body.style.opacity = '0'
+      
+      // Redirect after fade completes
+      setTimeout(() => {
+        window.location.href = 'https://stageoneeducation.com/index.html'
+      }, 1000)
+    }, 5000)
+
     return (
       <div className="app">
         <header className="header-bar">
@@ -110,6 +126,12 @@ function InstructorFeedbackSurvey() {
             <p>Your feedback has been submitted successfully. We appreciate your input!</p>
           </div>
         </main>
+        
+        <footer className="footer">
+          <div className="footer-content">
+            © 2025 Stage One Education, LLC
+          </div>
+        </footer>
       </div>
     )
   }
@@ -123,10 +145,12 @@ function InstructorFeedbackSurvey() {
       </header>
       
       <main className="main-content">
-        <h1>Instructor Feedback Survey</h1>
-        <p>Thank you for your feedback. Your responses are anonymous and help us improve future workshops. You only need to answer one question to submit the survey.</p>
-        
         <form className="survey-form" onSubmit={handleSubmit}>
+          <div className="survey-title-section">
+            <div className="stage-one-branding">STAGE ONE EDUCATION</div>
+            <h1>Instructor<br />Feedback Survey</h1>
+            <p>Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</p>
+          </div>
           {/* Location Question */}
           <div className="form-group">
             <label>I instructed a workshop in</label>
@@ -380,6 +404,12 @@ function InstructorFeedbackSurvey() {
           <button type="submit" className="submit-button">Submit Feedback</button>
         </form>
       </main>
+      
+      <footer className="footer">
+        <div className="footer-content">
+          © 2025 Stage One Education, LLC
+        </div>
+      </footer>
     </div>
   )
 }

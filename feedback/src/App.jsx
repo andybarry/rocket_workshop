@@ -1,12 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [feedback, setFeedback] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [showFeedbackGraphs, setShowFeedbackGraphs] = useState(false)
   const [selectedYear, setSelectedYear] = useState('2025')
+
+  // Password protection function for dashboard
+  const checkDashboardPassword = () => {
+    const storedPassword = localStorage.getItem('dashboardPassword') || '1111'
+    const password = prompt('Enter password to access Feedback Dashboard:')
+    if (password === storedPassword) {
+      setIsAuthenticated(true)
+      return true
+    } else if (password !== null) {
+      alert('Incorrect password. Access denied.')
+      return false
+    }
+    return false
+  }
+
+  // Check authentication on component mount
+  useEffect(() => {
+    checkDashboardPassword()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -315,13 +335,98 @@ function App() {
     )
   }
 
+  // Show password prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="app" style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#f8f9fa'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          padding: '2rem',
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          border: '1px solid #e1e5e9'
+        }}>
+          <h2 style={{ 
+            color: '#333', 
+            marginBottom: '1rem',
+            fontFamily: 'Roboto, sans-serif'
+          }}>
+            Access Restricted
+          </h2>
+          <p style={{ 
+            color: '#666', 
+            marginBottom: '1.5rem',
+            fontFamily: 'Roboto, sans-serif'
+          }}>
+            This page requires password authentication.
+          </p>
+          <button 
+            onClick={checkDashboardPassword}
+            style={{
+              backgroundColor: '#f05f40',
+              color: 'white',
+              border: 'none',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '6px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              fontFamily: 'Roboto, sans-serif',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#e04a2b'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#f05f40'
+            }}
+          >
+            Enter Password
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <header className="header-bar">
-        <div className="header-left">Workshop Feedback</div>
+        <div className="header-left">
+          <span>Workshop Feedback</span>
+          <button 
+            className="instructor-feedback-btn"
+            onClick={() => window.open('http://localhost:5174/instructor-feedback-survey.html', '_blank')}
+          >
+            Instructor Feedback Survey
+          </button>
+        </div>
         <div className="header-center"></div>
         <div className="header-right">STAGE ONE EDUCATION</div>
       </header>
+      <div className="gear-icon-container">
+        <button 
+          className="gear-icon-btn"
+          onClick={() => {
+            const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234';
+            const password = prompt('Enter password to access Feedback Data:');
+            if (password === storedPassword) {
+              window.open('http://localhost:5174/feedback-data.html', '_blank');
+            } else if (password !== null) {
+              alert('Incorrect password. Access denied.');
+            }
+          }}
+          title="Feedback Data"
+        >
+          ⚙️
+        </button>
+      </div>
       <div className="workshop-feedback-container">
         <div className="charts-title">
           <h2>Cumulative Workshop Feedback</h2>
