@@ -6,7 +6,11 @@ function FeedbackData() {
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedLocation, setSelectedLocation] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
-  const [columnWidths, setColumnWidths] = useState(Array(15).fill(150))
+  const [columnWidths, setColumnWidths] = useState(() => {
+    const widths = Array(14).fill(150)
+    widths[13] = 300 // Comments/Suggestions/Ideas column - make it wider
+    return widths
+  })
   const [isResizing, setIsResizing] = useState(false)
   const [resizeColumn, setResizeColumn] = useState(null)
   const [selectedCells, setSelectedCells] = useState(new Set())
@@ -17,59 +21,685 @@ function FeedbackData() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [deleteRowIndex, setDeleteRowIndex] = useState(null)
+  const [deletedRows, setDeletedRows] = useState({
+    AI: [],
+    Robotics: [],
+    Mechanical: [],
+    Instructor: []
+  }) // Store deleted rows history for undo, organized by workshop type
+  const [zoomLevel, setZoomLevel] = useState(100) // Zoom level percentage
 
-  // Fetch feedback data from backend
-  useEffect(() => {
-    const fetchFeedbackData = async () => {
-      try {
-        setLoading(true)
-        console.log('Fetching data for workshop:', selectedWorkshop)
-        
-        // Try multiple endpoints in case of connectivity issues
-        const endpoints = [
-          `http://localhost:3001/api/feedback/${selectedWorkshop}`,
-          `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
-        ]
-        
-        let response = null
-        for (const endpoint of endpoints) {
-          try {
-            console.log('Trying endpoint:', endpoint)
-            response = await fetch(endpoint, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              mode: 'cors'
-            })
-            if (response.ok) {
-              console.log('Success with endpoint:', endpoint)
-              break
-            }
-          } catch (err) {
-            console.log('Failed with endpoint:', endpoint, err.message)
-            continue
-          }
-        }
-        
-        if (response && response.ok) {
-          const data = await response.json()
-          console.log('Received data:', data)
-          setFeedbackData(data)
-          setError(null)
-        } else {
-          console.error('All endpoints failed')
-          setError('Failed to fetch feedback data - server may be down')
-        }
-      } catch (err) {
-        console.error('Fetch error:', err)
-        setError('Network error: ' + err.message)
-      } finally {
-        setLoading(false)
+  // Function to convert numeric values to text labels for instructor survey
+  const convertInstructorValueToText = (value, fieldName) => {
+    if (!value) return ''
+    
+    // Rating scale fields (1-5 scale)
+    if (['venue-rating', 'content-relevance', 'schedule-timing'].includes(fieldName)) {
+      const ratingMap = {
+        '1': 'Poor',
+        '2': 'Fair', 
+        '3': 'Good',
+        '4': 'Very Good',
+        '5': 'Excellent'
       }
+      return ratingMap[value] || value
+    }
+    
+    // Future instruct field (1-5 scale)
+    if (fieldName === 'future-instruct') {
+      const futureMap = {
+        '1': 'Definitely Not',
+        '2': 'Probably Not',
+        '3': 'Not Sure', 
+        '4': 'Probably',
+        '5': 'Definitely'
+      }
+      return futureMap[value] || value
+    }
+    
+    // For other fields, return as is
+    return value
+  }
+
+  // Color mapping function for feedback responses
+  const getCellColor = (text) => {
+    if (!text || typeof text !== 'string') return { backgroundColor: 'white', color: '#000' }
+    
+    const normalizedText = text.toLowerCase().trim()
+    
+    // Understanding level colors (highest priority)
+    if (normalizedText.includes('strong conceptual understanding')) {
+      return { backgroundColor: '#1155cc', color: '#000' }
+    } else if (normalizedText.includes('advanced understanding')) {
+      return { backgroundColor: '#3c78d8', color: '#000' }
+    } else if (normalizedText.includes('average understanding')) {
+      return { backgroundColor: '#6d9eeb', color: '#000' }
+    } else if (normalizedText.includes('basic understanding')) {
+      return { backgroundColor: '#a4c2f4', color: '#000' }
+    } else if (normalizedText.includes('minimal knowledge')) {
+      return { backgroundColor: '#c9daf8', color: '#000' }
+    }
+    
+    // Agreement scale colors
+    if (normalizedText.includes('strongly disagree')) {
+      return { backgroundColor: '#e06666', color: '#000' }
+    } else if (normalizedText.includes('disagree')) {
+      return { backgroundColor: '#f4cccc', color: '#000' }
+    } else if (normalizedText.includes('neutral')) {
+      return { backgroundColor: 'white', color: '#000' }
+    } else if (normalizedText.includes('agree') && !normalizedText.includes('strongly')) {
+      return { backgroundColor: '#b7e1cd', color: '#000' }
+    } else if (normalizedText.includes('strongly agree')) {
+      return { backgroundColor: '#57bb8a', color: '#000' }
+    }
+    
+    // Workshop comparison colors
+    if (normalizedText.includes('the worst so far')) {
+      return { backgroundColor: '#e06666', color: '#000' }
+    } else if (normalizedText.includes('worse than most other activities')) {
+      return { backgroundColor: '#f4cccc', color: '#000' }
+    } else if (normalizedText.includes('about the same')) {
+      return { backgroundColor: 'white', color: '#000' }
+    } else if (normalizedText.includes('better than most other activities')) {
+      return { backgroundColor: '#b7e1cd', color: '#000' }
+    } else if (normalizedText.includes('the best so far')) {
+      return { backgroundColor: '#57bb8a', color: '#000' }
+    }
+    
+    // Instructor survey rating colors
+    if (normalizedText.includes('poor')) {
+      return { backgroundColor: '#e06666', color: '#000' } // Strongly Disagree red
+    } else if (normalizedText.includes('fair')) {
+      return { backgroundColor: '#f4cccc', color: '#000' } // Disagree light red
+    } else if (normalizedText.includes('very good')) {
+      return { backgroundColor: '#b7e1cd', color: '#000' } // Agree light green
+    } else if (normalizedText.includes('good') && !normalizedText.includes('very')) {
+      return { backgroundColor: 'white', color: '#000' } // Neutral white
+    } else if (normalizedText.includes('excellent')) {
+      return { backgroundColor: '#57bb8a', color: '#000' } // Strongly Agree green
+    }
+    
+    // Instructor survey future instruct colors
+    if (normalizedText.includes('definitely not')) {
+      return { backgroundColor: '#e06666', color: '#000' }
+    } else if (normalizedText.includes('probably not')) {
+      return { backgroundColor: '#f4cccc', color: '#000' }
+    } else if (normalizedText.includes('not sure')) {
+      return { backgroundColor: 'white', color: '#000' }
+    } else if (normalizedText.includes('probably')) {
+      return { backgroundColor: '#b7e1cd', color: '#000' }
+    } else if (normalizedText.includes('definitely')) {
+      return { backgroundColor: '#57bb8a', color: '#000' }
+    }
+    
+    // Default color for unmatched text
+    return { backgroundColor: 'white', color: '#000' }
+  }
+
+  // Zoom functions
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(prev + 10, 200)) // Max zoom 200%
+  }
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(prev - 10, 50)) // Min zoom 50%
+  }
+
+  // Print table function
+  const printTable = () => {
+    if (feedbackData.length === 0) {
+      alert('No data available to print')
+      return
     }
 
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank')
+    
+    // Get headers based on selected workshop
+    let headers = []
+    if (selectedWorkshop === 'AI') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'This workshop challenged me appropriately',
+        'Before this workshop my comfort with AI tools was',
+        'After this workshop my comfort with AI tools was',
+        'Before this workshop my understanding of neural networks was',
+        'After this workshop my understanding of neural networks was',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Robotics') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'This workshop challenged me appropriately',
+        'I learned how to build and understand basic electronic systems',
+        'After taking this workshop I feel confident in starting another similar electronics project',
+        'In the next electronics workshop I want to learn how to _______',
+        'I would recommend that this workshop be taught again next year',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Mechanical') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'I am more knowledgeable about 3D design after this workshop',
+        'I think I can design something using CAD on my own',
+        'Something I\'d like to try designing next is',
+        'The workshop was well paced',
+        'I would recommend that this workshop be taught again next year',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Instructor') {
+      headers = [
+        'Date',
+        'I instructed a workshop in',
+        'What type of session did you instruct?',
+        'I felt well-prepared before the event began',
+        'How would you rate the workshop venue?',
+        'How would you rate the workshop content?',
+        'How would you rate the workshop schedule and timing?',
+        'Would you instruct future workshops with Stage One Education?',
+        'Comments, suggestions, or ideas',
+        '',
+        '',
+        ''
+      ]
+    }
+
+    // Create HTML content for printing
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${selectedWorkshop} Workshop Feedback Data</title>
+        <style>
+          body { 
+            font-family: Arial, sans-serif; 
+            margin: 10px; 
+            font-size: 10px;
+            line-height: 1.2;
+          }
+          h1 { 
+            color: #333; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 16px;
+          }
+          table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 10px;
+            table-layout: fixed;
+          }
+          th, td { 
+            border: 1px solid #333; 
+            padding: 4px; 
+            text-align: left; 
+            vertical-align: top; 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            font-size: 9px;
+          }
+          th { 
+            background-color: #f2f2f2; 
+            font-weight: bold; 
+            font-size: 9px;
+            padding: 6px 4px;
+          }
+          tr:nth-child(even) { background-color: #f9f9f9; }
+          .print-date { 
+            text-align: right; 
+            margin-bottom: 15px; 
+            font-size: 10px; 
+            color: #666; 
+          }
+          .table-container {
+            overflow: visible;
+            width: 100%;
+          }
+          @media print {
+            body { 
+              margin: 5px; 
+              font-size: 9px;
+            }
+            .print-date { 
+              margin-bottom: 8px; 
+            }
+            table {
+              page-break-inside: auto;
+            }
+            tr {
+              page-break-inside: avoid;
+              page-break-after: auto;
+            }
+            th, td {
+              font-size: 8px;
+              padding: 3px;
+            }
+            h1 {
+              font-size: 14px;
+              margin-bottom: 15px;
+            }
+          }
+          @page {
+            margin: 0.5in;
+            size: A4 landscape;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="print-date">Printed on: ${new Date().toLocaleDateString()}</div>
+        <h1>${selectedWorkshop} Workshop Feedback Data</h1>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                ${headers.map(header => `<th>${header}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${feedbackData.map(feedback => {
+                let row = []
+                if (selectedWorkshop === 'AI') {
+                  row = [
+                    feedback.date || '',
+                    feedback['workshop-location'] || '',
+                    feedback['had-fun'] || '',
+                    feedback['favorite-part'] || '',
+                    feedback['challenged-appropriately'] || '',
+                    feedback['ai-tools-before'] || '',
+                    feedback['ai-tools-after'] || '',
+                    feedback['neural-networks-before'] || '',
+                    feedback['neural-networks-after'] || '',
+                    feedback['instructor'] || '',
+                    feedback['instructor-prepared'] || '',
+                    feedback['instructor-knowledgeable'] || '',
+                    feedback['workshop-comparison'] || '',
+                    feedback['comments'] || ''
+                  ]
+                } else if (selectedWorkshop === 'Robotics') {
+                  row = [
+                    feedback.date || '',
+                    feedback['workshop-location'] || '',
+                    feedback['had-fun'] || '',
+                    feedback['favorite-part'] || '',
+                    feedback['challenged-appropriately'] || '',
+                    feedback['learned-electronics'] || '',
+                    feedback['confident-electronics'] || '',
+                    feedback['next-electronics'] || '',
+                    feedback['recommend-workshop'] || '',
+                    feedback['instructor'] || '',
+                    feedback['instructor-prepared'] || '',
+                    feedback['instructor-knowledgeable'] || '',
+                    feedback['workshop-comparison'] || '',
+                    feedback['comments'] || ''
+                  ]
+                } else if (selectedWorkshop === 'Mechanical') {
+                  row = [
+                    feedback.date || '',
+                    feedback['workshop-location'] || '',
+                    feedback['had-fun'] || '',
+                    feedback['favorite-part'] || '',
+                    feedback['knowledgeable-3d-design'] || '',
+                    feedback['can-design-cad'] || '',
+                    feedback['next-design'] || '',
+                    feedback['well-paced'] || '',
+                    feedback['recommend-workshop'] || '',
+                    feedback['instructor'] || '',
+                    feedback['instructor-prepared'] || '',
+                    feedback['instructor-knowledgeable'] || '',
+                    feedback['workshop-comparison'] || '',
+                    feedback['comments'] || ''
+                  ]
+                } else if (selectedWorkshop === 'Instructor') {
+                  row = [
+                    feedback.date || '',
+                    (() => {
+            const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
+            const otherText = feedback['instructed-location-other-text'] || ''
+            let result = locations.join(', ')
+            if (locations.includes('Other') && otherText) {
+              result = result.replace('Other', `Other: ${otherText}`)
+            }
+            return result
+          })(),
+                    (() => {
+            const sessionType = feedback['session-type'] || ''
+            const otherText = feedback['session-type-other-text'] || ''
+            if (sessionType === 'Other' && otherText) {
+              return `Other: ${otherText}`
+            }
+            return sessionType
+          })(),
+                    feedback['well-prepared'] || '',
+                    convertInstructorValueToText(feedback['venue-rating'], 'venue-rating'),
+                    convertInstructorValueToText(feedback['content-relevance'], 'content-relevance'),
+                    convertInstructorValueToText(feedback['schedule-timing'], 'schedule-timing'),
+                    convertInstructorValueToText(feedback['future-instruct'], 'future-instruct'),
+                    feedback['comments'] || '',
+                    '',
+                    '',
+                    ''
+                  ]
+                }
+                return `<tr>${row.map(cell => `<td>${String(cell || '').replace(/"/g, '&quot;')}</td>`).join('')}</tr>`
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </body>
+      </html>
+    `
+
+    printWindow.document.write(printContent)
+    printWindow.document.close()
+    
+    // Wait for content to load then print
+    printWindow.onload = () => {
+      printWindow.print()
+      printWindow.close()
+    }
+  }
+
+  // CSV download function
+  const downloadCSV = () => {
+    if (feedbackData.length === 0) {
+      alert('No data available to download')
+      return
+    }
+
+    // Get headers based on selected workshop
+    let headers = []
+    if (selectedWorkshop === 'AI') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'This workshop challenged me appropriately',
+        'Before this workshop my comfort with AI tools was',
+        'After this workshop my comfort with AI tools was',
+        'Before this workshop my understanding of neural networks was',
+        'After this workshop my understanding of neural networks was',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Robotics') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'This workshop challenged me appropriately',
+        'I learned how to build and understand basic electronic systems',
+        'After taking this workshop I feel confident in starting another similar electronics project',
+        'In the next electronics workshop I want to learn how to _______',
+        'I would recommend that this workshop be taught again next year',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Mechanical') {
+      headers = [
+        'Date',
+        'I did this workshop in',
+        'I had fun in this workshop',
+        'My favorite part of this workshop was',
+        'I am more knowledgeable about 3D design after this workshop',
+        'I think I can design something using CAD on my own',
+        'Something I\'d like to try designing next is',
+        'The workshop was well paced',
+        'I would recommend that this workshop be taught again next year',
+        'Which workshop instructor did you learn the most from?',
+        'The Stage One instructor(s) were well prepared',
+        'The Stage One instructor(s) were knowledgeable',
+        'How does this workshop compare to rest of the activities during your trip?',
+        'Comments/Suggestions/Ideas (we will read everything you write)'
+      ]
+    } else if (selectedWorkshop === 'Instructor') {
+      headers = [
+        'Date',
+        'I instructed a workshop in',
+        'What type of session did you instruct?',
+        'I felt well-prepared before the event began',
+        'How would you rate the workshop venue?',
+        'How would you rate the workshop content?',
+        'How would you rate the workshop schedule and timing?',
+        'Would you instruct future workshops with Stage One Education?',
+        'Comments, suggestions, or ideas',
+        '',
+        '',
+        ''
+      ]
+    }
+
+    // Convert data to CSV format
+    const csvContent = [
+      headers.join(','),
+      ...feedbackData.map(feedback => {
+        let row = []
+        if (selectedWorkshop === 'AI') {
+          row = [
+            feedback.date || '',
+            feedback['workshop-location'] || '',
+            feedback['had-fun'] || '',
+            feedback['favorite-part'] || '',
+            feedback['challenged-appropriately'] || '',
+            feedback['ai-tools-before'] || '',
+            feedback['ai-tools-after'] || '',
+            feedback['neural-networks-before'] || '',
+            feedback['neural-networks-after'] || '',
+            feedback['instructor'] || '',
+            feedback['instructor-prepared'] || '',
+            feedback['instructor-knowledgeable'] || '',
+            feedback['workshop-comparison'] || '',
+            feedback['comments'] || ''
+          ]
+        } else if (selectedWorkshop === 'Robotics') {
+          row = [
+            feedback.date || '',
+            feedback['workshop-location'] || '',
+            feedback['had-fun'] || '',
+            feedback['favorite-part'] || '',
+            feedback['challenged-appropriately'] || '',
+            feedback['learned-electronics'] || '',
+            feedback['confident-electronics'] || '',
+            feedback['next-electronics'] || '',
+            feedback['recommend-workshop'] || '',
+            feedback['instructor'] || '',
+            feedback['instructor-prepared'] || '',
+            feedback['instructor-knowledgeable'] || '',
+            feedback['workshop-comparison'] || '',
+            feedback['comments'] || ''
+          ]
+        } else if (selectedWorkshop === 'Mechanical') {
+          row = [
+            feedback.date || '',
+            feedback['workshop-location'] || '',
+            feedback['had-fun'] || '',
+            feedback['favorite-part'] || '',
+            feedback['knowledgeable-3d-design'] || '',
+            feedback['can-design-cad'] || '',
+            feedback['next-design'] || '',
+            feedback['well-paced'] || '',
+            feedback['recommend-workshop'] || '',
+            feedback['instructor'] || '',
+            feedback['instructor-prepared'] || '',
+            feedback['instructor-knowledgeable'] || '',
+            feedback['workshop-comparison'] || '',
+            feedback['comments'] || ''
+          ]
+        } else if (selectedWorkshop === 'Instructor') {
+          row = [
+            feedback.date || '',
+            (() => {
+            const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
+            const otherText = feedback['instructed-location-other-text'] || ''
+            let result = locations.join(', ')
+            if (locations.includes('Other') && otherText) {
+              result = result.replace('Other', `Other: ${otherText}`)
+            }
+            return result
+          })(),
+            (() => {
+            const sessionType = feedback['session-type'] || ''
+            const otherText = feedback['session-type-other-text'] || ''
+            if (sessionType === 'Other' && otherText) {
+              return `Other: ${otherText}`
+            }
+            return sessionType
+          })(),
+            feedback['well-prepared'] || '',
+            convertInstructorValueToText(feedback['venue-rating'], 'venue-rating'),
+            convertInstructorValueToText(feedback['content-relevance'], 'content-relevance'),
+            convertInstructorValueToText(feedback['schedule-timing'], 'schedule-timing'),
+            convertInstructorValueToText(feedback['future-instruct'], 'future-instruct'),
+            feedback['comments'] || '',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        }
+        
+        // Escape CSV values (handle commas, quotes, newlines)
+        return row.map(value => {
+          const stringValue = String(value || '')
+          if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
+            return `"${stringValue.replace(/"/g, '""')}"`
+          }
+          return stringValue
+        }).join(',')
+      })
+    ].join('\n')
+
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    link.setAttribute('href', url)
+    link.setAttribute('download', `${selectedWorkshop}_Workshop_Feedback_${new Date().toISOString().split('T')[0]}.csv`)
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  // Check if server is running and provide helpful instructions
+  const checkServerStatus = async () => {
+    try {
+      // Try to check if server is already running
+      const healthCheck = await fetch('http://localhost:3001/api/health', {
+        method: 'GET',
+        mode: 'cors'
+      })
+      
+      if (healthCheck.ok) {
+        console.log('Server is already running')
+        return true
+      }
+    } catch (err) {
+      console.log('Server not running')
+    }
+
+    return false
+  }
+
+  // Fetch feedback data from backend
+  const fetchFeedbackData = async () => {
+    try {
+      setLoading(true)
+      console.log('Fetching data for workshop:', selectedWorkshop)
+      
+      // First check if server is running
+      const serverRunning = await checkServerStatus()
+      
+      // Try multiple endpoints in case of connectivity issues
+      const endpoints = [
+        `http://localhost:3001/api/feedback/${selectedWorkshop}`,
+        `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+      ]
+      
+      let response = null
+      for (const endpoint of endpoints) {
+        try {
+          console.log('Trying endpoint:', endpoint)
+          response = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            mode: 'cors'
+          })
+          if (response.ok) {
+            console.log('Success with endpoint:', endpoint)
+            break
+          }
+        } catch (err) {
+          console.log('Failed with endpoint:', endpoint, err.message)
+          continue
+        }
+      }
+      
+      if (response && response.ok) {
+        const data = await response.json()
+        console.log('Received data:', data)
+        setFeedbackData(data)
+        setError(null)
+      } else {
+        console.error('All endpoints failed')
+        if (serverRunning) {
+          setError('Failed to fetch feedback data - server may be starting up, please refresh in a moment')
+        } else {
+          setError('Failed to fetch feedback data - server is not running. The server should start automatically when you run "npm run dev". If the problem persists, please run "start.bat" to start both servers manually.')
+        }
+      }
+    } catch (err) {
+      console.error('Fetch error:', err)
+      setError('Network error: ' + err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     fetchFeedbackData()
+    
+    // Adjust column widths based on workshop type
+    if (selectedWorkshop === 'Instructor') {
+      const widths = Array(9).fill(150)
+      widths[8] = 300 // Comments, suggestions, or ideas column - make it wider
+      setColumnWidths(widths)
+    } else {
+      const widths = Array(14).fill(150)
+      widths[13] = 300 // Comments/Suggestions/Ideas column - make it wider
+      setColumnWidths(widths)
+    }
   }, [selectedWorkshop])
 
   // Convert feedback data to spreadsheet format
@@ -94,8 +724,7 @@ function FeedbackData() {
           feedback['instructor-prepared'] || '',
           feedback['instructor-knowledgeable'] || '',
           feedback['workshop-comparison'] || '',
-          feedback['comments'] || '',
-          '' // Empty column
+          feedback['comments'] || ''
         ]
       } else if (selectedWorkshop === 'Robotics') {
         columns = [
@@ -112,8 +741,7 @@ function FeedbackData() {
           feedback['instructor-prepared'] || '',
           feedback['instructor-knowledgeable'] || '',
           feedback['workshop-comparison'] || '',
-          feedback['comments'] || '',
-          '' // Empty column
+          feedback['comments'] || ''
         ]
       } else if (selectedWorkshop === 'Mechanical') {
         columns = [
@@ -130,12 +758,38 @@ function FeedbackData() {
           feedback['instructor-prepared'] || '',
           feedback['instructor-knowledgeable'] || '',
           feedback['workshop-comparison'] || '',
-          feedback['comments'] || '',
-          '' // Empty column
+          feedback['comments'] || ''
+        ]
+      } else if (selectedWorkshop === 'Instructor') {
+        columns = [
+          feedback.date || '',
+          (() => {
+            const locations = Array.isArray(feedback['instructed-location']) ? feedback['instructed-location'] : []
+            const otherText = feedback['instructed-location-other-text'] || ''
+            let result = locations.join(', ')
+            if (locations.includes('Other') && otherText) {
+              result = result.replace('Other', `Other: ${otherText}`)
+            }
+            return result
+          })(),
+          (() => {
+            const sessionType = feedback['session-type'] || ''
+            const otherText = feedback['session-type-other-text'] || ''
+            if (sessionType === 'Other' && otherText) {
+              return `Other: ${otherText}`
+            }
+            return sessionType
+          })(),
+          feedback['well-prepared'] || '',
+          convertInstructorValueToText(feedback['venue-rating'], 'venue-rating'),
+          convertInstructorValueToText(feedback['content-relevance'], 'content-relevance'),
+          convertInstructorValueToText(feedback['schedule-timing'], 'schedule-timing'),
+          convertInstructorValueToText(feedback['future-instruct'], 'future-instruct'),
+          feedback['comments'] || ''
         ]
       } else {
         // Fallback for unknown workshop types
-        columns = Array(15).fill('')
+        columns = Array(14).fill('')
       }
       
       columns.forEach((value, colIndex) => {
@@ -311,6 +965,108 @@ function FeedbackData() {
     }
   }
 
+  const handleUndoDelete = async () => {
+    const currentWorkshopDeletedRows = deletedRows[selectedWorkshop]
+    
+    if (currentWorkshopDeletedRows.length === 0) {
+      alert('No deleted rows to restore')
+      return
+    }
+
+    // Get the most recently deleted row (last in the array)
+    const deletedRow = currentWorkshopDeletedRows[currentWorkshopDeletedRows.length - 1]
+
+    try {
+      // Submit the deleted row back to the backend
+      const endpoints = [
+        'http://localhost:3001/api/feedback',
+        'http://127.0.0.1:3001/api/feedback'
+      ]
+      
+      let response = null
+      for (const endpoint of endpoints) {
+        try {
+          console.log('Trying restore endpoint:', endpoint)
+          response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+              workshopType: selectedWorkshop,
+              feedbackData: deletedRow.data
+            })
+          })
+          if (response.ok) {
+            console.log('Success with restore endpoint:', endpoint)
+            break
+          }
+        } catch (err) {
+          console.log('Failed with restore endpoint:', endpoint, err.message)
+          continue
+        }
+      }
+
+      if (response && response.ok) {
+        // Refresh the data from backend to get the updated state
+        const fetchFeedbackData = async () => {
+          try {
+            setLoading(true)
+            const endpoints = [
+              `http://localhost:3001/api/feedback/${selectedWorkshop}`,
+              `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+            ]
+            
+            let response = null
+            for (const endpoint of endpoints) {
+              try {
+                response = await fetch(endpoint, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  mode: 'cors'
+                })
+                if (response.ok) {
+                  break
+                }
+              } catch (err) {
+                continue
+              }
+            }
+            
+            if (response && response.ok) {
+              const data = await response.json()
+              setFeedbackData(data)
+              setError(null)
+            }
+          } catch (err) {
+            console.error('Error refreshing data:', err)
+          } finally {
+            setLoading(false)
+          }
+        }
+
+        await fetchFeedbackData()
+
+        // Remove the restored row from the deleted rows history for this workshop
+        setDeletedRows(prev => ({
+          ...prev,
+          [selectedWorkshop]: prev[selectedWorkshop].slice(0, -1)
+        }))
+        
+        console.log('Successfully restored deleted row')
+      } else {
+        console.error('Failed to restore feedback')
+        alert('Failed to restore feedback. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error restoring row:', err)
+      alert(`Error restoring row: ${err.message}`)
+    }
+  }
+
   const handleDeleteRow = async (rowIndex) => {
     if (rowIndex >= feedbackData.length) return
     
@@ -324,7 +1080,7 @@ function FeedbackData() {
     }
 
     try {
-      // Delete from backend
+      // Delete from backend using the feedback ID
       const endpoints = [
         `http://localhost:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`,
         `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
@@ -345,7 +1101,6 @@ function FeedbackData() {
             credentials: 'include'
           })
           console.log('Delete response status:', response.status)
-          console.log('Delete response headers:', response.headers)
           if (response.ok) {
             const responseData = await response.json()
             console.log('Delete response data:', responseData)
@@ -363,17 +1118,52 @@ function FeedbackData() {
       }
 
       if (response && response.ok) {
-        // Remove from local state
-        const newFeedbackData = feedbackData.filter((_, index) => index !== rowIndex)
-        setFeedbackData(newFeedbackData)
+        // Add the deleted row to the history for undo functionality for this workshop
+        setDeletedRows(prev => ({
+          ...prev,
+          [selectedWorkshop]: [...prev[selectedWorkshop], {
+            data: feedbackToDelete,
+            originalIndex: rowIndex
+          }]
+        }))
         
-        // Clear any cell data for this row
-        const newCellData = { ...cellData }
-        for (let colIndex = 0; colIndex < 15; colIndex++) {
-          const cellId = `${rowIndex}-${colIndex}`
-          delete newCellData[cellId]
+        // Refresh data from backend to ensure consistency
+        const refreshData = async () => {
+          try {
+            const endpoints = [
+              `http://localhost:3001/api/feedback/${selectedWorkshop}`,
+              `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+            ]
+            
+            let response = null
+            for (const endpoint of endpoints) {
+              try {
+                response = await fetch(endpoint, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  mode: 'cors'
+                })
+                if (response.ok) {
+                  break
+                }
+              } catch (err) {
+                continue
+              }
+            }
+            
+            if (response && response.ok) {
+              const data = await response.json()
+              setFeedbackData(data)
+              setError(null)
+            }
+          } catch (err) {
+            console.error('Error refreshing data:', err)
+          }
         }
-        setCellData(newCellData)
+
+        await refreshData()
         
         // Hide delete button
         setDeleteRowIndex(null)
@@ -711,7 +1501,7 @@ function FeedbackData() {
         <div className="header-right">STAGE ONE EDUCATION</div>
       </header>
       
-      <div className="workshop-buttons-container" style={{ marginTop: '40px' }}>
+      <div className="workshop-buttons-container" style={{ marginTop: '20px' }}>
         <div className="workshop-buttons">
           <button 
             className={`workshop-btn ${selectedWorkshop === 'AI' ? 'active' : ''}`}
@@ -729,24 +1519,31 @@ function FeedbackData() {
             className={`workshop-btn ${selectedWorkshop === 'Mechanical' ? 'active' : ''}`}
             onClick={() => setSelectedWorkshop('Mechanical')}
           >
-            Mechanical Workshop
+            Mechanical Engineering Workshop
+          </button>
+          <button 
+            className={`workshop-btn ${selectedWorkshop === 'Instructor' ? 'active' : ''}`}
+            onClick={() => setSelectedWorkshop('Instructor')}
+          >
+            Instructor
           </button>
         </div>
       </div>
       
-      <div className="spreadsheet-controls" style={{ marginTop: '40px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+      <div className="spreadsheet-controls" style={{ marginTop: '20px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {loading && <span style={{ color: '#666' }}>Loading...</span>}
           {error && <span style={{ color: 'red' }}>Error: {error}</span>}
           <button 
-            onClick={() => window.location.reload()} 
+            onClick={fetchFeedbackData} 
             style={{ 
-              padding: '5px 10px', 
-              backgroundColor: '#f05f40', 
-              color: 'white', 
-              border: 'none', 
+              padding: '2px 6px', 
+              backgroundColor: 'white', 
+              color: '#666666ff', 
+              border: '1px solid #666666ff', 
               borderRadius: '3px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontSize: '10px'
             }}
           >
             Refresh Data
@@ -755,12 +1552,113 @@ function FeedbackData() {
             {feedbackData.length} responses
           </span>
         </div>
+        
+        {/* Zoom Controls - Right Justified */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ color: '#666', fontSize: '13px', fontWeight: '500' }}>Zoom:</span>
+          <button 
+            onClick={handleZoomOut}
+            style={{ 
+              padding: '2px 6px', 
+              backgroundColor: 'white', 
+              color: '#666666ff', 
+              border: '1px solid #666666ff', 
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              minWidth: '22px',
+              height: '22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease'
+            }}
+            title="Zoom Out"
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#f5f5f5'
+              e.target.style.borderColor = '#555555'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'white'
+              e.target.style.borderColor = '#666666ff'
+            }}
+          >
+            −
+          </button>
+          <span style={{ 
+            color: '#333', 
+            fontSize: '11px', 
+            minWidth: '35px', 
+            textAlign: 'center',
+            fontWeight: '500',
+            backgroundColor: '#f8f9fa',
+            padding: '2px 6px',
+            borderRadius: '3px',
+            border: '1px solid #e9ecef'
+          }}>
+            {zoomLevel}%
+          </span>
+          <button 
+            onClick={handleZoomIn}
+            style={{ 
+              padding: '2px 6px', 
+              backgroundColor: 'white', 
+              color: '#666666ff', 
+              border: '1px solid #666666ff', 
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              minWidth: '22px',
+              height: '22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease'
+            }}
+            title="Zoom In"
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#f5f5f5'
+              e.target.style.borderColor = '#555555'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'white'
+              e.target.style.borderColor = '#666666ff'
+            }}
+          >
+            +
+          </button>
+        </div>
       </div>
       
       <div className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
-        <div className="spreadsheet">
+        <div className="spreadsheet" style={{ transform: `scale(${zoomLevel / 100 * 0.65})`, transformOrigin: 'top left' }}>
           <div className="spreadsheet-header">
-            <div className="row-header"></div>
+            <div className="row-header">
+              {deletedRows[selectedWorkshop].length > 0 && (
+                <button
+                  onClick={handleUndoDelete}
+                  style={{
+                    background: '#d3d3d3',
+                    color: '#333',
+                    border: '1px solid #ccc',
+                    borderRadius: '3px',
+                    padding: '4px 8px',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  title="Undo last delete"
+                >
+                  ← Undo
+                </button>
+              )}
+            </div>
             {selectedWorkshop === 'AI' ? (
               [
                 'Date',
@@ -776,8 +1674,7 @@ function FeedbackData() {
                 'The Stage One instructor(s) were well prepared',
                 'The Stage One instructor(s) were knowledgeable',
                 'How does this workshop compare to rest of the activities during your trip?',
-                'Comments/Suggestions/Ideas (we will read everything you write)',
-                ''
+                'Comments/Suggestions/Ideas (we will read everything you write)'
               ].map((header, i) => (
                 <div key={i} className="column-header-container">
                   <div 
@@ -807,8 +1704,7 @@ function FeedbackData() {
                 'The Stage One instructor(s) were well prepared',
                 'The Stage One instructor(s) were knowledgeable',
                 'How does this workshop compare to rest of the activities during your trip?',
-                'Comments/Suggestions/Ideas (we will read everything you write)',
-                ''
+                'Comments/Suggestions/Ideas (we will read everything you write)'
               ].map((header, i) => (
                 <div key={i} className="column-header-container">
                   <div 
@@ -838,8 +1734,32 @@ function FeedbackData() {
                 'The Stage One instructor(s) were well prepared',
                 'The Stage One instructor(s) were knowledgeable',
                 'How does this workshop compare to rest of the activities during your trip?',
-                'Comments/Suggestions/Ideas (we will read everything you write)',
-                ''
+                'Comments/Suggestions/Ideas (we will read everything you write)'
+              ].map((header, i) => (
+                <div key={i} className="column-header-container">
+                  <div 
+                    className="column-header" 
+                    style={{ width: columnWidths[i] }}
+                  >
+                    {header}
+                  </div>
+                  <div 
+                    className="resize-handle"
+                    onMouseDown={(e) => handleMouseDown(e, i)}
+                  ></div>
+                </div>
+              ))
+            ) : selectedWorkshop === 'Instructor' ? (
+              [
+                'Date',
+                'I instructed a workshop in',
+                'What type of session did you instruct?',
+                'I felt well-prepared before the event began',
+                'How would you rate the workshop venue?',
+                'How would you rate the workshop content?',
+                'How would you rate the workshop schedule and timing?',
+                'Would you instruct future workshops with Stage One Education?',
+                'Comments, suggestions, or ideas'
               ].map((header, i) => (
                 <div key={i} className="column-header-container">
                   <div 
@@ -855,7 +1775,7 @@ function FeedbackData() {
                 </div>
               ))
             ) : (
-              Array.from({ length: 15 }, (_, i) => (
+              Array.from({ length: 14 }, (_, i) => (
                 <div key={i} className="column-header-container">
                   <div 
                     className="column-header" 
@@ -903,16 +1823,20 @@ function FeedbackData() {
                     rowIndex + 1
                   )}
                 </div>
-                {Array.from({ length: 15 }, (_, colIndex) => {
+                {Array.from({ length: selectedWorkshop === 'Instructor' ? 9 : 14 }, (_, colIndex) => {
                   const cellId = `${rowIndex}-${colIndex}`
                   const isSelected = selectedCells.has(cellId)
                   const cellValue = cellData[cellId] || ''
+                  const cellColors = getCellColor(cellValue)
                   
                   return (
                     <div 
                       key={colIndex} 
                       className={`spreadsheet-cell ${isSelected ? 'selected' : ''}`}
-                      style={{ width: columnWidths[colIndex] }}
+                      style={{ 
+                        width: columnWidths[colIndex],
+                        backgroundColor: cellColors.backgroundColor
+                      }}
                       data-row={rowIndex}
                       data-col={colIndex}
                       onMouseDown={(e) => handleCellMouseDown(e, rowIndex, colIndex)}
@@ -925,6 +1849,10 @@ function FeedbackData() {
                         disabled={true}
                         value={cellValue}
                         readOnly
+                        style={{
+                          backgroundColor: cellColors.backgroundColor,
+                          color: cellColors.color
+                        }}
                         onClick={(e) => e.stopPropagation()}
                       />
                     </div>
@@ -934,6 +1862,76 @@ function FeedbackData() {
             ))}
           </div>
         </div>
+      </div>
+      
+      {/* Print and CSV Download Buttons - Bottom Right */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        marginTop: '10px',
+        marginRight: '20px',
+        gap: '8px'
+      }}>
+        <button 
+          onClick={printTable}
+          style={{ 
+            padding: '4px 8px', 
+            backgroundColor: 'white', 
+            color: '#666666ff', 
+            border: '1px solid #666666ff', 
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '11px',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease',
+            gap: '4px',
+            height: '24px'
+          }}
+          title="Print Table"
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#f5f5f5'
+            e.target.style.borderColor = '#555555'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'white'
+            e.target.style.borderColor = '#666666ff'
+          }}
+        >
+          Print
+        </button>
+        <button 
+          onClick={downloadCSV}
+          style={{ 
+            padding: '4px 8px', 
+            backgroundColor: 'white', 
+            color: '#666666ff', 
+            border: '1px solid #666666ff', 
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '11px',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease',
+            gap: '4px',
+            height: '24px'
+          }}
+          title="Download CSV"
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#f5f5f5'
+            e.target.style.borderColor = '#555555'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'white'
+            e.target.style.borderColor = '#666666ff'
+          }}
+        >
+          Download CSV
+        </button>
       </div>
       
       <footer className="footer">

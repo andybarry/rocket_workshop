@@ -118,22 +118,42 @@ html, body {
   background-color: white;
   color: #f05f40;
   border: 1px solid #f05f40;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  outline: none;
+  box-shadow: none;
+}
+
+.workshop-btn:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .workshop-btn:hover {
   background-color: #f05f40;
   color: white;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .workshop-btn:active {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
   transform: translateY(1px);
+}
+
+.workshop-btn:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .workshop-btn.active {
@@ -351,8 +371,9 @@ html, body {
 }
 
 .footer {
-  margin-top: 0.25rem;
-  padding: 1rem 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0.5rem 0;
   position: relative;
   background: transparent;
 }
@@ -515,6 +536,8 @@ html, body {
   font-family: 'Roboto', sans-serif;
   color: #999;
   text-align: center;
+  margin: 0;
+  padding: 0.5rem 0;
 }
 
 /* Spreadsheet Styles */
@@ -606,7 +629,7 @@ html, body {
   min-width: 50px;
   min-height: 24px;
   border-right: 1px solid #dadce0;
-  background-color: #f05f40;
+  background-color: #666666ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -657,6 +680,13 @@ html, body {
 
 .spreadsheet-row:nth-child(odd) {
   background-color: white;
+}
+
+/* Row hover effect with border highlight */
+.spreadsheet-row:hover {
+  border: 2px solid #f05f40 !important;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(240, 95, 64, 0.3);
 }
 
 .row-number {
@@ -710,11 +740,11 @@ html, body {
 }
 
 .spreadsheet-row:hover .spreadsheet-cell {
-  background-color: #fff3e0 !important;
+  /* Remove the uniform background color override */
 }
 
 .spreadsheet-row:hover .cell-input {
-  background-color: #fff3e0 !important;
+  /* Remove the uniform background color override */
 }
 
 .spreadsheet-cell.selected {
@@ -732,6 +762,128 @@ html, body {
 
 .spreadsheet-cell.selected:hover .cell-input {
   background-color: #e3f2fd !important;
+}
+
+/* Color-coded cell styles */
+.spreadsheet-cell[style*="background-color: #e06666"] {
+  background-color: #e06666 !important;
+}
+
+.spreadsheet-cell[style*="background-color: #f4cccc"] {
+  background-color: #f4cccc !important;
+}
+
+.spreadsheet-cell[style*="background-color: #b7e1cd"] {
+  background-color: #b7e1cd !important;
+}
+
+.spreadsheet-cell[style*="background-color: #57bb8a"] {
+  background-color: #57bb8a !important;
+}
+
+/* Understanding level colors */
+.spreadsheet-cell[style*="background-color: #1155cc"] {
+  background-color: #1155cc !important;
+}
+
+.spreadsheet-cell[style*="background-color: #3c78d8"] {
+  background-color: #3c78d8 !important;
+}
+
+.spreadsheet-cell[style*="background-color: #6d9eeb"] {
+  background-color: #6d9eeb !important;
+}
+
+.spreadsheet-cell[style*="background-color: #a4c2f4"] {
+  background-color: #a4c2f4 !important;
+}
+
+.spreadsheet-cell[style*="background-color: #c9daf8"] {
+  background-color: #c9daf8 !important;
+}
+
+/* Ensure color-coded cells maintain their colors on hover */
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #e06666"] {
+  background-color: #e06666 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #f4cccc"] {
+  background-color: #f4cccc !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #b7e1cd"] {
+  background-color: #b7e1cd !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #57bb8a"] {
+  background-color: #57bb8a !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: white"] {
+  background-color: white !important;
+}
+
+/* Understanding level hover states */
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #1155cc"] {
+  background-color: #1155cc !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #3c78d8"] {
+  background-color: #3c78d8 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #6d9eeb"] {
+  background-color: #6d9eeb !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #a4c2f4"] {
+  background-color: #a4c2f4 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #c9daf8"] {
+  background-color: #c9daf8 !important;
+}
+
+/* Ensure input fields maintain their colors on hover */
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #e06666"] .cell-input {
+  background-color: #e06666 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #f4cccc"] .cell-input {
+  background-color: #f4cccc !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #b7e1cd"] .cell-input {
+  background-color: #b7e1cd !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #57bb8a"] .cell-input {
+  background-color: #57bb8a !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: white"] .cell-input {
+  background-color: white !important;
+}
+
+/* Understanding level input field hover states */
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #1155cc"] .cell-input {
+  background-color: #1155cc !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #3c78d8"] .cell-input {
+  background-color: #3c78d8 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #6d9eeb"] .cell-input {
+  background-color: #6d9eeb !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #a4c2f4"] .cell-input {
+  background-color: #a4c2f4 !important;
+}
+
+.spreadsheet-row:hover .spreadsheet-cell[style*="background-color: #c9daf8"] .cell-input {
+  background-color: #c9daf8 !important;
 }
 
 /* AI Feedback Survey Styles */
@@ -882,6 +1034,49 @@ html, body {
 }
 
 .radio-option:has(input[type="radio"]:checked) {
+  background-color: #fff3e0;
+  border-color: #f05f40;
+}
+
+/* Checkbox styles */
+.radio-option input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.0);
+  align-self: center;
+  flex-shrink: 0;
+  accent-color: #f05f40;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-option input[type="checkbox"]:checked {
+  background-color: white;
+  border-color: #f05f40;
+}
+
+.radio-option input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f05f40;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.radio-option input[type="checkbox"]:checked + label {
+  color: #f05f40;
+  font-weight: normal;
+}
+
+.radio-option:has(input[type="checkbox"]:checked) {
   background-color: #fff3e0;
   border-color: #f05f40;
 }

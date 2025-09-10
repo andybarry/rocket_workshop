@@ -31,7 +31,8 @@ async function initializeDataFile() {
     const initialData = {
       AI: [],
       Robotics: [],
-      Mechanical: []
+      Mechanical: [],
+      Instructor: []
     };
     await fs.writeFile(DATA_FILE, JSON.stringify(initialData, null, 2));
   }
@@ -44,7 +45,7 @@ async function readFeedbackData() {
     return JSON.parse(data);
   } catch (error) {
     console.error('Error reading feedback data:', error);
-    return { AI: [], Robotics: [], Mechanical: [] };
+    return { AI: [], Robotics: [], Mechanical: [], Instructor: [] };
   }
 }
 
@@ -168,6 +169,16 @@ app.delete('/api/feedback/:workshopType/:id', async (req, res) => {
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Start server endpoint (for auto-start functionality)
+app.post('/api/start-server', (req, res) => {
+  console.log('Received request to start server');
+  res.json({ 
+    status: 'OK', 
+    message: 'Server is already running',
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // Start server
