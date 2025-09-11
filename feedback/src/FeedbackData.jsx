@@ -21,6 +21,7 @@ function FeedbackData() {
   const [selectionStart, setSelectionStart] = useState(null)
   const [cellData, setCellData] = useState({})
   const [feedbackData, setFeedbackData] = useState([])
+  const [sortedFeedbackData, setSortedFeedbackData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [deleteRowIndex, setDeleteRowIndex] = useState(null)
@@ -38,6 +39,13 @@ function FeedbackData() {
 
   // Password protection function
   const checkPassword = () => {
+    // Check if password protection is disabled
+    const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true'
+    if (isPasswordDisabled) {
+      setIsAuthenticated(true)
+      return true
+    }
+    
     const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234'
     const password = prompt('Enter password to access Feedback Data:')
     if (password === storedPassword) {
@@ -688,6 +696,7 @@ function FeedbackData() {
     return false
   }
 
+
   // Fetch feedback data from backend
   const fetchFeedbackData = async () => {
     try {
@@ -728,7 +737,10 @@ function FeedbackData() {
         const data = await response.json()
         console.log('Received data:', data)
         console.log('Sample data structure:', data[0]) // Log first item to see structure
-        setFeedbackData(data)
+        
+        // Sort the data before setting it
+        const sortedData = sortFeedbackData(data)
+        setFeedbackData(sortedData)
         setError(null)
       } else {
         console.error('All endpoints failed')
@@ -941,29 +953,93 @@ function FeedbackData() {
     return spreadsheetData
   }
 
+  // Sort feedback data by date and timestamp (newest first)
+  const sortFeedbackData = (data) => {
+    return [...data].sort((a, b) => {
+      // Helper function to parse date field (MM/DD/YYYY format)
+      const parseDateField = (item) => {
+        if (item.date) {
+          // Try parsing MM/DD/YYYY format
+          if (typeof item.date === 'string' && item.date.includes('/')) {
+            const parts = item.date.split('/')
+            if (parts.length === 3) {
+              const month = parseInt(parts[0], 10)
+              const day = parseInt(parts[1], 10)
+              const year = parseInt(parts[2], 10)
+              
+              if (month >= 1 && month <= 12 && day >= 1 && day <= 31 && year >= 1900) {
+                const isoDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+                const date = new Date(isoDate)
+                if (!isNaN(date.getTime())) {
+                  console.log(`Parsed date field: ${item.date} -> ${isoDate} -> ${date.toISOString()}`)
+                  return date
+                }
+              }
+            }
+          }
+          
+          // Try direct parsing for other date formats
+          const date = new Date(item.date)
+          if (!isNaN(date.getTime()) && date.getFullYear() > 1900) {
+            console.log(`Parsed date field directly: ${item.date} -> ${date.toISOString()}`)
+            return date
+          }
+        }
+        
+        // Fallback to very old date
+        console.log(`Could not parse date field for item:`, item)
+        return new Date('1900-01-01')
+      }
+      
+      // Helper function to parse timestamp field
+      const parseTimestampField = (item) => {
+        if (item.timestamp) {
+          const timestampDate = new Date(item.timestamp)
+          if (!isNaN(timestampDate.getTime()) && timestampDate.getFullYear() > 1900) {
+            console.log(`Parsed timestamp: ${item.timestamp} -> ${timestampDate.toISOString()}`)
+            return timestampDate
+          }
+        }
+        return null
+      }
+      
+      // Primary sort: by date field (newest first)
+      const dateA = parseDateField(a)
+      const dateB = parseDateField(b)
+      const dateComparison = dateB.getTime() - dateA.getTime()
+      
+      if (dateComparison !== 0) {
+        return dateComparison
+      }
+      
+      // Secondary sort: by timestamp if dates are the same (newest first)
+      const timestampA = parseTimestampField(a)
+      const timestampB = parseTimestampField(b)
+      
+      if (timestampA && timestampB) {
+        const timestampComparison = timestampB.getTime() - timestampA.getTime()
+        if (timestampComparison !== 0) {
+          return timestampComparison
+        }
+      } else if (timestampA && !timestampB) {
+        return -1 // A has timestamp, B doesn't - A comes first
+      } else if (!timestampA && timestampB) {
+        return 1 // B has timestamp, A doesn't - B comes first
+      }
+      
+      // Tertiary sort: by workshop location alphabetically
+      const locationA = a['workshop-location'] || ''
+      const locationB = b['workshop-location'] || ''
+      return locationA.localeCompare(locationB)
+    })
+  }
+
   // Update cell data when feedback data changes
   useEffect(() => {
     if (feedbackData.length > 0) {
       // Sort feedback data by date and timestamp (newest first)
-      const sortedFeedbackData = [...feedbackData].sort((a, b) => {
-        // Helper function to get the best available timestamp
-        const getBestTimestamp = (item) => {
-          // Try timestamp first, then date, then createdAt, then id as fallback
-          if (item.timestamp) return new Date(item.timestamp)
-          if (item.date) return new Date(item.date)
-          if (item.createdAt) return new Date(item.createdAt)
-          if (item.id) return new Date(item.id) // Some IDs might be timestamps
-          return new Date('1900-01-01') // Fallback for invalid dates
-        }
-        
-        const timeA = getBestTimestamp(a)
-        const timeB = getBestTimestamp(b)
-        
-        // Debug individual comparisons
-        console.log(`Comparing: ${timeA.toISOString()} vs ${timeB.toISOString()} = ${timeB - timeA}`)
-        
-        return timeB - timeA // Descending order (newest first)
-      })
+      const sortedData = sortFeedbackData(feedbackData)
+      setSortedFeedbackData(sortedData)
       
       // Debug logging to verify sorting
       console.log('Original feedback data:', feedbackData.map(item => ({ 
@@ -971,14 +1047,16 @@ function FeedbackData() {
         timestamp: item.timestamp, 
         id: item.id 
       })))
-      console.log('Sorted feedback data:', sortedFeedbackData.map(item => ({ 
+      console.log('Sorted feedback data:', sortedData.map(item => ({ 
         date: item.date, 
         timestamp: item.timestamp, 
         id: item.id 
       })))
       
-      const spreadsheetData = convertFeedbackToSpreadsheet(sortedFeedbackData)
+      const spreadsheetData = convertFeedbackToSpreadsheet(sortedData)
       setCellData(spreadsheetData)
+    } else {
+      setSortedFeedbackData([])
     }
   }, [feedbackData, selectedWorkshop])
 
@@ -1288,9 +1366,9 @@ function FeedbackData() {
       // Delete rows in reverse order to maintain indices
       for (let i = sortedRows.length - 1; i >= 0; i--) {
         const rowIndex = sortedRows[i]
-        if (rowIndex >= feedbackData.length) continue
+        if (rowIndex >= sortedFeedbackData.length) continue
         
-        const feedbackToDelete = feedbackData[rowIndex]
+        const feedbackToDelete = sortedFeedbackData[rowIndex]
         
         if (!feedbackToDelete.id) {
           console.error('No ID found for feedback entry:', feedbackToDelete)
@@ -1346,9 +1424,9 @@ function FeedbackData() {
   }
 
   const handleDeleteRow = async (rowIndex) => {
-    if (rowIndex >= feedbackData.length) return
+    if (rowIndex >= sortedFeedbackData.length) return
     
-    const feedbackToDelete = feedbackData[rowIndex]
+    const feedbackToDelete = sortedFeedbackData[rowIndex]
     console.log('Attempting to delete feedback:', feedbackToDelete)
     
     if (!feedbackToDelete.id) {
@@ -1779,9 +1857,28 @@ function FeedbackData() {
       setIsImporting(true)
       // Get the column headers for the selected workshop
       let headers = []
-      if (selectedWorkshop === 'AI' || selectedWorkshop === 'Robotics') {
+      if (selectedWorkshop === 'AI') {
         headers = [
           'date',
+          'timestamp',
+          'workshop-location',
+          'had-fun',
+          'favorite-part',
+          'challenged-appropriately',
+          'ai-tools-before',
+          'ai-tools-after',
+          'neural-networks-before',
+          'neural-networks-after',
+          'instructor',
+          'instructor-prepared',
+          'instructor-knowledgeable',
+          'workshop-comparison',
+          'comments'
+        ]
+      } else if (selectedWorkshop === 'Robotics') {
+        headers = [
+          'date',
+          'timestamp',
           'workshop-location',
           'had-fun',
           'favorite-part',
@@ -1839,7 +1936,19 @@ function FeedbackData() {
           const columnData = importData[columnIndex].split('\n')
           const value = columnData[rowIndex]?.trim()
           if (value) {
-            entry[headers[columnIndex]] = value
+            const fieldName = headers[columnIndex]
+            if (fieldName === 'timestamp') {
+              // For timestamp field, we need to combine it with date to create a proper datetime
+              const dateValue = importData[0]?.split('\n')[rowIndex]?.trim() // Get date from first column
+              if (dateValue) {
+                // Create a proper datetime string by combining date and time
+                entry[fieldName] = `${dateValue} ${value}`
+              } else {
+                entry[fieldName] = value
+              }
+            } else {
+              entry[fieldName] = value
+            }
             hasData = true
           }
         })
@@ -2078,7 +2187,7 @@ function FeedbackData() {
             Refresh Data
           </button>
           <span style={{ color: '#666', fontSize: '14px' }}>
-            {feedbackData.length} responses
+            {sortedFeedbackData.length} responses
           </span>
           {selectedRows.length > 0 && (
             <span style={{ 
@@ -2335,7 +2444,7 @@ function FeedbackData() {
             )}
           </div>
           <div className="spreadsheet-body">
-            {Array.from({ length: Math.max(100, feedbackData.length + 10) }, (_, rowIndex) => {
+            {Array.from({ length: sortedFeedbackData.length }, (_, rowIndex) => {
               return (
               <div 
                 key={rowIndex} 
@@ -2343,16 +2452,16 @@ function FeedbackData() {
                 onClick={(e) => handleRowClick(rowIndex, e)}
                 style={{
                   backgroundColor: selectedRows.includes(rowIndex) ? '#e3f2fd' : 'transparent',
-                  cursor: rowIndex < feedbackData.length ? 'pointer' : 'default'
+                  cursor: rowIndex < sortedFeedbackData.length ? 'pointer' : 'default'
                 }}
               >
                 <div 
                   className="row-number" 
                   onDoubleClick={() => handleRowNumberDoubleClick(rowIndex)}
                   style={{ 
-                    cursor: rowIndex < feedbackData.length ? 'pointer' : 'default',
+                    cursor: rowIndex < sortedFeedbackData.length ? 'pointer' : 'default',
                     backgroundColor: selectedRows.includes(rowIndex) ? '#1976d2' : 'transparent',
-                    color: selectedRows.includes(rowIndex) ? 'white' : 'inherit'
+                    color: selectedRows.includes(rowIndex) ? 'white' : '#000'
                   }}
                 >
                   {selectedRows.length > 0 && selectedRows.includes(rowIndex) ? (
@@ -2494,9 +2603,10 @@ function FeedbackData() {
           onClick={() => {
             const currentDataPassword = localStorage.getItem('feedbackDataPassword') || '1234';
             const currentDashboardPassword = localStorage.getItem('dashboardPassword') || '1111';
+            const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
             
             const passwordChoice = prompt(
-              `Current passwords:\nDashboard: ${currentDashboardPassword}\nData: ${currentDataPassword}\n\nWhich password would you like to change?\n1. Dashboard\n2. Data\n\nEnter 1 or 2:`
+              `Current passwords:\nDashboard: ${currentDashboardPassword}\nData: ${currentDataPassword}\n\nPassword Protection: ${isPasswordDisabled ? 'DISABLED' : 'ENABLED'}\n\nWhat would you like to do?\n1. Change Dashboard password\n2. Change Data password\n3. ${isPasswordDisabled ? 'Enable' : 'Disable'} password protection\n\nEnter 1, 2, or 3:`
             );
             
             if (passwordChoice === '1') {
@@ -2511,8 +2621,19 @@ function FeedbackData() {
                 localStorage.setItem('feedbackDataPassword', newPassword.trim());
                 alert('Data password updated successfully!');
               }
+            } else if (passwordChoice === '3') {
+              if (isPasswordDisabled) {
+                localStorage.removeItem('passwordProtectionDisabled');
+                alert('Password protection has been enabled for both pages.');
+              } else {
+                const confirmDisable = confirm('Are you sure you want to disable password protection for both the dashboard and feedback data pages?');
+                if (confirmDisable) {
+                  localStorage.setItem('passwordProtectionDisabled', 'true');
+                  alert('Password protection has been disabled for both pages. You can now access them without a password.');
+                }
+              }
             } else if (passwordChoice !== null) {
-              alert('Invalid choice. Please enter 1 or 2.');
+              alert('Invalid choice. Please enter 1, 2, or 3.');
             }
           }}
           style={{ 
@@ -2614,10 +2735,10 @@ function FeedbackData() {
                   'I had fun in this workshop',
                   'My favorite part of this workshop was',
                   'This workshop challenged me appropriately',
-                  'I learned how to build and understand basic electronic systems',
-                  'After taking this workshop I feel confident in starting another similar electronics project',
-                  'In the next electronics workshop I want to learn how to _______',
-                  'I would recommend that this workshop be taught again next year',
+                  'Before this workshop my comfort with AI tools was',
+                  'After this workshop my comfort with AI tools was',
+                  'Before this workshop my understanding of neural networks was',
+                  'After this workshop my understanding of neural networks was',
                   'Which workshop instructor did you learn the most from?',
                   'The Stage One instructor(s) were well prepared',
                   'The Stage One instructor(s) were knowledgeable',

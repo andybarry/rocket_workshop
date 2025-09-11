@@ -715,6 +715,9 @@ html, body {
   border: 1px solid #dadce0;
   border-radius: 4px;
   background-color: white;
+  position: relative;
+  transform: translateZ(0);
+  contain: layout;
 }
 
 .spreadsheet {
@@ -729,9 +732,13 @@ html, body {
   border-bottom: 1px solid #dadce0;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
   align-items: stretch;
   width: fit-content;
+  min-width: 100%;
+  will-change: transform;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateZ(0);
 }
 
 .row-header {
@@ -744,6 +751,9 @@ html, body {
   justify-content: center;
   font-weight: 500;
   color: #5f6368;
+  position: sticky;
+  top: 0;
+  z-index: 998;
 }
 
 .column-header-container {
@@ -769,6 +779,9 @@ html, body {
   word-wrap: break-word;
   line-height: 1.3;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .resize-handle {
@@ -826,7 +839,7 @@ html, body {
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: #5f6368;
+  color: #000;
   font-weight: 500;
 }
 

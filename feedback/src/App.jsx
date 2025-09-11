@@ -11,6 +11,13 @@ function App() {
 
   // Password protection function for dashboard
   const checkDashboardPassword = () => {
+    // Check if password protection is disabled
+    const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true'
+    if (isPasswordDisabled) {
+      setIsAuthenticated(true)
+      return true
+    }
+    
     const storedPassword = localStorage.getItem('dashboardPassword') || '1111'
     const password = prompt('Enter password to access Feedback Dashboard:')
     if (password === storedPassword) {
@@ -414,6 +421,13 @@ function App() {
         <button 
           className="gear-icon-btn"
           onClick={() => {
+            // Check if password protection is disabled
+            const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
+            if (isPasswordDisabled) {
+              window.open('http://localhost:5174/feedback-data.html', '_blank');
+              return;
+            }
+            
             const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234';
             const password = prompt('Enter password to access Feedback Data:');
             if (password === storedPassword) {
