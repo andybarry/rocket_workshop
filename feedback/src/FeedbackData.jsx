@@ -2281,8 +2281,9 @@ function FeedbackData() {
       </div>
       
       <div className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
-        <div className="spreadsheet" style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top left' }}>
-          <div className="spreadsheet-header">
+        <div className="spreadsheet">
+          <div className="spreadsheet-content" style={{ zoom: `${zoomLevel / 100}` }}>
+            <div className="spreadsheet-header">
             <div className="row-header">
               {deletedRows[selectedWorkshop].length > 0 && (
                 <button
@@ -2442,8 +2443,8 @@ function FeedbackData() {
                 </div>
               ))
             )}
-          </div>
-          <div className="spreadsheet-body">
+            </div>
+            <div className="spreadsheet-body">
             {Array.from({ length: sortedFeedbackData.length }, (_, rowIndex) => {
               return (
               <div 
@@ -2527,6 +2528,7 @@ function FeedbackData() {
               </div>
               )
             })}
+            </div>
           </div>
         </div>
       </div>

@@ -716,29 +716,42 @@ html, body {
   border-radius: 4px;
   background-color: white;
   position: relative;
-  transform: translateZ(0);
+  /* Ensure proper scrolling context for sticky positioning */
   contain: layout;
+  /* Create a proper scrolling context */
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .spreadsheet {
   min-width: 100%;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  /* Ensure proper stacking context for sticky elements */
+  position: relative;
+  /* Remove transform from here to fix sticky positioning */
 }
 
 .spreadsheet-header {
   display: flex;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dadce0;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1000;
   align-items: stretch;
   width: fit-content;
   min-width: 100%;
-  will-change: transform;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: translateZ(0);
+  /* Force hardware acceleration for better performance */
+  will-change: transform;
+  /* Ensure the header stays fixed at the top */
+  left: 0;
+  right: 0;
+  /* Ensure sticky positioning works with zoom */
+  position: sticky !important;
+  top: 0 !important;
 }
 
 .row-header {
@@ -751,9 +764,14 @@ html, body {
   justify-content: center;
   font-weight: 500;
   color: #5f6368;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 998;
+  /* Ensure row header stays frozen */
+  will-change: transform;
+  position: sticky !important;
+  top: 0 !important;
 }
 
 .column-header-container {
@@ -779,9 +797,14 @@ html, body {
   word-wrap: break-word;
   line-height: 1.3;
   flex-shrink: 0;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 999;
+  /* Ensure column headers stay frozen */
+  will-change: transform;
+  position: sticky !important;
+  top: 0 !important;
 }
 
 .resize-handle {
@@ -803,9 +826,18 @@ html, body {
   background-color: #1557b0;
 }
 
+.spreadsheet-content {
+  /* Apply zoom here to both header and body for alignment */
+  position: relative;
+  /* Ensure proper stacking context for sticky elements */
+  contain: layout;
+}
+
 .spreadsheet-body {
   background-color: white;
   width: fit-content;
+  /* Apply transform here instead of parent to fix sticky positioning */
+  position: relative;
 }
 
 .spreadsheet-row {
