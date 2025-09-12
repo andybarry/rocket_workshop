@@ -673,6 +673,35 @@ html, body {
   border-bottom: none;
 }
 
+.comment-text {
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #666;
+  font-style: normal;
+}
+
+.comment-date {
+  font-weight: 500;
+}
+
+.comment-location {
+  font-weight: 500;
+}
+
+.no-comments-message {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
 .footer-content {
   font-size: 0.8rem;
   font-family: 'Roboto', sans-serif;
@@ -1019,13 +1048,6 @@ html, body {
   color: #000;
 }
 
-.spreadsheet-row:hover .spreadsheet-cell {
-  /* Remove the uniform background color override */
-}
-
-.spreadsheet-row:hover .cell-input {
-  /* Remove the uniform background color override */
-}
 
 .spreadsheet-cell.selected {
   background-color: #e3f2fd !important;
