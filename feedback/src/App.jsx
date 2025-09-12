@@ -7,7 +7,9 @@ function App() {
   const [submitted, setSubmitted] = useState(false)
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [showFeedbackGraphs, setShowFeedbackGraphs] = useState(false)
-  const [selectedYear, setSelectedYear] = useState('2025')
+  const [selectedYear, setSelectedYear] = useState('All')
+  const [aiWorkshopData, setAiWorkshopData] = useState([])
+  const [loading, setLoading] = useState(false)
 
   // Password protection function for dashboard
   const checkDashboardPassword = () => {
@@ -35,6 +37,46 @@ function App() {
     checkDashboardPassword()
   }, [])
 
+  // Fetch AI workshop data
+  const fetchAiWorkshopData = async () => {
+    if (selectedWorkshop !== 'AI') return
+    
+    try {
+      setLoading(true)
+      const response = await fetch(`http://localhost:3001/api/feedback/AI`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors'
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        // Filter data for the selected year
+        const filteredData = data.filter(item => {
+          if (!item.date) return false
+          // If "All" is selected, return all data
+          if (selectedYear === 'All') return true
+          // Check if date contains the selected year
+          return item.date.includes(selectedYear)
+        })
+        setAiWorkshopData(filteredData)
+      }
+    } catch (error) {
+      console.error('Error fetching AI workshop data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Fetch data when workshop or year changes
+  useEffect(() => {
+    if (selectedWorkshop === 'AI') {
+      fetchAiWorkshopData()
+    }
+  }, [selectedWorkshop, selectedYear])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (feedback.trim()) {
@@ -48,15 +90,360 @@ function App() {
     setShowFeedbackGraphs(true)
   }
 
+  // Process AI workshop data to create chart data
+  const processAiWorkshopData = () => {
+    if (!aiWorkshopData.length) return null
+
+    const questions = [
+      'had-fun',
+      'challenged-appropriately', 
+      'ai-tools-combined',
+      'neural-networks-combined',
+      'instructor-prepared',
+      'instructor-knowledgeable',
+      'workshop-comparison'
+    ]
+
+    const questionLabels = [
+      'I had fun in this workshop',
+      'This workshop challenged me appropriately',
+      'Before/After this workshop my comfort with AI tools was',
+      'Before/After this workshop my understanding of neural networks was',
+      'The Stage One instructor(s) were well prepared',
+      'The Stage One instructor(s) were knowledgeable',
+      'How does this workshop compare to rest of the activities during your trip?'
+    ]
+
+    // Different response options for different question types
+    const standardResponseOptions = [
+      'Strongly Disagree',
+      'Disagree', 
+      'Neutral',
+      'Agree',
+      'Strongly Agree'
+    ]
+
+    const knowledgeResponseOptions = [
+      'Minimal Knowledge',
+      'Basic Understanding',
+      'Average Understanding',
+      'Advanced Understanding',
+      'Strong Conceptual Understanding'
+    ]
+
+    const workshopComparisonResponseOptions = [
+      'The worst so far',
+      'Worse than most other activities',
+      'About the same',
+      'Better than most other activities',
+      'The best so far'
+    ]
+
+    const chartData = questions.map((question, index) => {
+      // Handle combined AI tools chart
+      if (question === 'ai-tools-combined') {
+        const beforeCounts = knowledgeResponseOptions.map(option => {
+          return aiWorkshopData.filter(item => item['ai-tools-before'] === option).length
+        })
+        const afterCounts = knowledgeResponseOptions.map(option => {
+          return aiWorkshopData.filter(item => item['ai-tools-after'] === option).length
+        })
+        
+        return {
+          question: questionLabels[index],
+          counts: beforeCounts,
+          afterCounts: afterCounts,
+          total: aiWorkshopData.length,
+          responseOptions: knowledgeResponseOptions,
+          isCombined: true
+        }
+      }
+
+      // Handle combined neural networks chart
+      if (question === 'neural-networks-combined') {
+        const beforeCounts = knowledgeResponseOptions.map(option => {
+          return aiWorkshopData.filter(item => item['neural-networks-before'] === option).length
+        })
+        const afterCounts = knowledgeResponseOptions.map(option => {
+          return aiWorkshopData.filter(item => item['neural-networks-after'] === option).length
+        })
+        
+        return {
+          question: questionLabels[index],
+          counts: beforeCounts,
+          afterCounts: afterCounts,
+          total: aiWorkshopData.length,
+          responseOptions: knowledgeResponseOptions,
+          isCombined: true
+        }
+      }
+
+      // Determine which response options to use based on the question
+      let responseOptions
+      if (['ai-tools-before', 'ai-tools-after'].includes(question)) {
+        responseOptions = knowledgeResponseOptions
+      } else if (question === 'workshop-comparison') {
+        responseOptions = workshopComparisonResponseOptions
+      } else {
+        responseOptions = standardResponseOptions
+      }
+
+      const counts = responseOptions.map(option => {
+        return aiWorkshopData.filter(item => item[question] === option).length
+      })
+      
+      return {
+        question: questionLabels[index],
+        counts: counts,
+        total: aiWorkshopData.length,
+        responseOptions: responseOptions,
+        isCombined: false
+      }
+    })
+
+    return chartData
+  }
+
   const renderCharts = () => {
     const workshopType = selectedWorkshop
     const barColors = ['#939393', '#b18983', '#c06958', '#d85b49', '#f05f40']
     
+    // Use real data for AI workshop
+    if (selectedWorkshop === 'AI') {
+      const chartData = processAiWorkshopData()
+      
+      if (!chartData || loading) {
+        return (
+          <div className="loading-container">
+            <div className="loading-text">
+              {loading ? 'Loading AI workshop data...' : `No data available for AI workshop${selectedYear === 'All' ? '' : ` in ${selectedYear}`}`}
+            </div>
+          </div>
+        )
+      }
+
+      return (
+        <>
+          <div className="bar-graphs-container">
+            {chartData.slice(0, 3).map((data, index) => (
+              <div key={index} className="chart-window">
+                <div className="ai-workshop-text">Artificial Intelligence Workshop</div>
+                <div className="chart-title">{data.question}</div>
+                <div className="chart-surveyed-count">surveyed: {data.total}</div>
+                {data.isCombined ? (
+                  <>
+                    <div className="chart-legend">
+                      <div className="legend-item">
+                        <div className="legend-color" style={{backgroundColor: '#939393'}}></div>
+                        <span>Before</span>
+                      </div>
+                      <div className="legend-item">
+                        <div className="legend-color" style={{backgroundColor: '#f05f40'}}></div>
+                        <span>After</span>
+                      </div>
+                    </div>
+                    <div className="chart-content">
+                      <div className="chart-bars">
+                        {data.counts.map((count, barIndex) => {
+                          const afterCount = data.afterCounts[barIndex]
+                          const maxCount = Math.max(...data.counts, ...data.afterCounts)
+                          const beforePercentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                          const afterPercentage = maxCount > 0 ? (afterCount / maxCount) * 100 : 0
+                          return (
+                            <div key={barIndex} className="combined-bar-container">
+                              <div className="combined-bar-group">
+                                <div className="combined-bar-value">{count}</div>
+                                <div 
+                                  className="combined-chart-bar before-bar" 
+                                  style={{
+                                    height: `${beforePercentage}%`, 
+                                    backgroundColor: '#939393'
+                                  }}
+                                ></div>
+                              </div>
+                              <div className="combined-bar-group">
+                                <div className="combined-bar-value">{afterCount}</div>
+                                <div 
+                                  className="combined-chart-bar after-bar" 
+                                  style={{
+                                    height: `${afterPercentage}%`, 
+                                    backgroundColor: '#f05f40'
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="chart-content">
+                      <div className="chart-bars">
+                        {data.counts.map((count, barIndex) => {
+                          const maxCount = Math.max(...data.counts)
+                          const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                          return (
+                            <div key={barIndex} className="bar-container">
+                              <div className="bar-value">{count}</div>
+                              <div 
+                                className="chart-bar" 
+                                style={{
+                                  height: `${percentage}%`, 
+                                  backgroundColor: '#f05f40'
+                                }}
+                              ></div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
+                <div className="x-axis">
+                  {data.responseOptions.map((option, optionIndex) => (
+                    <div key={optionIndex} className="x-label">{option}</div>
+                  ))}
+                </div>
+                <div className="stage-one-text">STAGE ONE EDUCATION</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="bar-graphs-container">
+            {chartData.slice(3, 6).map((data, index) => (
+              <div key={index + 3} className="chart-window">
+                <div className="ai-workshop-text">Artificial Intelligence Workshop</div>
+                <div className="chart-title">{data.question}</div>
+                <div className="chart-surveyed-count">surveyed: {data.total}</div>
+                {data.isCombined ? (
+                  <>
+                    <div className="chart-legend">
+                      <div className="legend-item">
+                        <div className="legend-color" style={{backgroundColor: '#939393'}}></div>
+                        <span>Before</span>
+                      </div>
+                      <div className="legend-item">
+                        <div className="legend-color" style={{backgroundColor: '#f05f40'}}></div>
+                        <span>After</span>
+                      </div>
+                    </div>
+                    <div className="chart-content">
+                      <div className="chart-bars">
+                        {data.counts.map((count, barIndex) => {
+                          const afterCount = data.afterCounts[barIndex]
+                          const maxCount = Math.max(...data.counts, ...data.afterCounts)
+                          const beforePercentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                          const afterPercentage = maxCount > 0 ? (afterCount / maxCount) * 100 : 0
+                          return (
+                            <div key={barIndex} className="combined-bar-container">
+                              <div className="combined-bar-group">
+                                <div className="combined-bar-value">{count}</div>
+                                <div 
+                                  className="combined-chart-bar before-bar" 
+                                  style={{
+                                    height: `${beforePercentage}%`, 
+                                    backgroundColor: '#939393'
+                                  }}
+                                ></div>
+                              </div>
+                              <div className="combined-bar-group">
+                                <div className="combined-bar-value">{afterCount}</div>
+                                <div 
+                                  className="combined-chart-bar after-bar" 
+                                  style={{
+                                    height: `${afterPercentage}%`, 
+                                    backgroundColor: '#f05f40'
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="chart-content">
+                      <div className="chart-bars">
+                        {data.counts.map((count, barIndex) => {
+                          const maxCount = Math.max(...data.counts)
+                          const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                          return (
+                            <div key={barIndex} className="bar-container">
+                              <div className="bar-value">{count}</div>
+                              <div 
+                                className="chart-bar" 
+                                style={{
+                                  height: `${percentage}%`, 
+                                  backgroundColor: '#f05f40'
+                                }}
+                              ></div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
+                <div className="x-axis">
+                  {data.responseOptions.map((option, optionIndex) => (
+                    <div key={optionIndex} className="x-label">{option}</div>
+                  ))}
+                </div>
+                <div className="stage-one-text">STAGE ONE EDUCATION</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="bar-graphs-container">
+            {chartData.slice(6, 9).map((data, index) => (
+              <div key={index + 6} className="chart-window">
+                <div className="ai-workshop-text">Artificial Intelligence Workshop</div>
+                <div className="chart-title">{data.question}</div>
+                <div className="chart-surveyed-count">surveyed: {data.total}</div>
+                <div className="chart-content">
+                  <div className="chart-bars">
+                    {data.counts.map((count, barIndex) => {
+                      const maxCount = Math.max(...data.counts)
+                      const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                      return (
+                        <div key={barIndex} className="bar-container">
+                          <div className="bar-value">{count}</div>
+                          <div 
+                            className="chart-bar" 
+                            style={{
+                              height: `${percentage}%`, 
+                                backgroundColor: '#f05f40'
+                            }}
+                          ></div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+                <div className="x-axis">
+                  {data.responseOptions.map((option, optionIndex) => (
+                    <div key={optionIndex} className="x-label">{option}</div>
+                  ))}
+                </div>
+                <div className="stage-one-text">STAGE ONE EDUCATION</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )
+    }
+    
+    // Default charts for other workshops/years
     return (
       <>
         <div className="bar-graphs-container">
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 1</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -88,10 +475,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 2</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -123,10 +512,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 3</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -158,10 +549,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 4</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -193,12 +586,14 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
         </div>
         
         <div className="bar-graphs-container">
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 5</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -230,10 +625,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 6</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -265,10 +662,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 7</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -300,10 +699,12 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
           
           <div className="chart-window">
             <div className="chart-title">{workshopType} Workshop 8</div>
+            <div className="chart-surveyed-count">surveyed: 25</div>
             <div className="chart-content">
               <div className="chart-bars">
                 <div className="bar-container">
@@ -335,6 +736,7 @@ function App() {
               <div className="x-label">Agree</div>
               <div className="x-label">Strongly Agree</div>
             </div>
+            <div className="stage-one-text">STAGE ONE EDUCATION</div>
           </div>
         </div>
         
@@ -457,27 +859,21 @@ function App() {
               <option value="2023">2023</option>
               <option value="2024">2024</option>
               <option value="2025">2025</option>
+              <option value="All">All</option>
             </select>
           </div>
-          <div className="workshop-buttons">
-            <button 
-              className={`workshop-btn ${selectedWorkshop === 'AI' ? 'active' : ''}`}
-              onClick={() => setSelectedWorkshop('AI')}
-            >
-              AI Workshop
-            </button>
-            <button 
-              className={`workshop-btn ${selectedWorkshop === 'Robotics' ? 'active' : ''}`}
-              onClick={() => setSelectedWorkshop('Robotics')}
-            >
-              Robotics Workshop
-            </button>
-            <button 
-              className={`workshop-btn ${selectedWorkshop === 'Mechanical' ? 'active' : ''}`}
-              onClick={() => setSelectedWorkshop('Mechanical')}
-            >
-              Mechanical Workshop
-            </button>
+          <div className="workshop-dropdown-container">
+            <div className="workshop-dropdown-group">
+              <select 
+                className="workshop-dropdown"
+                value={selectedWorkshop}
+                onChange={(e) => setSelectedWorkshop(e.target.value)}
+              >
+                <option value="AI">Artificial Intelligence Workshop</option>
+                <option value="Robotics">Robotics Workshop</option>
+                <option value="Mechanical">Mechanical Engineering Workshop</option>
+              </select>
+            </div>
           </div>
         </div>
         {renderCharts()}
