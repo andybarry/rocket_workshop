@@ -1539,9 +1539,6 @@ html {
 /* Update weights table data row cell hover effects with enhanced font size */
 .update-weights-table tbody td:hover {
   border: 3px solid #ffeb3b !important;
-  font-size: 1.4rem !important;
-  font-weight: bold !important;
-  line-height: 1.2 !important;
   height: 25px !important;
   min-height: 25px !important;
   max-height: 25px !important;
@@ -1562,29 +1559,15 @@ html {
 .update-weights-table tbody td:hover input,
 .update-weights-table tbody td:hover select,
 .update-weights-table tbody td:hover .auto-fill-input {
-  font-size: 1.4rem !important;
-  font-weight: bold !important;
-  height: 2.4rem !important;
-  max-height: 2.4rem !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
 
-/* Enhanced font size for select elements in update weights table specifically */
-.update-weights-table tbody td:hover select {
-  font-size: 1.4rem !important;
-  font-weight: bold !important;
-}
 
 /* Enhanced font size for span elements in update weights table (auto-displayed values) */
 .update-weights-table tbody td:hover span {
-  font-size: 1.4rem !important;
-  font-weight: bold !important;
-  height: 2.4rem !important;
-  max-height: 2.4rem !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
-  line-height: 2.4rem !important;
 }
 
 /* Summary table hover effects - yellow border highlighting and font size increase */

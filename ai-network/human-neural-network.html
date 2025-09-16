@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
+    <link rel="shortcut icon" href="/favicon.ico?v=1" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Human Neural Network - Stage One Education</title>
+    <title>Human Neural Network - AI Workshop</title>
     <style>
         /* CSS Reset */
         * {
@@ -149,7 +151,7 @@
 
         /* Main Content */
         .main-content {
-            padding: 2rem;
+            padding: 0.1rem 2rem 2rem 2rem;
             text-align: center;
             margin-top: 55px;
         }
@@ -159,7 +161,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #434343ff;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .image-container {
@@ -176,7 +178,7 @@
         /* Title above image */
         .image-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: #f05f40ff;
             text-align: center;
@@ -186,7 +188,7 @@
         /* Activity info below title */
         .activity-info {
             font-family: 'Roboto', sans-serif;
-            font-size: 0.8rem;
+            font-size: 1.2rem;
             color: #434343ff;
             text-align: center;
             margin-bottom: 1rem;
@@ -218,14 +220,14 @@
             color: #777;
             text-align: center;
             line-height: 1.6;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .dropdown-container {
-            margin: 2rem auto;
+            margin: 0.5rem auto;
             display: flex;
             justify-content: center;
         }
@@ -537,6 +539,18 @@
             border-color: #d0452e;
             box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.2);
         }
+
+        /* Shadow Box Container */
+        .shadow-box {
+            width: 50%;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -577,64 +591,68 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1 class="image-title">Human Neural Network</h1>
-        
-        <div class="activity-info"><strong>Activity length: 45–60 minutes | All Ages | No Experience Needed</strong></div>
-        
-        <div class="image-container">
-            <img src="class-nn.png" alt="Class Neural Network" class="class-image">
-        </div>
-        
-        <div class="description-text">
-            Join an interactive game of telephone where each participant becomes a node in our classroom-sized neural network. Gain an intuitive grasp of neural networks and their learning processes, no math and no computers.
+        <div class="shadow-box">
+            <h1 class="image-title">Human Neural Network</h1>
+            
+            <div class="activity-info"><strong>Activity length: 45–60 minutes | All Ages | No Experience Needed</strong></div>
+            
+            <div class="image-container">
+                <img src="class-nn.png" alt="Class Neural Network" class="class-image">
+            </div>
+            
+            <div class="description-text">
+                Join an interactive game of telephone where each participant becomes a node in our classroom-sized neural network. Gain an intuitive grasp of neural networks and their learning processes, no math and no computers.
+            </div>
         </div>
         
         <div class="title-divider"></div>
         
-        <h2 class="participant-title">Select the number of participants</h2>
-        
-        <div class="dropdown-container">
-            <select id="participant-select" class="participant-dropdown" onchange="updatePDFs()">
-                <option value="27">27</option>
-                <option value="45">45</option>
-            </select>
-        </div>
-        
-        <div class="pdf-viewers-container">
-            <div class="pdf-viewer">
-                <div class="pdf-label left-label">1st Hidden Layer - B</div>
-                <div class="pdf-subtitle">all sheets must be used</div>
-                <iframe id="pdf-left" src="1st-HL-27.pdf" class="pdf-frame" title="PDF Viewer 1"></iframe>
-                <div class="pdf-controls">
-                    <button class="pdf-control-btn" onclick="downloadPDF('pdf-left')">Download</button>
-                    <button class="pdf-control-btn" onclick="printPDF('pdf-left')">Print</button>
+        <div class="shadow-box">
+            <h2 class="participant-title">Select the number of participants</h2>
+            
+            <div class="dropdown-container">
+                <select id="participant-select" class="participant-dropdown" onchange="updatePDFs()">
+                    <option value="27">27</option>
+                    <option value="45">45</option>
+                </select>
+            </div>
+            
+            <div class="pdf-viewers-container">
+                <div class="pdf-viewer">
+                    <div class="pdf-label left-label">1st Hidden Layer - B</div>
+                    <div class="pdf-subtitle">all sheets must be used</div>
+                    <iframe id="pdf-left" src="1st-HL-27.pdf" class="pdf-frame" title="PDF Viewer 1"></iframe>
+                    <div class="pdf-controls">
+                        <button class="pdf-control-btn" onclick="downloadPDF('pdf-left')">Download</button>
+                        <button class="pdf-control-btn" onclick="printPDF('pdf-left')">Print</button>
+                    </div>
+                </div>
+                <div class="pdf-viewer">
+                    <div class="pdf-label right-label">2nd Hidden Layer - C</div>
+                    <div class="pdf-subtitle">all sheets must be used</div>
+                    <iframe id="pdf-right" src="2nd-HL-27.pdf" class="pdf-frame" title="PDF Viewer 2"></iframe>
+                    <div class="pdf-controls">
+                        <button class="pdf-control-btn" onclick="downloadPDF('pdf-right')">Download</button>
+                        <button class="pdf-control-btn" onclick="printPDF('pdf-right')">Print</button>
+                    </div>
                 </div>
             </div>
-            <div class="pdf-viewer">
-                <div class="pdf-label right-label">2nd Hidden Layer - C</div>
-                <div class="pdf-subtitle">all sheets must be used</div>
-                <iframe id="pdf-right" src="2nd-HL-27.pdf" class="pdf-frame" title="PDF Viewer 2"></iframe>
-                <div class="pdf-controls">
-                    <button class="pdf-control-btn" onclick="downloadPDF('pdf-right')">Download</button>
-                    <button class="pdf-control-btn" onclick="printPDF('pdf-right')">Print</button>
-                </div>
+            
+            <div class="requirements-section">
+                <h3 class="requirements-title">Every human will need:</h3>
+                <ul class="requirements-list">
+                    <li>Printed <strong class="pink-text">(1st Hidden Layer - B)</strong> or <strong class="yellow-text">(2nd Hidden Layer - C)</strong> sheet</li>
+                    <li>Pencil <img src="pencil.nn.png" alt="Pencil" class="pencil-image"></li>
+                    <li>6-sided die <img src="die.png" alt="6-sided die" class="die-image"></li>
+                </ul>
             </div>
+            
+            <div class="title-divider"></div>
+            
+            <button class="instructor-slides-button" onclick="openInstructorSlides()">Instructor Slides</button>
+            
+            <button class="start-button" onclick="startNetwork()">Start</button>
         </div>
-        
-        <div class="requirements-section">
-            <h3 class="requirements-title">Every human will need:</h3>
-            <ul class="requirements-list">
-                <li>Printed <strong class="pink-text">(1st Hidden Layer - B)</strong> or <strong class="yellow-text">(2nd Hidden Layer - C)</strong> sheet</li>
-                <li>Pencil <img src="pencil.nn.png" alt="Pencil" class="pencil-image"></li>
-                <li>6-sided die <img src="die.png" alt="6-sided die" class="die-image"></li>
-            </ul>
-        </div>
-        
-        <div class="title-divider"></div>
-        
-        <button class="instructor-slides-button">Instructor Slides</button>
-        
-        <button class="start-button" onclick="startNetwork()">Start</button>
     </div>
     
     <script>
@@ -688,14 +706,20 @@
             // In a full implementation, this would update the header and button colors
         }
         
+        // Open Instructor Slides function
+        function openInstructorSlides() {
+            // Open the instructor slides HTML wrapper in a new tab
+            window.open('/instructor-slides.html', '_blank');
+        }
+        
         // Start Network function
         function startNetwork() {
             const select = document.getElementById('participant-select');
             const selectedValue = select.value;
             
             if (selectedValue === '27') {
-                // Open the main page (27 network) in a new tab
-                window.open('http://localhost:5173/', '_blank');
+                // Open the 27 network page in a new tab
+                window.open('http://localhost:5173/27-network.html', '_blank');
             } else if (selectedValue === '45') {
                 // Open the 45 network page in a new tab
                 window.open('http://localhost:5173/45-network.html', '_blank');
@@ -706,7 +730,7 @@
                     <div class="horizontal-line"></div>
                 <div class="copyright-footer">
                     © 2025 Stage One Education, LLC
-                    <div class="version-number">V25.8</div>
+                    <div class="version-number">V25.9</div>
                 </div>
 </body>
 </html>
