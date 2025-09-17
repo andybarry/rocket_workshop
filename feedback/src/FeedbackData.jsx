@@ -2949,6 +2949,7 @@ function FeedbackData() {
       <footer className="footer">
         <div className="footer-content">
           © 2025 Stage One Education, LLC
+          <span className="footer-version">V25.9</span>
         </div>
       </footer>
     </div>

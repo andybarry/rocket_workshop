@@ -8,14 +8,15 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -24,9 +25,8 @@ html, body {
 
 .app {
   width: 100%;
-  min-height: 100vh;
   background-color: white;
-  overflow-x: hidden;
+  padding-top: 35px;
 }
 
 .header-bar {
@@ -39,6 +39,10 @@ html, body {
   width: 100%;
   gap: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .header-left,
@@ -116,13 +120,6 @@ html, body {
   text-align: center;
 }
 
-.gear-icon-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 2rem 0 0;
-  background-color: white;
-}
-
 .gear-icon-btn {
   background-color: transparent;
   border: none;
@@ -133,11 +130,22 @@ html, body {
   outline: none;
   padding: 0.5rem;
   border-radius: 3px;
+  position: absolute;
+  left: 2rem;
+}
+
+.gear-icon-btn:focus {
+  outline: none;
+  border: none;
+}
+
+.gear-icon-btn:focus-visible {
+  outline: none;
+  border: none;
 }
 
 .gear-icon-btn:hover {
   color: rgba(0, 0, 0, 0.6);
-  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .gear-icon-btn:active {
@@ -152,10 +160,19 @@ html, body {
 
 .charts-title h2 {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: #333;
   margin: 0 0 0.1rem 0;
+}
+
+.charts-title h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
+  margin: 0.2rem auto 1.5rem auto;
 }
 
 .year-dropdown-container {
@@ -298,8 +315,8 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 0 auto 2rem auto;
   padding: 1rem 2rem 2rem 2rem;
-  max-width: 1400px;
-  width: 90%;
+  max-width: 1300px;
+  width: 85%;
 }
 
 .bar-graphs-container {
@@ -310,18 +327,54 @@ html, body {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .chart-window {
-  flex: 1;
   background-color: white;
   border-radius: 8px;
   padding: 0.5rem;
   height: 350px;
-  max-width: 350px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(240, 95, 64, 0.15);
+  flex-shrink: 0;
+}
+
+/* Responsive breakpoints for layout only - graph size stays constant */
+@media (max-width: 1500px) {
+  .bar-graphs-container {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .bar-graphs-container {
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .bar-graphs-container {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .workshop-feedback-container,
+  .specific-feedback-title {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .workshop-feedback-container,
+  .specific-feedback-title {
+    width: 98%;
+    padding: 0.5rem;
+  }
 }
 
 .chart-title {
@@ -527,16 +580,25 @@ html, body {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 2rem auto;
-  max-width: 1000px;
+  max-width: 1300px;
   width: 85%;
 }
 
 .specific-feedback-title h2 {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: #333;
   margin: 0 0 1.5rem 0;
+}
+
+.specific-feedback-title h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
+  margin: 0.2rem auto 1.5rem auto;
 }
 
 .dropdown-container {
@@ -562,26 +624,46 @@ html, body {
 }
 
 .dropdown-select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #e1e5e9;
-  border-radius: 4px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
   background-color: white;
-  color: #333;
-  min-width: 180px;
+  color: #f05f40;
+  border: 1px solid #f05f40;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: none;
+  min-width: 180px;
 }
 
 .dropdown-select:focus {
   outline: none;
-  border-color: #f05f40;
-  box-shadow: 0 0 0 3px rgba(240, 95, 64, 0.1);
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .dropdown-select:hover {
-  border-color: #d1d5db;
+  background-color: #f05f40;
+  color: white;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+}
+
+.dropdown-select:active {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+  transform: translateY(1px);
+}
+
+.dropdown-select:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #f05f40;
 }
 
 .show-feedback-container {
@@ -649,12 +731,19 @@ html, body {
   margin: 0;
 }
 
+.feedback-comments-title h3::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem auto 1.5rem auto;
+}
+
 .feedback-comments-window {
   background-color: white;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
-  max-height: 400px;
-  overflow-y: auto;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -667,6 +756,10 @@ html, body {
   padding: 0.75rem 0;
   border-bottom: 1px solid #e1e5e9;
   text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .feedback-comment:last-child {
@@ -674,16 +767,19 @@ html, body {
 }
 
 .comment-text {
-  margin-bottom: 0.5rem;
   font-style: italic;
+  flex: 1;
 }
 
 .comment-meta {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
   font-size: 0.8rem;
   color: #666;
   font-style: normal;
+  min-width: fit-content;
+  gap: 0.2rem;
 }
 
 .comment-date {
@@ -709,6 +805,19 @@ html, body {
   text-align: center;
   margin: 0;
   padding: 0.1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.footer-version {
+  font-size: 0.4rem;
+  font-family: 'Roboto', sans-serif;
+  color: #ccc;
+  position: absolute;
+  right: 2rem;
 }
 
 .loading-container {

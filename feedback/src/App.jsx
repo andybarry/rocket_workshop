@@ -1921,30 +1921,6 @@ function App() {
         <div className="header-center"></div>
         <div className="header-right">STAGE ONE EDUCATION</div>
       </header>
-      <div className="gear-icon-container">
-        <button 
-          className="gear-icon-btn"
-          onClick={() => {
-            // Check if password protection is disabled
-            const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
-            if (isPasswordDisabled) {
-              window.open('http://localhost:5174/feedback-data.html', '_blank');
-              return;
-            }
-            
-            const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234';
-            const password = prompt('Enter password to access Feedback Data:');
-            if (password === storedPassword) {
-              window.open('http://localhost:5174/feedback-data.html', '_blank');
-            } else if (password !== null) {
-              alert('Incorrect password. Access denied.');
-            }
-          }}
-          title="Feedback Data"
-        >
-          ⚙️
-        </button>
-      </div>
       <div className="workshop-feedback-container">
         <div className="charts-title">
           <h2>Cumulative Workshop Feedback</h2>
@@ -1984,7 +1960,6 @@ function App() {
         <h2>Specific Workshop Feedback</h2>
         <div className="dropdown-container">
           <div className="dropdown-group">
-            <label htmlFor="workshop-select">Workshop:</label>
             <select 
               id="workshop-select" 
               className="dropdown-select"
@@ -1998,7 +1973,6 @@ function App() {
             </select>
           </div>
           <div className="dropdown-group">
-            <label htmlFor="location-select">Location:</label>
             <select 
               id="location-select" 
               className="dropdown-select"
@@ -2020,7 +1994,6 @@ function App() {
             </select>
           </div>
           <div className="dropdown-group">
-            <label htmlFor="date-select">Date:</label>
             <select 
               id="date-select" 
               className="dropdown-select"
@@ -2074,7 +2047,30 @@ function App() {
       </div>
       <footer className="footer">
         <div className="footer-content">
+          <button 
+            className="gear-icon-btn"
+            onClick={() => {
+              // Check if password protection is disabled
+              const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
+              if (isPasswordDisabled) {
+                window.open('http://localhost:5174/feedback-data.html', '_blank');
+                return;
+              }
+              
+              const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234';
+              const password = prompt('Enter password to access Feedback Data:');
+              if (password === storedPassword) {
+                window.open('http://localhost:5174/feedback-data.html', '_blank');
+              } else if (password !== null) {
+                alert('Incorrect password. Access denied.');
+              }
+            }}
+            title="Feedback Data"
+          >
+            ⚙️
+          </button>
           © 2025 Stage One Education, LLC
+          <span className="footer-version">V25.9</span>
         </div>
       </footer>
     </div>
