@@ -559,6 +559,35 @@ function App() {
     }
   }, []);
 
+  // Check for reset parameter in URL and trigger reset if needed
+  useEffect(() => {
+    console.log('Checking for reset parameter...');
+    console.log('Current URL:', window.location.href);
+    console.log('Search params:', window.location.search);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldReset = urlParams.get('reset') === 'true';
+    
+    console.log('URL parameter check:', { 
+      search: window.location.search, 
+      shouldReset, 
+      urlParams: Object.fromEntries(urlParams.entries()) 
+    });
+    
+    if (shouldReset) {
+      console.log('Reset parameter detected in URL, triggering reset...');
+      
+      // Clear the reset parameter from URL without reloading
+      const url = new URL(window.location);
+      url.searchParams.delete('reset');
+      window.history.replaceState({}, '', url);
+      
+      // Execute reset immediately
+      console.log('Executing reset immediately...');
+      resetAllData();
+    }
+  }, []); // Run once on component mount
+
   // Load saved data from localStorage on component mount (run after GPU state is added)
   useEffect(() => {
     console.log('Data loading useEffect running...');
@@ -1149,11 +1178,16 @@ function App() {
   };
 
   const resetAllData = () => {
+    console.log('resetAllData function called');
+    
     // Clear localStorage for the appropriate network type
     // Determine the correct key based on the current URL path, not the state
     const currentPath = window.location.pathname;
     const is45NetworkPage = currentPath.includes('45-network');
     const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+    
+    console.log('Resetting data for:', { currentPath, is45NetworkPage, storageKey });
+    
     localStorage.removeItem(storageKey);
     
     // Reset to initial state
@@ -1851,12 +1885,15 @@ function App() {
       } else if (columnIndex === 2) { // Numeric column
         nextRow = rowIndex + 1
         nextColumn = 2
-      } else if (columnIndex === 4) { // Weight column
+      } else if (columnIndex === 4) { // Weight column (main table)
         nextRow = rowIndex + 1
         nextColumn = 4
       } else if (columnIndex === 7) { // Value column
         nextRow = rowIndex + 1
         nextColumn = 7
+      } else if (columnIndex === 8) { // Update Weights table weight column
+        nextRow = rowIndex + 1
+        nextColumn = 8
       }
       
       // If we're at the last row, wrap to the first row
@@ -2012,10 +2049,10 @@ function App() {
               Artificial Intelligence Workshop
             </a>
             <div className="header-divider"></div>
-            <a 
-              href="https://stageoneeducation.com/human-neural-network.html" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              <a 
+                href="http://localhost:5174/human-neural-network.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
               className="header-center"
             >
               Human Neural Network
@@ -2332,15 +2369,25 @@ function App() {
                               )}
                             </td>
                             <td className="column-equals">=</td>
-                                                        <td className="column-value" data-row={index-1} data-column="7">
+                                                        <td className="column-value">
                               {getCurrentRoundData().showNetworkDecision && getCurrentRoundData().valueResults[index-1] !== '' ? (
-                                <span className="calculated-value">{getCurrentRoundData().valueResults[index-1]}</span>
+                                <span 
+                                  className="calculated-value"
+                                  data-row={index-1} 
+                                  data-column="7"
+                                  tabIndex="0"
+                                  onKeyDown={(e) => handleKeyDown(e, index-1, 7)}
+                                >
+                                  {getCurrentRoundData().valueResults[index-1]}
+                                </span>
                               ) : (
                                 <input 
                                   type="text" 
                                   value={getCurrentRoundData().valueResults[index-1]} 
                                   onChange={(e) => handleValueChange(index-1, e.target.value)}
                                   onKeyDown={(e) => handleKeyDown(e, index-1, 7)}
+                                  data-row={index-1} 
+                                  data-column="7"
                                   placeholder=""
                                 />
                               )}
@@ -2401,9 +2448,12 @@ function App() {
                                     type="text" 
                                     value={getCurrentRoundData().updateWeightsValues[index-1]}
                                     data-index={index-1}
+                                    data-row={index-1} 
+                                    data-column="8"
                                     onChange={(e) => {
                                       handleUpdateWeightChange(index-1, e.target.value)
                                     }}
+                                    onKeyDown={(e) => handleKeyDown(e, index-1, 8)}
                                     className="update-weight-input"
                                     placeholder=""
                                   />

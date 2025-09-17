@@ -8,7 +8,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, '27-network.html')
+        '27-network': resolve(__dirname, '27-network.html'),
+        '45-network': resolve(__dirname, '45-network.html'),
+        main: resolve(__dirname, 'index.html')
       }
     }
   },
