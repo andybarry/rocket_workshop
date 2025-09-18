@@ -380,6 +380,334 @@ html, body {
   }
 }
 
+/* Mobile responsive styles for feedback page */
+@media (max-width: 768px) {
+  .specific-feedback-title {
+    width: 95%;
+    margin: 0.5rem auto;
+    padding: 1rem;
+  }
+
+  .specific-feedback-title h2 {
+    font-size: 1.4rem;
+  }
+
+  .dropdown-and-button-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-container {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .dropdown-select,
+  .show-feedback-btn {
+    min-width: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Center the show feedback button container */
+  .show-feedback-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .show-feedback-btn {
+    align-self: center;
+    max-width: 250px;
+  }
+
+  /* Fix horizontal line widths for mobile */
+  .feedback-comments-title h3::after,
+  .favorite-part-title h3::after,
+  .next-electronics-title h3::after,
+  .next-design-title h3::after,
+  .instructor-title h3::after {
+    width: 100% !important;
+  }
+
+  /* Fix text window widths for mobile */
+  .feedback-comments-window,
+  .favorite-part-window,
+  .next-electronics-window,
+  .next-design-window,
+  .instructor-window {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  /* Adjust title margins for mobile */
+  .feedback-comments-title,
+  .favorite-part-title,
+  .next-electronics-title,
+  .next-design-title,
+  .instructor-title {
+    margin-left: 0 !important;
+    text-align: center;
+  }
+
+  .feedback-comments-title h3,
+  .favorite-part-title h3,
+  .next-electronics-title h3,
+  .next-design-title h3,
+  .instructor-title h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Chart responsiveness */
+  .chart-window {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    min-height: 350px;
+  }
+
+  .bar-graphs-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Fix x-axis labels for mobile */
+  .x-axis {
+    height: 2.2rem;
+    margin-top: 0.2rem;
+  }
+
+  .x-label {
+    font-size: 0.5rem;
+    line-height: 1.1;
+    padding: 0 0.05rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Smaller font for AI workshop combined chart x-axis labels specifically */
+  .chart-content:has(.combined-bar-container) + .x-axis .x-label {
+    font-size: 0.4rem !important;
+    line-height: 1.0 !important;
+    padding: 0 0.03rem !important;
+  }
+
+  /* Header adjustments for tablet view */
+  .header-bar {
+    padding: 0.15rem 1.5rem;
+    height: auto;
+    min-height: 50px;
+  }
+
+  .header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .header-left span {
+    font-size: 1.1rem !important;
+  }
+
+  .instructor-feedback-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    max-width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .app {
+    padding-top: 55px; /* Reduced white space below header on tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .specific-feedback-title {
+    width: 98%;
+    margin: 0.25rem auto;
+    padding: 0.5rem;
+  }
+
+  .specific-feedback-title h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .dropdown-and-button-wrapper {
+    padding: 0.25rem 0;
+  }
+
+  .dropdown-select,
+  .show-feedback-btn {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  /* Center the show feedback button container on small mobile */
+  .show-feedback-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .show-feedback-btn {
+    align-self: center;
+    max-width: 200px;
+  }
+
+  .feedback-comments-title h3,
+  .favorite-part-title h3,
+  .next-electronics-title h3,
+  .next-design-title h3,
+  .instructor-title h3 {
+    font-size: 1rem;
+  }
+
+  .feedback-comment {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .comment-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .chart-window {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Extra small x-axis labels for very small screens */
+  .x-axis {
+    height: 2.5rem;
+    margin-top: 0.1rem;
+  }
+
+  .x-label {
+    font-size: 0.45rem;
+    line-height: 1.0;
+    padding: 0 0.02rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Extra small font for AI workshop combined chart x-axis labels specifically */
+  .chart-content:has(.combined-bar-container) + .x-axis .x-label {
+    font-size: 0.35rem !important;
+    line-height: 0.9 !important;
+    padding: 0 0.01rem !important;
+  }
+
+  .header-bar {
+    padding: 0.2rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 35px;
+    height: auto;
+    gap: 0.05rem;
+  }
+
+  /* Create a top row with Workshop Feedback and button */
+  .header-left {
+    font-size: 0.85rem !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    order: 1;
+    width: 100%;
+    min-height: 1.2rem;
+  }
+
+  .header-left span {
+    margin-bottom: 0;
+    white-space: nowrap;
+    font-size: 0.9rem !important;
+    order: 1;
+    text-align: left;
+    font-weight: bold;
+    flex: 1;
+    align-self: center;
+    display: flex;
+    align-items: center;
+  }
+
+  .instructor-feedback-btn {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.25rem;
+    order: 2;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 2px;
+    line-height: 1.1;
+    margin: 0;
+    flex-shrink: 0;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-right {
+    font-size: 0.6rem !important;
+    order: 3;
+    margin: 0;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    align-self: flex-start;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  /* Ensure all fixed-width elements are responsive */
+  .specific-feedback-title {
+    width: 95% !important;
+    max-width: 100%;
+  }
+
+  /* Additional padding adjustments for very small screens */
+  .app {
+    padding-top: 45px; /* Reduced white space below orange header on mobile */
+  }
+
+  /* Ensure text content is readable on mobile */
+  .feedback-comment {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding: 0.5rem 0;
+  }
+
+  .comment-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
 .chart-title {
   color: #333;
   font-family: 'Roboto', sans-serif;
@@ -764,7 +1092,8 @@ html, body {
 
 .feedback-comments-title {
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: calc((100% - 1098px) / 2);
 }
 
 .feedback-comments-title h3 {
@@ -778,10 +1107,10 @@ html, body {
 .feedback-comments-title h3::after {
   content: '';
   display: block;
-  width: 100%;
+  width: 1098px;
   height: 1px;
   background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .feedback-comments-window {
@@ -792,6 +1121,8 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
+  width: 1098px;
+  margin: 0 auto;
 }
 
 .feedback-comment {
@@ -852,7 +1183,8 @@ html, body {
 
 .favorite-part-title {
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: calc((100% - 1098px) / 2);
 }
 
 .favorite-part-title h3 {
@@ -866,10 +1198,10 @@ html, body {
 .favorite-part-title h3::after {
   content: '';
   display: block;
-  width: 100%;
+  width: 1098px;
   height: 1px;
   background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .favorite-part-window {
@@ -880,6 +1212,8 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
+  width: 1098px;
+  margin: 0 auto;
 }
 
 /* Next Electronics Section (for Robotics) */
@@ -890,7 +1224,8 @@ html, body {
 
 .next-electronics-title {
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: calc((100% - 1098px) / 2);
 }
 
 .next-electronics-title h3 {
@@ -904,10 +1239,10 @@ html, body {
 .next-electronics-title h3::after {
   content: '';
   display: block;
-  width: 100%;
+  width: 1098px;
   height: 1px;
   background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .next-electronics-window {
@@ -918,6 +1253,8 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
+  width: 1098px;
+  margin: 0 auto;
 }
 
 /* Next Design Section (for Mechanical) */
@@ -928,7 +1265,8 @@ html, body {
 
 .next-design-title {
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: calc((100% - 1098px) / 2);
 }
 
 .next-design-title h3 {
@@ -942,10 +1280,10 @@ html, body {
 .next-design-title h3::after {
   content: '';
   display: block;
-  width: 100%;
+  width: 1098px;
   height: 1px;
   background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .next-design-window {
@@ -956,6 +1294,8 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
+  width: 1098px;
+  margin: 0 auto;
 }
 
 /* Instructor Section */
@@ -966,7 +1306,8 @@ html, body {
 
 .instructor-title {
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: calc((100% - 1098px) / 2);
 }
 
 .instructor-title h3 {
@@ -980,10 +1321,10 @@ html, body {
 .instructor-title h3::after {
   content: '';
   display: block;
-  width: 100%;
+  width: 1098px;
   height: 1px;
   background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .instructor-window {
@@ -994,6 +1335,8 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
+  width: 1098px;
+  margin: 0 auto;
 }
 
 .footer-content {
@@ -1521,6 +1864,116 @@ html, body {
   margin: 0 auto;
 }
 
+/* Mobile responsive styles for survey forms */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+    max-width: 95%;
+  }
+
+  .survey-form {
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .survey-title-section h1 {
+    font-size: 2rem;
+  }
+
+  .form-group {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .radio-option {
+    padding: 0.5rem;
+    min-height: 40px;
+  }
+
+  .radio-option label {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0.5rem;
+    max-width: 98%;
+  }
+
+  .survey-form {
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .survey-title-section {
+    margin-bottom: 1rem;
+  }
+
+  .survey-title-section h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .survey-title-section p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .stage-one-branding {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .radio-option {
+    padding: 0.4rem;
+    min-height: 36px;
+    margin-bottom: 0.4rem;
+  }
+
+  .radio-option label {
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+
+  .radio-option input[type="radio"],
+  .radio-option input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin-right: 0.4rem;
+  }
+
+  .submit-button {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .form-group textarea {
+    min-height: 80px;
+  }
+}
+
 .main-content h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
@@ -1656,7 +2109,7 @@ html, body {
   border-radius: 6px;
   border: 1px solid #e1e5e9;
   transition: all 0.2s ease;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
   min-height: 44px;
 }
 
