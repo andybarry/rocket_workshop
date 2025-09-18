@@ -213,7 +213,7 @@ function InstructorFeedbackSurvey() {
                   placeholder="Please specify"
                   value={formData['instructed-location-other-text']}
                   onChange={handleInputChange}
-                  style={{ marginLeft: '10px', width: '200px' }}
+                  style={{ marginLeft: '10px' }}
                 />
               )}
             </div>
@@ -254,7 +254,7 @@ function InstructorFeedbackSurvey() {
                   placeholder="Please specify"
                   value={formData['session-type-other-text']}
                   onChange={handleInputChange}
-                  style={{ marginLeft: '10px', width: '200px' }}
+                  style={{ marginLeft: '10px' }}
                 />
               )}
             </div>
