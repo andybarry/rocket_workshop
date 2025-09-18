@@ -431,12 +431,16 @@ html, body {
 }
 
 .bar-value {
-  font-size: 0.75rem;
-  color: #999;
+  font-size: 0.5rem;
+  color: #666;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   margin-bottom: 0.05rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
 }
 
 .chart-bar {
@@ -575,7 +579,7 @@ html, body {
 
 .specific-feedback-title {
   text-align: center;
-  padding: 2rem 2rem 1rem 2rem;
+  padding: 2rem 2rem 1.5rem 2rem;
   background-color: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -592,21 +596,22 @@ html, body {
   margin: 0 0 1.5rem 0;
 }
 
-.specific-feedback-title h2::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
-  margin: 0.2rem auto 1.5rem auto;
+
+.dropdown-and-button-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 0;
+  flex-wrap: wrap;
 }
 
 .dropdown-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 .dropdown-group {
@@ -668,23 +673,25 @@ html, body {
 
 .show-feedback-container {
   display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  padding: 0 2rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0;
+  padding: 0;
 }
 
 .show-feedback-btn {
   background-color: #f05f40;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
   font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  min-width: 140px;
+  min-width: 180px;
 }
 
 .show-feedback-btn:hover {
@@ -695,8 +702,17 @@ html, body {
   transform: translateY(1px);
 }
 
+.dropdown-and-button-wrapper::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
+  margin: 0.1rem auto 0 auto;
+}
+
 .feedback-graphs-section {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   padding: 0;
 }
 
@@ -719,7 +735,7 @@ html, body {
 }
 
 .feedback-comments-title {
-  text-align: center;
+  text-align: left;
   margin-bottom: 1.5rem;
 }
 
@@ -734,10 +750,10 @@ html, body {
 .feedback-comments-title h3::after {
   content: '';
   display: block;
-  width: 50%;
+  width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
-  margin: 0.5rem auto 1.5rem auto;
+  background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem 0 1.5rem 0;
 }
 
 .feedback-comments-window {
@@ -746,6 +762,8 @@ html, body {
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .feedback-comment {
@@ -773,13 +791,13 @@ html, body {
 
 .comment-meta {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
   font-size: 0.8rem;
   color: #666;
   font-style: normal;
   min-width: fit-content;
-  gap: 0.2rem;
+  gap: 0.5rem;
 }
 
 .comment-date {
@@ -796,6 +814,158 @@ html, body {
   font-style: italic;
   padding: 2rem;
   font-family: 'Roboto', sans-serif;
+}
+
+/* Favorite Part Section */
+.favorite-part-section {
+  margin-top: 2rem;
+  padding: 0;
+}
+
+.favorite-part-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.favorite-part-title h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.favorite-part-title h3::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.favorite-part-window {
+  background-color: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Next Electronics Section (for Robotics) */
+.next-electronics-section {
+  margin-top: 2rem;
+  padding: 0;
+}
+
+.next-electronics-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.next-electronics-title h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.next-electronics-title h3::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.next-electronics-window {
+  background-color: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Next Design Section (for Mechanical) */
+.next-design-section {
+  margin-top: 2rem;
+  padding: 0;
+}
+
+.next-design-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.next-design-title h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.next-design-title h3::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.next-design-window {
+  background-color: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Instructor Section */
+.instructor-section {
+  margin-top: 2rem;
+  padding: 0;
+}
+
+.instructor-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.instructor-title h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.instructor-title h3::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #d1d5db 0%, #d1d5db 80%, transparent 100%);
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.instructor-window {
+  background-color: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .footer-content {
@@ -855,11 +1025,15 @@ html, body {
 }
 
 .combined-bar-value {
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   font-weight: 400;
-  color: #999;
+  color: #666;
   text-align: center;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
 }
 
 .combined-chart-bar {
@@ -906,11 +1080,26 @@ html, body {
 
 .ai-workshop-text {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: #f05f40;
   text-align: left;
   margin-bottom: 0.1rem;
-  font-weight: 700;
+  font-weight: bold;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.1rem;
+}
+
+.chart-filter-info {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.65rem;
+  color: #f05f40;
+  text-align: right;
+  font-weight: bold;
 }
 
 /* Spreadsheet Styles */
