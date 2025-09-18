@@ -102,9 +102,13 @@ function App() {
     setSpecificDate(date)
     setShowSpecificFeedback(false)
     
-    // If date is selected, update available locations for that date
+    // If date is selected, update available locations for that date/year
     if (date && specificWorkshop) {
-      await fetchAvailableLocationsForDate(specificWorkshop, date)
+      if (specificRange === 'year') {
+        await fetchAvailableLocationsForYear(specificWorkshop, date)
+      } else {
+        await fetchAvailableLocationsForDate(specificWorkshop, date)
+      }
     } else if (!date && specificWorkshop) {
       // If date is cleared, show all locations for the workshop
       await fetchAvailableOptionsForWorkshop(specificWorkshop)
@@ -194,10 +198,69 @@ function App() {
         // Filter data by date and extract unique locations
         const filteredData = data.filter(item => item.date === date)
         const locations = [...new Set(filteredData.map(item => item['workshop-location']).filter(location => location && location.trim() !== ''))]
+        
+        // Preserve the currently selected location if it's still available
+        const currentLocation = specificLocation
         setAvailableLocations(locations.sort())
+        
+        // If the current location is still available, keep it selected
+        if (currentLocation && locations.includes(currentLocation)) {
+          setSpecificLocation(currentLocation)
+        } else if (currentLocation && currentLocation !== 'all-locations') {
+          // If the current location is not available for this date, clear it
+          setSpecificLocation('')
+        }
       }
     } catch (error) {
       console.error('Error fetching available locations for date:', error)
+    }
+  }
+
+  // Fetch available locations for a specific workshop and year
+  const fetchAvailableLocationsForYear = async (workshop, year) => {
+    try {
+      let workshopType = ''
+      if (workshop === 'ai-workshop') workshopType = 'AI'
+      else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
+      else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
+      
+      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors'
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        
+        // Filter data by year and extract unique locations
+        const filteredData = data.filter(item => {
+          if (item.date) {
+            const dateParts = item.date.split('/')
+            if (dateParts.length === 3) {
+              return dateParts[2] === year // Year is the third part in M/D/YYYY format
+            }
+          }
+          return false
+        })
+        const locations = [...new Set(filteredData.map(item => item['workshop-location']).filter(location => location && location.trim() !== ''))]
+        
+        // Preserve the currently selected location if it's still available
+        const currentLocation = specificLocation
+        setAvailableLocations(locations.sort())
+        
+        // If the current location is still available, keep it selected
+        if (currentLocation && locations.includes(currentLocation)) {
+          setSpecificLocation(currentLocation)
+        } else if (currentLocation && currentLocation !== 'all-locations') {
+          // If the current location is not available for this year, clear it
+          setSpecificLocation('')
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching available locations for year:', error)
     }
   }
 
@@ -384,7 +447,7 @@ function App() {
   const getFilterDisplayText = () => {
     if (specificRange === 'lifetime') {
       if (specificLocation && specificLocation !== 'all-locations') {
-        return specificLocation
+        return `${specificLocation} - Lifetime`
       } else {
         return 'Lifetime'
       }
@@ -1015,12 +1078,12 @@ function App() {
             <div className="dropdown-group">
               <select 
                 id="workshop-select" 
-                className="dropdown-select"
+                className={`dropdown-select ${specificWorkshop ? 'selected' : ''}`}
                 value={specificWorkshop}
                 onChange={handleSpecificWorkshopChange}
               >
                 <option value="">Select Workshop</option>
-                <option value="ai-workshop">AI Workshop</option>
+                <option value="ai-workshop">Artificial Intelligence Workshop</option>
                 <option value="robotics-workshop">Robotics Workshop</option>
                 <option value="mechanical-workshop">Mechanical Workshop</option>
               </select>
@@ -1028,7 +1091,7 @@ function App() {
             <div className="dropdown-group">
               <select 
                 id="location-select" 
-                className="dropdown-select"
+                className={`dropdown-select ${specificLocation ? 'selected' : ''}`}
                 value={specificLocation}
                 onChange={handleSpecificLocationChange}
                 disabled={!specificWorkshop}
@@ -1043,7 +1106,7 @@ function App() {
             <div className="dropdown-group">
               <select 
                 id="range-select" 
-                className="dropdown-select"
+                className={`dropdown-select ${specificRange ? 'selected' : ''}`}
                 value={specificRange}
                 onChange={handleSpecificRangeChange}
                 disabled={!specificWorkshop}
@@ -1057,7 +1120,7 @@ function App() {
             <div className="dropdown-group">
               <select 
                 id="date-select" 
-                className="dropdown-select"
+                className={`dropdown-select ${specificDate ? 'selected' : ''}`}
                 value={specificDate}
                 onChange={handleSpecificDateChange}
                 disabled={!specificWorkshop || !specificRange || specificRange === 'lifetime'}

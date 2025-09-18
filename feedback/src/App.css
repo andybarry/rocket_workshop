@@ -27,6 +27,9 @@ html, body {
   width: 100%;
   background-color: white;
   padding-top: 35px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-bar {
@@ -570,22 +573,26 @@ html, body {
 }
 
 .footer {
-  margin-top: 0;
+  margin-top: auto;
   margin-bottom: 0;
-  padding: 0.1rem 0;
+  padding: 1rem 0;
   position: relative;
   background: transparent;
+  width: 100%;
 }
 
 .specific-feedback-title {
   text-align: center;
-  padding: 2rem 2rem 1.5rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
   background-color: #f8f9fa;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
   margin: 2rem auto;
   max-width: 1300px;
   width: 85%;
+  flex: 1;
+  position: relative;
+  overflow: visible;
 }
 
 .specific-feedback-title h2 {
@@ -604,6 +611,20 @@ html, body {
   gap: 2rem;
   margin-top: 0;
   flex-wrap: wrap;
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.dropdown-and-button-wrapper::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
+  margin: 1rem auto 0 auto;
 }
 
 .dropdown-container {
@@ -630,8 +651,8 @@ html, body {
 
 .dropdown-select {
   background-color: white;
-  color: #f05f40;
-  border: 1px solid #f05f40;
+  color: #666;
+  border: 1px solid #ccc;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   font-family: 'Roboto', sans-serif;
@@ -645,20 +666,24 @@ html, body {
 }
 
 .dropdown-select:focus {
+  background-color: white;
+  color: #f05f40;
   outline: none;
   box-shadow: none;
   border: 1px solid #f05f40;
 }
 
 .dropdown-select:hover {
-  background-color: #f05f40;
-  color: white;
+  background-color: white;
+  color: #f05f40;
   outline: none;
   box-shadow: none;
   border: 1px solid #f05f40;
 }
 
 .dropdown-select:active {
+  background-color: white;
+  color: #f05f40;
   outline: none;
   box-shadow: none;
   border: 1px solid #f05f40;
@@ -666,8 +691,16 @@ html, body {
 }
 
 .dropdown-select:focus-visible {
+  background-color: white;
+  color: #f05f40;
   outline: none;
   box-shadow: none;
+  border: 1px solid #f05f40;
+}
+
+.dropdown-select.selected {
+  background-color: white;
+  color: #f05f40;
   border: 1px solid #f05f40;
 }
 
@@ -702,18 +735,13 @@ html, body {
   transform: translateY(1px);
 }
 
-.dropdown-and-button-wrapper::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
-  margin: 0.1rem auto 0 auto;
-}
+/* Removed the horizontal line since we now have a border on the sticky controls */
 
 .feedback-graphs-section {
-  margin-top: 1.5rem;
+  margin-top: 0;
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .feedback-graphs-title {
