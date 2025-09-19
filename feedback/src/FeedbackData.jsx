@@ -7,6 +7,13 @@ function FeedbackData() {
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedLocation, setSelectedLocation] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
+  const [originalColumnWidths, setOriginalColumnWidths] = useState(() => {
+    const widths = Array(15).fill(150)
+    widths[0] = 100 // Date column - make it narrower
+    widths[1] = 100 // Time column - make it narrower
+    widths[14] = 300 // Comments/Suggestions/Ideas column - make it wider
+    return widths
+  })
   const [columnWidths, setColumnWidths] = useState(() => {
     const widths = Array(15).fill(150)
     widths[0] = 100 // Date column - make it narrower
@@ -768,12 +775,14 @@ function FeedbackData() {
       widths[1] = 100 // Time column - make it narrower
       widths[9] = 300 // Comments, suggestions, or ideas column - make it wider
       setColumnWidths(widths)
+      setOriginalColumnWidths([...widths]) // Store original widths
     } else {
       const widths = Array(15).fill(150)
       widths[0] = 100 // Date column - make it narrower
       widths[1] = 100 // Time column - make it narrower
       widths[14] = 300 // Comments/Suggestions/Ideas column - make it wider
       setColumnWidths(widths)
+      setOriginalColumnWidths([...widths]) // Store original widths
     }
   }, [selectedWorkshop])
 
@@ -1088,6 +1097,18 @@ function FeedbackData() {
     
     document.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseup', handleMouseUp)
+  }
+
+  const handleDoubleClick = (e, columnIndex) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    // Reset column width to original width
+    setColumnWidths(prev => {
+      const newWidths = [...prev]
+      newWidths[columnIndex] = originalColumnWidths[columnIndex]
+      return newWidths
+    })
   }
 
   const handleCellMouseDown = (e, rowIndex, colIndex) => {
@@ -2337,6 +2358,7 @@ function FeedbackData() {
                   <div 
                     className="resize-handle"
                     onMouseDown={(e) => handleMouseDown(e, i)}
+                    onDoubleClick={(e) => handleDoubleClick(e, i)}
                   ></div>
                 </div>
               ))
@@ -2368,6 +2390,7 @@ function FeedbackData() {
                   <div 
                     className="resize-handle"
                     onMouseDown={(e) => handleMouseDown(e, i)}
+                    onDoubleClick={(e) => handleDoubleClick(e, i)}
                   ></div>
                 </div>
               ))
@@ -2399,6 +2422,7 @@ function FeedbackData() {
                   <div 
                     className="resize-handle"
                     onMouseDown={(e) => handleMouseDown(e, i)}
+                    onDoubleClick={(e) => handleDoubleClick(e, i)}
                   ></div>
                 </div>
               ))
@@ -2425,6 +2449,7 @@ function FeedbackData() {
                   <div 
                     className="resize-handle"
                     onMouseDown={(e) => handleMouseDown(e, i)}
+                    onDoubleClick={(e) => handleDoubleClick(e, i)}
                   ></div>
                 </div>
               ))
@@ -2440,6 +2465,7 @@ function FeedbackData() {
                   <div 
                     className="resize-handle"
                     onMouseDown={(e) => handleMouseDown(e, i)}
+                    onDoubleClick={(e) => handleDoubleClick(e, i)}
                   ></div>
                 </div>
               ))

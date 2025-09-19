@@ -2,6 +2,16 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+  // Helper function to normalize response text for consistent comparison
+  const normalizeResponse = (response) => {
+    if (!response || typeof response !== 'string') return ''
+    return response.toLowerCase().trim()
+  }
+
+  // Helper function to check if two responses match (case-insensitive)
+  const responsesMatch = (response1, response2) => {
+    return normalizeResponse(response1) === normalizeResponse(response2)
+  }
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   
   // Specific Workshop Feedback state
@@ -534,10 +544,10 @@ function App() {
       // Handle combined AI tools chart
       if (question === 'ai-tools-combined') {
         const beforeCounts = knowledgeResponseOptions.map(option => {
-          return data.filter(item => item['ai-tools-before'] === option).length
+          return data.filter(item => responsesMatch(item['ai-tools-before'], option)).length
         })
         const afterCounts = knowledgeResponseOptions.map(option => {
-          return data.filter(item => item['ai-tools-after'] === option).length
+          return data.filter(item => responsesMatch(item['ai-tools-after'], option)).length
         })
         
         return {
@@ -553,10 +563,10 @@ function App() {
       // Handle combined neural networks chart
       if (question === 'neural-networks-combined') {
         const beforeCounts = knowledgeResponseOptions.map(option => {
-          return data.filter(item => item['neural-networks-before'] === option).length
+          return data.filter(item => responsesMatch(item['neural-networks-before'], option)).length
         })
         const afterCounts = knowledgeResponseOptions.map(option => {
-          return data.filter(item => item['neural-networks-after'] === option).length
+          return data.filter(item => responsesMatch(item['neural-networks-after'], option)).length
         })
         
         return {
@@ -580,7 +590,7 @@ function App() {
       }
 
       const counts = responseOptions.map(option => {
-        return data.filter(item => item[question] === option).length
+        return data.filter(item => responsesMatch(item[question], option)).length
       })
       
       return {
@@ -644,7 +654,7 @@ function App() {
       }
 
       const counts = responseOptions.map(option => {
-        return data.filter(item => item[question] === option).length
+        return data.filter(item => responsesMatch(item[question], option)).length
       })
       
       return {
@@ -708,7 +718,7 @@ function App() {
       }
 
       const counts = responseOptions.map(option => {
-        return data.filter(item => item[question] === option).length
+        return data.filter(item => responsesMatch(item[question], option)).length
       })
       
       return {
