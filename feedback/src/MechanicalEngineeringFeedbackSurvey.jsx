@@ -153,7 +153,7 @@ function MechanicalEngineeringFeedbackSurvey() {
           <div className="form-group">
             <label>I did this workshop in</label>
             <div className="radio-options">
-              {['Ann Arbor, MI', 'Atlanta, GA', 'Berkeley, CA', 'Boston, MA', 'Houston, TX', 'Los Angeles, CA', 'New Haven, CT', 'Orlando, FL', 'Washington, D.C.'].map((location, index) => (
+              {['Ann Arbor, MI', 'Atlanta, GA', 'Berkeley, CA', 'Boston, MA', 'Houston, TX', 'Los Angeles, CA', 'New Haven, CT', 'Orlando, FL', 'San Francisco, CA', 'Washington, D.C.'].map((location, index) => (
                 <div key={index} className="radio-option">
                   <input 
                     type="radio" 

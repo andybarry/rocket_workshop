@@ -10,6 +10,7 @@ html, body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 #root {
@@ -31,6 +32,8 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .header-bar {
@@ -1861,27 +1864,36 @@ html, body {
 /* AI Feedback Survey Styles */
 .main-content {
   padding: 2rem;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
 /* Mobile responsive styles for survey forms */
 @media (max-width: 768px) {
+  .app {
+    padding-top: 25px !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   .main-content {
     padding: 0.1rem;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
     margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .survey-form {
     padding: 0.4rem;
     margin: 0;
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box;
     border-radius: 6px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
   }
 
   .survey-title-section h1 {
@@ -1898,40 +1910,49 @@ html, body {
 
   .stage-one-branding {
     font-size: 0.6rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0 !important;
   }
 
   .form-group {
-    padding: 0.3rem;
-    margin-bottom: 0.4rem;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(240, 95, 64, 0.15);
+    padding: 0.8rem;
+    margin-bottom: 0.6rem;
+    border-radius: 8px;
+    background-color: white !important;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.3), 0 4px 12px rgba(240, 95, 64, 0.15) !important;
   }
 
   .form-group label {
-    font-size: 0.7rem;
-    margin-bottom: 0.25rem;
-    line-height: 1.1;
+    font-size: 1.6rem !important;
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+    font-weight: 700 !important;
   }
 
   .radio-option {
     padding: 0.15rem !important;
     min-height: 22px !important;
-    margin-bottom: 0.1rem !important;
+    margin-bottom: 0.5rem !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
+  /* Remove extra space before "Other" option specifically */
+  .radio-option:last-child {
+    margin-top: 0 !important;
+  }
+
   .radio-option label {
-    font-size: 0.7rem !important;
-    line-height: 1.1;
+    font-size: 1.1rem !important;
+    line-height: 1.3;
+    font-weight: normal !important;
   }
 
   .radio-option input[type="radio"],
   .radio-option input[type="checkbox"] {
-    width: 10px !important;
-    height: 10px !important;
-    margin-right: 0.2rem !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 0.5rem !important;
   }
 
   .radio-option input[type="text"] {
@@ -1960,21 +1981,30 @@ html, body {
 }
 
 @media (max-width: 480px) {
+  .app {
+    padding-top: 20px !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   .main-content {
     padding: 0.05rem;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
     margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .survey-form {
     padding: 0.3rem;
     margin: 0;
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
   }
 
   .survey-title-section {
@@ -1995,40 +2025,49 @@ html, body {
 
   .stage-one-branding {
     font-size: 0.55rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.15rem;
+    margin-top: 0 !important;
   }
 
   .form-group {
-    padding: 0.2rem;
-    margin-bottom: 0.3rem;
-    border-radius: 2px;
-    box-shadow: 0 1px 1px rgba(240, 95, 64, 0.12);
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    background-color: white !important;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.3), 0 3px 10px rgba(240, 95, 64, 0.12) !important;
   }
 
   .form-group label {
-    font-size: 0.65rem;
-    margin-bottom: 0.2rem;
-    line-height: 1.0;
+    font-size: 1.4rem !important;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    font-weight: 700 !important;
   }
 
   .radio-option {
     padding: 0.12rem !important;
     min-height: 20px !important;
-    margin-bottom: 0.08rem !important;
+    margin-bottom: 0.45rem !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
+  /* Remove extra space before "Other" option specifically */
+  .radio-option:last-child {
+    margin-top: 0 !important;
+  }
+
   .radio-option label {
-    font-size: 0.65rem !important;
-    line-height: 1.0;
+    font-size: 1.0rem !important;
+    line-height: 1.2;
+    font-weight: normal !important;
   }
 
   .radio-option input[type="radio"],
   .radio-option input[type="checkbox"] {
-    width: 8px !important;
-    height: 8px !important;
-    margin-right: 0.15rem !important;
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 0.4rem !important;
   }
 
   .radio-option input[type="text"] {
@@ -2058,15 +2097,29 @@ html, body {
 
 /* Extra small mobile devices */
 @media (max-width: 320px) {
+  .app {
+    padding-top: 18px !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   .main-content {
     padding: 0.02rem;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .survey-form {
     padding: 0.2rem;
     margin: 0;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
     border-radius: 3px;
+    overflow-x: hidden;
   }
 
   .survey-title-section h1 {
@@ -2083,39 +2136,49 @@ html, body {
 
   .stage-one-branding {
     font-size: 0.5rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
+    margin-top: 0 !important;
   }
 
   .form-group {
-    padding: 0.15rem;
-    margin-bottom: 0.2rem;
-    border-radius: 1px;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+    border-radius: 5px;
+    background-color: white !important;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.3), 0 2px 8px rgba(240, 95, 64, 0.1) !important;
   }
 
   .form-group label {
-    font-size: 0.6rem;
-    margin-bottom: 0.15rem;
-    line-height: 0.95;
+    font-size: 1.3rem !important;
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+    font-weight: 700 !important;
   }
 
   .radio-option {
     padding: 0.1rem !important;
     min-height: 18px !important;
-    margin-bottom: 0.06rem !important;
+    margin-bottom: 0.35rem !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
+  /* Remove extra space before "Other" option specifically */
+  .radio-option:last-child {
+    margin-top: 0 !important;
+  }
+
   .radio-option label {
-    font-size: 0.6rem !important;
-    line-height: 0.95;
+    font-size: 0.95rem !important;
+    line-height: 1.1;
+    font-weight: normal !important;
   }
 
   .radio-option input[type="radio"],
   .radio-option input[type="checkbox"] {
-    width: 7px !important;
-    height: 7px !important;
-    margin-right: 0.12rem !important;
+    width: 12px !important;
+    height: 12px !important;
+    margin-right: 0.3rem !important;
   }
 
   .radio-option input[type="text"] {
@@ -2145,15 +2208,29 @@ html, body {
 
 /* Ultra small mobile devices */
 @media (max-width: 280px) {
+  .app {
+    padding-top: 15px !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   .main-content {
     padding: 0.01rem;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .survey-form {
     padding: 0.15rem;
     margin: 0;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
     border-radius: 2px;
+    overflow-x: hidden;
   }
 
   .survey-title-section h1 {
@@ -2170,39 +2247,49 @@ html, body {
 
   .stage-one-branding {
     font-size: 0.45rem;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.08rem;
+    margin-top: 0 !important;
   }
 
   .form-group {
-    padding: 0.1rem;
-    margin-bottom: 0.15rem;
-    border-radius: 1px;
+    padding: 0.4rem;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+    background-color: white !important;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.3), 0 2px 6px rgba(240, 95, 64, 0.08) !important;
   }
 
   .form-group label {
-    font-size: 0.55rem;
-    margin-bottom: 0.1rem;
-    line-height: 0.9;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.15rem;
+    line-height: 1.2;
+    font-weight: 700 !important;
   }
 
   .radio-option {
     padding: 0.08rem !important;
     min-height: 16px !important;
-    margin-bottom: 0.04rem !important;
+    margin-bottom: 0.3rem !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
+  /* Remove extra space before "Other" option specifically */
+  .radio-option:last-child {
+    margin-top: 0 !important;
+  }
+
   .radio-option label {
-    font-size: 0.55rem !important;
-    line-height: 0.9;
+    font-size: 0.9rem !important;
+    line-height: 1.0;
+    font-weight: normal !important;
   }
 
   .radio-option input[type="radio"],
   .radio-option input[type="checkbox"] {
-    width: 6px !important;
-    height: 6px !important;
-    margin-right: 0.1rem !important;
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 0.25rem !important;
   }
 
   .radio-option input[type="text"] {
@@ -2321,6 +2408,13 @@ html, body {
   margin-bottom: 0.75rem;
 }
 
+/* Desktop override for larger screens */
+@media (min-width: 769px) {
+  .form-group label {
+    font-size: 1.4rem;
+  }
+}
+
 .form-group label.required::after {
   content: " *";
   color: #f05f40;
@@ -2360,33 +2454,32 @@ html, body {
 .radio-option {
   display: flex;
   align-items: center;
-  padding: 0.75rem 0.5rem;
-  background-color: white;
-  border-radius: 6px;
-  border: 1px solid #e1e5e9;
+  padding: 0.4rem 0.5rem;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
   transition: all 0.2s ease;
-  margin-bottom: 0.5rem;
-  min-height: 44px;
+  margin-bottom: 0;
+  min-height: 32px;
 }
 
 .radio-option:hover {
-  background-color: #f0f0f0;
-  border-color: #f05f40;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .radio-option input[type="radio"] {
-  margin-right: 0.5rem;
-  transform: scale(1.0);
+  margin-right: 0.75rem;
   align-self: center;
   flex-shrink: 0;
-  accent-color: #f05f40;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #ccc;
   border-radius: 50%;
   background-color: white;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .radio-option input[type="radio"]:checked {
@@ -2395,7 +2488,7 @@ html, body {
 }
 
 .radio-option label {
-  font-weight: normal;
+  font-weight: normal !important;
   text-align: left;
   flex: 1;
   cursor: pointer;
@@ -2405,37 +2498,37 @@ html, body {
   justify-content: flex-start;
   margin: 0;
   padding: 0;
+  font-size: 1rem !important;
 }
 
 .radio-option input[type="radio"]:checked + label {
-  color: #f05f40;
-  font-weight: normal;
+  color: #f05f40 !important;
+  font-weight: bold !important;
 }
 
 .radio-option:has(input[type="radio"]:checked) {
-  background-color: #fff3e0;
-  border-color: #f05f40;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 /* Checkbox styles */
 .radio-option input[type="checkbox"] {
-  margin-right: 0.5rem;
-  transform: scale(1.0);
+  margin-right: 0.75rem;
   align-self: center;
   flex-shrink: 0;
-  accent-color: #f05f40;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #ccc;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: white;
   cursor: pointer;
+  transition: all 0.2s ease;
   position: relative;
 }
 
 .radio-option input[type="checkbox"]:checked {
-  background-color: white;
+  background-color: #f05f40;
   border-color: #f05f40;
 }
 
@@ -2451,13 +2544,13 @@ html, body {
 }
 
 .radio-option input[type="checkbox"]:checked + label {
-  color: #f05f40;
-  font-weight: normal;
+  color: #f05f40 !important;
+  font-weight: bold !important;
 }
 
 .radio-option:has(input[type="checkbox"]:checked) {
-  background-color: #fff3e0;
-  border-color: #f05f40;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .submit-button {

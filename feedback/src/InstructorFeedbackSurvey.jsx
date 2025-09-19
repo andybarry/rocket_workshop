@@ -155,7 +155,7 @@ function InstructorFeedbackSurvey() {
           {/* Location Question */}
           <div className="form-group">
             <label>I instructed a workshop in</label>
-            <div style={{ marginBottom: '10px', fontSize: '14px', color: '#666' }}>Select all that apply</div>
+            <div style={{ marginBottom: '10px', marginTop: '-0.5rem', fontSize: '14px', color: '#666' }}>Select all that apply</div>
             <div className="radio-options">
               {['Ann Arbor, MI', 'Atlanta, GA', 'Berkeley, CA', 'Boston, MA', 'Houston, TX', 'Los Angeles, CA', 'New Haven, CT', 'Orlando, FL', 'San Francisco, CA', 'Washington, D.C.'].map((location, index) => (
                 <div key={index} className="radio-option">
