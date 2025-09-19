@@ -146,8 +146,7 @@ function AIFeedbackSurvey() {
         <form className="survey-form" onSubmit={handleSubmit}>
           <div className="survey-title-section">
             <div className="stage-one-branding">STAGE ONE EDUCATION</div>
-            <h1>Artificial Intelligence Workshop<br />Feedback Survey</h1>
-            <p>Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</p>
+            <h1>Artificial Intelligence Workshop<br /><span className="feedback-survey-text">Feedback Survey</span><span className="thank-you-text">Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</span></h1>
           </div>
           {/* Location Question */}
           <div className="form-group">
@@ -375,7 +374,7 @@ function AIFeedbackSurvey() {
 
           {/* Comments */}
           <div className="form-group">
-            <label>Comments/Suggestions/Ideas (we will read everything you write)</label>
+            <label>Comments / Suggestions / Ideas (we will read everything you write)</label>
             <textarea 
               name="comments" 
               placeholder="Your answer" 

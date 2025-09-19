@@ -149,8 +149,7 @@ function InstructorFeedbackSurvey() {
         <form className="survey-form" onSubmit={handleSubmit}>
           <div className="survey-title-section">
             <div className="stage-one-branding">STAGE ONE EDUCATION</div>
-            <h1>Instructor<br />Feedback Survey</h1>
-            <p>Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</p>
+            <h1>Instructor<br /><span className="feedback-survey-text">Feedback Survey</span><span className="thank-you-text">Thank you for your feedback. Your responses help us improve future workshops.</span></h1>
           </div>
           {/* Location Question */}
           <div className="form-group">
