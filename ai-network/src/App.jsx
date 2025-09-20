@@ -2050,7 +2050,7 @@ function App() {
             </a>
             <div className="header-divider"></div>
               <a 
-                href="http://localhost:5174/human-neural-network.html" 
+                href="human-neural-network.html" 
                 target="_blank" 
                 rel="noopener noreferrer"
               className="header-center"

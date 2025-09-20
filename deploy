@@ -9,6 +9,10 @@ if [ "$(pwd)" != "$TARGET_DIR" ]; then
     exit 1
 fi
 
+cd ai-network
+npm run build
+cd ..
+
 cd drone-workshop
 npm run build
 cd ..
