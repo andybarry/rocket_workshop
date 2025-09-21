@@ -1,21 +1,35 @@
 import express from 'express';
 import cors from 'cors';
 import FeedbackDB from './database/db.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+const NODE_ENV = process.env.NODE_ENV || 'production';
 
 // Initialize database
 const feedbackDB = new FeedbackDB();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5174', 'http://127.0.0.1:5174', 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: [
+    'https://input.stageoneeducation.com',
+    'http://localhost:5174', 
+    'http://127.0.0.1:5174'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With']
 }));
+
 app.use(express.json());
+
+// Serve static files from the built frontend
+app.use(express.static(join(__dirname, 'dist')));
 
 // Routes
 
@@ -109,33 +123,40 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start server endpoint (for auto-start functionality)
-app.post('/api/start-server', (req, res) => {
-  console.log('Received request to start server');
-  res.json({ 
-    status: 'OK', 
-    message: 'Server is already running',
-    timestamp: new Date().toISOString(),
-    database: 'SQLite'
-  });
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Don't exit the process, just log the error
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+  // Don't exit the process, just log the error
 });
 
 // Graceful shutdown
 process.on('SIGINT', () => {
-  console.log('Shutting down server...');
+  console.log('Shutting down server because of SIGINT...');
   feedbackDB.close();
   process.exit(0);
 });
 
 process.on('SIGTERM', () => {
-  console.log('Shutting down server...');
+  console.log('Shutting down server because of SIGTERM...');
   feedbackDB.close();
   process.exit(0);
 });
 
-// Start server with error handling
+// Catch-all handler: send back React's index.html file for any non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(join(__dirname, 'dist', 'index.html'));
+});
+
+// Start server
 const server = app.listen(PORT, () => {
   console.log(`Feedback server running on http://localhost:${PORT}`);
+  console.log(`Environment: ${NODE_ENV}`);
   console.log(`Database: SQLite (database/feedback.db)`);
   console.log(`API endpoints:`);
   console.log(`  GET    /api/feedback - Get all feedback data`);
@@ -148,26 +169,8 @@ const server = app.listen(PORT, () => {
 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    console.log(`Port ${PORT} is already in use. Checking if server is already running...`);
-    
-    // Try to check if there's already a server running on this port
-    fetch(`http://localhost:${PORT}/api/health`)
-      .then(response => {
-        if (response.ok) {
-          console.log('✅ Server is already running and healthy on this port');
-          return response.json();
-        }
-        throw new Error('Server not responding');
-      })
-      .then(data => {
-        console.log('Server status:', data);
-        // Don't exit, just log that server is already running
-      })
-      .catch(error => {
-        console.error('❌ Port is in use but server is not responding properly');
-        console.error('Please check what process is using port', PORT);
-        process.exit(1);
-      });
+    console.log(`Port ${PORT} is already in use. Please check what process is using this port.`);
+    process.exit(1);
   } else {
     console.error('Server error:', err);
     process.exit(1);

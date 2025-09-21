@@ -17,6 +17,10 @@ cd drone-workshop
 npm run build
 cd ..
 
+cd feedback
+npm run build
+cd ..
+
 echo "Building site..."
 jekyll build --source jekyll --destination www "$@"
 
@@ -24,3 +28,8 @@ echo "Deploying..."
 
 firebase use stageoneed
 firebase deploy --only hosting
+
+echo "Deploying feedback application..."
+cd feedback
+./deploy-feedback.sh
+cd ..

@@ -56,8 +56,7 @@ function InstructorFeedbackSurvey() {
       
       // Try multiple endpoints in case of connectivity issues
       const endpoints = [
-        'http://localhost:3001/api/feedback',
-        'http://127.0.0.1:3001/api/feedback'
+        '/api/feedback'
       ]
       
       let response = null

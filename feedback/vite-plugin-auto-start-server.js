@@ -9,8 +9,20 @@ export default function autoStartServer() {
   let serverProcess = null;
   let isServerRunning = false;
 
-  const startServer = () => {
+  const startServer = async () => {
     if (isServerRunning) return;
+
+    // First check if server is already running
+    try {
+      const response = await fetch('http://localhost:3001/api/health');
+      if (response.ok) {
+        console.log('✅ Backend server is already running and healthy');
+        isServerRunning = true;
+        return;
+      }
+    } catch (err) {
+      // Server is not running, proceed to start it
+    }
 
     console.log('🚀 Auto-starting backend server...');
     serverProcess = spawn('node', ['server.js'], {

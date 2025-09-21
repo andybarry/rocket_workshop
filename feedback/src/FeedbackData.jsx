@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function FeedbackData() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedLocation, setSelectedLocation] = useState('')
@@ -44,31 +43,6 @@ function FeedbackData() {
   const [isImporting, setIsImporting] = useState(false)
   const [selectedRows, setSelectedRows] = useState([])
 
-  // Password protection function
-  const checkPassword = () => {
-    // Check if password protection is disabled
-    const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true'
-    if (isPasswordDisabled) {
-      setIsAuthenticated(true)
-      return true
-    }
-    
-    const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234'
-    const password = prompt('Enter password to access Feedback Data:')
-    if (password === storedPassword) {
-      setIsAuthenticated(true)
-      return true
-    } else if (password !== null) {
-      alert('Incorrect password. Access denied.')
-      return false
-    }
-    return false
-  }
-
-  // Check authentication on component mount
-  useEffect(() => {
-    checkPassword()
-  }, [])
 
   // Function to convert numeric values to text labels for instructor survey
   const convertInstructorValueToText = (value, fieldName) => {
@@ -687,7 +661,7 @@ function FeedbackData() {
   const checkServerStatus = async () => {
     try {
       // Try to check if server is already running
-      const healthCheck = await fetch('http://localhost:3001/api/health', {
+      const healthCheck = await fetch('/api/health', {
         method: 'GET',
         mode: 'cors'
       })
@@ -715,8 +689,7 @@ function FeedbackData() {
       
       // Try multiple endpoints in case of connectivity issues
       const endpoints = [
-        `http://localhost:3001/api/feedback/${selectedWorkshop}`,
-        `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+        `/api/feedback/${selectedWorkshop}`
       ]
       
       let response = null
@@ -1251,8 +1224,7 @@ function FeedbackData() {
     try {
       // Submit the deleted row back to the backend
       const endpoints = [
-        'http://localhost:3001/api/feedback',
-        'http://127.0.0.1:3001/api/feedback'
+        '/api/feedback'
       ]
       
       let response = null
@@ -1286,8 +1258,7 @@ function FeedbackData() {
           try {
             setLoading(true)
             const endpoints = [
-              `http://localhost:3001/api/feedback/${selectedWorkshop}`,
-              `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+              `/api/feedback/${selectedWorkshop}`
             ]
             
             let response = null
@@ -1398,8 +1369,7 @@ function FeedbackData() {
         
         // Delete from backend
         const deleteEndpoints = [
-          `http://localhost:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`,
-          `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
+          `/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
         ]
         
         let response = null
@@ -1459,8 +1429,7 @@ function FeedbackData() {
     try {
       // Delete from backend using the feedback ID
       const endpoints = [
-        `http://localhost:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`,
-        `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
+        `/api/feedback/${selectedWorkshop}/${feedbackToDelete.id}`
       ]
       
       let response = null
@@ -1508,8 +1477,7 @@ function FeedbackData() {
         const refreshData = async () => {
           try {
             const endpoints = [
-              `http://localhost:3001/api/feedback/${selectedWorkshop}`,
-              `http://127.0.0.1:3001/api/feedback/${selectedWorkshop}`
+              `/api/feedback/${selectedWorkshop}`
             ]
             
             let response = null
@@ -1988,8 +1956,7 @@ function FeedbackData() {
 
       // Submit imported data to backend one by one
       const endpoints = [
-        'http://localhost:3001/api/feedback',
-        'http://127.0.0.1:3001/api/feedback'
+        '/api/feedback'
       ]
       
       let successCount = 0
@@ -2041,65 +2008,6 @@ function FeedbackData() {
     }
   }
 
-  // Show password prompt if not authenticated
-  if (!isAuthenticated) {
-    return (
-      <div className="app" style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        backgroundColor: '#f8f9fa'
-      }}>
-        <div style={{
-          textAlign: 'center',
-          padding: '2rem',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          border: '1px solid #e1e5e9'
-        }}>
-          <h2 style={{ 
-            color: '#333', 
-            marginBottom: '1rem',
-            fontFamily: 'Roboto, sans-serif'
-          }}>
-            Access Restricted
-          </h2>
-          <p style={{ 
-            color: '#666', 
-            marginBottom: '1.5rem',
-            fontFamily: 'Roboto, sans-serif'
-          }}>
-            This page requires password authentication.
-          </p>
-          <button 
-            onClick={checkPassword}
-            style={{
-              backgroundColor: '#f05f40',
-              color: 'white',
-              border: 'none',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '6px',
-              fontSize: '1rem',
-              fontWeight: '600',
-              fontFamily: 'Roboto, sans-serif',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#e04a2b'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#f05f40'
-            }}
-          >
-            Enter Password
-          </button>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="app" onKeyDown={handleKeyDown} tabIndex={0}>
@@ -2125,10 +2033,10 @@ function FeedbackData() {
           </select>
           <a 
             href={
-              selectedWorkshop === 'AI' ? "http://localhost:5174/artificial-intelligence-feedback-survey.html" :
-              selectedWorkshop === 'Robotics' ? "http://localhost:5174/robotics-feedback-survey.html" :
-              selectedWorkshop === 'Mechanical' ? "http://localhost:5174/mechanical-engineering-feedback-survey.html" :
-              "http://localhost:5174/instructor-feedback-survey.html"
+              selectedWorkshop === 'AI' ? "/artificial-intelligence-feedback-survey.html" :
+              selectedWorkshop === 'Robotics' ? "/robotics-feedback-survey.html" :
+              selectedWorkshop === 'Mechanical' ? "/mechanical-engineering-feedback-survey.html" :
+              "/instructor-feedback-survey.html"
             }
             target="_blank"
             rel="noopener noreferrer"
@@ -2155,7 +2063,7 @@ function FeedbackData() {
         </div>
         <button 
           className="feedback-dashboard-btn"
-          onClick={() => window.open('http://localhost:5174/', '_blank')}
+          onClick={() => window.open('/', '_blank')}
           style={{
             backgroundColor: 'white',
             color: '#f05f40',
@@ -2560,7 +2468,7 @@ function FeedbackData() {
         </div>
       </div>
       
-      {/* Print, CSV Download, and Password Management Buttons - Bottom Right */}
+      {/* Print, CSV Download, and Import Buttons - Bottom Right */}
       <div style={{ 
         display: 'flex', 
         justifyContent: 'flex-end', 
@@ -2627,71 +2535,6 @@ function FeedbackData() {
           }}
         >
           Download CSV
-        </button>
-        <button 
-          onClick={() => {
-            const currentDataPassword = localStorage.getItem('feedbackDataPassword') || '1234';
-            const currentDashboardPassword = localStorage.getItem('dashboardPassword') || '1111';
-            const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
-            
-            const passwordChoice = prompt(
-              `Current passwords:\nDashboard: ${currentDashboardPassword}\nData: ${currentDataPassword}\n\nPassword Protection: ${isPasswordDisabled ? 'DISABLED' : 'ENABLED'}\n\nWhat would you like to do?\n1. Change Dashboard password\n2. Change Data password\n3. ${isPasswordDisabled ? 'Enable' : 'Disable'} password protection\n\nEnter 1, 2, or 3:`
-            );
-            
-            if (passwordChoice === '1') {
-              const newPassword = prompt(`Current Dashboard password: ${currentDashboardPassword}\n\nEnter new Dashboard password:`, currentDashboardPassword);
-              if (newPassword !== null && newPassword.trim() !== '') {
-                localStorage.setItem('dashboardPassword', newPassword.trim());
-                alert('Dashboard password updated successfully!');
-              }
-            } else if (passwordChoice === '2') {
-              const newPassword = prompt(`Current Data password: ${currentDataPassword}\n\nEnter new Data password:`, currentDataPassword);
-              if (newPassword !== null && newPassword.trim() !== '') {
-                localStorage.setItem('feedbackDataPassword', newPassword.trim());
-                alert('Data password updated successfully!');
-              }
-            } else if (passwordChoice === '3') {
-              if (isPasswordDisabled) {
-                localStorage.removeItem('passwordProtectionDisabled');
-                alert('Password protection has been enabled for both pages.');
-              } else {
-                const confirmDisable = confirm('Are you sure you want to disable password protection for both the dashboard and feedback data pages?');
-                if (confirmDisable) {
-                  localStorage.setItem('passwordProtectionDisabled', 'true');
-                  alert('Password protection has been disabled for both pages. You can now access them without a password.');
-                }
-              }
-            } else if (passwordChoice !== null) {
-              alert('Invalid choice. Please enter 1, 2, or 3.');
-            }
-          }}
-          style={{ 
-            padding: '4px 8px', 
-            backgroundColor: 'white', 
-            color: '#666666ff', 
-            border: '1px solid #666666ff', 
-            borderRadius: '3px',
-            cursor: 'pointer',
-            fontSize: '11px',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease',
-            gap: '4px',
-            height: '24px'
-          }}
-          title="Set Page Password"
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#f5f5f5'
-            e.target.style.borderColor = '#555555'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'white'
-            e.target.style.borderColor = '#666666ff'
-          }}
-        >
-          Set Password
         </button>
         <button 
           onClick={() => setShowImportModal(true)}

@@ -12,8 +12,6 @@ function App() {
   const responsesMatch = (response1, response2) => {
     return normalizeResponse(response1) === normalizeResponse(response2)
   }
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  
   // Specific Workshop Feedback state
   const [specificWorkshop, setSpecificWorkshop] = useState('')
   const [specificLocation, setSpecificLocation] = useState('')
@@ -24,31 +22,6 @@ function App() {
   const [specificWorkshopData, setSpecificWorkshopData] = useState([])
   const [showSpecificFeedback, setShowSpecificFeedback] = useState(false)
 
-  // Password protection function for dashboard
-  const checkDashboardPassword = () => {
-    // Check if password protection is disabled
-    const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true'
-    if (isPasswordDisabled) {
-      setIsAuthenticated(true)
-      return true
-    }
-    
-    const storedPassword = localStorage.getItem('dashboardPassword') || '1111'
-    const password = prompt('Enter password to access Feedback Dashboard:')
-    if (password === storedPassword) {
-      setIsAuthenticated(true)
-      return true
-    } else if (password !== null) {
-      alert('Incorrect password. Access denied.')
-      return false
-    }
-    return false
-  }
-
-  // Check authentication on component mount
-  useEffect(() => {
-    checkDashboardPassword()
-  }, [])
 
 
   // Handle specific workshop selection
@@ -133,7 +106,7 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +138,7 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -194,7 +167,7 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -234,7 +207,7 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -282,7 +255,7 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -333,7 +306,7 @@ function App() {
       else if (specificWorkshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (specificWorkshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`http://localhost:3001/api/feedback/${workshopType}`, {
+      const response = await fetch(`/api/feedback/${workshopType}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -1007,65 +980,6 @@ function App() {
     )
   }
 
-  // Show password prompt if not authenticated
-  if (!isAuthenticated) {
-    return (
-      <div className="app" style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        backgroundColor: '#f8f9fa'
-      }}>
-        <div style={{
-          textAlign: 'center',
-          padding: '2rem',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          border: '1px solid #e1e5e9'
-        }}>
-          <h2 style={{ 
-            color: '#333', 
-            marginBottom: '1rem',
-            fontFamily: 'Roboto, sans-serif'
-          }}>
-            Access Restricted
-          </h2>
-          <p style={{ 
-            color: '#666', 
-            marginBottom: '1.5rem',
-            fontFamily: 'Roboto, sans-serif'
-          }}>
-            This page requires password authentication.
-          </p>
-          <button 
-            onClick={checkDashboardPassword}
-            style={{
-              backgroundColor: '#f05f40',
-              color: 'white',
-              border: 'none',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '6px',
-              fontSize: '1rem',
-              fontWeight: '600',
-              fontFamily: 'Roboto, sans-serif',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#e04a2b'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#f05f40'
-            }}
-          >
-            Enter Password
-          </button>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="app">
@@ -1074,7 +988,7 @@ function App() {
           <span>Workshop Feedback</span>
           <button 
             className="instructor-feedback-btn"
-            onClick={() => window.open('http://localhost:5174/instructor-feedback-survey.html', '_blank')}
+            onClick={() => window.open('/instructor-feedback-survey.html', '_blank')}
           >
             Instructor Feedback Survey
           </button>
@@ -1287,20 +1201,7 @@ function App() {
           <button 
             className="gear-icon-btn"
             onClick={() => {
-              // Check if password protection is disabled
-              const isPasswordDisabled = localStorage.getItem('passwordProtectionDisabled') === 'true';
-              if (isPasswordDisabled) {
-                window.open('http://localhost:5174/feedback-data.html', '_blank');
-                return;
-              }
-              
-              const storedPassword = localStorage.getItem('feedbackDataPassword') || '1234';
-              const password = prompt('Enter password to access Feedback Data:');
-              if (password === storedPassword) {
-                window.open('http://localhost:5174/feedback-data.html', '_blank');
-              } else if (password !== null) {
-                alert('Incorrect password. Access denied.');
-              }
+              window.open('/feedback-data.html', '_blank');
             }}
             title="Feedback Data"
           >

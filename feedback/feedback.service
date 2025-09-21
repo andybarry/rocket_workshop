@@ -1,0 +1,22 @@
+# /etc/systemd/system/feedback.service
+[Unit]
+Description=Feedback Application (PM2 Runtime)
+After=network.target
+
+[Service]
+Type=simple
+User=abarry
+WorkingDirectory=/home/abarry/feedback
+Environment=NODE_ENV=production
+Environment=PM2_HOME=/home/abarry/.pm2
+# Ensure Node/pm2 are on PATH if you use nvm/volta/asdf; adjust as needed:
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/home/abarry/.local/bin
+
+ExecStart=/usr/bin/env pm2-runtime start ecosystem.config.cjs --env production
+# For single script: pm2-runtime start server.js --name feedback
+Restart=always
+RestartSec=5
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
