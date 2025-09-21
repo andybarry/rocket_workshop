@@ -172,15 +172,6 @@ function Login({ onLogin, onSetPassword, hasPassword }) {
           </button>
         </form>
         
-        <div className="login-footer">
-          <button 
-            type="button"
-            className="change-password-btn"
-            onClick={() => setIsSettingPassword(true)}
-          >
-            Change Password
-          </button>
-        </div>
       </div>
     </div>
   )
