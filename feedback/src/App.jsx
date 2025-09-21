@@ -1,7 +1,22 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Login from './Login'
 
 function App() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [sessionId, setSessionId] = useState(null)
+  const [hasPassword, setHasPassword] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+  
+  // Settings state
+  const [showSettings, setShowSettings] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordSuccess, setPasswordSuccess] = useState('')
+
   // Helper function to normalize response text for consistent comparison
   const normalizeResponse = (response) => {
     if (!response || typeof response !== 'string') return ''
@@ -11,6 +26,141 @@ function App() {
   // Helper function to check if two responses match (case-insensitive)
   const responsesMatch = (response1, response2) => {
     return normalizeResponse(response1) === normalizeResponse(response2)
+  }
+
+  // Authentication functions
+  const checkAuthStatus = async () => {
+    const storedSessionId = localStorage.getItem('sessionId')
+    const storedExpires = localStorage.getItem('sessionExpires')
+    
+    if (!storedSessionId || !storedExpires) {
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    if (Date.now() > parseInt(storedExpires)) {
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    try {
+      const response = await fetch('/api/auth/status', {
+        headers: {
+          'Authorization': `Bearer ${storedSessionId}`,
+        },
+      })
+      
+      if (response.ok) {
+        setIsAuthenticated(true)
+        setSessionId(storedSessionId)
+      } else {
+        localStorage.removeItem('sessionId')
+        localStorage.removeItem('sessionExpires')
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error)
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+    } finally {
+      setIsCheckingAuth(false)
+    }
+  }
+
+  const checkPasswordStatus = async () => {
+    try {
+      const response = await fetch('/api/auth/has-password')
+      const data = await response.json()
+      setHasPassword(data.hasPassword)
+    } catch (error) {
+      console.error('Failed to check password status:', error)
+    }
+  }
+
+  const handleLogin = (newSessionId) => {
+    setIsAuthenticated(true)
+    setSessionId(newSessionId)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionId}`,
+        },
+      })
+    } catch (error) {
+      console.error('Logout failed:', error)
+    } finally {
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+      setIsAuthenticated(false)
+      setSessionId(null)
+    }
+  }
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault()
+    setPasswordError('')
+    setPasswordSuccess('')
+
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError('New passwords do not match')
+      return
+    }
+
+    if (newPassword.length < 6) {
+      setPasswordError('New password must be at least 6 characters long')
+      return
+    }
+
+    try {
+      const response = await apiRequest('/api/auth/set-password', {
+        method: 'POST',
+        body: JSON.stringify({ password: newPassword }),
+      })
+
+      if (response.ok) {
+        setPasswordSuccess('Password changed successfully')
+        setCurrentPassword('')
+        setNewPassword('')
+        setConfirmNewPassword('')
+        setTimeout(() => {
+          setPasswordSuccess('')
+          setShowSettings(false)
+        }, 2000)
+      } else {
+        const data = await response.json()
+        setPasswordError(data.error || 'Failed to change password')
+      }
+    } catch (error) {
+      setPasswordError('Network error. Please try again.')
+    }
+  }
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    checkPasswordStatus()
+    checkAuthStatus()
+  }, [])
+
+  // Add authentication header to all API requests
+  const apiRequest = async (url, options = {}) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    }
+    
+    if (sessionId) {
+      headers['Authorization'] = `Bearer ${sessionId}`
+    }
+    
+    return fetch(url, {
+      ...options,
+      headers,
+    })
   }
   // Specific Workshop Feedback state
   const [specificWorkshop, setSpecificWorkshop] = useState('')
@@ -106,11 +256,8 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -138,11 +285,8 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -167,11 +311,8 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -207,11 +348,8 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -255,11 +393,8 @@ function App() {
       else if (workshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (workshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -306,11 +441,8 @@ function App() {
       else if (specificWorkshop === 'robotics-workshop') workshopType = 'Robotics'
       else if (specificWorkshop === 'mechanical-workshop') workshopType = 'Mechanical'
       
-      const response = await fetch(`/api/feedback/${workshopType}`, {
+      const response = await apiRequest(`/api/feedback/${workshopType}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         mode: 'cors'
       })
       
@@ -981,6 +1113,31 @@ function App() {
   }
 
 
+  // Show loading spinner while checking authentication
+  if (isCheckingAuth) {
+    return (
+      <div className="login-container">
+        <div className="login-box">
+          <div className="login-header">
+            <h2>Loading...</h2>
+            <p>Checking authentication status</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show login component if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <Login 
+        onLogin={handleLogin} 
+        onSetPassword={() => checkPasswordStatus()}
+        hasPassword={hasPassword}
+      />
+    )
+  }
+
   return (
     <div className="app">
       <header className="header-bar">
@@ -994,7 +1151,16 @@ function App() {
           </button>
         </div>
         <div className="header-center"></div>
-        <div className="header-right">STAGE ONE EDUCATION</div>
+        <div className="header-right">
+          <button 
+            className="logout-btn"
+            onClick={handleLogout}
+            title="Logout"
+          >
+            Logout
+          </button>
+          STAGE ONE EDUCATION
+        </div>
       </header>
       <div className="specific-feedback-title">
         <div className="dropdown-and-button-wrapper">
@@ -1207,10 +1373,77 @@ function App() {
           >
             ⚙️
           </button>
+          <button 
+            className="settings-btn"
+            onClick={() => setShowSettings(!showSettings)}
+            title="Settings"
+          >
+            🔧
+          </button>
           © 2025 Stage One Education, LLC
           <span className="footer-version">V25.9</span>
         </div>
       </footer>
+      
+      {showSettings && (
+        <div className="settings-modal">
+          <div className="settings-content">
+            <div className="settings-header">
+              <h3>Settings</h3>
+              <button 
+                className="close-settings-btn"
+                onClick={() => setShowSettings(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="settings-body">
+              <div className="password-section">
+                <h4>Change Password</h4>
+                <form onSubmit={handlePasswordChange}>
+                  <div className="form-group">
+                    <label htmlFor="currentPassword">Current Password:</label>
+                    <input
+                      type="password"
+                      id="currentPassword"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="newPassword">New Password:</label>
+                    <input
+                      type="password"
+                      id="newPassword"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+                    <input
+                      type="password"
+                      id="confirmNewPassword"
+                      value={confirmNewPassword}
+                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  {passwordError && <div className="error-message">{passwordError}</div>}
+                  {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
+                  <button type="submit" className="change-password-submit-btn">
+                    Change Password
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

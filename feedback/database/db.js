@@ -2,6 +2,7 @@ import Database from 'better-sqlite3';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
+import crypto from 'crypto';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,6 +50,22 @@ class FeedbackDB {
     
     this.countByWorkshopStmt = this.db.prepare(`
       SELECT COUNT(*) as count FROM feedback WHERE workshop_type = ?
+    `);
+    
+    // Password-related statements
+    this.getPasswordStmt = this.db.prepare(`
+      SELECT password_hash FROM passwords ORDER BY created_at DESC LIMIT 1
+    `);
+    
+    this.insertPasswordStmt = this.db.prepare(`
+      INSERT INTO passwords (password_hash, created_at, updated_at)
+      VALUES (?, ?, ?)
+    `);
+    
+    this.updatePasswordStmt = this.db.prepare(`
+      UPDATE passwords SET password_hash = ?, updated_at = ? WHERE id = (
+        SELECT id FROM passwords ORDER BY created_at DESC LIMIT 1
+      )
     `);
   }
 
@@ -98,6 +115,43 @@ class FeedbackDB {
       stats[type] = result.count;
     });
     return stats;
+  }
+
+  // Password-related methods
+  hashPassword(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
+  }
+
+  verifyPassword(password) {
+    const result = this.getPasswordStmt.get();
+    if (!result) {
+      return false; // No password set
+    }
+    const hashedInput = this.hashPassword(password);
+    return hashedInput === result.password_hash;
+  }
+
+  setPassword(password) {
+    const hashedPassword = this.hashPassword(password);
+    const timestamp = new Date().toISOString();
+    
+    // Check if a password already exists
+    const existingPassword = this.getPasswordStmt.get();
+    
+    if (existingPassword) {
+      // Update existing password
+      this.updatePasswordStmt.run(hashedPassword, timestamp);
+    } else {
+      // Insert new password
+      this.insertPasswordStmt.run(hashedPassword, timestamp, timestamp);
+    }
+    
+    return true;
+  }
+
+  hasPassword() {
+    const result = this.getPasswordStmt.get();
+    return !!result;
   }
 
   close() {

@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Login from './Login'
 
 function FeedbackData() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [sessionId, setSessionId] = useState(null)
+  const [hasPassword, setHasPassword] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedLocation, setSelectedLocation] = useState('')
@@ -43,6 +50,95 @@ function FeedbackData() {
   const [isImporting, setIsImporting] = useState(false)
   const [selectedRows, setSelectedRows] = useState([])
 
+  // Authentication functions
+  const checkAuthStatus = async () => {
+    const storedSessionId = localStorage.getItem('sessionId')
+    const storedExpires = localStorage.getItem('sessionExpires')
+    
+    if (!storedSessionId || !storedExpires) {
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    if (Date.now() > parseInt(storedExpires)) {
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    try {
+      const response = await fetch('/api/auth/status', {
+        headers: {
+          'Authorization': `Bearer ${storedSessionId}`,
+        },
+      })
+      
+      if (response.ok) {
+        setIsAuthenticated(true)
+        setSessionId(storedSessionId)
+      } else {
+        localStorage.removeItem('sessionId')
+        localStorage.removeItem('sessionExpires')
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error)
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+    } finally {
+      setIsCheckingAuth(false)
+    }
+  }
+
+  const checkPasswordStatus = async () => {
+    try {
+      const response = await fetch('/api/auth/has-password')
+      const data = await response.json()
+      setHasPassword(data.hasPassword)
+    } catch (error) {
+      console.error('Failed to check password status:', error)
+    }
+  }
+
+  const handleLogin = (newSessionId) => {
+    setIsAuthenticated(true)
+    setSessionId(newSessionId)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionId}`,
+        },
+      })
+    } catch (error) {
+      console.error('Logout failed:', error)
+    } finally {
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+      setIsAuthenticated(false)
+      setSessionId(null)
+    }
+  }
+
+  // Add authentication header to all API requests
+  const apiRequest = async (url, options = {}) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    }
+    
+    if (sessionId) {
+      headers['Authorization'] = `Bearer ${sessionId}`
+    }
+    
+    return fetch(url, {
+      ...options,
+      headers,
+    })
+  }
 
   // Function to convert numeric values to text labels for instructor survey
   const convertInstructorValueToText = (value, fieldName) => {
@@ -677,6 +773,11 @@ function FeedbackData() {
     return false
   }
 
+  // Check authentication status on component mount
+  useEffect(() => {
+    checkPasswordStatus()
+    checkAuthStatus()
+  }, [])
 
   // Fetch feedback data from backend
   const fetchFeedbackData = async () => {
@@ -696,11 +797,8 @@ function FeedbackData() {
       for (const endpoint of endpoints) {
         try {
           console.log('Trying endpoint:', endpoint)
-          response = await fetch(endpoint, {
+          response = await apiRequest(endpoint, {
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
             mode: 'cors'
           })
           if (response.ok) {
@@ -1231,11 +1329,8 @@ function FeedbackData() {
       for (const endpoint of endpoints) {
         try {
           console.log('Trying restore endpoint:', endpoint)
-          response = await fetch(endpoint, {
+          response = await apiRequest(endpoint, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
             mode: 'cors',
             body: JSON.stringify({
               workshopType: selectedWorkshop,
@@ -1264,13 +1359,10 @@ function FeedbackData() {
             let response = null
             for (const endpoint of endpoints) {
               try {
-                response = await fetch(endpoint, {
-                  method: 'GET',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  mode: 'cors'
-                })
+          response = await apiRequest(endpoint, {
+            method: 'GET',
+            mode: 'cors'
+          })
                 if (response.ok) {
                   break
                 }
@@ -1375,13 +1467,10 @@ function FeedbackData() {
         let response = null
         for (const endpoint of deleteEndpoints) {
           try {
-            response = await fetch(endpoint, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              mode: 'cors'
-            })
+          response = await apiRequest(endpoint, {
+            method: 'DELETE',
+            mode: 'cors'
+          })
             if (response.ok) {
               break
             }
@@ -1483,13 +1572,10 @@ function FeedbackData() {
             let response = null
             for (const endpoint of endpoints) {
               try {
-                response = await fetch(endpoint, {
-                  method: 'GET',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  mode: 'cors'
-                })
+          response = await apiRequest(endpoint, {
+            method: 'GET',
+            mode: 'cors'
+          })
                 if (response.ok) {
                   break
                 }
@@ -2008,6 +2094,30 @@ function FeedbackData() {
     }
   }
 
+  // Show loading spinner while checking authentication
+  if (isCheckingAuth) {
+    return (
+      <div className="login-container">
+        <div className="login-box">
+          <div className="login-header">
+            <h2>Loading...</h2>
+            <p>Checking authentication status</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show login component if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <Login 
+        onLogin={handleLogin} 
+        onSetPassword={() => checkPasswordStatus()}
+        hasPassword={hasPassword}
+      />
+    )
+  }
 
   return (
     <div className="app" onKeyDown={handleKeyDown} tabIndex={0}>
@@ -2016,7 +2126,16 @@ function FeedbackData() {
           <span>Workshop Feedback Data</span>
         </div>
         <div className="header-center"></div>
-        <div className="header-right">STAGE ONE EDUCATION</div>
+        <div className="header-right">
+          <button 
+            className="logout-btn"
+            onClick={handleLogout}
+            title="Logout"
+          >
+            Logout
+          </button>
+          STAGE ONE EDUCATION
+        </div>
       </header>
       
       <div className="workshop-dropdown-container" style={{ marginTop: '20px', marginLeft: '20px', marginRight: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
