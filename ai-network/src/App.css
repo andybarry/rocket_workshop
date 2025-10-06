@@ -487,6 +487,10 @@ html {
   top: -1.5rem;
   right: 1.0rem;
   margin: 0;
+  width: 65px;
+  min-width: 65px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .reset-button-image:hover {
@@ -498,6 +502,18 @@ html {
 .reset-button-image:active {
   background: #e5e5e5;
   transform: translateY(1px);
+}
+
+.reset-button-image.reset-confirm {
+  background: #ff0000;
+  color: white;
+  border-color: #ff0000;
+  animation: pulse 0.5s ease-in-out;
+}
+
+.reset-button-image.reset-confirm:hover {
+  background: #cc0000;
+  border-color: #cc0000;
 }
 
 .traffic-light-section {
@@ -828,7 +844,7 @@ html {
 }
 
 .text-box {
-  width: 75%;
+  width: 75vw;
   background: #a4c2f4ff;
   border: 2px solid black;
   border-radius: 8px;
@@ -864,7 +880,7 @@ html {
 }
 
 .hidden-layer-text-box {
-  width: 75%;
+  width: 75vw;
   background: linear-gradient(to right, #ffabd6, #ffe599ff);
   border: 2px solid black;
   border-radius: 8px;
@@ -923,7 +939,7 @@ html {
   justify-content: space-between;
   gap: 2rem;
   margin-top: 1rem;
-  width: 75%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
@@ -1104,7 +1120,7 @@ html {
 }
 
 .output-text-box {
-  width: 75%;
+  width: 75vw;
   background: #b6d7a8ff;
   border: 2px solid black;
   border-radius: 8px;
@@ -1430,6 +1446,12 @@ html {
 .output-table tbody td:hover select {
   font-size: 1.2rem !important;
   font-weight: bold !important;
+}
+
+/* Remove font size change for Input column (2nd column) on hover */
+.output-table tbody td:nth-child(2):hover select,
+.output-table tbody td:nth-child(2):hover select {
+  font-size: 0.8rem !important;
 }
 
 /* Enhanced font size for span elements (auto-displayed values) */
@@ -2310,6 +2332,10 @@ html {
   transition: all 0.2s ease;
   outline: none;
   margin-left: 1rem;
+  width: 65px;
+  min-width: 65px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .reset-button:hover {
@@ -2321,6 +2347,27 @@ html {
 .reset-button:active {
   background: #e5e5e5;
   transform: translateY(1px);
+}
+
+.reset-button.reset-confirm {
+  background: #ff0000;
+  color: white;
+  border-color: #ff0000;
+  animation: pulse 0.5s ease-in-out;
+}
+
+.reset-button.reset-confirm:hover {
+  background: #cc0000;
+  border-color: #cc0000;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .color-scheme-footer select {
@@ -2652,7 +2699,7 @@ html {
 }
 
 .summary-text-box {
-  width: 75%;
+  width: 75vw;
   background: #808080;
   border: 2px solid black;
   border-radius: 8px;
@@ -3053,11 +3100,11 @@ html {
   .hidden-layer-text-box,
   .output-text-box,
   .summary-text-box {
-    width: 90%;
+    width: 90vw;
   }
   
   .node-instructions {
-    width: 90%;
+    width: 92%;
     gap: 1rem;
     padding: 0 1rem;
   }
@@ -3216,6 +3263,11 @@ html {
     font-weight: bold !important;
   }
 
+  /* Remove font size change for Input column (2nd column) on hover - tablets */
+  .output-table tbody td:nth-child(2):hover select {
+    font-size: 0.6rem !important;
+  }
+
   .output-table {
     font-size: 0.8rem;
   }
@@ -3255,11 +3307,11 @@ html {
   .hidden-layer-text-box,
   .output-text-box,
   .summary-text-box {
-    width: 85%;
+    width: 85vw;
   }
   
   .node-instructions {
-    width: 85%;
+    width: 88%;
     gap: 1.5rem;
     padding: 0 1.5rem;
   }
@@ -3369,6 +3421,11 @@ html {
     font-size: 1.2rem !important;
     font-weight: bold !important;
   }
+
+  /* Remove font size change for Input column (2nd column) on hover - medium screens */
+  .output-table tbody td:nth-child(2):hover select {
+    font-size: 0.7rem !important;
+  }
   
   /* Adjust column widths for medium screens */
   .output-table th:nth-child(1), .output-table td:nth-child(1) { width: 10%; } /* Node */
@@ -3385,11 +3442,11 @@ html {
   .hidden-layer-text-box,
   .output-text-box,
   .summary-text-box {
-    width: 95%;
+    width: 95vw;
   }
   
   .node-instructions {
-    width: 95%;
+    width: 96%;
     gap: 0.8rem;
     flex-direction: column;
     padding: 0 0.8rem;
@@ -3506,6 +3563,11 @@ html {
     font-size: 1.1rem !important;
     font-weight: bold !important;
   }
+
+  /* Remove font size change for Input column (2nd column) on hover - mobile */
+  .output-table tbody td:nth-child(2):hover select {
+    font-size: 0.5rem !important;
+  }
   
   /* Adjust column widths for mobile */
   .output-table th:nth-child(1), .output-table td:nth-child(1) { width: 6%; } /* Node */
@@ -3603,7 +3665,7 @@ html {
   .hidden-layer-text-box,
   .output-text-box,
   .summary-text-box {
-    width: 95%;
+    width: 95vw;
   }
   
   .node-instructions {
@@ -3723,6 +3785,11 @@ html {
   .output-table tbody td:hover select {
     font-size: 1.0rem !important;
     font-weight: bold !important;
+  }
+
+  /* Remove font size change for Input column (2nd column) on hover - very small screens */
+  .output-table tbody td:nth-child(2):hover select {
+    font-size: 0.4rem !important;
   }
   
   /* Adjust column widths for very small screens */

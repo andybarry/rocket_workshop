@@ -55,6 +55,7 @@ function App() {
   const [isInitialized, setIsInitialized] = useState(false) // track if component is fully initialized
   const [resetCounter, setResetCounter] = useState(0) // track reset count to force re-renders
   const [is45Network, setIs45Network] = useState(false) // track if we're on the 45-network page
+  const [isResetConfirm, setIsResetConfirm] = useState(false) // track if reset button is in confirm state
   // Round selection removed - only Round 1 is displayed
 
 
@@ -1178,7 +1179,19 @@ function App() {
   };
 
   const resetAllData = () => {
-    console.log('resetAllData function called');
+    // If not in confirm state, switch to confirm mode
+    if (!isResetConfirm) {
+      setIsResetConfirm(true);
+      // Auto-cancel after 3 seconds if user doesn't confirm
+      setTimeout(() => {
+        setIsResetConfirm(false);
+      }, 3000);
+      return;
+    }
+    
+    // If in confirm state, actually reset
+    console.log('resetAllData function called - confirmed');
+    setIsResetConfirm(false); // Reset the confirm state
     
     // Clear localStorage for the appropriate network type
     // Determine the correct key based on the current URL path, not the state
@@ -2106,14 +2119,17 @@ function App() {
             </div>
             <div className="image-container">
               <img 
-                src={is45Network ? "/45-nn.png" : "/27-nn.png"} 
+                src={is45Network ? `${import.meta.env.BASE_URL}45-nn.png` : `${import.meta.env.BASE_URL}27-nn.png`} 
                 alt={is45Network ? "45 participant human neural network" : "27 participant human neural network"} 
                 className="content-image" 
                 style={is45Network ? { width: '70%', maxWidth: '70%' } : {}}
               />
               {currentRound === 1 && (
-                <button className="reset-button-image" onClick={resetAllData}>
-                  Reset
+                <button 
+                  className={`reset-button-image ${isResetConfirm ? 'reset-confirm' : ''}`}
+                  onClick={resetAllData}
+                >
+                  {isResetConfirm ? 'Confirm Reset' : 'Reset'}
                 </button>
               )}
             </div>
@@ -2267,7 +2283,7 @@ function App() {
                 <div className="b-node-section">
                   <h3 className="b-node-title">B Nodes</h3>
                   <p className="b-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="sensor-node-text">Sensor Node</span> inputs</p>
-                  <p className="b-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                  <p className="b-node-instruction"><span className="step-number">2.</span> Roll the <img src={`${import.meta.env.BASE_URL}die.png`} alt="die" className="die-image" /></p>
                   <p className="b-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
                 </div>
                 
@@ -2279,7 +2295,7 @@ function App() {
                 <div className="c-node-section">
                   <h3 className="c-node-title">C Nodes</h3>
                   <p className="c-node-instruction"><span className="step-number">1.</span> Bubble in your <span className="b-node-text">B Node</span> inputs</p>
-                  <p className="c-node-instruction"><span className="step-number">2.</span> Roll the <img src="/die.png" alt="die" className="die-image" /></p>
+                  <p className="c-node-instruction"><span className="step-number">2.</span> Roll the <img src={`${import.meta.env.BASE_URL}die.png`} alt="die" className="die-image" /></p>
                   <p className="c-node-instruction"><span className="step-number">3.</span> Bubble in your output</p>
                 </div>
               </div>
@@ -2681,10 +2697,13 @@ function App() {
           </div>
           <div className="copyright-text">© 2025 Stage One Education, LLC</div>
           <div className="right-side-container">
-            <button className="reset-button" onClick={resetAllData}>
-              Reset
+            <button 
+              className={`reset-button ${isResetConfirm ? 'reset-confirm' : ''}`}
+              onClick={resetAllData}
+            >
+              {isResetConfirm ? 'Confirm Reset' : 'Reset'}
             </button>
-            <div className="version-number">V25.9</div>
+            <div className="version-number">V25.10</div>
           </div>
         </div>
       </div>
