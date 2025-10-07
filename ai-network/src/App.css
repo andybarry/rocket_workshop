@@ -1558,6 +1558,18 @@ html {
   vertical-align: middle !important;
 }
 
+/* Prevent font-size increase on hover for Node (col 1) and Weight (col 2) headers */
+.update-weights-table thead th:nth-child(1):hover,
+.update-weights-table thead th:nth-child(2):hover {
+  font-size: inherit !important;
+}
+
+/* Stronger specificity: lock header font-size for Node/Weight by class on hover */
+.update-weights-table thead th.column-node:hover,
+.update-weights-table thead th.column-weight:hover {
+  font-size: 0.9rem !important;
+}
+
 /* Update weights table data row cell hover effects with enhanced font size */
 .update-weights-table tbody td:hover {
   border: 3px solid #ffeb3b !important;
