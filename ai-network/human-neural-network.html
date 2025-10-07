@@ -920,7 +920,7 @@
         <div class="confirmation-dialog">
             <div class="confirmation-title">Would you like to reset the Human Neural Network?</div>
             <div class="confirmation-buttons">
-                <button class="confirmation-btn no" onclick="hideConfirmationDialog()">No</button>
+                <button class="confirmation-btn no" onclick="startNetworkWithoutReset()">No</button>
                 <button class="confirmation-btn reset" onclick="confirmReset()">Reset</button>
             </div>
         </div>
@@ -980,7 +980,7 @@
         // Open Instructor Slides function
         function openInstructorSlides() {
             // Open the instructor slides HTML wrapper in a new tab
-            window.open('/instructor-slides.html', '_blank');
+            window.open('instructor-slides.html', '_blank');
         }
         
         // Show confirmation dialog
@@ -989,21 +989,23 @@
             overlay.style.display = 'flex';
         }
 
-        // Hide confirmation dialog and open network without reset
+        // Hide confirmation dialog only
         function hideConfirmationDialog() {
             const overlay = document.getElementById('confirmation-overlay');
             overlay.style.display = 'none';
-            startNetworkWithoutReset();
         }
 
         // Confirm reset and start network
         function confirmReset() {
-            hideConfirmationDialog();
             startNetwork();
         }
 
         // Start Network without reset (preserves saved inputs)
         function startNetworkWithoutReset() {
+            // Ensure overlay is closed
+            const overlay = document.getElementById('confirmation-overlay');
+            if (overlay) overlay.style.display = 'none';
+
             const select = document.getElementById('participant-select');
             const selectedValue = select.value;
             
@@ -1024,6 +1026,10 @@
 
         // Start Network function (with reset)
         function startNetwork() {
+            // Ensure overlay is closed
+            const overlay = document.getElementById('confirmation-overlay');
+            if (overlay) overlay.style.display = 'none';
+
             const select = document.getElementById('participant-select');
             const selectedValue = select.value;
             

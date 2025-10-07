@@ -583,9 +583,9 @@ function App() {
       url.searchParams.delete('reset');
       window.history.replaceState({}, '', url);
       
-      // Execute reset immediately
-      console.log('Executing reset immediately...');
-      resetAllData();
+      // Execute reset immediately without confirmation
+      console.log('Executing immediate reset...');
+      resetAllDataImmediate();
     }
   }, []); // Run once on component mount
 
@@ -1300,6 +1300,77 @@ function App() {
     }, 200);
     
     console.log('All data has been reset to initial state');
+  };
+
+  const resetAllDataImmediate = () => {
+    console.log('resetAllDataImmediate called - performing full reset without confirm');
+
+    // Determine the correct key based on the current URL path
+    const currentPath = window.location.pathname;
+    const is45NetworkPage = currentPath.includes('45-network');
+    const storageKey = is45NetworkPage ? 'aiNetworkData45' : 'aiNetworkData27';
+
+    console.log('Immediate reset for:', { currentPath, is45NetworkPage, storageKey });
+
+    localStorage.removeItem(storageKey);
+
+    // Reset to initial state
+    setCurrentRound(1);
+    setColorScheme('orange');
+
+    // Create completely fresh round data
+    const freshRoundsData = {};
+    for (let i = 1; i <= 10; i++) {
+      freshRoundsData[i] = {
+        lightStates: [false, false, false],
+        selectedButton: i === 1 ? 'green' : null,
+        isHidden: i === 1 ? true : false,
+        circleColors: Array(is45NetworkPage ? 20 : 12).fill(''),
+        showCode: false,
+        hasRun: false,
+        inputSelections: Array(is45NetworkPage ? 15 : 9).fill(''),
+        numericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        weightValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        valueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousNumericValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        isAutoNumericActive: false,
+        previousWeightValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        isAutoWeightActive: false,
+        isUpdateWeightsAutoActive: false,
+        updateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousUpdateWeightsValues: Array(is45NetworkPage ? 15 : 9).fill(''),
+        previousValueResults: Array(is45NetworkPage ? 15 : 9).fill(''),
+        isAutoValueActive: false,
+        sumOfValues: '',
+        networkDecision: '',
+        networkStatus: '',
+        showNetworkDecision: false,
+        showTrafficLight: false,
+        showUpdateWeightsTable: false,
+        isHiddenLayerExpanded: false,
+        isOutputNodeExpanded: false,
+        isSummaryExpanded: false,
+        sensorBoxClicked: false,
+        gpuAnimationState: 'idle',
+        gpuFanSpeed: 0
+      };
+    }
+
+    setRoundsData(freshRoundsData);
+    setResetCounter(prev => prev + 1);
+    setIsInitialized(true);
+
+    // Save initial state
+    setTimeout(() => {
+      const dataToSave = {
+        roundsData: freshRoundsData,
+        currentRound: 1,
+        colorScheme: 'orange',
+        timestamp: Date.now()
+      };
+      localStorage.setItem(storageKey, JSON.stringify(dataToSave));
+      console.log('Immediate reset: initial state saved to localStorage');
+    }, 100);
   };
 
   const handleInputChange = (index, value) => {

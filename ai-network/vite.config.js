@@ -11,6 +11,8 @@ export default defineConfig({
       input: {
         '27-network': resolve(__dirname, '27-network.html'),
         '45-network': resolve(__dirname, '45-network.html'),
+          'human-neural-network': resolve(__dirname, 'human-neural-network.html'),
+          'instructor-slides': resolve(__dirname, 'instructor-slides.html'),
         main: resolve(__dirname, 'index.html')
       }
     }
