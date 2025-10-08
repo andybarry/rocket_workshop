@@ -9,11 +9,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        instructions: resolve(__dirname, 'instructions.html')
+        main: resolve(__dirname, 'index.html'),
+        droneInstructions: resolve(__dirname, 'drone-instructions.html')
       }
     }
-  },
-  server: {
-    open: '/instructions.html'
   }
 })
