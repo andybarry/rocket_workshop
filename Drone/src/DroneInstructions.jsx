@@ -3,7 +3,7 @@ import './DroneInstructions.css';
 
 function DroneInstructions({ zoomLevel = 1 }) {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 6;
+  const totalSlides = 7;
   
   // Track which checkboxes have been checked for each slide
   const [checkedBoxes, setCheckedBoxes] = useState({});
@@ -11,7 +11,28 @@ function DroneInstructions({ zoomLevel = 1 }) {
   // Track which boxes are locked (not yet available) - for 2 second delay on pages 3, 4, 5
   const [lockedBoxes, setLockedBoxes] = useState({});
   
-  // Initialize locked boxes when entering pages 3, 4, or 5
+  // Track whether page 6 shows wiring diagram (6.1) or breadboard (6)
+  const [showPage6Wiring, setShowPage6Wiring] = useState(true);
+  
+  // Track whether box 5 on page 6.1 has been clicked (to hide it on subsequent visits to 6.1)
+  const [page6Box0Clicked, setPage6Box0Clicked] = useState(false);
+  
+  // Track whether box 6 (no-edge box) should be hidden (delayed after box 0 is clicked)
+  const [page6Box6Hidden, setPage6Box6Hidden] = useState(false);
+  
+  // Track whether box 7 (large no-edge box) should be hidden (delayed after box 0 is clicked)
+  const [page6Box7Hidden, setPage6Box7Hidden] = useState(false);
+  
+  // Track whether box 8 (bottom no-edge box) should be hidden (delayed after box 0 is clicked)
+  const [page6Box8Hidden, setPage6Box8Hidden] = useState(false);
+  
+  // Track whether toggle button should be shown on page 6.1
+  const [showPage6ToggleButton, setShowPage6ToggleButton] = useState(false);
+  
+  // Track whether box 5 (no-edge box) on page 5 should be hidden (delayed)
+  const [page5Box5Hidden, setPage5Box5Hidden] = useState(false);
+  
+  // Initialize locked boxes when entering pages 3, 4, or 5, and reset page 6 state
   useEffect(() => {
     if (currentSlide === 3) {
       // Lock boxes 1 and 2 initially
@@ -30,6 +51,24 @@ function DroneInstructions({ zoomLevel = 1 }) {
       setLockedBoxes({
         'callout-5-2': true,
         'callout-5-3': true
+      });
+      // Reset page 5 box 5 hidden state
+      setPage5Box5Hidden(false);
+    } else if (currentSlide === 6) {
+      // Reset page 6 to show wiring diagram (6.1) when entering page 6
+      setShowPage6Wiring(true);
+      // Reset box 5 clicked state when entering page 6 from another page
+      setPage6Box0Clicked(false);
+      // Reset box 6, 7, and 8 hidden states
+      setPage6Box6Hidden(false);
+      setPage6Box7Hidden(false);
+      setPage6Box8Hidden(false);
+      // Reset toggle button visibility
+      setShowPage6ToggleButton(false);
+      // Lock boxes 2 and 5 initially (only box 0 is active, boxes 3 and 4 are always disabled)
+      setLockedBoxes({
+        'callout-6-2': true,
+        'callout-6-5': true
       });
     } else {
       // Clear locks on other pages
@@ -53,6 +92,12 @@ function DroneInstructions({ zoomLevel = 1 }) {
     ],
     4: [
       { x: 1.35, y: 6.29 } // Optional checkbox at 15.85%, 57.18%
+    ],
+    5: [
+      { x: 0.695, y: 7.31 } // Optional checkbox at 8.18%, 66.48%
+    ],
+    6: [
+      { x: 2.31, y: 8.89 } // Optional checkbox at 27.23%, moved up slightly
     ]
   };
   
@@ -201,6 +246,38 @@ function DroneInstructions({ zoomLevel = 1 }) {
         width: '87.87%',
         height: '19.83%',
         cssClass: 'callout-page4-box5'
+      },
+      {
+        // Box 6 - No-edge auto-hide box that hides when box 1 (index 0) is selected
+        left: '0.00%',
+        top: '24.93%',
+        width: '100.19%',
+        height: '6.39%',
+        cssClass: 'callout-page4-box6'
+      },
+      {
+        // Box 7 - No-edge auto-hide box that hides when box 2 (index 1) is selected
+        left: '0.00%',
+        top: '58.67%',
+        width: '100.19%',
+        height: '6.39%',
+        cssClass: 'callout-page4-box7'
+      },
+      {
+        // Box 8 - No-edge auto-hide box that hides when box 1 (index 0) is selected
+        left: '70.90%',
+        top: '32.01%',
+        width: '25.58%',
+        height: '25.75%',
+        cssClass: 'callout-page4-box8'
+      },
+      {
+        // Box 9 - No-edge auto-hide box
+        left: '0.52%',
+        top: '64.50%',
+        width: '98.38%',
+        height: '7.48%',
+        cssClass: 'callout-page4-box9'
       }
     ],
     5: [
@@ -232,11 +309,13 @@ function DroneInstructions({ zoomLevel = 1 }) {
         lines: [
           {
             point1: { x: '24.55%', y: '63.22%' },
-            point2: { x: '16.80%', y: '65.83%' }
+            point2: { x: '16.80%', y: '65.83%' },
+            dynamicZIndex: true // Lines will use same z-index as box state
           },
           {
             point1: { x: '31.06%', y: '63.22%' },
-            point2: { x: '16.80%', y: '65.83%' }
+            point2: { x: '16.80%', y: '65.83%' },
+            dynamicZIndex: true // Lines will use same z-index as box state
           }
         ],
         
@@ -253,11 +332,13 @@ function DroneInstructions({ zoomLevel = 1 }) {
         lines: [
           {
             point1: { x: '31.06%', y: '76.26%' },
-            point2: { x: '16.67%', y: '67.57%' }
+            point2: { x: '16.67%', y: '67.57%' },
+            dynamicZIndex: true
           },
           {
             point1: { x: '24.05%', y: '76.26%' },
-            point2: { x: '16.67%', y: '67.57%' }
+            point2: { x: '16.67%', y: '67.57%' },
+            dynamicZIndex: true
           }
         ],
         
@@ -271,6 +352,131 @@ function DroneInstructions({ zoomLevel = 1 }) {
         width: '36.42%',
         height: '9.00%',
         cssClass: 'callout-page5-box4'
+      },
+      {
+        // Box 5 - No-edge auto-hide box
+        left: '4.46%',
+        top: '56.71%',
+        width: '86.99%',
+        height: '34.88%',
+        cssClass: 'callout-page5-box5'
+      }
+    ],
+    6: [
+      {
+        // Box positioning for page 6.1 (wiring diagram)
+        // No pointer
+        left: '8.49%',
+        top: '25.22%',
+        width: '83.18%',
+        height: '10.93%',
+        cssClass: 'callout-page6-box0'
+      },
+      {
+        // Toggle button between wiring diagram (6.1) and breadboard (6)
+        // Always visible and blue on both states
+        left: '9.00%',
+        top: '37.30%',
+        width: '14.94%',
+        height: '4.19%',
+        cssClass: 'callout-page6-toggle'
+      },
+      {
+        // Box 2 for page 6.1 (wiring diagram)
+        // Lines to point - linked with box color
+        left: '46.80%',
+        top: '39.29%',
+        width: '29.28%',
+        height: '5.75%',
+        
+        // Lines from box to point
+        lines: [
+          {
+            point1: { x: '58.40%', y: '45.04%' },
+            point2: { x: '45.35%', y: '46.62%' }
+          },
+          {
+            point1: { x: '51.74%', y: '45.04%' },
+            point2: { x: '45.35%', y: '46.62%' }
+          }
+        ],
+        
+        cssClass: 'callout-page6-box2'
+      },
+      {
+        // Box 3 for page 6.1 (wiring diagram)
+        left: '52.14%',
+        top: '54.44%',
+        width: '25.08%',
+        height: '7.51%',
+        
+        // Lines from box to point
+        lines: [
+          {
+            point1: { x: '56.03%', y: '61.95%' },
+            point2: { x: '50.95%', y: '64.56%' }
+          },
+          {
+            point1: { x: '61.72%', y: '61.95%' },
+            point2: { x: '50.95%', y: '64.56%' }
+          }
+        ],
+        
+        cssClass: 'callout-page6-box3'
+      },
+      {
+        // Box 4 for page 6.1 (wiring diagram)
+        left: '16.23%',
+        top: '70.14%',
+        width: '47.32%',
+        height: '5.41%',
+        
+        // Lines from box to point
+        lines: [
+          {
+            point1: { x: '24.94%', y: '70.14%' },
+            point2: { x: '39.66%', y: '67.60%' }
+          },
+          {
+            point1: { x: '35.98%', y: '70.14%' },
+            point2: { x: '39.66%', y: '67.60%' }
+          }
+        ],
+        
+        cssClass: 'callout-page6-box4'
+      },
+      {
+        // Box 5 for page 6.1 (wiring diagram)
+        // No pointer
+        left: '8.35%',
+        top: '78.67%',
+        width: '83.31%',
+        height: '10.69%',
+        cssClass: 'callout-page6-box5'
+      },
+      {
+        // Box 6 - No-edge auto-hide box that hides when box 0 is selected
+        left: '8.40%',
+        top: '41.82%',
+        width: '82.83%',
+        height: '27.44%',
+        cssClass: 'callout-page6-box6'
+      },
+      {
+        // Box 7 - No-edge auto-hide box that hides when box 0 is selected
+        left: '4.89%',
+        top: '36.58%',
+        width: '91.15%',
+        height: '40.13%',
+        cssClass: 'callout-page6-box7'
+      },
+      {
+        // Box 8 - No-edge auto-hide box at bottom
+        left: '3.80%',
+        top: '76.84%',
+        width: '91.37%',
+        height: '13.57%',
+        cssClass: 'callout-page6-box8'
       }
     ]
   };
@@ -313,6 +519,17 @@ function DroneInstructions({ zoomLevel = 1 }) {
       return allRequiredChecked;
     }
     
+    // Special case for page 6: Can proceed once all boxes are clicked (regardless of wiring/breadboard view)
+    if (currentSlide === 6) {
+      // All clickable boxes (0, 2, 5) should be checked (boxes 3 and 4 hide automatically with box 2)
+      const requiredBoxes = [0, 2, 5];
+      const allRequiredChecked = requiredBoxes.every(index => {
+        const calloutKey = `callout-6-${index}`;
+        return checkedBoxes[calloutKey] === true;
+      });
+      return allRequiredChecked;
+    }
+    
     // Only check if current slide has callouts (large blue boxes)
     const callouts = calloutPositionsBySlide[currentSlide];
     if (callouts && callouts.length > 0) {
@@ -341,6 +558,59 @@ function DroneInstructions({ zoomLevel = 1 }) {
     const calloutKey = `callout-${slideNumber}-${calloutIndex}`;
     if (lockedBoxes[calloutKey]) {
       return; // Don't allow clicking locked boxes
+    }
+    
+    // Special case for page 6: Sequential activation and page switching
+    if (slideNumber === 6) {
+      // Toggle button (index 1) switches between wiring and breadboard
+      if (calloutIndex === 1) {
+        setShowPage6Wiring(!showPage6Wiring);
+        setShowPage6ToggleButton(true); // Keep toggle button visible
+        return;
+      }
+      
+      // Box 5 handling - switches to breadboard view if on wiring, or just marks as clicked if on breadboard
+      if (calloutIndex === 5) {
+        setCheckedBoxes(prev => ({ ...prev, [calloutKey]: true }));
+        setPage6Box0Clicked(true);
+        if (showPage6Wiring) {
+          // If on wiring diagram, switch to breadboard view
+          setShowPage6Wiring(false);
+        }
+        setShowPage6ToggleButton(true); // Show toggle button
+        return;
+      }
+      
+      // Sequential activation: hide current box and unlock next box
+      if (showPage6Wiring) {
+        if (calloutIndex === 0) {
+          // Box 0 clicked - hide it, unlock box 2, and hide boxes 6, 7, and 8 after delay
+          setCheckedBoxes(prev => ({ ...prev, [calloutKey]: true }));
+          setTimeout(() => {
+            setLockedBoxes(prev => ({ ...prev, 'callout-6-2': false }));
+            setPage6Box6Hidden(true); // Hide box 6 after 0.75s delay
+            setPage6Box7Hidden(true); // Hide box 7 after 0.75s delay
+            setPage6Box8Hidden(true); // Hide box 8 after 0.75s delay
+          }, 750);
+          return;
+        } else if (calloutIndex === 2) {
+          // Box 2 clicked - hide boxes 2, 3, 4, unlock box 5, and show toggle button
+          setCheckedBoxes(prev => ({ 
+            ...prev, 
+            'callout-6-2': true,
+            'callout-6-3': true,
+            'callout-6-4': true
+          }));
+          setShowPage6ToggleButton(true); // Show toggle button
+          setTimeout(() => {
+            setLockedBoxes(prev => ({ ...prev, 'callout-6-5': false }));
+          }, 750);
+          return;
+        } else if (calloutIndex === 3 || calloutIndex === 4) {
+          // Boxes 3 and 4 should not be clickable (they hide with box 2)
+          return;
+        }
+      }
     }
     
     // For page 3, enforce sequential selection order
@@ -437,6 +707,11 @@ function DroneInstructions({ zoomLevel = 1 }) {
         }
       }
       
+      // For page 5, hide box 5 (no-edge box) immediately when box 2 is clicked
+      if (slideNumber === 5 && calloutIndex === 2) {
+        setPage5Box5Hidden(true);
+      }
+      
       // If there's a next box, unlock it after 0.75 seconds
       if (nextBoxKey) {
         setTimeout(() => {
@@ -470,6 +745,19 @@ function DroneInstructions({ zoomLevel = 1 }) {
         'callout-5-2': true,
         'callout-5-3': true
       });
+      setPage5Box5Hidden(false);
+    } else if (currentSlide === 6) {
+      setLockedBoxes({
+        'callout-6-2': true,
+        'callout-6-5': true
+      });
+      // Reset page 6 state
+      setShowPage6Wiring(true);
+      setPage6Box0Clicked(false);
+      setPage6Box6Hidden(false);
+      setPage6Box7Hidden(false);
+      setPage6Box8Hidden(false);
+      setShowPage6ToggleButton(false);
     } else {
       setLockedBoxes({});
     }
@@ -527,7 +815,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
           transition: 'transform 0.3s ease'
         }}>
         <img 
-          src={`/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
+          src={currentSlide === 6 && showPage6Wiring 
+            ? `/drone/workshop-slides/6.1-drone-instructions.png`
+            : `/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
           alt={`Drone instructions slide ${currentSlide}`}
           className="slide-image"
         />
@@ -561,6 +851,56 @@ function DroneInstructions({ zoomLevel = 1 }) {
             const calloutKey = `callout-${currentSlide}-${index}`;
             let isSelected = checkedBoxes[calloutKey] || false;
             
+            // For page 6, handle visibility based on wiring/breadboard state
+            if (currentSlide === 6) {
+              // Box 0 only shows on wiring view (6.1)
+              if (index === 0) {
+                if (!showPage6Wiring) {
+                  return null; // Hide if on breadboard view
+                }
+              }
+              // Toggle button (index 1) shows when toggle button is enabled OR on breadboard view (6)
+              if (index === 1) {
+                if (!showPage6ToggleButton && showPage6Wiring) {
+                  return null; // Hide on wiring diagram until toggle button is enabled
+                }
+              }
+              // Boxes 2, 3, 4 only show on wiring view (6.1)
+              if (index === 2 || index === 3 || index === 4) {
+                if (!showPage6Wiring) {
+                  return null; // Hide if on breadboard view
+                }
+              }
+              // Box 5 shows on either view if not yet clicked
+              if (index === 5) {
+                if (page6Box0Clicked) {
+                  return null; // Hide only if already clicked
+                }
+                // Show on wiring view (6.1) OR breadboard view (6) if unlocked
+                if (!showPage6Wiring && lockedBoxes['callout-6-5']) {
+                  return null; // Hide on breadboard if still locked
+                }
+              }
+              // Box 6 (auto-hide) only shows on wiring view (6.1)
+              if (index === 6) {
+                if (!showPage6Wiring) {
+                  return null; // Hide if on breadboard view
+                }
+              }
+              // Box 7 (auto-hide) only shows on wiring view (6.1)
+              if (index === 7) {
+                if (!showPage6Wiring) {
+                  return null; // Hide if on breadboard view
+                }
+              }
+              // Box 8 (auto-hide) only shows on wiring view (6.1)
+              if (index === 8) {
+                if (!showPage6Wiring) {
+                  return null; // Hide if on breadboard view
+                }
+              }
+            }
+            
             // Special case: On page 4, auto-hide box 3 (large no-edge box) when box 2 is selected
             if (currentSlide === 4 && index === 2) {
               isSelected = isSelected || checkedBoxes[`callout-4-1`] || false;
@@ -569,6 +909,26 @@ function DroneInstructions({ zoomLevel = 1 }) {
             // Special case: On page 4, auto-hide box 5 (bottom no-edge box) when box 4 is selected
             if (currentSlide === 4 && index === 4) {
               isSelected = isSelected || checkedBoxes[`callout-4-3`] || false;
+            }
+            
+            // Special case: On page 4, auto-hide box 6 when box 1 (index 0) is selected
+            if (currentSlide === 4 && index === 5) {
+              isSelected = isSelected || checkedBoxes[`callout-4-0`] || false;
+            }
+            
+            // Special case: On page 4, auto-hide box 7 when box 2 (index 1) is selected
+            if (currentSlide === 4 && index === 6) {
+              isSelected = isSelected || checkedBoxes[`callout-4-1`] || false;
+            }
+            
+            // Special case: On page 4, auto-hide box 8 when box 1 (index 0) is selected
+            if (currentSlide === 4 && index === 7) {
+              isSelected = isSelected || checkedBoxes[`callout-4-0`] || false;
+            }
+            
+            // Special case: On page 4, auto-hide box 9 when box 2 (index 1) is selected
+            if (currentSlide === 4 && index === 8) {
+              isSelected = isSelected || checkedBoxes[`callout-4-1`] || false;
             }
             
             // Special case: On page 5, auto-hide box 1 (no-edge box) when box 0 is selected
@@ -580,6 +940,34 @@ function DroneInstructions({ zoomLevel = 1 }) {
             // Box is visible until box 3 is selected
             if (currentSlide === 5 && index === 4) {
               isSelected = isSelected || checkedBoxes[`callout-5-3`] || false;
+            }
+            
+            // Special case: On page 5, auto-hide box 5 when hidden state is set
+            if (currentSlide === 5 && index === 5) {
+              isSelected = isSelected || page5Box5Hidden;
+            }
+            
+            // Special case: On page 6, toggle button (index 1) is never selected/hidden
+            if (currentSlide === 6 && index === 1) {
+              isSelected = false;
+            }
+            
+            // Special case: On page 6, box 5 can be selected normally
+            // (No special override needed - it uses normal checked state)
+            
+            // Special case: On page 6, auto-hide box 6 when hidden state is set
+            if (currentSlide === 6 && index === 6) {
+              isSelected = isSelected || page6Box6Hidden;
+            }
+            
+            // Special case: On page 6, auto-hide box 7 when hidden state is set
+            if (currentSlide === 6 && index === 7) {
+              isSelected = isSelected || page6Box7Hidden;
+            }
+            
+            // Special case: On page 6, auto-hide box 8 when hidden state is set
+            if (currentSlide === 6 && index === 8) {
+              isSelected = isSelected || page6Box8Hidden;
             }
             
             // For page 3, page 4, and page 5, check if box is available based on sequential order
@@ -601,8 +989,8 @@ function DroneInstructions({ zoomLevel = 1 }) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
-              // Boxes 2 and 4 are auto-hide boxes (not interactive)
-              if (index === 2 || index === 4) {
+              // Boxes 2, 4, 6, 7, 8, and 9 are auto-hide boxes (not interactive)
+              if (index === 2 || index === 4 || index === 5 || index === 6 || index === 7 || index === 8) {
                 isDisabled = true; // Always disabled - they auto-hide
               }
             }
@@ -616,9 +1004,31 @@ function DroneInstructions({ zoomLevel = 1 }) {
               } else if (index === 3) {
                 // Box 3 requires boxes 0 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
-              } else if (index === 4) {
-                // Box 4 is auto-show box (not interactive)
-                isDisabled = true; // Always disabled - auto-shows
+              } else if (index === 4 || index === 5) {
+                // Boxes 4 and 5 are auto-hide boxes (not interactive)
+                isDisabled = true; // Always disabled - auto-hide
+              }
+            }
+            if (currentSlide === 6) {
+              // Toggle button (index 1) is never disabled - always blue and interactive
+              if (index === 1) {
+                isDisabled = false;
+              }
+              // Box 0, 2 are disabled when locked
+              if (index === 0 || index === 2) {
+                isDisabled = lockedBoxes[calloutKey] === true;
+              }
+              // Box 5 is disabled when locked (can be clicked on both views)
+              if (index === 5) {
+                isDisabled = lockedBoxes[calloutKey] === true;
+              }
+              // Boxes 3 and 4 are not individually clickable (they hide with box 2)
+              if (index === 3 || index === 4) {
+                isDisabled = true;
+              }
+              // Boxes 6, 7, and 8 are auto-hide boxes (not interactive)
+              if (index === 6 || index === 7 || index === 8) {
+                isDisabled = true;
               }
             }
             
@@ -634,7 +1044,15 @@ function DroneInstructions({ zoomLevel = 1 }) {
                   height: callout.height,
                   '--pointer-left': callout.pointerLeft
                 }}
-              />
+              >
+                {/* Add text for page 6 toggle button when on wiring diagram (6.1) */}
+                {currentSlide === 6 && index === 1 && showPage6Wiring && (
+                  <div className="toggle-button-text">
+                    <div>Hide</div>
+                    <div>Wiring Diagram</div>
+                  </div>
+                )}
+              </div>
             );
           })
         }
@@ -666,8 +1084,8 @@ function DroneInstructions({ zoomLevel = 1 }) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
-              // Boxes 2 and 4 are auto-hide boxes (not interactive)
-              if (index === 2 || index === 4) {
+              // Boxes 2, 4, 6, 7, 8, and 9 are auto-hide boxes (not interactive)
+              if (index === 2 || index === 4 || index === 5 || index === 6 || index === 7 || index === 8) {
                 isDisabled = true; // Always disabled - they auto-hide
               }
             }
@@ -681,9 +1099,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
               } else if (index === 3) {
                 // Box 3 requires boxes 0 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
-              } else if (index === 4) {
-                // Box 4 is auto-show box (not interactive)
-                isDisabled = true; // Always disabled - auto-shows
+              } else if (index === 4 || index === 5) {
+                // Boxes 4 and 5 are auto-hide boxes (not interactive)
+                isDisabled = true; // Always disabled - auto-hide
               }
             }
             
@@ -760,8 +1178,8 @@ function DroneInstructions({ zoomLevel = 1 }) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
-              // Boxes 2 and 4 are auto-hide boxes (not interactive)
-              if (index === 2 || index === 4) {
+              // Boxes 2, 4, 6, 7, 8, and 9 are auto-hide boxes (not interactive)
+              if (index === 2 || index === 4 || index === 5 || index === 6 || index === 7 || index === 8) {
                 isDisabled = true; // Always disabled - they auto-hide
               }
             }
@@ -775,9 +1193,19 @@ function DroneInstructions({ zoomLevel = 1 }) {
               } else if (index === 3) {
                 // Box 3 requires boxes 0 and 2 to be selected AND not be locked
                 isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
-              } else if (index === 4) {
-                // Box 4 is auto-show box (not interactive)
-                isDisabled = true; // Always disabled - auto-shows
+              } else if (index === 4 || index === 5) {
+                // Boxes 4 and 5 are auto-hide boxes (not interactive)
+                isDisabled = true; // Always disabled - auto-hide
+              }
+            }
+            if (currentSlide === 6) {
+              // Box 2 is disabled when locked
+              if (index === 2) {
+                isDisabled = lockedBoxes[calloutKey] === true;
+              }
+              // Boxes 3 and 4 are always disabled (not individually clickable)
+              if (index === 3 || index === 4) {
+                isDisabled = true;
               }
             }
             
@@ -803,6 +1231,11 @@ function DroneInstructions({ zoomLevel = 1 }) {
               const relP2x = p2x - minX;
               const relP2y = p2y - minY;
               
+              // For dynamic z-index, use 3 when disabled, 10 when active
+              const lineZIndex = line.dynamicZIndex 
+                ? (isDisabled ? 3 : 10) 
+                : (line.zIndex || undefined);
+              
               return (
                 <svg 
                   key={`line-${calloutKey}-${lineIndex}`} 
@@ -812,7 +1245,7 @@ function DroneInstructions({ zoomLevel = 1 }) {
                     top: `${minY}%`,
                     width: `${width}%`,
                     height: `${height}%`,
-                    zIndex: line.zIndex || undefined
+                    zIndex: lineZIndex
                   }}
                   viewBox={`0 0 ${width} ${height}`}
                   preserveAspectRatio="none"

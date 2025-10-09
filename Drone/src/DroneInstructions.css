@@ -1,11 +1,13 @@
 .instructions-container {
   display: block;
-  height: 100vh;
+  min-height: 100vh;
   background: white;
   padding: 20px;
+  padding-bottom: 80px; /* Extra padding for absolute positioned buttons */
   outline: none;
   overflow: auto; /* Allow scrolling when content is larger */
   text-align: center;
+  position: relative;
 }
 
 .slide-wrapper {
@@ -26,14 +28,14 @@
   width: auto;
   height: auto;
   max-width: 90vw;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 150px);
   display: block;
   object-fit: contain;
 }
 
 .navigation-controls {
-  position: fixed;
-  bottom: 20px;
+  position: relative;
+  margin-top: 0;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
@@ -123,18 +125,18 @@
   /* Positions are set via inline styles based on 8.5in x 11in page coordinates */
   /* Using transform to center the checkbox at the exact coordinates */
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-color: white;
-  border: 2px solid #0d6efd;
-  border-radius: 4px;
+  border: 1px solid #4a4a4a;
+  border-radius: 2px;
   flex-shrink: 0;
   transition: all 0.2s ease;
-  z-index: 10;
+  z-index: 4; /* Lower z-index to appear below no-edge boxes */
 }
 
 .checkbox-input:checked {
@@ -147,14 +149,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  background-color: #0d6efd;
+  width: 4px;
+  height: 4px;
+  background-color: #3bbf6b;
   border-radius: 1px;
 }
 
 .checkbox-input:hover {
-  box-shadow: 0 0 8px rgba(13, 110, 253, 0.4);
+  box-shadow: 0 0 8px rgba(74, 74, 74, 0.4);
 }
 
 /* Callout Overlay - Simple CSS approach for exact positioning */
@@ -376,6 +378,110 @@
   display: none; /* Remove any pseudo-elements */
 }
 
+/* Page 4 Box 6 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page4-box6 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 5 !important; /* Lower z-index so other boxes appear on top */
+}
+
+.callout-overlay.callout-page4-box6:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page4-box6::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page4-box6::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 4 Box 7 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page4-box7 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 5 !important; /* Lower z-index so other boxes appear on top */
+}
+
+.callout-overlay.callout-page4-box7:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page4-box7::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page4-box7::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 4 Box 8 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page4-box8 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 12 !important; /* Higher z-index to appear on top of box 2 */
+}
+
+.callout-overlay.callout-page4-box8:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page4-box8::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page4-box8::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 4 Box 9 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page4-box9 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 12 !important; /* Higher z-index to appear on top of box 3 */
+}
+
+.callout-overlay.callout-page4-box9:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page4-box9::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page4-box9::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
 /* Pulse animation for boxes - only glow pulses */
 @keyframes pulse {
   0%, 100% {
@@ -509,7 +615,7 @@
 
 /* Reset button */
 .reset-button {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 20px;
   padding: 10px 20px;
@@ -538,7 +644,7 @@
 
 /* Complete Page button - bottom right */
 .complete-page-button {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   right: 20px;
   padding: 10px 20px;
@@ -606,12 +712,25 @@
   display: none; /* Remove any pseudo-elements */
 }
 
-/* Page 5 Box 2 - Remove pointer */
+/* Page 5 Box 2 - Remove pointer, start with lower z-index */
+.callout-overlay.callout-page5-box2 {
+  z-index: 3 !important; /* Initially below no-edge box */
+}
+
+/* Page 5 Box 2 - Higher z-index when active (box 0 is selected) */
+.callout-overlay.callout-page5-box2:not(.disabled) {
+  z-index: 10 !important; /* Above no-edge box when unlocked */
+}
+
 .callout-overlay.callout-page5-box2::after {
   display: none; /* Remove default pointer */
 }
 
-/* Page 5 Box 3 - Remove pointer */
+/* Page 5 Box 3 - Remove pointer, lower z-index */
+.callout-overlay.callout-page5-box3 {
+  z-index: 3 !important; /* Lower z-index so it appears below no-edge box */
+}
+
 .callout-overlay.callout-page5-box3::after {
   display: none; /* Remove default pointer */
 }
@@ -639,6 +758,191 @@
 
 .callout-overlay.callout-page5-box4::before {
   display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 5 Box 5 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page5-box5 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 5 !important; /* Lower z-index so box 2 appears on top */
+}
+
+.callout-overlay.callout-page5-box5:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page5-box5::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page5-box5::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 6 Box 0 - Complete box with no pointer */
+.callout-overlay.callout-page6-box0 {
+  background: rgba(255, 255, 255, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.callout-overlay.callout-page6-box0::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page6-box0.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Page 6 Box 2 - Remove pointer */
+.callout-overlay.callout-page6-box2::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 6 Box 3 - Remove pointer */
+.callout-overlay.callout-page6-box3::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 6 Box 4 - Remove pointer */
+.callout-overlay.callout-page6-box4::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 6 Box 5 - Remove pointer */
+.callout-overlay.callout-page6-box5::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 6 Box 6 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page6-box6 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 12 !important; /* Higher z-index to appear on top of gray boxes */
+}
+
+.callout-overlay.callout-page6-box6:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page6-box6::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page6-box6::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 6 Box 7 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page6-box7 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 12 !important; /* Higher z-index to appear on top of boxes */
+}
+
+.callout-overlay.callout-page6-box7:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page6-box7::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page6-box7::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 6 Box 8 - No border, just 90% opacity infill (auto-hide box at bottom) */
+.callout-overlay.callout-page6-box8 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+  z-index: 12 !important; /* Higher z-index to appear on top of gray boxes */
+}
+
+.callout-overlay.callout-page6-box8:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page6-box8::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page6-box8::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Page 6 Toggle Button - Always blue, always visible, 1px edge */
+.callout-overlay.callout-page6-toggle {
+  border: 1px solid #4285f4 !important; /* Always blue, 1px edge */
+  background: transparent !important; /* No white infill */
+  border-radius: 4px !important; /* Reduced radius */
+  box-shadow: 0 0 4px rgba(66, 133, 244, 0.2), 0 0 8px rgba(66, 133, 244, 0.1) !important;
+  animation: none; /* No pulsing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callout-overlay.callout-page6-toggle:hover {
+  border: 1px solid #4285f4 !important;
+  box-shadow: 0 0 8px rgba(66, 133, 244, 0.4), 0 0 16px rgba(66, 133, 244, 0.2) !important;
+}
+
+.callout-overlay.callout-page6-toggle::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Never hide or disable the toggle button */
+.callout-overlay.callout-page6-toggle.selected {
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+.callout-overlay.callout-page6-toggle.disabled {
+  border: 1px solid #4285f4 !important; /* Stay blue even when "disabled", 1px edge */
+  box-shadow: 0 0 4px rgba(66, 133, 244, 0.2), 0 0 8px rgba(66, 133, 244, 0.1) !important;
+  cursor: pointer !important;
+  pointer-events: all !important;
+}
+
+/* Toggle button text */
+.toggle-button-text {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-size: 7px;
+  line-height: 1.2;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Responsive design */
