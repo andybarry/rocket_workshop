@@ -316,15 +316,28 @@
   display: none; /* Remove any pseudo-elements */
 }
 
-/* Page 4 Box 4 - Gray edge with 90% opacity infill */
+/* Page 4 Box 4 - Gray edge when disabled, blue edge when active */
 .callout-overlay.callout-page4-box4 {
-  border: 2px solid #999999 !important;
+  border: 2px solid #4285f4 !important; /* Blue edge by default */
   background: rgba(255, 255, 255, 0.9);
-  box-shadow: none !important;
+  box-shadow: 0 0 4px rgba(66, 133, 244, 0.2), 0 0 8px rgba(66, 133, 244, 0.1) !important;
   filter: none;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.callout-overlay.callout-page4-box4.disabled {
+  border: 2px solid #999999 !important; /* Gray edge when disabled */
+  box-shadow: none !important;
+  animation: none;
 }
 
 .callout-overlay.callout-page4-box4:hover {
+  border: 2px solid #4285f4 !important;
+  box-shadow: 0 0 8px rgba(66, 133, 244, 0.4), 0 0 16px rgba(66, 133, 244, 0.2) !important;
+  filter: none;
+}
+
+.callout-overlay.callout-page4-box4.disabled:hover {
   border: 2px solid #999999 !important;
   box-shadow: none !important;
   filter: none;
@@ -559,14 +572,73 @@
   box-shadow: none;
 }
 
-/* Page 5 Box 1 - Remove pointer */
+/* Page 5 Box 0 - Remove pointer and increase corner radius */
+.callout-overlay.callout-page5-box0 {
+  border-radius: 24px;
+}
+
+.callout-overlay.callout-page5-box0::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 5 Box 1 - No border, just 90% opacity infill (auto-hide box) */
+.callout-overlay.callout-page5-box1 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+.callout-overlay.callout-page5-box1:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
 .callout-overlay.callout-page5-box1::after {
   display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page5-box1::before {
+  display: none; /* Remove any pseudo-elements */
 }
 
 /* Page 5 Box 2 - Remove pointer */
 .callout-overlay.callout-page5-box2::after {
   display: none; /* Remove default pointer */
+}
+
+/* Page 5 Box 3 - Remove pointer */
+.callout-overlay.callout-page5-box3::after {
+  display: none; /* Remove default pointer */
+}
+
+/* Page 5 Box 4 - No border, just 90% opacity infill (auto-show box) */
+.callout-overlay.callout-page5-box4 {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none !important;
+  filter: none;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+.callout-overlay.callout-page5-box4:hover {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none;
+  transform: none !important;
+}
+
+.callout-overlay.callout-page5-box4::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page5-box4::before {
+  display: none; /* Remove any pseudo-elements */
 }
 
 /* Responsive design */

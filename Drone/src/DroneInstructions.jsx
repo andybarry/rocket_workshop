@@ -26,9 +26,10 @@ function DroneInstructions({ zoomLevel = 1 }) {
         'callout-4-3': true
       });
     } else if (currentSlide === 5) {
-      // Lock box 1 initially
+      // Lock boxes 2 and 3 initially (box 1 is auto-hide)
       setLockedBoxes({
-        'callout-5-1': true
+        'callout-5-2': true,
+        'callout-5-3': true
       });
     } else {
       // Clear locks on other pages
@@ -49,6 +50,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
       { x: 1.77, y: 8.27 },
       { x: 3.58, y: 9.79 },
       { x: 5.4, y: 9.8 }
+    ],
+    4: [
+      { x: 1.35, y: 6.29 } // Optional checkbox at 15.85%, 57.18%
     ]
   };
   
@@ -202,6 +206,23 @@ function DroneInstructions({ zoomLevel = 1 }) {
     5: [
       {
         // Box positioning (all percentages for consistency and responsiveness)
+        left: '13.53%',
+        top: '24.88%',
+        width: '72.92%',
+        height: '26.69%',
+        cssClass: 'callout-page5-box0'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // No-edge auto-hide box that hides when box 0 is selected
+        left: '18.25%',
+        top: '52.82%',
+        width: '64.01%',
+        height: '4.26%',
+        cssClass: 'callout-page5-box1'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
         left: '20.50%',
         top: '58.76%',
         width: '26.76%',
@@ -219,7 +240,7 @@ function DroneInstructions({ zoomLevel = 1 }) {
           }
         ],
         
-        cssClass: 'callout-page5-box1'
+        cssClass: 'callout-page5-box2'
       },
       {
         // Box positioning (all percentages for consistency and responsiveness)
@@ -240,7 +261,16 @@ function DroneInstructions({ zoomLevel = 1 }) {
           }
         ],
         
-        cssClass: 'callout-page5-box2'
+        cssClass: 'callout-page5-box3'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // No-edge box that displays when box 3 is selected
+        left: '51.96%',
+        top: '81.07%',
+        width: '36.42%',
+        height: '9.00%',
+        cssClass: 'callout-page5-box4'
       }
     ]
   };
@@ -267,6 +297,17 @@ function DroneInstructions({ zoomLevel = 1 }) {
       const requiredBoxes = [0, 1, 3]; // Box 1 (top), Box 2 (middle right), Box 4 (bottom edge)
       const allRequiredChecked = requiredBoxes.every(index => {
         const calloutKey = `callout-4-${index}`;
+        return checkedBoxes[calloutKey] === true;
+      });
+      return allRequiredChecked;
+    }
+    
+    // Special case for page 5: Only require box 3 (bottom edge box, index 3)
+    // Box 1 and 4 are auto-hide/auto-show boxes
+    if (currentSlide === 5) {
+      const requiredBoxes = [3]; // Box 3 (bottom edge)
+      const allRequiredChecked = requiredBoxes.every(index => {
+        const calloutKey = `callout-5-${index}`;
         return checkedBoxes[calloutKey] === true;
       });
       return allRequiredChecked;
@@ -345,11 +386,22 @@ function DroneInstructions({ zoomLevel = 1 }) {
     
     // For page 5, enforce sequential selection order
     if (slideNumber === 5) {
+      // Box 1 is auto-hide box (not clickable)
       if (calloutIndex === 1) {
-        // Box 2 - require box 1 to be selected first
+        return; // Don't allow clicking auto-hide box
+      }
+      if (calloutIndex === 2) {
+        // Box 2 - require box 0 to be selected first
         const box0Key = `callout-5-0`;
         if (!checkedBoxes[box0Key]) {
-          return; // Don't allow clicking box 2 until box 1 is selected
+          return; // Don't allow clicking box 2 until box 0 is selected
+        }
+      } else if (calloutIndex === 3) {
+        // Box 3 - require boxes 0 and 2 to be selected first
+        const box0Key = `callout-5-0`;
+        const box2Key = `callout-5-2`;
+        if (!checkedBoxes[box0Key] || !checkedBoxes[box2Key]) {
+          return; // Don't allow clicking box 3 until boxes 0 and 2 are selected
         }
       }
     }
@@ -379,18 +431,20 @@ function DroneInstructions({ zoomLevel = 1 }) {
         }
       } else if (slideNumber === 5) {
         if (calloutIndex === 0) {
-          nextBoxKey = 'callout-5-1'; // Unlock box 1 after box 0 is clicked
+          nextBoxKey = 'callout-5-2'; // Unlock box 2 after box 0 is clicked (box 1 is auto-hide)
+        } else if (calloutIndex === 2) {
+          nextBoxKey = 'callout-5-3'; // Unlock box 3 after box 2 is clicked
         }
       }
       
-      // If there's a next box, unlock it after 2 seconds
+      // If there's a next box, unlock it after 0.75 seconds
       if (nextBoxKey) {
         setTimeout(() => {
           setLockedBoxes(prev => ({
             ...prev,
             [nextBoxKey]: false
           }));
-        }, 2000); // 2 second delay
+        }, 750); // 0.75 second delay
       }
     }
   };
@@ -413,7 +467,8 @@ function DroneInstructions({ zoomLevel = 1 }) {
       });
     } else if (currentSlide === 5) {
       setLockedBoxes({
-        'callout-5-1': true
+        'callout-5-2': true,
+        'callout-5-3': true
       });
     } else {
       setLockedBoxes({});
@@ -516,24 +571,35 @@ function DroneInstructions({ zoomLevel = 1 }) {
               isSelected = isSelected || checkedBoxes[`callout-4-3`] || false;
             }
             
+            // Special case: On page 5, auto-hide box 1 (no-edge box) when box 0 is selected
+            if (currentSlide === 5 && index === 1) {
+              isSelected = isSelected || checkedBoxes[`callout-5-0`] || false;
+            }
+            
+            // Special case: On page 5, hide box 4 (no-edge box) when box 3 is selected
+            // Box is visible until box 3 is selected
+            if (currentSlide === 5 && index === 4) {
+              isSelected = isSelected || checkedBoxes[`callout-5-3`] || false;
+            }
+            
             // For page 3, page 4, and page 5, check if box is available based on sequential order
             let isDisabled = false;
             if (currentSlide === 3) {
               if (index === 1) {
                 // Box 1 requires box 0 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-3-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 2) {
                 // Box 2 (large bottom box) requires boxes 0 and 1 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || (lockedBoxes[calloutKey] === true);
               }
             }
             if (currentSlide === 4) {
               if (index === 1) {
                 // Box 2 (middle right) requires box 1 (top) to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 3) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
               // Boxes 2 and 4 are auto-hide boxes (not interactive)
               if (index === 2 || index === 4) {
@@ -541,9 +607,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
               }
             }
             if (currentSlide === 5) {
+              // Box 1 is auto-hide box (not interactive)
               if (index === 1) {
-                // Box 2 requires box 1 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-5-0`] || lockedBoxes[calloutKey];
+                isDisabled = true; // Always disabled - auto-hides
+              } else if (index === 2) {
+                // Box 2 requires box 0 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 3) {
+                // Box 3 requires boxes 0 and 2 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 4) {
+                // Box 4 is auto-show box (not interactive)
+                isDisabled = true; // Always disabled - auto-shows
               }
             }
             
@@ -577,19 +652,19 @@ function DroneInstructions({ zoomLevel = 1 }) {
             if (currentSlide === 3) {
               if (index === 1) {
                 // Box 1 requires box 0 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-3-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 2) {
                 // Box 2 (large bottom box) requires boxes 0 and 1 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || (lockedBoxes[calloutKey] === true);
               }
             }
             if (currentSlide === 4) {
               if (index === 1) {
                 // Box 2 (middle right) requires box 1 (top) to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 3) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
               // Boxes 2 and 4 are auto-hide boxes (not interactive)
               if (index === 2 || index === 4) {
@@ -597,9 +672,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
               }
             }
             if (currentSlide === 5) {
+              // Box 1 is auto-hide box (not interactive)
               if (index === 1) {
-                // Box 2 requires box 1 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-5-0`] || lockedBoxes[calloutKey];
+                isDisabled = true; // Always disabled - auto-hides
+              } else if (index === 2) {
+                // Box 2 requires box 0 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 3) {
+                // Box 3 requires boxes 0 and 2 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 4) {
+                // Box 4 is auto-show box (not interactive)
+                isDisabled = true; // Always disabled - auto-shows
               }
             }
             
@@ -663,18 +747,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
             let isDisabled = false;
             if (currentSlide === 3) {
               if (index === 1) {
-                isDisabled = !checkedBoxes[`callout-3-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 2) {
-                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-3-0`] || !checkedBoxes[`callout-3-1`] || (lockedBoxes[calloutKey] === true);
               }
             }
             if (currentSlide === 4) {
               if (index === 1) {
                 // Box 2 (middle right) requires box 1 (top) to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || (lockedBoxes[calloutKey] === true);
               } else if (index === 3) {
                 // Box 4 (bottom edge) requires boxes 1 and 2 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || lockedBoxes[calloutKey];
+                isDisabled = !checkedBoxes[`callout-4-0`] || !checkedBoxes[`callout-4-1`] || (lockedBoxes[calloutKey] === true);
               }
               // Boxes 2 and 4 are auto-hide boxes (not interactive)
               if (index === 2 || index === 4) {
@@ -682,9 +766,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
               }
             }
             if (currentSlide === 5) {
+              // Box 1 is auto-hide box (not interactive)
               if (index === 1) {
-                // Box 2 requires box 1 to be selected AND not be locked
-                isDisabled = !checkedBoxes[`callout-5-0`] || lockedBoxes[calloutKey];
+                isDisabled = true; // Always disabled - auto-hides
+              } else if (index === 2) {
+                // Box 2 requires box 0 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 3) {
+                // Box 3 requires boxes 0 and 2 to be selected AND not be locked
+                isDisabled = !checkedBoxes[`callout-5-0`] || !checkedBoxes[`callout-5-2`] || (lockedBoxes[calloutKey] === true);
+              } else if (index === 4) {
+                // Box 4 is auto-show box (not interactive)
+                isDisabled = true; // Always disabled - auto-shows
               }
             }
             
