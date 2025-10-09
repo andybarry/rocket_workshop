@@ -5,12 +5,12 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
   const [currentSlide, setCurrentSlide] = useState(1);
   const totalSlides = 6;
   
-  // Box state - position and size
+  // Box state - position and size (all percentages for consistency)
   const [box, setBox] = useState({
     left: 20,  // percentage
     top: 20,   // percentage
-    width: 200, // pixels
-    height: 100 // pixels
+    width: 20, // percentage
+    height: 9  // percentage
   });
   
   // Triangle pointer state - positions relative to image (%)
@@ -40,15 +40,14 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
     }
   };
 
-  // Calculate box edges in percentage
+  // Calculate box edges in percentage (all percentages now)
   const getBoxEdges = () => {
     if (!imageRef.current) return { left: 0, right: 0, top: 0, bottom: 0 };
-    const imgRect = imageRef.current.getBoundingClientRect();
     return {
       left: box.left,
-      right: box.left + (box.width / imgRect.width) * 100,
+      right: box.left + box.width,
       top: box.top,
-      bottom: box.top + (box.height / imgRect.height) * 100
+      bottom: box.top + box.height
     };
   };
 
@@ -155,9 +154,9 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
       const newLeft = dragStart.boxLeft + deltaXPercent;
       const newTop = dragStart.boxTop + deltaYPercent;
       
-      // Get box size as percentage for boundary checking
-      const boxWidthPercent = (box.width / imgRect.width) * 100;
-      const boxHeightPercent = (box.height / imgRect.height) * 100;
+      // Box size is already in percentages
+      const boxWidthPercent = box.width;
+      const boxHeightPercent = box.height;
       
       // Clamp to image boundaries
       const clampedLeft = Math.max(0, Math.min(100 - boxWidthPercent, newLeft));
@@ -174,28 +173,31 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
         point3: { x: prev.point3.x + deltaLeft, y: prev.point3.y + deltaTop }
       }));
     } else if (isResizing) {
+      // Calculate the delta in pixels then convert to percentage
       const deltaX = e.clientX - dragStart.x;
       const deltaY = e.clientY - dragStart.y;
       
+      // Convert delta to percentage
+      const deltaXPercent = (deltaX / imgRect.width) * 100;
+      const deltaYPercent = (deltaY / imgRect.height) * 100;
+      
       setBox(prev => {
         let newBox = { ...prev };
-        const leftPx = (dragStart.boxLeft / 100) * imgRect.width;
-        const topPx = (dragStart.boxTop / 100) * imgRect.height;
         
         if (resizeEdge === 'left') {
-          const newWidth = Math.max(50, dragStart.boxWidth - deltaX);
+          const newWidth = Math.max(5, dragStart.boxWidth - deltaXPercent);
           const widthDiff = dragStart.boxWidth - newWidth;
           newBox.width = newWidth;
-          newBox.left = ((leftPx + widthDiff) / imgRect.width) * 100;
+          newBox.left = dragStart.boxLeft + widthDiff;
         } else if (resizeEdge === 'right') {
-          newBox.width = Math.max(50, dragStart.boxWidth + deltaX);
+          newBox.width = Math.max(5, dragStart.boxWidth + deltaXPercent);
         } else if (resizeEdge === 'top') {
-          const newHeight = Math.max(30, dragStart.boxHeight - deltaY);
+          const newHeight = Math.max(3, dragStart.boxHeight - deltaYPercent);
           const heightDiff = dragStart.boxHeight - newHeight;
           newBox.height = newHeight;
-          newBox.top = ((topPx + heightDiff) / imgRect.height) * 100;
+          newBox.top = dragStart.boxTop + heightDiff;
         } else if (resizeEdge === 'bottom') {
-          newBox.height = Math.max(30, dragStart.boxHeight + deltaY);
+          newBox.height = Math.max(3, dragStart.boxHeight + deltaYPercent);
         }
         
         return newBox;
@@ -232,23 +234,41 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
     setTrianglePointIndex(null);
   };
 
-  // Calculate pixel positions for display
+  // Calculate pixel positions for display (for reference only)
   const getPixelPositions = () => {
-    if (!imageRef.current) return { leftPx: 0, topPx: 0 };
+    if (!imageRef.current) return { leftPx: 0, topPx: 0, widthPx: 0, heightPx: 0 };
     const imgRect = imageRef.current.getBoundingClientRect();
-    const leftPx = Math.round((box.left / 100) * imgRect.width);
-    const topPx = Math.round((box.top / 100) * imgRect.height);
-    return { leftPx, topPx };
+    // Account for zoom level - display unscaled pixel positions
+    const unscaledWidth = imgRect.width / zoomLevel;
+    const unscaledHeight = imgRect.height / zoomLevel;
+    const leftPx = Math.round((box.left / 100) * unscaledWidth);
+    const topPx = Math.round((box.top / 100) * unscaledHeight);
+    const widthPx = Math.round((box.width / 100) * unscaledWidth);
+    const heightPx = Math.round((box.height / 100) * unscaledHeight);
+    return { leftPx, topPx, widthPx, heightPx };
   };
 
-  // Enhanced copy to clipboard with all triangle data
+  // Enhanced copy to clipboard with all triangle data (all percentages)
   const copyToClipboard = () => {
+    // Calculate triangle points relative to box (for border gap calculation)
+    // Now much simpler since everything is in percentages!
+    const point1RelativeToBox = ((triangle.point1.x - box.left) / box.width) * 100;
+    const point2RelativeToBox = ((triangle.point2.x - box.left) / box.width) * 100;
+    
+    // Calculate gap positions for CSS (right% for left segment, left% for right segment)
+    const leftSegmentEndsAt = 100 - point1RelativeToBox; // right: X%
+    const rightSegmentStartsAt = point2RelativeToBox; // left: X%
+    
+    const imgRect = imageRef.current?.getBoundingClientRect();
+    const imgWidth = imgRect ? Math.round(imgRect.width / zoomLevel) : 0;
+    const imgHeight = imgRect ? Math.round(imgRect.height / zoomLevel) : 0;
+    
     const text = `{
-  // Box positioning
+  // Box positioning (all percentages for consistency and responsiveness)
   left: '${box.left.toFixed(2)}%',
   top: '${box.top.toFixed(2)}%',
-  width: '${box.width}px',
-  height: '${box.height}px',
+  width: '${box.width.toFixed(2)}%',
+  height: '${box.height.toFixed(2)}%',
   
   // Triangle pointer
   triangle: {
@@ -266,10 +286,19 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
       x: '${triangle.point3.x.toFixed(2)}%',
       y: '${triangle.point3.y.toFixed(2)}%'
     }
+  },
+  
+  // CSS Helper Values (for border gap between triangle contact points)
+  css: {
+    imageSize: '${imgWidth}px × ${imgHeight}px',
+    trianglePoint1InBox: '${point1RelativeToBox.toFixed(2)}%', // from box left edge
+    trianglePoint2InBox: '${point2RelativeToBox.toFixed(2)}%', // from box left edge
+    borderGapLeftSegment: 'right: ${leftSegmentEndsAt.toFixed(2)}%', // Use in ::before
+    borderGapRightSegment: 'left: ${rightSegmentStartsAt.toFixed(2)}%' // Use in ::after
   }
 }`;
     navigator.clipboard.writeText(text);
-    alert('Box and triangle values copied to clipboard!\nReady to paste into your code.');
+    alert('Box and triangle values copied to clipboard!\n✅ All percentages - easy to implement!\n✅ Includes CSS border gap values.');
   };
 
   // Reset box to default position
@@ -277,8 +306,8 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
     setBox({
       left: 20,
       top: 20,
-      width: 200,
-      height: 100
+      width: 20,
+      height: 9
     });
     setTriangle({
       point1: { x: 30, y: 30, edge: 'bottom' },
@@ -294,9 +323,6 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      style={{
-        overflow: zoomLevel > 1 ? 'auto' : 'hidden'
-      }}
     >
       {/* Value Display - Top Right */}
       <div className="value-display">
@@ -327,14 +353,26 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
         </div>
 
         <div className="value-section">
-          <div className="section-title">Box Size</div>
+          <div className="section-title">Box Size (%)</div>
           <div className="value-row">
             <span className="label">width:</span>
-            <span className="value">{box.width}px</span>
+            <span className="value">{box.width.toFixed(2)}%</span>
           </div>
           <div className="value-row">
             <span className="label">height:</span>
-            <span className="value">{box.height}px</span>
+            <span className="value">{box.height.toFixed(2)}%</span>
+          </div>
+        </div>
+
+        <div className="value-section">
+          <div className="section-title">Box Size (px reference)</div>
+          <div className="value-row">
+            <span className="label">width:</span>
+            <span className="value">{getPixelPositions().widthPx}px</span>
+          </div>
+          <div className="value-row">
+            <span className="label">height:</span>
+            <span className="value">{getPixelPositions().heightPx}px</span>
           </div>
         </div>
 
@@ -368,16 +406,50 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
           </div>
         </div>
 
+        <div className="value-section css-helper-section">
+          <div className="section-title">CSS Border Gap Helper</div>
+          <div className="value-row">
+            <span className="label">Point1 in box:</span>
+            <span className="value">
+              {(((triangle.point1.x - box.left) / box.width) * 100).toFixed(2)}%
+            </span>
+          </div>
+          <div className="value-row">
+            <span className="label">Point2 in box:</span>
+            <span className="value">
+              {(((triangle.point2.x - box.left) / box.width) * 100).toFixed(2)}%
+            </span>
+          </div>
+          <div className="value-row sub-row">
+            <span className="label">Left segment:</span>
+            <span className="value css-code">
+              right: {(100 - ((triangle.point1.x - box.left) / box.width) * 100).toFixed(2)}%
+            </span>
+          </div>
+          <div className="value-row sub-row">
+            <span className="label">Right segment:</span>
+            <span className="value css-code">
+              left: {(((triangle.point2.x - box.left) / box.width) * 100).toFixed(2)}%
+            </span>
+          </div>
+        </div>
+
         <button onClick={copyToClipboard} className="copy-button">
           📋 Copy for Code
         </button>
       </div>
 
-      <div className="slide-wrapper" style={{
-        transform: `scale(${zoomLevel})`,
-        transformOrigin: 'center center',
-        transition: 'transform 0.3s ease'
+      <div style={{
+        width: `${100 * zoomLevel}%`,
+        height: `${100 * zoomLevel}%`,
+        display: 'inline-block',
+        transition: 'all 0.3s ease'
       }}>
+        <div className="slide-wrapper" style={{
+          transform: `scale(${zoomLevel})`,
+          transformOrigin: 'top left',
+          transition: 'transform 0.3s ease'
+        }}>
         <img 
           ref={imageRef}
           src={`/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
@@ -413,23 +485,26 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
           <circle
             cx={`${triangle.point1.x}%`}
             cy={`${triangle.point1.y}%`}
-            r="6"
+            r="4"
             className="triangle-handle"
             onMouseDown={(e) => handleTriangleMouseDown(e, 0)}
+            style={{ cursor: 'pointer' }}
           />
           <circle
             cx={`${triangle.point2.x}%`}
             cy={`${triangle.point2.y}%`}
-            r="6"
+            r="4"
             className="triangle-handle"
             onMouseDown={(e) => handleTriangleMouseDown(e, 1)}
+            style={{ cursor: 'pointer' }}
           />
           <circle
             cx={`${triangle.point3.x}%`}
             cy={`${triangle.point3.y}%`}
-            r="6"
+            r="4"
             className="triangle-handle tip"
             onMouseDown={(e) => handleTriangleMouseDown(e, 2)}
+            style={{ cursor: 'pointer' }}
           />
         </svg>
         
@@ -439,8 +514,8 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
           style={{
             left: `${box.left}%`,
             top: `${box.top}%`,
-            width: `${box.width}px`,
-            height: `${box.height}px`
+            width: `${box.width}%`,
+            height: `${box.height}%`
           }}
           onMouseDown={handleBoxMouseDown}
         >
@@ -462,6 +537,7 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
             onMouseDown={(e) => handleResizeMouseDown(e, 'bottom')}
           />
           <div className="box-label">Drag me!</div>
+        </div>
         </div>
       </div>
 

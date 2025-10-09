@@ -1,13 +1,11 @@
 .positioning-tool-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: block;
   height: 100vh;
   background: white;
   padding: 20px;
-  overflow: hidden;
+  overflow: auto;
   user-select: none;
+  text-align: center;
 }
 
 .positioning-tool-container.dragging {
@@ -20,37 +18,37 @@
 
 .slide-wrapper {
   position: relative;
-  max-width: 90vw;
-  max-height: calc(100vh - 120px);
-  width: auto;
+  width: max-content;
   background: white;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
   border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: box-shadow 0.3s ease;
+  display: inline-block;
 }
 
 .slide-image {
-  max-width: 100%;
-  max-height: calc(100vh - 120px);
   width: auto;
   height: auto;
+  max-width: 90vw;
+  max-height: calc(100vh - 200px);
   display: block;
   object-fit: contain;
   pointer-events: none;
 }
 
 .navigation-controls {
-  display: flex;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
   align-items: center;
   gap: 15px;
   background: white;
   padding: 10px 20px;
   border-radius: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
 
 .nav-arrow {
@@ -107,6 +105,7 @@
   max-height: 90vh;
   overflow-y: auto;
   font-family: 'Courier New', monospace;
+  pointer-events: all; /* Ensure it doesn't interfere with scrolling */
 }
 
 .value-display h3 {
@@ -177,6 +176,23 @@
   border-radius: 6px;
 }
 
+.css-helper-section {
+  background: rgba(40, 167, 69, 0.08);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.css-helper-section .section-title {
+  color: #28a745;
+}
+
+.css-code {
+  font-family: 'Courier New', monospace;
+  font-size: 11px !important;
+  color: #28a745 !important;
+}
+
 .copy-button {
   width: 100%;
   margin-top: 10px;
@@ -203,29 +219,28 @@
 /* Position Box - with smooth dragging */
 .position-box {
   position: absolute;
-  border: 2px solid #ff6b6b;
-  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid #4285f4; /* Blue border, 1px thickness */
+  background: rgba(66, 133, 244, 0.05); /* Light blue tint */
   cursor: move;
   box-sizing: border-box;
-  transition: box-shadow 0.2s ease;
+  z-index: 10; /* Below triangle overlay (z-index: 15) */
   /* Performance optimizations */
   will-change: transform;
   transform: translate3d(0, 0, 0); /* Enable GPU acceleration */
 }
 
 .position-box:hover {
-  box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  /* No glow effect */
 }
 
 .position-box.dragging {
   opacity: 0.8;
-  box-shadow: 0 0 30px rgba(255, 107, 107, 0.7);
-  /* Remove transitions during drag for smoothness */
+  /* No glow effect */
   transition: none;
 }
 
 .position-box.resizing {
-  box-shadow: 0 0 30px rgba(102, 126, 234, 0.7);
+  /* No glow effect */
   transition: none;
 }
 
@@ -234,7 +249,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #ff6b6b;
+  color: #4285f4; /* Blue text to match border */
   font-weight: bold;
   font-size: 14px;
   pointer-events: none;
@@ -245,7 +260,7 @@
 .resize-handle {
   position: absolute;
   background: #667eea;
-  z-index: 10;
+  z-index: 11; /* Above box but below triangle overlay */
   transition: background 0.2s ease;
 }
 
@@ -293,7 +308,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 5;
+  z-index: 15; /* Above the position box */
 }
 
 .triangle-shape {
@@ -308,7 +323,7 @@
 }
 
 .triangle-line {
-  stroke: #ff6b6b;
+  stroke: #4285f4; /* Blue to match box */
   stroke-width: 3;
   stroke-linecap: round;
   pointer-events: none;
@@ -318,22 +333,23 @@
   fill: #667eea;
   stroke: white;
   stroke-width: 2;
-  cursor: move;
-  pointer-events: all;
+  cursor: pointer !important;
+  pointer-events: all !important; /* Force pointer events */
   transition: all 0.2s ease;
+  /* Increase hit area */
 }
 
 .triangle-handle:hover {
   fill: #764ba2;
-  r: 8;
+  r: 5;
 }
 
 .triangle-handle.tip {
-  fill: #ff6b6b;
+  fill: #1e40af; /* Darker blue for tip */
 }
 
 .triangle-handle.tip:hover {
-  fill: #ff5252;
+  fill: #1e3a8a; /* Even darker blue on hover */
 }
 
 /* Complete Page button - bottom right */
