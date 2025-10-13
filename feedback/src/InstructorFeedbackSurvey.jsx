@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Login from './Login'
 
 function InstructorFeedbackSurvey() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [sessionId, setSessionId] = useState(null)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
   const [formData, setFormData] = useState({
     'instructed-location': [],
     'instructed-location-other-text': '',
@@ -16,8 +22,67 @@ function InstructorFeedbackSurvey() {
   })
   const [submitted, setSubmitted] = useState(false)
 
+  // Authentication functions
+  const checkAuthStatus = async () => {
+    const storedSessionId = localStorage.getItem('sessionId')
+    const storedExpires = localStorage.getItem('sessionExpires')
+    
+    if (!storedSessionId || !storedExpires) {
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    if (Date.now() > parseInt(storedExpires)) {
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+      setIsCheckingAuth(false)
+      return
+    }
+    
+    try {
+      const response = await fetch('/api/auth/status', {
+        headers: {
+          'Authorization': `Bearer ${storedSessionId}`,
+        },
+      })
+      
+      if (response.ok) {
+        setIsAuthenticated(true)
+        setSessionId(storedSessionId)
+      } else {
+        localStorage.removeItem('sessionId')
+        localStorage.removeItem('sessionExpires')
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error)
+      localStorage.removeItem('sessionId')
+      localStorage.removeItem('sessionExpires')
+    } finally {
+      setIsCheckingAuth(false)
+    }
+  }
+
+  // Add authentication header to all API requests
+  const apiRequest = async (url, options = {}) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    }
+    
+    if (sessionId) {
+      headers['Authorization'] = `Bearer ${sessionId}`
+    }
+    
+    return fetch(url, {
+      ...options,
+      headers,
+      mode: 'cors'
+    })
+  }
+
   useEffect(() => {
     document.title = 'Instructor Feedback Survey'
+    checkAuthStatus()
   }, [])
 
   const handleInputChange = (e) => {
@@ -56,21 +121,16 @@ function InstructorFeedbackSurvey() {
       
       // Try multiple endpoints in case of connectivity issues
       const endpoints = [
-        '/api/feedback'
+        '/api/instructor-feedback'
       ]
       
       let response = null
       for (const endpoint of endpoints) {
         try {
           console.log('Trying endpoint:', endpoint)
-          response = await fetch(endpoint, {
+          response = await apiRequest(endpoint, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            mode: 'cors',
             body: JSON.stringify({
-              workshopType: 'Instructor',
               feedbackData: submissionData
             })
           })
@@ -96,6 +156,30 @@ function InstructorFeedbackSurvey() {
       console.error('Network error:', error)
       alert('Network error. Please check your connection and try again.')
     }
+  }
+
+  // Show loading spinner while checking authentication
+  if (isCheckingAuth) {
+    return (
+      <div className="login-container">
+        <div className="login-box">
+          <div className="login-header">
+            <h2>Loading...</h2>
+            <p>Checking authentication status</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return <Login onLogin={(sessionId, expires) => {
+      setSessionId(sessionId)
+      setIsAuthenticated(true)
+      localStorage.setItem('sessionId', sessionId)
+      localStorage.setItem('sessionExpires', expires.toString())
+    }} />
   }
 
   if (submitted) {

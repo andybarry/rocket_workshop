@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'feedback-app',
-    script: 'server.prod.js',
+    script: 'server.js',
     cwd: '/home/abarry/feedback',
     instances: 1,
     autorestart: true,

@@ -281,13 +281,19 @@ app.get('/api/feedback', authenticate, async (req, res) => {
   }
 });
 
-// Submit new feedback
-app.post('/api/feedback', authenticate, async (req, res) => {
+// Submit new feedback (public endpoint for student surveys)
+app.post('/api/feedback', async (req, res) => {
   try {
     const { workshopType, feedbackData } = req.body;
     
     if (!workshopType || !feedbackData) {
       return res.status(400).json({ error: 'Workshop type and feedback data are required' });
+    }
+
+    // Only allow student surveys through this public endpoint
+    const allowedTypes = ['AI', 'Robotics', 'Mechanical'];
+    if (!allowedTypes.includes(workshopType)) {
+      return res.status(403).json({ error: 'This endpoint is only for student feedback surveys' });
     }
 
     const result = feedbackDB.insertFeedback(workshopType, feedbackData);
@@ -301,6 +307,29 @@ app.post('/api/feedback', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error submitting feedback:', error);
     res.status(500).json({ error: 'Failed to submit feedback' });
+  }
+});
+
+// Submit instructor feedback (authenticated endpoint)
+app.post('/api/instructor-feedback', authenticate, async (req, res) => {
+  try {
+    const { feedbackData } = req.body;
+    
+    if (!feedbackData) {
+      return res.status(400).json({ error: 'Feedback data is required' });
+    }
+
+    const result = feedbackDB.insertFeedback('Instructor', feedbackData);
+    
+    res.json({ 
+      success: true, 
+      message: 'Instructor feedback submitted successfully',
+      id: result.id,
+      timestamp: result.timestamp
+    });
+  } catch (error) {
+    console.error('Error submitting instructor feedback:', error);
+    res.status(500).json({ error: 'Failed to submit instructor feedback' });
   }
 });
 
@@ -468,11 +497,12 @@ const server = app.listen(PORT, () => {
   console.log(`Environment: ${NODE_ENV}`);
   console.log(`Database: SQLite (database/feedback.db)`);
   console.log(`API endpoints:`);
-  console.log(`  GET    /api/feedback - Get all feedback data`);
-  console.log(`  POST   /api/feedback - Submit new feedback`);
-  console.log(`  GET    /api/feedback/:workshopType - Get feedback for specific workshop`);
-  console.log(`  DELETE /api/feedback/:workshopType/:id - Delete specific feedback entry`);
-  console.log(`  GET    /api/stats - Get feedback statistics`);
+  console.log(`  GET    /api/feedback - Get all feedback data (authenticated)`);
+  console.log(`  POST   /api/feedback - Submit student feedback (public - AI/Robotics/Mechanical)`);
+  console.log(`  POST   /api/instructor-feedback - Submit instructor feedback (authenticated)`);
+  console.log(`  GET    /api/feedback/:workshopType - Get feedback for specific workshop (authenticated)`);
+  console.log(`  DELETE /api/feedback/:workshopType/:id - Delete specific feedback entry (authenticated)`);
+  console.log(`  GET    /api/stats - Get feedback statistics (authenticated)`);
   console.log(`  GET    /api/health - Health check`);
   console.log(`Authentication endpoints:`);
   console.log(`  POST   /api/auth/login - User authentication`);

@@ -79,10 +79,7 @@ export default function autoStartServer() {
       // Clean up when Vite dev server stops
       process.on('SIGINT', stopServer);
       process.on('SIGTERM', stopServer);
-    },
-    buildStart() {
-      // Also start server during build
-      startServer();
     }
+    // Removed buildStart() to prevent starting server during builds
   };
 }

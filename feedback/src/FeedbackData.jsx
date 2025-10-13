@@ -837,7 +837,10 @@ function FeedbackData() {
   }
 
   useEffect(() => {
-    fetchFeedbackData()
+    // Only fetch data if authenticated
+    if (isAuthenticated) {
+      fetchFeedbackData()
+    }
     
     // Adjust column widths based on workshop type
     if (selectedWorkshop === 'Instructor') {
@@ -855,7 +858,7 @@ function FeedbackData() {
       setColumnWidths(widths)
       setOriginalColumnWidths([...widths]) // Store original widths
     }
-  }, [selectedWorkshop])
+  }, [isAuthenticated, selectedWorkshop])
 
   // Format date only (without timestamp)
   const formatDateOnly = (date) => {

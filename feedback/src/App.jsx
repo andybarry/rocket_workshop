@@ -6,7 +6,7 @@ function App() {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [sessionId, setSessionId] = useState(null)
-  const [hasPassword, setHasPassword] = useState(false)
+  const [hasPassword, setHasPassword] = useState(true)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   
   // Settings state

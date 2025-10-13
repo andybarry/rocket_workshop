@@ -11,7 +11,7 @@ error_exit() {
 REMOTE_SERVER="ai.stageoneeducation.com"
 REMOTE_REPO_DIR="/home/abarry/feedback"
 BUILD_DIR="dist"
-BACKEND_FILES="server.prod.js database scripts package.json package-lock.json"
+BACKEND_FILES="server.js database scripts package.json package-lock.json"
 SERVICE_FILES="ecosystem.config.cjs feedback.service"
 
 echo "Building feedback application..."
@@ -32,15 +32,23 @@ cp -r $SERVICE_FILES deploy-package/
 
 # Sync to remote server
 echo "Syncing to remote server..."
-rsync -avz deploy-package/ "$REMOTE_SERVER:$REMOTE_REPO_DIR/" || error_exit "Rsync failed."
+rsync -avz --delete deploy-package/ "$REMOTE_SERVER:$REMOTE_REPO_DIR/" || error_exit "Rsync failed."
 
 # Clean up local deployment package
 rm -rf deploy-package
 
+# Run npm install and service management on remote server
+echo "Installing dependencies and restarting service on remote server..."
+ssh "$REMOTE_SERVER" << EOF
+  cd $REMOTE_REPO_DIR
+  npm install || { echo "npm install failed"; exit 1; }
+#  sudo -n ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/ || { echo "Failed to link service file"; exit 1; }
+#  sudo -n systemctl daemon-reload || { echo "Failed to reload systemd"; exit 1; }
+#  sudo -n systemctl restart feedback.service || { echo "Failed to restart service"; exit 1; }
+EOF
+
+echo "sudo -n ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/ || { echo \"Failed to link service file\"; exit 1; }"
+echo "sudo -n systemctl daemon-reload || { echo \"Failed to reload systemd\"; exit 1; }"
+echo "sudo -n systemctl restart feedback.service || { echo \"Failed to restart service\"; exit 1; }"
+
 echo "Deployment complete."
-echo "SSH into $REMOTE_SERVER and run:"
-echo "  cd $REMOTE_REPO_DIR"
-echo "  npm install"
-echo "  sudo ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/"
-echo "  sudo systemctl daemon-reload"
-echo "  sudo systemctl restart feedback.service"
