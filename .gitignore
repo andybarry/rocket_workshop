@@ -11,6 +11,10 @@ drone-workshop/node_modules
 drone-workshop/.pnp
 drone-workshop/.pnp.js
 
+feedback/database/feedback.db
+feedback/database/feedback.db-shm
+feedback/database/feedback.db-wal
+
 # testing
 drone-workshop/coverage
 
