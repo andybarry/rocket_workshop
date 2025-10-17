@@ -96,10 +96,23 @@ title: Instructors | Stage One Education, LLC
     </li>
 </ul>
 
-<!-- Footer Section -->
-{% include copyright.html %}
-
-
-
+<!-- Footer Section with Gear Icon -->
+<footer style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 30px;">
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2025 Stage One Education, LLC
+  </span>
+  <a href="https://input.stageoneeducation.com/feedback" 
+     style="position: absolute;
+            right: 20px;
+            color: #d3d3d3; 
+            font-size: 20px; 
+            text-decoration: none;
+            transition: color 0.3s ease;"
+     onmouseover="this.style.color='#a9a9a9'" 
+     onmouseout="this.style.color='#d3d3d3'"
+     title="Feedback Form">
+      <i class="fa fa-cog"></i>
+  </a>
+</footer>
 
 </body>
