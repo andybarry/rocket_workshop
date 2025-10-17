@@ -64,6 +64,14 @@ const authenticate = (req, res, next) => {
   next();
 };
 
+// Admin-only middleware
+const requireAdmin = (req, res, next) => {
+  if (!req.session || !req.session.isAdmin) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  next();
+};
+
 // Generate session ID
 const generateSessionId = () => {
   return crypto.randomBytes(32).toString('hex');
@@ -120,34 +128,7 @@ const logFailedAuth = (req, reason) => {
   });
 };
 
-// Rate limiting for authentication endpoints
-const authAttempts = new Map();
-const AUTH_RATE_LIMIT = 5; // Max 5 attempts per IP per minute
-const AUTH_RATE_WINDOW = 60 * 1000; // 1 minute
-
-const checkAuthRateLimit = (req, res, next) => {
-  const clientIP = req.ip || req.connection.remoteAddress || req.socket.remoteAddress;
-  const now = Date.now();
-  
-  if (!authAttempts.has(clientIP)) {
-    authAttempts.set(clientIP, []);
-  }
-  
-  const attempts = authAttempts.get(clientIP);
-  
-  // Remove old attempts outside the window
-  const recentAttempts = attempts.filter(timestamp => now - timestamp < AUTH_RATE_WINDOW);
-  authAttempts.set(clientIP, recentAttempts);
-  
-  if (recentAttempts.length >= AUTH_RATE_LIMIT) {
-    logFailedAuth(req, 'Rate limit exceeded');
-    return res.status(429).json({ 
-      error: 'Too many authentication attempts. Please try again later.' 
-    });
-  }
-  
-  next();
-};
+// Rate limiting removed - no longer blocking login attempts
 
 // Serve static files from the built frontend (only in production)
 if (IS_PRODUCTION) {
@@ -157,7 +138,7 @@ if (IS_PRODUCTION) {
 // Routes
 
 // Authentication routes
-app.post('/api/auth/login', checkAuthRateLimit, async (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   try {
     const { password } = req.body;
     
@@ -165,17 +146,11 @@ app.post('/api/auth/login', checkAuthRateLimit, async (req, res) => {
       return res.status(400).json({ error: 'Password is required' });
     }
     
-    const isValid = feedbackDB.verifyPassword(password);
+    // Check both password types
+    const isStandardValid = feedbackDB.verifyPassword(password, 'standard');
+    const isAdminValid = feedbackDB.verifyPassword(password, 'admin');
     
-    if (!isValid) {
-      // Track failed attempt for rate limiting
-      const clientIP = req.ip || req.connection.remoteAddress || req.socket.remoteAddress;
-      const now = Date.now();
-      if (!authAttempts.has(clientIP)) {
-        authAttempts.set(clientIP, []);
-      }
-      authAttempts.get(clientIP).push(now);
-      
+    if (!isStandardValid && !isAdminValid) {
       logFailedAuth(req, 'Invalid password');
       return res.status(401).json({ error: 'Invalid password' });
     }
@@ -187,13 +162,15 @@ app.post('/api/auth/login', checkAuthRateLimit, async (req, res) => {
     sessions.set(sessionId, {
       id: sessionId,
       expires: expires,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      isAdmin: isAdminValid
     });
     
     res.json({ 
       success: true, 
       sessionId: sessionId,
-      expires: expires
+      expires: expires,
+      isAdmin: isAdminValid
     });
   } catch (error) {
     console.error('Error during login:', error);
@@ -224,11 +201,14 @@ app.get('/api/auth/status', (req, res) => {
     return res.status(401).json({ authenticated: false });
   }
   
-  res.json({ authenticated: true });
+  res.json({ 
+    authenticated: true,
+    isAdmin: session.isAdmin || false
+  });
 });
 
-// Password management routes (handles both initial creation and password changes)
-app.post('/api/auth/set-password', checkAuthRateLimit, async (req, res) => {
+// Password management routes
+app.post('/api/auth/set-standard-password', authenticate, requireAdmin, async (req, res) => {
   try {
     const { password } = req.body;
     
@@ -240,38 +220,53 @@ app.post('/api/auth/set-password', checkAuthRateLimit, async (req, res) => {
       return res.status(400).json({ error: 'Password must be at least 6 characters long' });
     }
     
-    // Check if this is initial password creation or password change
-    const hasExistingPassword = feedbackDB.hasPassword();
-    const sessionId = req.headers.authorization?.replace('Bearer ', '');
-    const isAuthenticated = sessionId && sessions.has(sessionId);
+    feedbackDB.setPassword(password, 'standard');
     
-    // If password exists and user is not authenticated, require authentication
-    if (hasExistingPassword && !isAuthenticated) {
-      return res.status(401).json({ error: 'Authentication required to change password' });
+    res.json({ success: true, message: 'Standard password updated successfully' });
+  } catch (error) {
+    console.error('Error setting standard password:', error);
+    res.status(500).json({ error: 'Failed to set standard password' });
+  }
+});
+
+app.post('/api/auth/set-admin-password', authenticate, requireAdmin, async (req, res) => {
+  try {
+    const { password } = req.body;
+    
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required' });
     }
     
-    feedbackDB.setPassword(password);
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+    }
     
-    const message = hasExistingPassword ? 'Password updated successfully' : 'Password created successfully';
-    res.json({ success: true, message });
+    feedbackDB.setPassword(password, 'admin');
+    
+    res.json({ success: true, message: 'Admin password updated successfully' });
   } catch (error) {
-    console.error('Error setting password:', error);
-    res.status(500).json({ error: 'Failed to set password' });
+    console.error('Error setting admin password:', error);
+    res.status(500).json({ error: 'Failed to set admin password' });
   }
 });
 
 app.get('/api/auth/has-password', (req, res) => {
   try {
-    const hasPassword = feedbackDB.hasPassword();
-    res.json({ hasPassword });
+    const hasStandardPassword = feedbackDB.hasPassword('standard');
+    const hasAdminPassword = feedbackDB.hasPassword('admin');
+    res.json({ 
+      hasStandardPassword,
+      hasAdminPassword,
+      hasPassword: hasStandardPassword || hasAdminPassword
+    });
   } catch (error) {
     console.error('Error checking password status:', error);
     res.status(500).json({ error: 'Failed to check password status' });
   }
 });
 
-// Get all feedback data
-app.get('/api/feedback', authenticate, async (req, res) => {
+// Get all feedback data (admin only)
+app.get('/api/feedback', authenticate, requireAdmin, async (req, res) => {
   try {
     const data = feedbackDB.getAllFeedback();
     res.json(data);
@@ -310,7 +305,7 @@ app.post('/api/feedback', async (req, res) => {
   }
 });
 
-// Submit instructor feedback (authenticated endpoint)
+// Submit instructor feedback (authenticated users)
 app.post('/api/instructor-feedback', authenticate, async (req, res) => {
   try {
     const { feedbackData } = req.body;
@@ -333,7 +328,7 @@ app.post('/api/instructor-feedback', authenticate, async (req, res) => {
   }
 });
 
-// Get feedback for specific workshop type
+// Get feedback for specific workshop type (accessible to both standard and admin users)
 app.get('/api/feedback/:workshopType', authenticate, async (req, res) => {
   try {
     const { workshopType } = req.params;
@@ -349,8 +344,8 @@ app.get('/api/feedback/:workshopType', authenticate, async (req, res) => {
   }
 });
 
-// Delete specific feedback entry
-app.delete('/api/feedback/:workshopType/:id', authenticate, async (req, res) => {
+// Delete specific feedback entry (admin only)
+app.delete('/api/feedback/:workshopType/:id', authenticate, requireAdmin, async (req, res) => {
   try {
     const { workshopType, id } = req.params;
     console.log(`DELETE /api/feedback/${workshopType}/${id} - Request received`);
@@ -369,8 +364,8 @@ app.delete('/api/feedback/:workshopType/:id', authenticate, async (req, res) => 
   }
 });
 
-// New endpoint for statistics
-app.get('/api/stats', authenticate, (req, res) => {
+// Get statistics (admin only)
+app.get('/api/stats', authenticate, requireAdmin, (req, res) => {
   try {
     const stats = feedbackDB.getStats();
     res.json(stats);

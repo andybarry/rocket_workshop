@@ -24,9 +24,20 @@
   text-align: center;
 }
 
-.login-header h2 {
-  color: #333;
+.login-title {
   margin-bottom: 10px;
+  text-align: center;
+}
+
+.stage-one-text {
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.workshop-feedback-text {
+  color: #333;
   font-size: 24px;
   font-weight: 600;
 }
@@ -62,6 +73,7 @@
   font-size: 16px;
   transition: border-color 0.3s ease;
   background-color: #fafafa;
+  color: #000;
 }
 
 .form-group input:focus {
@@ -222,7 +234,7 @@
   font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .settings-btn:hover {
@@ -383,36 +395,37 @@ html, body {
 }
 
 .gear-icon-btn {
-  background-color: transparent;
-  border: none;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  padding: 0.5rem;
-  border-radius: 3px;
-  position: absolute;
-  left: 2rem;
-}
-
-.gear-icon-btn:focus {
-  outline: none;
-  border: none;
-}
-
-.gear-icon-btn:focus-visible {
-  outline: none;
-  border: none;
+  transition: all 0.3s ease;
+  margin-left: 10px;
 }
 
 .gear-icon-btn:hover {
-  color: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
-.gear-icon-btn:active {
-  color: rgba(0, 0, 0, 0.8);
-  transform: translateY(1px);
+.graph-icon-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.graph-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .charts-title {

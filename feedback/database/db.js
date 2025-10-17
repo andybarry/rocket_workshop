@@ -24,6 +24,9 @@ class FeedbackDB {
     
     // Prepare statements for better performance
     this.prepareStatements();
+    
+    // Initialize passwords
+    this.initializePasswords();
   }
 
   prepareStatements() {
@@ -54,18 +57,22 @@ class FeedbackDB {
     
     // Password-related statements
     this.getPasswordStmt = this.db.prepare(`
-      SELECT password_hash FROM passwords ORDER BY created_at DESC LIMIT 1
+      SELECT password_hash FROM passwords WHERE password_type = ? ORDER BY created_at DESC LIMIT 1
     `);
     
     this.insertPasswordStmt = this.db.prepare(`
-      INSERT INTO passwords (password_hash, created_at, updated_at)
-      VALUES (?, ?, ?)
+      INSERT INTO passwords (password_hash, password_type, created_at, updated_at)
+      VALUES (?, ?, ?, ?)
     `);
     
     this.updatePasswordStmt = this.db.prepare(`
-      UPDATE passwords SET password_hash = ?, updated_at = ? WHERE id = (
-        SELECT id FROM passwords ORDER BY created_at DESC LIMIT 1
+      UPDATE passwords SET password_hash = ?, updated_at = ? WHERE password_type = ? AND id = (
+        SELECT id FROM passwords WHERE password_type = ? ORDER BY created_at DESC LIMIT 1
       )
+    `);
+    
+    this.hasPasswordStmt = this.db.prepare(`
+      SELECT COUNT(*) as count FROM passwords WHERE password_type = ?
     `);
   }
 
@@ -122,8 +129,8 @@ class FeedbackDB {
     return crypto.createHash('sha256').update(password).digest('hex');
   }
 
-  verifyPassword(password) {
-    const result = this.getPasswordStmt.get();
+  verifyPassword(password, passwordType = 'standard') {
+    const result = this.getPasswordStmt.get(passwordType);
     if (!result) {
       return false; // No password set
     }
@@ -131,27 +138,37 @@ class FeedbackDB {
     return hashedInput === result.password_hash;
   }
 
-  setPassword(password) {
+  setPassword(password, passwordType = 'standard') {
     const hashedPassword = this.hashPassword(password);
     const timestamp = new Date().toISOString();
     
-    // Check if a password already exists
-    const existingPassword = this.getPasswordStmt.get();
+    // Check if a password already exists for this type
+    const existingPassword = this.getPasswordStmt.get(passwordType);
     
     if (existingPassword) {
       // Update existing password
-      this.updatePasswordStmt.run(hashedPassword, timestamp);
+      this.updatePasswordStmt.run(hashedPassword, timestamp, passwordType, passwordType);
     } else {
       // Insert new password
-      this.insertPasswordStmt.run(hashedPassword, timestamp, timestamp);
+      this.insertPasswordStmt.run(hashedPassword, passwordType, timestamp, timestamp);
     }
     
     return true;
   }
 
-  hasPassword() {
-    const result = this.getPasswordStmt.get();
-    return !!result;
+  hasPassword(passwordType = 'standard') {
+    const result = this.hasPasswordStmt.get(passwordType);
+    return result.count > 0;
+  }
+
+  initializePasswords() {
+    // Initialize with hardcoded passwords if they don't exist
+    if (!this.hasPassword('standard')) {
+      this.setPassword('stageone8', 'standard');
+    }
+    if (!this.hasPassword('admin')) {
+      this.setPassword('cambridge8', 'admin');
+    }
   }
 
   close() {

@@ -6,8 +6,19 @@ function FeedbackData() {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [sessionId, setSessionId] = useState(null)
-  const [hasPassword, setHasPassword] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+  
+  // Settings state
+  const [showSettings, setShowSettings] = useState(false)
+  const [currentStandardPassword, setCurrentStandardPassword] = useState('')
+  const [newStandardPassword, setNewStandardPassword] = useState('')
+  const [confirmNewStandardPassword, setConfirmNewStandardPassword] = useState('')
+  const [currentAdminPassword, setCurrentAdminPassword] = useState('')
+  const [newAdminPassword, setNewAdminPassword] = useState('')
+  const [confirmNewAdminPassword, setConfirmNewAdminPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordSuccess, setPasswordSuccess] = useState('')
 
   const [selectedWorkshop, setSelectedWorkshop] = useState('AI')
   const [selectedYear, setSelectedYear] = useState('2025')
@@ -54,6 +65,8 @@ function FeedbackData() {
   const checkAuthStatus = async () => {
     const storedSessionId = localStorage.getItem('sessionId')
     const storedExpires = localStorage.getItem('sessionExpires')
+    const storedIsAdmin = localStorage.getItem('isAdmin')
+    const parsedIsAdmin = storedIsAdmin ? JSON.parse(storedIsAdmin) : false
     
     if (!storedSessionId || !storedExpires) {
       setIsCheckingAuth(false)
@@ -63,6 +76,7 @@ function FeedbackData() {
     if (Date.now() > parseInt(storedExpires)) {
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
       setIsCheckingAuth(false)
       return
     }
@@ -75,34 +89,29 @@ function FeedbackData() {
       })
       
       if (response.ok) {
+        const data = await response.json()
         setIsAuthenticated(true)
         setSessionId(storedSessionId)
+        setIsAdmin(data.isAdmin || false)
       } else {
         localStorage.removeItem('sessionId')
         localStorage.removeItem('sessionExpires')
+        localStorage.removeItem('isAdmin')
       }
     } catch (error) {
       console.error('Auth check failed:', error)
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
     } finally {
       setIsCheckingAuth(false)
     }
   }
 
-  const checkPasswordStatus = async () => {
-    try {
-      const response = await fetch('/api/auth/has-password')
-      const data = await response.json()
-      setHasPassword(data.hasPassword)
-    } catch (error) {
-      console.error('Failed to check password status:', error)
-    }
-  }
-
-  const handleLogin = (newSessionId) => {
+  const handleLogin = (newSessionId, newIsAdmin) => {
     setIsAuthenticated(true)
     setSessionId(newSessionId)
+    setIsAdmin(newIsAdmin || false)
   }
 
   const handleLogout = async () => {
@@ -118,8 +127,10 @@ function FeedbackData() {
     } finally {
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
       setIsAuthenticated(false)
       setSessionId(null)
+      setIsAdmin(false)
     }
   }
 
@@ -773,9 +784,84 @@ function FeedbackData() {
     return false
   }
 
+  const handleStandardPasswordChange = async (e) => {
+    e.preventDefault()
+    setPasswordError('')
+    setPasswordSuccess('')
+
+    if (newStandardPassword !== confirmNewStandardPassword) {
+      setPasswordError('New passwords do not match')
+      return
+    }
+
+    if (newStandardPassword.length < 6) {
+      setPasswordError('New password must be at least 6 characters long')
+      return
+    }
+
+    try {
+      const response = await apiRequest('/api/auth/set-standard-password', {
+        method: 'POST',
+        body: JSON.stringify({ password: newStandardPassword }),
+      })
+
+      if (response.ok) {
+        setPasswordSuccess('Standard password changed successfully')
+        setCurrentStandardPassword('')
+        setNewStandardPassword('')
+        setConfirmNewStandardPassword('')
+        setTimeout(() => {
+          setPasswordSuccess('')
+        }, 2000)
+      } else {
+        const data = await response.json()
+        setPasswordError(data.error || 'Failed to change standard password')
+      }
+    } catch (error) {
+      setPasswordError('Network error. Please try again.')
+    }
+  }
+
+  const handleAdminPasswordChange = async (e) => {
+    e.preventDefault()
+    setPasswordError('')
+    setPasswordSuccess('')
+
+    if (newAdminPassword !== confirmNewAdminPassword) {
+      setPasswordError('New passwords do not match')
+      return
+    }
+
+    if (newAdminPassword.length < 6) {
+      setPasswordError('New password must be at least 6 characters long')
+      return
+    }
+
+    try {
+      const response = await apiRequest('/api/auth/set-admin-password', {
+        method: 'POST',
+        body: JSON.stringify({ password: newAdminPassword }),
+      })
+
+      if (response.ok) {
+        setPasswordSuccess('Admin password changed successfully')
+        setCurrentAdminPassword('')
+        setNewAdminPassword('')
+        setConfirmNewAdminPassword('')
+        setTimeout(() => {
+          setPasswordSuccess('')
+        }, 2000)
+      } else {
+        const data = await response.json()
+        setPasswordError(data.error || 'Failed to change admin password')
+      }
+    } catch (error) {
+      setPasswordError('Network error. Please try again.')
+    }
+  }
+
   // Check authentication status on component mount
   useEffect(() => {
-    checkPasswordStatus()
     checkAuthStatus()
   }, [])
 
@@ -837,8 +923,8 @@ function FeedbackData() {
   }
 
   useEffect(() => {
-    // Only fetch data if authenticated
-    if (isAuthenticated) {
+    // Only fetch data if authenticated and not checking auth
+    if (isAuthenticated && !isCheckingAuth) {
       fetchFeedbackData()
     }
     
@@ -858,7 +944,7 @@ function FeedbackData() {
       setColumnWidths(widths)
       setOriginalColumnWidths([...widths]) // Store original widths
     }
-  }, [isAuthenticated, selectedWorkshop])
+  }, [isAuthenticated, isCheckingAuth, selectedWorkshop])
 
   // Format date only (without timestamp)
   const formatDateOnly = (date) => {
@@ -2113,13 +2199,13 @@ function FeedbackData() {
 
   // Show login component if not authenticated
   if (!isAuthenticated) {
-    return (
-      <Login 
-        onLogin={handleLogin} 
-        onSetPassword={() => checkPasswordStatus()}
-        hasPassword={hasPassword}
-      />
-    )
+    return <Login onLogin={handleLogin} />
+  }
+
+  // Redirect standard users to main feedback page
+  if (!isAdmin) {
+    window.location.href = '/';
+    return <div>Redirecting to main feedback page...</div>
   }
 
   return (
@@ -2127,6 +2213,26 @@ function FeedbackData() {
       <header className="header-bar">
         <div className="header-left">
           <span>Workshop Feedback Data</span>
+          {isAdmin && (
+            <>
+              <button 
+                className="gear-icon-btn"
+                onClick={() => {
+                  window.open('/', '_blank');
+                }}
+                title="Feedback Dashboard"
+              >
+                📊
+              </button>
+              <button 
+                className="settings-btn"
+                onClick={() => setShowSettings(!showSettings)}
+                title="Settings"
+              >
+                🔧
+              </button>
+            </>
+          )}
         </div>
         <div className="header-center"></div>
         <div className="header-right">
@@ -2183,41 +2289,6 @@ function FeedbackData() {
             survey
           </a>
         </div>
-        <button 
-          className="feedback-dashboard-btn"
-          onClick={() => window.open('/', '_blank')}
-          style={{
-            backgroundColor: 'white',
-            color: '#f05f40',
-            border: '1px solid #f05f40',
-            borderRadius: '4px',
-            padding: '0.5rem 1rem',
-            fontSize: '1rem',
-            fontWeight: '500',
-            fontFamily: 'Roboto, sans-serif',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            height: 'fit-content'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#f05f40'
-            e.target.style.color = 'white'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'white'
-            e.target.style.color = '#f05f40'
-          }}
-          onMouseDown={(e) => {
-            e.target.style.backgroundColor = '#e04a2f'
-            e.target.style.color = 'white'
-          }}
-          onMouseUp={(e) => {
-            e.target.style.backgroundColor = '#f05f40'
-            e.target.style.color = 'white'
-          }}
-        >
-          Feedback Dashboard
-        </button>
       </div>
       
       <div className="spreadsheet-controls" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -2939,10 +3010,108 @@ function FeedbackData() {
       
       <footer className="footer">
         <div className="footer-content">
+          <button 
+            className="gear-icon-btn"
+            onClick={() => {
+              window.open('/feedback-data.html', '_blank');
+            }}
+            title="Feedback Data"
+          >
+            ⚙️
+          </button>
+          <button 
+            className="settings-btn"
+            onClick={() => setShowSettings(!showSettings)}
+            title="Settings"
+          >
+            🔧
+          </button>
           © 2025 Stage One Education, LLC
           <span className="footer-version">V25.9</span>
         </div>
       </footer>
+      
+      {showSettings && (
+        <div className="settings-modal">
+          <div className="settings-content">
+            <div className="settings-header">
+              <h3>Settings</h3>
+              <button 
+                className="close-settings-btn"
+                onClick={() => setShowSettings(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="settings-body">
+              <div className="password-section">
+                <h4>Change Standard Password</h4>
+                <form onSubmit={handleStandardPasswordChange}>
+                  <div className="form-group">
+                    <label htmlFor="newStandardPassword">New Standard Password:</label>
+                    <input
+                      type="password"
+                      id="newStandardPassword"
+                      value={newStandardPassword}
+                      onChange={(e) => setNewStandardPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmNewStandardPassword">Confirm New Standard Password:</label>
+                    <input
+                      type="password"
+                      id="confirmNewStandardPassword"
+                      value={confirmNewStandardPassword}
+                      onChange={(e) => setConfirmNewStandardPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <button type="submit" className="change-password-submit-btn">
+                    Change Standard Password
+                  </button>
+                </form>
+              </div>
+              
+              <div className="password-section">
+                <h4>Change Admin Password</h4>
+                <form onSubmit={handleAdminPasswordChange}>
+                  <div className="form-group">
+                    <label htmlFor="newAdminPassword">New Admin Password:</label>
+                    <input
+                      type="password"
+                      id="newAdminPassword"
+                      value={newAdminPassword}
+                      onChange={(e) => setNewAdminPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmNewAdminPassword">Confirm New Admin Password:</label>
+                    <input
+                      type="password"
+                      id="confirmNewAdminPassword"
+                      value={confirmNewAdminPassword}
+                      onChange={(e) => setConfirmNewAdminPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <button type="submit" className="change-password-submit-btn">
+                    Change Admin Password
+                  </button>
+                </form>
+              </div>
+              
+              {passwordError && <div className="error-message">{passwordError}</div>}
+              {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

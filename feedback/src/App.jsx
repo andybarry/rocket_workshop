@@ -6,14 +6,17 @@ function App() {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [sessionId, setSessionId] = useState(null)
-  const [hasPassword, setHasPassword] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   
   // Settings state
   const [showSettings, setShowSettings] = useState(false)
-  const [currentPassword, setCurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmNewPassword, setConfirmNewPassword] = useState('')
+  const [currentStandardPassword, setCurrentStandardPassword] = useState('')
+  const [newStandardPassword, setNewStandardPassword] = useState('')
+  const [confirmNewStandardPassword, setConfirmNewStandardPassword] = useState('')
+  const [currentAdminPassword, setCurrentAdminPassword] = useState('')
+  const [newAdminPassword, setNewAdminPassword] = useState('')
+  const [confirmNewAdminPassword, setConfirmNewAdminPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [passwordSuccess, setPasswordSuccess] = useState('')
 
@@ -32,6 +35,8 @@ function App() {
   const checkAuthStatus = async () => {
     const storedSessionId = localStorage.getItem('sessionId')
     const storedExpires = localStorage.getItem('sessionExpires')
+    const storedIsAdmin = localStorage.getItem('isAdmin')
+    const parsedIsAdmin = storedIsAdmin ? JSON.parse(storedIsAdmin) : false
     
     if (!storedSessionId || !storedExpires) {
       setIsCheckingAuth(false)
@@ -41,6 +46,7 @@ function App() {
     if (Date.now() > parseInt(storedExpires)) {
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
       setIsCheckingAuth(false)
       return
     }
@@ -53,34 +59,29 @@ function App() {
       })
       
       if (response.ok) {
+        const data = await response.json()
         setIsAuthenticated(true)
         setSessionId(storedSessionId)
+        setIsAdmin(data.isAdmin || false)
       } else {
         localStorage.removeItem('sessionId')
         localStorage.removeItem('sessionExpires')
+        localStorage.removeItem('isAdmin')
       }
     } catch (error) {
       console.error('Auth check failed:', error)
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
     } finally {
       setIsCheckingAuth(false)
     }
   }
 
-  const checkPasswordStatus = async () => {
-    try {
-      const response = await fetch('/api/auth/has-password')
-      const data = await response.json()
-      setHasPassword(data.hasPassword)
-    } catch (error) {
-      console.error('Failed to check password status:', error)
-    }
-  }
-
-  const handleLogin = (newSessionId) => {
+  const handleLogin = (newSessionId, newIsAdmin) => {
     setIsAuthenticated(true)
     setSessionId(newSessionId)
+    setIsAdmin(newIsAdmin || false)
   }
 
   const handleLogout = async () => {
@@ -96,44 +97,83 @@ function App() {
     } finally {
       localStorage.removeItem('sessionId')
       localStorage.removeItem('sessionExpires')
+      localStorage.removeItem('isAdmin')
       setIsAuthenticated(false)
       setSessionId(null)
+      setIsAdmin(false)
     }
   }
 
-  const handlePasswordChange = async (e) => {
+  const handleStandardPasswordChange = async (e) => {
     e.preventDefault()
     setPasswordError('')
     setPasswordSuccess('')
 
-    if (newPassword !== confirmNewPassword) {
+    if (newStandardPassword !== confirmNewStandardPassword) {
       setPasswordError('New passwords do not match')
       return
     }
 
-    if (newPassword.length < 6) {
+    if (newStandardPassword.length < 6) {
       setPasswordError('New password must be at least 6 characters long')
       return
     }
 
     try {
-      const response = await apiRequest('/api/auth/set-password', {
+      const response = await apiRequest('/api/auth/set-standard-password', {
         method: 'POST',
-        body: JSON.stringify({ password: newPassword }),
+        body: JSON.stringify({ password: newStandardPassword }),
       })
 
       if (response.ok) {
-        setPasswordSuccess('Password changed successfully')
-        setCurrentPassword('')
-        setNewPassword('')
-        setConfirmNewPassword('')
+        setPasswordSuccess('Standard password changed successfully')
+        setCurrentStandardPassword('')
+        setNewStandardPassword('')
+        setConfirmNewStandardPassword('')
         setTimeout(() => {
           setPasswordSuccess('')
-          setShowSettings(false)
         }, 2000)
       } else {
         const data = await response.json()
-        setPasswordError(data.error || 'Failed to change password')
+        setPasswordError(data.error || 'Failed to change standard password')
+      }
+    } catch (error) {
+      setPasswordError('Network error. Please try again.')
+    }
+  }
+
+  const handleAdminPasswordChange = async (e) => {
+    e.preventDefault()
+    setPasswordError('')
+    setPasswordSuccess('')
+
+    if (newAdminPassword !== confirmNewAdminPassword) {
+      setPasswordError('New passwords do not match')
+      return
+    }
+
+    if (newAdminPassword.length < 6) {
+      setPasswordError('New password must be at least 6 characters long')
+      return
+    }
+
+    try {
+      const response = await apiRequest('/api/auth/set-admin-password', {
+        method: 'POST',
+        body: JSON.stringify({ password: newAdminPassword }),
+      })
+
+      if (response.ok) {
+        setPasswordSuccess('Admin password changed successfully')
+        setCurrentAdminPassword('')
+        setNewAdminPassword('')
+        setConfirmNewAdminPassword('')
+        setTimeout(() => {
+          setPasswordSuccess('')
+        }, 2000)
+      } else {
+        const data = await response.json()
+        setPasswordError(data.error || 'Failed to change admin password')
       }
     } catch (error) {
       setPasswordError('Network error. Please try again.')
@@ -142,7 +182,6 @@ function App() {
 
   // Check authentication status on component mount
   useEffect(() => {
-    checkPasswordStatus()
     checkAuthStatus()
   }, [])
 
@@ -1129,13 +1168,7 @@ function App() {
 
   // Show login component if not authenticated
   if (!isAuthenticated) {
-    return (
-      <Login 
-        onLogin={handleLogin} 
-        onSetPassword={() => checkPasswordStatus()}
-        hasPassword={hasPassword}
-      />
-    )
+    return <Login onLogin={handleLogin} />
   }
 
   return (
@@ -1143,12 +1176,34 @@ function App() {
       <header className="header-bar">
         <div className="header-left">
           <span>Workshop Feedback</span>
-          <button 
-            className="instructor-feedback-btn"
-            onClick={() => window.open('/instructor-feedback-survey.html', '_blank')}
-          >
-            Instructor Feedback Survey
-          </button>
+          {!isAdmin && (
+            <button 
+              className="instructor-feedback-btn"
+              onClick={() => window.open('/instructor-feedback-survey.html', '_blank')}
+            >
+              Instructor Feedback Survey
+            </button>
+          )}
+          {isAdmin && (
+            <>
+              <button 
+                className="gear-icon-btn"
+                onClick={() => {
+                  window.open('/feedback-data.html', '_blank');
+                }}
+                title="Feedback Data"
+              >
+                ⚙️
+              </button>
+              <button 
+                className="settings-btn"
+                onClick={() => setShowSettings(!showSettings)}
+                title="Settings"
+              >
+                🔧
+              </button>
+            </>
+          )}
         </div>
         <div className="header-center"></div>
         <div className="header-right">
@@ -1364,22 +1419,6 @@ function App() {
       </div>
       <footer className="footer">
         <div className="footer-content">
-          <button 
-            className="gear-icon-btn"
-            onClick={() => {
-              window.open('/feedback-data.html', '_blank');
-            }}
-            title="Feedback Data"
-          >
-            ⚙️
-          </button>
-          <button 
-            className="settings-btn"
-            onClick={() => setShowSettings(!showSettings)}
-            title="Settings"
-          >
-            🔧
-          </button>
           © 2025 Stage One Education, LLC
           <span className="footer-version">V25.9</span>
         </div>
@@ -1399,47 +1438,69 @@ function App() {
             </div>
             <div className="settings-body">
               <div className="password-section">
-                <h4>Change Password</h4>
-                <form onSubmit={handlePasswordChange}>
+                <h4>Change Standard Password</h4>
+                <form onSubmit={handleStandardPasswordChange}>
                   <div className="form-group">
-                    <label htmlFor="currentPassword">Current Password:</label>
+                    <label htmlFor="newStandardPassword">New Standard Password:</label>
                     <input
                       type="password"
-                      id="currentPassword"
-                      value={currentPassword}
-                      onChange={(e) => setCurrentPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="newPassword">New Password:</label>
-                    <input
-                      type="password"
-                      id="newPassword"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
+                      id="newStandardPassword"
+                      value={newStandardPassword}
+                      onChange={(e) => setNewStandardPassword(e.target.value)}
                       required
                       minLength={6}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+                    <label htmlFor="confirmNewStandardPassword">Confirm New Standard Password:</label>
                     <input
                       type="password"
-                      id="confirmNewPassword"
-                      value={confirmNewPassword}
-                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                      id="confirmNewStandardPassword"
+                      value={confirmNewStandardPassword}
+                      onChange={(e) => setConfirmNewStandardPassword(e.target.value)}
                       required
                       minLength={6}
                     />
                   </div>
-                  {passwordError && <div className="error-message">{passwordError}</div>}
-                  {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
                   <button type="submit" className="change-password-submit-btn">
-                    Change Password
+                    Change Standard Password
                   </button>
                 </form>
               </div>
+              
+              <div className="password-section">
+                <h4>Change Admin Password</h4>
+                <form onSubmit={handleAdminPasswordChange}>
+                  <div className="form-group">
+                    <label htmlFor="newAdminPassword">New Admin Password:</label>
+                    <input
+                      type="password"
+                      id="newAdminPassword"
+                      value={newAdminPassword}
+                      onChange={(e) => setNewAdminPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmNewAdminPassword">Confirm New Admin Password:</label>
+                    <input
+                      type="password"
+                      id="confirmNewAdminPassword"
+                      value={confirmNewAdminPassword}
+                      onChange={(e) => setConfirmNewAdminPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <button type="submit" className="change-password-submit-btn">
+                    Change Admin Password
+                  </button>
+                </form>
+              </div>
+              
+              {passwordError && <div className="error-message">{passwordError}</div>}
+              {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
             </div>
           </div>
         </div>
