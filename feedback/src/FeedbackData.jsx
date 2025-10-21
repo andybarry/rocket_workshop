@@ -11,10 +11,10 @@ function FeedbackData() {
   
   // Settings state
   const [showSettings, setShowSettings] = useState(false)
-  const [currentStandardPassword, setCurrentStandardPassword] = useState('')
+  const [currentStandardPassword, setCurrentStandardPassword] = useState('stageone1')
   const [newStandardPassword, setNewStandardPassword] = useState('')
   const [confirmNewStandardPassword, setConfirmNewStandardPassword] = useState('')
-  const [currentAdminPassword, setCurrentAdminPassword] = useState('')
+  const [currentAdminPassword, setCurrentAdminPassword] = useState('cambridge8')
   const [newAdminPassword, setNewAdminPassword] = useState('')
   const [confirmNewAdminPassword, setConfirmNewAdminPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -807,12 +807,12 @@ function FeedbackData() {
 
       if (response.ok) {
         setPasswordSuccess('Standard password changed successfully')
-        setCurrentStandardPassword('')
+        setCurrentStandardPassword(newStandardPassword)
         setNewStandardPassword('')
         setConfirmNewStandardPassword('')
         setTimeout(() => {
           setPasswordSuccess('')
-        }, 2000)
+        }, 5000)
       } else {
         const data = await response.json()
         setPasswordError(data.error || 'Failed to change standard password')
@@ -845,12 +845,12 @@ function FeedbackData() {
 
       if (response.ok) {
         setPasswordSuccess('Admin password changed successfully')
-        setCurrentAdminPassword('')
+        setCurrentAdminPassword(newAdminPassword)
         setNewAdminPassword('')
         setConfirmNewAdminPassword('')
         setTimeout(() => {
           setPasswordSuccess('')
-        }, 2000)
+        }, 5000)
       } else {
         const data = await response.json()
         setPasswordError(data.error || 'Failed to change admin password')
@@ -3010,24 +3010,8 @@ function FeedbackData() {
       
       <footer className="footer">
         <div className="footer-content">
-          <button 
-            className="gear-icon-btn"
-            onClick={() => {
-              window.open('/feedback-data.html', '_blank');
-            }}
-            title="Feedback Data"
-          >
-            ⚙️
-          </button>
-          <button 
-            className="settings-btn"
-            onClick={() => setShowSettings(!showSettings)}
-            title="Settings"
-          >
-            🔧
-          </button>
           © 2025 Stage One Education, LLC
-          <span className="footer-version">V25.9</span>
+          <span className="footer-version">V25.10</span>
         </div>
       </footer>
       
@@ -3045,12 +3029,18 @@ function FeedbackData() {
             </div>
             <div className="settings-body">
               <div className="password-section">
-                <h4>Change Standard Password</h4>
+                <h4>Standard Password</h4>
+                
+                <div className="current-password-display">
+                  <span className="current-password-label">Current Standard Password:</span>
+                  <span className="current-password-value">{currentStandardPassword}</span>
+                </div>
+                
                 <form onSubmit={handleStandardPasswordChange}>
                   <div className="form-group">
                     <label htmlFor="newStandardPassword">New Standard Password:</label>
                     <input
-                      type="password"
+                      type="text"
                       id="newStandardPassword"
                       value={newStandardPassword}
                       onChange={(e) => setNewStandardPassword(e.target.value)}
@@ -3061,7 +3051,7 @@ function FeedbackData() {
                   <div className="form-group">
                     <label htmlFor="confirmNewStandardPassword">Confirm New Standard Password:</label>
                     <input
-                      type="password"
+                      type="text"
                       id="confirmNewStandardPassword"
                       value={confirmNewStandardPassword}
                       onChange={(e) => setConfirmNewStandardPassword(e.target.value)}
@@ -3072,16 +3062,30 @@ function FeedbackData() {
                   <button type="submit" className="change-password-submit-btn">
                     Change Standard Password
                   </button>
+                  {passwordSuccess && passwordSuccess.includes('Standard') && (
+                    <div className="success-message">{passwordSuccess}</div>
+                  )}
+                  {passwordError && (passwordError.includes('Standard') || passwordError.includes('password')) && (
+                    <div className="error-message">{passwordError}</div>
+                  )}
                 </form>
               </div>
               
+              <div className="password-section-divider"></div>
+              
               <div className="password-section">
-                <h4>Change Admin Password</h4>
+                <h4>Admin Password</h4>
+                
+                <div className="current-password-display">
+                  <span className="current-password-label">Current Admin Password:</span>
+                  <span className="current-password-value">{currentAdminPassword}</span>
+                </div>
+                
                 <form onSubmit={handleAdminPasswordChange}>
                   <div className="form-group">
                     <label htmlFor="newAdminPassword">New Admin Password:</label>
                     <input
-                      type="password"
+                      type="text"
                       id="newAdminPassword"
                       value={newAdminPassword}
                       onChange={(e) => setNewAdminPassword(e.target.value)}
@@ -3092,7 +3096,7 @@ function FeedbackData() {
                   <div className="form-group">
                     <label htmlFor="confirmNewAdminPassword">Confirm New Admin Password:</label>
                     <input
-                      type="password"
+                      type="text"
                       id="confirmNewAdminPassword"
                       value={confirmNewAdminPassword}
                       onChange={(e) => setConfirmNewAdminPassword(e.target.value)}
@@ -3103,11 +3107,15 @@ function FeedbackData() {
                   <button type="submit" className="change-password-submit-btn">
                     Change Admin Password
                   </button>
+                  {passwordSuccess && passwordSuccess.includes('Admin') && (
+                    <div className="success-message">{passwordSuccess}</div>
+                  )}
+                  {passwordError && (passwordError.includes('Admin') || passwordError.includes('password')) && (
+                    <div className="error-message">{passwordError}</div>
+                  )}
                 </form>
               </div>
               
-              {passwordError && <div className="error-message">{passwordError}</div>}
-              {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
             </div>
           </div>
         </div>

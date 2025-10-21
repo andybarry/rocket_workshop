@@ -6,7 +6,7 @@ import autoStartServer from './vite-plugin-auto-start-server.js'
 export default defineConfig({
   plugins: [react(), autoStartServer()],
   server: {
-    port: 5174,
+    port: 5176,
     strictPort: true,
     proxy: {
       '/api': {

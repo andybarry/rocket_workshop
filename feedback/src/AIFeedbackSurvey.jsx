@@ -126,7 +126,7 @@ function AIFeedbackSurvey() {
         <footer className="footer">
           <div className="footer-content">
             © 2025 Stage One Education, LLC
-            <span className="footer-version">V25.9</span>
+            <span className="footer-version">V25.10</span>
           </div>
         </footer>
       </div>
@@ -390,7 +390,7 @@ function AIFeedbackSurvey() {
       <footer className="footer">
         <div className="footer-content">
           © 2025 Stage One Education, LLC
-          <span className="footer-version">V25.9</span>
+          <span className="footer-version">V25.10</span>
         </div>
       </footer>
     </div>
