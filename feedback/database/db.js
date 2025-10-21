@@ -57,16 +57,16 @@ class FeedbackDB {
     
     // Password-related statements
     this.getPasswordStmt = this.db.prepare(`
-      SELECT password_hash FROM passwords WHERE password_type = ? ORDER BY created_at DESC LIMIT 1
+      SELECT password_hash, password_plain FROM passwords WHERE password_type = ? ORDER BY created_at DESC LIMIT 1
     `);
     
     this.insertPasswordStmt = this.db.prepare(`
-      INSERT INTO passwords (password_hash, password_type, created_at, updated_at)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO passwords (password_hash, password_plain, password_type, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?)
     `);
     
     this.updatePasswordStmt = this.db.prepare(`
-      UPDATE passwords SET password_hash = ?, updated_at = ? WHERE password_type = ? AND id = (
+      UPDATE passwords SET password_hash = ?, password_plain = ?, updated_at = ? WHERE password_type = ? AND id = (
         SELECT id FROM passwords WHERE password_type = ? ORDER BY created_at DESC LIMIT 1
       )
     `);
@@ -147,10 +147,10 @@ class FeedbackDB {
     
     if (existingPassword) {
       // Update existing password
-      this.updatePasswordStmt.run(hashedPassword, timestamp, passwordType, passwordType);
+      this.updatePasswordStmt.run(hashedPassword, password, timestamp, passwordType, passwordType);
     } else {
       // Insert new password
-      this.insertPasswordStmt.run(hashedPassword, passwordType, timestamp, timestamp);
+      this.insertPasswordStmt.run(hashedPassword, password, passwordType, timestamp, timestamp);
     }
     
     return true;
@@ -159,6 +159,11 @@ class FeedbackDB {
   hasPassword(passwordType = 'standard') {
     const result = this.hasPasswordStmt.get(passwordType);
     return result.count > 0;
+  }
+
+  getPassword(passwordType = 'standard') {
+    const result = this.getPasswordStmt.get(passwordType);
+    return result ? result.password_plain : null;
   }
 
   initializePasswords() {

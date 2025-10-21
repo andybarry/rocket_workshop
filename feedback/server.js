@@ -267,6 +267,27 @@ app.get('/api/auth/has-password', (req, res) => {
   }
 });
 
+// Get current passwords (admin only)
+app.get('/api/auth/get-current-standard-password', authenticate, requireAdmin, (req, res) => {
+  try {
+    const password = feedbackDB.getPassword('standard');
+    res.json({ password: password || 'stageone8' });
+  } catch (error) {
+    console.error('Error getting current standard password:', error);
+    res.status(500).json({ error: 'Failed to get current standard password' });
+  }
+});
+
+app.get('/api/auth/get-current-admin-password', authenticate, requireAdmin, (req, res) => {
+  try {
+    const password = feedbackDB.getPassword('admin');
+    res.json({ password: password || 'cambridge8' });
+  } catch (error) {
+    console.error('Error getting current admin password:', error);
+    res.status(500).json({ error: 'Failed to get current admin password' });
+  }
+});
+
 // Get all feedback data (admin only)
 app.get('/api/feedback', authenticate, requireAdmin, async (req, res) => {
   try {

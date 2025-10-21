@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS feedback (
 CREATE TABLE IF NOT EXISTS passwords (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     password_hash TEXT NOT NULL,
+    password_plain TEXT NOT NULL, -- Store plain text for display purposes
     password_type TEXT NOT NULL CHECK (password_type IN ('standard', 'admin')),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP

@@ -198,9 +198,11 @@ function InstructorFeedbackSurvey() {
     return (
       <div className="app">
         <header className="header-bar">
-          <div className="header-left">Instructor Feedback Survey</div>
+          <div className="header-left">
+            <span><strong>STAGE ONE EDUCATION</strong><span className="header-separator"> | </span><span className="survey-name">Instructor Survey</span></span>
+          </div>
           <div className="header-center"></div>
-          <div className="header-right">STAGE ONE EDUCATION</div>
+          <div className="header-right"></div>
         </header>
         
         <main className="main-content">
@@ -223,15 +225,16 @@ function InstructorFeedbackSurvey() {
   return (
     <div className="app">
       <header className="header-bar">
-        <div className="header-left">Instructor Feedback Survey</div>
+        <div className="header-left">
+          <span><strong>STAGE ONE EDUCATION</strong><span className="header-separator"> | </span><span className="survey-name">Instructor Survey</span></span>
+        </div>
         <div className="header-center"></div>
-        <div className="header-right">STAGE ONE EDUCATION</div>
+        <div className="header-right"></div>
       </header>
       
       <main className="main-content">
         <form className="survey-form" onSubmit={handleSubmit}>
           <div className="survey-title-section">
-            <div className="stage-one-branding">STAGE ONE EDUCATION</div>
             <h1>Instructor<br /><span className="feedback-survey-text">Feedback Survey</span><span className="thank-you-text">Thank you for your feedback. Your responses help us improve future workshops.</span></h1>
           </div>
           {/* Location Question */}

@@ -31,7 +31,7 @@
 
 .stage-one-text {
   color: #333;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 600;
   margin-bottom: 5px;
 }
@@ -255,6 +255,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 10px;
+  margin-right: 15px;
 }
 
 .settings-btn:hover {
@@ -422,35 +423,35 @@ html, body {
   line-height: 1;
 }
 
-.header-left {
-  font-size: 1.3rem !important;
+.header-left strong {
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+}
+
+.header-left .header-separator {
+  font-weight: 300;
+  opacity: 0.7;
 }
 
 .instructor-feedback-btn {
-  background-color: transparent;
+  background: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-  padding: 0.25rem 0.75rem;
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 400;
+  padding: 4px 8px;
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  margin-right: 10px;
   outline: none;
 }
 
 .instructor-feedback-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: white;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .instructor-feedback-btn:active {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(1px);
 }
 
@@ -743,7 +744,7 @@ html, body {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0.5rem !important;
-    margin-top: 40px !important;
+    margin-top: 80px !important;
   }
 
   .workshop-dropdown-group {
@@ -1011,7 +1012,7 @@ html, body {
   .workshop-dropdown-container {
     margin-left: 10px !important;
     margin-right: 10px !important;
-    margin-top: 35px !important;
+    margin-top: 70px !important;
     gap: 0.4rem !important;
   }
 
@@ -1141,66 +1142,94 @@ html, body {
   .header-bar {
     padding: 0.2rem 0.5rem;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     min-height: 35px;
     height: auto;
-    gap: 0.05rem;
+    gap: 0.5rem;
   }
 
   /* Create a top row with Workshop Feedback and button */
   .header-left {
     font-size: 0.85rem !important;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.1rem;
     order: 1;
     width: 100%;
     min-height: 1.2rem;
+    flex: 1;
   }
 
   .header-left span {
     margin-bottom: 0;
-    white-space: nowrap;
+    white-space: normal;
     font-size: 0.9rem !important;
     order: 1;
     text-align: left;
-    font-weight: bold;
+    font-weight: normal;
     flex: 1;
-    align-self: center;
+    align-self: flex-start;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.3;
   }
 
-  .instructor-feedback-btn {
-    font-size: 0.5rem;
-    padding: 0.08rem 0.25rem;
-    order: 2;
-    max-width: 50%;
+  /* Make the separator and text after it appear on a new line */
+  .header-left span .header-separator {
+    display: none;
+  }
+
+  /* Style for the strong tag (STAGE ONE EDUCATION) */
+  .header-left span strong {
+    font-weight: bold;
+    display: block;
+    width: 100%;
+  }
+
+  /* Style for the survey name to appear on the next line, not bold */
+  .header-left span .survey-name {
+    font-weight: normal;
+    display: block;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 2px;
-    line-height: 1.1;
+  }
+
+  .instructor-feedback-btn {
+    display: none;
+  }
+
+  .header-right {
+    font-size: 0.8rem !important;
+    order: 2;
     margin: 0;
-    flex-shrink: 0;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
     align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.4rem;
+    flex: 1;
   }
 
-  .header-right {
-    font-size: 0.6rem !important;
-    order: 3;
-    margin: 0;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
-    align-self: flex-start;
+  .gear-icon-btn,
+  .settings-btn,
+  .logout-btn {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+    margin: 0 !important;
+    border-radius: 3px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    min-width: 2rem;
   }
 
   .header-center {
@@ -1966,7 +1995,7 @@ html, body {
 
 .stage-one-text {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.4rem;
+  font-size: 0.6rem;
   color: #f05f40;
   text-align: center;
   margin-top: 0.1rem;
@@ -2594,6 +2623,29 @@ html, body {
     border-radius: 6px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  .survey-form label,
+  .survey-form .form-group label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .survey-form .radio-option label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .survey-title-section h1 {
@@ -2660,7 +2712,7 @@ html, body {
 
   .radio-option input[type="text"] {
     width: 100%;
-    max-width: 100px;
+    max-width: 200px;
     font-size: 0.7rem;
     padding: 0.3rem;
     box-sizing: border-box;
@@ -2717,6 +2769,29 @@ html, body {
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  .survey-form label,
+  .survey-form .form-group label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .survey-form .radio-option label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .survey-title-section {
@@ -2787,7 +2862,7 @@ html, body {
 
   .radio-option input[type="text"] {
     width: 100%;
-    max-width: 60px;
+    max-width: 150px;
     font-size: 0.6rem;
     padding: 0.2rem;
     box-sizing: border-box;
@@ -2820,7 +2895,7 @@ html, body {
 
   /* Further reduce sizes for very small screens */
   .workshop-dropdown-container {
-    margin-top: 30px !important;
+    margin-top: 60px !important;
   }
 
   .workshop-dropdown {
@@ -2859,6 +2934,29 @@ html, body {
     box-sizing: border-box;
     border-radius: 3px;
     overflow-x: hidden;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  .survey-form label,
+  .survey-form .form-group label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .survey-form .radio-option label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .survey-title-section h1 {
@@ -2925,7 +3023,7 @@ html, body {
 
   .radio-option input[type="text"] {
     width: 100%;
-    max-width: 40px;
+    max-width: 120px;
     font-size: 0.5rem;
     padding: 0.1rem;
     box-sizing: border-box;
@@ -2958,7 +3056,7 @@ html, body {
 
   /* Minimal sizes for ultra small screens */
   .workshop-dropdown-container {
-    margin-top: 25px !important;
+    margin-top: 50px !important;
   }
 
   .workshop-dropdown {
@@ -2997,6 +3095,29 @@ html, body {
     box-sizing: border-box;
     border-radius: 2px;
     overflow-x: hidden;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  .survey-form label,
+  .survey-form .form-group label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .survey-form .radio-option label {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .survey-title-section h1 {
@@ -3063,7 +3184,7 @@ html, body {
 
   .radio-option input[type="text"] {
     width: 100%;
-    max-width: 30px;
+    max-width: 100px;
     font-size: 0.45rem;
     padding: 0.08rem;
     box-sizing: border-box;
@@ -3104,7 +3225,32 @@ html, body {
   text-align: center;
 }
 
-/* Survey title section - now part of the main form container */
+/* Survey form styles - disable hyphenation */
+.survey-form {
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+}
+
+.survey-form label,
+.survey-form .form-group label {
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.survey-form .radio-option label {
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
 .survey-title-section {
   background-color: transparent;
   border-radius: 0;
@@ -3125,7 +3271,7 @@ html, body {
 }
 
 .survey-title-section h1 .feedback-survey-text {
-  color: #666;
+  color: #333;
   font-size: 1.4rem;
   display: block;
   margin-top: 1rem;

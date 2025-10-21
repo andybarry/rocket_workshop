@@ -9,12 +9,40 @@ function FeedbackData() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   
+  // Fetch current passwords when settings modal opens
+  const fetchCurrentPasswords = async () => {
+    try {
+      // Fetch current standard password
+      const standardResponse = await apiRequest('/api/auth/get-current-standard-password', {
+        method: 'GET'
+      })
+      if (standardResponse.ok) {
+        const standardData = await standardResponse.json()
+        setCurrentStandardPassword(standardData.password || 'stageone8')
+      }
+
+      // Fetch current admin password
+      const adminResponse = await apiRequest('/api/auth/get-current-admin-password', {
+        method: 'GET'
+      })
+      if (adminResponse.ok) {
+        const adminData = await adminResponse.json()
+        setCurrentAdminPassword(adminData.password || 'cambridge9')
+      }
+    } catch (error) {
+      console.error('Error fetching current passwords:', error)
+      // Fallback to default values if API fails
+      setCurrentStandardPassword('stageone8')
+      setCurrentAdminPassword('cambridge9')
+    }
+  }
+
   // Settings state
   const [showSettings, setShowSettings] = useState(false)
-  const [currentStandardPassword, setCurrentStandardPassword] = useState('stageone1')
+  const [currentStandardPassword, setCurrentStandardPassword] = useState('')
   const [newStandardPassword, setNewStandardPassword] = useState('')
   const [confirmNewStandardPassword, setConfirmNewStandardPassword] = useState('')
-  const [currentAdminPassword, setCurrentAdminPassword] = useState('cambridge8')
+  const [currentAdminPassword, setCurrentAdminPassword] = useState('')
   const [newAdminPassword, setNewAdminPassword] = useState('')
   const [confirmNewAdminPassword, setConfirmNewAdminPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -2212,7 +2240,10 @@ function FeedbackData() {
     <div className="app" onKeyDown={handleKeyDown} tabIndex={0}>
       <header className="header-bar">
         <div className="header-left">
-          <span>Workshop Feedback Data</span>
+          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> Workshop Feedback Data</span>
+        </div>
+        <div className="header-center"></div>
+        <div className="header-right">
           {isAdmin && (
             <>
               <button 
@@ -2226,16 +2257,18 @@ function FeedbackData() {
               </button>
               <button 
                 className="settings-btn"
-                onClick={() => setShowSettings(!showSettings)}
+                onClick={() => {
+                  setShowSettings(!showSettings)
+                  if (!showSettings) {
+                    fetchCurrentPasswords()
+                  }
+                }}
                 title="Settings"
               >
                 🔧
               </button>
             </>
           )}
-        </div>
-        <div className="header-center"></div>
-        <div className="header-right">
           <button 
             className="logout-btn"
             onClick={handleLogout}
@@ -2243,7 +2276,6 @@ function FeedbackData() {
           >
             Logout
           </button>
-          STAGE ONE EDUCATION
         </div>
       </header>
       
