@@ -33,6 +33,12 @@
   object-fit: contain;
 }
 
+.blank-page {
+  background-color: white;
+  min-width: 612px; /* 8.5 inches at 72 DPI */
+  min-height: 792px; /* 11 inches at 72 DPI */
+}
+
 .navigation-controls {
   position: relative;
   margin-top: 0;
@@ -1011,5 +1017,258 @@
     padding: 6px 12px;
     font-size: 11px;
   }
+}
+
+/* Page 8 Box 0 - Simple rectangle button */
+.callout-overlay.callout-page8-box0 {
+  background: transparent;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Remove default pointer */
+.callout-overlay.callout-page8-box0::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page8-box0::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box0.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Page 8 Box 1 - Simple rectangle button (on image 10.1) */
+.callout-overlay.callout-page8-box1 {
+  background: transparent;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Remove default pointer */
+.callout-overlay.callout-page8-box1::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page8-box1::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box1.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Page 8 Box 2 - Simple rectangle button (on image 10 only, no triangle pointer) */
+.callout-overlay.callout-page8-box2 {
+  background: transparent;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Remove default pointer */
+.callout-overlay.callout-page8-box2::after {
+  display: none; /* Remove default pointer */
+}
+
+.callout-overlay.callout-page8-box2::before {
+  display: none; /* Remove any pseudo-elements */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box2.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Page 8 Box 3 - White box with no borders or triangle */
+.callout-overlay.callout-page8-box3 {
+  border: none; /* Remove all borders */
+  background: rgba(255, 255, 255, 0.9); /* White with 10% transparency (90% opacity) */
+  box-shadow: none; /* Remove box shadow */
+}
+
+/* Remove hover effects (pop and shadow) */
+.callout-overlay.callout-page8-box3:hover {
+  transform: none;
+  filter: none;
+}
+
+.callout-overlay.callout-page8-box3:active {
+  transform: none;
+}
+
+/* Remove any pseudo-elements */
+.callout-overlay.callout-page8-box3::before {
+  display: none;
+}
+
+.callout-overlay.callout-page8-box3::after {
+  display: none;
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box3.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+  display: none; /* Completely remove from layout when hidden */
+}
+
+/* Page 8 Box 4 - Box with triangle pointer pointing down (below box 3) */
+.callout-overlay.callout-page8-box4 {
+  border-bottom: none; /* No bottom border - will be drawn in segments with gap */
+  border-top: 2px solid #4285f4; /* Ensure top border is complete */
+  background: rgba(255, 255, 255, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 10; /* Same level as other callouts when box 3 is hidden */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box4.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Left border segment: from left edge to first triangle point (19.06% of box width) */
+.callout-overlay.callout-page8-box4::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 19.06%;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 4px 8px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Right border segment: from second triangle point (43.88% of box width) to right edge */
+.callout-overlay.callout-page8-box4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 43.88%;
+  right: 0;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 8px 4px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Hide border segments when selected */
+.callout-overlay.callout-page8-box4.selected::before,
+.callout-overlay.callout-page8-box4.selected::after {
+  opacity: 0;
+  animation: none;
+}
+
+/* Page 8 Box 5 - Box with triangle pointer pointing down (below box 3) */
+.callout-overlay.callout-page8-box5 {
+  border-bottom: none; /* No bottom border - will be drawn in segments with gap */
+  border-top: 2px solid #4285f4; /* Ensure top border is complete */
+  background: rgba(255, 255, 255, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 10; /* Same level as other callouts when box 3 is hidden */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box5.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Left border segment: from left edge to first triangle point (18.10% of box width) */
+.callout-overlay.callout-page8-box5::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 18.10%;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 4px 8px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Right border segment: from second triangle point (41.07% of box width) to right edge */
+.callout-overlay.callout-page8-box5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 41.07%;
+  right: 0;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 8px 4px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Hide border segments when selected */
+.callout-overlay.callout-page8-box5.selected::before,
+.callout-overlay.callout-page8-box5.selected::after {
+  opacity: 0;
+  animation: none;
+}
+
+/* Page 8 Box 6 - Box with triangle pointer pointing down (below box 3) */
+.callout-overlay.callout-page8-box6 {
+  border-bottom: none; /* No bottom border - will be drawn in segments with gap */
+  border-top: 2px solid #4285f4; /* Ensure top border is complete */
+  background: rgba(255, 255, 255, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 10; /* Same level as other callouts when box 3 is hidden */
+}
+
+/* Hide box when selected */
+.callout-overlay.callout-page8-box6.selected {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* Left border segment: from left edge to first triangle point (58.40% of box width) */
+.callout-overlay.callout-page8-box6::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 58.40%;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 4px 8px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Right border segment: from second triangle point (80.81% of box width) to right edge */
+.callout-overlay.callout-page8-box6::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 80.81%;
+  right: 0;
+  height: 2px;
+  background-color: #4285f4;
+  border-radius: 0 0 8px 4px;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+/* Hide border segments when selected */
+.callout-overlay.callout-page8-box6.selected::before,
+.callout-overlay.callout-page8-box6.selected::after {
+  opacity: 0;
+  animation: none;
 }
 

@@ -3,7 +3,7 @@ import './DroneInstructions.css';
 
 function DroneInstructions({ zoomLevel = 1 }) {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 7;
+  const totalSlides = 8;
   
   // Track which checkboxes have been checked for each slide
   const [checkedBoxes, setCheckedBoxes] = useState({});
@@ -31,6 +31,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
   
   // Track whether box 5 (no-edge box) on page 5 should be hidden (delayed)
   const [page5Box5Hidden, setPage5Box5Hidden] = useState(false);
+  
+  // Track whether page 8 shows 10 or 10.1 image
+  const [showPage8Detail, setShowPage8Detail] = useState(false);
   
   // Initialize locked boxes when entering pages 3, 4, or 5, and reset page 6 state
   useEffect(() => {
@@ -70,6 +73,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
         'callout-6-2': true,
         'callout-6-5': true
       });
+    } else if (currentSlide === 8) {
+      // Reset page 8 to show 10 image when entering page 8
+      setShowPage8Detail(false);
     } else {
       // Clear locks on other pages
       setLockedBoxes({});
@@ -478,6 +484,132 @@ function DroneInstructions({ zoomLevel = 1 }) {
         height: '13.57%',
         cssClass: 'callout-page6-box8'
       }
+    ],
+    8: [
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 0 - shows on image 10
+        left: '8.91%',
+        top: '37.09%',
+        width: '14.89%',
+        height: '4.38%',
+        
+        cssClass: 'callout-page8-box0'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 1 - shows on image 10.1 (same location as box 0)
+        left: '8.91%',
+        top: '37.09%',
+        width: '14.89%',
+        height: '4.38%',
+        
+        cssClass: 'callout-page8-box1'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 2 - shows on image 10 only (no triangle pointer)
+        left: '7.77%',
+        top: '23.21%',
+        width: '84.56%',
+        height: '12.97%',
+        
+        cssClass: 'callout-page8-box2'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 3 - shows on image 10 only (no triangle pointer)
+        left: '3.62%',
+        top: '36.63%',
+        width: '91.90%',
+        height: '54.16%', // Extended by 40px (7.56% of 529px image height)
+        
+        cssClass: 'callout-page8-box3'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 4 - shows on image 10 only when box 2 is selected (far left box with triangle)
+        left: '22.12%',
+        top: '45.20%',
+        width: '25.22%',
+        height: '4.97%',
+        
+        // Triangle pointer
+        triangle: {
+          point1: {
+            x: '26.93%',
+            y: '50.16%',
+            edge: 'bottom'
+          },
+          point2: {
+            x: '33.19%',
+            y: '50.16%',
+            edge: 'bottom'
+          },
+          point3: {
+            x: '34.36%',
+            y: '52.76%'
+          }
+        },
+        
+        cssClass: 'callout-page8-box4'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 5 - shows on image 10 only when box 2 is selected (middle box with triangle)
+        left: '46.48%',
+        top: '39.22%',
+        width: '23.85%',
+        height: '4.97%',
+        
+        // Triangle pointer
+        triangle: {
+          point1: {
+            x: '50.79%',
+            y: '44.19%',
+            edge: 'bottom'
+          },
+          point2: {
+            x: '56.27%',
+            y: '44.19%',
+            edge: 'bottom'
+          },
+          point3: {
+            x: '57.54%',
+            y: '51.17%'
+          }
+        },
+        
+        cssClass: 'callout-page8-box5'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 6 - shows on image 10 only when box 2 is selected (far right box with triangle)
+        left: '67.31%',
+        top: '45.27%',
+        width: '25.31%',
+        height: '5.12%',
+        
+        // Triangle pointer
+        triangle: {
+          point1: {
+            x: '82.09%',
+            y: '50.39%',
+            edge: 'bottom'
+          },
+          point2: {
+            x: '87.77%',
+            y: '50.39%',
+            edge: 'bottom'
+          },
+          point3: {
+            x: '82.58%',
+            y: '51.93%'
+          }
+        },
+        
+        cssClass: 'callout-page8-box6'
+      }
     ]
   };
 
@@ -530,6 +662,16 @@ function DroneInstructions({ zoomLevel = 1 }) {
       return allRequiredChecked;
     }
     
+    // Special case for page 8: Can proceed when box 2 and box 4 are selected
+    if (currentSlide === 8) {
+      const requiredBoxes = [2, 4]; // Box 2 (top) and box 4 (far left)
+      const allRequiredChecked = requiredBoxes.every(index => {
+        const calloutKey = `callout-8-${index}`;
+        return checkedBoxes[calloutKey] === true;
+      });
+      return allRequiredChecked;
+    }
+    
     // Only check if current slide has callouts (large blue boxes)
     const callouts = calloutPositionsBySlide[currentSlide];
     if (callouts && callouts.length > 0) {
@@ -558,6 +700,30 @@ function DroneInstructions({ zoomLevel = 1 }) {
     const calloutKey = `callout-${slideNumber}-${calloutIndex}`;
     if (lockedBoxes[calloutKey]) {
       return; // Don't allow clicking locked boxes
+    }
+    
+    // Special case for page 8: Toggle between 10 and 10.1 image
+    if (slideNumber === 8) {
+      // Button 0 (on image 10) switches to 10.1
+      if (calloutIndex === 0) {
+        setShowPage8Detail(true);
+        return;
+      }
+      // Button 1 (on image 10.1) switches back to 10
+      if (calloutIndex === 1) {
+        setShowPage8Detail(false);
+        return;
+      }
+      // Box 4 (far left) - when selected, hide all three boxes (4, 5, 6)
+      if (calloutIndex === 4) {
+        setCheckedBoxes(prev => ({
+          ...prev,
+          'callout-8-4': true,
+          'callout-8-5': true,
+          'callout-8-6': true
+        }));
+        return;
+      }
     }
     
     // Special case for page 6: Sequential activation and page switching
@@ -758,6 +924,9 @@ function DroneInstructions({ zoomLevel = 1 }) {
       setPage6Box7Hidden(false);
       setPage6Box8Hidden(false);
       setShowPage6ToggleButton(false);
+    } else if (currentSlide === 8) {
+      // Reset page 8 state
+      setShowPage8Detail(false);
     } else {
       setLockedBoxes({});
     }
@@ -817,6 +986,10 @@ function DroneInstructions({ zoomLevel = 1 }) {
         <img 
           src={currentSlide === 6 && showPage6Wiring 
             ? `/drone/workshop-slides/6.1-drone-instructions.png`
+            : currentSlide === 8 && showPage8Detail
+            ? `/drone/workshop-slides/10.1-drone-instructions.png`
+            : currentSlide === 8
+            ? `/drone/workshop-slides/10-drone-instructions.png`
             : `/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
           alt={`Drone instructions slide ${currentSlide}`}
           className="slide-image"
@@ -901,6 +1074,44 @@ function DroneInstructions({ zoomLevel = 1 }) {
               }
             }
             
+            // For page 8, handle visibility based on which image is shown
+            if (currentSlide === 8) {
+              // Box 0 only shows on image 10 (when showPage8Detail is false)
+              if (index === 0) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+              }
+              // Box 1 only shows on image 10.1 (when showPage8Detail is true)
+              if (index === 1) {
+                if (!showPage8Detail) {
+                  return null; // Hide if on 10 image
+                }
+              }
+              // Box 2 only shows on image 10 (when showPage8Detail is false)
+              if (index === 2) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+              }
+              // Box 3 only shows on image 10 (when showPage8Detail is false)
+              if (index === 3) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+              }
+              // Boxes 4, 5, 6 only show on image 10 when box 2 is selected (box 3 is hidden)
+              if (index === 4 || index === 5 || index === 6) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+                // Only show if box 2 is selected (which hides box 3)
+                if (!checkedBoxes['callout-8-2']) {
+                  return null; // Hide if box 2 is not selected
+                }
+              }
+            }
+            
             // Special case: On page 4, auto-hide box 3 (large no-edge box) when box 2 is selected
             if (currentSlide === 4 && index === 2) {
               isSelected = isSelected || checkedBoxes[`callout-4-1`] || false;
@@ -950,6 +1161,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
             // Special case: On page 6, toggle button (index 1) is never selected/hidden
             if (currentSlide === 6 && index === 1) {
               isSelected = false;
+            }
+            
+            // Special case: On page 8, boxes 0 and 1 are never selected/hidden (they toggle images)
+            // Box 2 can be selected/hidden normally
+            // Box 3 hides when box 2 is selected
+            if (currentSlide === 8 && (index === 0 || index === 1)) {
+              isSelected = false;
+            }
+            
+            // Special case: On page 8, box 3 hides when box 2 is selected
+            if (currentSlide === 8 && index === 3) {
+              isSelected = isSelected || checkedBoxes[`callout-8-2`] || false;
             }
             
             // Special case: On page 6, box 5 can be selected normally
@@ -1138,7 +1361,8 @@ function DroneInstructions({ zoomLevel = 1 }) {
                   left: `${minX}%`,
                   top: `${minY}%`,
                   width: `${width}%`,
-                  height: `${height}%`
+                  height: `${height}%`,
+                  zIndex: (currentSlide === 8 && (index === 4 || index === 5 || index === 6)) ? 9 : undefined
                 }}
                 viewBox={`0 0 ${width} ${height}`}
                 preserveAspectRatio="none"

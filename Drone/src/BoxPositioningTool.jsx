@@ -3,7 +3,7 @@ import './BoxPositioningTool.css';
 
 function BoxPositioningTool({ zoomLevel = 1 }) {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 6;
+  const totalSlides = 8;
   
   // Box state - position and size (all percentages for consistency)
   const [box, setBox] = useState({
@@ -452,7 +452,11 @@ function BoxPositioningTool({ zoomLevel = 1 }) {
         }}>
         <img 
           ref={imageRef}
-          src={`/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
+          src={currentSlide === 6
+            ? `/drone/workshop-slides/6.1-drone-instructions.png`
+            : currentSlide === 8
+            ? `/drone/workshop-slides/10-drone-instructions.png`
+            : `/drone/workshop-slides/${currentSlide}-drone-instructions.png`}
           alt={`Drone instructions slide ${currentSlide}`}
           className="slide-image"
           draggable="false"
