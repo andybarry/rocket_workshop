@@ -1272,3 +1272,156 @@
   animation: none;
 }
 
+/* Page 8 Boxes 7, 8, 9, 10 - Transparent hover boxes with "Ground" text */
+.callout-overlay.hover-ground-box {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: default !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+.callout-overlay.hover-ground-box.disabled {
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.callout-overlay.hover-ground-box.selected {
+  opacity: 1 !important;
+}
+
+/* Override disabled border segments for hover boxes */
+.callout-overlay.hover-ground-box.disabled::before,
+.callout-overlay.hover-ground-box.disabled::after {
+  display: none !important;
+}
+
+/* Ground hover text - hidden by default, shown on hover */
+.ground-hover-text {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  color: black;
+  font-size: 11px;
+  font-weight: normal;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+
+/* Show text on hover */
+.callout-overlay.hover-ground-box:hover .ground-hover-text {
+  opacity: 1;
+}
+
+/* Page 8 Boxes 11, 12 - Transparent hover boxes with "Button" text */
+.callout-overlay.hover-button-box {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: default !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+.callout-overlay.hover-button-box.disabled {
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.callout-overlay.hover-button-box.selected {
+  opacity: 1 !important;
+}
+
+/* Override disabled border segments for hover boxes */
+.callout-overlay.hover-button-box.disabled::before,
+.callout-overlay.hover-button-box.disabled::after {
+  display: none !important;
+}
+
+/* Button hover text - hidden by default, shown on hover */
+.button-hover-text {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  color: black;
+  font-size: 11px;
+  font-weight: normal;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+
+/* Show text on hover */
+.callout-overlay.hover-button-box:hover .button-hover-text {
+  opacity: 1;
+}
+
+/* Page 8 Boxes 13, 14, 15 - Transparent hover boxes with "LED" text */
+.callout-overlay.hover-led-box {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: default !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+.callout-overlay.hover-led-box.disabled {
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.callout-overlay.hover-led-box.selected {
+  opacity: 1 !important;
+}
+
+/* Override disabled border segments for hover boxes */
+.callout-overlay.hover-led-box.disabled::before,
+.callout-overlay.hover-led-box.disabled::after {
+  display: none !important;
+}
+
+/* LED hover text - hidden by default, shown on hover */
+.led-hover-text {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  color: black;
+  font-size: 11px;
+  font-weight: normal;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+
+/* Show text on hover */
+.callout-overlay.hover-led-box:hover .led-hover-text {
+  opacity: 1;
+}
+

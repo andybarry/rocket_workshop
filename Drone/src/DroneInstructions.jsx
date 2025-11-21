@@ -609,6 +609,96 @@ function DroneInstructions({ zoomLevel = 1 }) {
         },
         
         cssClass: 'callout-page8-box6'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 7 - transparent hover box on image 10
+        left: '49.35%',
+        top: '73.02%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box7 hover-ground-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 8 - transparent hover box on image 10
+        left: '49.35%',
+        top: '73.02%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box8 hover-ground-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 9 - transparent hover box on image 10
+        left: '54.10%',
+        top: '73.13%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box9 hover-ground-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 10 - transparent hover box on image 10
+        left: '41.66%',
+        top: '73.13%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box10 hover-ground-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 11 - transparent hover box on image 10
+        left: '49.59%',
+        top: '69.13%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box11 hover-button-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 12 - transparent hover box on image 10
+        left: '60.23%',
+        top: '68.75%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box12 hover-button-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 13 - transparent hover box on image 10
+        left: '53.75%',
+        top: '69.32%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box13 hover-led-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 14 - transparent hover box on image 10
+        left: '53.75%',
+        top: '69.32%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box14 hover-led-box'
+      },
+      {
+        // Box positioning (all percentages for consistency and responsiveness)
+        // Box 15 - transparent hover box on image 10
+        left: '76.00%',
+        top: '69.41%',
+        width: '5.00%',
+        height: '3.00%',
+        
+        cssClass: 'callout-page8-box15 hover-led-box'
       }
     ]
   };
@@ -696,6 +786,11 @@ function DroneInstructions({ zoomLevel = 1 }) {
   
   // Handle callout toggle with sequential order enforcement for page 3, page 4, and page 5
   const handleCalloutToggle = (slideNumber, calloutIndex) => {
+    // Don't allow clicking transparent hover boxes (page 8 boxes 7, 8, 9, 10, 11, 12, 13, 14, 15)
+    if (slideNumber === 8 && (calloutIndex === 7 || calloutIndex === 8 || calloutIndex === 9 || calloutIndex === 10 || calloutIndex === 11 || calloutIndex === 12 || calloutIndex === 13 || calloutIndex === 14 || calloutIndex === 15)) {
+      return; // Transparent hover boxes are not clickable
+    }
+    
     // Check if box is locked (waiting for delay)
     const calloutKey = `callout-${slideNumber}-${calloutIndex}`;
     if (lockedBoxes[calloutKey]) {
@@ -1110,6 +1205,37 @@ function DroneInstructions({ zoomLevel = 1 }) {
                   return null; // Hide if box 2 is not selected
                 }
               }
+              // Boxes 7, 8, 9, 10 (transparent hover boxes) only show on image 10 when box 2 is selected
+              // (box 2 selection hides box 3 and shows boxes 4, 5, 6)
+              if (index === 7 || index === 8 || index === 9 || index === 10) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+                // Only show if box 2 is selected (which hides box 3 and shows boxes 4, 5, 6)
+                if (!checkedBoxes['callout-8-2']) {
+                  return null; // Hide if box 2 is not selected
+                }
+              }
+              // Boxes 11, 12 (transparent hover boxes) only show on image 10 when box 2 is selected
+              if (index === 11 || index === 12) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+                // Only show if box 2 is selected (which hides box 3 and shows boxes 4, 5, 6)
+                if (!checkedBoxes['callout-8-2']) {
+                  return null; // Hide if box 2 is not selected
+                }
+              }
+              // Boxes 13, 14, 15 (transparent hover boxes) only show on image 10 when box 2 is selected
+              if (index === 13 || index === 14 || index === 15) {
+                if (showPage8Detail) {
+                  return null; // Hide if on 10.1 image
+                }
+                // Only show if box 2 is selected (which hides box 3 and shows boxes 4, 5, 6)
+                if (!checkedBoxes['callout-8-2']) {
+                  return null; // Hide if box 2 is not selected
+                }
+              }
             }
             
             // Special case: On page 4, auto-hide box 3 (large no-edge box) when box 2 is selected
@@ -1173,6 +1299,21 @@ function DroneInstructions({ zoomLevel = 1 }) {
             // Special case: On page 8, box 3 hides when box 2 is selected
             if (currentSlide === 8 && index === 3) {
               isSelected = isSelected || checkedBoxes[`callout-8-2`] || false;
+            }
+            
+            // Special case: On page 8, boxes 7, 8, 9, 10 are never selected/hidden (transparent hover boxes)
+            if (currentSlide === 8 && (index === 7 || index === 8 || index === 9 || index === 10)) {
+              isSelected = false;
+            }
+            
+            // Special case: On page 8, boxes 11, 12 are never selected/hidden (transparent hover boxes)
+            if (currentSlide === 8 && (index === 11 || index === 12)) {
+              isSelected = false;
+            }
+            
+            // Special case: On page 8, boxes 13, 14, 15 are never selected/hidden (transparent hover boxes)
+            if (currentSlide === 8 && (index === 13 || index === 14 || index === 15)) {
+              isSelected = false;
             }
             
             // Special case: On page 6, box 5 can be selected normally
@@ -1254,6 +1395,20 @@ function DroneInstructions({ zoomLevel = 1 }) {
                 isDisabled = true;
               }
             }
+            if (currentSlide === 8) {
+              // Boxes 7, 8, 9, 10 are transparent hover boxes (not clickable)
+              if (index === 7 || index === 8 || index === 9 || index === 10) {
+                isDisabled = true;
+              }
+              // Boxes 11, 12 are transparent hover boxes (not clickable)
+              if (index === 11 || index === 12) {
+                isDisabled = true;
+              }
+              // Boxes 13, 14, 15 are transparent hover boxes (not clickable)
+              if (index === 13 || index === 14 || index === 15) {
+                isDisabled = true;
+              }
+            }
             
             return (
               <div
@@ -1274,6 +1429,18 @@ function DroneInstructions({ zoomLevel = 1 }) {
                     <div>Hide</div>
                     <div>Wiring Diagram</div>
                   </div>
+                )}
+                {/* Add hover text for page 8 transparent boxes */}
+                {currentSlide === 8 && (index === 7 || index === 8 || index === 9 || index === 10) && (
+                  <div className="ground-hover-text">Ground</div>
+                )}
+                {/* Add hover text for page 8 button boxes */}
+                {currentSlide === 8 && (index === 11 || index === 12) && (
+                  <div className="button-hover-text">Button</div>
+                )}
+                {/* Add hover text for page 8 LED boxes */}
+                {currentSlide === 8 && (index === 13 || index === 14 || index === 15) && (
+                  <div className="led-hover-text">LED</div>
                 )}
               </div>
             );
