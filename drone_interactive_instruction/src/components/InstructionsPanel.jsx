@@ -16,6 +16,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [hasStarted, setHasStarted] = useState(false)
   // Track which pages have been visited/completed (button clicked)
   const [visitedPages, setVisitedPages] = useState(new Set())
+  // Track page 3 button state
+  const [page3ButtonClicked, setPage3ButtonClicked] = useState(false)
+  // Track page 3 second button state
+  const [page3SecondButtonClicked, setPage3SecondButtonClicked] = useState(false)
+  // Track selected green boxes on page 3
+  const [selectedGreenBoxes, setSelectedGreenBoxes] = useState(new Set())
+  // Track if returning from page 3 to page 2
+  const [returningFromPage3, setReturningFromPage3] = useState(false)
+  // Track if returning from page 2 to page 1
+  const [returningFromPage2, setReturningFromPage2] = useState(false)
+  // Track if returning to page 3 after second button was clicked
+  const [returningToPage3AfterSecondButton, setReturningToPage3AfterSecondButton] = useState(false)
   // Track white box fade states for page 2
   const [box1Fading, setBox1Fading] = useState(false)
   const [box2Fading, setBox2Fading] = useState(false)
@@ -36,6 +48,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [resizeHandle, setResizeHandle] = useState(null) // 'n', 's', 'e', 'w'
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [boxStart, setBoxStart] = useState({ left: 0, top: 0, width: 0, height: 0 })
+  // Dot positions along the perimeter (0-100%, where 0% = top-left, 25% = top-right, 50% = bottom-right, 75% = bottom-left)
+  const [dot1Position, setDot1Position] = useState(10) // Start at 10% along perimeter
+  const [dot2Position, setDot2Position] = useState(60) // Start at 60% along perimeter
+  const [isDraggingDot, setIsDraggingDot] = useState(null) // null, 'dot1', 'dot2', or 'dot3'
+  const [dotDragStart, setDotDragStart] = useState({ x: 0, y: 0, perimeter: 0 })
+  // Third dot position (x, y as percentages relative to image)
+  const [dot3Position, setDot3Position] = useState({ x: 50, y: 50 }) // Start at center
   const stageRef = useRef(null)
   const stageFrameRef = useRef(null)
   const imgRef = useRef(null)
@@ -44,6 +63,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
 
   const handlePrevious = () => {
     if (currentPage > 0) {
+      const previousPage = currentPage - 1
+      // Track if we're returning from page 3 to page 2
+      if (currentPage === 2) {
+        setReturningFromPage3(true)
+        setReturningFromPage2(false)
+        setReturningToPage3AfterSecondButton(false)
+      } else if (currentPage === 1) {
+        // Track if we're returning from page 2 to page 1
+        setReturningFromPage2(true)
+        setReturningFromPage3(false)
+        setReturningToPage3AfterSecondButton(false)
+      } else {
+        setReturningFromPage3(false)
+        setReturningFromPage2(false)
+        // returningToPage3AfterSecondButton will be set in useEffect when arriving at page 3
+      }
       setCurrentPage(prev => prev - 1)
       setZoom(100)
     }
@@ -58,13 +93,23 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     if (currentPage === 1 && !visitedPages.has(1)) {
       return
     }
+    // For page 3 (index 2), require both buttons to be clicked
+    if (currentPage === 2 && (!page3ButtonClicked || !page3SecondButtonClicked)) {
+      return
+    }
     if (currentPage < pages.length - 1) {
+      // Reset returning states when navigating forward (except returningToPage3AfterSecondButton which is set in useEffect)
+      setReturningFromPage3(false)
+      setReturningFromPage2(false)
+      // Don't reset returningToPage3AfterSecondButton here - it will be set in useEffect when arriving at page 3
       setCurrentPage(prev => prev + 1)
       setZoom(100)
     }
   }
 
   const handleStart = () => {
+    // Reset returning state when button is clicked
+    setReturningFromPage2(false)
     setHasStarted(true)
     // Mark page 0 as visited
     setVisitedPages(prev => new Set(prev).add(0))
@@ -77,6 +122,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
 
   // Handler for page 1 button
   const handlePage1Button = () => {
+    // Button is disabled once clicked, so this should only execute on first click
+    // Reset returning state when button is clicked
+    setReturningFromPage3(false)
     // Mark page 1 as visited
     setVisitedPages(prev => new Set(prev).add(1))
     // Move to next page
@@ -84,6 +132,30 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
       setCurrentPage(prev => prev + 1)
       setZoom(100)
     }
+  }
+
+  // Handler for page 3 speech bubble button
+  const handlePage3Button = () => {
+    setPage3ButtonClicked(true)
+    // Don't navigate immediately - wait for second box to be clicked
+  }
+
+  const handlePage3SecondButton = () => {
+    // Enable Next button when second box is clicked (don't navigate automatically)
+    setPage3SecondButtonClicked(true)
+  }
+
+  // Handler for green box clicks on page 3
+  const handleGreenBoxClick = (index) => {
+    setSelectedGreenBoxes(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(index)) {
+        newSet.delete(index) // Toggle off if already selected
+      } else {
+        newSet.add(index) // Toggle on if not selected
+      }
+      return newSet
+    })
   }
 
   const handleZoomIn = () => {
@@ -134,6 +206,35 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     // Reset box position when page changes
     const defaultPosition = getDefaultBoxPosition(currentPage)
     setBoxPosition(defaultPosition)
+    // Reset dot positions to default when page changes
+    setDot1Position(10)
+    setDot2Position(60)
+    setDot3Position({ x: 50, y: 50 })
+    // Reset page 3 button states when leaving page 3 (but keep page3SecondButtonClicked and selectedGreenBoxes to track state)
+    if (currentPage !== 2) {
+      setPage3ButtonClicked(false)
+      // Don't reset page3SecondButtonClicked - we need to know if it was clicked when returning
+      // Don't reset selectedGreenBoxes - we need to preserve selected state when returning
+    }
+    // When arriving at page 3, if second button was previously clicked, set returning state
+    // This means the user has completed the page 3 flow and is returning
+    if (currentPage === 2 && page3SecondButtonClicked) {
+      setReturningToPage3AfterSecondButton(true)
+      // Also set page3ButtonClicked to true so first button shows as disabled
+      setPage3ButtonClicked(true)
+    }
+    // Reset returningFromPage3 when not on page 2
+    if (currentPage !== 1) {
+      setReturningFromPage3(false)
+    }
+    // Reset returningFromPage2 when not on page 1
+    if (currentPage !== 0) {
+      setReturningFromPage2(false)
+    }
+    // Reset returningToPage3AfterSecondButton when not on page 3
+    if (currentPage !== 2) {
+      setReturningToPage3AfterSecondButton(false)
+    }
   }, [currentPage])
 
   // Trigger white boxes fade on page 2 when Start button was clicked
@@ -170,6 +271,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   // Update dimensions when editor mode is enabled or page changes
   useEffect(() => {
     if (editorMode && boxPosition) {
+      const dot1Coords = perimeterToCoordinates(dot1Position)
+      const dot2Coords = perimeterToCoordinates(dot2Position)
       const dimensions = {
         page: currentPage + 1,
         left: boxPosition.left.toFixed(2),
@@ -177,11 +280,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
         width: boxPosition.width.toFixed(2),
         height: boxPosition.height.toFixed(2),
         right: (boxPosition.left + boxPosition.width).toFixed(2),
-        bottom: (boxPosition.top + boxPosition.height).toFixed(2)
+        bottom: (boxPosition.top + boxPosition.height).toFixed(2),
+        dot1: {
+          x: dot1Coords.x.toFixed(2),
+          y: dot1Coords.y.toFixed(2),
+          perimeter: dot1Position.toFixed(2)
+        },
+        dot2: {
+          x: dot2Coords.x.toFixed(2),
+          y: dot2Coords.y.toFixed(2),
+          perimeter: dot2Position.toFixed(2)
+        },
+        dot3: {
+          x: dot3Position.x.toFixed(2),
+          y: dot3Position.y.toFixed(2)
+        }
       }
       onDimensionsCapture(dimensions)
     }
-  }, [editorMode, currentPage, boxPosition]) // Update when mode, page, or position changes
+  }, [editorMode, currentPage, boxPosition, dot1Position, dot2Position]) // Update when mode, page, position, or dot positions change
 
   // Get coordinates relative to image as percentage (always at 100% zoom level)
   const getRelativeCoordinates = (clientX, clientY) => {
@@ -225,13 +342,122 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     }
   }
 
+  // Convert perimeter percentage (0-100) to x,y coordinates on the box edge
+  // Perimeter: 0% = top-left, 25% = top-right, 50% = bottom-right, 75% = bottom-left, 100% = top-left
+  const perimeterToCoordinates = (perimeterPercent) => {
+    const { left, top, width, height } = boxPosition
+    const perimeter = perimeterPercent % 100
+    
+    if (perimeter <= 25) {
+      // Top edge: left to right
+      const t = perimeter / 25
+      return {
+        x: left + width * t,
+        y: top
+      }
+    } else if (perimeter <= 50) {
+      // Right edge: top to bottom
+      const t = (perimeter - 25) / 25
+      return {
+        x: left + width,
+        y: top + height * t
+      }
+    } else if (perimeter <= 75) {
+      // Bottom edge: right to left
+      const t = (perimeter - 50) / 25
+      return {
+        x: left + width * (1 - t),
+        y: top + height
+      }
+    } else {
+      // Left edge: bottom to top
+      const t = (perimeter - 75) / 25
+      return {
+        x: left,
+        y: top + height * (1 - t)
+      }
+    }
+  }
 
-  // Handle mouse down on box or resize handle
+  // Convert x,y coordinates to perimeter percentage
+  // Finds the closest point on the box perimeter to the given coordinates
+  const coordinatesToPerimeter = (x, y) => {
+    const { left, top, width, height } = boxPosition
+    const right = left + width
+    const bottom = top + height
+    
+    // Project point onto each edge and calculate distance
+    // Top edge: from (left, top) to (right, top)
+    const topT = Math.max(0, Math.min(1, (x - left) / width))
+    const topProjX = left + width * topT
+    const topProjY = top
+    const distToTop = Math.sqrt(Math.pow(x - topProjX, 2) + Math.pow(y - topProjY, 2))
+    
+    // Right edge: from (right, top) to (right, bottom)
+    const rightT = Math.max(0, Math.min(1, (y - top) / height))
+    const rightProjX = right
+    const rightProjY = top + height * rightT
+    const distToRight = Math.sqrt(Math.pow(x - rightProjX, 2) + Math.pow(y - rightProjY, 2))
+    
+    // Bottom edge: from (right, bottom) to (left, bottom)
+    const bottomT = Math.max(0, Math.min(1, (right - x) / width))
+    const bottomProjX = right - width * bottomT
+    const bottomProjY = bottom
+    const distToBottom = Math.sqrt(Math.pow(x - bottomProjX, 2) + Math.pow(y - bottomProjY, 2))
+    
+    // Left edge: from (left, bottom) to (left, top)
+    const leftT = Math.max(0, Math.min(1, (bottom - y) / height))
+    const leftProjX = left
+    const leftProjY = bottom - height * leftT
+    const distToLeft = Math.sqrt(Math.pow(x - leftProjX, 2) + Math.pow(y - leftProjY, 2))
+    
+    // Find the closest edge
+    const minDist = Math.min(distToTop, distToRight, distToBottom, distToLeft)
+    
+    let perimeter = 0
+    
+    if (minDist === distToTop) {
+      // On top edge
+      perimeter = topT * 25
+    } else if (minDist === distToRight) {
+      // On right edge
+      perimeter = 25 + rightT * 25
+    } else if (minDist === distToBottom) {
+      // On bottom edge
+      perimeter = 50 + bottomT * 25
+    } else {
+      // On left edge
+      perimeter = 75 + leftT * 25
+    }
+    
+    return perimeter
+  }
+
+
+  // Handle mouse down on box, resize handle, or dot
   const handleBoxMouseDown = (e) => {
     if (!editorMode) return
     
     const handle = e.target.dataset.handle
-    if (handle && ['n', 's', 'e', 'w'].includes(handle)) {
+    const dotId = e.target.dataset.dot
+    
+    if (dotId === 'dot1' || dotId === 'dot2' || dotId === 'dot3') {
+      // Starting dot drag
+      e.preventDefault()
+      e.stopPropagation()
+      setIsDraggingDot(dotId)
+      const coords = getRelativeCoordinates(e.clientX, e.clientY)
+      if (coords) {
+        if (dotId === 'dot3') {
+          // For dot3, store the current position
+          setDotDragStart({ x: coords.x, y: coords.y, startX: dot3Position.x, startY: dot3Position.y })
+        } else {
+          // For edge dots, store perimeter
+          const currentPerimeter = dotId === 'dot1' ? dot1Position : dot2Position
+          setDotDragStart({ x: coords.x, y: coords.y, perimeter: currentPerimeter })
+        }
+      }
+    } else if (handle && ['n', 's', 'e', 'w'].includes(handle)) {
       // Starting resize on edge
       e.preventDefault()
       e.stopPropagation()
@@ -255,14 +481,34 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     }
   }
 
-  // Handle mouse move for dragging or resizing
+  // Handle mouse move for dragging, resizing, or dot dragging
   const handleMouseMove = useCallback((e) => {
     if (!editorMode) return
     
     const coords = getRelativeCoordinates(e.clientX, e.clientY)
     if (!coords) return
 
-    if (isDragging) {
+    if (isDraggingDot) {
+      if (isDraggingDot === 'dot3') {
+        // Dot3 can move anywhere on the page
+        const deltaX = coords.x - dotDragStart.x
+        const deltaY = coords.y - dotDragStart.y
+        let newX = dotDragStart.startX + deltaX
+        let newY = dotDragStart.startY + deltaY
+        // Keep within image bounds (0-100%)
+        newX = Math.max(0, Math.min(100, newX))
+        newY = Math.max(0, Math.min(100, newY))
+        setDot3Position({ x: newX, y: newY })
+      } else {
+        // Calculate new dot position along perimeter for edge dots
+        const newPerimeter = coordinatesToPerimeter(coords.x, coords.y)
+        if (isDraggingDot === 'dot1') {
+          setDot1Position(newPerimeter)
+        } else if (isDraggingDot === 'dot2') {
+          setDot2Position(newPerimeter)
+        }
+      }
+    } else if (isDragging) {
       // Calculate new position
       const deltaX = coords.x - dragStart.x
       const deltaY = coords.y - dragStart.y
@@ -326,21 +572,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
         height: newHeight
       }))
     }
-  }, [editorMode, isDragging, isResizing, resizeHandle, dragStart, boxStart, zoom])
+  }, [editorMode, isDragging, isResizing, isDraggingDot, resizeHandle, dragStart, boxStart, dotDragStart, dot3Position, zoom, boxPosition])
 
   // Handle mouse up
   const handleMouseUp = useCallback(() => {
-    if (isDragging || isResizing) {
+    if (isDragging || isResizing || isDraggingDot) {
       setIsDragging(false)
       setIsResizing(false)
+      setIsDraggingDot(null)
       setResizeHandle(null)
-      // Dimensions will be updated by the useEffect watching boxPosition
+      // Dimensions will be updated by the useEffect watching boxPosition and dot positions
     }
-  }, [isDragging, isResizing])
+  }, [isDragging, isResizing, isDraggingDot])
 
   // Set up global mouse event listeners
   useEffect(() => {
-    if (editorMode && (isDragging || isResizing)) {
+    if (editorMode && (isDragging || isResizing || isDraggingDot)) {
       document.addEventListener('mousemove', handleMouseMove)
       document.addEventListener('mouseup', handleMouseUp)
       return () => {
@@ -348,12 +595,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
         document.removeEventListener('mouseup', handleMouseUp)
       }
     }
-  }, [editorMode, isDragging, isResizing, handleMouseMove, handleMouseUp])
+  }, [editorMode, isDragging, isResizing, isDraggingDot, handleMouseMove, handleMouseUp])
 
-  // Update dimensions whenever box position changes (debounced after drag/resize)
+  // Update dimensions whenever box position or dot positions change (debounced after drag/resize)
   useEffect(() => {
-    if (editorMode && !isDragging && !isResizing) {
+    if (editorMode && !isDragging && !isResizing && !isDraggingDot) {
       const timeoutId = setTimeout(() => {
+        const dot1Coords = perimeterToCoordinates(dot1Position)
+        const dot2Coords = perimeterToCoordinates(dot2Position)
         const dimensions = {
           page: currentPage + 1,
           left: boxPosition.left.toFixed(2),
@@ -361,14 +610,28 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
           width: boxPosition.width.toFixed(2),
           height: boxPosition.height.toFixed(2),
           right: (boxPosition.left + boxPosition.width).toFixed(2),
-          bottom: (boxPosition.top + boxPosition.height).toFixed(2)
+          bottom: (boxPosition.top + boxPosition.height).toFixed(2),
+          dot1: {
+            x: dot1Coords.x.toFixed(2),
+            y: dot1Coords.y.toFixed(2),
+            perimeter: dot1Position.toFixed(2)
+          },
+          dot2: {
+            x: dot2Coords.x.toFixed(2),
+            y: dot2Coords.y.toFixed(2),
+            perimeter: dot2Position.toFixed(2)
+          },
+          dot3: {
+            x: dot3Position.x.toFixed(2),
+            y: dot3Position.y.toFixed(2)
+          }
         }
         onDimensionsCapture(dimensions)
       }, 100) // Small delay to batch updates
       
       return () => clearTimeout(timeoutId)
     }
-  }, [boxPosition, editorMode, isDragging, isResizing, currentPage, onDimensionsCapture])
+  }, [boxPosition, dot1Position, dot2Position, dot3Position, editorMode, isDragging, isResizing, isDraggingDot, currentPage, onDimensionsCapture])
 
   // Calculate box style - scales with zoom (same as image)
   const getBoxStyle = () => {
@@ -400,6 +663,54 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
       boxSizing: 'border-box'
     }
   }
+
+  // Calculate dot style - positions dot on the edge of the box
+  const getDotStyle = (perimeterPercent) => {
+    const coords = perimeterToCoordinates(perimeterPercent)
+    const { left, top, width, height } = boxPosition
+    
+    // Calculate position relative to box (0-100% within box)
+    const relativeX = ((coords.x - left) / width) * 100
+    const relativeY = ((coords.y - top) / height) * 100
+    
+    return {
+      position: 'absolute',
+      left: `${relativeX}%`,
+      top: `${relativeY}%`,
+      width: '8px',
+      height: '8px',
+      transform: 'translate(-50%, -50%)',
+      borderRadius: '50%',
+      backgroundColor: '#ff6b6b',
+      border: '2px solid white',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+      cursor: 'pointer',
+      zIndex: 25,
+      pointerEvents: 'auto'
+    }
+  }
+
+  // Calculate dot3 style - positions dot anywhere on the page
+  const getDot3Style = () => {
+    const scale = zoom / 100
+    
+    return {
+      position: 'absolute',
+      left: `${dot3Position.x}%`,
+      top: `${dot3Position.y}%`,
+      width: '8px',
+      height: '8px',
+      transform: 'translate(-50%, -50%)',
+      borderRadius: '50%',
+      backgroundColor: '#4ecdc4',
+      border: '2px solid white',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+      cursor: 'pointer',
+      zIndex: 25,
+      pointerEvents: 'auto'
+    }
+  }
+
 
   // Calculate button style - scales with zoom exactly like the image (from wrapper center)
   const getButtonStyle = (buttonLeft, buttonTop, buttonWidth, buttonHeight) => {
@@ -499,7 +810,46 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                       pointerEvents: editorMode ? 'none' : 'auto'
                     }}
                   />
-                  {editorMode && (
+                  {editorMode && (() => {
+                    const dot1Coords = perimeterToCoordinates(dot1Position)
+                    const dot2Coords = perimeterToCoordinates(dot2Position)
+                    
+                    return (
+                      <>
+                        {/* SVG for precise line rendering - using viewBox for percentage coordinates */}
+                        <svg
+                          style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            zIndex: 23
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          {/* Connecting line from dot1 to dot3 */}
+                          <line
+                            x1={dot1Coords.x}
+                            y1={dot1Coords.y}
+                            x2={dot3Position.x}
+                            y2={dot3Position.y}
+                            stroke="#4ecdc4"
+                            strokeWidth="0.3"
+                          />
+                          {/* Connecting line from dot2 to dot3 */}
+                          <line
+                            x1={dot2Coords.x}
+                            y1={dot2Coords.y}
+                            x2={dot3Position.x}
+                            y2={dot3Position.y}
+                            stroke="#4ecdc4"
+                            strokeWidth="0.3"
+                          />
+                        </svg>
+                        {/* Resizable box with edge dots */}
                     <div 
                       ref={boxRef}
                       className="resizable-box"
@@ -511,8 +861,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                       <div className="resize-handle resize-handle-s" data-handle="s" />
                       <div className="resize-handle resize-handle-e" data-handle="e" />
                       <div className="resize-handle resize-handle-w" data-handle="w" />
+                          <div 
+                            className="edge-dot"
+                            data-dot="dot1"
+                            style={getDotStyle(dot1Position)}
+                            onMouseDown={handleBoxMouseDown}
+                          />
+                          <div 
+                            className="edge-dot"
+                            data-dot="dot2"
+                            style={getDotStyle(dot2Position)}
+                            onMouseDown={handleBoxMouseDown}
+                          />
                     </div>
-                  )}
+                        {/* Dot3 - positioned at the end of the connection lines */}
+                        <div 
+                          className="edge-dot dot3"
+                          data-dot="dot3"
+                          style={getDot3Style()}
+                          onMouseDown={handleBoxMouseDown}
+                        />
+                      </>
+                    )
+                  })()}
                   {currentPage === 0 && !editorMode && (() => {
                     const buttonLeft = 44.36
                     const buttonTop = 59.30
@@ -547,14 +918,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                       <button 
                         onClick={handleStart}
                         disabled={isDisabled}
-                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''}`}
+                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''} ${returningFromPage2 ? 'returning-from-page2' : ''}`}
                         style={{
                           ...expandedButtonStyle,
                           backgroundColor: 'white',
-                          color: '#0d6efd',
+                          color: returningFromPage2 ? '#f05f40' : '#0d6efd',
                           cursor: isDisabled ? 'default' : 'pointer',
                           fontSize: `${startFontSize}px`,
-                          fontFamily: 'Roboto, sans-serif'
+                          fontFamily: 'Roboto, sans-serif',
+                          border: returningFromPage2 ? '2px solid #f05f40' : undefined
                         }}
                         aria-label="Start"
                       >
@@ -569,7 +941,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                     const buttonHeight = 4.22
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
+                    // Once button has been clicked, it should always be disabled when returning to page 2
                     const isDisabled = visitedPages.has(1)
+                    // Show orange edge if button has been clicked (regardless of where returning from)
+                    const showOrangeEdge = visitedPages.has(1)
                     const readyFontSize = Math.min(18, Math.max(6, 18 * stageRelativeScale))
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
@@ -598,14 +973,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                       <button 
                         onClick={handlePage1Button}
                         disabled={isDisabled}
-                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''}`}
+                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''} ${showOrangeEdge ? 'returning-from-page3' : ''}`}
                         style={{
                           ...expandedButtonStyle,
                           backgroundColor: 'white',
-                          color: '#0d6efd',
+                          color: '#000',
                           cursor: isDisabled ? 'default' : 'pointer',
                           fontSize: `${readyFontSize}px`,
-                          fontFamily: 'Roboto, sans-serif'
+                          fontFamily: 'Roboto, sans-serif',
+                          fontWeight: 700,
+                          border: showOrangeEdge ? '2px solid #f05f40' : undefined
                         }}
                         aria-label="I'm ready to build a drone controller"
                       >
@@ -613,8 +990,578 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                       </button>
                     )
                   })()}
-                  {/* White boxes on page 2 (2.png) */}
-                  {currentPage === 1 && !editorMode && visitedPages.has(0) && (() => {
+                  {/* Speech bubble button on page 3 (3.png) */}
+                  {currentPage === 2 && !editorMode && (() => {
+                    // Speech bubble dimensions from provided data
+                    const bubbleLeft = 9.81
+                    const bubbleTop = 30.42
+                    const bubbleWidth = 18.42
+                    const bubbleHeight = 4.38
+                    const dot1X = 13.07
+                    const dot1Y = 30.42
+                    const dot2X = 17.80
+                    const dot2Y = 30.42
+                    const dot3X = 19.13
+                    const dot3Y = 27.72
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    // If returning after second button was clicked, show as disabled with orange edge
+                    const isDisabled = page3ButtonClicked || returningToPage3AfterSecondButton
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Reduce height by 3px (was 5px, now increased by 2px = 3px reduction)
+                    const heightReductionPx = 3
+                    const heightReductionPercent = stageHeightPx > 0 ? (heightReductionPx / stageHeightPx) * 100 : 0
+                    
+                    // Move the box down by 1px
+                    const moveDownByPx = 1
+                    const moveDownByPercent = stageHeightPx > 0 ? (moveDownByPx / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, bubbleLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, bubbleTop - topOffsetAdjust + moveDownByPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, bubbleWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, bubbleHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
+                    // Dot3 is ABOVE the box (27.72% < 30.42%), so triangle points upward
+                    const triangleBaseLeft = dot1X  // Left point on top edge
+                    const triangleBaseRight = dot2X  // Right point on top edge
+                    const triangleBaseY = bubbleTop  // Top edge Y position (30.42%)
+                    const triangleTipX = dot3X  // Triangle tip X (19.13%)
+                    const triangleTipY = dot3Y  // Triangle tip Y (27.72% - above the box)
+                    
+                    // Calculate rounded rectangle corner radius (reduced by half)
+                    const borderRadius = Math.min(expandedHeight / 2, expandedWidth / 2, 2) / 2
+                    
+                    // Create path for speech bubble: rounded rectangle with triangle extending upward from top edge
+                    // The triangle base is on the top edge between dot1 and dot2, pointing up to dot3
+                    const topLeft = adjustedLeft
+                    const topRight = adjustedLeft + expandedWidth
+                    const topY = adjustedTop
+                    const bottomY = adjustedTop + expandedHeight
+                    
+                    // Build path: rounded rectangle with triangle protrusion on top edge
+                    // The top edge between dot1 and dot2 will have no border (transparent)
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadius},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadius}
+                      L ${topLeft},${topY + borderRadius}
+                      Q ${topLeft},${topY} ${topLeft + borderRadius},${topY}
+                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${topY}` : ''}
+                      L ${triangleTipX},${triangleTipY}
+                      L ${triangleBaseRight},${topY}
+                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadius}
+                      L ${topRight},${bottomY - borderRadius}
+                      Q ${topRight},${bottomY} ${topRight - borderRadius},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths - separate segments to exclude top edge between the two points
+                    // Left border: from bottom-left corner up to first point on top edge
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadius},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadius}
+                      L ${topLeft},${topY + borderRadius}
+                      Q ${topLeft},${topY} ${topLeft + borderRadius},${topY}
+                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${topY}` : ''}
+                    `
+                    
+                    // Triangle border: two legs only (not the base between the points)
+                    // Left leg: from dot1 to tip
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeft},${topY}
+                      L ${triangleTipX},${triangleTipY}
+                    `
+                    // Right leg: from dot2 to tip
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRight},${topY}
+                      L ${triangleTipX},${triangleTipY}
+                    `
+                    
+                    // Right border: from second point on top edge down to bottom-right corner
+                    const rightBorderPath = `
+                      M ${triangleBaseRight},${topY}
+                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadius}
+                      L ${topRight},${bottomY - borderRadius}
+                      Q ${topRight},${bottomY} ${topRight - borderRadius},${bottomY}
+                    `
+                    
+                    // Bottom border: complete bottom edge
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadius},${bottomY}
+                      L ${topRight - borderRadius},${bottomY}
+                    `
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`}>
+                        {/* Clickable box area - only the rounded rectangle part, not the triangle */}
+                        <div
+                          className={`speech-bubble-box ${isDisabled ? 'disabled selected' : ''}`}
+                          onClick={!isDisabled ? handlePage3Button : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: `${adjustedLeft}%`,
+                            top: `${adjustedTop}%`,
+                            width: `${expandedWidth}%`,
+                            height: `${expandedHeight}%`,
+                            pointerEvents: isDisabled ? 'none' : 'auto',
+                            cursor: isDisabled ? 'default' : 'pointer',
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#000',
+                            fontSize: `${bubbleFontSize}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            fontWeight: 700,
+                            textAlign: 'center'
+                          }}
+                        >
+                          connect to power
+                        </div>
+                        {/* SVG for speech bubble shape - single unified shape */}
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          {/* Main filled shape */}
+                          <path
+                            d={speechBubblePath}
+                            fill="#ffffff"
+                            style={{ fill: '#ffffff' }}
+                          />
+                          {/* Border paths with pulse animation - excluding the top edge between the two points */}
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle left leg */}
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle right leg */}
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                          {/* Top edge between the two points - no glow, no border */}
+                          <path
+                            d={`M ${triangleBaseLeft},${topY} L ${triangleBaseRight},${topY}`}
+                            fill="none"
+                            stroke="transparent"
+                            strokeWidth="0.3"
+                            vectorEffect="non-scaling-stroke"
+                          />
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Second speech bubble button on page 3 (3.png) - appears after connect to power is clicked or when returning after second button */}
+                  {currentPage === 2 && !editorMode && (page3ButtonClicked || returningToPage3AfterSecondButton) && (() => {
+                    // Speech bubble dimensions from provided data
+                    const bubble2Left = 62.30
+                    const bubble2Top = 33.73
+                    const bubble2Width = 25.18
+                    const bubble2Height = 6.64
+                    const dot1X = 65.11
+                    const dot1Y = 40.38
+                    const dot2X = 71.64
+                    const dot2Y = 40.38
+                    const dot3X = 56.98
+                    const dot3Y = 42.69
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    // If returning after second button was clicked, show as disabled with orange edge
+                    const isDisabled = page3SecondButtonClicked || returningToPage3AfterSecondButton
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Reduce height by 3px
+                    const heightReductionPx = 3
+                    const heightReductionPercent = stageHeightPx > 0 ? (heightReductionPx / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, bubble2Left - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, bubble2Top - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, bubble2Width + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, bubble2Height + heightPercentAdjust - heightReductionPercent)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    // Dot3 is BELOW the box (42.69% > 40.38%), so triangle points downward
+                    const triangleBaseLeft = dot1X  // Left point on bottom edge
+                    const triangleBaseRight = dot2X  // Right point on bottom edge
+                    const triangleBaseY = adjustedTop + expandedHeight  // Bottom edge Y position
+                    const triangleTipX = dot3X  // Triangle tip X (56.98%)
+                    const triangleTipY = dot3Y  // Triangle tip Y (42.69% - below the box)
+                    
+                    // Calculate rounded rectangle corner radius (reduced by half)
+                    const borderRadius = Math.min(expandedHeight / 2, expandedWidth / 2, 2) / 2
+                    
+                    // Create path for speech bubble: rounded rectangle with triangle extending downward from bottom edge
+                    const topLeft = adjustedLeft
+                    const topRight = adjustedLeft + expandedWidth
+                    const topY = adjustedTop
+                    const bottomY = adjustedTop + expandedHeight
+                    
+                    // Build path: rounded rectangle with triangle protrusion on bottom edge
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadius},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadius}
+                      L ${topLeft},${bottomY - borderRadius}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadius},${bottomY}
+                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${bottomY}` : ''}
+                      L ${triangleTipX},${triangleTipY}
+                      L ${triangleBaseRight},${bottomY}
+                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadius}
+                      L ${topRight},${topY + borderRadius}
+                      Q ${topRight},${topY} ${topRight - borderRadius},${topY}
+                      Z
+                    `
+                    
+                    // Border paths - separate segments to exclude bottom edge between the two points
+                    // Left border: from top-left corner down to first point on bottom edge
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadius},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadius}
+                      L ${topLeft},${bottomY - borderRadius}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadius},${bottomY}
+                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${bottomY}` : ''}
+                    `
+                    
+                    // Triangle border: two legs only (not the base between the points)
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeft},${bottomY}
+                      L ${triangleTipX},${triangleTipY}
+                    `
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRight},${bottomY}
+                      L ${triangleTipX},${triangleTipY}
+                    `
+                    
+                    // Right border: from second point on bottom edge up to top-right corner
+                    const rightBorderPath = `
+                      M ${triangleBaseRight},${bottomY}
+                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadius}
+                      L ${topRight},${topY + borderRadius}
+                      Q ${topRight},${topY} ${topRight - borderRadius},${topY}
+                    `
+                    
+                    // Top border: complete top edge
+                    const topBorderPath = `
+                      M ${topLeft + borderRadius},${topY}
+                      L ${topRight - borderRadius},${topY}
+                    `
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`} style={{ zIndex: 2000 }}>
+                        {/* Clickable box area - only the rounded rectangle part, not the triangle */}
+                        <div
+                          className={`speech-bubble-box ${isDisabled ? 'disabled selected' : ''}`}
+                          onClick={!isDisabled ? handlePage3SecondButton : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: `${adjustedLeft}%`,
+                            top: `${adjustedTop}%`,
+                            width: `${expandedWidth}%`,
+                            height: `${expandedHeight}%`,
+                            pointerEvents: isDisabled ? 'none' : 'auto',
+                            cursor: isDisabled ? 'default' : 'pointer',
+                            zIndex: 2001,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#000',
+                            fontSize: `${bubbleFontSize}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            fontWeight: 700,
+                            textAlign: 'center',
+                            lineHeight: '1.3',
+                            padding: '2px 4px',
+                            boxSizing: 'border-box',
+                            flexDirection: 'column'
+                          }}
+                        >
+                          <div style={{ textAlign: 'center', lineHeight: '1.3' }}>
+                            Check that you have all the<br />parts we will use today
+                          </div>
+                        </div>
+                        {/* SVG for speech bubble shape - single unified shape */}
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 2000
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          {/* Main filled shape */}
+                          <path
+                            d={speechBubblePath}
+                            fill="#ffffff"
+                            style={{ fill: '#ffffff' }}
+                          />
+                          {/* Border paths with pulse animation - excluding the bottom edge between the two points */}
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle left leg */}
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle right leg */}
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                          {/* Bottom edge between the two points - no border */}
+                          <path
+                            d={`M ${triangleBaseLeft},${bottomY} L ${triangleBaseRight},${bottomY}`}
+                            fill="none"
+                            stroke="transparent"
+                            strokeWidth="0.3"
+                            vectorEffect="non-scaling-stroke"
+                          />
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White boxes on page 3 (3.png) - hide when first box is selected or when returning after second button */}
+                  {currentPage === 2 && !editorMode && !page3ButtonClicked && !returningToPage3AfterSecondButton && (() => {
+                    // Box 1: Left: 6.88%, Top: 41.74%, Width: 86.24%, Height: 54.35%
+                    const page3Box1Style = getButtonStyle(6.88, 41.74, 86.24, 54.35)
+                    const page3Box1ExpandedStyle = {
+                      ...page3Box1Style,
+                      left: '6.88%',
+                      top: '41.74%',
+                      width: '86.24%',
+                      height: '54.35%',
+                      backgroundColor: 'white',
+                      pointerEvents: 'none',
+                      zIndex: 1000
+                    }
+
+                    // Box 2: Left: 57.80%, Top: 33.38%, Width: 30.81%, Height: 9.60%
+                    const page3Box2Style = getButtonStyle(57.80, 33.38, 30.81, 9.60)
+                    const page3Box2ExpandedStyle = {
+                      ...page3Box2Style,
+                      left: '57.80%',
+                      top: '33.38%',
+                      width: '30.81%',
+                      height: '9.60%',
+                      backgroundColor: 'white',
+                      pointerEvents: 'none',
+                      zIndex: 1000
+                    }
+
+                    return (
+                      <>
+                        <div style={page3Box1ExpandedStyle} />
+                        <div style={page3Box2ExpandedStyle} />
+                      </>
+                    )
+                  })()}
+                  {/* White box with rounded corners on page 3 (3.png) - hide when second button is selected or when returning */}
+                  {currentPage === 2 && !editorMode && !page3SecondButtonClicked && !returningToPage3AfterSecondButton && (() => {
+                    // Box: Left: 12.51%, Top: 43.83%, Width: 75.20%, Height: 46.69%
+                    const page3Box3Style = getButtonStyle(12.51, 43.83, 75.20, 46.69)
+                    // Calculate border radius - increased for more rounded corners
+                    const borderRadiusPx = Math.min(20, Math.max(12, 20 * stageRelativeScale))
+                    const page3Box3ExpandedStyle = {
+                      ...page3Box3Style,
+                      left: '12.51%',
+                      top: '43.83%',
+                      width: '75.20%',
+                      height: '46.69%',
+                      backgroundColor: 'white',
+                      borderRadius: `${borderRadiusPx}px`,
+                      pointerEvents: 'none',
+                      zIndex: 1000
+                    }
+
+                    return (
+                      <div style={page3Box3ExpandedStyle} />
+                    )
+                  })()}
+                  {/* Small green boxes on page 3 (3.png) - always displayed when white box is hidden, even when returning */}
+                  {currentPage === 2 && !editorMode && page3SecondButtonClicked && (() => {
+                    // Fixed pixel size for all boxes - 10px × 10px squares
+                    const boxSizePx = 10
+                    // Calculate border radius for rounded corners
+                    const borderRadiusPx = 2
+                    // Standardized row positions (percentages)
+                    const row1Top = 55.84
+                    const row2Top = 72.62
+                    const row3Top = 87.99
+                    
+                    // Row 1 boxes (aligned at 55.84%)
+                    const greenBoxes = [
+                      { left: 19.96, top: row1Top },
+                      { left: 41.13, top: row1Top },
+                      { left: 62.75, top: row1Top },
+                      { left: 79.46, top: row1Top },
+                      // Row 2 boxes (aligned at 72.62%)
+                      { left: 20.05, top: row2Top },
+                      { left: 40.95, top: row2Top },
+                      { left: 62.29, top: row2Top },
+                      { left: 79.55, top: row2Top },
+                      // Row 3 boxes (aligned at 87.99%)
+                      { left: 40.58, top: row3Top },
+                      { left: 62.02, top: row3Top }
+                    ]
+
+                    return (
+                      <>
+                        {greenBoxes.map((box, index) => {
+                          const isSelected = selectedGreenBoxes.has(index)
+                          // Calculate position in pixels - center the box on the percentage point
+                          // Move right 5px and down 5px for all boxes
+                          // Row 2 boxes (indices 4-7) get additional offset: down 1px
+                          // First row far right box (index 3) and second row far right box (index 7) get additional offset: left 1px
+                          // Third row far left box (index 8) gets additional offset: right 1px
+                          const isRow2 = index >= 4 && index <= 7
+                          const isRow1FarRight = index === 3
+                          const isRow2FarRight = index === 7
+                          const isRow3FarLeft = index === 8
+                          const leftOffset = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5) // 4 for far right boxes (move left 1px), 6 for row 3 far left (move right 1px), 5 for others
+                          const topOffset = isRow2 ? 6 : 5 // 5 + 1 = 6 for row 2 (move down 1px)
+                          const leftPx = (box.left / 100) * stageWidthPx + leftOffset
+                          const topPx = (box.top / 100) * stageHeightPx + topOffset
+                          
+                          const greenBoxStyle = {
+                            position: 'absolute',
+                            left: `${leftPx - boxSizePx / 2}px`,
+                            top: `${topPx - boxSizePx / 2}px`,
+                            width: `${boxSizePx}px`,
+                            height: `${boxSizePx}px`, // Square: width = height = 10px
+                            backgroundColor: isSelected ? '#3bbf6b' : 'white',
+                            border: `0.5px solid #3bbf6b`,
+                            borderRadius: `${borderRadiusPx}px`,
+                            cursor: 'pointer',
+                            pointerEvents: 'auto',
+                            zIndex: 3000, // Very high z-index to ensure clickability above everything
+                            boxSizing: 'border-box',
+                            transform: `scale(${zoom / 100})`,
+                            transformOrigin: 'center center',
+                            userSelect: 'none'
+                          }
+                          return (
+                            <div 
+                              key={`green-box-${index}`} 
+                              style={greenBoxStyle}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                                handleGreenBoxClick(index)
+                              }}
+                              onMouseDown={(e) => {
+                                e.stopPropagation()
+                              }}
+                            />
+                          )
+                        })}
+                      </>
+                    )
+                  })()}
+                  {/* White boxes on page 2 (2.png) - hide once button has been clicked */}
+                  {currentPage === 1 && !editorMode && visitedPages.has(0) && !visitedPages.has(1) && (() => {
                     // Box 1: Left: 9.81%, Top: 42.09%, Width: 79.25%, Height: 31.36%
                     const box1Style = getButtonStyle(9.81, 42.09, 79.25, 31.36)
                     const box1ExpandedStyle = {
@@ -732,9 +1679,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
             disabled={
               currentPage === pages.length - 1 || 
               (currentPage === 0 && !visitedPages.has(0)) ||
-              (currentPage === 1 && !visitedPages.has(1))
+              (currentPage === 1 && !visitedPages.has(1)) ||
+              (currentPage === 2 && (!page3ButtonClicked || !page3SecondButtonClicked))
             }
-            className="btn-modern btn-nav"
+            className={`btn-modern btn-nav ${currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
