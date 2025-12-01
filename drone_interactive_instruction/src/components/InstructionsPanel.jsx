@@ -6,12 +6,20 @@ import page3 from '../assets/images/pages/3.png'
 import page4 from '../assets/images/pages/4.png'
 import page5 from '../assets/images/pages/5.png'
 
+const DEFAULT_PAGE_ASPECT = 0.75
+const STAGE_FRAME_PADDING = 6
+const START_BUTTON_SMALL_THRESHOLD = 80 // px width threshold to shrink border
+
 function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [currentPage, setCurrentPage] = useState(0)
   const [zoom, setZoom] = useState(100)
   const [hasStarted, setHasStarted] = useState(false)
   // Track which pages have been visited/completed (button clicked)
   const [visitedPages, setVisitedPages] = useState(new Set())
+  // Track white box fade states for page 2
+  const [box1Fading, setBox1Fading] = useState(false)
+  const [box2Fading, setBox2Fading] = useState(false)
+  const [box3Fading, setBox3Fading] = useState(false)
   // Default box position - will be set based on current page
   const getDefaultBoxPosition = (pageIndex) => {
     if (pageIndex === 0) {
@@ -28,7 +36,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [resizeHandle, setResizeHandle] = useState(null) // 'n', 's', 'e', 'w'
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [boxStart, setBoxStart] = useState({ left: 0, top: 0, width: 0, height: 0 })
-  const pageWrapperRef = useRef(null)
+  const stageRef = useRef(null)
+  const stageFrameRef = useRef(null)
   const imgRef = useRef(null)
   const boxRef = useRef(null)
   const pages = [page1, page2, page3, page4, page5]
@@ -91,11 +100,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
 
   // Track container size changes to ensure buttons scale correctly with panel resizing
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
+  const [imageAspect, setImageAspect] = useState(DEFAULT_PAGE_ASPECT)
+  const [imageNaturalSize, setImageNaturalSize] = useState({ width: 0, height: 0 })
   
   useEffect(() => {
     const updateContainerSize = () => {
-      if (pageWrapperRef.current) {
-        const rect = pageWrapperRef.current.getBoundingClientRect()
+      if (stageFrameRef.current) {
+        const rect = stageFrameRef.current.getBoundingClientRect()
         setContainerSize({ width: rect.width, height: rect.height })
       }
     }
@@ -106,11 +117,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
       updateContainerSize()
     })
     
-    if (pageWrapperRef.current) {
-      resizeObserver.observe(pageWrapperRef.current)
+    if (stageFrameRef.current) {
+      resizeObserver.observe(stageFrameRef.current)
     }
     
-    // Also listen to window resize
     window.addEventListener('resize', updateContainerSize)
     
     return () => {
@@ -125,6 +135,37 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     const defaultPosition = getDefaultBoxPosition(currentPage)
     setBoxPosition(defaultPosition)
   }, [currentPage])
+
+  // Trigger white boxes fade on page 2 when Start button was clicked
+  useEffect(() => {
+    if (currentPage === 1 && visitedPages.has(0) && !editorMode) {
+      // Box 1: fade after 2 seconds
+      const timer1 = setTimeout(() => {
+        setBox1Fading(true)
+      }, 2000)
+
+      // Box 2: fade after 4 seconds
+      const timer2 = setTimeout(() => {
+        setBox2Fading(true)
+      }, 4000)
+
+      // Box 3: fade after 6 seconds
+      const timer3 = setTimeout(() => {
+        setBox3Fading(true)
+      }, 6000)
+
+      return () => {
+        clearTimeout(timer1)
+        clearTimeout(timer2)
+        clearTimeout(timer3)
+      }
+    } else {
+      // Reset fade states when leaving page 2
+      setBox1Fading(false)
+      setBox2Fading(false)
+      setBox3Fading(false)
+    }
+  }, [currentPage, visitedPages, editorMode])
 
   // Update dimensions when editor mode is enabled or page changes
   useEffect(() => {
@@ -144,9 +185,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
 
   // Get coordinates relative to image as percentage (always at 100% zoom level)
   const getRelativeCoordinates = (clientX, clientY) => {
-    if (!pageWrapperRef.current || !imgRef.current) return null
+    if (!stageRef.current || !imgRef.current) return null
     
-    const wrapperRect = pageWrapperRef.current.getBoundingClientRect()
+    const wrapperRect = stageRef.current.getBoundingClientRect()
     const imgRect = imgRef.current.getBoundingClientRect()
     
     // Calculate the scale factor
@@ -382,105 +423,252 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     }
   }
 
+  const handleImageLoad = useCallback((event) => {
+    if (!event?.target) return
+    const { naturalWidth, naturalHeight } = event.target
+    if (!naturalWidth || !naturalHeight) return
+    const aspect = naturalWidth / naturalHeight
+    setImageAspect(prev => {
+      const previousAspect = prev ?? DEFAULT_PAGE_ASPECT
+      if (Math.abs(previousAspect - aspect) < 0.0001) {
+        return previousAspect
+      }
+      return aspect
+    })
+    setImageNaturalSize({ width: naturalWidth, height: naturalHeight })
+  }, [])
+
+  let stageWidthPx = 0
+  let stageHeightPx = 0
+
+  const stageStyle = (() => {
+    const baseStyle = { cursor: editorMode ? 'default' : 'default' }
+    if (!containerSize.width || !containerSize.height) {
+      return baseStyle
+    }
+    const availableWidth = Math.max(containerSize.width - STAGE_FRAME_PADDING, 0)
+    const availableHeight = Math.max(containerSize.height - STAGE_FRAME_PADDING, 0)
+    if (!availableWidth || !availableHeight) {
+      return baseStyle
+    }
+    const aspect = imageAspect || DEFAULT_PAGE_ASPECT
+    let stageWidth = availableWidth
+    let stageHeight = stageWidth / aspect
+    
+    if (stageHeight > availableHeight) {
+      stageHeight = availableHeight
+      stageWidth = stageHeight * aspect
+    }
+    
+    stageWidthPx = stageWidth
+    stageHeightPx = stageHeight
+    
+    return {
+      ...baseStyle,
+      width: `${stageWidth}px`,
+      height: `${stageHeight}px`
+    }
+  })()
+
+  const stageRelativeScale = imageNaturalSize.height > 0 && stageHeightPx > 0
+    ? stageHeightPx / imageNaturalSize.height
+    : 1
+  const buttonBorderWidth = Math.max(1, Math.min(2, 2 * stageRelativeScale))
+
   return (
     <div className={`instructions-panel ${zoom === 100 ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
       <div className="instructions-background">
         <div className="instructions-content">
           <div className={`page-container ${zoom === 100 ? 'no-scrollbars' : ''}`}>
             <div className="page-wrapper">
-              <div 
-                className="page-stage"
-                ref={pageWrapperRef}
-                style={{ cursor: editorMode ? 'default' : 'default' }}
-              >
-                <img 
-                  ref={imgRef}
-                  src={pages[currentPage]} 
-                  alt={`Instruction page ${currentPage + 1}`}
-                  className="instruction-page"
-                  style={{ 
-                    transform: `scale(${zoom / 100})`, 
-                    transformOrigin: 'center center',
-                    height: '100%',
-                    width: 'auto',
-                    pointerEvents: editorMode ? 'none' : 'auto'
-                  }}
-                />
-                {editorMode && (
-                  <div 
-                    ref={boxRef}
-                    className="resizable-box"
-                    style={getBoxStyle()}
-                    onMouseDown={handleBoxMouseDown}
-                  >
-                    <div className="resizable-box-content" />
-                    <div className="resize-handle resize-handle-n" data-handle="n" />
-                    <div className="resize-handle resize-handle-s" data-handle="s" />
-                    <div className="resize-handle resize-handle-e" data-handle="e" />
-                    <div className="resize-handle resize-handle-w" data-handle="w" />
-                  </div>
-                )}
-                {currentPage === 0 && !editorMode && (() => {
-                  const buttonLeft = 44.36
-                const buttonTop = 59.30
-                const buttonWidth = 10.96
-                const buttonHeight = 3.86
-                  const isDisabled = visitedPages.has(0)
-                  const buttonStyle = getButtonStyle(buttonLeft, buttonTop, buttonWidth, buttonHeight)
-                  
-                  return (
-                    <button 
-                      onClick={handleStart}
-                      disabled={isDisabled}
-                      className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
-                      style={{
-                        ...buttonStyle,
-                        width: `calc(${buttonWidth}% + 3px)`,
-                        border: '2px solid #0d6efd',
-                        backgroundColor: 'white',
-                        color: '#0d6efd',
-                        cursor: isDisabled ? 'default' : 'pointer'
-                      }}
-                      aria-label="Start"
+              <div className="page-stage-frame" ref={stageFrameRef}>
+                <div 
+                  className="page-stage"
+                  ref={stageRef}
+                  style={stageStyle}
+                >
+                  <img 
+                    ref={imgRef}
+                    src={pages[currentPage]} 
+                    alt={`Instruction page ${currentPage + 1}`}
+                    className="instruction-page"
+                    onLoad={handleImageLoad}
+                    style={{ 
+                      transform: `scale(${zoom / 100})`, 
+                      transformOrigin: 'center center',
+                      pointerEvents: editorMode ? 'none' : 'auto'
+                    }}
+                  />
+                  {editorMode && (
+                    <div 
+                      ref={boxRef}
+                      className="resizable-box"
+                      style={getBoxStyle()}
+                      onMouseDown={handleBoxMouseDown}
                     >
-                      Start
-                    </button>
-                  )
-                })()}
-                {currentPage === 1 && !editorMode && (() => {
-                  const buttonLeft = 29.77
-                  const buttonTop = 83.75
-                  const buttonWidth = 40.45
-                  const buttonHeight = 4.22
-                  const isDisabled = visitedPages.has(1)
-                  const buttonStyle = getButtonStyle(buttonLeft, buttonTop, buttonWidth, buttonHeight)
-                  
-                  return (
-                    <button 
-                      onClick={handlePage1Button}
-                      disabled={isDisabled}
-                      className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
-                      style={{
-                        ...buttonStyle,
-                        border: '2px solid #0d6efd',
-                        backgroundColor: 'white',
-                        color: 'black',
-                        fontFamily: 'Roboto, sans-serif',
-                        fontSize: '10px',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        paddingLeft: '8px',
-                        paddingRight: '8px',
-                        boxSizing: 'border-box',
-                        cursor: isDisabled ? 'default' : 'pointer'
-                      }}
-                      aria-label="I'm ready to build a drone controller"
-                    >
-                      I'm ready to build a drone controller
-                    </button>
-                  )
-                })()}
+                      <div className="resizable-box-content" />
+                      <div className="resize-handle resize-handle-n" data-handle="n" />
+                      <div className="resize-handle resize-handle-s" data-handle="s" />
+                      <div className="resize-handle resize-handle-e" data-handle="e" />
+                      <div className="resize-handle resize-handle-w" data-handle="w" />
+                    </div>
+                  )}
+                  {currentPage === 0 && !editorMode && (() => {
+                    const buttonLeft = 44.36
+                    const buttonTop = 59.30
+                    const buttonWidth = 10.96
+                    const buttonHeight = 3.86
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const isDisabled = visitedPages.has(0)
+                    const startFontSize = Math.min(24, Math.max(8, 24 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const adjustedLeft = Math.max(0, buttonLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, buttonTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, buttonWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, buttonHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const buttonWidthPx = stageWidthPx > 0 ? (expandedWidth / 100) * stageWidthPx : 0
+                    const displayWidthPx = buttonWidthPx * (zoom / 100)
+                    const isStartButtonSmall = displayWidthPx > 0 && displayWidthPx <= START_BUTTON_SMALL_THRESHOLD
+                    const startButtonBorderWidth = isStartButtonSmall ? 2 : 3
+                    const expandedButtonStyle = {
+                      ...buttonStyle,
+                      left: `${adjustedLeft}%`,
+                      top: `${adjustedTop}%`,
+                      width: `${Math.max(0, expandedWidth)}%`,
+                      height: `${Math.max(0, expandedHeight)}%`
+                    }
+                    
+                    return (
+                      <button 
+                        onClick={handleStart}
+                        disabled={isDisabled}
+                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''}`}
+                        style={{
+                          ...expandedButtonStyle,
+                          backgroundColor: 'white',
+                          color: '#0d6efd',
+                          cursor: isDisabled ? 'default' : 'pointer',
+                          fontSize: `${startFontSize}px`,
+                          fontFamily: 'Roboto, sans-serif'
+                        }}
+                        aria-label="Start"
+                      >
+                        Start
+                      </button>
+                    )
+                  })()}
+                  {currentPage === 1 && !editorMode && (() => {
+                    const buttonLeft = 29.77
+                    const buttonTop = 83.75
+                    const buttonWidth = 40.45
+                    const buttonHeight = 4.22
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const isDisabled = visitedPages.has(1)
+                    const readyFontSize = Math.min(18, Math.max(6, 18 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    // Calculate 43px downward offset as percentage of image natural height (fixed, doesn't change with panel resize)
+                    const downwardOffset43pxPercent = imageNaturalSize.height > 0 ? (43 / imageNaturalSize.height) * 100 : 0
+                    const adjustedLeft = Math.max(0, buttonLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, buttonTop - topOffsetAdjust + downwardOffset43pxPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, buttonWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, buttonHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const buttonWidthPx = stageWidthPx > 0 ? (expandedWidth / 100) * stageWidthPx : 0
+                    const displayWidthPx = buttonWidthPx * (zoom / 100)
+                    const isReadyButtonSmall = displayWidthPx > 0 && displayWidthPx <= START_BUTTON_SMALL_THRESHOLD
+                    const readyButtonBorderWidth = isReadyButtonSmall ? 2 : 3
+                    const expandedButtonStyle = {
+                      ...buttonStyle,
+                      left: `${adjustedLeft}%`,
+                      top: `${adjustedTop}%`,
+                      width: `${Math.max(0, expandedWidth)}%`,
+                      height: `${Math.max(0, expandedHeight)}%`
+                    }
+                    
+                    return (
+                      <button 
+                        onClick={handlePage1Button}
+                        disabled={isDisabled}
+                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''}`}
+                        style={{
+                          ...expandedButtonStyle,
+                          backgroundColor: 'white',
+                          color: '#0d6efd',
+                          cursor: isDisabled ? 'default' : 'pointer',
+                          fontSize: `${readyFontSize}px`,
+                          fontFamily: 'Roboto, sans-serif'
+                        }}
+                        aria-label="I'm ready to build a drone controller"
+                      >
+                        I'm ready to build a drone controller
+                      </button>
+                    )
+                  })()}
+                  {/* White boxes on page 2 (2.png) */}
+                  {currentPage === 1 && !editorMode && visitedPages.has(0) && (() => {
+                    // Box 1: Left: 9.81%, Top: 42.09%, Width: 79.25%, Height: 31.36%
+                    const box1Style = getButtonStyle(9.81, 42.09, 79.25, 31.36)
+                    const box1ExpandedStyle = {
+                      ...box1Style,
+                      left: '9.81%',
+                      top: '42.09%',
+                      width: '79.25%',
+                      height: '31.36%',
+                      backgroundColor: 'white',
+                      opacity: box1Fading ? 0 : 1,
+                      transition: 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      pointerEvents: 'none',
+                      zIndex: 5
+                    }
+
+                    // Box 2: Left: 13.89%, Top: 72.32%, Width: 74.76%, Height: 11.43%
+                    const box2Style = getButtonStyle(13.89, 72.32, 74.76, 11.43)
+                    const box2ExpandedStyle = {
+                      ...box2Style,
+                      left: '13.89%',
+                      top: '72.32%',
+                      width: '74.76%',
+                      height: '11.43%',
+                      backgroundColor: 'white',
+                      opacity: box2Fading ? 0 : 1,
+                      transition: 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      pointerEvents: 'none',
+                      zIndex: 5
+                    }
+
+                    // Box 3: Left: 13.43%, Top: 84.81%, Width: 74.76%, Height: 11.43%
+                    const box3Style = getButtonStyle(13.43, 84.81, 74.76, 11.43)
+                    const box3ExpandedStyle = {
+                      ...box3Style,
+                      left: '13.43%',
+                      top: '84.81%',
+                      width: '74.76%',
+                      height: '11.43%',
+                      backgroundColor: 'white',
+                      opacity: box3Fading ? 0 : 1,
+                      transition: 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      pointerEvents: 'none',
+                      zIndex: 1000
+                    }
+
+                    return (
+                      <>
+                        <div style={box1ExpandedStyle} />
+                        <div style={box2ExpandedStyle} />
+                        <div style={box3ExpandedStyle} />
+                      </>
+                    )
+                  })()}
+                </div>
               </div>
             </div>
           </div>

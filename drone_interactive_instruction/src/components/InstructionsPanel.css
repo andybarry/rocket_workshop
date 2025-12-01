@@ -125,13 +125,24 @@
   align-items: center;
 }
 
-.page-stage {
-  position: relative;
+.page-stage-frame {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 3px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  flex: 0 0 auto;
+}
+
+.page-stage {
+  position: relative;
+  display: block;
+  line-height: 0;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .page-container.no-scrollbars {
@@ -151,12 +162,13 @@
 }
 
 .instruction-page {
-  max-width: 100%;
-  height: 100%;
-  width: auto;
-  object-fit: contain;
   display: block;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: none;
   border-radius: 4px;
 }
 
@@ -237,7 +249,7 @@
   background: transparent;
   color: #f05f40;
   box-shadow: none;
-  border: 2px solid #f05f40;
+  border: 1px solid #f05f40;
   border-radius: 20px;
 }
 
@@ -299,6 +311,16 @@
   stroke: #bdbdbd;
 }
 
+/* Pulsing glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 3px rgba(13, 110, 253, 0.2), 0 0 6px rgba(13, 110, 253, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.3), 0 0 9px rgba(13, 110, 253, 0.2);
+  }
+}
+
 .page-start-button {
   position: absolute;
   z-index: 10;
@@ -306,7 +328,7 @@
   /* Styling as requested */
   background-color: white;
   color: #0d6efd;
-  border: 2px solid #0d6efd;
+  border: 1px solid #0d6efd;
   border-radius: 999px;
   padding: 0;
   font-size: 18px;
@@ -314,8 +336,10 @@
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
   /* No transition on transform - scale immediately with image */
+  /* Border changes instantly on hover, no delay - border is not in transition */
   transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* Pulsing glow animation for unselected buttons */
+  animation: pulseGlow 2s ease-in-out infinite;
   
   /* Center text horizontally and vertically */
   display: flex;
@@ -329,11 +353,26 @@
   -webkit-backface-visibility: hidden;
 }
 
-.page-start-button:hover:not(.disabled):not(:disabled) {
+/* Selected button state - no pulse, 2px border */
+.page-start-button.selected {
+  border: 2px solid #0d6efd;
+  animation: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.page-start-button:hover:not(.disabled):not(:disabled):not(.selected) {
   background-color: #0d6efd;
   color: white;
-  /* Even glow all around the button instead of just at the bottom */
-  box-shadow: 0 0 12px rgba(13, 110, 253, 0.5);
+  border: 2px solid #0d6efd !important;
+  /* No glow effect on hover */
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.page-start-button:hover:not(.disabled):not(:disabled).selected {
+  background-color: #0d6efd;
+  color: white;
+  border: 2px solid #0d6efd !important;
+  /* No glow effect on hover */
 }
 
 .page-start-button:active:not(.disabled):not(:disabled) {
