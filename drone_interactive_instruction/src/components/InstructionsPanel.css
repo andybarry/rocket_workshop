@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   overflow-y: auto;
- t  background-color: white;
+  background-color: white;
   position: relative;
 }
 
@@ -125,6 +125,15 @@
   align-items: center;
 }
 
+.page-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex: 0 0 auto;
+}
+
 .page-container.no-scrollbars {
   overflow: hidden;
 }
@@ -211,14 +220,6 @@
   left: 100%;
 }
 
-.btn-modern:hover:not(:disabled) {
-  /* Color changes only, no movement */
-}
-
-.btn-modern:active:not(:disabled) {
-  /* No movement on click */
-}
-
 .btn-modern:disabled {
   background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
   color: #9e9e9e;
@@ -238,14 +239,6 @@
   box-shadow: none;
   border: 2px solid #f05f40;
   border-radius: 20px;
-}
-
-.btn-nav:hover:not(:disabled) {
-  /* No hover effects */
-}
-
-.btn-nav:active:not(:disabled) {
-  /* No active effects */
 }
 
 .zoom-controls {

@@ -360,113 +360,128 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     }
   }
 
+  // Calculate button style - scales with zoom exactly like the image (from wrapper center)
+  const getButtonStyle = (buttonLeft, buttonTop, buttonWidth, buttonHeight) => {
+    const scale = zoom / 100
+    
+    // Calculate transform origin so button scales from wrapper center (50%, 50%) like the image does
+    // The wrapper center point relative to the button:
+    // X: How far into the button is the wrapper center horizontally
+    const wrapperCenterRelativeToButtonLeft = (50 - buttonLeft) / buttonWidth * 100
+    // Y: How far into the button is the wrapper center vertically  
+    const wrapperCenterRelativeToButtonTop = (50 - buttonTop) / buttonHeight * 100
+    
+    return {
+      position: 'absolute',
+      left: `${buttonLeft}%`,
+      top: `${buttonTop}%`,
+      width: `${buttonWidth}%`,
+      height: `${buttonHeight}%`,
+      transform: `scale(${scale})`,
+      transformOrigin: `${wrapperCenterRelativeToButtonLeft}% ${wrapperCenterRelativeToButtonTop}%`
+    }
+  }
+
   return (
     <div className={`instructions-panel ${zoom === 100 ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
       <div className="instructions-background">
         <div className="instructions-content">
           <div className={`page-container ${zoom === 100 ? 'no-scrollbars' : ''}`}>
-            <div 
-              className="page-wrapper"
-              ref={pageWrapperRef}
-              style={{ cursor: editorMode ? 'default' : 'default' }}
-            >
-              <img 
-                ref={imgRef}
-                src={pages[currentPage]} 
-                alt={`Instruction page ${currentPage + 1}`}
-                className="instruction-page"
-                style={{ 
-                  transform: `scale(${zoom / 100})`, 
-                  transformOrigin: 'center center',
-                  height: '100%',
-                  width: 'auto',
-                  pointerEvents: editorMode ? 'none' : 'auto'
-                }}
-              />
-              {editorMode && (
-                <div 
-                  ref={boxRef}
-                  className="resizable-box"
-                  style={getBoxStyle()}
-                  onMouseDown={handleBoxMouseDown}
-                >
-                  <div className="resizable-box-content" />
-                  <div className="resize-handle resize-handle-n" data-handle="n" />
-                  <div className="resize-handle resize-handle-s" data-handle="s" />
-                  <div className="resize-handle resize-handle-e" data-handle="e" />
-                  <div className="resize-handle resize-handle-w" data-handle="w" />
-                </div>
-              )}
-              {currentPage === 0 && !editorMode && (() => {
-                const buttonLeft = 44.36
-                const buttonTop = 58.06
+            <div className="page-wrapper">
+              <div 
+                className="page-stage"
+                ref={pageWrapperRef}
+                style={{ cursor: editorMode ? 'default' : 'default' }}
+              >
+                <img 
+                  ref={imgRef}
+                  src={pages[currentPage]} 
+                  alt={`Instruction page ${currentPage + 1}`}
+                  className="instruction-page"
+                  style={{ 
+                    transform: `scale(${zoom / 100})`, 
+                    transformOrigin: 'center center',
+                    height: '100%',
+                    width: 'auto',
+                    pointerEvents: editorMode ? 'none' : 'auto'
+                  }}
+                />
+                {editorMode && (
+                  <div 
+                    ref={boxRef}
+                    className="resizable-box"
+                    style={getBoxStyle()}
+                    onMouseDown={handleBoxMouseDown}
+                  >
+                    <div className="resizable-box-content" />
+                    <div className="resize-handle resize-handle-n" data-handle="n" />
+                    <div className="resize-handle resize-handle-s" data-handle="s" />
+                    <div className="resize-handle resize-handle-e" data-handle="e" />
+                    <div className="resize-handle resize-handle-w" data-handle="w" />
+                  </div>
+                )}
+                {currentPage === 0 && !editorMode && (() => {
+                  const buttonLeft = 44.36
+                const buttonTop = 59.30
                 const buttonWidth = 10.96
-                const buttonHeight = 3.67
-                const isDisabled = visitedPages.has(0)
-                
-                return (
-                  <button 
-                    onClick={handleStart}
-                    disabled={isDisabled}
-                    className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
-                    style={{
-                      position: 'absolute',
-                      left: `${buttonLeft}%`,
-                      top: `${buttonTop}%`,
-                      width: `calc(${buttonWidth}% + 3px)`,
-                      height: `${buttonHeight}%`,
-                      transform: `scale(${zoom / 100})`,
-                      transformOrigin: 'center center',
-                      border: '2px solid #0d6efd',
-                      backgroundColor: 'white',
-                      color: '#0d6efd',
-                      cursor: isDisabled ? 'default' : 'pointer'
-                    }}
-                    aria-label="Start"
-                  >
-                    Start
-                  </button>
-                )
-              })()}
-              {currentPage === 1 && !editorMode && (() => {
-                const buttonLeft = 29.77
-                const buttonTop = 83.75
-                const buttonWidth = 40.45
-                const buttonHeight = 4.22
-                const isDisabled = visitedPages.has(1)
-                
-                return (
-                  <button 
-                    onClick={handlePage1Button}
-                    disabled={isDisabled}
-                    className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
-                    style={{
-                      position: 'absolute',
-                      left: `${buttonLeft}%`,
-                      top: `${buttonTop}%`,
-                      width: `${buttonWidth}%`,
-                      height: `${buttonHeight}%`,
-                      transform: `scale(${zoom / 100})`,
-                      transformOrigin: 'center center',
-                      border: '2px solid #0d6efd',
-                      backgroundColor: 'white',
-                      color: 'black',
-                      fontFamily: 'Roboto, sans-serif',
-                      fontSize: '10px',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      paddingLeft: '8px',
-                      paddingRight: '8px',
-                      boxSizing: 'border-box',
-                      cursor: isDisabled ? 'default' : 'pointer'
-                    }}
-                    aria-label="I'm ready to build a drone controller"
-                  >
-                    I'm ready to build a drone controller
-                  </button>
-                )
-              })()}
+                const buttonHeight = 3.86
+                  const isDisabled = visitedPages.has(0)
+                  const buttonStyle = getButtonStyle(buttonLeft, buttonTop, buttonWidth, buttonHeight)
+                  
+                  return (
+                    <button 
+                      onClick={handleStart}
+                      disabled={isDisabled}
+                      className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
+                      style={{
+                        ...buttonStyle,
+                        width: `calc(${buttonWidth}% + 3px)`,
+                        border: '2px solid #0d6efd',
+                        backgroundColor: 'white',
+                        color: '#0d6efd',
+                        cursor: isDisabled ? 'default' : 'pointer'
+                      }}
+                      aria-label="Start"
+                    >
+                      Start
+                    </button>
+                  )
+                })()}
+                {currentPage === 1 && !editorMode && (() => {
+                  const buttonLeft = 29.77
+                  const buttonTop = 83.75
+                  const buttonWidth = 40.45
+                  const buttonHeight = 4.22
+                  const isDisabled = visitedPages.has(1)
+                  const buttonStyle = getButtonStyle(buttonLeft, buttonTop, buttonWidth, buttonHeight)
+                  
+                  return (
+                    <button 
+                      onClick={handlePage1Button}
+                      disabled={isDisabled}
+                      className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
+                      style={{
+                        ...buttonStyle,
+                        border: '2px solid #0d6efd',
+                        backgroundColor: 'white',
+                        color: 'black',
+                        fontFamily: 'Roboto, sans-serif',
+                        fontSize: '10px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        paddingLeft: '8px',
+                        paddingRight: '8px',
+                        boxSizing: 'border-box',
+                        cursor: isDisabled ? 'default' : 'pointer'
+                      }}
+                      aria-label="I'm ready to build a drone controller"
+                    >
+                      I'm ready to build a drone controller
+                    </button>
+                  )
+                })()}
+              </div>
             </div>
           </div>
         </div>
