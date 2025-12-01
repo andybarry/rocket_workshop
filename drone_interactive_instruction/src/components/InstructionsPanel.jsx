@@ -10,6 +10,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [currentPage, setCurrentPage] = useState(0)
   const [zoom, setZoom] = useState(100)
   const [hasStarted, setHasStarted] = useState(false)
+  // Track which pages have been visited/completed (button clicked)
+  const [visitedPages, setVisitedPages] = useState(new Set())
   // Default box position - will be set based on current page
   const getDefaultBoxPosition = (pageIndex) => {
     if (pageIndex === 0) {
@@ -39,8 +41,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   }
 
   const handleNext = () => {
-    // If on page 1 (index 0), require start button to be clicked first
-    if (currentPage === 0 && !hasStarted) {
+    // If on page 1 (index 0), require start button to be clicked first (only on first visit)
+    if (currentPage === 0 && !visitedPages.has(0)) {
+      return
+    }
+    // For page 1 (index 1), require button click only on first visit
+    if (currentPage === 1 && !visitedPages.has(1)) {
       return
     }
     if (currentPage < pages.length - 1) {
@@ -51,9 +57,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
 
   const handleStart = () => {
     setHasStarted(true)
+    // Mark page 0 as visited
+    setVisitedPages(prev => new Set(prev).add(0))
     // Move to next page after clicking Start
     if (currentPage < pages.length - 1) {
       setCurrentPage(1)
+      setZoom(100)
+    }
+  }
+
+  // Handler for page 1 button
+  const handlePage1Button = () => {
+    // Mark page 1 as visited
+    setVisitedPages(prev => new Set(prev).add(1))
+    // Move to next page
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(prev => prev + 1)
       setZoom(100)
     }
   }
@@ -69,6 +88,36 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const handleReset = () => {
     setZoom(100)
   }
+
+  // Track container size changes to ensure buttons scale correctly with panel resizing
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
+  
+  useEffect(() => {
+    const updateContainerSize = () => {
+      if (pageWrapperRef.current) {
+        const rect = pageWrapperRef.current.getBoundingClientRect()
+        setContainerSize({ width: rect.width, height: rect.height })
+      }
+    }
+    
+    updateContainerSize()
+    
+    const resizeObserver = new ResizeObserver(() => {
+      updateContainerSize()
+    })
+    
+    if (pageWrapperRef.current) {
+      resizeObserver.observe(pageWrapperRef.current)
+    }
+    
+    // Also listen to window resize
+    window.addEventListener('resize', updateContainerSize)
+    
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateContainerSize)
+    }
+  }, [currentPage])
 
   // Initialize box when editor mode is enabled or page changes
   useEffect(() => {
@@ -348,31 +397,73 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                   <div className="resize-handle resize-handle-w" data-handle="w" />
                 </div>
               )}
-              {currentPage === 0 && !hasStarted && !editorMode && (() => {
+              {currentPage === 0 && !editorMode && (() => {
                 const buttonLeft = 44.36
                 const buttonTop = 58.06
                 const buttonWidth = 10.96
                 const buttonHeight = 3.67
+                const isDisabled = visitedPages.has(0)
                 
                 return (
                   <button 
                     onClick={handleStart}
-                    className="page-start-button"
+                    disabled={isDisabled}
+                    className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
                     style={{
                       position: 'absolute',
                       left: `${buttonLeft}%`,
                       top: `${buttonTop}%`,
-                      width: `calc(${buttonWidth}% + 5px)`,
+                      width: `calc(${buttonWidth}% + 3px)`,
                       height: `${buttonHeight}%`,
                       transform: `scale(${zoom / 100})`,
-                      transformOrigin: `${((50 - buttonLeft) / buttonWidth * 100).toFixed(2)}% ${((50 - buttonTop) / buttonHeight * 100).toFixed(2)}%`,
+                      transformOrigin: 'center center',
                       border: '2px solid #0d6efd',
                       backgroundColor: 'white',
-                      color: '#0d6efd'
+                      color: '#0d6efd',
+                      cursor: isDisabled ? 'default' : 'pointer'
                     }}
                     aria-label="Start"
                   >
                     Start
+                  </button>
+                )
+              })()}
+              {currentPage === 1 && !editorMode && (() => {
+                const buttonLeft = 29.77
+                const buttonTop = 83.75
+                const buttonWidth = 40.45
+                const buttonHeight = 4.22
+                const isDisabled = visitedPages.has(1)
+                
+                return (
+                  <button 
+                    onClick={handlePage1Button}
+                    disabled={isDisabled}
+                    className={`page-start-button ${isDisabled ? 'disabled' : ''}`}
+                    style={{
+                      position: 'absolute',
+                      left: `${buttonLeft}%`,
+                      top: `${buttonTop}%`,
+                      width: `${buttonWidth}%`,
+                      height: `${buttonHeight}%`,
+                      transform: `scale(${zoom / 100})`,
+                      transformOrigin: 'center center',
+                      border: '2px solid #0d6efd',
+                      backgroundColor: 'white',
+                      color: 'black',
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: '10px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      paddingLeft: '8px',
+                      paddingRight: '8px',
+                      boxSizing: 'border-box',
+                      cursor: isDisabled ? 'default' : 'pointer'
+                    }}
+                    aria-label="I'm ready to build a drone controller"
+                  >
+                    I'm ready to build a drone controller
                   </button>
                 )
               })()}
@@ -435,7 +526,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
         <div className="nav-button-right">
           <button 
             onClick={handleNext}
-            disabled={currentPage === pages.length - 1 || (currentPage === 0 && !hasStarted)}
+            disabled={
+              currentPage === pages.length - 1 || 
+              (currentPage === 0 && !visitedPages.has(0)) ||
+              (currentPage === 1 && !visitedPages.has(1))
+            }
             className="btn-modern btn-nav"
             aria-label="Next page"
           >
