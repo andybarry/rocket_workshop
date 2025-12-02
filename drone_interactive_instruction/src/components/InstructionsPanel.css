@@ -125,6 +125,21 @@
   align-items: center;
 }
 
+/* When zoomed (container is scrollable), align to top and allow overflow */
+.page-container:not(.no-scrollbars) .page-wrapper {
+  align-items: flex-start;
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+  width: auto;
+  min-width: 100%;
+  position: relative;
+  flex-shrink: 0;
+  justify-content: center;
+  /* Add padding to create scrollable space for scaled image overflow */
+  box-sizing: content-box;
+}
+
 .page-stage-frame {
   width: 100%;
   height: 100%;
@@ -135,6 +150,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+}
+
+/* When zoomed, keep stage-frame at original size (not expanding with wrapper) */
+.page-container:not(.no-scrollbars) .page-stage-frame {
+  /* Keep original size - don't expand with wrapper */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  /* Keep content centered so image scales from center correctly */
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  position: relative;
 }
 
 .page-stage {
@@ -143,6 +173,16 @@
   line-height: 0;
   max-width: 100%;
   max-height: 100%;
+  overflow: visible;
+}
+
+/* When zoomed, allow stage to show overflow from scaled image */
+.page-container:not(.no-scrollbars) .page-stage {
+  max-height: none;
+  max-width: none;
+  overflow: visible;
+  /* Ensure stage expands to show scaled content */
+  display: block;
 }
 
 .page-container.no-scrollbars {
