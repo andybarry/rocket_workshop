@@ -5,6 +5,7 @@ import page2 from '../assets/images/pages/2.png'
 import page3 from '../assets/images/pages/3.png'
 import page4 from '../assets/images/pages/4.png'
 import page5 from '../assets/images/pages/5.png'
+import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
 const STAGE_FRAME_PADDING = 6
@@ -20,6 +21,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [page3ButtonClicked, setPage3ButtonClicked] = useState(false)
   // Track page 3 second button state
   const [page3SecondButtonClicked, setPage3SecondButtonClicked] = useState(false)
+  // Track page 4 button states
+  const [page4Button1Clicked, setPage4Button1Clicked] = useState(false)
+  const [page4Button2Clicked, setPage4Button2Clicked] = useState(false)
+  const [page4Button3Clicked, setPage4Button3Clicked] = useState(false)
+  const [page4Button4Clicked, setPage4Button4Clicked] = useState(false)
+  const [page4Button5Clicked, setPage4Button5Clicked] = useState(false)
+  // Track page 4 speech bubble button state
+  const [page4SpeechBubbleClicked, setPage4SpeechBubbleClicked] = useState(false)
   // Track selected green boxes on page 3
   const [selectedGreenBoxes, setSelectedGreenBoxes] = useState(new Set())
   // Track if returning from page 3 to page 2
@@ -134,6 +143,33 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
     }
   }
 
+  // Handler for page 4 buttons
+  const handlePage4Button1 = () => {
+    setPage4Button1Clicked(true)
+    setVisitedPages(prev => new Set(prev).add(3))
+  }
+
+  const handlePage4Button2 = () => {
+    setPage4Button2Clicked(true)
+  }
+
+  const handlePage4Button3 = () => {
+    setPage4Button3Clicked(true)
+  }
+
+  const handlePage4Button4 = () => {
+    setPage4Button4Clicked(true)
+  }
+
+  const handlePage4Button5 = () => {
+    setPage4Button5Clicked(true)
+  }
+
+  // Handler for page 4 speech bubble button
+  const handlePage4SpeechBubble = () => {
+    setPage4SpeechBubbleClicked(true)
+  }
+
   // Handler for page 3 speech bubble button
   const handlePage3Button = () => {
     setPage3ButtonClicked(true)
@@ -174,6 +210,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
   const [imageAspect, setImageAspect] = useState(DEFAULT_PAGE_ASPECT)
   const [imageNaturalSize, setImageNaturalSize] = useState({ width: 0, height: 0 })
+  const [safetyGlassesSize, setSafetyGlassesSize] = useState({ width: 0, height: 0 })
   
   useEffect(() => {
     const updateContainerSize = () => {
@@ -1036,82 +1073,102 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                     const triangleTipX = dot3X  // Triangle tip X (19.13%)
                     const triangleTipY = dot3Y  // Triangle tip Y (27.72% - above the box)
                     
-                    // Calculate rounded rectangle corner radius (reduced by half)
-                    const borderRadius = Math.min(expandedHeight / 2, expandedWidth / 2, 2) / 2
+                    // Calculate rounded rectangle corner radius (reduced for speech bubbles)
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    // Convert to wrapper-relative SVG coordinates (0-100)
+                    // The wrapper dimensions in pixels
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    // CSS border-radius applies the same pixel value to all corners
+                    // Convert to SVG coordinates: use separate X and Y radius values
+                    // Horizontal curves (left/right edges) use radius as % of width
+                    // Vertical curves (top/bottom edges) use radius as % of height
+                    // CSS caps each at 50% of its respective dimension
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
                     
-                    // Create path for speech bubble: rounded rectangle with triangle extending upward from top edge
-                    // The triangle base is on the top edge between dot1 and dot2, pointing up to dot3
-                    const topLeft = adjustedLeft
-                    const topRight = adjustedLeft + expandedWidth
-                    const topY = adjustedTop
-                    const bottomY = adjustedTop + expandedHeight
+                    // Convert coordinates from page coordinates to wrapper-relative (0-100)
+                    // Wrapper is at adjustedLeft, adjustedTop with size expandedWidth, expandedHeight
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
                     
-                    // Build path: rounded rectangle with triangle protrusion on top edge
-                    // The top edge between dot1 and dot2 will have no border (transparent)
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    // Build path: rounded rectangle with triangle protrusion on top edge (using wrapper-relative coordinates)
+                    // Use borderRadiusWrapperX for horizontal curves (left/right), borderRadiusWrapperY for vertical curves (top/bottom)
                     const speechBubblePath = `
-                      M ${topLeft + borderRadius},${bottomY}
-                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadius}
-                      L ${topLeft},${topY + borderRadius}
-                      Q ${topLeft},${topY} ${topLeft + borderRadius},${topY}
-                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${topY}` : ''}
-                      L ${triangleTipX},${triangleTipY}
-                      L ${triangleBaseRight},${topY}
-                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${topY}` : ''}
-                      Q ${topRight},${topY} ${topRight},${topY + borderRadius}
-                      L ${topRight},${bottomY - borderRadius}
-                      Q ${topRight},${bottomY} ${topRight - borderRadius},${bottomY}
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
                       Z
                     `
                     
                     // Border paths - separate segments to exclude top edge between the two points
                     // Left border: from bottom-left corner up to first point on top edge
                     const leftBorderPath = `
-                      M ${topLeft + borderRadius},${bottomY}
-                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadius}
-                      L ${topLeft},${topY + borderRadius}
-                      Q ${topLeft},${topY} ${topLeft + borderRadius},${topY}
-                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${topY}` : ''}
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
                     `
                     
                     // Triangle border: two legs only (not the base between the points)
                     // Left leg: from dot1 to tip
                     const triangleLeftLegPath = `
-                      M ${triangleBaseLeft},${topY}
-                      L ${triangleTipX},${triangleTipY}
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     // Right leg: from dot2 to tip
                     const triangleRightLegPath = `
-                      M ${triangleBaseRight},${topY}
-                      L ${triangleTipX},${triangleTipY}
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     
                     // Right border: from second point on top edge down to bottom-right corner
                     const rightBorderPath = `
-                      M ${triangleBaseRight},${topY}
-                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${topY}` : ''}
-                      Q ${topRight},${topY} ${topRight},${topY + borderRadius}
-                      L ${topRight},${bottomY - borderRadius}
-                      Q ${topRight},${bottomY} ${topRight - borderRadius},${bottomY}
+                      M ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
                     // Bottom border: complete bottom edge
                     const bottomBorderPath = `
-                      M ${topLeft + borderRadius},${bottomY}
-                      L ${topRight - borderRadius},${bottomY}
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
                     return (
-                      <div className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`}>
+                      <div 
+                        className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`}
+                        style={buttonStyle}
+                      >
                         {/* Clickable box area - only the rounded rectangle part, not the triangle */}
                         <div
                           className={`speech-bubble-box ${isDisabled ? 'disabled selected' : ''}`}
                           onClick={!isDisabled ? handlePage3Button : undefined}
                           style={{
                             position: 'absolute',
-                            left: `${adjustedLeft}%`,
-                            top: `${adjustedTop}%`,
-                            width: `${expandedWidth}%`,
-                            height: `${expandedHeight}%`,
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
                             pointerEvents: isDisabled ? 'none' : 'auto',
                             cursor: isDisabled ? 'default' : 'pointer',
                             zIndex: 11,
@@ -1198,7 +1255,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                           </g>
                           {/* Top edge between the two points - no glow, no border */}
                           <path
-                            d={`M ${triangleBaseLeft},${topY} L ${triangleBaseRight},${topY}`}
+                            d={`M ${triangleBaseLeftWrapper},${topY} L ${triangleBaseRightWrapper},${topY}`}
                             fill="none"
                             stroke="transparent"
                             strokeWidth="0.3"
@@ -1240,6 +1297,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                     const adjustedTop = Math.max(0, bubble2Top - topOffsetAdjust)
                     const expandedWidth = Math.min(100 - adjustedLeft, bubble2Width + widthPercentAdjust)
                     const expandedHeight = Math.min(100 - adjustedTop, bubble2Height + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
                     // Dot3 is BELOW the box (42.69% > 40.38%), so triangle points downward
@@ -1249,78 +1307,99 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                     const triangleTipX = dot3X  // Triangle tip X (56.98%)
                     const triangleTipY = dot3Y  // Triangle tip Y (42.69% - below the box)
                     
-                    // Calculate rounded rectangle corner radius (reduced by half)
-                    const borderRadius = Math.min(expandedHeight / 2, expandedWidth / 2, 2) / 2
+                    // Calculate rounded rectangle corner radius (reduced for speech bubbles)
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    // Convert to wrapper-relative SVG coordinates (0-100)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    // CSS border-radius applies the same pixel value to all corners
+                    // Convert to SVG coordinates: use separate X and Y radius values
+                    // Horizontal curves (left/right edges) use radius as % of width
+                    // Vertical curves (top/bottom edges) use radius as % of height
+                    // CSS caps each at 50% of its respective dimension
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
                     
-                    // Create path for speech bubble: rounded rectangle with triangle extending downward from bottom edge
-                    const topLeft = adjustedLeft
-                    const topRight = adjustedLeft + expandedWidth
-                    const topY = adjustedTop
-                    const bottomY = adjustedTop + expandedHeight
+                    // Convert coordinates from page coordinates to wrapper-relative (0-100)
+                    // Wrapper is at adjustedLeft, adjustedTop with size expandedWidth, expandedHeight
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
                     
-                    // Build path: rounded rectangle with triangle protrusion on bottom edge
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    // Build path: rounded rectangle with triangle protrusion on bottom edge (using wrapper-relative coordinates)
+                    // Use borderRadiusWrapperX for horizontal curves (left/right), borderRadiusWrapperY for vertical curves (top/bottom)
                     const speechBubblePath = `
-                      M ${topLeft + borderRadius},${topY}
-                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadius}
-                      L ${topLeft},${bottomY - borderRadius}
-                      Q ${topLeft},${bottomY} ${topLeft + borderRadius},${bottomY}
-                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${bottomY}` : ''}
-                      L ${triangleTipX},${triangleTipY}
-                      L ${triangleBaseRight},${bottomY}
-                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${bottomY}` : ''}
-                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadius}
-                      L ${topRight},${topY + borderRadius}
-                      Q ${topRight},${topY} ${topRight - borderRadius},${topY}
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                       Z
                     `
                     
                     // Border paths - separate segments to exclude bottom edge between the two points
                     // Left border: from top-left corner down to first point on bottom edge
                     const leftBorderPath = `
-                      M ${topLeft + borderRadius},${topY}
-                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadius}
-                      L ${topLeft},${bottomY - borderRadius}
-                      Q ${topLeft},${bottomY} ${topLeft + borderRadius},${bottomY}
-                      ${triangleBaseLeft > topLeft + borderRadius ? `L ${triangleBaseLeft},${bottomY}` : ''}
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
                     `
                     
                     // Triangle border: two legs only (not the base between the points)
                     const triangleLeftLegPath = `
-                      M ${triangleBaseLeft},${bottomY}
-                      L ${triangleTipX},${triangleTipY}
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     const triangleRightLegPath = `
-                      M ${triangleBaseRight},${bottomY}
-                      L ${triangleTipX},${triangleTipY}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     
                     // Right border: from second point on bottom edge up to top-right corner
                     const rightBorderPath = `
-                      M ${triangleBaseRight},${bottomY}
-                      ${triangleBaseRight < topRight - borderRadius ? `L ${topRight - borderRadius},${bottomY}` : ''}
-                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadius}
-                      L ${topRight},${topY + borderRadius}
-                      Q ${topRight},${topY} ${topRight - borderRadius},${topY}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
                     // Top border: complete top edge
                     const topBorderPath = `
-                      M ${topLeft + borderRadius},${topY}
-                      L ${topRight - borderRadius},${topY}
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
                     return (
-                      <div className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`} style={{ zIndex: 2000 }}>
+                      <div 
+                        className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`}
+                        style={{ ...buttonStyle, zIndex: 2000 }}
+                      >
                         {/* Clickable box area - only the rounded rectangle part, not the triangle */}
                         <div
                           className={`speech-bubble-box ${isDisabled ? 'disabled selected' : ''}`}
                           onClick={!isDisabled ? handlePage3SecondButton : undefined}
                           style={{
                             position: 'absolute',
-                            left: `${adjustedLeft}%`,
-                            top: `${adjustedTop}%`,
-                            width: `${expandedWidth}%`,
-                            height: `${expandedHeight}%`,
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
                             pointerEvents: isDisabled ? 'none' : 'auto',
                             cursor: isDisabled ? 'default' : 'pointer',
                             zIndex: 2001,
@@ -1413,7 +1492,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                           </g>
                           {/* Bottom edge between the two points - no border */}
                           <path
-                            d={`M ${triangleBaseLeft},${bottomY} L ${triangleBaseRight},${bottomY}`}
+                            d={`M ${triangleBaseLeftWrapper},${bottomY} L ${triangleBaseRightWrapper},${bottomY}`}
                             fill="none"
                             stroke="transparent"
                             strokeWidth="0.3"
@@ -1484,53 +1563,71 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                   {currentPage === 2 && !editorMode && page3SecondButtonClicked && (() => {
                     // Fixed pixel size for all boxes - 10px × 10px squares
                     const boxSizePx = 10
+                    // Convert box size to percentages
+                    const boxSizeWidthPercent = stageWidthPx > 0 ? (boxSizePx / stageWidthPx) * 100 : 0
+                    const boxSizeHeightPercent = stageHeightPx > 0 ? (boxSizePx / stageHeightPx) * 100 : 0
                     // Calculate border radius for rounded corners
                     const borderRadiusPx = 2
-                    // Standardized row positions (percentages)
+                    // Standardized row positions (percentages) - moved up and left
                     const row1Top = 55.84
                     const row2Top = 72.62
                     const row3Top = 87.99
                     
-                    // Row 1 boxes (aligned at 55.84%)
+                    // Row 1 boxes (aligned at 55.84%) - moved left by 5px more
                     const greenBoxes = [
-                      { left: 19.96, top: row1Top },
-                      { left: 41.13, top: row1Top },
-                      { left: 62.75, top: row1Top },
-                      { left: 79.46, top: row1Top },
-                      // Row 2 boxes (aligned at 72.62%)
-                      { left: 20.05, top: row2Top },
-                      { left: 40.95, top: row2Top },
-                      { left: 62.29, top: row2Top },
-                      { left: 79.55, top: row2Top },
-                      // Row 3 boxes (aligned at 87.99%)
-                      { left: 40.58, top: row3Top },
-                      { left: 62.02, top: row3Top }
+                      { left: 19.46, top: row1Top },
+                      { left: 40.63, top: row1Top },
+                      { left: 62.25, top: row1Top },
+                      { left: 78.96, top: row1Top },
+                      // Row 2 boxes (aligned at 72.62%) - moved left
+                      { left: 19.55, top: row2Top },
+                      { left: 40.45, top: row2Top },
+                      { left: 61.79, top: row2Top },
+                      { left: 79.05, top: row2Top },
+                      // Row 3 boxes (aligned at 87.99%) - moved left
+                      { left: 40.08, top: row3Top },
+                      { left: 61.52, top: row3Top }
                     ]
 
                     return (
                       <>
                         {greenBoxes.map((box, index) => {
                           const isSelected = selectedGreenBoxes.has(index)
-                          // Calculate position in pixels - center the box on the percentage point
-                          // Move right 5px and down 5px for all boxes
+                          // Calculate position adjustments in percentages
+                          // Move right 5px and down 5px for all boxes (reduced for previous location)
                           // Row 2 boxes (indices 4-7) get additional offset: down 1px
                           // First row far right box (index 3) and second row far right box (index 7) get additional offset: left 1px
                           // Third row far left box (index 8) gets additional offset: right 1px
+                          const isRow1 = index >= 0 && index <= 3
                           const isRow2 = index >= 4 && index <= 7
+                          const isRow3 = index >= 8 && index <= 9
                           const isRow1FarRight = index === 3
                           const isRow2FarRight = index === 7
                           const isRow3FarLeft = index === 8
-                          const leftOffset = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5) // 4 for far right boxes (move left 1px), 6 for row 3 far left (move right 1px), 5 for others
-                          const topOffset = isRow2 ? 6 : 5 // 5 + 1 = 6 for row 2 (move down 1px)
-                          const leftPx = (box.left / 100) * stageWidthPx + leftOffset
-                          const topPx = (box.top / 100) * stageHeightPx + topOffset
+                          const isTopLeft = index === 0
+                          // Row 1 boxes: moved left 5px, then adjusted right 2px and down 1px (net: left 3px, up 4px)
+                          // Row 2 boxes: moved left 3px and up 2px
+                          // Row 3 boxes: moved left 3px and up 3px
+                          // Top left box (index 0): move right 1px
+                          const baseLeftOffsetPx = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5)
+                          const row1LeftOffset = isTopLeft ? (baseLeftOffsetPx - 2) : (baseLeftOffsetPx - 3) // Top left: -2px (move right 1px from -3), others: -3px
+                          const leftOffsetPx = isRow1 ? row1LeftOffset : (isRow2 ? (baseLeftOffsetPx - 3) : (isRow3 ? (baseLeftOffsetPx - 3) : baseLeftOffsetPx)) // Row 1: -2px for top left, -3px for others; Row 2: -3px; Row 3: -3px
+                          const baseTopOffsetPx = isRow2 ? 4 : 3
+                          const topOffsetPx = isRow1 ? (baseTopOffsetPx - 4) : (isRow2 ? (baseTopOffsetPx - 2) : (isRow3 ? (baseTopOffsetPx - 3) : baseTopOffsetPx)) // Row 1: -4px, Row 2: -2px, Row 3: -3px (3-3=0)
+                          
+                          // Convert pixel offsets to percentages
+                          const leftOffsetPercent = stageWidthPx > 0 ? (leftOffsetPx / stageWidthPx) * 100 : 0
+                          const topOffsetPercent = stageHeightPx > 0 ? (topOffsetPx / stageHeightPx) * 100 : 0
+                          
+                          // Calculate adjusted position (center of box) in percentages
+                          const adjustedLeft = box.left + leftOffsetPercent
+                          const adjustedTop = box.top + topOffsetPercent
+                          
+                          // Get the base style with proper scaling from wrapper center
+                          const baseStyle = getButtonStyle(adjustedLeft, adjustedTop, boxSizeWidthPercent, boxSizeHeightPercent)
                           
                           const greenBoxStyle = {
-                            position: 'absolute',
-                            left: `${leftPx - boxSizePx / 2}px`,
-                            top: `${topPx - boxSizePx / 2}px`,
-                            width: `${boxSizePx}px`,
-                            height: `${boxSizePx}px`, // Square: width = height = 10px
+                            ...baseStyle,
                             backgroundColor: isSelected ? '#3bbf6b' : 'white',
                             border: `0.5px solid #3bbf6b`,
                             borderRadius: `${borderRadiusPx}px`,
@@ -1538,8 +1635,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                             pointerEvents: 'auto',
                             zIndex: 3000, // Very high z-index to ensure clickability above everything
                             boxSizing: 'border-box',
-                            transform: `scale(${zoom / 100})`,
-                            transformOrigin: 'center center',
                             userSelect: 'none'
                           }
                           return (
@@ -1612,6 +1707,417 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
                         <div style={box1ExpandedStyle} />
                         <div style={box2ExpandedStyle} />
                         <div style={box3ExpandedStyle} />
+                      </>
+                    )
+                  })()}
+                  {/* Speech bubble button on page 4 (4.png) */}
+                  {currentPage === 3 && !editorMode && (() => {
+                    // Speech bubble dimensions from provided data
+                    const bubbleLeft = 25.99
+                    const bubbleTop = 22.05
+                    const bubbleWidth = 24.87
+                    const bubbleHeight = 4.21
+                    const dot1X = 41.58
+                    const dot1Y = 22.05
+                    const dot2X = 48.03
+                    const dot2Y = 22.05
+                    const dot3X = 52.04
+                    const dot3Y = 20.15
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const isDisabled = page4SpeechBubbleClicked
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Extend height down by 2px (reduce height reduction from 3px to 1px)
+                    const heightReductionPx = 1
+                    const heightReductionPercent = stageHeightPx > 0 ? (heightReductionPx / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, bubbleLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, bubbleTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, bubbleWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, bubbleHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
+                    // Dot3 is ABOVE the box (20.15% < 22.05%), so triangle points upward
+                    const triangleBaseLeft = dot1X  // Left point on top edge
+                    const triangleBaseRight = dot2X  // Right point on top edge
+                    const triangleBaseY = bubbleTop  // Top edge Y position (22.05%)
+                    const triangleTipX = dot3X  // Triangle tip X (52.04%)
+                    const triangleTipY = dot3Y  // Triangle tip Y (20.15% - above the box)
+                    
+                    // Calculate rounded rectangle corner radius (reduced for speech bubbles)
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    // Convert to wrapper-relative SVG coordinates (0-100)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    // CSS border-radius applies the same pixel value to all corners
+                    // Convert to SVG coordinates: use separate X and Y radius values
+                    // Horizontal curves (left/right edges) use radius as % of width
+                    // Vertical curves (top/bottom edges) use radius as % of height
+                    // CSS caps each at 50% of its respective dimension
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Convert coordinates from page coordinates to wrapper-relative (0-100)
+                    // Wrapper is at adjustedLeft, adjustedTop with size expandedWidth, expandedHeight
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    // Build path: rounded rectangle with triangle protrusion on top edge (using wrapper-relative coordinates)
+                    // Use borderRadiusWrapperX for horizontal curves (left/right), borderRadiusWrapperY for vertical curves (top/bottom)
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths - separate segments to exclude top edge between the two points
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                    `
+                    
+                    // Triangle border: two legs only (not the base between the points)
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    // Right border: from second point on top edge down to bottom-right corner
+                    const rightBorderPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    // Bottom border: complete bottom edge
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isDisabled ? 'has-selected' : ''}`}
+                        style={buttonStyle}
+                      >
+                        {/* Clickable box area - only the rounded rectangle part, not the triangle */}
+                        <div
+                          className={`speech-bubble-box ${isDisabled ? 'disabled selected' : ''}`}
+                          onClick={!isDisabled ? handlePage4SpeechBubble : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isDisabled ? 'none' : 'auto',
+                            cursor: isDisabled ? 'default' : 'pointer',
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#000',
+                            fontSize: `${bubbleFontSize}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            fontWeight: 700,
+                            textAlign: 'center'
+                          }}
+                        >
+                        </div>
+                        {/* SVG for speech bubble shape - single unified shape */}
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          {/* Main filled shape */}
+                          <path
+                            d={speechBubblePath}
+                            fill="#ffffff"
+                            style={{ fill: '#ffffff' }}
+                          />
+                          {/* Border paths with pulse animation - excluding the top edge between the two points */}
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle left leg */}
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            {/* Triangle right leg */}
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={isDisabled ? "#f05f40ff" : "#0d6efd"}
+                              strokeWidth={isDisabled ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                          {/* Top edge between the two points - no glow, no border */}
+                          <path
+                            d={`M ${triangleBaseLeftWrapper},${topY} L ${triangleBaseRightWrapper},${topY}`}
+                            fill="none"
+                            stroke="transparent"
+                            strokeWidth="0.3"
+                            vectorEffect="non-scaling-stroke"
+                          />
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Safety glasses image on page 4 (4.png) */}
+                  {currentPage === 3 && !editorMode && (() => {
+                    // Move 5px left and 8px up (moved up 5px more from -3)
+                    const leftOffsetPx = -5
+                    const topOffsetPx = -8
+                    const leftOffsetPercent = stageWidthPx > 0 ? (leftOffsetPx / stageWidthPx) * 100 : 0
+                    const topOffsetPercent = stageHeightPx > 0 ? (topOffsetPx / stageHeightPx) * 100 : 0
+                    const adjustedLeft = 13.07 + leftOffsetPercent
+                    const adjustedTop = 14.91 + topOffsetPercent
+                    
+                    // Increase width by 5px proportionally
+                    const widthIncreasePx = 5
+                    const widthIncreasePercent = stageWidthPx > 0 ? (widthIncreasePx / stageWidthPx) * 100 : 0
+                    const adjustedWidth = 75 + widthIncreasePercent
+                    
+                    // Calculate height percentage for transform origin (but use 'auto' for actual height)
+                    const handleSafetyGlassesLoad = (e) => {
+                      if (e.target) {
+                        const { naturalWidth, naturalHeight } = e.target
+                        if (naturalWidth && naturalHeight) {
+                          setSafetyGlassesSize({ width: naturalWidth, height: naturalHeight })
+                        }
+                      }
+                    }
+                    
+                    // Calculate height percentage based on aspect ratio for transform origin
+                    // Use a default aspect ratio if image hasn't loaded yet
+                    const imageAspectRatio = safetyGlassesSize.width > 0 && safetyGlassesSize.height > 0 
+                      ? safetyGlassesSize.width / safetyGlassesSize.height 
+                      : 1 // Default to square if not loaded
+                    const adjustedHeight = adjustedWidth / imageAspectRatio
+                    
+                    // Use getButtonStyle for correct scaling from wrapper center
+                    const imageBaseStyle = getButtonStyle(adjustedLeft, adjustedTop, adjustedWidth, adjustedHeight)
+                    
+                    return (
+                      <img
+                        src={safetyGlasses}
+                        alt="Safety glasses"
+                        onLoad={handleSafetyGlassesLoad}
+                        style={{
+                          ...imageBaseStyle,
+                          // Don't override height - use the calculated percentage for proper transform origin
+                          zIndex: 10,
+                          pointerEvents: 'none',
+                          objectFit: 'contain' // Maintain aspect ratio within the bounds
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* Buttons on page 4 (4.png) - rounded corner boxes without pointers */}
+                  {currentPage === 3 && !editorMode && (() => {
+                    // Button 1: Left: 13.19%, Top: 30.08%, Width: 73.40%, Height: 14.48%
+                    const button1Left = 13.19
+                    const button1Top = 30.08
+                    const button1Width = 73.40
+                    const button1Height = 14.48
+                    
+                    // Button 2: Left: 13.87%, Top: 55.49%, Width: 20.45%, Height: 14.48%
+                    const button2Left = 13.87
+                    const button2Top = 55.49
+                    const button2Width = 20.45
+                    const button2Height = 14.48
+                    
+                    // Button 3: Left: 39.55%, Top: 55.32%, Width: 20.45%, Height: 14.48%
+                    const button3Left = 39.55
+                    const button3Top = 55.32
+                    const button3Width = 20.45
+                    const button3Height = 14.48
+                    
+                    // Button 4: Left: 65.68%, Top: 55.49%, Width: 20.45%, Height: 14.48%
+                    const button4Left = 65.68
+                    const button4Top = 55.49
+                    const button4Width = 20.45
+                    const button4Height = 14.48
+                    
+                    // Button 5: Left: 25.81%, Top: 73.77%, Width: 48.39%, Height: 20.40%
+                    const button5Left = 25.81
+                    const button5Top = 73.77
+                    const button5Width = 48.39
+                    const button5Height = 20.40
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const buttonFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Calculate border radius for rounded corners
+                    const borderRadiusPx = Math.min(32, Math.max(16, 32 * stageRelativeScale))
+                    
+                    const createButton = (left, top, width, height, isDisabled, onClick, buttonIndex) => {
+                      // Add 25px extra width for button 1
+                      const extraWidthPx = buttonIndex === 1 ? 25 : 0
+                      const extraWidthPercent = stageWidthPx > 0 ? (extraWidthPx / stageWidthPx) * 100 : 0
+                      const totalWidth = width + widthPercentAdjust + extraWidthPercent
+                      
+                      // Center button 1 on the image
+                      let adjustedLeft
+                      if (buttonIndex === 1) {
+                        // Center the button: left = 50% - (width / 2)
+                        adjustedLeft = Math.max(0, 50 - (totalWidth / 2))
+                      } else {
+                        adjustedLeft = Math.max(0, left - leftOffsetAdjust)
+                      }
+                      
+                      const adjustedTop = Math.max(0, top - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, totalWidth)
+                      // Reduce height by 2px for button 2 (far left small box)
+                      const heightReductionPx = buttonIndex === 2 ? 2 : 0
+                      const heightReductionPercent = stageHeightPx > 0 ? (heightReductionPx / stageHeightPx) * 100 : 0
+                      const expandedHeight = Math.min(100 - adjustedTop, height + heightPercentAdjust - heightReductionPercent)
+                      const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                      
+                      const isButton1 = buttonIndex === 1
+                      const isSmallButton = buttonIndex === 2 || buttonIndex === 3 || buttonIndex === 4
+                      
+                      const expandedButtonStyle = {
+                        ...buttonStyle,
+                        left: `${adjustedLeft}%`,
+                        top: `${adjustedTop}%`,
+                        width: `${Math.max(0, expandedWidth)}%`,
+                        height: `${Math.max(0, expandedHeight)}%`,
+                        backgroundColor: isSmallButton ? 'transparent' : 'white',
+                        color: '#000',
+                        cursor: isDisabled ? 'default' : 'pointer',
+                        fontSize: `${buttonFontSize}px`,
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: 700,
+                        borderRadius: `${borderRadiusPx}px`,
+                        border: isDisabled ? '2px solid #f05f40' : '2px solid #0d6efd',
+                        display: 'flex',
+                        flexDirection: isButton1 ? 'column' : 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        zIndex: 11,
+                        padding: isButton1 ? '8px' : '0',
+                        boxSizing: 'border-box',
+                        lineHeight: '1.4'
+                      }
+                      
+                      return (
+                        <button
+                          key={`page4-button-${buttonIndex}`}
+                          onClick={onClick}
+                          disabled={isDisabled}
+                          className={`page4-button ${isDisabled ? 'disabled selected' : ''}`}
+                          style={expandedButtonStyle}
+                        >
+                          {isButton1 && (
+                            <>
+                              <div style={{ marginBottom: '4px' }}>
+                                I am wearing safety glasses and will keep them on for the entire Robotics Workshop
+                              </div>
+                              <div style={{ marginBottom: '4px' }}></div>
+                              <div style={{ marginBottom: '2px', fontWeight: 'normal' }}>
+                                Team member 1:  X
+                              </div>
+                              <div style={{ marginBottom: '2px', fontWeight: 'normal' }}>
+                                Team member 2:  X
+                              </div>
+                              <div style={{ fontWeight: 'normal' }}>
+                                Team member 3:  X
+                              </div>
+                            </>
+                          )}
+                        </button>
+                      )
+                    }
+                    
+                    return (
+                      <>
+                        {createButton(button1Left, button1Top, button1Width, button1Height, page4Button1Clicked, handlePage4Button1, 1)}
+                        {createButton(button2Left, button2Top, button2Width, button2Height, page4Button2Clicked, handlePage4Button2, 2)}
+                        {createButton(button3Left, button3Top, button3Width, button3Height, page4Button3Clicked, handlePage4Button3, 3)}
+                        {createButton(button4Left, button4Top, button4Width, button4Height, page4Button4Clicked, handlePage4Button4, 4)}
+                        {createButton(button5Left, button5Top, button5Width, button5Height, page4Button5Clicked, handlePage4Button5, 5)}
                       </>
                     )
                   })()}
