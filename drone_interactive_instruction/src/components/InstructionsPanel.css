@@ -1,6 +1,6 @@
 .instructions-panel {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 58px);
   overflow-y: auto;
   background-color: white;
   position: relative;
@@ -112,8 +112,8 @@
   margin: 0 0 10px 0;
   padding: 0;
   overflow: auto;
-  height: calc(100vh - 80px);
-  min-height: calc(100vh - 80px);
+  height: calc(100vh - 138px);
+  min-height: calc(100vh - 138px);
 }
 
 .page-wrapper {
