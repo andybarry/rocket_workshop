@@ -2913,13 +2913,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
           {currentPage >= 1 && (
             <button 
               onClick={handlePrevious}
-              className="btn-modern btn-nav"
+              className="btn-modern btn-nav btn-nav-previous"
               aria-label="Previous page"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6"/>
-              </svg>
-              Previous
+              Back
             </button>
           )}
         </div>
@@ -2930,7 +2927,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
             className="btn-modern btn-zoom"
             aria-label="Zoom out"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
               <circle cx="12" cy="12" r="10"/>
               <path d="M8 12h8"/>
             </svg>
@@ -2954,7 +2951,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
             className="btn-modern btn-zoom"
             aria-label="Zoom in"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
               <circle cx="12" cy="12" r="10"/>
               <path d="M12 8v8M8 12h8"/>
             </svg>
@@ -2974,9 +2971,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture }) {
             aria-label="Next page"
           >
             Next
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
           </button>
         </div>
       </div>
