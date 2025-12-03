@@ -768,3 +768,39 @@
   fill: white !important;
 }
 
+/* Safety glasses pop animation - expands by 9px in all directions */
+@keyframes safetyGlassesPop {
+  0% {
+    left: calc(var(--base-left, 0));
+    top: calc(var(--base-top, 0));
+    width: calc(var(--base-width, 0));
+    height: calc(var(--base-height, 0));
+  }
+  50% {
+    left: calc(var(--base-left, 0) - var(--left-expansion, 0));
+    top: calc(var(--base-top, 0) - var(--top-expansion, 0));
+    width: calc(var(--base-width, 0) + var(--width-expansion, 0));
+    height: calc(var(--base-height, 0) + var(--height-expansion, 0));
+  }
+  100% {
+    left: calc(var(--base-left, 0));
+    top: calc(var(--base-top, 0));
+    width: calc(var(--base-width, 0));
+    height: calc(var(--base-height, 0));
+  }
+}
+
+.safety-glasses-pop {
+  animation: safetyGlassesPop 1s ease-in-out;
+}
+
+/* Red dot shrink animation - starts at 2x size and shrinks to normal */
+@keyframes shrinkDot {
+  from {
+    transform: scale(2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
