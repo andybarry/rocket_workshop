@@ -738,6 +738,11 @@
   animation: speechBubbleBorderPulse 3s ease-in-out infinite;
 }
 
+/* Disable pulse animation for box 4 on page 7 */
+.speech-bubble-wrapper.no-pulse .speech-bubble-border {
+  animation: none;
+}
+
 /* Pulsing border animation - slowly goes from 1px to 2px and back */
 @keyframes speechBubbleBorderPulse {
   0%, 100% {
