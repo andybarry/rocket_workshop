@@ -7,6 +7,8 @@ import RightPanel from './RightPanel'
 function ResizablePanels() {
   const [editorMode, setEditorMode] = useState(false)
   const [capturedDimensions, setCapturedDimensions] = useState(null)
+  const refreshHandlerRef = useRef(null)
+  const pageSelectHandlerRef = useRef(null)
   
   // Refs for each panel to control their sizes
   const leftPanelRef = useRef(null)
@@ -30,6 +32,8 @@ function ResizablePanels() {
         <InstructionsPanel 
           editorMode={editorMode}
           onDimensionsCapture={setCapturedDimensions}
+          onRefresh={(handler) => { refreshHandlerRef.current = handler }}
+          onPageSelect={(handler) => { pageSelectHandlerRef.current = handler }}
         />
       </Panel>
       <PanelResizeHandle 
@@ -50,6 +54,8 @@ function ResizablePanels() {
           editorMode={editorMode}
           onToggleEditorMode={setEditorMode}
           dimensions={capturedDimensions}
+          onRefresh={() => refreshHandlerRef.current?.()}
+          onPageSelect={(pageIndex, isPage7_1) => pageSelectHandlerRef.current?.(pageIndex, isPage7_1)}
         />
       </Panel>
     </PanelGroup>
