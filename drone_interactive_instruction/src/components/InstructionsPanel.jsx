@@ -13,6 +13,10 @@ import page8_1 from '../assets/images/pages/8.1.png'
 import page9 from '../assets/images/pages/9.png'
 import page10 from '../assets/images/pages/10.png'
 import page10_1 from '../assets/images/pages/10.1.png'
+import page11 from '../assets/images/pages/11.png'
+import page12 from '../assets/images/pages/12.png'
+import page13 from '../assets/images/pages/13.png'
+import page14 from '../assets/images/pages/14.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -88,6 +92,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page10Box1Selected, setPage10Box1Selected] = useState(false)
   const [page10Box2Selected, setPage10Box2Selected] = useState(false)
   const [page10Box3Selected, setPage10Box3Selected] = useState(false)
+  // Track if white boxes on page 10.1 should be hidden (hidden after both box 1 and box 2 are selected)
+  const [page10WhiteBoxesHidden, setPage10WhiteBoxesHidden] = useState(false)
+  // Track if white box 1 on page 10.1 should be hidden (hidden after box 2 is selected)
+  const [page10WhiteBox1Hidden, setPage10WhiteBox1Hidden] = useState(false)
+  // Track if white box over "Need Help?" box on page 10.1 should be visible (visible after box 2 is selected, hidden when box 1 is selected)
+  const [page10NeedHelpWhiteBoxVisible, setPage10NeedHelpWhiteBoxVisible] = useState(false)
+  // Track if white box 3 on page 10.1 should be hidden (hidden after box 1 is selected)
+  const [page10WhiteBox3Hidden, setPage10WhiteBox3Hidden] = useState(false)
+  // Track if new white box on page 10.1 should be hidden (hidden after box 2 is selected)
+  const [page10NewWhiteBoxHidden, setPage10NewWhiteBoxHidden] = useState(false)
   // Track selected green boxes on page 3
   const [selectedGreenBoxes, setSelectedGreenBoxes] = useState(new Set())
   // Track if returning from page 3 to page 2
@@ -137,7 +151,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const boxRef = useRef(null)
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -167,6 +181,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage10Box1Selected(false)
         setPage10Box2Selected(false)
         setPage10Box3Selected(false)
+        setPage10WhiteBoxesHidden(false)
+        setPage10WhiteBox1Hidden(false)
+        setPage10NeedHelpWhiteBoxVisible(false)
+        setPage10WhiteBox3Hidden(false)
+        setPage10NewWhiteBoxHidden(false)
+        setPage10NewWhiteBoxHidden(false)
       }
       // Track if we're returning from page 3 to page 2
       if (currentPage === 2) {
@@ -217,6 +237,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 7 && page8Box2Selected && !page8Box4Selected) {
       return
     }
+    // For page 10 (index 9), when showing 10.1.png, require box 3 to be selected
+    if (currentPage === 9 && !page10BoxSelected && !page10Box3Selected) {
+      return
+    }
     if (currentPage < pages.length - 1) {
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
@@ -245,6 +269,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage10Box1Selected(false)
         setPage10Box2Selected(false)
         setPage10Box3Selected(false)
+        setPage10WhiteBoxesHidden(false)
+        setPage10WhiteBox1Hidden(false)
+        setPage10NeedHelpWhiteBoxVisible(false)
+        setPage10WhiteBox3Hidden(false)
+        setPage10NewWhiteBoxHidden(false)
+        setPage10NewWhiteBoxHidden(false)
       }
       // Reset returning states when navigating forward (except returningToPage3AfterSecondButton which is set in useEffect)
       setReturningFromPage3(false)
@@ -368,6 +398,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage10Box1Selected(false)
       setPage10Box2Selected(false)
       setPage10Box3Selected(false)
+      setPage10WhiteBoxesHidden(false)
     }
     
     // Clear dimensions capture
@@ -377,12 +408,47 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }, [currentPage, onDimensionsCapture])
 
   // Development function to jump to a specific page
-  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false) => {
+  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage10_1 = false, isPage10 = false) => {
     if (isPage7_1) {
       // Special case: 7.1.png - set page to 6 and enable box 4 selection
       setCurrentPage(6)
       setPage7Box4Selected(true)
       setPage7Box4EverSelected(true)
+    } else if (isPage10_1) {
+      // Special case: 10.1.png - set page to 9 and show 10.1.png
+      setCurrentPage(9)
+      setPage10BoxSelected(false)
+      setPage10BoxesVisible(false)
+      setPage10Box1Selected(false)
+      setPage10Box2Selected(false)
+      setPage10Box3Selected(false)
+      setPage10WhiteBoxesHidden(false)
+      setPage10WhiteBox1Hidden(false)
+      setPage10NeedHelpWhiteBoxVisible(false)
+      setPage10WhiteBox3Hidden(false)
+      // Reset box position for the new page
+      setBoxPosition(getDefaultBoxPosition(9))
+      // Reset dot positions
+      setDot1Position(10)
+      setDot2Position(60)
+      setDot3Position({ x: 50, y: 50 })
+    } else if (isPage10) {
+      // Special case: 10.png - set page to 9 and show 10.png
+      setCurrentPage(9)
+      setPage10BoxSelected(true)
+      setPage10BoxesVisible(false)
+      setPage10Box1Selected(false)
+      setPage10Box2Selected(false)
+      setPage10Box3Selected(false)
+      setPage10WhiteBoxesHidden(false)
+      setPage10WhiteBox3Hidden(false)
+      setPage10NewWhiteBoxHidden(false)
+      // Reset box position for the new page
+      setBoxPosition(getDefaultBoxPosition(9))
+      // Reset dot positions
+      setDot1Position(10)
+      setDot2Position(60)
+      setDot3Position({ x: 50, y: 50 })
     } else {
       // Regular page selection
       setCurrentPage(pageIndex)
@@ -573,10 +639,28 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage10Box1 = () => {
     setPage10Box1Selected(true)
+    // Hide white box over "Need Help?" box when box 1 is selected (same time as white box 3)
+    setPage10NeedHelpWhiteBoxVisible(false)
+    // Hide white box 3 when box 1 is selected
+    setPage10WhiteBox3Hidden(true)
+    // Hide white boxes if both box 1 and box 2 are now selected
+    if (page10Box2Selected) {
+      setPage10WhiteBoxesHidden(true)
+    }
   }
 
   const handlePage10Box2 = () => {
     setPage10Box2Selected(true)
+    // Hide white box 1 when box 2 is selected
+    setPage10WhiteBox1Hidden(true)
+    // Hide new white box when box 2 is selected
+    setPage10NewWhiteBoxHidden(true)
+    // Show white box over "Need Help?" box after box 2 is selected
+    setPage10NeedHelpWhiteBoxVisible(true)
+    // Hide white boxes if both box 1 and box 2 are now selected
+    if (page10Box1Selected) {
+      setPage10WhiteBoxesHidden(true)
+    }
   }
 
   const handlePage10Box3 = () => {
@@ -3290,6 +3374,148 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       10
                     </span>
                   )}
+                  {/* Number "11" at Dot 3 position on page 11 */}
+                  {currentPage === 10 && !editorMode && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: '94.83%',
+                        top: '95.96%',
+                        transform: 'translate(-50%, -50%)',
+                        fontFamily: 'Roboto, sans-serif',
+                        color: '#595959',
+                        fontSize: `${12 * stageRelativeScale}px`,
+                        fontWeight: 'bold',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                      }}
+                    >
+                      11
+                    </span>
+                  )}
+                  {/* Number "12" at Dot 3 position on page 12 */}
+                  {currentPage === 11 && !editorMode && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: '94.83%',
+                        top: '95.96%',
+                        transform: 'translate(-50%, -50%)',
+                        fontFamily: 'Roboto, sans-serif',
+                        color: '#595959',
+                        fontSize: `${12 * stageRelativeScale}px`,
+                        fontWeight: 'bold',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                      }}
+                    >
+                      12
+                    </span>
+                  )}
+                  {/* Number "13" at Dot 3 position on page 13 */}
+                  {currentPage === 12 && !editorMode && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: '94.83%',
+                        top: '95.96%',
+                        transform: 'translate(-50%, -50%)',
+                        fontFamily: 'Roboto, sans-serif',
+                        color: '#595959',
+                        fontSize: `${12 * stageRelativeScale}px`,
+                        fontWeight: 'bold',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                      }}
+                    >
+                      13
+                    </span>
+                  )}
+                  {/* Number "14" at Dot 3 position on page 14 */}
+                  {currentPage === 13 && !editorMode && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: '94.83%',
+                        top: '95.96%',
+                        transform: 'translate(-50%, -50%)',
+                        fontFamily: 'Roboto, sans-serif',
+                        color: '#595959',
+                        fontSize: `${12 * stageRelativeScale}px`,
+                        fontWeight: 'bold',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                      }}
+                    >
+                      14
+                    </span>
+                  )}
+                  {/* White box 1 on page 10.1.png - displayed until box 2 is selected */}
+                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox1Hidden && (
+                    <div
+                      style={{
+                        ...getButtonStyle(6.43, 41.04, 20.00, 6.99),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* New white box on page 10.1.png - displayed until box 2 is selected */}
+                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10NewWhiteBoxHidden && (() => {
+                    // Move white box down by 40px
+                    const downOffsetPx = 40
+                    const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                    const adjustedTop = 40.87 + downOffsetPercent
+                    return (
+                      <div
+                        style={{
+                          ...getButtonStyle(6.88, adjustedTop, 20.00, 7.34),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* White box over "Need Help?" box on page 10.1.png - displayed after box 2 is selected, hidden when box 1 is selected */}
+                  {currentPage === 9 && !editorMode && !page10BoxSelected && page10NeedHelpWhiteBoxVisible && (
+                    <div
+                      style={{
+                        ...getButtonStyle(8.23, 38.78, 15.49, 4.21),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 2 on page 10.1.png - displayed until both box 1 and box 2 are selected */}
+                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBoxesHidden && (
+                    <div
+                      style={{
+                        ...getButtonStyle(32.34, 72.03, 35.77, 21.44),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 3 on page 10.1.png - displayed until box 1 is selected */}
+                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox3Hidden && (
+                    <div
+                      style={{
+                        ...getButtonStyle(57.35, 58.11, 27.21, 13.26),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
                   {/* Button boxes on 10.1.png and 10.png */}
                   {currentPage === 9 && !editorMode && (
                     <>
@@ -4073,6 +4299,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
                         const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
                         
+                        // Move dot 1 to the right by 2px
+                        const dot1RightPx = 2
+                        const dot1RightPercent = imageNaturalSize.width > 0 ? (dot1RightPx / imageNaturalSize.width) * 100 : 0
+                        const adjustedDot1X = dot1X + dot1RightPercent
+                        
                         const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
                         const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent)
                         const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
@@ -4080,7 +4311,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
                         // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
-                        const triangleBaseLeft = dot1X
+                        const triangleBaseLeft = adjustedDot1X
                         const triangleBaseRight = dot2X
                         const triangleBaseY = adjustedTop + expandedHeight
                         const triangleTipX = dot3X
@@ -4261,13 +4492,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                         const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         
-                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                        // Move bottom edge up by 3px (reduce height)
+                        const bottomUpPx = 3
+                        const bottomUpPercent = imageNaturalSize.height > 0 ? (bottomUpPx / imageNaturalSize.height) * 100 : 0
+                        
+                        // Move left edge to the right by 3px and right edge to the left by 2px (reduce width)
+                        const leftEdgeRightPx = 3
+                        const rightEdgeLeftPx = 2
+                        const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                        const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                        const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
                         const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - bottomUpPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
-                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const borderRadiusPx = Math.min(25, Math.max(10, 25 * stageRelativeScale))
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -4423,13 +4665,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                         const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         
-                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                        // Move top edge down by 3px and bottom edge up by 3px (reduce height by 6px total)
+                        const topDownPx = 3
+                        const bottomUpPx = 3
+                        const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                        const bottomUpPercent = imageNaturalSize.height > 0 ? (bottomUpPx / imageNaturalSize.height) * 100 : 0
+                        const totalHeightReductionPercent = topDownPercent + bottomUpPercent
+                        
+                        // Move left edge to the right by 2px and right edge to the left by 3px (reduce width)
+                        const leftEdgeRightPx = 2
+                        const rightEdgeLeftPx = 3
+                        const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                        const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                        const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
-                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const borderRadiusPx = Math.min(35, Math.max(12, 35 * stageRelativeScale))
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -8452,9 +8708,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 5 && (!page6Button1Clicked || !page6Button2Clicked)) ||
               (currentPage === 6 && !page7Box4EverSelected) ||
               (currentPage === 7 && page8Box2Selected && !page8Box4Selected) ||
-              (currentPage === 8 && !page9Box2Selected)
+              (currentPage === 8 && !page9Box2Selected) ||
+              (currentPage === 9 && !page10BoxSelected && !page10Box3Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && !page10BoxSelected && page10Box3Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
