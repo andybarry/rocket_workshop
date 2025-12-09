@@ -24,7 +24,7 @@ body {
 .app-header {
   width: 100%;
   height: 39px;
-  background-color: white;
+  background-color: #f05f40;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,21 +38,23 @@ body {
 }
 
 .app-header-text {
-  color: #f05f40;
+  color: white;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 20px;
 }
 
 .app-header-drone {
-  color: #f05f40;
+  color: white;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 20px;
+  padding-left: 10px;
+  border-left: 1px solid white;
 }
 
 .app-header-stage {
-  color: #f05f40;
+  color: white;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 12px;
@@ -61,7 +63,7 @@ body {
 .app-header-bar {
   width: 100%;
   height: 19px;
-  background-color: #d3d3d3;
+  background-color: #434343;
 }
 
 .panel-group {
