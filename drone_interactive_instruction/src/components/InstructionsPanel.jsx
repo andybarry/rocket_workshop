@@ -15,8 +15,11 @@ import page10 from '../assets/images/pages/10.png'
 import page10_1 from '../assets/images/pages/10.1.png'
 import page11 from '../assets/images/pages/11.png'
 import page12 from '../assets/images/pages/12.png'
+import page12_1 from '../assets/images/pages/12.1.png'
 import page13 from '../assets/images/pages/13.png'
 import page14 from '../assets/images/pages/14.png'
+import page15_1 from '../assets/images/pages/15.1.png'
+import page16 from '../assets/images/pages/16.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -107,8 +110,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page11Box2Selected, setPage11Box2Selected] = useState(false)
   const [page11Box3Selected, setPage11Box3Selected] = useState(false)
   // Track page 12 box selection
-  const [page12BoxSelected, setPage12BoxSelected] = useState(false)
+  const [page12Box1Selected, setPage12Box1Selected] = useState(false)
   const [page12Box2Selected, setPage12Box2Selected] = useState(false)
+  const [page12Box3Selected, setPage12Box3Selected] = useState(false)
+  // Track page 12.1 box selection
+  const [page12_1BoxSelected, setPage12_1BoxSelected] = useState(false)
   // Track page 13 box selection
   const [page13Box1Selected, setPage13Box1Selected] = useState(false)
   const [page13Box2Selected, setPage13Box2Selected] = useState(false)
@@ -162,7 +168,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const boxRef = useRef(null)
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -256,8 +262,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 10 && !page11Box3Selected) {
       return
     }
-    // For page 12 (index 11), require box 2 to be selected
-    if (currentPage === 11 && !page12Box2Selected) {
+    // For page 12 (index 11), require box 3 to be selected (to show 12.1.png)
+    // When 12.1.png is displayed (page12Box3Selected is true), require page12_1BoxSelected
+    if (currentPage === 11 && !page12Box3Selected) {
+      return
+    }
+    if (currentPage === 11 && page12Box3Selected && !page12_1BoxSelected) {
       return
     }
     // For page 13 (index 12), require box 3 to be selected
@@ -433,8 +443,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage11Box3Selected(false)
     } else if (currentPage === 11) {
       // Page 12 - reset box state
-      setPage12BoxSelected(false)
+      setPage12Box1Selected(false)
       setPage12Box2Selected(false)
+      setPage12Box3Selected(false)
+      setPage12_1BoxSelected(false)
     } else if (currentPage === 12) {
       // Page 13 - reset box states
       setPage13Box1Selected(false)
@@ -449,12 +461,23 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }, [currentPage, onDimensionsCapture])
 
   // Development function to jump to a specific page
-  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage10_1 = false, isPage10 = false) => {
+  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false) => {
     if (isPage7_1) {
       // Special case: 7.1.png - set page to 6 and enable box 4 selection
       setCurrentPage(6)
       setPage7Box4Selected(true)
       setPage7Box4EverSelected(true)
+    } else if (isPage8_1) {
+      // Special case: 8.1.png - set page to 7 and enable box 2 selection
+      setCurrentPage(7)
+      setPage8Box2Selected(true)
+      setPage8Box3Selected(true)
+      setPage8Box3WhiteBoxHidden(true)
+      setPage8Box4Selected(true)
+    } else if (isPage12_1) {
+      // Special case: 12.1.png - set page to 11 and enable box 3 selection
+      setCurrentPage(11)
+      setPage12Box3Selected(true)
     } else if (isPage10_1) {
       // Special case: 10.1.png - set page to 9 and show 10.1.png
       setCurrentPage(9)
@@ -724,12 +747,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage11Box3Selected(true)
   }
 
-  const handlePage12Box = () => {
-    setPage12BoxSelected(true)
+  const handlePage12Box1 = () => {
+    setPage12Box1Selected(true)
   }
 
   const handlePage12Box2 = () => {
     setPage12Box2Selected(true)
+  }
+
+  const handlePage12Box3 = () => {
+    setPage12Box3Selected(true)
   }
 
   const handlePage13Box1 = () => {
@@ -1515,10 +1542,45 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 >
                   <img 
                     ref={imgRef}
-                    src={currentPage === 6 && page7Box4Selected ? page7_1 : currentPage === 7 && page8Box2Selected ? page8_1 : currentPage === 9 && !page10BoxSelected ? page10_1 : currentPage === 9 ? page10 : pages[currentPage]} 
+                    src={(() => {
+                      try {
+                        if (currentPage === 6 && page7Box4Selected) return page7_1
+                        if (currentPage === 7 && page8Box2Selected) return page8_1
+                        if (currentPage === 9 && !page10BoxSelected) return page10_1
+                        if (currentPage === 9) return page10
+                        if (currentPage === 10) return page11
+                        if (currentPage === 11 && page12Box3Selected) {
+                          if (!page12_1) {
+                            console.error('page12_1 is undefined!', { page12_1, page12Box3Selected, currentPage })
+                            return page12 || page1
+                          }
+                          return page12_1
+                        }
+                        if (currentPage === 11) {
+                          if (!page12) {
+                            console.error('page12 is undefined!')
+                            return page1
+                          }
+                          return page12
+                        }
+                        if (pages[currentPage]) return pages[currentPage]
+                        console.warn(`No image found for page ${currentPage}, using page1`)
+                        return page1
+                      } catch (error) {
+                        console.error('Error determining image src:', error, { currentPage, pagesLength: pages.length })
+                        return page1
+                      }
+                    })()} 
                     alt={`Instruction page ${currentPage + 1}`}
                     className="instruction-page"
                     onLoad={handleImageLoad}
+                    onError={(e) => {
+                      console.error('Image failed to load:', e.target.src, { currentPage, page12Box3Selected, page12_1 })
+                      // Fallback to page12 if page12_1 fails to load
+                      if (currentPage === 11 && page12Box3Selected && page12) {
+                        e.target.src = page12
+                      }
+                    }}
                     style={{ 
                       transform: `scale(${zoom / 100})`, 
                       transformOrigin: 'center center',
@@ -3506,13 +3568,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       11
                     </span>
                   )}
-                  {/* Box on page 12.png - no pointer */}
-                  {currentPage === 11 && !editorMode && (() => {
-                    const boxLeft = 30.63
-                    const boxTop = 35.86
-                    const boxWidth = 48.77
-                    const boxHeight = 11.38
-                    const isSelected = page12BoxSelected
+                  {/* Box 1 on page 12.png - with pointer */}
+                  {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 48.56
+                    const boxTop = 35.47
+                    const boxWidth = 13.24
+                    const boxHeight = 4.03
+                    const dot1X = 61.80
+                    const dot1Y = 36.66
+                    const dot2X = 61.80
+                    const dot2Y = 38.06
+                    const dot3X = 68.70
+                    const dot3Y = 40.08
+                    const isSelected = page12Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -3527,7 +3595,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(25, Math.max(10, 25 * stageRelativeScale))
+                    // Calculate triangle - it extends RIGHTWARD from the right edge (between dot1 and dot2) to dot3
+                    const triangleBaseTop = dot1Y
+                    const triangleBaseBottom = dot2Y
+                    const triangleBaseX = adjustedLeft + (expandedWidth / 100) * 100
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -3538,14 +3613,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const topY = 0
                     const bottomY = 100
                     
-                    const roundedRectPath = `
+                    const triangleBaseTopWrapper = ((triangleBaseTop - adjustedTop) / expandedHeight) * 100
+                    const triangleBaseBottomWrapper = ((triangleBaseBottom - adjustedTop) / expandedHeight) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
                       Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
                       L ${topLeft},${bottomY - borderRadiusWrapperY}
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                       Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                      L ${topRight},${topY + borderRadiusWrapperY}
+                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight},${triangleBaseBottomWrapper}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${topRight},${triangleBaseTopWrapper}
+                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight},${topY + borderRadiusWrapperY}` : ''}
                       Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                       Z
                     `
@@ -3557,11 +3640,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
                     `
                     
+                    const triangleTopLegPath = `
+                      M ${topRight},${triangleBaseTopWrapper}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleBottomLegPath = `
+                      M ${topRight},${triangleBaseBottomWrapper}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
                     const rightBorderPath = `
-                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      M ${topRight - borderRadiusWrapperX},${topY}
+                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight},${triangleBaseTopWrapper}` : ''}
+                      M ${topRight},${triangleBaseBottomWrapper}
+                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight},${triangleBaseBottomWrapper}` : ''}
                       Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                      L ${topRight},${topY + borderRadiusWrapperY}
-                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
                     const topBorderPath = `
@@ -3580,11 +3676,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     return (
                       <div 
                         className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
-                        style={{...buttonStyle, zIndex: 12}}
+                        style={buttonStyle}
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                          onClick={!isSelected ? handlePage12Box : undefined}
+                          onClick={!isSelected ? handlePage12Box1 : undefined}
                           style={{
                             position: 'absolute',
                             left: 0,
@@ -3626,13 +3722,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           <defs>
                           </defs>
                           <path
-                            d={roundedRectPath}
+                            d={speechBubblePath}
                             fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                             style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                           />
                           <g className="speech-bubble-border-group">
                             <path
                               d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleTopLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleBottomLegPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -3669,17 +3781,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 2 on page 12.png - with pointer */}
-                  {currentPage === 11 && !editorMode && (() => {
-                    const boxLeft = 59.63
-                    const boxTop = 24.83
-                    const boxWidth = 30.93
-                    const boxHeight = 3.63
-                    const dot1X = 64.68
-                    const dot1Y = 24.83
-                    const dot2X = 71.59
-                    const dot2Y = 24.83
-                    const dot3X = 60.93
-                    const dot3Y = 22.77
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && (() => {
+                    const boxLeft = 12.96
+                    const boxTop = 40.35
+                    const boxWidth = 37.35
+                    const boxHeight = 10.82
+                    const dot1X = 19.60
+                    const dot1Y = 51.17
+                    const dot2X = 28.16
+                    const dot2Y = 51.17
+                    const dot3X = 22.29
+                    const dot3Y = 53.66
                     const isSelected = page12Box2Selected
                     
                     const pixelIncrease = 3
@@ -3695,10 +3807,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
                     const triangleBaseLeft = dot1X
                     const triangleBaseRight = dot2X
-                    const triangleBaseY = adjustedTop
+                    const triangleBaseY = adjustedTop + (expandedHeight / 100) * 100
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
@@ -3720,17 +3832,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     const speechBubblePath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
-                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
-                      L ${triangleBaseRightWrapper},${topY}
-                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
-                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
-                      L ${topRight},${bottomY - borderRadiusWrapperY}
-                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
-                      L ${topLeft + borderRadiusWrapperX},${bottomY}
-                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
-                      L ${topLeft},${topY + borderRadiusWrapperY}
-                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                       Z
                     `
                     
@@ -3742,32 +3853,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     `
                     
                     const triangleLeftLegPath = `
-                      M ${triangleBaseLeftWrapper},${topY}
+                      M ${triangleBaseLeftWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     const triangleRightLegPath = `
-                      M ${triangleBaseRightWrapper},${topY}
+                      M ${triangleBaseRightWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     
                     const rightBorderPath = `
-                      M ${triangleBaseRightWrapper},${topY}
-                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
-                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
-                      L ${topRight},${bottomY - borderRadiusWrapperY}
-                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
                     const topBorderPath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
-                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
-                      M ${triangleBaseRightWrapper},${topY}
-                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      L ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
                     const bottomBorderPath = `
                       M ${topLeft + borderRadiusWrapperX},${bottomY}
-                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
                     const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
@@ -3880,8 +3991,291 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box on page 12.png - hidden when box 1 is selected */}
-                  {currentPage === 11 && !editorMode && !page12BoxSelected && (
+                  {/* Box 3 on page 12.png - with pointer */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 6.43
+                    const boxTop = 76.04
+                    const boxWidth = 42.76
+                    const boxHeight = 8.04
+                    const dot1X = 31.09
+                    const dot1Y = 84.07
+                    const dot2X = 41.68
+                    const dot2Y = 84.07
+                    const dot3X = 42.34
+                    const dot3Y = 87.08
+                    const isSelected = page12Box3Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + (expandedHeight / 100) * 100
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={buttonStyle}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage12Box3 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 13,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White box 1 on page 12.png - hidden when box 1 is selected */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(66.81, 45.40, 6.93, 4.03),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 2 on page 12.png - hidden when box 1 is selected */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(66.81, 46.96, 15.94, 12.56),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 3 on page 12.png - hidden when box 1 is selected */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(10.04, 39.83, 50.19, 31.36),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 4 on page 12.png - hidden when box 1 is selected */}
+                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(52.17, 49.92, 15.27, 17.44),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 5 on page 12.png - hidden when box 2 is selected */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box2Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(0.00, 70.99, 100.00, 24.05),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box 6 on page 12.png - hidden when box 2 is selected */}
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box2Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(74.35, 61.76, 25.65, 33.28),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* White box on page 12.png - hidden when box 1 is selected - REMOVED */}
+                  {false && currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(0.97, 11.39, 99.03, 20.28),
@@ -3893,7 +4287,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* Number "12" at Dot 3 position on page 12 */}
-                  {currentPage === 11 && !editorMode && (
+                  {currentPage === 11 && !page12Box3Selected && !editorMode && (
                     <span
                       style={{
                         position: 'absolute',
@@ -3911,8 +4305,101 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       12
                     </span>
                   )}
-                  {/* Box 1 on page 13.png - with pointer */}
-                  {currentPage === 12 && !editorMode && (() => {
+                  {/* Box on page 12.1.png - simple clickable box */}
+                  {currentPage === 11 && page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    try {
+                      const boxLeft = 65.43
+                      const boxTop = 77.08
+                      const boxWidth = 30.34
+                      const boxHeight = 2.97
+                      const isSelected = page12_1BoxSelected
+                      
+                      const pixelIncrease = 3
+                      const halfPixelIncrease = pixelIncrease / 2
+                      const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                      const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                      const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                      const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                      
+                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                      
+                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * (stageRelativeScale || 1)))
+                      const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                      const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                      const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                      const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                      
+                      const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                      const strokeWidth = isSelected ? "2" : "1"
+                      
+                      return (
+                        <div 
+                          className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                          style={buttonStyle}
+                        >
+                          <div
+                            className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                            onClick={!isSelected ? handlePage12_1Box : undefined}
+                            style={{
+                              cursor: isSelected ? 'default' : 'pointer',
+                              width: '100%',
+                              height: '100%',
+                              position: 'relative',
+                              borderRadius: `${borderRadiusPx}px`
+                            }}
+                          >
+                            <svg
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <rect
+                                x={borderRadiusWrapperX}
+                                y={borderRadiusWrapperY}
+                                width={100 - 2 * borderRadiusWrapperX}
+                                height={100 - 2 * borderRadiusWrapperY}
+                                rx={borderRadiusWrapperX}
+                                ry={borderRadiusWrapperY}
+                                fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                              />
+                              <rect
+                                x={borderRadiusWrapperX}
+                                y={borderRadiusWrapperY}
+                                width={100 - 2 * borderRadiusWrapperX}
+                                height={100 - 2 * borderRadiusWrapperY}
+                                rx={borderRadiusWrapperX}
+                                ry={borderRadiusWrapperY}
+                                fill="none"
+                                stroke={strokeColor}
+                                strokeWidth={strokeWidth}
+                                vectorEffect="non-scaling-stroke"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      )
+                    } catch (error) {
+                      console.error('Error rendering box on page 12.1.png:', error)
+                      return null
+                    }
+                  })()}
+                  {/* Box 1 on page 13.png - with pointer - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && (() => {
                     const boxLeft = 53.29
                     const boxTop = 38.96
                     const boxWidth = 13.47
@@ -4366,8 +4853,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 3 on page 13.png - no pointer */}
-                  {currentPage === 12 && !editorMode && (() => {
+                  {/* Box 3 on page 13.png - no pointer - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && (() => {
                     const boxLeft = 26.03
                     const boxTop = 73.95
                     const boxWidth = 47.71
@@ -4542,8 +5029,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box 1 on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 1 on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(72.06, 45.22, 6.19, 3.34),
@@ -4568,8 +5055,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3 on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 3 on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(9.65, 38.96, 41.79, 12.56),
@@ -4594,8 +5081,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 5 on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 5 on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(23.39, 49.75, 5.85, 2.44),
@@ -4620,8 +5107,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 6 on page 13.png - hidden when box 2 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box2Selected && (
+                  {/* White box 6 on page 13.png - hidden when box 2 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(23.39, 72.15, 53.58, 21.57),
@@ -10568,10 +11055,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 8 && !page9Box2Selected) ||
               (currentPage === 9 && !page10Box3Selected) ||
               (currentPage === 10 && !page11Box3Selected) ||
-              (currentPage === 11 && !page12Box2Selected) ||
-              (currentPage === 12 && !page13Box3Selected)
+              (currentPage === 11 && !page12Box3Selected) ||
+              (currentPage === 11 && page12Box3Selected && !page12_1BoxSelected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box2Selected) || (currentPage === 12 && page13Box3Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box3Selected && page12_1BoxSelected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next

@@ -55,7 +55,7 @@ function ResizablePanels() {
           onToggleEditorMode={setEditorMode}
           dimensions={capturedDimensions}
           onRefresh={() => refreshHandlerRef.current?.()}
-          onPageSelect={(pageIndex, isPage7_1) => pageSelectHandlerRef.current?.(pageIndex, isPage7_1)}
+          onPageSelect={(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1) => pageSelectHandlerRef.current?.(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1)}
         />
       </Panel>
     </PanelGroup>

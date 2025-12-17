@@ -9,8 +9,17 @@ import page6 from '../assets/images/pages/6.png'
 import page7 from '../assets/images/pages/7.png'
 import page7_1 from '../assets/images/pages/7.1.png'
 import page8 from '../assets/images/pages/8.png'
+import page8_1 from '../assets/images/pages/8.1.png'
 import page9 from '../assets/images/pages/9.png'
 import page10 from '../assets/images/pages/10.png'
+import page10_1 from '../assets/images/pages/10.1.png'
+import page11 from '../assets/images/pages/11.png'
+import page12 from '../assets/images/pages/12.png'
+import page12_1 from '../assets/images/pages/12.1.png'
+import page13 from '../assets/images/pages/13.png'
+import page14 from '../assets/images/pages/14.png'
+import page15_1 from '../assets/images/pages/15.1.png'
+import page16 from '../assets/images/pages/16.png'
 
 function RightPanel({ editorMode, onToggleEditorMode, dimensions, onRefresh, onPageSelect }) {
   const [copied, setCopied] = useState(false)
@@ -80,49 +89,85 @@ Dot 3 Y: ${dimensions.dot3.y}%`
         <div className="image-selector-container">
           <h4 className="image-selector-title">Jump to Page</h4>
           <div className="image-selector-scroll">
-            <div className="image-selector-item" onClick={() => onPageSelect(0, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(0, false, false, false, false)}>
               <img src={page1} alt="Page 1" className="image-selector-thumbnail" />
               <span className="image-selector-label">1.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(1, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(1, false, false, false, false)}>
               <img src={page2} alt="Page 2" className="image-selector-thumbnail" />
               <span className="image-selector-label">2.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(2, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(2, false, false, false, false)}>
               <img src={page3} alt="Page 3" className="image-selector-thumbnail" />
               <span className="image-selector-label">3.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(3, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(3, false, false, false, false)}>
               <img src={page4} alt="Page 4" className="image-selector-thumbnail" />
               <span className="image-selector-label">4.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(4, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(4, false, false, false, false)}>
               <img src={page5} alt="Page 5" className="image-selector-thumbnail" />
               <span className="image-selector-label">5.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(5, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(5, false, false, false, false)}>
               <img src={page6} alt="Page 6" className="image-selector-thumbnail" />
               <span className="image-selector-label">6.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(6, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(6, false, false, false, false)}>
               <img src={page7} alt="Page 7" className="image-selector-thumbnail" />
               <span className="image-selector-label">7.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(6, true)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(6, true, false, false, false)}>
               <img src={page7_1} alt="Page 7.1" className="image-selector-thumbnail" />
               <span className="image-selector-label">7.1.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(7, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(7, false, false, false, false)}>
               <img src={page8} alt="Page 8" className="image-selector-thumbnail" />
               <span className="image-selector-label">8.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(8, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(7, false, true, false, false)}>
+              <img src={page8_1} alt="Page 8.1" className="image-selector-thumbnail" />
+              <span className="image-selector-label">8.1.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(8, false, false, false, false)}>
               <img src={page9} alt="Page 9" className="image-selector-thumbnail" />
               <span className="image-selector-label">9.png</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(9, false)}>
+            <div className="image-selector-item" onClick={() => onPageSelect(9, false, false, true, false)}>
+              <img src={page10_1} alt="Page 10.1" className="image-selector-thumbnail" />
+              <span className="image-selector-label">10.1.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(9, false, false, false, true)}>
               <img src={page10} alt="Page 10" className="image-selector-thumbnail" />
               <span className="image-selector-label">10.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(10, false, false, false, false)}>
+              <img src={page11} alt="Page 11" className="image-selector-thumbnail" />
+              <span className="image-selector-label">11.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(11, false, false, false, false)}>
+              <img src={page12} alt="Page 12" className="image-selector-thumbnail" />
+              <span className="image-selector-label">12.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(11, false, false, false, false, true)}>
+              <img src={page12_1} alt="Page 12.1" className="image-selector-thumbnail" />
+              <span className="image-selector-label">12.1.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(12, false, false, false, false)}>
+              <img src={page13} alt="Page 13" className="image-selector-thumbnail" />
+              <span className="image-selector-label">13.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(13, false, false, false, false)}>
+              <img src={page14} alt="Page 14" className="image-selector-thumbnail" />
+              <span className="image-selector-label">14.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(14, false, false, false, false)}>
+              <img src={page15_1} alt="Page 15.1" className="image-selector-thumbnail" />
+              <span className="image-selector-label">15.1.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(15, false, false, false, false)}>
+              <img src={page16} alt="Page 16" className="image-selector-thumbnail" />
+              <span className="image-selector-label">16.png</span>
             </div>
           </div>
         </div>
