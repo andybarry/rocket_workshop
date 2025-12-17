@@ -630,11 +630,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage8Box2 = () => {
     setPage8Box2Selected(true)
-    // When box 2 is selected, also mark box 3 and box 4 as selected (visually)
-    // and hide the white box covering box 4
-    setPage8Box3Selected(true)
-    setPage8Box4Selected(true)
-    setPage8Box3WhiteBoxHidden(true)
   }
 
   const handlePage8Box3 = () => {
@@ -2880,7 +2875,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 8 && !editorMode && !page9WhiteBoxesHidden && (
                     <div
                       style={{
-                        ...getButtonStyle(12.72, 42.70, 48.45, 33.92),
+                        position: 'absolute',
+                        left: '12.72%',
+                        top: '42.70%',
+                        width: '48.45%',
+                        height: '33.92%',
                         backgroundColor: 'white',
                         border: 'none',
                         pointerEvents: 'none',
@@ -2892,7 +2891,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 8 && !editorMode && !page9RightWhiteBoxHidden && (
                     <div
                       style={{
-                        ...getButtonStyle(67.28, 25.41, 24.43, 33.92),
+                        position: 'absolute',
+                        left: '67.28%',
+                        top: '25.41%',
+                        width: '24.43%',
+                        height: '33.92%',
                         backgroundColor: 'white',
                         border: 'none',
                         pointerEvents: 'none',
@@ -5518,16 +5521,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const dot1RightPercent = imageNaturalSize.width > 0 ? (dot1RightPx / imageNaturalSize.width) * 100 : 0
                         const adjustedDot1X = dot1X + dot1RightPercent
                         
-                        // Move dot 2 to the right by 4px
-                        const dot2RightPx = 4
-                        const dot2RightPercent = imageNaturalSize.width > 0 ? (dot2RightPx / imageNaturalSize.width) * 100 : 0
-                        const adjustedDot2X = dot2X + dot2RightPercent
-                        
-                        // Move dot 3 down by 2px
-                        const dot3DownPx = 2
-                        const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
-                        const adjustedDot3Y = dot3Y + dot3DownPercent
-                        
                         const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
                         const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent)
                         const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
@@ -5536,10 +5529,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
                         const triangleBaseLeft = adjustedDot1X
-                        const triangleBaseRight = adjustedDot2X
+                        const triangleBaseRight = dot2X
                         const triangleBaseY = adjustedTop + expandedHeight
                         const triangleTipX = dot3X
-                        const triangleTipY = adjustedDot3Y
+                        const triangleTipY = dot3Y
                         
                         const borderRadiusPx = Math.min(15, Math.max(6, 15 * stageRelativeScale))
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
@@ -10535,14 +10528,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 4 && !page5GreenDotSelected) ||
               (currentPage === 5 && (!page6Button1Clicked || !page6Button2Clicked)) ||
               (currentPage === 6 && !page7Box4EverSelected) ||
-              (currentPage === 7 && !page8Box2Selected) ||
+              (currentPage === 7 && page8Box2Selected && !page8Box4Selected) ||
               (currentPage === 8 && !page9Box2Selected) ||
               (currentPage === 9 && !page10Box3Selected) ||
               (currentPage === 10 && !page11Box3Selected) ||
               (currentPage === 11 && !page12Box2Selected) ||
               (currentPage === 12 && !page13Box3Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && page8Box2Selected) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box2Selected) || (currentPage === 12 && page13Box3Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box2Selected) || (currentPage === 12 && page13Box3Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
