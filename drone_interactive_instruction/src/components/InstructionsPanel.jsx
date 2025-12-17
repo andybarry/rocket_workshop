@@ -630,6 +630,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage8Box2 = () => {
     setPage8Box2Selected(true)
+    // Automatically select box 3 and box 4 when box 2 is selected
+    setPage8Box3Selected(true)
+    setPage8Box3WhiteBoxHidden(true)
+    setPage8Box4Selected(true)
   }
 
   const handlePage8Box3 = () => {
@@ -6289,6 +6293,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const dot3Y = 62.01
                     const isSelected = page11Box2Selected
                     
+                    // Adjust box 2: move left edge right 3px, move right edge left 1px
+                    const leftEdgeMoveRightPx = 3
+                    const rightEdgeMoveLeftPx = 1
+                    const leftEdgeAdjustPercent = stageWidthPx > 0 ? (leftEdgeMoveRightPx / stageWidthPx) * 100 : 0
+                    const rightEdgeAdjustPercent = stageWidthPx > 0 ? (rightEdgeMoveLeftPx / stageWidthPx) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + leftEdgeAdjustPercent
+                    const adjustedBoxWidth = boxWidth - leftEdgeAdjustPercent - rightEdgeAdjustPercent
+                    
+                    // Adjust box 2: move top edge down 1px, move bottom edge up 3px
+                    const topEdgeMoveDownPx = 1
+                    const bottomEdgeMoveUpPx = 3
+                    const topEdgeAdjustPercent = stageHeightPx > 0 ? (topEdgeMoveDownPx / stageHeightPx) * 100 : 0
+                    const bottomEdgeAdjustPercent = stageHeightPx > 0 ? (bottomEdgeMoveUpPx / stageHeightPx) * 100 : 0
+                    const adjustedBoxTop = boxTop + topEdgeAdjustPercent
+                    const adjustedBoxHeight = boxHeight - topEdgeAdjustPercent - bottomEdgeAdjustPercent
+                    
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
@@ -6296,10 +6316,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
@@ -6495,6 +6515,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxHeight = 18.48
                     const isSelected = page11Box3Selected
                     
+                    // Adjust box 3: move top edge down 3px, move bottom edge up 4px
+                    const topEdgeMoveDownPx = 3
+                    const bottomEdgeMoveUpPx = 4
+                    const topEdgeAdjustPercent = stageHeightPx > 0 ? (topEdgeMoveDownPx / stageHeightPx) * 100 : 0
+                    const bottomEdgeAdjustPercent = stageHeightPx > 0 ? (bottomEdgeMoveUpPx / stageHeightPx) * 100 : 0
+                    const adjustedBoxTop = boxTop + topEdgeAdjustPercent
+                    const adjustedBoxHeight = boxHeight - topEdgeAdjustPercent - bottomEdgeAdjustPercent
+                    
+                    // Adjust box 3: move left edge right 2px, move right edge left 2px
+                    const leftEdgeMoveRightPx = 2
+                    const rightEdgeMoveLeftPx = 2
+                    const leftEdgeAdjustPercent = stageWidthPx > 0 ? (leftEdgeMoveRightPx / stageWidthPx) * 100 : 0
+                    const rightEdgeAdjustPercent = stageWidthPx > 0 ? (rightEdgeMoveLeftPx / stageWidthPx) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + leftEdgeAdjustPercent
+                    const adjustedBoxWidth = boxWidth - leftEdgeAdjustPercent - rightEdgeAdjustPercent
+                    
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
@@ -6502,13 +6538,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(25, Math.max(10, 25 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(35, Math.max(10, 35 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
