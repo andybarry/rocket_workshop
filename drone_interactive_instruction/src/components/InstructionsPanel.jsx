@@ -3752,35 +3752,50 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Box 1 on page 12.png - with pointer (also shows on 12.1.png) */}
                   {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 48.56
-                    const boxTop = 35.47
-                    const boxWidth = 13.47
-                    const boxHeight = 3.86
-                    const dot1X = 62.03
-                    const dot1Y = 36.66
-                    const dot2X = 62.03
-                    const dot2Y = 38.58
-                    const dot3X = 68.02
-                    const dot3Y = 40.08
+                    const boxLeft = 48.48
+                    const boxTop = 35.35
+                    const boxWidth = 13.53
+                    const boxHeight = 4.14
+                    const dot1X = 56.65
+                    const dot1Y = 39.49
+                    const dot2X = 59.33
+                    const dot2Y = 39.49
+                    const dot3X = 61.15
+                    const dot3Y = 41.56
                     const isSelected = page12Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Move top edge down by 4px and bottom edge up by 3px (reduce height)
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 3
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    // Move left edge to the right by 1px and keep right edge in place (reduce width)
+                    const leftEdgeRightPx = 3
+                    const rightEdgeLeftPx = 3
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    // Calculate triangle - it extends RIGHTWARD from the right edge (between dot1 and dot2) to dot3
-                    const triangleBaseTop = dot1Y
-                    const triangleBaseBottom = dot2Y
-                    const triangleBaseX = adjustedLeft + (expandedWidth / 100) * 100
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
@@ -3795,8 +3810,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const topY = 0
                     const bottomY = 100
                     
-                    const triangleBaseTopWrapper = ((triangleBaseTop - adjustedTop) / expandedHeight) * 100
-                    const triangleBaseBottomWrapper = ((triangleBaseBottom - adjustedTop) / expandedHeight) * 100
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
                     const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
                     
@@ -3805,12 +3820,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
                       L ${topLeft},${bottomY - borderRadiusWrapperY}
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                      L ${topRight - borderRadiusWrapperX},${bottomY}
-                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight},${triangleBaseBottomWrapper}` : ''}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
-                      L ${topRight},${triangleBaseTopWrapper}
-                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight},${topY + borderRadiusWrapperY}` : ''}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
                       Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                       Z
                     `
@@ -3820,36 +3835,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
                       L ${topLeft},${bottomY - borderRadiusWrapperY}
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
                     `
                     
-                    const triangleTopLegPath = `
-                      M ${topRight},${triangleBaseTopWrapper}
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
-                    const triangleBottomLegPath = `
-                      M ${topRight},${triangleBaseBottomWrapper}
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     
                     const rightBorderPath = `
-                      M ${topRight - borderRadiusWrapperX},${topY}
-                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
-                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
-                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topRight},${triangleBaseTopWrapper}` : ''}
-                      M ${topRight},${triangleBaseBottomWrapper}
-                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight},${triangleBaseBottomWrapper}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                       Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
                     const topBorderPath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
                       L ${topRight - borderRadiusWrapperX},${topY}
-                    `
-                    
-                    const bottomBorderPath = `
-                      M ${topLeft + borderRadiusWrapperX},${bottomY}
-                      L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
                     const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
@@ -3871,12 +3879,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             height: '100%',
                             pointerEvents: isSelected ? 'none' : 'auto',
                             cursor: isSelected ? 'default' : 'pointer',
-                            zIndex: 13,
+                            zIndex: 11,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${bubbleFontSize}px`,
                             fontFamily: 'Roboto, sans-serif',
                             textAlign: 'center',
                             padding: '4px 8px',
@@ -3918,7 +3926,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               vectorEffect="non-scaling-stroke"
                             />
                             <path
-                              d={triangleTopLegPath}
+                              d={triangleLeftLegPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -3926,7 +3934,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               vectorEffect="non-scaling-stroke"
                             />
                             <path
-                              d={triangleBottomLegPath}
+                              d={triangleRightLegPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -3943,14 +3951,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             />
                             <path
                               d={topBorderPath}
-                              fill="none"
-                              stroke={strokeColor}
-                              strokeWidth={strokeWidth}
-                              className="speech-bubble-border"
-                              vectorEffect="non-scaling-stroke"
-                            />
-                            <path
-                              d={bottomBorderPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -3983,10 +3983,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Move top edge down by 4px and bottom edge up by 3px (reduce height)
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 3
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    // Move left edge to the right by 1px and right edge to the left by 2px (reduce width)
+                    const leftEdgeRightPx = 1
+                    const rightEdgeLeftPx = 2
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
@@ -3996,7 +4010,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(22, Math.max(9, 22 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -4194,10 +4208,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Move top edge down by 2px and bottom edge up by 3px (reduce height)
+                    const topEdgeDownPx = 2
+                    const bottomEdgeUpPx = 3
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    // Move left edge to the right by 1px and right edge to the left by 3px from current location (reduce width)
+                    const leftEdgeRightPx = 2
+                    const rightEdgeLeftPx = 5
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
@@ -4207,7 +4235,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(15, Math.max(6, 15 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -4400,10 +4428,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Move top edge down by 2px and bottom edge up by 4px (reduce height)
+                    const topEdgeDownPx = 2
+                    const bottomEdgeUpPx = 4
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    // Move left edge to the right by 1px and right edge to the left by 4px (reduce width)
+                    const leftEdgeRightPx = 1
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
@@ -4572,17 +4614,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 3 on page 12.png - hidden when box 1 is selected (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
-                    <div
-                      style={{
-                        ...getButtonStyle(10.04, 39.83, 50.19, 31.36),
-                        backgroundColor: 'white',
-                        border: 'none',
-                        pointerEvents: 'none',
-                        zIndex: 100
-                      }}
-                    />
-                  )}
+                  {currentPage === 11 && !editorMode && !page12Box1Selected && (() => {
+                    const boxLeft = 10.04
+                    const boxTop = 39.83
+                    const boxWidth = 50.19
+                    const boxHeight = 31.36
+                    
+                    // Reduce width by bringing right edge to the left 30px (20px + 10px more)
+                    const rightEdgeLeftPx = 30
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedBoxWidth = Math.max(0, boxWidth - rightEdgeLeftPercent)
+                    
+                    return (
+                      <div
+                        style={{
+                          ...getButtonStyle(boxLeft, boxTop, adjustedBoxWidth, boxHeight),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    )
+                  })()}
                   {/* White box 4 on page 12.png - hidden when box 1 is selected */}
                   {currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
@@ -9283,6 +9337,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const dot1RightPercent = imageNaturalSize.width > 0 ? (dot1RightPx / imageNaturalSize.width) * 100 : 0
                         const adjustedDot1X = dot1X + dot1RightPercent
                         
+                        // Move dot 2 to the right by 4px (2px + 2px more = 4px)
+                        const dot2RightPx = 4
+                        const dot2RightPercent = imageNaturalSize.width > 0 ? (dot2RightPx / imageNaturalSize.width) * 100 : 0
+                        const adjustedDot2X = dot2X + dot2RightPercent
+                        
                         const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
                         const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent)
                         const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
@@ -9291,7 +9350,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
                         const triangleBaseLeft = adjustedDot1X
-                        const triangleBaseRight = dot2X
+                        const triangleBaseRight = adjustedDot2X
                         const triangleBaseY = adjustedTop + expandedHeight
                         const triangleTipX = dot3X
                         const triangleTipY = dot3Y
@@ -12270,7 +12329,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Green dot on page 5 (5.png) - hidden until button is selected */}
+                  {/* Green edge green infill dot on page 5 (5.png) - appears when button 2 is selected, not active */}
                   {currentPage === 4 && !editorMode && page5Button2Clicked && (() => {
                     const dotX = 15.88
                     const dotY = 78.44
@@ -12289,11 +12348,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         style={{
                           ...dotStyle,
                           backgroundColor: '#3bbf6b',
+                          border: '1px solid #3bbf6b',
                           borderRadius: '50%',
                           pointerEvents: 'none',
-                          zIndex: 12,
-                          transformOrigin: 'center',
-                          animation: 'shrinkDot 0.5s ease-out forwards'
+                          zIndex: 12
                         }}
                       />
                     )
@@ -12405,37 +12463,39 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Green line connecting selected dot to green dot horizontally on page 5 */}
+                  {/* Green edge green infill box on page 5 (5.png) - appears when green active box is selected */}
                   {currentPage === 4 && !editorMode && page5GreenDotSelected && (() => {
-                    const greenDotX = 15.88
-                    const greenDotY = 78.44
-                    const selectedDotX = 44.46
-                    const selectedDotY = 78.39
+                    const boxLeft = 13.91
+                    const boxTop = 78.11
+                    const boxWidth = 29.29
+                    
+                    // Move box to the right by 10px (8px + 2px = 10px)
+                    const moveRightPx = 10
+                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + moveRightPercent
+                    
+                    // Reduce width by 5px
+                    const widthReducePx = 5
+                    const widthReducePercent = stageWidthPx > 0 ? (widthReducePx / stageWidthPx) * 100 : 0
+                    const adjustedBoxWidth = Math.max(0, boxWidth - widthReducePercent)
+                    
+                    // Make height the same as the width of the red edge red infill box
+                    // Red box width: 2.00% reduced by 6px
+                    const redBoxWidth = 2.00
+                    const redBoxWidthReducePx = 6
+                    const redBoxWidthReducePercent = stageWidthPx > 0 ? (redBoxWidthReducePx / stageWidthPx) * 100 : 0
+                    const adjustedBoxHeight = Math.max(0, redBoxWidth - redBoxWidthReducePercent)
                     
                     return (
-                      <svg
+                      <div
                         style={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: '100%',
+                          ...getButtonStyle(adjustedBoxLeft, boxTop, adjustedBoxWidth, adjustedBoxHeight),
+                          backgroundColor: '#3bbf6b',
+                          border: '1px solid #3bbf6b',
                           pointerEvents: 'none',
-                          zIndex: 11
+                          zIndex: 12
                         }}
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                      >
-                        <line
-                          x1={selectedDotX}
-                          y1={selectedDotY}
-                          x2={greenDotX}
-                          y2={selectedDotY}
-                          stroke="#3bbf6b"
-                          strokeWidth="3"
-                          vectorEffect="non-scaling-stroke"
-                        />
-                      </svg>
+                      />
                     )
                   })()}
                   {/* White box on page 5 (5.png) - visible when user first lands on page, hides when red active button is selected */}
