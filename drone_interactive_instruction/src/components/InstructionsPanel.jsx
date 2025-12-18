@@ -113,6 +113,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page12Box1Selected, setPage12Box1Selected] = useState(false)
   const [page12Box2Selected, setPage12Box2Selected] = useState(false)
   const [page12Box3Selected, setPage12Box3Selected] = useState(false)
+  const [page12Box4Selected, setPage12Box4Selected] = useState(false)
   // Track page 12.1 box selection
   const [page12_1BoxSelected, setPage12_1BoxSelected] = useState(false)
   // Track page 13 box selection
@@ -262,12 +263,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 10 && !page11Box3Selected) {
       return
     }
-    // For page 12 (index 11), require box 3 to be selected (to show 12.1.png)
-    // When 12.1.png is displayed (page12Box3Selected is true), require page12_1BoxSelected
-    if (currentPage === 11 && !page12Box3Selected) {
+    // For page 12 (index 11), when box 3 is selected, require box 4 to be selected before navigating to 12.1.png
+    // When on 12.png (page12Box3Selected is true but we haven't selected the box on 12.1.png yet)
+    if (currentPage === 11 && page12Box3Selected && !page12Box4Selected && !page12_1BoxSelected) {
       return
     }
-    if (currentPage === 11 && page12Box3Selected && !page12_1BoxSelected) {
+    // When 12.1.png is displayed (page12_1BoxSelected means we've navigated to 12.1.png), require page12_1BoxSelected to proceed
+    if (currentPage === 11 && page12Box3Selected && page12Box4Selected && !page12_1BoxSelected) {
       return
     }
     // For page 13 (index 12), require box 3 to be selected
@@ -446,6 +448,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage12Box1Selected(false)
       setPage12Box2Selected(false)
       setPage12Box3Selected(false)
+      setPage12Box4Selected(false)
       setPage12_1BoxSelected(false)
     } else if (currentPage === 12) {
       // Page 13 - reset box states
@@ -757,6 +760,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage12Box3 = () => {
     setPage12Box3Selected(true)
+  }
+
+  const handlePage12Box4 = () => {
+    setPage12Box4Selected(true)
+    // When box 4 is selected, we transition to 12.1.png
+    setPage12_1BoxSelected(true)
   }
 
   const handlePage13Box1 = () => {
@@ -1549,11 +1558,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         if (currentPage === 9 && !page10BoxSelected) return page10_1
                         if (currentPage === 9) return page10
                         if (currentPage === 10) return page11
-                        if (currentPage === 11 && page12Box3Selected) {
+                        if (currentPage === 11 && page12Box3Selected && page12Box4Selected) {
+                          console.log('Switching to 12.1.png', { page12_1, page12Box3Selected, page12Box4Selected, currentPage })
                           if (!page12_1) {
-                            console.error('page12_1 is undefined!', { page12_1, page12Box3Selected, currentPage })
+                            console.error('page12_1 is undefined!', { page12_1, page12Box3Selected, page12Box4Selected, currentPage })
                             return page12 || page1
                           }
+                          console.log('Returning page12_1:', page12_1)
                           return page12_1
                         }
                         if (currentPage === 11) {
@@ -1578,6 +1589,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       console.error('Image failed to load:', e.target.src, { currentPage, page12Box3Selected, page12_1 })
                       // Fallback to page12 if page12_1 fails to load
                       if (currentPage === 11 && page12Box3Selected && page12) {
+                        console.log('Falling back to page12')
                         e.target.src = page12
                       }
                     }}
@@ -1862,7 +1874,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       6
                     </span>
                   )}
-                  {/* Number "7" at Dot 3 position on page 7 */}
+                  {/* Number "7" at Dot 3 position on page 7 (also shows on 7.1.png) */}
                   {currentPage === 6 && !editorMode && (
                     <span
                       style={{
@@ -3494,7 +3506,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* Number "10" at Dot 3 position on page 10 */}
+                  {/* Number "10" at Dot 3 position on page 10 (also shows on 10.1.png) */}
                   {currentPage === 9 && !editorMode && (
                     <span
                       style={{
@@ -3568,17 +3580,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       11
                     </span>
                   )}
-                  {/* Box 1 on page 12.png - with pointer */}
+                  {/* Box 1 on page 12.png - with pointer (also shows on 12.1.png) */}
                   {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 48.56
                     const boxTop = 35.47
-                    const boxWidth = 13.24
-                    const boxHeight = 4.03
-                    const dot1X = 61.80
+                    const boxWidth = 13.47
+                    const boxHeight = 3.86
+                    const dot1X = 62.03
                     const dot1Y = 36.66
-                    const dot2X = 61.80
-                    const dot2Y = 38.06
-                    const dot3X = 68.70
+                    const dot2X = 62.03
+                    const dot2Y = 38.58
+                    const dot3X = 68.02
                     const dot3Y = 40.08
                     const isSelected = page12Box1Selected
                     
@@ -3780,8 +3792,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 2 on page 12.png - with pointer */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && (() => {
+                  {/* Box 2 on page 12.png - with pointer (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && (() => {
                     const boxLeft = 12.96
                     const boxTop = 40.35
                     const boxWidth = 37.35
@@ -3991,8 +4003,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 3 on page 12.png - with pointer */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 3 on page 12.png - with pointer (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 6.43
                     const boxTop = 76.04
                     const boxWidth = 42.76
@@ -4202,8 +4214,171 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box 1 on page 12.png - hidden when box 1 is selected */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                  {/* Box 4 on page 12.png - visible only when box 3 is selected, but not on 12.1.png (bottom z-index) */}
+                  {/* Only show box 4 when on 12.png (not 12.1.png) - check if we're showing 12.1.png by checking if page12_1BoxSelected is set */}
+                  {currentPage === 11 && page12Box3Selected && !page12_1BoxSelected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 65.68
+                    const boxTop = 76.91
+                    const boxWidth = 29.91
+                    const boxHeight = 3.16
+                    const isSelected = page12Box4Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={{ ...buttonStyle, zIndex: 1 }}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage12Box4 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 0
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White box 1 on page 12.png - hidden when box 1 is selected (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(66.81, 45.40, 6.93, 4.03),
@@ -4226,8 +4401,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3 on page 12.png - hidden when box 1 is selected */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                  {/* White box 3 on page 12.png - hidden when box 1 is selected (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(10.04, 39.83, 50.19, 31.36),
@@ -4250,8 +4425,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 5 on page 12.png - hidden when box 2 is selected */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box2Selected && (
+                  {/* White box 5 on page 12.png - hidden when box 2 is selected (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && !page12Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(0.00, 70.99, 100.00, 24.05),
@@ -4262,8 +4437,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 6 on page 12.png - hidden when box 2 is selected */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box2Selected && (
+                  {/* White box 6 on page 12.png - hidden when box 2 is selected (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && !page12Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(74.35, 61.76, 25.65, 33.28),
@@ -4286,8 +4461,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Number "12" at Dot 3 position on page 12 */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && (
+                  {/* Number "12" at Dot 3 position on page 12 (also shows on 12.1.png) */}
+                  {currentPage === 11 && !editorMode && (
                     <span
                       style={{
                         position: 'absolute',
@@ -4305,99 +4480,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       12
                     </span>
                   )}
-                  {/* Box on page 12.1.png - simple clickable box */}
-                  {currentPage === 11 && page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    try {
-                      const boxLeft = 65.43
-                      const boxTop = 77.08
-                      const boxWidth = 30.34
-                      const boxHeight = 2.97
-                      const isSelected = page12_1BoxSelected
-                      
-                      const pixelIncrease = 3
-                      const halfPixelIncrease = pixelIncrease / 2
-                      const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
-                      const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                      const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                      const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                      
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
-                      const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                      
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * (stageRelativeScale || 1)))
-                      const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
-                      const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                      const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
-                      const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
-                      
-                      const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
-                      const strokeWidth = isSelected ? "2" : "1"
-                      
-                      return (
-                        <div 
-                          className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
-                          style={buttonStyle}
-                        >
-                          <div
-                            className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                            onClick={!isSelected ? handlePage12_1Box : undefined}
-                            style={{
-                              cursor: isSelected ? 'default' : 'pointer',
-                              width: '100%',
-                              height: '100%',
-                              position: 'relative',
-                              borderRadius: `${borderRadiusPx}px`
-                            }}
-                          >
-                            <svg
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                width: '100%',
-                                height: '100%',
-                                pointerEvents: 'none',
-                                overflow: 'visible',
-                                zIndex: 10
-                              }}
-                              viewBox="0 0 100 100"
-                              preserveAspectRatio="none"
-                            >
-                              <defs>
-                              </defs>
-                              <rect
-                                x={borderRadiusWrapperX}
-                                y={borderRadiusWrapperY}
-                                width={100 - 2 * borderRadiusWrapperX}
-                                height={100 - 2 * borderRadiusWrapperY}
-                                rx={borderRadiusWrapperX}
-                                ry={borderRadiusWrapperY}
-                                fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
-                              />
-                              <rect
-                                x={borderRadiusWrapperX}
-                                y={borderRadiusWrapperY}
-                                width={100 - 2 * borderRadiusWrapperX}
-                                height={100 - 2 * borderRadiusWrapperY}
-                                rx={borderRadiusWrapperX}
-                                ry={borderRadiusWrapperY}
-                                fill="none"
-                                stroke={strokeColor}
-                                strokeWidth={strokeWidth}
-                                vectorEffect="non-scaling-stroke"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      )
-                    } catch (error) {
-                      console.error('Error rendering box on page 12.1.png:', error)
-                      return null
-                    }
-                  })()}
                   {/* Box 1 on page 13.png - with pointer - REMOVED */}
                   {false && currentPage === 12 && !editorMode && (() => {
                     const boxLeft = 53.29
@@ -11056,9 +11138,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 9 && !page10Box3Selected) ||
               (currentPage === 10 && !page11Box3Selected) ||
               (currentPage === 11 && !page12Box3Selected) ||
+              (currentPage === 11 && page12Box3Selected && !page12Box4Selected) ||
               (currentPage === 11 && page12Box3Selected && !page12_1BoxSelected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box3Selected && page12_1BoxSelected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box3Selected && page12Box4Selected) || (currentPage === 11 && page12Box3Selected && page12_1BoxSelected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
