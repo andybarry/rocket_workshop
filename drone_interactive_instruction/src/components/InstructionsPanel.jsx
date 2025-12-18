@@ -279,6 +279,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 12 && !page13Box4Selected) {
       return
     }
+    // For page 14 (index 13), require box 5 to be selected
+    if (currentPage === 13 && !page14Box5Selected) {
+      return
+    }
     if (currentPage < pages.length - 1) {
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
@@ -6050,15 +6054,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                          onClick={!isSelected ? handlePage14Box3 : undefined}
+                          onClick={!isSelected && page14Box2Selected ? handlePage14Box3 : undefined}
                           style={{
                             position: 'absolute',
                             left: 0,
                             top: 0,
                             width: '100%',
                             height: '100%',
-                            pointerEvents: isSelected ? 'none' : 'auto',
-                            cursor: isSelected ? 'default' : 'pointer',
+                            pointerEvents: isSelected || !page14Box2Selected ? 'none' : 'auto',
+                            cursor: isSelected || !page14Box2Selected ? 'default' : 'pointer',
                             zIndex: 14,
                             display: 'flex',
                             alignItems: 'center',
@@ -6579,6 +6583,71 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     <div
                       style={{
                         ...getButtonStyle(7.56, 34.95, 27.21, 14.30),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3a on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(45.41, 40.00, 4.55, 4.55),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3b on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(47.08, 40.20, 4.55, 4.55),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3c on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(34.01, 45.60, 21.67, 23.88),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3d on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(9.46, 49.95, 36.77, 19.35),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 4a on page 14.png - hidden when box 4 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box4Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(0.00, 69.45, 100.00, 25.10),
                         backgroundColor: 'white',
                         border: 'none',
                         pointerEvents: 'none',
@@ -12504,9 +12573,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 9 && !page10Box3Selected) ||
               (currentPage === 10 && !page11Box3Selected) ||
               (currentPage === 11 && !page12Box4Selected) ||
-              (currentPage === 12 && !page13Box4Selected)
+              (currentPage === 12 && !page13Box4Selected) ||
+              (currentPage === 13 && !page14Box5Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box4Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box4Selected) || (currentPage === 13 && page14Box5Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
