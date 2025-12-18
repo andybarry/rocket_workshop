@@ -1575,6 +1575,43 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
   }
 
+  // Calculate page number style - scales with zoom exactly like the image (from wrapper center)
+  // Page numbers are positioned at a point, so we treat them as a small box for scaling purposes
+  const getPageNumberStyle = (pageNumberLeft, pageNumberTop) => {
+    const scale = zoom / 100
+    // Use a small box size for the page number (treating it like a button/box)
+    // This ensures it scales correctly from the wrapper center
+    const pageNumberWidth = 5 // percentage (small box size for the page number)
+    const pageNumberHeight = 5 // percentage (small box size for the page number)
+    
+    // Adjust position: move left 20px and up 20px
+    // Use imageNaturalSize for pixel-to-percentage conversion since page numbers are relative to the image
+    const leftOffsetPx = -20 // negative because we're moving left
+    const topOffsetPx = -20 // negative because we're moving up
+    const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+    const topOffsetPercent = imageNaturalSize.height > 0 ? (topOffsetPx / imageNaturalSize.height) * 100 : 0
+    
+    const adjustedLeft = pageNumberLeft + leftOffsetPercent
+    const adjustedTop = pageNumberTop + topOffsetPercent
+    
+    // Calculate transform origin so page number scales from wrapper center (50%, 50%) like the image does
+    // The wrapper center point relative to the page number:
+    // X: How far into the page number is the wrapper center horizontally
+    const wrapperCenterRelativeToPageNumberLeft = (50 - adjustedLeft) / pageNumberWidth * 100
+    // Y: How far into the page number is the wrapper center vertically  
+    const wrapperCenterRelativeToPageNumberTop = (50 - adjustedTop) / pageNumberHeight * 100
+    
+    return {
+      position: 'absolute',
+      left: `${adjustedLeft}%`,
+      top: `${adjustedTop}%`,
+      width: `${pageNumberWidth}%`,
+      height: `${pageNumberHeight}%`,
+      transform: `scale(${scale})`,
+      transformOrigin: `${wrapperCenterRelativeToPageNumberLeft}% ${wrapperCenterRelativeToPageNumberTop}%`
+    }
+  }
+
   const handleImageLoad = useCallback((event) => {
     if (!event?.target) return
     const { naturalWidth, naturalHeight } = event.target
@@ -1894,136 +1931,150 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Number "2" at Dot 3 position on page 2 */}
                   {currentPage === 1 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      2
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        2
+                      </span>
+                    </div>
                   )}
                   {/* Number "3" at Dot 3 position on page 3 */}
                   {currentPage === 2 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      3
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        3
+                      </span>
+                    </div>
                   )}
                   {/* Number "4" at Dot 3 position on page 4 */}
                   {currentPage === 3 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      4
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        4
+                      </span>
+                    </div>
                   )}
                   {/* Number "5" at Dot 3 position on page 5 */}
                   {currentPage === 4 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      5
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        5
+                      </span>
+                    </div>
                   )}
                   {/* Number "6" at Dot 3 position on page 6 */}
                   {currentPage === 5 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      6
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        6
+                      </span>
+                    </div>
                   )}
                   {/* Number "7" at Dot 3 position on page 7 (also shows on 7.1.png) */}
                   {currentPage === 6 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      7
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        7
+                      </span>
+                    </div>
                   )}
                   {/* Number "8" at Dot 3 position on page 8 */}
                   {currentPage === 7 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      8
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          top: 0,
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        8
+                      </span>
+                    </div>
                   )}
                   {/* White box on page 8 - displayed until button box 1 is selected (with 1 second delay) */}
                   {currentPage === 7 && !editorMode && !page8WhiteBoxHidden && (
@@ -3045,22 +3096,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Number "9" at Dot 3 position on page 9 */}
                   {currentPage === 8 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      9
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        9
+                      </span>
+                    </div>
                   )}
                   {/* White boxes on page 9 - displayed until button box 1 is selected */}
                   {currentPage === 8 && !editorMode && !page9WhiteBoxesHidden && (
@@ -3621,22 +3674,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Number "10" at Dot 3 position on page 10 (also shows on 10.1.png) */}
                   {currentPage === 9 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      10
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        10
+                      </span>
+                    </div>
                   )}
                   {/* White box on page 11.png - hidden when box 1 is selected */}
                   {currentPage === 10 && !editorMode && !page11BoxSelected && (
@@ -3676,22 +3731,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Number "11" at Dot 3 position on page 11 */}
                   {currentPage === 10 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      11
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        11
+                      </span>
+                    </div>
                   )}
                   {/* Box 1 on page 12.png - with pointer (also shows on 12.1.png) */}
                   {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
@@ -4576,22 +4633,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Number "12" at Dot 3 position on page 12 (also shows on 12.1.png) */}
                   {currentPage === 11 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      12
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        12
+                      </span>
+                    </div>
                   )}
                   {/* Box 1 on page 13.png - with pointer - REMOVED */}
                   {false && currentPage === 12 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
@@ -5555,22 +5614,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Number "13" at Dot 3 position on page 13 */}
                   {currentPage === 12 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      13
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        13
+                      </span>
+                    </div>
                   )}
                   {/* Box 1 on page 14.png - with pointer (rightward) */}
                   {currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
@@ -6757,60 +6818,66 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   )}
                   {/* Number "14" at Dot 3 position on page 14 */}
                   {currentPage === 13 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      14
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        14
+                      </span>
+                    </div>
                   )}
                   {/* Number "15" at Dot 3 position on page 15.1 */}
                   {currentPage === 14 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      15
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        15
+                      </span>
+                    </div>
                   )}
                   {/* Number "16" at Dot 3 position on page 16 */}
                   {currentPage === 15 && !editorMode && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '94.83%',
-                        top: '95.96%',
-                        transform: 'translate(-50%, -50%)',
-                        fontFamily: 'Roboto, sans-serif',
-                        color: '#595959',
-                        fontSize: `${12 * stageRelativeScale}px`,
-                        fontWeight: 'bold',
-                        pointerEvents: 'none',
-                        zIndex: 10
-                      }}
-                    >
-                      16
-                    </span>
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        16
+                      </span>
+                    </div>
                   )}
                   {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
                   {currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
@@ -12147,7 +12214,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Red dot on page 5 (5.png) - appears at 2x size and shrinks when button is selected */}
+                  {/* Red edge red infill dot on page 5 (5.png) - appears when button 1 is selected, not active */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                     const dotX = 18.55
                     const dotY = 66.89
@@ -12166,11 +12233,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         style={{
                           ...dotStyle,
                           backgroundColor: '#dd1712',
+                          border: '1px solid #dd1712',
                           borderRadius: '50%',
                           pointerEvents: 'none',
-                          zIndex: 12,
-                          transformOrigin: 'center',
-                          animation: 'shrinkDot 0.5s ease-out forwards'
+                          zIndex: 12
                         }}
                       />
                     )
@@ -12305,36 +12371,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })
                   })()}
                   {/* Red line connecting red dot to selected blue edge dot on page 5 */}
+                  {/* Red edge red infill box on page 5 (5.png) - appears when blue edge dot is selected */}
                   {currentPage === 4 && !editorMode && page5BlueDotSelected && (() => {
-                    const redDotX = 18.55
-                    const redDotY = 66.89
-                    const selectedDotX = 18.55
-                    const selectedDotY = 63.62
+                    const boxLeft = 17.25
+                    const boxTop = 64.13
+                    const boxWidth = 2.00
+                    const boxHeight = 3.55
+                    
+                    // Move box to the right by 4.25px (4.5px - 0.25px left = 4.25px)
+                    const moveRightPx = 4.25
+                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + moveRightPercent
+                    
+                    // Move box up by 4px (6px - 2px down = 4px)
+                    const moveUpPx = 4
+                    const moveUpPercent = stageHeightPx > 0 ? (moveUpPx / stageHeightPx) * 100 : 0
+                    const adjustedBoxTop = boxTop - moveUpPercent
+                    
+                    // Reduce width by 6px (2px + 4px more)
+                    const widthReducePx = 6
+                    const widthReducePercent = stageWidthPx > 0 ? (widthReducePx / stageWidthPx) * 100 : 0
+                    const adjustedBoxWidth = Math.max(0, boxWidth - widthReducePercent)
                     
                     return (
-                      <svg
+                      <div
                         style={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: '100%',
+                          ...getButtonStyle(adjustedBoxLeft, adjustedBoxTop, adjustedBoxWidth, boxHeight),
+                          backgroundColor: '#dd1712',
+                          border: '1px solid #dd1712',
                           pointerEvents: 'none',
-                          zIndex: 11
+                          zIndex: 12
                         }}
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                      >
-                        <line
-                          x1={redDotX}
-                          y1={redDotY}
-                          x2={selectedDotX}
-                          y2={selectedDotY}
-                          stroke="#dd1712"
-                          strokeWidth="3"
-                          vectorEffect="non-scaling-stroke"
-                        />
-                      </svg>
+                      />
                     )
                   })()}
                   {/* Green line connecting selected dot to green dot horizontally on page 5 */}
