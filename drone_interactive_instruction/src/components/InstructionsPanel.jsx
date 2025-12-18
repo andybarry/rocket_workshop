@@ -263,19 +263,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 10 && !page11Box3Selected) {
       return
     }
-    // For page 12 (index 11), when box 3 is selected, require box 4 to be selected before navigating to 12.1.png
-    // When on 12.png (page12Box3Selected is true but we haven't selected the box on 12.1.png yet)
-    if (currentPage === 11 && page12Box3Selected && !page12Box4Selected && !page12_1BoxSelected) {
+    // For page 12 (index 11), require box 4 to be selected to proceed
+    // Box 3 selection shows 12.1.png, but box 4 must be selected to continue
+    if (currentPage === 11 && !page12Box4Selected) {
       return
     }
-    // When 12.1.png is displayed (page12_1BoxSelected means we've navigated to 12.1.png), require page12_1BoxSelected to proceed
-    if (currentPage === 11 && page12Box3Selected && page12Box4Selected && !page12_1BoxSelected) {
-      return
-    }
-    // For page 13 (index 12), require box 3 to be selected
-    if (currentPage === 12 && !page13Box3Selected) {
-      return
-    }
+    // For page 13 (index 12), no box selection required
     if (currentPage < pages.length - 1) {
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
@@ -760,12 +753,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage12Box3 = () => {
     setPage12Box3Selected(true)
+    // When box 3 is selected, we transition to 12.1.png
+    setPage12_1BoxSelected(true)
   }
 
   const handlePage12Box4 = () => {
     setPage12Box4Selected(true)
-    // When box 4 is selected, we transition to 12.1.png
-    setPage12_1BoxSelected(true)
   }
 
   const handlePage13Box1 = () => {
@@ -1558,10 +1551,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         if (currentPage === 9 && !page10BoxSelected) return page10_1
                         if (currentPage === 9) return page10
                         if (currentPage === 10) return page11
-                        if (currentPage === 11 && page12Box3Selected && page12Box4Selected) {
-                          console.log('Switching to 12.1.png', { page12_1, page12Box3Selected, page12Box4Selected, currentPage })
+                        if (currentPage === 11 && page12Box3Selected) {
+                          console.log('Switching to 12.1.png', { page12_1, page12Box3Selected, currentPage })
                           if (!page12_1) {
-                            console.error('page12_1 is undefined!', { page12_1, page12Box3Selected, page12Box4Selected, currentPage })
+                            console.error('page12_1 is undefined!', { page12_1, page12Box3Selected, currentPage })
                             return page12 || page1
                           }
                           console.log('Returning page12_1:', page12_1)
@@ -4214,9 +4207,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 4 on page 12.png - visible only when box 3 is selected, but not on 12.1.png (bottom z-index) */}
-                  {/* Only show box 4 when on 12.png (not 12.1.png) - check if we're showing 12.1.png by checking if page12_1BoxSelected is set */}
-                  {currentPage === 11 && page12Box3Selected && !page12_1BoxSelected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 4 on page 12.png and 12.1.png - visible when box 3 is selected (bottom z-index) */}
+                  {/* Show box 4 when box 3 is selected, on both 12.png and 12.1.png */}
+                  {currentPage === 11 && page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 65.68
                     const boxTop = 76.91
                     const boxWidth = 29.91
@@ -4710,8 +4703,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 2 on page 13.png - with pointer */}
-                  {currentPage === 12 && !editorMode && (() => {
+                  {/* Box 2 on page 13.png - with pointer - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && (() => {
                     const boxLeft = 12.51
                     const boxTop = 40.70
                     const boxWidth = 37.35
@@ -5124,8 +5117,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 2 on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 2 on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(73.41, 46.09, 14.75, 11.69),
@@ -5150,8 +5143,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 4 on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 4 on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(14.83, 49.75, 10.47, 4.79),
@@ -5176,8 +5169,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 5b on page 13.png - hidden when box 1 (with pointer) is selected */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {/* White box 5b on page 13.png - hidden when box 1 (with pointer) is selected - REMOVED */}
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(24.10, 50.64, 2.96, 2.00),
@@ -11137,11 +11130,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 8 && !page9Box2Selected) ||
               (currentPage === 9 && !page10Box3Selected) ||
               (currentPage === 10 && !page11Box3Selected) ||
-              (currentPage === 11 && !page12Box3Selected) ||
-              (currentPage === 11 && page12Box3Selected && !page12Box4Selected) ||
-              (currentPage === 11 && page12Box3Selected && !page12_1BoxSelected)
+              (currentPage === 11 && !page12Box4Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box3Selected && page12Box4Selected) || (currentPage === 11 && page12Box3Selected && page12_1BoxSelected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box3Selected) || (currentPage === 10 && page11Box3Selected) || (currentPage === 11 && page12Box4Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
