@@ -1592,15 +1592,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     ref={imgRef}
                     src={(() => {
                       try {
-                        if (currentPage === 4 && page5GreenDotSelected) {
-                          console.log('Switching to 15.1.png', { page15_1, page5GreenDotSelected, currentPage })
-                          if (!page15_1) {
-                            console.error('page15_1 is undefined!', { page15_1, page5GreenDotSelected, currentPage })
-                            return page5 || page1
-                          }
-                          console.log('Returning page15_1:', page15_1)
-                          return page15_1
-                        }
                         if (currentPage === 6 && page7Box4Selected) return page7_1
                         if (currentPage === 7 && page8Box2Selected) return page8_1
                         if (currentPage === 9 && !page10BoxSelected) return page10_1
@@ -1634,12 +1625,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     className="instruction-page"
                     onLoad={handleImageLoad}
                     onError={(e) => {
-                      console.error('Image failed to load:', e.target.src, { currentPage, page5GreenDotSelected, page15_1 })
-                      // Fallback to page5 if page15_1 fails to load
-                      if (currentPage === 4 && page5GreenDotSelected && page5) {
-                        console.log('Falling back to page5')
-                        e.target.src = page5
-                      }
+                      console.error('Image failed to load:', e.target.src, { currentPage, page12Box3Selected, page12_1 })
                       // Fallback to page12 if page12_1 fails to load
                       if (currentPage === 11 && page12Box3Selected && page12) {
                         console.log('Falling back to page12')
@@ -6635,6 +6621,45 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     <div
                       style={{
                         ...getButtonStyle(9.46, 49.95, 36.77, 19.35),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3e on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(53.60, 25.25, 7.30, 6.77),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3f on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(54.99, 26.14, 7.30, 6.77),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* White box 3g on page 14.png - hidden when box 3 is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(57.04, 26.39, 3.94, 6.77),
                         backgroundColor: 'white',
                         border: 'none',
                         pointerEvents: 'none',
