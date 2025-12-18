@@ -20,6 +20,10 @@ import page13 from '../assets/images/pages/13.png'
 import page14 from '../assets/images/pages/14.png'
 import page15_1 from '../assets/images/pages/15.1.png'
 import page16 from '../assets/images/pages/16.png'
+import page17 from '../assets/images/pages/17.png'
+import page18 from '../assets/images/pages/18.png'
+import page19 from '../assets/images/pages/19.png'
+import page20 from '../assets/images/pages/20.png'
 
 function RightPanel({ editorMode, onToggleEditorMode, dimensions, onRefresh, onPageSelect }) {
   const [copied, setCopied] = useState(false)
@@ -168,6 +172,22 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             <div className="image-selector-item" onClick={() => onPageSelect(15, false, false, false, false)}>
               <img src={page16} alt="Page 16" className="image-selector-thumbnail" />
               <span className="image-selector-label">16.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(16, false, false, false, false)}>
+              <img src={page17} alt="Page 17" className="image-selector-thumbnail" />
+              <span className="image-selector-label">17.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(17, false, false, false, false)}>
+              <img src={page18} alt="Page 18" className="image-selector-thumbnail" />
+              <span className="image-selector-label">18.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(18, false, false, false, false)}>
+              <img src={page19} alt="Page 19" className="image-selector-thumbnail" />
+              <span className="image-selector-label">19.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(19, false, false, false, false)}>
+              <img src={page20} alt="Page 20" className="image-selector-thumbnail" />
+              <span className="image-selector-label">20.png</span>
             </div>
           </div>
         </div>
