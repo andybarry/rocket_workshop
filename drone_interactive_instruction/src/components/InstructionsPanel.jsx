@@ -5,6 +5,7 @@ import page2 from '../assets/images/pages/2.png'
 import page3 from '../assets/images/pages/3.png'
 import page4 from '../assets/images/pages/4.png'
 import page5 from '../assets/images/pages/5.png'
+import page5_1 from '../assets/images/pages/5.1.png'
 import page6 from '../assets/images/pages/6.png'
 import page7 from '../assets/images/pages/7.png'
 import page7_1 from '../assets/images/pages/7.1.png'
@@ -60,6 +61,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page5BlueDotSelected, setPage5BlueDotSelected] = useState(false)
   // Track page 5 green dot connection selection
   const [page5GreenDotSelected, setPage5GreenDotSelected] = useState(false)
+  // Track if page 5 should temporarily show 5.1.png (when "Need Help?" is clicked)
+  const [page5ShowHelpImage, setPage5ShowHelpImage] = useState(false)
   // Track page 6 button states
   const [page6Button1Clicked, setPage6Button1Clicked] = useState(false)
   const [page6Button2Clicked, setPage6Button2Clicked] = useState(false)
@@ -195,11 +198,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const boxRef = useRef(null)
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
+  const page5HelpImageTimeoutRef = useRef(null)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
       const previousPage = currentPage - 1
+      // Reset page 5 help image state when navigating away from page 5
+      if (currentPage === 4) {
+        setPage5ShowHelpImage(false)
+        if (page5HelpImageTimeoutRef.current) {
+          clearTimeout(page5HelpImageTimeoutRef.current)
+          page5HelpImageTimeoutRef.current = null
+        }
+      }
       // Mark page 7 as visited when navigating back to it from page 8
       if (currentPage === 7) {
         setPage7Visited(true)
@@ -315,6 +327,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       return
     }
     if (currentPage < pages.length - 1) {
+      // Reset page 5 help image state when navigating away from page 5
+      if (currentPage === 4) {
+        setPage5ShowHelpImage(false)
+        if (page5HelpImageTimeoutRef.current) {
+          clearTimeout(page5HelpImageTimeoutRef.current)
+          page5HelpImageTimeoutRef.current = null
+        }
+      }
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
         setPage7Visited(true)
@@ -526,8 +546,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }, [currentPage, onDimensionsCapture])
 
   // Development function to jump to a specific page
-  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false) => {
-    if (isPage7_1) {
+  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false, isPage5_1 = false) => {
+    if (isPage5_1) {
+      // Special case: 5.1.png - set page to 4 and show 5.1.png
+      setCurrentPage(4)
+      setPage5ShowHelpImage(true)
+      // Reset box position for the new page
+      setBoxPosition(getDefaultBoxPosition(4))
+      // Reset dot positions
+      setDot1Position(10)
+      setDot2Position(60)
+      setDot3Position({ x: 50, y: 50 })
+    } else if (isPage7_1) {
       // Special case: 7.1.png - set page to 6 and enable box 4 selection
       setCurrentPage(6)
       setPage7Box4Selected(true)
@@ -662,6 +692,23 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage5GreenDot = () => {
     setPage5GreenDotSelected(true)
+  }
+
+  // Handler for page 5 "Need Help?" button
+  const handlePage5NeedHelp = () => {
+    // Clear any existing timeout
+    if (page5HelpImageTimeoutRef.current) {
+      clearTimeout(page5HelpImageTimeoutRef.current)
+    }
+    
+    // Show 5.1.png
+    setPage5ShowHelpImage(true)
+    
+    // After 5 seconds, revert back to 5.png
+    page5HelpImageTimeoutRef.current = setTimeout(() => {
+      setPage5ShowHelpImage(false)
+      page5HelpImageTimeoutRef.current = null
+    }, 5000)
   }
 
   // Handler for page 6 buttons
@@ -1721,6 +1768,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     ref={imgRef}
                     src={(() => {
                       try {
+                        if (currentPage === 4 && page5ShowHelpImage) return page5_1
                         if (currentPage === 6 && page7Box4Selected) return page7_1
                         if (currentPage === 7 && page8Box2Selected) return page8_1
                         if (currentPage === 9 && !page10BoxSelected) return page10_1
@@ -13044,6 +13092,192 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       />
                     )
+                  })()}
+                  {/* "Need Help?" button on page 5 (5.png) - visible only after box 1 is selected */}
+                  {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
+                        const boxLeft = 8.23
+                        const boxTop = 38.78
+                        const boxWidth = 15.49
+                        const boxHeight = 4.21
+                        const isSelected = false // Button is never "selected", it's always clickable
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Move box down by 90px (80px previous + 10px additional for page 5)
+                        const downOffsetPx = 90
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        
+                        // Move box top edge down by 6px and bottom edge up by 3px (reduce height)
+                        const topDownOffsetPx = 6
+                        const topDownOffsetPercent = imageNaturalSize.height > 0 ? (topDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const heightReductionPx = 9
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                        
+                        // Move box left edge to the right by 6px and right edge to the left by 6px (reduce width)
+                        const leftEdgeRightPx = 6
+                        const rightEdgeLeftPx = 6
+                        const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                        const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                        const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Determine stroke color and width for box
+                        const strokeColor = "#0d6efd"
+                        const strokeWidth = "1"
+                        // Always show "Need Help?" text for page 5
+                        const showHelpText = true
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={{...buttonStyle, zIndex: 12}}
+                          >
+                            <div
+                              className="speech-bubble-box"
+                              onClick={handlePage5NeedHelp}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'auto',
+                                cursor: 'pointer',
+                                zIndex: 13,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontStyle: showHelpText ? 'italic' : 'normal',
+                                fontWeight: showHelpText ? '300' : 'normal',
+                                textAlign: 'center',
+                                padding: '4px 8px',
+                                boxSizing: 'border-box',
+                                userSelect: 'auto',
+                                WebkitUserSelect: 'auto',
+                                opacity: showHelpText ? 1 : 0
+                              }}
+                            >
+                              {showHelpText && 'Need Help?'}
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill={showHelpText ? "#ffffff" : "transparent"}
+                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
                   })()}
                   {/* Speech bubble buttons on page 6 (6.png) */}
                   {currentPage === 5 && !editorMode && (() => {
