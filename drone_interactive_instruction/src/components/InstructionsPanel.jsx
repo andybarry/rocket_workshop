@@ -162,6 +162,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page18BoxesVisible, setPage18BoxesVisible] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page18ShowHelpText, setPage18ShowHelpText] = useState(true)
+  // Track which image to show based on Need Help button clicks (0 = 18.1.png, 1 = 18.png, 2 = 18.1.png)
+  const [page18HelpImageState, setPage18HelpImageState] = useState(0)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -275,6 +277,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 17) {
         setPage18BoxesVisible(false)
         setPage18ShowHelpText(true)
+        setPage18HelpImageState(0)
       }
       // Track if we're returning from page 3 to page 2
       if (currentPage === 2) {
@@ -595,6 +598,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage18Box4Selected(false)
       setPage18BoxesVisible(false)
       setPage18ShowHelpText(true)
+      setPage18HelpImageState(0)
     }
     
     // Clear dimensions capture
@@ -1086,9 +1090,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage18NeedHelp = () => {
     if (!page18BoxesVisible) {
-      // First click: show boxes on 18.1.png, hide "Need Help?" text
+      // First click: show text boxes on 18.1.png, hide "Need Help?" text
       setPage18BoxesVisible(true)
       setPage18ShowHelpText(false)
+      setPage18HelpImageState(0) // Show 18.1.png
+    } else {
+      // Subsequent clicks: cycle through images
+      // Second click: show 18.png
+      // Third click: show 18.1.png again
+      if (page18HelpImageState === 0) {
+        setPage18HelpImageState(1) // Show 18.png
+      } else if (page18HelpImageState === 1) {
+        setPage18HelpImageState(2) // Show 18.1.png again
+      } else {
+        setPage18HelpImageState(0) // Reset to 18.1.png (cycle back)
+      }
+      // Keep page18BoxesVisible true and page18ShowHelpText false
     }
   }
 
@@ -1927,7 +1944,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           return page12
                         }
                         if (currentPage === 17) {
-                          // Show 18.png when all 4 boxes are selected, otherwise show 18.1.png
+                          // Priority 1: If Need Help button has been clicked, use its image state
+                          if (page18BoxesVisible) {
+                            if (page18HelpImageState === 1) {
+                              // Second click: show 18.png
+                              if (!page18) {
+                                console.error('page18 is undefined!')
+                                return page1
+                              }
+                              return page18
+                            } else {
+                              // First or third click: show 18.1.png
+                              if (!page18_1) {
+                                console.error('page18_1 is undefined!')
+                                return page1
+                              }
+                              return page18_1
+                            }
+                          }
+                          // Priority 2: Show 18.png when all 4 boxes are selected, otherwise show 18.1.png
                           if (page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) {
                             if (!page18) {
                               console.error('page18 is undefined!')
@@ -10194,7 +10229,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0
+                                opacity: 1
                               }}
                             >
                               {showHelpText && 'Need Help?'}
@@ -10260,7 +10295,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                   {/* Button, LED, and Ground boxes - only show on 18.1.png when page18BoxesVisible is true */}
-                  {currentPage === 17 && !editorMode && page18BoxesVisible && (
+                  {/* Only show on 18.1.png (not 18.png) - 18.png is shown when all 4 boxes are selected */}
+                  {currentPage === 17 && !editorMode && page18BoxesVisible && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -10688,6 +10724,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 35px (10px + 25px)
                         // Then for duplicate: left 25px (15px + 10px) and down 111px (86px + 25px)
                         // Additional movement: down 40px and right 10px
+                        // Additional movement for Ground box only: down 10px and right 10px
                         const rightOffsetPx = 10
                         const leftOffsetPx = 4
                         const additionalRightOffsetPx = 3
@@ -10696,6 +10733,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const duplicateDownOffsetPx = 111
                         const additionalDownOffsetPx = 40
                         const additionalRightOffsetPx2 = 10
+                        const groundRightOffsetPx = 10
+                        const groundDownOffsetPx = 10
                         const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
                         const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
                         const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
@@ -10704,10 +10743,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const duplicateLeftOffsetPercent = imageNaturalSize.width > 0 ? (duplicateLeftOffsetPx / imageNaturalSize.width) * 100 : 0
                         const duplicateDownOffsetPercent = imageNaturalSize.height > 0 ? (duplicateDownOffsetPx / imageNaturalSize.height) * 100 : 0
                         const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
-                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent - duplicateLeftOffsetPercent + additionalRightOffsetPercent2
+                        const groundRightOffsetPercent = imageNaturalSize.width > 0 ? (groundRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const groundDownOffsetPercent = imageNaturalSize.height > 0 ? (groundDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent - duplicateLeftOffsetPercent + additionalRightOffsetPercent2 + groundRightOffsetPercent
                         
                         const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
-                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + duplicateDownOffsetPercent + additionalDownOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + duplicateDownOffsetPercent + additionalDownOffsetPercent + groundDownOffsetPercent)
                         const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
                         const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
