@@ -10295,8 +10295,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                   {/* Button, LED, and Ground boxes - only show on 18.1.png when page18BoxesVisible is true */}
-                  {/* Only show on 18.1.png (not 18.png) - 18.png is shown when all 4 boxes are selected */}
-                  {currentPage === 17 && !editorMode && page18BoxesVisible && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
+                  {/* Only show on 18.1.png (not 18.png) - hide when page18HelpImageState === 1 (18.png) or when all 4 boxes are selected */}
+                  {currentPage === 17 && !editorMode && page18BoxesVisible && page18HelpImageState !== 1 && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
                     <>
                       {/* Button box */}
                       {(() => {
