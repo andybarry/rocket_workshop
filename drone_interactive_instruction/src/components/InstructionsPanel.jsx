@@ -24,6 +24,7 @@ import page15_1 from '../assets/images/pages/15.1.png'
 import page16 from '../assets/images/pages/16.png'
 import page17 from '../assets/images/pages/17.png'
 import page18 from '../assets/images/pages/18.png'
+import page18_1 from '../assets/images/pages/18.1.png'
 import page19 from '../assets/images/pages/19.png'
 import page20 from '../assets/images/pages/20.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
@@ -153,6 +154,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page17Box3Selected, setPage17Box3Selected] = useState(false)
   const [page17Box4Selected, setPage17Box4Selected] = useState(false)
   const [page17Box4bSelected, setPage17Box4bSelected] = useState(false)
+  const [page18Box1Selected, setPage18Box1Selected] = useState(false)
+  const [page18Box2Selected, setPage18Box2Selected] = useState(false)
+  const [page18Box3Selected, setPage18Box3Selected] = useState(false)
+  const [page18Box4Selected, setPage18Box4Selected] = useState(false)
+  // Track if button/LED/ground boxes should be visible on 18.1.png
+  const [page18BoxesVisible, setPage18BoxesVisible] = useState(false)
+  // Track if "Need Help?" text should be shown (hidden after first click)
+  const [page18ShowHelpText, setPage18ShowHelpText] = useState(true)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -262,6 +271,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage15Box2Selected(false)
         setPage15Box3Selected(false)
       }
+      // Reset page 18 state when navigating away from page 18
+      if (currentPage === 17) {
+        setPage18BoxesVisible(false)
+        setPage18ShowHelpText(true)
+      }
       // Track if we're returning from page 3 to page 2
       if (currentPage === 2) {
         setReturningFromPage3(true)
@@ -334,6 +348,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     // For page 17 (index 16), require box 4b to be selected
     if (currentPage === 16 && !page17Box4bSelected) {
+      return
+    }
+    // For page 18 (index 17), require all 4 boxes to be selected
+    if (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) {
       return
     }
     if (currentPage < pages.length - 1) {
@@ -569,6 +587,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage17Box3Selected(false)
       setPage17Box4bSelected(false)
       setPage17Box4Selected(false)
+    } else if (currentPage === 17) {
+      // Page 18 - reset box states
+      setPage18Box1Selected(false)
+      setPage18Box2Selected(false)
+      setPage18Box3Selected(false)
+      setPage18Box4Selected(false)
+      setPage18BoxesVisible(false)
+      setPage18ShowHelpText(true)
     }
     
     // Clear dimensions capture
@@ -578,7 +604,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }, [currentPage, onDimensionsCapture])
 
   // Development function to jump to a specific page
-  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false, isPage5_1 = false) => {
+  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false, isPage5_1 = false, isPage18_1 = false) => {
     if (isPage5_1) {
       // Special case: 5.1.png - set page to 4 and show 5.1.png
       setCurrentPage(4)
@@ -620,6 +646,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage10WhiteBox3Hidden(false)
       // Reset box position for the new page
       setBoxPosition(getDefaultBoxPosition(9))
+      // Reset dot positions
+      setDot1Position(10)
+      setDot2Position(60)
+      setDot3Position({ x: 50, y: 50 })
+    } else if (isPage18_1) {
+      // Special case: 18.1.png - set page to 17 and show 18.1.png
+      setCurrentPage(17)
+      // Reset box position for the new page
+      setBoxPosition(getDefaultBoxPosition(17))
       // Reset dot positions
       setDot1Position(10)
       setDot2Position(60)
@@ -1031,6 +1066,30 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage17Box4b = () => {
     setPage17Box4bSelected(true)
+  }
+
+  const handlePage18Box1 = () => {
+    setPage18Box1Selected(true)
+  }
+
+  const handlePage18Box2 = () => {
+    setPage18Box2Selected(true)
+  }
+
+  const handlePage18Box3 = () => {
+    setPage18Box3Selected(true)
+  }
+
+  const handlePage18Box4 = () => {
+    setPage18Box4Selected(true)
+  }
+
+  const handlePage18NeedHelp = () => {
+    if (!page18BoxesVisible) {
+      // First click: show boxes on 18.1.png, hide "Need Help?" text
+      setPage18BoxesVisible(true)
+      setPage18ShowHelpText(false)
+    }
   }
 
   // Handler for page 3 speech bubble button
@@ -1866,6 +1925,23 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             return page1
                           }
                           return page12
+                        }
+                        if (currentPage === 17) {
+                          // Show 18.png when all 4 boxes are selected, otherwise show 18.1.png
+                          if (page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) {
+                            if (!page18) {
+                              console.error('page18 is undefined!')
+                              return page1
+                            }
+                            return page18
+                          } else {
+                            // Show 18.1.png when navigating from page 17
+                            if (!page18_1) {
+                              console.error('page18_1 is undefined!')
+                              return page1
+                            }
+                            return page18_1
+                          }
                         }
                         if (pages[currentPage]) return pages[currentPage]
                         console.warn(`No image found for page ${currentPage}, using page1`)
@@ -9145,6 +9221,2866 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
+                  {/* Box 1 on page 18.1.png - with pointer (downward) */}
+                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 37.52
+                    const boxTop = 40.70
+                    const boxWidth = 25.18
+                    const boxHeight = 4.73
+                    const dot1X = 41.68
+                    const dot1Y = 45.42
+                    const dot2X = 48.21
+                    const dot2Y = 45.42
+                    const dot3X = 49.77
+                    const dot3Y = 50.87
+                    const isSelected = page18Box1Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const triangleTopLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleBottomLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={{...buttonStyle, zIndex: 14}}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage18Box1 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 14,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleTopLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleBottomLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 2 on page 18.1.png - with pointer (downward) */}
+                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 66.36
+                    const boxTop = 43.66
+                    const boxWidth = 25.18
+                    const boxHeight = 5.25
+                    const dot1X = 80.66
+                    const dot1Y = 48.91
+                    const dot2X = 86.51
+                    const dot2Y = 48.91
+                    const dot3X = 81.54
+                    const dot3Y = 50.52
+                    const isSelected = page18Box2Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const triangleTopLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleBottomLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${bottomY}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={{...buttonStyle, zIndex: 14}}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage18Box2 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 14,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleTopLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleBottomLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 3 on page 18.1.png - with pointer (upward) */}
+                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 45.41
+                    const boxTop = 81.43
+                    const boxWidth = 23.60
+                    const boxHeight = 5.08
+                    const dot1X = 58.58
+                    const dot1Y = 81.43
+                    const dot2X = 65.34
+                    const dot2Y = 81.43
+                    const dot3X = 73.21
+                    const dot3Y = 76.46
+                    const isSelected = page18Box3Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const triangleTopLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleBottomLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      M ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={{...buttonStyle, zIndex: 14}}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage18Box3 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 14,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleTopLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleBottomLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 4 on page 18.1.png - with pointer (upward) */}
+                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 72.89
+                    const boxTop = 78.82
+                    const boxWidth = 20.23
+                    const boxHeight = 5.25
+                    const dot1X = 84.49
+                    const dot1Y = 78.82
+                    const dot2X = 88.99
+                    const dot2Y = 78.82
+                    const dot3X = 84.70
+                    const dot3Y = 76.11
+                    const isSelected = page18Box4Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const triangleTopLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleBottomLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${topY}` : ''}
+                      M ${triangleBaseRightWrapper},${topY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${topY}` : ''}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={{...buttonStyle, zIndex: 14}}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage18Box4 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 14,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleTopLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleBottomLegPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={strokeColor}
+                              strokeWidth={strokeWidth}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White box on page 18.1 - hidden when all 4 boxes are selected */}
+                  {currentPage === 17 && !editorMode && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
+                    <div
+                      style={{
+                        ...getButtonStyle(54.42, 86.92, 41.85, 7.34),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* "Need Help?" button on 18.1.png - always visible when on page 18 */}
+                  {currentPage === 17 && !editorMode && (() => {
+                        const boxLeft = 8.23
+                        const boxTop = 38.78
+                        const boxWidth = 15.49
+                        const boxHeight = 4.21
+                        const isSelected = false // Button is never "selected", it's always clickable
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Move box down by 30px
+                        const downOffsetPx = 30
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        
+                        // Move box top edge down by 6px and bottom edge up by 3px (reduce height)
+                        const topDownOffsetPx = 6
+                        const topDownOffsetPercent = imageNaturalSize.height > 0 ? (topDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const heightReductionPx = 9
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                        
+                        // Move box left edge to the right by 6px and right edge to the left by 6px (reduce width)
+                        const leftEdgeRightPx = 6
+                        const rightEdgeLeftPx = 6
+                        const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                        const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                        const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Determine stroke color and width for box
+                        const strokeColor = "#0d6efd"
+                        const strokeWidth = "1"
+                        // Show "Need Help?" text only if page18ShowHelpText is true
+                        const showHelpText = page18ShowHelpText
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={{...buttonStyle, zIndex: 12}}
+                          >
+                            <div
+                              className="speech-bubble-box"
+                              onClick={handlePage18NeedHelp}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'auto',
+                                cursor: 'pointer',
+                                zIndex: 13,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontStyle: showHelpText ? 'italic' : 'normal',
+                                fontWeight: showHelpText ? '300' : 'normal',
+                                textAlign: 'center',
+                                padding: '4px 8px',
+                                boxSizing: 'border-box',
+                                userSelect: 'auto',
+                                WebkitUserSelect: 'auto',
+                                opacity: showHelpText ? 1 : 0
+                              }}
+                            >
+                              {showHelpText && 'Need Help?'}
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill={showHelpText ? "#ffffff" : "transparent"}
+                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                  {/* Button, LED, and Ground boxes - only show on 18.1.png when page18BoxesVisible is true */}
+                  {currentPage === 17 && !editorMode && page18BoxesVisible && (
+                    <>
+                      {/* Button box */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 40px (15px + 25px)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 40
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const buttonFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${buttonFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Button
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#099b4d"
+                                style={{ fill: '#099b4d' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* LED text box on 18.1.png */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 40px (15px + 25px)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 40
+                        const ledRightOffsetPx = 43
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for LED box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${ledFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#099b4d"
+                                style={{ fill: '#099b4d' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Ground text box on 18.1.png */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 5
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 35px (10px + 25px)
+                        // Then for duplicate: left 25px (15px + 10px) and down 111px (86px + 25px)
+                        // Additional movement: down 40px and right 10px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 35
+                        const duplicateLeftOffsetPx = 25
+                        const duplicateDownOffsetPx = 111
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const duplicateLeftOffsetPercent = imageNaturalSize.width > 0 ? (duplicateLeftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateDownOffsetPercent = imageNaturalSize.height > 0 ? (duplicateDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent - duplicateLeftOffsetPercent + additionalRightOffsetPercent2
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + duplicateDownOffsetPercent + additionalDownOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const groundFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#595959',
+                                fontSize: `${groundFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Ground
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate Button box - 100px to the right */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 40px (15px + 25px)
+                        // Add 90px to the right for duplicate (100px - 10px left)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 40
+                        const duplicateRightOffsetPx = 90
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + duplicateRightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const buttonFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${buttonFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Button
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#f1c232"
+                                style={{ fill: '#f1c232' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate LED text box - 100px to the right */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 40px (15px + 25px)
+                        // Add 90px to the right for duplicate (100px - 10px left)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const ledRightOffsetPx = 43
+                        const duplicateRightOffsetPx = 90
+                        const downOffsetPx = 40
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + duplicateRightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'black',
+                                fontSize: `${ledFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                    </>
+                  )}
+                  {/* Number "19" at Dot 3 position on page 19 */}
+                  {currentPage === 18 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        19
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "20" at Dot 3 position on page 20 */}
+                  {currentPage === 19 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        20
+                      </span>
+                    </div>
+                  )}
+                  {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
+                  {currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
+                    const boxLeft = 64.56
+                    const boxTop = 52.01
+                    const boxWidth = 26.08
+                    const boxHeight = 11.87
+                    // Increase width by 20px (move right edge 20px to the right)
+                    const widthIncreasePx = 20
+                    const widthIncreasePercent = imageNaturalSize.width > 0 ? (widthIncreasePx / imageNaturalSize.width) * 100 : 0
+                    const adjustedWidth = boxWidth + widthIncreasePercent
+                    
+                    return (
+                      <div
+                        style={{
+                          ...getButtonStyle(boxLeft, boxTop, adjustedWidth, boxHeight),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* White box on page 15.1.png and 15.png - hidden when both box 1 and box 2 are selected */}
+                  {currentPage === 14 && !editorMode && !(page15Box1Selected && page15Box2Selected) && (
+                    <div
+                      style={{
+                        ...getButtonStyle(17.47, 76.91, 65.96, 15.87),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true */}
+                  {currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
+                    <>
+                      {/* Button box */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 15px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 15
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const buttonFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#ffeb3b', // Yellow text
+                                fontSize: `${buttonFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Button
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate Button box - 100px to the right */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 15px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 15
+                        // Add 90px to the right for duplicate (100px - 10px left)
+                        const duplicateRightOffsetPx = 90
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + duplicateRightOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const buttonFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${buttonFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Button
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffeb3b"
+                                style={{ fill: '#ffeb3b' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate LED text box - 100px to the right */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 15px
+                        // Add 90px to the right for duplicate (100px - 10px left)
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const ledRightOffsetPx = 43
+                        const duplicateRightOffsetPx = 90
+                        const downOffsetPx = 15
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + duplicateRightOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'black',
+                                fontSize: `${ledFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Ground text box on 15.1.png */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce button box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 5
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move button box: right 10px, then left 4px, then right 3px (net: right 9px), and down 15px
+                        // Then for duplicate: left 25px (15px + 10px) and down 86px (50px + 40px - 4px)
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 15
+                        const duplicateLeftOffsetPx = 25
+                        const duplicateDownOffsetPx = 86
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const duplicateLeftOffsetPercent = imageNaturalSize.width > 0 ? (duplicateLeftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateDownOffsetPercent = imageNaturalSize.height > 0 ? (duplicateDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent - duplicateLeftOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + duplicateDownOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const groundFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#595959',
+                                fontSize: `${groundFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Ground
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                    </>
+                  )}
                   {/* Number "19" at Dot 3 position on page 19 */}
                   {currentPage === 18 && !editorMode && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
@@ -9737,193 +12673,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 d={roundedRectPath}
                                 fill="#f1c232"
                                 style={{ fill: '#f1c232' }}
-                              />
-                              <g className="speech-bubble-border-group">
-                                <path
-                                  d={leftBorderPath}
-                                  fill="none"
-                                  stroke="#595959"
-                                  strokeWidth="1"
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={rightBorderPath}
-                                  fill="none"
-                                  stroke="#595959"
-                                  strokeWidth="1"
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={topBorderPath}
-                                  fill="none"
-                                  stroke="#595959"
-                                  strokeWidth="1"
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={bottomBorderPath}
-                                  fill="none"
-                                  stroke="#595959"
-                                  strokeWidth="1"
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                              </g>
-                            </svg>
-                          </div>
-                        )
-                      })()}
-                      {/* Duplicate LED text box - 100px to the right */}
-                      {(() => {
-                        const boxLeft = 44.28
-                        const boxTop = 57.58
-                        const boxWidth = 7.16
-                        const boxHeight = 2.00
-                        
-                        const pixelIncrease = 3
-                        const halfPixelIncrease = pixelIncrease / 2
-                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
-                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Reduce LED box height by 5px and width by 15px, then additional reductions
-                        const heightReductionPx = 5
-                        const widthReductionPx = 15
-                        // Additional reductions for height and width
-                        const additionalHeightReductionPx = 5
-                        const additionalWidthReductionPx = 10
-                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
-                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
-                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
-                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 15px
-                        // Add 90px to the right for duplicate (100px - 10px left)
-                        const rightOffsetPx = 10
-                        const leftOffsetPx = 4
-                        const additionalRightOffsetPx = 3
-                        const ledRightOffsetPx = 43
-                        const duplicateRightOffsetPx = 90
-                        const downOffsetPx = 15
-                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
-                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
-                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
-                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
-                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
-                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
-                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + duplicateRightOffsetPercent
-                        
-                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
-                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent)
-                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
-                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
-                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
-                        // Reduced corner radius for button box only
-                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
-                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
-                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
-                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
-                        
-                        const topLeft = 0
-                        const topRight = 100
-                        const topY = 0
-                        const bottomY = 100
-                        
-                        const roundedRectPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                          L ${topRight},${topY + borderRadiusWrapperY}
-                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
-                          Z
-                        `
-                        
-                        const leftBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                        `
-                        
-                        const rightBorderPath = `
-                          M ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                          L ${topRight},${topY + borderRadiusWrapperY}
-                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
-                        `
-                        
-                        const topBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          L ${topRight - borderRadiusWrapperX},${topY}
-                        `
-                        
-                        const bottomBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
-                        `
-                        
-                        // Font size scales exactly with image using stageRelativeScale
-                        const buttonFontSize = 10.5 * stageRelativeScale
-                        
-                        return (
-                          <div 
-                            className="speech-bubble-wrapper no-pulse"
-                            style={buttonStyle}
-                          >
-                            <div
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                width: '100%',
-                                height: '100%',
-                                pointerEvents: 'none',
-                                zIndex: 11,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'black',
-                                fontSize: `${buttonFontSize}px`,
-                                fontFamily: 'Roboto, sans-serif',
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                boxSizing: 'border-box',
-                                userSelect: 'none',
-                                WebkitUserSelect: 'none'
-                              }}
-                            >
-                              LED
-                            </div>
-                            <svg
-                              className="speech-bubble-svg"
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                width: '100%',
-                                height: '100%',
-                                pointerEvents: 'none',
-                                overflow: 'visible',
-                                zIndex: 10
-                              }}
-                              viewBox="0 0 100 100"
-                              preserveAspectRatio="none"
-                            >
-                              <defs>
-                              </defs>
-                              <path
-                                d={roundedRectPath}
-                                fill="#ffffff"
-                                style={{ fill: '#ffffff' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
@@ -16872,9 +19621,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 11 && !page12Box4Selected) ||
               (currentPage === 12 && !page13Box1Selected) ||
               (currentPage === 14 && !page15Box3Selected) ||
-              (currentPage === 16 && !page17Box4bSelected)
+              (currentPage === 16 && !page17Box4bSelected) ||
+              (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected))
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
