@@ -6942,32 +6942,48 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box on page 14.png - hidden when box 4b is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box4bSelected && (
-                    <div
-                      style={{
-                        ...getButtonStyle(0.00, 69.60, 100.00, 25.10),
-                        backgroundColor: 'white',
-                        border: 'none',
-                        pointerEvents: 'none',
-                        zIndex: 1000,
-                        position: 'absolute'
-                      }}
-                    />
-                  )}
                   {/* Box 5 on page 14.png - with pointer (leftward) - active when box 4b is selected */}
                   {currentPage === 13 && !editorMode && page14Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 49.57
-                    const boxTop = 80.66
-                    const boxWidth = 18.54
-                    const boxHeight = 5.11
-                    const dot1X = 51.08
-                    const dot1Y = 85.77
-                    const dot2X = 56.65
-                    const dot2Y = 85.77
-                    const dot3X = 42.86
-                    const dot3Y = 88.43
+                    const boxLeft = 49.24
+                    const boxTop = 80.56
+                    const boxWidth = 19.10
+                    const boxHeight = 5.08
+                    const dot1XBase = 52.04
+                    const dot1Y = 85.64
+                    const dot2X = 57.00
+                    const dot2Y = 85.64
+                    const dot3XBase = 43.69
+                    const dot3YBase = 88.13
                     const isSelected = page14Box5Selected
+                    
+                    // Move dot 1 to the right by 2px
+                    const dot1RightPx = 2
+                    const dot1RightPercent = imageNaturalSize.width > 0 ? (dot1RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot1X = dot1XBase + dot1RightPercent
+                    
+                    // Move dot 3 to the left by 2px and down by 1px
+                    const dot3LeftPx = 2
+                    const dot3DownPx = 1
+                    const dot3LeftPercent = imageNaturalSize.width > 0 ? (dot3LeftPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
+                    const dot3X = dot3XBase - dot3LeftPercent
+                    const dot3Y = dot3YBase + dot3DownPercent
+                    
+                    // Reduce height: move top edge down 4px, bottom edge up 2px
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 2
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    // Reduce width: move left edge to the right 3px, right edge to the left 3px, then additional 1px left on right edge
+                    const leftEdgeRightPx = 3
+                    const rightEdgeLeftPx = 3
+                    const rightEdgeLeftAdditionalPx = 1  // Additional 1px left movement for right edge
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftAdditionalPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent + rightEdgeLeftAdditionalPercent
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -6976,22 +6992,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    // Calculate triangle - it extends LEFTWARD from the left edge (between dot1 and dot2 Y positions) to dot3
-                    // Since dot1 and dot2 have the same Y (85.77%), use them to define the connection point on the left edge
-                    // The pointer extends from the bottom-left area of the box
-                    const triangleBaseTop = dot1Y
-                    const triangleBaseBottom = dot2Y
-                    // If both dots are at the same Y, create a small vertical range for the triangle base
-                    const triangleBaseY = dot1Y === dot2Y ? dot1Y : (dot1Y + dot2Y) / 2
-                    const triangleBaseTopY = triangleBaseY - 0.5
-                    const triangleBaseBottomY = triangleBaseY + 0.5
-                    const triangleBaseX = adjustedLeft
+                    // Calculate triangle - it extends LEFTWARD from the bottom edge (at dot1 and dot2 X positions) to dot3
+                    // Dot1 and dot2 are on the bottom edge at X positions 52.04% and 57.00%
+                    // The triangle breaks the bottom edge and extends leftward to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight  // Bottom edge Y position
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
@@ -7006,20 +7018,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const topY = 0
                     const bottomY = 100
                     
-                    const triangleBaseTopWrapper = ((triangleBaseTopY - adjustedTop) / expandedHeight) * 100
-                    const triangleBaseBottomWrapper = ((triangleBaseBottomY - adjustedTop) / expandedHeight) * 100
+                    // Convert triangle base points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
                     const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
                     
                     const speechBubblePath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
                       Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topLeft},${triangleBaseTopWrapper}` : ''}
-                      L ${triangleTipXWrapper},${triangleTipYWrapper}
-                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topLeft},${triangleBaseBottomWrapper}` : ''}
                       L ${topLeft},${bottomY - borderRadiusWrapperY}
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                       Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
                       L ${topRight},${topY + borderRadiusWrapperY}
                       Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
@@ -7030,18 +7043,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftBorderPath = `
                       M ${topLeft + borderRadiusWrapperX},${topY}
                       Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                      ${triangleBaseTopWrapper > topY + borderRadiusWrapperY ? `L ${topLeft},${triangleBaseTopWrapper}` : ''}
-                      M ${topLeft},${triangleBaseBottomWrapper}
-                      ${triangleBaseBottomWrapper < bottomY - borderRadiusWrapperY ? `L ${topLeft},${bottomY - borderRadiusWrapperY}` : ''}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
                       Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
                     `
                     
-                    const triangleTopLegPath = `
-                      M ${topLeft},${triangleBaseTopWrapper}
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
-                    const triangleBottomLegPath = `
-                      M ${topLeft},${triangleBaseBottomWrapper}
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
                       L ${triangleTipXWrapper},${triangleTipYWrapper}
                     `
                     
@@ -7057,9 +7069,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
+                    // Bottom border: from left corner to first triangle point, then from second triangle point to right corner
                     const bottomBorderPath = `
                       M ${topLeft + borderRadiusWrapperX},${bottomY}
-                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
                     const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
@@ -7128,7 +7143,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               vectorEffect="non-scaling-stroke"
                             />
                             <path
-                              d={triangleTopLegPath}
+                              d={triangleLeftLegPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -7136,7 +7151,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               vectorEffect="non-scaling-stroke"
                             />
                             <path
-                              d={triangleBottomLegPath}
+                              d={triangleRightLegPath}
                               fill="none"
                               stroke={strokeColor}
                               strokeWidth={strokeWidth}
@@ -7172,6 +7187,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* White box on page 14.png - hidden when box 4b is selected */}
+                  {currentPage === 13 && !editorMode && !page14Box4bSelected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(0.00, 69.60, 100.00, 25.10),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        position: 'absolute'
+                      }}
+                    />
+                  )}
                   {/* White box on page 14.png - hidden when box 1 is selected */}
                   {currentPage === 13 && !editorMode && !page14Box1Selected && (
                     <div
@@ -8133,13 +8161,37 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxTop = 30.77
                     const boxWidth = 11.89
                     const boxHeight = 4.21
-                    const dot1X = 46.41
+                    const dot1XBase = 46.41
                     const dot1Y = 34.98
-                    const dot2X = 48.44
+                    const dot2XBase = 48.44
                     const dot2Y = 34.98
                     const dot3X = 52.70
                     const dot3Y = 35.90
                     const isSelected = page17Box1Selected
+                    
+                    // Move dot 1 and dot 2 to the left by 2px
+                    const dotLeftOffsetPx = 2
+                    const dotLeftOffsetPercent = imageNaturalSize.width > 0 ? (dotLeftOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const dot1X = dot1XBase - dotLeftOffsetPercent
+                    const dot2X = dot2XBase - dotLeftOffsetPercent
+                    
+                    // Reduce width: move left edge to the right 3px, right edge to the left 4px
+                    const leftEdgeRightPx = 3
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 3px, bottom edge up 4px, then additional 1px down on top edge and 1px up on bottom edge
+                    const topEdgeDownPx = 3
+                    const topEdgeDownAdditionalPx = 1  // Additional 1px down movement for top edge
+                    const bottomEdgeUpPx = 4
+                    const bottomEdgeUpAdditionalPx = 1  // Additional 1px up movement for bottom edge
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const topEdgeDownAdditionalPercent = imageNaturalSize.height > 0 ? (topEdgeDownAdditionalPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpAdditionalPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpAdditionalPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + topEdgeDownAdditionalPercent + bottomEdgeUpPercent + bottomEdgeUpAdditionalPercent
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -8148,10 +8200,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent + topEdgeDownAdditionalPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
@@ -8778,11 +8830,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 1 on page 17 */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '29.41%',
-                          top: '36.34%',
-                          width: '20.00%',
-                          height: '6.99%',
+                          ...getButtonStyle(29.41, 36.34, 20.00, 6.99),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8792,11 +8840,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 2 on page 17 */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '32.79%',
-                          top: '40.17%',
-                          width: '20.00%',
-                          height: '2.81%',
+                          ...getButtonStyle(32.79, 40.17, 20.00, 2.81),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8806,11 +8850,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 3 on page 17 */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '46.98%',
-                          top: '39.83%',
-                          width: '3.78%',
-                          height: '2.81%',
+                          ...getButtonStyle(46.98, 39.83, 3.78, 2.81),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8825,11 +8865,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 1 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '8.46%',
-                          top: '44.00%',
-                          width: '63.71%',
-                          height: '25.62%',
+                          ...getButtonStyle(8.46, 44.00, 63.71, 25.62),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8839,11 +8875,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 2 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '55.55%',
-                          top: '41.57%',
-                          width: '6.03%',
-                          height: '6.82%',
+                          ...getButtonStyle(55.55, 41.57, 6.03, 6.82),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8853,11 +8885,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 3 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '51.04%',
-                          top: '19.63%',
-                          width: '21.58%',
-                          height: '9.95%',
+                          ...getButtonStyle(51.04, 19.63, 21.58, 9.95),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8867,11 +8895,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 4 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '19.50%',
-                          top: '69.94%',
-                          width: '62.81%',
-                          height: '13.43%',
+                          ...getButtonStyle(19.50, 69.94, 62.81, 13.43),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8881,11 +8905,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 5 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          position: 'absolute',
-                          left: '59.15%',
-                          top: '25.55%',
-                          width: '6.71%',
-                          height: '9.95%',
+                          ...getButtonStyle(59.15, 25.55, 6.71, 9.95),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
