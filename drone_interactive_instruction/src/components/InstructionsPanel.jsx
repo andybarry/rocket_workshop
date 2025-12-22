@@ -152,6 +152,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page17Box2Selected, setPage17Box2Selected] = useState(false)
   const [page17Box3Selected, setPage17Box3Selected] = useState(false)
   const [page17Box4Selected, setPage17Box4Selected] = useState(false)
+  const [page17Box4bSelected, setPage17Box4bSelected] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -329,6 +330,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     // For page 15 (index 14), require box 3 to be selected
     if (currentPage === 14 && !page15Box3Selected) {
+      return
+    }
+    // For page 17 (index 16), require box 4b to be selected
+    if (currentPage === 16 && !page17Box4bSelected) {
       return
     }
     if (currentPage < pages.length - 1) {
@@ -562,6 +567,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage17Box1Selected(false)
       setPage17Box2Selected(false)
       setPage17Box3Selected(false)
+      setPage17Box4bSelected(false)
       setPage17Box4Selected(false)
     }
     
@@ -1021,6 +1027,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage17Box4 = () => {
     setPage17Box4Selected(true)
+  }
+
+  const handlePage17Box4b = () => {
+    setPage17Box4bSelected(true)
   }
 
   // Handler for page 3 speech bubble button
@@ -8396,12 +8406,49 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxWidth = 15.49
                     const boxHeight = 4.73
                     const dot1X = 49.41
-                    const dot1Y = 40.32
+                    const dot1YBase = 40.32
                     const dot2X = 49.41
                     const dot2Y = 41.36
-                    const dot3X = 52.03
-                    const dot3Y = 40.60
+                    const dot3XBase = 52.03
+                    const dot3YBase = 40.60
                     const isSelected = page17Box2Selected
+                    
+                    // Move dot 1 up by 2px, then additional 2px up
+                    const dot1UpPx = 2
+                    const dot1UpAdditionalPx = 2  // Additional 2px up movement for dot 1
+                    const dot1UpPercent = imageNaturalSize.height > 0 ? (dot1UpPx / imageNaturalSize.height) * 100 : 0
+                    const dot1UpAdditionalPercent = imageNaturalSize.height > 0 ? (dot1UpAdditionalPx / imageNaturalSize.height) * 100 : 0
+                    const dot1Y = dot1YBase - dot1UpPercent - dot1UpAdditionalPercent
+                    
+                    // Move dot 3 to the left by 3px and up by 1px, then additional 3px left, then additional 3px left
+                    const dot3LeftPx = 3
+                    const dot3LeftAdditionalPx = 3  // Additional 3px left movement for dot 3
+                    const dot3LeftAdditional2Px = 3  // Additional 3px left movement for dot 3 from current location
+                    const dot3UpPx = 1
+                    const dot3LeftPercent = imageNaturalSize.width > 0 ? (dot3LeftPx / imageNaturalSize.width) * 100 : 0
+                    const dot3LeftAdditionalPercent = imageNaturalSize.width > 0 ? (dot3LeftAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    const dot3LeftAdditional2Percent = imageNaturalSize.width > 0 ? (dot3LeftAdditional2Px / imageNaturalSize.width) * 100 : 0
+                    const dot3UpPercent = imageNaturalSize.height > 0 ? (dot3UpPx / imageNaturalSize.height) * 100 : 0
+                    const dot3X = dot3XBase - dot3LeftPercent - dot3LeftAdditionalPercent - dot3LeftAdditional2Percent
+                    const dot3Y = dot3YBase - dot3UpPercent
+                    
+                    // Move left edge to the left 10px and right edge to the left 10px, then additional 5px left on both edges, then right edge to the right 1px
+                    const leftEdgeLeftPx = 10
+                    const leftEdgeLeftAdditionalPx = 5  // Additional 5px left movement for left edge
+                    const rightEdgeLeftPx = 10
+                    const rightEdgeLeftAdditionalPx = 5  // Additional 5px left movement for right edge
+                    const rightEdgeRightPx = 1  // Move right edge to the right 1px
+                    const rightEdgeRightAdditionalPx = 1  // Additional 1px right movement for right edge
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const leftEdgeLeftAdditionalPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftAdditionalPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightAdditionalPercent = imageNaturalSize.width > 0 ? (rightEdgeRightAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    
+                    // Move top edge up 2px (keep bottom edge in place)
+                    const topEdgeUpPx = 2
+                    const topEdgeUpPercent = imageNaturalSize.height > 0 ? (topEdgeUpPx / imageNaturalSize.height) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -8410,10 +8457,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust - leftEdgeLeftPercent - leftEdgeLeftAdditionalPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust - topEdgeUpPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - rightEdgeLeftPercent - rightEdgeLeftAdditionalPercent + rightEdgeRightPercent + rightEdgeRightAdditionalPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust + topEdgeUpPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends RIGHTWARD from the right edge (between dot1 and dot2) to dot3
@@ -8602,11 +8649,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 3 on page 17.png - simple box (no pointer) */}
                   {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 21.07
-                    const boxTop = 70.81
-                    const boxWidth = 27.66
-                    const boxHeight = 11.34
+                    const boxLeft = 21.53
+                    const boxTop = 73.60
+                    const boxWidth = 27.89
+                    const boxHeight = 10.30
                     const isSelected = page17Box3Selected
+                    
+                    // Reduce width: move left edge to the right 3px, right edge to the left 3px, then additional 1px right on left edge
+                    const leftEdgeRightPx = 3
+                    const leftEdgeRightAdditionalPx = 1  // Additional 1px right movement for left edge
+                    const rightEdgeLeftPx = 3
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const leftEdgeRightAdditionalPercent = imageNaturalSize.width > 0 ? (leftEdgeRightAdditionalPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + leftEdgeRightAdditionalPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 4px, bottom edge up 3px
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 3
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -8615,13 +8678,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent + leftEdgeRightAdditionalPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(20, Math.max(4, 20 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -8714,11 +8777,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 4 on page 17.png - simple box (no pointer) */}
                   {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 51.49
-                    const boxTop = 70.99
-                    const boxWidth = 27.66
-                    const boxHeight = 11.34
+                    const boxLeft = 53.07
+                    const boxTop = 73.25
+                    const boxWidth = 27.89
+                    const boxHeight = 18.48
                     const isSelected = page17Box4Selected
+                    
+                    // Reduce width: move left edge to the right 2px, right edge to the left 4px
+                    const leftEdgeRightPx = 2
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 4px, bottom edge up 5px, then additional 1px up on bottom edge
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 5
+                    const bottomEdgeUpAdditionalPx = 1  // Additional 1px up movement for bottom edge
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpAdditionalPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpAdditionalPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent + bottomEdgeUpAdditionalPercent
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -8727,13 +8806,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(26, Math.max(4, 26 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -8824,6 +8903,134 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Button box 4b on page 17 - same style as box 2b on page 9 - hidden until box 4 is selected */}
+                  {currentPage === 16 && !editorMode && page17Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 65.01
+                    const boxTop = 87.79
+                    const boxWidth = 3.55
+                    const boxHeight = 2.50
+                    const isSelected = page17Box4bSelected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Reduce width: move left edge to the right 5px, right edge to the left 4px
+                    const leftEdgeRightPx = 5
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 4px, bottom edge up 2px
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 2
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(6, Math.max(2, 6 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const roundedRectPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const strokeColor = isSelected ? "#f05f40ff" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    const fillColor = isSelected ? "#f05f40ff" : "transparent"
+                    
+                    return (
+                      <div 
+                        className="speech-bubble-wrapper"
+                        style={{...buttonStyle, zIndex: 14}}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage17Box4b : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 14,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            userSelect: isSelected ? 'none' : 'auto',
+                            WebkitUserSelect: isSelected ? 'none' : 'auto'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={roundedRectPath}
+                            fill={fillColor}
+                            style={{ fill: fillColor }}
+                          />
+                          <path
+                            d={roundedRectPath}
+                            fill="none"
+                            stroke={strokeColor}
+                            strokeWidth={strokeWidth}
+                            style={{ stroke: strokeColor, strokeWidth: strokeWidth }}
+                            className="speech-bubble-border"
+                            vectorEffect="non-scaling-stroke"
+                          />
+                        </svg>
+                      </div>
+                    )
+                  })()}
                   {/* White boxes on page 17 - hidden when box 1 is selected */}
                   {currentPage === 16 && !editorMode && !page17Box1Selected && (
                     <>
@@ -8865,7 +9072,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 1 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          ...getButtonStyle(8.46, 44.00, 63.71, 25.62),
+                          ...getButtonStyle(9.13, 44.18, 67.31, 25.97),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8875,37 +9082,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 2 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          ...getButtonStyle(55.55, 41.57, 6.03, 6.82),
-                          backgroundColor: 'white',
-                          border: 'none',
-                          pointerEvents: 'none',
-                          zIndex: 100
-                        }}
-                      />
-                      {/* White box 3 on page 17 (hidden when box 2 selected) */}
-                      <div
-                        style={{
-                          ...getButtonStyle(51.04, 19.63, 21.58, 9.95),
-                          backgroundColor: 'white',
-                          border: 'none',
-                          pointerEvents: 'none',
-                          zIndex: 100
-                        }}
-                      />
-                      {/* White box 4 on page 17 (hidden when box 2 selected) */}
-                      <div
-                        style={{
-                          ...getButtonStyle(19.50, 69.94, 62.81, 13.43),
-                          backgroundColor: 'white',
-                          border: 'none',
-                          pointerEvents: 'none',
-                          zIndex: 100
-                        }}
-                      />
-                      {/* White box 5 on page 17 (hidden when box 2 selected) */}
-                      <div
-                        style={{
-                          ...getButtonStyle(59.15, 25.55, 6.71, 9.95),
+                          ...getButtonStyle(18.37, 70.47, 65.06, 22.49),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -8913,6 +9090,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       />
                     </>
+                  )}
+                  {/* White box on page 17 - hidden when box 4 is selected */}
+                  {currentPage === 16 && !editorMode && !page17Box4Selected && (
+                    <div
+                      style={{
+                        ...getButtonStyle(19.05, 84.30, 31.72, 6.99),
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
                   )}
                   {/* Number "17" at Dot 3 position on page 17 */}
                   {currentPage === 16 && !editorMode && (
@@ -16682,9 +16871,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 10 && !page11Box4Selected) ||
               (currentPage === 11 && !page12Box4Selected) ||
               (currentPage === 12 && !page13Box1Selected) ||
-              (currentPage === 14 && !page15Box3Selected)
+              (currentPage === 14 && !page15Box3Selected) ||
+              (currentPage === 16 && !page17Box4bSelected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
