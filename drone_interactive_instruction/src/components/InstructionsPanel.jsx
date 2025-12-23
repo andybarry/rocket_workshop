@@ -172,6 +172,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page20Box3Selected, setPage20Box3Selected] = useState(false)
   const [page20Box4Selected, setPage20Box4Selected] = useState(false)
   const [page20Box5Selected, setPage20Box5Selected] = useState(false)
+  const [page20Box5bSelected, setPage20Box5bSelected] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -619,6 +620,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage20Box3Selected(false)
       setPage20Box4Selected(false)
       setPage20Box5Selected(false)
+      setPage20Box5bSelected(false)
     }
     
     // Clear dimensions capture
@@ -1135,6 +1137,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage20Box5 = () => {
     setPage20Box5Selected(true)
+  }
+
+  const handlePage20Box5b = () => {
+    setPage20Box5bSelected(true)
   }
 
   const handlePage18NeedHelp = () => {
@@ -13074,8 +13080,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       // Dot1 and Dot2 are both on the right edge (51.97%) at different Y positions
                       // Dot3 is to the right (54.91%, 46.73%), so triangle extends rightward
                       // Dots are on the right edge, so their Y positions move with the top edge (moved down 4px)
-                      const adjustedDot1Y = dot1Y + topEdgeDownPercent
-                      const adjustedDot2Y = dot2Y + topEdgeDownPercent
+                      let adjustedDot1Y = dot1Y + topEdgeDownPercent
+                      let adjustedDot2Y = dot2Y + topEdgeDownPercent
+                      // Move dot 1 up by 2px (additional adjustment from current location)
+                      const dot1UpPx = 2
+                      const dot1UpPercent = stageHeightPx > 0 ? (dot1UpPx / stageHeightPx) * 100 : 0
+                      adjustedDot1Y = adjustedDot1Y - dot1UpPercent
+                      // Move dot 2 up by 4px (additional adjustment from current location)
+                      const dot2UpPx = 4
+                      const dot2UpPercent = stageHeightPx > 0 ? (dot2UpPx / stageHeightPx) * 100 : 0
+                      adjustedDot2Y = adjustedDot2Y - dot2UpPercent
                       const triangleBaseTop = adjustedDot1Y  // Top break point on right edge (45.76%)
                       const triangleBaseBottom = adjustedDot2Y  // Bottom break point on right edge (47.31%)
                       const triangleTipX = dot3X  // Triangle tip X (54.91%)
@@ -13286,6 +13300,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 8.62
                       const isSelected = page20Box3Selected
+
+                      // Move left edge to the right by 2px (reduce width, keep right edge in place)
+                      const leftEdgeRightPx = 2
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 2px (reduce height)
+                      const bottomEdgeUpPx = 2
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -13295,13 +13324,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -13349,6 +13378,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 8.62
                       const isSelected = page20Box4Selected
+
+                      // Move left edge to the right by 1px (reduce width)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 1px (reduce width)
+                      const rightEdgeLeftPx = 1
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 2px (reduce height)
+                      const bottomEdgeUpPx = 2
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -13358,13 +13405,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -13412,6 +13459,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 16.72
                       const isSelected = page20Box5Selected
+
+                      // Move left edge to the right by 1px (reduce width)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 1px (reduce width)
+                      const rightEdgeLeftPx = 1
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 1px (reduce height)
+                      const bottomEdgeUpPx = 1
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -13421,13 +13486,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -13437,6 +13502,78 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           <div
                             className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
                             onClick={!isSelected ? handlePage20Box5 : undefined}
+                            style={{
+                              position: 'absolute',
+                              left: 0,
+                              top: 0,
+                              width: '100%',
+                              height: '100%',
+                              pointerEvents: isSelected ? 'none' : 'auto',
+                              cursor: isSelected ? 'default' : 'pointer',
+                              zIndex: 11,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                              fontSize: `${bubbleFontSize}px`,
+                              fontFamily: 'Roboto, sans-serif',
+                              textAlign: 'center',
+                              padding: '4px 8px',
+                              boxSizing: 'border-box',
+                              borderRadius: `${borderRadiusPx}px`,
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
+                            }}
+                          >
+                          </div>
+                        </div>
+                      )
+                    })()}
+                    </>
+                  )}
+                  {/* Box 5b on page 20 - no pointer */}
+                  {currentPage === 19 && !editorMode && (
+                    <>
+                      {(() => {
+                      const boxLeft = 72.22
+                      const boxTop = 90.40
+                      const boxWidth = 2.88
+                      const boxHeight = 3.02
+                      const isSelected = page20Box5bSelected
+
+                      // Keep left edge in place (already moved right by 1px, keep it there)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 5px from current location (current is 4px left, so 4px + 5px = 9px total)
+                      const rightEdgeLeftPx = 9
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+                      
+                      const pixelIncrease = 3
+                      const halfPixelIncrease = pixelIncrease / 2
+                      const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                      const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                      const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                      const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                      const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                      
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                      
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                      
+                      return (
+                        <div 
+                          className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                          style={buttonStyle}
+                        >
+                          <div
+                            className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                            onClick={!isSelected ? handlePage20Box5b : undefined}
                             style={{
                               position: 'absolute',
                               left: 0,
@@ -15386,8 +15523,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       // Dot1 and Dot2 are both on the right edge (51.97%) at different Y positions
                       // Dot3 is to the right (54.91%, 46.73%), so triangle extends rightward
                       // Dots are on the right edge, so their Y positions move with the top edge (moved down 4px)
-                      const adjustedDot1Y = dot1Y + topEdgeDownPercent
-                      const adjustedDot2Y = dot2Y + topEdgeDownPercent
+                      let adjustedDot1Y = dot1Y + topEdgeDownPercent
+                      let adjustedDot2Y = dot2Y + topEdgeDownPercent
+                      // Move dot 1 up by 2px (additional adjustment from current location)
+                      const dot1UpPx = 2
+                      const dot1UpPercent = stageHeightPx > 0 ? (dot1UpPx / stageHeightPx) * 100 : 0
+                      adjustedDot1Y = adjustedDot1Y - dot1UpPercent
+                      // Move dot 2 up by 4px (additional adjustment from current location)
+                      const dot2UpPx = 4
+                      const dot2UpPercent = stageHeightPx > 0 ? (dot2UpPx / stageHeightPx) * 100 : 0
+                      adjustedDot2Y = adjustedDot2Y - dot2UpPercent
                       const triangleBaseTop = adjustedDot1Y  // Top break point on right edge (45.76%)
                       const triangleBaseBottom = adjustedDot2Y  // Bottom break point on right edge (47.31%)
                       const triangleTipX = dot3X  // Triangle tip X (54.91%)
@@ -15598,6 +15743,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 8.62
                       const isSelected = page20Box3Selected
+
+                      // Move left edge to the right by 2px (reduce width, keep right edge in place)
+                      const leftEdgeRightPx = 2
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 2px (reduce height)
+                      const bottomEdgeUpPx = 2
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -15607,13 +15767,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -15661,6 +15821,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 8.62
                       const isSelected = page20Box4Selected
+
+                      // Move left edge to the right by 1px (reduce width)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 1px (reduce width)
+                      const rightEdgeLeftPx = 1
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 2px (reduce height)
+                      const bottomEdgeUpPx = 2
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -15670,13 +15848,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -15724,6 +15902,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxWidth = 21.12
                       const boxHeight = 16.72
                       const isSelected = page20Box5Selected
+
+                      // Move left edge to the right by 1px (reduce width)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 1px (reduce width)
+                      const rightEdgeLeftPx = 1
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 1px (reduce height)
+                      const bottomEdgeUpPx = 1
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
                       
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -15733,13 +15929,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
-                      const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                      const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -15749,6 +15945,78 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           <div
                             className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
                             onClick={!isSelected ? handlePage20Box5 : undefined}
+                            style={{
+                              position: 'absolute',
+                              left: 0,
+                              top: 0,
+                              width: '100%',
+                              height: '100%',
+                              pointerEvents: isSelected ? 'none' : 'auto',
+                              cursor: isSelected ? 'default' : 'pointer',
+                              zIndex: 11,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                              fontSize: `${bubbleFontSize}px`,
+                              fontFamily: 'Roboto, sans-serif',
+                              textAlign: 'center',
+                              padding: '4px 8px',
+                              boxSizing: 'border-box',
+                              borderRadius: `${borderRadiusPx}px`,
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
+                            }}
+                          >
+                          </div>
+                        </div>
+                      )
+                    })()}
+                    </>
+                  )}
+                  {/* Box 5b on page 20 - no pointer */}
+                  {currentPage === 19 && !editorMode && (
+                    <>
+                      {(() => {
+                      const boxLeft = 72.22
+                      const boxTop = 90.40
+                      const boxWidth = 2.88
+                      const boxHeight = 3.02
+                      const isSelected = page20Box5bSelected
+
+                      // Keep left edge in place (already moved right by 1px, keep it there)
+                      const leftEdgeRightPx = 1
+                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
+                      // Move right edge to the left by 5px from current location (current is 4px left, so 4px + 5px = 9px total)
+                      const rightEdgeLeftPx = 9
+                      const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
+                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
+                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
+                      
+                      const pixelIncrease = 3
+                      const halfPixelIncrease = pixelIncrease / 2
+                      const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                      const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                      const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                      const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                      const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                      
+                      const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
+                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                      const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                      
+                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                      
+                      return (
+                        <div 
+                          className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                          style={buttonStyle}
+                        >
+                          <div
+                            className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                            onClick={!isSelected ? handlePage20Box5b : undefined}
                             style={{
                               position: 'absolute',
                               left: 0,
@@ -23235,9 +23503,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 14 && !page15Box3Selected) ||
               (currentPage === 16 && !page17Box4bSelected) ||
               (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) ||
-              (currentPage === 18 && !page19Box3Selected)
+              (currentPage === 18 && !page19Box3Selected) ||
+              (currentPage === 19 && !page20Box5bSelected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box5bSelected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
