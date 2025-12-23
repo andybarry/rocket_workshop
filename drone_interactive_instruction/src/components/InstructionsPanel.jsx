@@ -67,8 +67,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Track page 6 button states
   const [page6Button1Clicked, setPage6Button1Clicked] = useState(false)
   const [page6Button2Clicked, setPage6Button2Clicked] = useState(false)
-  // Track page 6 green checkbox selection
-  const [page6GreenCheckboxSelected, setPage6GreenCheckboxSelected] = useState(false)
   // Track page 7 box states
   const [page7Box1Selected, setPage7Box1Selected] = useState(false)
   const [page7Box2Selected, setPage7Box2Selected] = useState(false)
@@ -793,10 +791,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage6Button2Clicked(true)
   }
 
-  // Handler for page 6 green checkbox
-  const handlePage6GreenCheckbox = () => {
-    setPage6GreenCheckboxSelected(prev => !prev)
-  }
 
   // Handler for page 7 boxes
   const handlePage7Box1 = () => {
@@ -1944,33 +1938,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           return page12
                         }
                         if (currentPage === 17) {
-                          // Priority 1: If Need Help button has been clicked, use its image state
-                          if (page18BoxesVisible) {
-                            if (page18HelpImageState === 1) {
-                              // Second click: show 18.png
-                              if (!page18) {
-                                console.error('page18 is undefined!')
-                                return page1
-                              }
-                              return page18
-                            } else {
-                              // First or third click: show 18.1.png
-                              if (!page18_1) {
-                                console.error('page18_1 is undefined!')
-                                return page1
-                              }
-                              return page18_1
-                            }
-                          }
-                          // Priority 2: Show 18.png when all 4 boxes are selected, otherwise show 18.1.png
-                          if (page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) {
+                          // Show 18.png only when Need Help button has been clicked and page18HelpImageState === 1 (second click)
+                          if (page18BoxesVisible && page18HelpImageState === 1) {
+                            // Second click: show 18.png
                             if (!page18) {
                               console.error('page18 is undefined!')
                               return page1
                             }
                             return page18
                           } else {
-                            // Show 18.1.png when navigating from page 17
+                            // Show 18.1.png in all other cases (including when all 4 boxes are selected)
                             if (!page18_1) {
                               console.error('page18_1 is undefined!')
                               return page1
@@ -8658,15 +8635,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                          onClick={!isSelected ? handlePage17Box2 : undefined}
+                          onClick={!isSelected && page17Box1Selected ? handlePage17Box2 : undefined}
                           style={{
                             position: 'absolute',
                             left: 0,
                             top: 0,
                             width: '100%',
                             height: '100%',
-                            pointerEvents: isSelected ? 'none' : 'auto',
-                            cursor: isSelected ? 'default' : 'pointer',
+                            pointerEvents: isSelected || !page17Box1Selected ? 'none' : 'auto',
+                            cursor: isSelected || !page17Box1Selected ? 'default' : 'pointer',
                             zIndex: 14,
                             display: 'flex',
                             alignItems: 'center',
@@ -8828,15 +8805,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                          onClick={!isSelected ? handlePage17Box3 : undefined}
+                          onClick={!isSelected && page17Box2Selected ? handlePage17Box3 : undefined}
                           style={{
                             position: 'absolute',
                             left: 0,
                             top: 0,
                             width: '100%',
                             height: '100%',
-                            pointerEvents: isSelected ? 'none' : 'auto',
-                            cursor: isSelected ? 'default' : 'pointer',
+                            pointerEvents: isSelected || !page17Box2Selected ? 'none' : 'auto',
+                            cursor: isSelected || !page17Box2Selected ? 'default' : 'pointer',
                             zIndex: 14,
                             display: 'flex',
                             alignItems: 'center',
@@ -8956,15 +8933,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                          onClick={!isSelected ? handlePage17Box4 : undefined}
+                          onClick={!isSelected && page17Box3Selected ? handlePage17Box4 : undefined}
                           style={{
                             position: 'absolute',
                             left: 0,
                             top: 0,
                             width: '100%',
                             height: '100%',
-                            pointerEvents: isSelected ? 'none' : 'auto',
-                            cursor: isSelected ? 'default' : 'pointer',
+                            pointerEvents: isSelected || !page17Box3Selected ? 'none' : 'auto',
+                            cursor: isSelected || !page17Box3Selected ? 'default' : 'pointer',
                             zIndex: 14,
                             display: 'flex',
                             alignItems: 'center',
@@ -9072,9 +9049,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40ff" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40ff" : "transparent"
+                    const fillColor = isSelected ? "#3bbf6b" : "transparent"
                     
                     return (
                       <div 
@@ -9183,7 +9160,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 1 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          ...getButtonStyle(9.13, 44.18, 67.31, 25.97),
+                          ...getButtonStyle(55.32, 41.48, 4.90, 4.12),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -9193,7 +9170,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       {/* White box 2 on page 17 (hidden when box 2 selected) */}
                       <div
                         style={{
-                          ...getButtonStyle(18.37, 70.47, 65.06, 22.49),
+                          ...getButtonStyle(58.25, 41.65, 3.55, 4.12),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 3 on page 17 (hidden when box 2 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(9.81, 42.87, 60.33, 28.67),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 4 on page 17 (hidden when box 2 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(18.93, 71.33, 32.39, 23.62),
                           backgroundColor: 'white',
                           border: 'none',
                           pointerEvents: 'none',
@@ -9202,17 +9199,125 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     </>
                   )}
-                  {/* White box on page 17 - hidden when box 4 is selected */}
+                  {/* White boxes on page 17 - hidden when box 3 is selected */}
+                  {currentPage === 16 && !editorMode && !page17Box3Selected && (
+                    <>
+                      {/* White box 3 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(60.30, 30.76, 5.87, 4.80),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 4 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(62.75, 31.11, 3.56, 4.80),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 5 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.55, 26.07, 7.76, 3.68),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 6 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.02, 30.89, 7.76, 4.26),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 7 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(49.91, 19.11, 23.15, 11.17),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 8 on page 17 (hidden when box 3 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(50.59, 71.51, 32.39, 23.53),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 17 - hidden when box 4 is selected */}
                   {currentPage === 16 && !editorMode && !page17Box4Selected && (
-                    <div
-                      style={{
-                        ...getButtonStyle(19.05, 84.30, 31.72, 6.99),
+                    <>
+                      {/* White box 1 on page 17 (hidden when box 4 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.96, 25.25, 5.19, 4.45),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 17 (hidden when box 4 selected) */}
+                      {(() => {
+                        const widthReductionPx = 15
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                        const adjustedWidth = 2.00 - widthReductionPercent
+                        const rightOffsetPx = 7
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const adjustedLeft = 62.82 + rightOffsetPercent
+                        return (
+                          <div
+                            style={{
+                              ...getButtonStyle(adjustedLeft, 24.90, adjustedWidth, 4.80),
+                              backgroundColor: 'white',
+                              border: 'none',
+                              pointerEvents: 'none',
+                              zIndex: 100
+                            }}
+                          />
+                        )
+                      })()}
+                      {/* White box on page 17 (hidden when box 4 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(19.05, 84.30, 31.72, 6.99),
                         backgroundColor: 'white',
                         border: 'none',
                         pointerEvents: 'none',
                         zIndex: 100
                       }}
                     />
+                      {/* White box 3 on page 17 (hidden when box 4 selected) */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.47, 26.07, 8.55, 3.72),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
                   )}
                   {/* Number "17" at Dot 3 position on page 17 */}
                   {currentPage === 16 && !editorMode && (
@@ -9277,10 +9382,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Reduce width: move left edge to the right 2px, right edge to the left 4px
+                    const leftEdgeRightPx = 2
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 1px, bottom edge up 4px
+                    const topEdgeDownPx = 1
+                    const bottomEdgeUpPx = 4
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
@@ -9487,10 +9606,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Reduce width: move left edge to the right 2px, right edge to the left 5px
+                    const leftEdgeRightPx = 2
+                    const rightEdgeLeftPx = 5
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 4px, bottom edge up 4px
+                    const topEdgeDownPx = 4
+                    const bottomEdgeUpPx = 4
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
@@ -9697,9 +9830,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    // Reduce width: move left edge to the right 1px, right edge to the left 6px
+                    const leftEdgeRightPx = 1
+                    const rightEdgeLeftPx = 6
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -11258,6 +11398,421 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 d={roundedRectPath}
                                 fill="#ffffff"
                                 style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate LED infill white box - 50px to the right of the white infill LED box */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 40px (15px + 25px)
+                        // Add 90px to the right for first duplicate (100px - 10px left)
+                        // Add 50px more to the right for second duplicate (50px to the right of white infill LED box)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const ledRightOffsetPx = 43
+                        const duplicateRightOffsetPx = 90
+                        const duplicate2RightOffsetPx = 88
+                        const downOffsetPx = 40
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicate2RightOffsetPercent = imageNaturalSize.width > 0 ? (duplicate2RightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + duplicateRightOffsetPercent + duplicate2RightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${ledFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#0000ffff"
+                                style={{ fill: '#0000ffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Duplicate blue infill box - Slider text box - 75px to the right of blue infill LED box */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 40px (15px + 25px)
+                        // Add 90px to the right for first duplicate (100px - 10px left)
+                        // Add 88px more to the right for second duplicate (blue infill LED box)
+                        // Add 75px more to the right for third duplicate (Slider box)
+                        // Additional movement: down 40px and right 10px
+                        // Additional movement for buttons/leds: down 20px and right 5px
+                        // Additional movement: down 8px
+                        // Additional movement: down 5px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const ledRightOffsetPx = 43
+                        const duplicateRightOffsetPx = 90
+                        const duplicate2RightOffsetPx = 88
+                        const duplicate3RightOffsetPx = 108
+                        const downOffsetPx = 40
+                        const additionalDownOffsetPx = 40
+                        const additionalRightOffsetPx2 = 10
+                        const additionalDownOffsetPx3 = 20
+                        const additionalRightOffsetPx3 = 5
+                        const additionalDownOffsetPx4 = 8
+                        const additionalDownOffsetPx5 = 5
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent2 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx2 / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent3 = imageNaturalSize.width > 0 ? (additionalRightOffsetPx3 / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercent = imageNaturalSize.width > 0 ? (duplicateRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicate2RightOffsetPercent = imageNaturalSize.width > 0 ? (duplicate2RightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicate3RightOffsetPercent = imageNaturalSize.width > 0 ? (duplicate3RightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent = imageNaturalSize.height > 0 ? (additionalDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent3 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx3 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent4 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx4 / imageNaturalSize.height) * 100 : 0
+                        const additionalDownOffsetPercent5 = imageNaturalSize.height > 0 ? (additionalDownOffsetPx5 / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent + duplicateRightOffsetPercent + duplicate2RightOffsetPercent + duplicate3RightOffsetPercent + additionalRightOffsetPercent2 + additionalRightOffsetPercent3
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + additionalDownOffsetPercent + additionalDownOffsetPercent3 + additionalDownOffsetPercent4 + additionalDownOffsetPercent5)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const sliderFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${sliderFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Slider
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#595959"
+                                style={{ fill: '#595959' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
@@ -18229,49 +18784,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           />
                         </svg>
                       </div>
-                    )
-                  })()}
-                  {/* Green selection checkbox on page 6 (6.png) */}
-                  {currentPage === 5 && !editorMode && (() => {
-                    const checkboxLeft = 8.01
-                    const checkboxTop = 65.59
-                    const checkboxWidth = 2.00
-                    const checkboxHeight = 2.00
-                    
-                    // Use fixed pixel size like other green boxes (20px)
-                    const boxSizePx = 20
-                    const boxSizeWidthPercent = imageNaturalSize.width > 0 ? (boxSizePx / imageNaturalSize.width) * 100 : 0
-                    const boxSizeHeightPercent = imageNaturalSize.height > 0 ? (boxSizePx / imageNaturalSize.height) * 100 : 0
-                    const borderRadiusPx = 2
-                    
-                    // Move down and to the right by 9px (4px + 5px)
-                    const rightOffsetPx = 9
-                    const downOffsetPx = 9
-                    const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
-                    const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
-                    
-                    // Center the box on the specified coordinates, then apply offsets
-                    const checkboxLeftAdjusted = checkboxLeft - (boxSizeWidthPercent / 2) + rightOffsetPercent
-                    const checkboxTopAdjusted = checkboxTop - (boxSizeHeightPercent / 2) + downOffsetPercent
-                    
-                    const checkboxStyle = getButtonStyle(checkboxLeftAdjusted, checkboxTopAdjusted, boxSizeWidthPercent, boxSizeHeightPercent)
-                    
-                    return (
-                      <div
-                        onClick={handlePage6GreenCheckbox}
-                        style={{
-                          ...checkboxStyle,
-                          left: `${checkboxLeftAdjusted}%`,
-                          top: `${checkboxTopAdjusted}%`,
-                          width: `${boxSizeWidthPercent}%`,
-                          height: `${boxSizeHeightPercent}%`,
-                          backgroundColor: page6GreenCheckboxSelected ? '#3bbf6b' : 'white',
-                          border: '1px solid #3bbf6b',
-                          borderRadius: `${borderRadiusPx}px`,
-                          cursor: 'pointer',
-                          zIndex: 12
-                        }}
-                      />
                     )
                   })()}
                   {/* Page 7 boxes with blue edges and dots */}
