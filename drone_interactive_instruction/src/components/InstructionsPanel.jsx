@@ -9817,11 +9817,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxHeight = 5.08
                     const dot1X = 58.58
                     const dot1Y = 81.43
-                    const dot2X = 65.34
+                    const dot2XBase = 65.34
                     const dot2Y = 81.43
                     const dot3X = 73.21
                     const dot3Y = 76.46
                     const isSelected = page18Box3Selected
+                    
+                    // Move dot 2 to the left by 5px (3px + 2px)
+                    const dot2LeftOffsetPx = 5
+                    const dot2LeftOffsetPercent = imageNaturalSize.width > 0 ? (dot2LeftOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const dot2X = dot2XBase - dot2LeftOffsetPercent
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -9837,10 +9842,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
                     const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
                     
+                    // Reduce height: move top edge down 2px, bottom edge up 6px
+                    const topEdgeDownPx = 2
+                    const bottomEdgeUpPx = 6
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
                     const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
                     const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
@@ -10047,10 +10059,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Reduce width: move left edge to the right 2px, right edge to the left 4px
+                    const leftEdgeRightPx = 2
+                    const rightEdgeLeftPx = 4
+                    const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                    
+                    // Reduce height: move top edge down 2px, bottom edge up 2px
+                    const topEdgeDownPx = 2
+                    const bottomEdgeUpPx = 2
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - totalHeightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     // Calculate triangle - it extends UPWARD from the top edge (between dot1 and dot2) to dot3
@@ -10435,8 +10461,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                   {/* Button, LED, and Ground boxes - only show on 18.1.png when page18BoxesVisible is true */}
-                  {/* Only show on 18.1.png (not 18.png) - hide when page18HelpImageState === 1 (18.png) or when all 4 boxes are selected */}
-                  {currentPage === 17 && !editorMode && page18BoxesVisible && page18HelpImageState !== 1 && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
+                  {/* Only show on 18.1.png (not 18.png) - hide when page18HelpImageState === 1 (18.png) */}
+                  {currentPage === 17 && !editorMode && page18BoxesVisible && page18HelpImageState !== 1 && (
                     <>
                       {/* Button box */}
                       {(() => {
