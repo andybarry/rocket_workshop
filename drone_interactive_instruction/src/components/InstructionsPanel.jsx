@@ -12829,7 +12829,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Number "21.1" at Dot 3 position on page 21.1 (default) */}
+                  {/* Number "21" at Dot 3 position on page 21.1 (default) */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
                       <span
@@ -12846,7 +12846,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           zIndex: 10
                         }}
                       >
-                        21.1
+                        21
                       </span>
                     </div>
                   )}
@@ -13656,11 +13656,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxHeight = 2.33
                       const isSelected = page20Box6Selected
 
-                      // Move right edge to the left by 4px (reduce width, keep left edge in place)
-                      const rightEdgeLeftPx = 4
+                      // Keep left edge in place, move right edge to the left by 6px (reduce width by 6px total)
+                      const rightEdgeLeftPx = 6
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
                       const adjustedBoxLeft = boxLeft
                       const adjustedBoxWidth = boxWidth - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 1px (reduce height)
+                      const bottomEdgeUpPx = 1
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
 
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -13671,9 +13680,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
                       const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
                       const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
+                      
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
                       const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
@@ -13705,8 +13715,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
-                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
+                              backgroundColor: isSelected ? '#3bbf6b' : 'rgba(255, 255, 255, 0.95)',
+                              border: '1px solid',
+                              borderColor: isSelected ? '#3bbf6b' : '#0d6efd',
+                              outline: isSelected ? '1px solid #3bbf6b' : 'none',
+                              outlineOffset: '0px'
                             }}
                           >
                           </div>
@@ -15513,7 +15526,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Number "21.1" at Dot 3 position on page 21.1 (default) */}
+                  {/* Number "21" at Dot 3 position on page 21.1 (default) */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
                       <span
@@ -15530,7 +15543,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           zIndex: 10
                         }}
                       >
-                        21.1
+                        21
                       </span>
                     </div>
                   )}
@@ -16340,11 +16353,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const boxHeight = 2.33
                       const isSelected = page20Box6Selected
 
-                      // Move right edge to the left by 4px (reduce width, keep left edge in place)
-                      const rightEdgeLeftPx = 4
+                      // Keep left edge in place, move right edge to the left by 6px (reduce width by 6px total)
+                      const rightEdgeLeftPx = 6
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
                       const adjustedBoxLeft = boxLeft
                       const adjustedBoxWidth = boxWidth - rightEdgeLeftPercent
+
+                      // Move top edge down by 1px (reduce height)
+                      const topEdgeDownPx = 1
+                      const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
+                      // Move bottom edge up by 1px (reduce height)
+                      const bottomEdgeUpPx = 1
+                      const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
+                      const adjustedBoxTop = boxTop + topEdgeDownPercent
+                      const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
 
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
@@ -16355,9 +16377,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                       
                       const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust)
-                      const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                      const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
                       const expandedWidth = Math.min(100 - adjustedLeft, adjustedBoxWidth + widthPercentAdjust)
-                      const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                      const expandedHeight = Math.min(100 - adjustedTop, adjustedBoxHeight + heightPercentAdjust)
+                      
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
                       const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
@@ -16389,8 +16412,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
-                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
+                              backgroundColor: isSelected ? '#3bbf6b' : 'rgba(255, 255, 255, 0.95)',
+                              border: '1px solid',
+                              borderColor: isSelected ? '#3bbf6b' : '#0d6efd',
+                              outline: isSelected ? '1px solid #3bbf6b' : 'none',
+                              outlineOffset: '0px'
                             }}
                           >
                           </div>
