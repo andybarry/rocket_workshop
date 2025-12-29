@@ -27,6 +27,10 @@ import page18 from '../assets/images/pages/18.png'
 import page18_1 from '../assets/images/pages/18.1.png'
 import page19 from '../assets/images/pages/19.png'
 import page20 from '../assets/images/pages/20.png'
+import page21 from '../assets/images/pages/21.png'
+import page21_1 from '../assets/images/pages/21.1.png'
+import page22 from '../assets/images/pages/22.png'
+import page23 from '../assets/images/pages/23.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -64,6 +68,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page5GreenDotSelected, setPage5GreenDotSelected] = useState(false)
   // Track if page 5 should temporarily show 5.1.png (when "Need Help?" is clicked)
   const [page5ShowHelpImage, setPage5ShowHelpImage] = useState(false)
+  const [page21ShowHelpImage, setPage21ShowHelpImage] = useState(false)
   // Track page 6 button states
   const [page6Button1Clicked, setPage6Button1Clicked] = useState(false)
   const [page6Button2Clicked, setPage6Button2Clicked] = useState(false)
@@ -172,7 +177,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page20Box3Selected, setPage20Box3Selected] = useState(false)
   const [page20Box4Selected, setPage20Box4Selected] = useState(false)
   const [page20Box5Selected, setPage20Box5Selected] = useState(false)
-  const [page20Box5bSelected, setPage20Box5bSelected] = useState(false)
+  const [page20Box6Selected, setPage20Box6Selected] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -229,7 +234,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
   const page5HelpImageTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -241,6 +246,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           clearTimeout(page5HelpImageTimeoutRef.current)
           page5HelpImageTimeoutRef.current = null
         }
+      }
+      // Reset page 21 help image state when navigating away from page 20
+      if (currentPage === 20) {
+        setPage21ShowHelpImage(false)
       }
       // Mark page 7 as visited when navigating back to it from page 8
       if (currentPage === 7) {
@@ -374,6 +383,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           clearTimeout(page5HelpImageTimeoutRef.current)
           page5HelpImageTimeoutRef.current = null
         }
+      }
+      // Reset page 21 help image state when navigating away from page 20
+      if (currentPage === 20) {
+        setPage21ShowHelpImage(false)
       }
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
@@ -620,7 +633,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage20Box3Selected(false)
       setPage20Box4Selected(false)
       setPage20Box5Selected(false)
-      setPage20Box5bSelected(false)
+      setPage20Box6Selected(false)
+      setPage21ShowHelpImage(false)
     }
     
     // Clear dimensions capture
@@ -630,7 +644,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }, [currentPage, onDimensionsCapture])
 
   // Development function to jump to a specific page
-  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false, isPage5_1 = false, isPage18_1 = false) => {
+  const handlePageSelect = useCallback((pageIndex, isPage7_1 = false, isPage8_1 = false, isPage10_1 = false, isPage10 = false, isPage12_1 = false, isPage5_1 = false, isPage18_1 = false, isPage21_1 = false, isPage21 = false) => {
     if (isPage5_1) {
       // Special case: 5.1.png - set page to 4 and show 5.1.png
       setCurrentPage(4)
@@ -681,6 +695,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setCurrentPage(17)
       // Reset box position for the new page
       setBoxPosition(getDefaultBoxPosition(17))
+      // Reset dot positions
+      setDot1Position(10)
+      setDot2Position(60)
+      setDot3Position({ x: 50, y: 50 })
+    } else if (isPage21_1) {
+      // Special case: 21.1.png - set page to 20 and show 21.1.png (default)
+      setCurrentPage(20)
+      setPage21ShowHelpImage(false)
+      // Reset box position for the new page
+      setBoxPosition(getDefaultBoxPosition(20))
       // Reset dot positions
       setDot1Position(10)
       setDot2Position(60)
@@ -1139,8 +1163,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage20Box5Selected(true)
   }
 
-  const handlePage20Box5b = () => {
-    setPage20Box5bSelected(true)
+  const handlePage20Box6 = () => {
+    setPage20Box6Selected(true)
   }
 
   const handlePage18NeedHelp = () => {
@@ -1982,6 +2006,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         if (currentPage === 10) return page11
                         if (currentPage === 14 && page15BoxSelected) return page15
                         if (currentPage === 14) return page15_1
+                        if (currentPage === 20 && page21ShowHelpImage) return page21
+                        if (currentPage === 20) return page21_1
                         if (currentPage === 11 && page12Box3Selected) {
                           console.log('Switching to 12.1.png', { page12_1, page12Box3Selected, currentPage })
                           if (!page12_1) {
@@ -2550,7 +2576,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
@@ -2804,7 +2830,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
@@ -3072,7 +3098,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
@@ -3328,7 +3354,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
@@ -3603,14 +3629,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3618,7 +3644,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3626,7 +3652,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3634,7 +3660,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3642,7 +3668,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3830,7 +3856,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
                               style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
                             />
                             <g className="speech-bubble-border-group">
@@ -4084,7 +4110,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
                               backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
-                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#ff8c00' : '#0d6efd'}`
+                              border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
                           </div>
@@ -12150,8 +12176,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -12418,8 +12444,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -12495,8 +12521,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       // Move left edge to the right by 3px (reduce width)
                       const leftEdgeRightPx = 3
                       const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
-                      // Move right edge to the left by 4px (reduce width)
-                      const rightEdgeLeftPx = 4
+                      // Move right edge to the left by 3px (reduced from 4px to increase width by 1px)
+                      const rightEdgeLeftPx = 3
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
                       const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
                       const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
@@ -12522,6 +12548,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const dot2UpPercent = stageHeightPx > 0 ? (dot2UpPx / stageHeightPx) * 100 : 0
                       const adjustedDot2Y = dot2Y + topEdgeDownPercent - dot2UpPercent
                       
+                      // Move dot 3 up by 1px (additional adjustment from current location)
+                      const dot3UpPx = 1
+                      const dot3UpPercent = stageHeightPx > 0 ? (dot3UpPx / stageHeightPx) * 100 : 0
+                      const adjustedDot3Y = dot3Y - dot3UpPercent
+                      
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -12542,7 +12573,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const triangleBaseTop = adjustedDot1Y  // Top break point on left edge (moved down 2px)
                       const triangleBaseBottom = adjustedDot2Y  // Bottom break point on left edge (moved down 2px)
                       const triangleTipX = dot3X  // Triangle tip X (34.23%)
-                      const triangleTipY = dot3Y  // Triangle tip Y (73.85%)
+                      const triangleTipY = adjustedDot3Y  // Triangle tip Y (73.85%, moved up 1px)
                       
                       // Reduced corner radius for box
                       const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
@@ -12666,8 +12697,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -12795,6 +12826,90 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         20
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "21.1" at Dot 3 position on page 21.1 (default) */}
+                  {currentPage === 20 && !editorMode && !page21ShowHelpImage && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        21.1
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "21" at Dot 3 position on page 21 */}
+                  {currentPage === 20 && !editorMode && page21ShowHelpImage && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        21
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "22" at Dot 3 position on page 22 */}
+                  {currentPage === 21 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        22
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "23" at Dot 3 position on page 23 */}
+                  {currentPage === 22 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        23
                       </span>
                     </div>
                   )}
@@ -12970,8 +13085,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -13217,8 +13332,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -13359,7 +13474,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -13440,7 +13555,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -13521,7 +13636,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -13531,25 +13646,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* Box 5b on page 20 - no pointer */}
-                  {currentPage === 19 && !editorMode && (
+                  {/* Box 6 on page 20 - only active after box 5 is selected */}
+                  {currentPage === 19 && !editorMode && page20Box5Selected && (
                     <>
                       {(() => {
                       const boxLeft = 72.22
-                      const boxTop = 90.40
-                      const boxWidth = 2.88
-                      const boxHeight = 3.02
-                      const isSelected = page20Box5bSelected
+                      const boxTop = 90.75
+                      const boxWidth = 3.55
+                      const boxHeight = 2.33
+                      const isSelected = page20Box6Selected
 
-                      // Keep left edge in place (already moved right by 1px, keep it there)
-                      const leftEdgeRightPx = 1
-                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
-                      // Move right edge to the left by 5px from current location (current is 4px left, so 4px + 5px = 9px total)
-                      const rightEdgeLeftPx = 9
+                      // Move right edge to the left by 4px (reduce width, keep left edge in place)
+                      const rightEdgeLeftPx = 4
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
-                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
-                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
-                      
+                      const adjustedBoxLeft = boxLeft
+                      const adjustedBoxWidth = boxWidth - rightEdgeLeftPercent
+
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -13564,7 +13676,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -13573,7 +13685,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         >
                           <div
                             className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                            onClick={!isSelected ? handlePage20Box5b : undefined}
+                            onClick={!isSelected ? handlePage20Box6 : undefined}
                             style={{
                               position: 'absolute',
                               left: 0,
@@ -13601,6 +13713,161 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         </div>
                       )
                     })()}
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 1 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box1Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(32.34, 42.09, 20.00, 7.34),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(47.56, 45.57, 8.48, 3.63),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 2 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box2Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(12.19, 50.10, 75.40, 26.43),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.74, 46.86, 4.43, 3.56),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 3 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(14.35, 76.11, 24.03, 10.70),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 3 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box3Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(38.20, 76.04, 23.83, 12.56),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(63.36, 36.40, 5.81, 4.55),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 3 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(65.83, 36.87, 5.81, 4.55),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 4 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(60.05, 36.00, 9.19, 4.90),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 4 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box4Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.02, 18.59, 14.82, 7.17),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(61.85, 75.69, 25.41, 19.87),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 5 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box5Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(53.74, 25.55, 23.38, 10.65),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(14.32, 86.66, 23.38, 6.99),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
                     </>
                   )}
                   {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
@@ -14593,8 +14860,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -14861,8 +15128,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -14938,8 +15205,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       // Move left edge to the right by 3px (reduce width)
                       const leftEdgeRightPx = 3
                       const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
-                      // Move right edge to the left by 4px (reduce width)
-                      const rightEdgeLeftPx = 4
+                      // Move right edge to the left by 3px (reduced from 4px to increase width by 1px)
+                      const rightEdgeLeftPx = 3
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
                       const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
                       const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
@@ -14965,6 +15232,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const dot2UpPercent = stageHeightPx > 0 ? (dot2UpPx / stageHeightPx) * 100 : 0
                       const adjustedDot2Y = dot2Y + topEdgeDownPercent - dot2UpPercent
                       
+                      // Move dot 3 up by 1px (additional adjustment from current location)
+                      const dot3UpPx = 1
+                      const dot3UpPercent = stageHeightPx > 0 ? (dot3UpPx / stageHeightPx) * 100 : 0
+                      const adjustedDot3Y = dot3Y - dot3UpPercent
+                      
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -14985,7 +15257,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const triangleBaseTop = adjustedDot1Y  // Top break point on left edge (moved down 2px)
                       const triangleBaseBottom = adjustedDot2Y  // Bottom break point on left edge (moved down 2px)
                       const triangleTipX = dot3X  // Triangle tip X (34.23%)
-                      const triangleTipY = dot3Y  // Triangle tip Y (73.85%)
+                      const triangleTipY = adjustedDot3Y  // Triangle tip Y (73.85%, moved up 1px)
                       
                       // Reduced corner radius for box
                       const borderRadiusPx = Math.min(10, Math.max(4, 10 * stageRelativeScale))
@@ -15109,8 +15381,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -15238,6 +15510,90 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         20
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "21.1" at Dot 3 position on page 21.1 (default) */}
+                  {currentPage === 20 && !editorMode && !page21ShowHelpImage && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        21.1
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "21" at Dot 3 position on page 21 */}
+                  {currentPage === 20 && !editorMode && page21ShowHelpImage && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        21
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "22" at Dot 3 position on page 22 */}
+                  {currentPage === 21 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        22
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "23" at Dot 3 position on page 23 */}
+                  {currentPage === 22 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        23
                       </span>
                     </div>
                   )}
@@ -15413,8 +15769,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -15660,8 +16016,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </defs>
                             <path
                               d={speechBubblePath}
-                              fill={isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)'}
-                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                              fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.7)"}
+                              style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)' }}
                             />
                             <g className="speech-bubble-border-group">
                               <path
@@ -15802,7 +16158,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -15883,7 +16239,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -15964,7 +16320,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               padding: '4px 8px',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+                              backgroundColor: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.7)',
                               border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? '#f05f40' : '#0d6efd'}`
                             }}
                           >
@@ -15974,25 +16330,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* Box 5b on page 20 - no pointer */}
-                  {currentPage === 19 && !editorMode && (
+                  {/* Box 6 on page 20 - only active after box 5 is selected */}
+                  {currentPage === 19 && !editorMode && page20Box5Selected && (
                     <>
                       {(() => {
                       const boxLeft = 72.22
-                      const boxTop = 90.40
-                      const boxWidth = 2.88
-                      const boxHeight = 3.02
-                      const isSelected = page20Box5bSelected
+                      const boxTop = 90.75
+                      const boxWidth = 3.55
+                      const boxHeight = 2.33
+                      const isSelected = page20Box6Selected
 
-                      // Keep left edge in place (already moved right by 1px, keep it there)
-                      const leftEdgeRightPx = 1
-                      const leftEdgeRightPercent = stageWidthPx > 0 ? (leftEdgeRightPx / stageWidthPx) * 100 : 0
-                      // Move right edge to the left by 5px from current location (current is 4px left, so 4px + 5px = 9px total)
-                      const rightEdgeLeftPx = 9
+                      // Move right edge to the left by 4px (reduce width, keep left edge in place)
+                      const rightEdgeLeftPx = 4
                       const rightEdgeLeftPercent = stageWidthPx > 0 ? (rightEdgeLeftPx / stageWidthPx) * 100 : 0
-                      const adjustedBoxLeft = boxLeft + leftEdgeRightPercent
-                      const adjustedBoxWidth = boxWidth - leftEdgeRightPercent - rightEdgeLeftPercent
-                      
+                      const adjustedBoxLeft = boxLeft
+                      const adjustedBoxWidth = boxWidth - rightEdgeLeftPercent
+
                       const pixelIncrease = 3
                       const halfPixelIncrease = pixelIncrease / 2
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -16007,7 +16360,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                       const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                       
-                      const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                      const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
                       
                       return (
                         <div 
@@ -16016,7 +16369,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         >
                           <div
                             className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
-                            onClick={!isSelected ? handlePage20Box5b : undefined}
+                            onClick={!isSelected ? handlePage20Box6 : undefined}
                             style={{
                               position: 'absolute',
                               left: 0,
@@ -16044,6 +16397,161 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         </div>
                       )
                     })()}
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 1 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box1Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(32.34, 42.09, 20.00, 7.34),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(47.56, 45.57, 8.48, 3.63),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 2 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box2Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(12.19, 50.10, 75.40, 26.43),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.74, 46.86, 4.43, 3.56),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 3 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(14.35, 76.11, 24.03, 10.70),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 3 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box3Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(38.20, 76.04, 23.83, 12.56),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(63.36, 36.40, 5.81, 4.55),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 3 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(65.83, 36.87, 5.81, 4.55),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 4 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(60.05, 36.00, 9.19, 4.90),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 4 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box4Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(58.02, 18.59, 14.82, 7.17),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(61.85, 75.69, 25.41, 19.87),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                    </>
+                  )}
+                  {/* White boxes on page 20 - hidden when box 5 is selected */}
+                  {currentPage === 19 && !editorMode && !page20Box5Selected && (
+                    <>
+                      {/* White box 1 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(53.74, 25.55, 23.38, 10.65),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
+                      {/* White box 2 on page 20 */}
+                      <div
+                        style={{
+                          ...getButtonStyle(14.32, 86.66, 23.38, 6.99),
+                          backgroundColor: 'white',
+                          border: 'none',
+                          pointerEvents: 'none',
+                          zIndex: 100
+                        }}
+                      />
                     </>
                   )}
                   {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
@@ -23504,9 +24012,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 16 && !page17Box4bSelected) ||
               (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) ||
               (currentPage === 18 && !page19Box3Selected) ||
-              (currentPage === 19 && !page20Box5bSelected)
+              (currentPage === 19 && !page20Box6Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box5bSelected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next

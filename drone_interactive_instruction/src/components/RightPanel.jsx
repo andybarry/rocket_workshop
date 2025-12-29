@@ -27,6 +27,10 @@ import page18 from '../assets/images/pages/18.png'
 import page18_1 from '../assets/images/pages/18.1.png'
 import page19 from '../assets/images/pages/19.png'
 import page20 from '../assets/images/pages/20.png'
+import page21 from '../assets/images/pages/21.png'
+import page21_1 from '../assets/images/pages/21.1.png'
+import page22 from '../assets/images/pages/22.png'
+import page23 from '../assets/images/pages/23.png'
 
 function RightPanel({ editorMode, onToggleEditorMode, dimensions, onRefresh, onPageSelect }) {
   const [copied, setCopied] = useState(false)
@@ -203,6 +207,22 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             <div className="image-selector-item" onClick={() => onPageSelect(19, false, false, false, false)}>
               <img src={page20} alt="Page 20" className="image-selector-thumbnail" />
               <span className="image-selector-label">20.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(20, false, false, false, false, false, false, false, false, true)}>
+              <img src={page21} alt="Page 21" className="image-selector-thumbnail" />
+              <span className="image-selector-label">21.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(20, false, false, false, false, false, false, false, true)}>
+              <img src={page21_1} alt="Page 21.1" className="image-selector-thumbnail" />
+              <span className="image-selector-label">21.1.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(21, false, false, false, false)}>
+              <img src={page22} alt="Page 22" className="image-selector-thumbnail" />
+              <span className="image-selector-label">22.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(22, false, false, false, false)}>
+              <img src={page23} alt="Page 23" className="image-selector-thumbnail" />
+              <span className="image-selector-label">23.png</span>
             </div>
           </div>
         </div>
