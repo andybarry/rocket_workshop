@@ -141,3 +141,4 @@ if __name__ == "__main__":
     find_and_remove_box_bottom_right(image_path, box_size_estimate=sizes_to_try[0])
 
 
+

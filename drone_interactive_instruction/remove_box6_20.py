@@ -117,3 +117,4 @@ if __name__ == "__main__":
     # Use the first size estimate
     find_and_remove_box6_bottom_right(image_path, box_size_estimate=sizes_to_try[0])
 
+
