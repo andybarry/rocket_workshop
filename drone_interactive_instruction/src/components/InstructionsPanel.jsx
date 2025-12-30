@@ -33,6 +33,16 @@ import page21_2 from '../assets/images/pages/21.2.png'
 import page22 from '../assets/images/pages/22.png'
 import page23 from '../assets/images/pages/23.png'
 import page23_1 from '../assets/images/pages/23.1.png'
+import page24 from '../assets/images/pages/24.png'
+import page24_1 from '../assets/images/pages/24.1.png'
+import page25 from '../assets/images/pages/25.png'
+import page26 from '../assets/images/pages/26.png'
+import page27 from '../assets/images/pages/27.png'
+import page28 from '../assets/images/pages/28.png'
+import page29 from '../assets/images/pages/29.png'
+import page30 from '../assets/images/pages/30.png'
+import page31 from '../assets/images/pages/31.png'
+import page32 from '../assets/images/pages/32.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -256,7 +266,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
   const page5HelpImageTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
