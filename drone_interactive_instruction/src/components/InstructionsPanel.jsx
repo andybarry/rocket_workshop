@@ -210,6 +210,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page23Box1Selected, setPage23Box1Selected] = useState(false)
   const [page23Box2Selected, setPage23Box2Selected] = useState(false)
   const [page23Box3Selected, setPage23Box3Selected] = useState(false)
+  // Track page 24 box state
+  const [page24Box1Selected, setPage24Box1Selected] = useState(false)
+  // Track if page 24 should show the main image (24.png) instead of initial (24.1.png)
+  const [page24ShowMainImage, setPage24ShowMainImage] = useState(false)
+  // Track if "Need Help?" text should be shown on page 24.1 (hidden after first click)
+  const [page24ShowHelpText, setPage24ShowHelpText] = useState(true)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -700,6 +706,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage23Box1Selected(false)
       setPage23Box2Selected(false)
       setPage23Box3Selected(false)
+    } else if (currentPage === 23) {
+      // Page 24 - reset box states
+      setPage24Box1Selected(false)
+      setPage24ShowMainImage(false)
+      setPage24ShowHelpText(true)
     }
     
     // Clear dimensions capture
@@ -1300,6 +1311,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage23Box3 = () => {
     setPage23Box3Selected(true)
+  }
+
+  const handlePage24Box1 = () => {
+    setPage24Box1Selected(true)
+  }
+
+  const handlePage24NeedHelp = () => {
+    if (page24ShowHelpText) {
+      // First click: hide "Need Help?" text
+      setPage24ShowHelpText(false)
+    } else {
+      // Second click: switch to 24.png
+      setPage24ShowMainImage(true)
+    }
   }
 
   const handlePage18NeedHelp = () => {
@@ -2179,6 +2204,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           }
                         }
                         if (currentPage === 22 && page23Box1Selected) return page23_1
+                        if (currentPage === 23 && page24ShowMainImage) return page24
+                        if (currentPage === 23) return page24_1
                         if (pages[currentPage]) return pages[currentPage]
                         console.warn(`No image found for page ${currentPage}, using page1`)
                         return page1
@@ -10684,9 +10711,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                  {/* Button, LED, and Ground boxes - only show on 18.1.png when page18BoxesVisible is true */}
+                  {/* Button, LED, and Ground boxes - show on 18.1.png when page18BoxesVisible is true, or on 24.1.png */}
                   {/* Only show on 18.1.png (not 18.png) - hide when page18HelpImageState === 1 (18.png) */}
-                  {currentPage === 17 && !editorMode && page18BoxesVisible && page18HelpImageState !== 1 && (
+                  {(((currentPage === 17 && page18BoxesVisible && page18HelpImageState !== 1) || (currentPage === 23 && !page24ShowMainImage)) && !editorMode) && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -16374,6 +16401,554 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         23
+                      </span>
+                    </div>
+                  )}
+                  {/* "Need Help?" button on 24.1.png - visible when showing initial page */}
+                  {currentPage === 23 && !editorMode && !page24ShowMainImage && (() => {
+                        const boxWidth = 15.49
+                        const boxHeight = 4.21
+                        
+                        // Center horizontally
+                        const boxLeft = (100 - boxWidth) / 2
+                        
+                        // Position 70px from bottom of image
+                        const bottomOffsetPx = 70
+                        const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 3
+                        const boxHeightPercent = imageNaturalSize.height > 0 ? (boxHeight / 100) * 100 : boxHeight
+                        const boxTop = 100 - bottomOffsetPercent - boxHeight
+                        
+                        const adjustedLeft = boxLeft
+                        const adjustedTop = boxTop
+                        const expandedWidth = boxWidth
+                        const expandedHeight = boxHeight
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const strokeColor = "#0d6efd"
+                        const strokeWidth = "1"
+                        const showHelpText = page24ShowHelpText
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={{...buttonStyle, zIndex: 12}}
+                          >
+                            <div
+                              className="speech-bubble-box"
+                              onClick={handlePage24NeedHelp}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'auto',
+                                cursor: 'pointer',
+                                zIndex: 13,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                                fontSize: `${Math.min(24, Math.max(10, 24 * stageRelativeScale))}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontStyle: showHelpText ? 'italic' : 'normal',
+                                fontWeight: showHelpText ? '300' : 'normal',
+                                textAlign: 'center',
+                                padding: '4px 8px',
+                                boxSizing: 'border-box',
+                                userSelect: 'auto',
+                                WebkitUserSelect: 'auto',
+                                opacity: showHelpText ? 1 : 0
+                              }}
+                            >
+                              {showHelpText && 'Hint'}
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill={showHelpText ? "#ffffff" : "transparent"}
+                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                  })()}
+                  {/* Box 1 on page 24 */}
+                  {currentPage === 23 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 36.40
+                    const boxTop = 34.78
+                    const boxWidth = 24.28
+                    const boxHeight = 5.60
+                    const dot1X = 41.23
+                    const dot1Y = 40.38
+                    const dot2X = 46.64
+                    const dot2Y = 40.38
+                    const dot3X = 47.07
+                    const dot3Y = 41.99
+                    const isSelected = page24Box1Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={buttonStyle}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage24Box1 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${bubbleFontSize}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Number "24" at Dot 3 position on page 24 */}
+                  {currentPage === 23 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        24
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "25" at Dot 3 position on page 25 */}
+                  {currentPage === 24 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        25
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "26" at Dot 3 position on page 26 */}
+                  {currentPage === 25 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        26
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "27" at Dot 3 position on page 27 */}
+                  {currentPage === 26 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        27
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "28" at Dot 3 position on page 28 */}
+                  {currentPage === 27 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        28
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "29" at Dot 3 position on page 29 */}
+                  {currentPage === 28 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        29
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "30" at Dot 3 position on page 30 */}
+                  {currentPage === 29 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        30
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "31" at Dot 3 position on page 31 */}
+                  {currentPage === 30 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        31
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "32" at Dot 3 position on page 32 */}
+                  {currentPage === 31 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        32
                       </span>
                     </div>
                   )}
@@ -22398,6 +22973,554 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         23
+                      </span>
+                    </div>
+                  )}
+                  {/* "Need Help?" button on 24.1.png - visible when showing initial page */}
+                  {currentPage === 23 && !editorMode && !page24ShowMainImage && (() => {
+                        const boxWidth = 15.49
+                        const boxHeight = 4.21
+                        
+                        // Center horizontally
+                        const boxLeft = (100 - boxWidth) / 2
+                        
+                        // Position 70px from bottom of image
+                        const bottomOffsetPx = 70
+                        const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 3
+                        const boxHeightPercent = imageNaturalSize.height > 0 ? (boxHeight / 100) * 100 : boxHeight
+                        const boxTop = 100 - bottomOffsetPercent - boxHeight
+                        
+                        const adjustedLeft = boxLeft
+                        const adjustedTop = boxTop
+                        const expandedWidth = boxWidth
+                        const expandedHeight = boxHeight
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const strokeColor = "#0d6efd"
+                        const strokeWidth = "1"
+                        const showHelpText = page24ShowHelpText
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={{...buttonStyle, zIndex: 12}}
+                          >
+                            <div
+                              className="speech-bubble-box"
+                              onClick={handlePage24NeedHelp}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'auto',
+                                cursor: 'pointer',
+                                zIndex: 13,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                                fontSize: `${Math.min(24, Math.max(10, 24 * stageRelativeScale))}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontStyle: showHelpText ? 'italic' : 'normal',
+                                fontWeight: showHelpText ? '300' : 'normal',
+                                textAlign: 'center',
+                                padding: '4px 8px',
+                                boxSizing: 'border-box',
+                                userSelect: 'auto',
+                                WebkitUserSelect: 'auto',
+                                opacity: showHelpText ? 1 : 0
+                              }}
+                            >
+                              {showHelpText && 'Hint'}
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill={showHelpText ? "#ffffff" : "transparent"}
+                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke={strokeColor}
+                                  strokeWidth={strokeWidth}
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                  })()}
+                  {/* Box 1 on page 24 */}
+                  {currentPage === 23 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 36.40
+                    const boxTop = 34.78
+                    const boxWidth = 24.28
+                    const boxHeight = 5.60
+                    const dot1X = 41.23
+                    const dot1Y = 40.38
+                    const dot2X = 46.64
+                    const dot2Y = 40.38
+                    const dot3X = 47.07
+                    const dot3Y = 41.99
+                    const isSelected = page24Box1Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot1 and dot2) to dot3
+                    const triangleBaseLeft = dot1X
+                    const triangleBaseRight = dot2X
+                    const triangleBaseY = adjustedTop + expandedHeight
+                    const triangleTipX = dot3X
+                    const triangleTipY = dot3Y
+                    
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const triangleBaseLeftWrapper = ((triangleBaseLeft - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((triangleBaseRight - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((triangleTipX - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((triangleTipY - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                      L ${topLeft},${bottomY - borderRadiusWrapperY}
+                      Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                      ${triangleBaseLeftWrapper > topLeft + borderRadiusWrapperX ? `L ${triangleBaseLeftWrapper},${bottomY}` : ''}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    const triangleRightLegPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
+                      Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                      L ${topRight},${topY + borderRadiusWrapperY}
+                      Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    const topBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                    `
+                    
+                    return (
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={buttonStyle}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage24Box1 : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
+                            fontSize: `${bubbleFontSize}px`,
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center',
+                            padding: '4px 8px',
+                            boxSizing: 'border-box'
+                          }}
+                        >
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <defs>
+                          </defs>
+                          <path
+                            d={speechBubblePath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                            style={{ fill: isSelected ? 'transparent' : 'rgba(255, 255, 255, 0.95)' }}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleLeftLegPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={triangleRightLegPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Number "24" at Dot 3 position on page 24 */}
+                  {currentPage === 23 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        24
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "25" at Dot 3 position on page 25 */}
+                  {currentPage === 24 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        25
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "26" at Dot 3 position on page 26 */}
+                  {currentPage === 25 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        26
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "27" at Dot 3 position on page 27 */}
+                  {currentPage === 26 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        27
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "28" at Dot 3 position on page 28 */}
+                  {currentPage === 27 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        28
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "29" at Dot 3 position on page 29 */}
+                  {currentPage === 28 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        29
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "30" at Dot 3 position on page 30 */}
+                  {currentPage === 29 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        30
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "31" at Dot 3 position on page 31 */}
+                  {currentPage === 30 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        31
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "32" at Dot 3 position on page 32 */}
+                  {currentPage === 31 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        32
                       </span>
                     </div>
                   )}
@@ -30831,9 +31954,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 18 && !page19Box3Selected) ||
               (currentPage === 19 && !page20Box6Selected) ||
               (currentPage === 20 && !page21Box2Selected) ||
-              (currentPage === 21 && !page22Box6Selected)
+              (currentPage === 21 && !page22Box6Selected) ||
+              (currentPage === 23 && !page24Box1Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 23 && page24Box1Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
