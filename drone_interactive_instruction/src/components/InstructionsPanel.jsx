@@ -29933,45 +29933,39 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* "Need Help?" button on page 5 (5.png) - visible only after box 1 is selected */}
+                  {/* "Show Connections" button on page 5 (5.png) - visible only after box 1 is selected */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
-                        const boxLeft = 8.23
-                        const boxTop = 38.78
-                        const boxWidth = 15.49
-                        const boxHeight = 4.21
+                        const boxWidth = 18
+                        const boxHeight = 3
                         const isSelected = false // Button is never "selected", it's always clickable
                         
                         const pixelIncrease = 3
                         const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         
-                        // Move box down by 90px (80px previous + 10px additional for page 5)
-                        const downOffsetPx = 90
-                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        // Add 27px on each side (54px total width increase)
+                        const widthExpansionPx = 54
+                        const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
                         
-                        // Move box top edge down by 6px and bottom edge up by 3px (reduce height)
-                        const topDownOffsetPx = 6
-                        const topDownOffsetPercent = imageNaturalSize.height > 0 ? (topDownOffsetPx / imageNaturalSize.height) * 100 : 0
-                        const heightReductionPx = 9
+                        // Reduce height by lowering top edge 7px
+                        const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                         
-                        // Move box left edge to the right by 6px and right edge to the left by 6px (reduce width)
-                        const leftEdgeRightPx = 6
-                        const rightEdgeLeftPx = 6
-                        const leftEdgeRightPercent = imageNaturalSize.width > 0 ? (leftEdgeRightPx / imageNaturalSize.width) * 100 : 0
-                        const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
-                        const totalWidthReductionPercent = leftEdgeRightPercent + rightEdgeLeftPercent
+                        // Position button centered horizontally at bottom, 24px up from bottom
+                        const bottomOffsetPx = 24
+                        const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
                         
-                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftEdgeRightPercent)
-                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownOffsetPercent + downOffsetPercent)
-                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - totalWidthReductionPercent)
-                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        // Center horizontally
+                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const adjustedLeft = (100 - expandedWidth) / 2
+                        
+                        // Position from bottom: 100% - boxHeight - bottomOffset
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
+                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
-                        const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                        const borderRadiusPx = Math.min(16, Math.max(6, 16 * stageRelativeScale))
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -29982,13 +29976,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const topY = 0
                         const bottomY = 100
                         
+                        // Rounded corners on top, sharp corners on bottom
                         const roundedRectPath = `
                           M ${topLeft + borderRadiusWrapperX},${topY}
                           Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topLeft},${bottomY}
+                          L ${topRight},${bottomY}
                           L ${topRight},${topY + borderRadiusWrapperY}
                           Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                           Z
@@ -29997,13 +29990,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const leftBorderPath = `
                           M ${topLeft + borderRadiusWrapperX},${topY}
                           Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topLeft},${bottomY}
                         `
                         
                         const rightBorderPath = `
-                          M ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          M ${topRight},${bottomY}
                           L ${topRight},${topY + borderRadiusWrapperY}
                           Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
                         `
@@ -30014,20 +30005,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         `
                         
                         const bottomBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          M ${topLeft},${bottomY}
+                          L ${topRight},${bottomY}
                         `
                         
                         // Determine stroke color and width for box
                         const strokeColor = "#0d6efd"
                         const strokeWidth = "1"
-                        // Always show "Need Help?" text for page 5
+                        // Always show "Show Connections" text for page 5
                         const showHelpText = true
                         
                         return (
                           <div 
                             className="speech-bubble-wrapper no-pulse"
-                            style={{...buttonStyle, zIndex: 12}}
+                            style={{
+                              ...buttonStyle, 
+                              zIndex: 9999,
+                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 4px rgba(13, 110, 253, 0.3)',
+                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`
+                            }}
                           >
                             <div
                               className="speech-bubble-box"
@@ -30040,7 +30036,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 height: '100%',
                                 pointerEvents: 'auto',
                                 cursor: 'pointer',
-                                zIndex: 13,
+                                zIndex: 10000,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -30050,14 +30046,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '300' : 'normal',
                                 textAlign: 'center',
-                                padding: '4px 8px',
+                                padding: '2px 4px',
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && 'Need Help?'}
+                              {showHelpText && 'Show Connections'}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -30069,7 +30065,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 height: '100%',
                                 pointerEvents: 'none',
                                 overflow: 'visible',
-                                zIndex: 10
+                                zIndex: 9998
                               }}
                               viewBox="0 0 100 100"
                               preserveAspectRatio="none"
