@@ -763,7 +763,6 @@
 .speech-bubble-wrapper.has-selected .speech-bubble-svg .speech-bubble-border {
   stroke-width: 2;
   animation: none;
-  stroke: #f05f40ff;
 }
 
 /* Ensure fill always stays white for speech bubble paths, regardless of state */
