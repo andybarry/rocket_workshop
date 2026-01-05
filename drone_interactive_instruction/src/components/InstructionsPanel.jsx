@@ -539,12 +539,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     
     // Reset states based on current page
     if (currentPage === 0) {
-      // Page 1 - no specific interactive elements to reset beyond box
+      // Page 1 - reset hasStarted and remove from visitedPages
+      setHasStarted(false)
+      setVisitedPages(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(0)
+        return newSet
+      })
+      setReturningFromPage2(false)
     } else if (currentPage === 1) {
-      // Page 2 - reset fade states
+      // Page 2 - reset fade states and visited state
       setBox1Fading(false)
       setBox2Fading(false)
       setBox3Fading(false)
+      // Remove page 1 from visitedPages to reset the box
+      setVisitedPages(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(1)
+        return newSet
+      })
+      setReturningFromPage3(false)
     } else if (currentPage === 2) {
       // Page 3 - reset button states and green boxes
       setPage3ButtonClicked(false)
@@ -870,11 +884,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setReturningFromPage3(false)
     // Mark page 1 as visited
     setVisitedPages(prev => new Set(prev).add(1))
-    // Move to next page
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(prev => prev + 1)
-      setZoom(100)
-    }
+    // User must click Next button to proceed to page 3
   }
 
   // Handler for page 4 buttons
@@ -2451,60 +2461,147 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </button>
                     )
                   })()}
-                  {currentPage === 1 && !editorMode && (() => {
-                    const buttonLeft = 29.77
-                    const buttonTop = 83.75
-                    const buttonWidth = 40.45
-                    const buttonHeight = 4.22
+                  {/* Box 1 on page 2 - rounded rectangle with max corner radius */}
+                  {currentPage === 1 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 30.14
+                    const boxTop = 87.72
+                    const boxWidth = 39.96
+                    const boxHeight = 4.66
+                    const isSelected = visitedPages.has(1)
+                    
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
-                    // Once button has been clicked, it should always be disabled when returning to page 2
-                    const isDisabled = visitedPages.has(1)
-                    // Show orange edge if button has been clicked (regardless of where returning from)
-                    const showOrangeEdge = visitedPages.has(1)
-                    const readyFontSize = Math.min(18, Math.max(6, 18 * stageRelativeScale))
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                    // Calculate 43px downward offset as percentage of image natural height (fixed, doesn't change with panel resize)
-                    const downwardOffset43pxPercent = imageNaturalSize.height > 0 ? (43 / imageNaturalSize.height) * 100 : 0
-                    const adjustedLeft = Math.max(0, buttonLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, buttonTop - topOffsetAdjust + downwardOffset43pxPercent)
-                    const expandedWidth = Math.min(100 - adjustedLeft, buttonWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, buttonHeight + heightPercentAdjust)
+                    
+                    // Move top edge down 3px and bottom edge up 4px
+                    const topEdgeDownPx = 3
+                    const bottomEdgeUpPx = 4
+                    const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
+                    const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
+                    
+                    // Move right edge to the left 2px
+                    const rightEdgeLeftPx = 2
+                    const rightEdgeLeftPercent = imageNaturalSize.width > 0 ? (rightEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topEdgeDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - rightEdgeLeftPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - topEdgeDownPercent - bottomEdgeUpPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                    const buttonWidthPx = stageWidthPx > 0 ? (expandedWidth / 100) * stageWidthPx : 0
-                    const displayWidthPx = buttonWidthPx * (zoom / 100)
-                    const isReadyButtonSmall = displayWidthPx > 0 && displayWidthPx <= START_BUTTON_SMALL_THRESHOLD
-                    const readyButtonBorderWidth = isReadyButtonSmall ? 2 : 3
-                    const expandedButtonStyle = {
-                      ...buttonStyle,
-                      left: `${adjustedLeft}%`,
-                      top: `${adjustedTop}%`,
-                      width: `${Math.max(0, expandedWidth)}%`,
-                      height: `${Math.max(0, expandedHeight)}%`
-                    }
+                    
+                    // Calculate border radius as half the height (maximum corner radius)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    // Half the height in pixels, converted to percentage of wrapper dimensions
+                    const borderRadiusPx = wrapperHeightPx / 2
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = 50 // Always 50% of height for max radius
+                    
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Rounded rectangle path with maximum corner radius
+                    const roundedRectPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${100 - borderRadiusWrapperX},${topY}
+                      Q 100,${topY} 100,${borderRadiusWrapperY}
+                      Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q 0,${bottomY} 0,${100 - borderRadiusWrapperY}
+                      Q 0,${topY} ${borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                    `
+                    const rightBorderPath = `
+                      M ${100 - borderRadiusWrapperX},${topY}
+                      Q 100,${topY} 100,${borderRadiusWrapperY}
+                      Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY}
+                    `
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
                     
                     return (
-                      <button 
-                        onClick={handlePage1Button}
-                        disabled={isDisabled}
-                        className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''} ${showOrangeEdge ? 'returning-from-page3' : ''}`}
-                        style={{
-                          ...expandedButtonStyle,
-                          backgroundColor: 'white',
-                          color: '#000',
-                          cursor: isDisabled ? 'default' : 'pointer',
-                          fontSize: `${readyFontSize}px`,
-                          fontFamily: 'Roboto, sans-serif',
-                          fontWeight: 700,
-                          border: showOrangeEdge ? '2px solid #f05f40' : undefined
-                        }}
-                        aria-label="I'm ready to build a drone controller"
+                      <div 
+                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
+                        style={buttonStyle}
                       >
-                        I'm ready to build a drone controller
-                      </button>
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? handlePage1Button : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 11
+                          }}
+                        />
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path
+                            d={roundedRectPath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
                     )
                   })()}
                   {/* Number "2" at Dot 3 position on page 2 */}
@@ -2843,7 +2940,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -2851,7 +2948,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -2859,7 +2956,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -2867,7 +2964,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -2875,7 +2972,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3097,7 +3194,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3105,7 +3202,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3113,7 +3210,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3121,7 +3218,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3129,7 +3226,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3365,7 +3462,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3373,7 +3470,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3381,7 +3478,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3389,7 +3486,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3397,7 +3494,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3405,7 +3502,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3413,7 +3510,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3621,7 +3718,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3629,7 +3726,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3637,7 +3734,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3645,7 +3742,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -3653,7 +3750,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4123,7 +4220,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4131,7 +4228,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4139,7 +4236,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4147,7 +4244,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4155,7 +4252,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -4228,9 +4325,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#3bbf6b" : "rgba(255, 255, 255, 0.95)"
+                    const fillColor = isSelected ? "#f05f40" : "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -4827,7 +4924,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${topY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -5044,7 +5141,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -5269,7 +5366,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -5462,7 +5559,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -5788,7 +5885,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -5980,7 +6077,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -6314,7 +6411,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -6566,7 +6663,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -6795,7 +6892,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -6987,7 +7084,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -7163,7 +7260,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -7522,7 +7619,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -7987,7 +8084,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -8212,7 +8309,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -8437,7 +8534,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -8724,7 +8821,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -8972,7 +9069,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -9142,7 +9239,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -9270,7 +9367,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -9822,7 +9919,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -10046,7 +10143,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -10275,7 +10372,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -10499,7 +10596,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -12856,7 +12953,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12864,7 +12961,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12872,7 +12969,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12880,7 +12977,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12888,7 +12985,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12896,7 +12993,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -12904,7 +13001,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13124,7 +13221,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13132,7 +13229,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13140,7 +13237,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13148,7 +13245,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13156,7 +13253,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13377,7 +13474,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13385,7 +13482,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13393,7 +13490,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13401,7 +13498,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13409,7 +13506,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13417,7 +13514,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13425,7 +13522,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -13690,7 +13787,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13698,7 +13795,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13706,7 +13803,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13714,7 +13811,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13722,7 +13819,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13919,7 +14016,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13927,7 +14024,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13935,7 +14032,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13943,7 +14040,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13951,7 +14048,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13959,7 +14056,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -13967,7 +14064,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14565,7 +14662,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14573,7 +14670,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14581,7 +14678,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14589,7 +14686,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14597,7 +14694,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14789,7 +14886,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14797,7 +14894,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14805,7 +14902,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14813,7 +14910,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14821,7 +14918,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14829,7 +14926,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -14837,7 +14934,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15024,7 +15121,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15032,7 +15129,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15040,7 +15137,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15048,7 +15145,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15056,7 +15153,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15213,7 +15310,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15221,7 +15318,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15229,7 +15326,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15237,7 +15334,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15387,7 +15484,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15395,7 +15492,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15403,7 +15500,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15411,7 +15508,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15561,7 +15658,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15569,7 +15666,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15577,7 +15674,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15585,7 +15682,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15735,7 +15832,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15743,7 +15840,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15751,7 +15848,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15759,7 +15856,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15909,7 +16006,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15917,7 +16014,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15925,7 +16022,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -15933,7 +16030,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16261,7 +16358,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16269,7 +16366,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16277,7 +16374,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16285,7 +16382,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16293,7 +16390,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16479,7 +16576,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16487,7 +16584,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderLeftPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16495,7 +16592,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16503,7 +16600,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16511,7 +16608,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderRightPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16519,7 +16616,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16527,7 +16624,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16711,7 +16808,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16719,7 +16816,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16727,7 +16824,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16735,7 +16832,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16743,7 +16840,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16751,7 +16848,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -16759,7 +16856,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -17531,7 +17628,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -17539,7 +17636,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -17547,7 +17644,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -17555,7 +17652,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -17563,7 +17660,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -18241,11 +18338,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18302,11 +18399,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18354,10 +18451,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18405,10 +18502,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18468,13 +18565,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={leftBorderBottomPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderBottomPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18827,7 +18924,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -18835,7 +18932,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -18843,7 +18940,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -18851,7 +18948,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -18859,7 +18956,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19074,7 +19171,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19082,7 +19179,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19090,7 +19187,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19098,7 +19195,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19106,7 +19203,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19114,7 +19211,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -19122,7 +19219,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20587,7 +20684,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20595,7 +20692,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20603,7 +20700,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20611,7 +20708,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20619,7 +20716,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20627,7 +20724,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20635,7 +20732,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20855,7 +20952,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20863,7 +20960,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20871,7 +20968,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20879,7 +20976,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -20887,7 +20984,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21108,7 +21205,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21116,7 +21213,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21124,7 +21221,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21132,7 +21229,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21140,7 +21237,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21148,7 +21245,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21156,7 +21253,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -21421,7 +21518,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21429,7 +21526,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21437,7 +21534,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21445,7 +21542,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21453,7 +21550,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21650,7 +21747,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21658,7 +21755,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21666,7 +21763,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21674,7 +21771,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21682,7 +21779,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21690,7 +21787,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -21698,7 +21795,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22296,7 +22393,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22304,7 +22401,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22312,7 +22409,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22320,7 +22417,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22328,7 +22425,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22520,7 +22617,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22528,7 +22625,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22536,7 +22633,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22544,7 +22641,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22552,7 +22649,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22560,7 +22657,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22568,7 +22665,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22755,7 +22852,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22763,7 +22860,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22771,7 +22868,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22779,7 +22876,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22787,7 +22884,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22944,7 +23041,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22952,7 +23049,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22960,7 +23057,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -22968,7 +23065,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23118,7 +23215,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23126,7 +23223,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23134,7 +23231,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23142,7 +23239,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23292,7 +23389,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23300,7 +23397,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23308,7 +23405,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23316,7 +23413,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23466,7 +23563,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23474,7 +23571,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23482,7 +23579,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23490,7 +23587,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23640,7 +23737,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23648,7 +23745,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23656,7 +23753,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23664,7 +23761,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -23992,7 +24089,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24000,7 +24097,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24008,7 +24105,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24016,7 +24113,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24024,7 +24121,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24210,7 +24307,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24218,7 +24315,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderLeftPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24226,7 +24323,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24234,7 +24331,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24242,7 +24339,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderRightPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24250,7 +24347,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24258,7 +24355,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24442,7 +24539,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24450,7 +24547,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24458,7 +24555,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24466,7 +24563,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderBottomPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24474,7 +24571,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleBottomLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24482,7 +24579,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleTopLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -24490,7 +24587,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderTopPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25262,7 +25359,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25270,7 +25367,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25278,7 +25375,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25286,7 +25383,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25294,7 +25391,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isSelected ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -25972,11 +26069,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -26033,11 +26130,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -26085,10 +26182,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -26136,10 +26233,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -26199,13 +26296,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={leftBorderBottomPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#ff8c00" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderBottomPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -26558,7 +26655,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26566,7 +26663,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleLeftLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26574,7 +26671,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleRightLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26582,7 +26679,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26590,7 +26687,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26805,7 +26902,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={leftBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26813,7 +26910,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={topBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26821,7 +26918,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderTopPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26829,7 +26926,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleTopLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26837,7 +26934,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={triangleBottomLegPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26845,7 +26942,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={rightBorderBottomPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -26853,7 +26950,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path
                                 d={bottomBorderPath}
                                 fill="none"
-                                stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                 strokeWidth={isSelected ? "2" : "1"}
                                 className="speech-bubble-border"
                                 vectorEffect="non-scaling-stroke"
@@ -28027,7 +28124,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       ${triangleBaseRightWrapper < topRight - borderRadiusWrapperX ? `L ${topRight - borderRadiusWrapperX},${bottomY}` : ''}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -28253,7 +28350,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -28446,7 +28543,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -30056,7 +30153,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -30064,7 +30161,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleLeftLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -30072,7 +30169,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleRightLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -30080,7 +30177,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -30088,7 +30185,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -30179,7 +30276,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         // Box 2 is disabled until Box 1 is selected
                         const isDisabled = !page10Box1Selected && !isSelected
-                        const strokeColor = isSelected ? "#ff8c00" : (isDisabled ? "#999999" : "#0d6efd")
+                        const strokeColor = isSelected ? "#f05f40" : (isDisabled ? "#999999" : "#0d6efd")
                         const strokeWidth = isSelected ? "2" : "1"
                         
                         return (
@@ -30358,7 +30455,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         // Box 3 is disabled until Box 2 is selected
                         const isDisabled = !page10Box2Selected && !isSelected
-                        const strokeColor = isSelected ? "#ff8c00" : (isDisabled ? "#999999" : "#0d6efd")
+                        const strokeColor = isSelected ? "#f05f40" : (isDisabled ? "#999999" : "#0d6efd")
                         const strokeWidth = isSelected ? "2" : "1"
                         
                         return (
@@ -30575,7 +30672,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -30803,7 +30900,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -30997,7 +31094,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       L ${topRight - borderRadiusWrapperX},${bottomY}
                     `
                     
-                    const strokeColor = isSelected ? "#ff8c00" : "#0d6efd"
+                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -31302,7 +31399,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31311,7 +31408,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31320,7 +31417,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31328,7 +31425,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31336,7 +31433,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31567,7 +31664,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31576,7 +31673,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31585,7 +31682,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31593,7 +31690,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31601,7 +31698,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31965,7 +32062,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31974,7 +32071,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31983,7 +32080,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31991,7 +32088,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -31999,7 +32096,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32583,7 +32680,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32591,7 +32688,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32599,7 +32696,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32607,7 +32704,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32615,7 +32712,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32813,7 +32910,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32821,7 +32918,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32829,7 +32926,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32837,7 +32934,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -32845,7 +32942,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#3bbf6b" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33468,7 +33565,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33476,7 +33573,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33484,7 +33581,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33492,7 +33589,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33500,7 +33597,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={topBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33693,7 +33790,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={leftBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33701,7 +33798,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleLeftLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33709,7 +33806,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={triangleRightLegPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33717,7 +33814,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={rightBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33725,7 +33822,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             <path
                               d={bottomBorderPath}
                               fill="none"
-                              stroke={isDisabled ? "#ff8c00" : "#0d6efd"}
+                              stroke={isDisabled ? "#f05f40" : "#0d6efd"}
                               strokeWidth={isDisabled ? "2" : "1"}
                               className="speech-bubble-border"
                               vectorEffect="non-scaling-stroke"
@@ -33919,7 +34016,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -33927,7 +34024,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleLeftLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -33935,7 +34032,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleRightLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -33943,7 +34040,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -33951,7 +34048,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34141,7 +34238,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34149,7 +34246,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleLeftLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34157,7 +34254,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleRightLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34165,7 +34262,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34173,7 +34270,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34358,7 +34455,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34366,7 +34463,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleLeftLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34374,7 +34471,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={triangleRightLegPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34382,7 +34479,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -34390,7 +34487,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={bottomBorderPath}
                                   fill="none"
-                                  stroke={isSelected ? "#ff8c00" : "#0d6efd"}
+                                  stroke={isSelected ? "#f05f40" : "#0d6efd"}
                                   strokeWidth={isSelected ? "2" : "1"}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -35298,7 +35395,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 22 && !page23Box4Selected) ||
               (currentPage === 23 && !page24Box1Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next

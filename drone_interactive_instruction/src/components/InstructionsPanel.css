@@ -462,6 +462,16 @@
   }
 }
 
+/* Pulsing border animation for page-start-button - same as speech bubbles */
+@keyframes pageStartButtonBorderPulse {
+  0%, 100% {
+    border-width: 1px;
+  }
+  50% {
+    border-width: 2px;
+  }
+}
+
 .page-start-button {
   position: absolute;
   z-index: 10;
@@ -479,8 +489,8 @@
   /* No transition on transform - scale immediately with image */
   /* Border changes instantly on hover, no delay - border is not in transition */
   transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  /* Pulsing glow animation for unselected buttons */
-  animation: pulseGlow 2s ease-in-out infinite;
+  /* Pulsing border animation for unselected buttons - same as page 3 speech bubbles */
+  animation: pageStartButtonBorderPulse 3s ease-in-out infinite;
   
   /* Center text horizontally and vertically */
   display: flex;
@@ -534,8 +544,8 @@
   background-color: #0d6efd;
   color: white;
   border: 2px solid #0d6efd !important;
-  /* No glow effect on hover */
-  animation: pulseGlow 2s ease-in-out infinite;
+  /* Stop pulsing on hover - keep 2px border */
+  animation: none;
 }
 
 .page-start-button:hover:not(.disabled):not(:disabled).selected:not(.returning-from-page3):not(.returning-from-page2) {
