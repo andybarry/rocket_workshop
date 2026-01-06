@@ -10839,7 +10839,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && (page18BoxesVisible ? 'Show Wiring Diagram' : 'Show Labels')}
+                              {showHelpText && (page18BoxesVisible ? 'Hide Wiring Diagram' : 'Show Labels')}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -10901,7 +10901,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Hide Wiring Diagram" button on 18.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 18.png - bottom centered */}
                       {currentPage === 17 && !editorMode && page18HelpImageState === 1 && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
@@ -11017,7 +11017,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && 'Hide Wiring Diagram'}
+                              {showHelpText && 'Show Wiring Diagram'}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -12110,7 +12110,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                       {/* Button blue infill box - 30px to the left of LED blue infill box */}
-                      {(() => {
+                      {/* Hide on page 18 when Show Labels is selected */}
+                      {!(currentPage === 17 && page18BoxesVisible && page18HelpImageState !== 1) && (() => {
                         const boxLeft = 44.28
                         const boxTop = 57.58
                         const boxWidth = 7.16
@@ -18318,10 +18319,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* White cover box 1 on page 26 - hides when box 3 is selected */}
                   {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 50.80
-                    const boxTop = 53.61
-                    const boxWidth = 27.28
-                    const boxHeight = 18.81
+                    const boxLeft = 24.50
+                    const boxTop = 64.67
+                    const boxWidth = 26.10
+                    const boxHeight = 7.02
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
@@ -18330,46 +18331,70 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* White cover box 2 on page 26 - hides when box 3 is selected */}
                   {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 41.17
-                    const boxTop = 22.55
-                    const boxWidth = 30.10
-                    const boxHeight = 13.19
+                    const boxLeft = 51.27
+                    const boxTop = 53.79
+                    const boxWidth = 26.34
+                    const boxHeight = 18.63
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 3 on page 26 - hides when box 3 is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 53.70
-                    const boxTop = 38.35
-                    const boxWidth = 7.24
-                    const boxHeight = 5.12
+                  {/* White cover box 1 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 40.94
+                    const boxTop = 23.31
+                    const boxWidth = 29.86
+                    const boxHeight = 12.46
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 4 on page 26 - hides when box 3 is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 56.83
-                    const boxTop = 38.75
-                    const boxWidth = 3.28
-                    const boxHeight = 5.12
+                  {/* White cover box 2 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 54.74
+                    const boxTop = 38.80
+                    const boxWidth = 5.07
+                    const boxHeight = 4.66
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box on page 26 - hides when box 4 or box 4b is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box4Selected && !page26Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 3 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 52.58
+                    const boxTop = 38.37
+                    const boxWidth = 8.35
+                    const boxHeight = 4.66
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    return (
+                      <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
+                    )
+                  })()}
+                  {/* White cover box 4 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 56.72
+                    const boxTop = 38.58
+                    const boxWidth = 4.32
+                    const boxHeight = 5.17
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    return (
+                      <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
+                    )
+                  })()}
+                  {/* White cover box on page 26 - hides when box 4b is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 0.00
-                    const boxTop = 72.31
+                    const boxTop = 71.93
                     const boxWidth = 100.00
-                    const boxHeight = 22.90
+                    const boxHeight = 23.35
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
@@ -18615,9 +18640,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    // Move left edge right 1px and right edge left 1px
+                    const leftShiftPx = 1
+                    const widthReductionPx = 2
+                    const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -26184,10 +26215,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* White cover box 1 on page 26 - hides when box 3 is selected */}
                   {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 50.80
-                    const boxTop = 53.61
-                    const boxWidth = 27.28
-                    const boxHeight = 18.81
+                    const boxLeft = 24.50
+                    const boxTop = 64.67
+                    const boxWidth = 26.10
+                    const boxHeight = 7.02
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
@@ -26196,46 +26227,70 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* White cover box 2 on page 26 - hides when box 3 is selected */}
                   {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 41.17
-                    const boxTop = 22.55
-                    const boxWidth = 30.10
-                    const boxHeight = 13.19
+                    const boxLeft = 51.27
+                    const boxTop = 53.79
+                    const boxWidth = 26.34
+                    const boxHeight = 18.63
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 3 on page 26 - hides when box 3 is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 53.70
-                    const boxTop = 38.35
-                    const boxWidth = 7.24
-                    const boxHeight = 5.12
+                  {/* White cover box 1 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 40.94
+                    const boxTop = 23.31
+                    const boxWidth = 29.86
+                    const boxHeight = 12.46
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 4 on page 26 - hides when box 3 is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxLeft = 56.83
-                    const boxTop = 38.75
-                    const boxWidth = 3.28
-                    const boxHeight = 5.12
+                  {/* White cover box 2 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 54.74
+                    const boxTop = 38.80
+                    const boxWidth = 5.07
+                    const boxHeight = 4.66
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box on page 26 - hides when box 4 or box 4b is selected */}
-                  {currentPage === 25 && !editorMode && !page26Box4Selected && !page26Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 3 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 52.58
+                    const boxTop = 38.37
+                    const boxWidth = 8.35
+                    const boxHeight = 4.66
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    return (
+                      <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
+                    )
+                  })()}
+                  {/* White cover box 4 on page 26 - hides when box 4 is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 56.72
+                    const boxTop = 38.58
+                    const boxWidth = 4.32
+                    const boxHeight = 5.17
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    return (
+                      <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
+                    )
+                  })()}
+                  {/* White cover box on page 26 - hides when box 4b is selected */}
+                  {currentPage === 25 && !editorMode && !page26Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 0.00
-                    const boxTop = 72.31
+                    const boxTop = 71.93
                     const boxWidth = 100.00
-                    const boxHeight = 22.90
+                    const boxHeight = 23.35
                     const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
                     
                     return (
@@ -26481,9 +26536,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    // Move left edge right 1px and right edge left 1px
+                    const leftShiftPx = 1
+                    const widthReductionPx = 2
+                    const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -29028,7 +29089,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && (page15BoxesVisible ? 'Show Wiring Diagram' : 'Show Labels')}
+                              {showHelpText && (page15BoxesVisible ? 'Hide Wiring Diagram' : 'Show Labels')}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -29090,7 +29151,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Hide Wiring Diagram" button on 15.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 15.png - bottom centered */}
                       {currentPage === 14 && !editorMode && page15BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
@@ -29206,7 +29267,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && 'Hide Wiring Diagram'}
+                              {showHelpText && 'Show Wiring Diagram'}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -30011,7 +30072,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && (page10BoxesVisible ? 'Show Wiring Diagram' : 'Show Labels')}
+                              {showHelpText && (page10BoxesVisible ? 'Hide Wiring Diagram' : 'Show Labels')}
                             </div>
                             <svg
                               className="speech-bubble-svg"
@@ -30073,7 +30134,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Hide Wiring Diagram" button on 10.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 10.png - bottom centered */}
                       {currentPage === 9 && !editorMode && page10BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
@@ -30189,7 +30250,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 opacity: showHelpText ? 1 : 0
                               }}
                             >
-                              {showHelpText && 'Hide Wiring Diagram'}
+                              {showHelpText && 'Show Wiring Diagram'}
                             </div>
                             <svg
                               className="speech-bubble-svg"
