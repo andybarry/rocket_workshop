@@ -17172,13 +17172,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
                         
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
+                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
+                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
+                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
+                        
+                        // Center horizontally (width expansion automatically moves left/right edges)
+                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
                         const adjustedLeft = (100 - expandedWidth) / 2
                         
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
                         const borderRadiusPx = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -17233,12 +17242,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         return (
                           <div 
-                            className="speech-bubble-wrapper no-pulse"
+                            className="speech-bubble-wrapper no-pulse page24-premium-button"
                             style={{
                               ...buttonStyle, 
                               zIndex: 9999,
-                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 4px rgba(13, 110, 253, 0.3)',
-                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`
+                              background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)',
+                              boxShadow: '0 0 8px rgba(13, 110, 253, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.7)',
+                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`,
+                              border: 'none'
                             }}
                           >
                             <div
@@ -17256,17 +17267,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                color: showHelpText ? '#0d6efd' : 'rgba(13, 110, 253, 0.05)',
+                                fontSize: `${Math.min(20, Math.max(8, 20 * stageRelativeScale))}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
-                                fontWeight: showHelpText ? '300' : 'normal',
+                                fontWeight: showHelpText ? '500' : 'normal',
                                 textAlign: 'center',
                                 padding: '2px 4px',
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0
+                                opacity: showHelpText ? 1 : 0,
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
                               }}
                             >
                               {showHelpText && buttonText}
@@ -17290,14 +17302,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill={showHelpText ? "#ffffff" : "transparent"}
-                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                                fill="transparent"
+                                style={{ fill: 'transparent' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17305,7 +17317,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17313,7 +17325,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17321,7 +17333,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={bottomBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17352,13 +17364,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
                         
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
+                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
+                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
+                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
+                        
+                        // Center horizontally (width expansion automatically moves left/right edges)
+                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
                         const adjustedLeft = (100 - expandedWidth) / 2
                         
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
                         const borderRadiusPx = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -17411,12 +17432,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         return (
                           <div 
-                            className="speech-bubble-wrapper no-pulse"
+                            className="speech-bubble-wrapper no-pulse page24-premium-button"
                             style={{
                               ...buttonStyle, 
                               zIndex: 9999,
-                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 4px rgba(13, 110, 253, 0.3)',
-                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`
+                              background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)',
+                              boxShadow: '0 0 8px rgba(13, 110, 253, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.7)',
+                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`,
+                              border: 'none'
                             }}
                           >
                             <div
@@ -17434,17 +17457,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                color: showHelpText ? '#0d6efd' : 'rgba(13, 110, 253, 0.05)',
+                                fontSize: `${Math.min(20, Math.max(8, 20 * stageRelativeScale))}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
-                                fontWeight: showHelpText ? '300' : 'normal',
+                                fontWeight: showHelpText ? '500' : 'normal',
                                 textAlign: 'center',
                                 padding: '2px 4px',
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0
+                                opacity: showHelpText ? 1 : 0,
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -17468,14 +17492,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill={showHelpText ? "#ffffff" : "transparent"}
-                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                                fill="transparent"
+                                style={{ fill: 'transparent' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17483,7 +17507,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17491,7 +17515,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -17499,7 +17523,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={bottomBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25584,13 +25608,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
                         
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
+                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
+                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
+                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
+                        
+                        // Center horizontally (width expansion automatically moves left/right edges)
+                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
                         const adjustedLeft = (100 - expandedWidth) / 2
                         
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
                         const borderRadiusPx = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -25645,12 +25678,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         return (
                           <div 
-                            className="speech-bubble-wrapper no-pulse"
+                            className="speech-bubble-wrapper no-pulse page24-premium-button"
                             style={{
                               ...buttonStyle, 
                               zIndex: 9999,
-                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 4px rgba(13, 110, 253, 0.3)',
-                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`
+                              background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)',
+                              boxShadow: '0 0 8px rgba(13, 110, 253, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.7)',
+                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`,
+                              border: 'none'
                             }}
                           >
                             <div
@@ -25668,17 +25703,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                color: showHelpText ? '#0d6efd' : 'rgba(13, 110, 253, 0.05)',
+                                fontSize: `${Math.min(20, Math.max(8, 20 * stageRelativeScale))}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
-                                fontWeight: showHelpText ? '300' : 'normal',
+                                fontWeight: showHelpText ? '500' : 'normal',
                                 textAlign: 'center',
                                 padding: '2px 4px',
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0
+                                opacity: showHelpText ? 1 : 0,
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
                               }}
                             >
                               {showHelpText && buttonText}
@@ -25702,14 +25738,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill={showHelpText ? "#ffffff" : "transparent"}
-                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                                fill="transparent"
+                                style={{ fill: 'transparent' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25717,7 +25753,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25725,7 +25761,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25733,7 +25769,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={bottomBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25764,13 +25800,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
                         
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
+                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
+                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
+                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
+                        
+                        // Center horizontally (width expansion automatically moves left/right edges)
+                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
                         const adjustedLeft = (100 - expandedWidth) / 2
                         
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                         
                         const borderRadiusPx = Math.min(16, Math.max(6, 16 * stageRelativeScale))
@@ -25823,12 +25868,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         
                         return (
                           <div 
-                            className="speech-bubble-wrapper no-pulse"
+                            className="speech-bubble-wrapper no-pulse page24-premium-button"
                             style={{
                               ...buttonStyle, 
                               zIndex: 9999,
-                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 4px rgba(13, 110, 253, 0.3)',
-                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`
+                              background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)',
+                              boxShadow: '0 0 8px rgba(13, 110, 253, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.7)',
+                              borderRadius: `${borderRadiusPx}px ${borderRadiusPx}px 0 0`,
+                              border: 'none'
                             }}
                           >
                             <div
@@ -25846,17 +25893,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: showHelpText ? '#000' : 'rgba(0, 0, 0, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                color: showHelpText ? '#0d6efd' : 'rgba(13, 110, 253, 0.05)',
+                                fontSize: `${Math.min(20, Math.max(8, 20 * stageRelativeScale))}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
-                                fontWeight: showHelpText ? '300' : 'normal',
+                                fontWeight: showHelpText ? '500' : 'normal',
                                 textAlign: 'center',
                                 padding: '2px 4px',
                                 boxSizing: 'border-box',
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0
+                                opacity: showHelpText ? 1 : 0,
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -25880,14 +25928,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill={showHelpText ? "#ffffff" : "transparent"}
-                                style={{ fill: showHelpText ? '#ffffff' : 'transparent' }}
+                                fill="transparent"
+                                style={{ fill: 'transparent' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
                                   d={leftBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25895,7 +25943,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={rightBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25903,7 +25951,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={topBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
@@ -25911,7 +25959,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 <path
                                   d={bottomBorderPath}
                                   fill="none"
-                                  stroke={strokeColor}
+                                  stroke="none"
                                   strokeWidth={strokeWidth}
                                   className="speech-bubble-border"
                                   vectorEffect="non-scaling-stroke"
