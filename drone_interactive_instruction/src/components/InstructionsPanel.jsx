@@ -4372,9 +4372,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40" : "rgba(255, 255, 255, 0.95)"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -4406,6 +4406,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             WebkitUserSelect: isSelected ? 'none' : 'auto'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                position: 'absolute',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -4583,9 +4601,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -4611,12 +4629,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
                             fontFamily: 'Roboto, sans-serif',
                             textAlign: 'center',
-                            padding: '4px 8px',
+                            padding: '0',
                             boxSizing: 'border-box',
                             userSelect: isSelected ? 'none' : 'auto',
                             WebkitUserSelect: isSelected ? 'none' : 'auto'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -4770,9 +4805,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -4798,12 +4833,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
                             fontFamily: 'Roboto, sans-serif',
                             textAlign: 'center',
-                            padding: '4px 8px',
+                            padding: '0',
                             boxSizing: 'border-box',
                             userSelect: isSelected ? 'none' : 'auto',
                             WebkitUserSelect: isSelected ? 'none' : 'auto'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -7459,9 +7511,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -7487,12 +7539,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
                             fontFamily: 'Roboto, sans-serif',
                             textAlign: 'center',
-                            padding: '4px 8px',
+                            padding: '0',
                             boxSizing: 'border-box',
                             userSelect: isSelected ? 'none' : 'auto',
                             WebkitUserSelect: isSelected ? 'none' : 'auto'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -9540,9 +9609,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
                     const strokeWidth = isSelected ? "2" : "1"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     
                     return (
                       <div 
@@ -9568,12 +9637,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
                             fontFamily: 'Roboto, sans-serif',
                             textAlign: 'center',
-                            padding: '4px 8px',
+                            padding: '0',
                             boxSizing: 'border-box',
                             userSelect: isSelected ? 'none' : 'auto',
                             WebkitUserSelect: isSelected ? 'none' : 'auto'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -17002,9 +17088,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    // Orange color for selected state
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    // Green color for selected state, blue before selection
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -17023,9 +17109,30 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             height: '100%',
                             pointerEvents: !isSelected ? 'auto' : 'none',
                             cursor: !isSelected ? 'pointer' : 'default',
-                            zIndex: 11
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -18775,16 +18882,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
                     const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
                     
+                    // Green color for selected state, blue before selection
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage26Box4b : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage26Box4b : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0' }}>
+                          {isSelected && (
+                            <svg viewBox="0 0 24 24" style={{ width: '70%', height: '70%', fill: 'none', stroke: '#3bbf6b', strokeWidth: 4, strokeLinecap: 'round', strokeLinejoin: 'round', zIndex: 15 }}>
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </div>
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill={isSelected ? "#f05f40" : "transparent"} />
+                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -20277,11 +20394,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 19 && !editorMode && page20Box5Selected && (
                     <>
                       {(() => {
-                      const boxLeft = 71.69
+                      const boxLeftBase = 71.69
                       const boxTop = 90.72
                       const boxWidth = 3.25
                       const boxHeight = 2.44
                       const isSelected = page20Box6Selected
+
+                      // Move right by 3px
+                      const rightOffsetPx = 3
+                      const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                      const boxLeft = boxLeftBase + rightOffsetPercent
 
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
                       const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
@@ -20311,16 +20433,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               fontSize: `${bubbleFontSize}px`,
                               fontFamily: 'Roboto, sans-serif',
                               textAlign: 'center',
-                              padding: '4px 8px',
+                              padding: '0',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? '#f05f40' : 'rgba(255, 255, 255, 0.95)',
-                              border: '1px solid',
-                              borderColor: isSelected ? '#f05f40' : '#0d6efd',
-                              outline: isSelected ? '1px solid #f05f40' : 'none',
+                              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                              border: isSelected ? '2px solid #3bbf6b' : '1px solid #0d6efd',
+                              outline: 'none',
                               outlineOffset: '0px'
                             }}
                           >
+                            {isSelected && (
+                              <svg 
+                                viewBox="0 0 24 24" 
+                                style={{
+                                  width: '70%',
+                                  height: '70%',
+                                  fill: 'none',
+                                  stroke: '#3bbf6b',
+                                  strokeWidth: 4,
+                                  strokeLinecap: 'round',
+                                  strokeLinejoin: 'round',
+                                  zIndex: 15
+                                }}
+                              >
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            )}
                           </div>
                         </div>
                       )
@@ -25464,9 +25602,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Z
                     `
                     
-                    // Orange color for selected state
-                    const strokeColor = isSelected ? "#f05f40" : "#0d6efd"
-                    const fillColor = isSelected ? "#f05f40" : "transparent"
+                    // Green color for selected state, blue before selection
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
+                    const fillColor = "rgba(255, 255, 255, 0.95)"
                     const strokeWidth = isSelected ? "2" : "1"
                     
                     return (
@@ -25485,9 +25623,30 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             height: '100%',
                             pointerEvents: !isSelected ? 'auto' : 'none',
                             cursor: !isSelected ? 'pointer' : 'default',
-                            zIndex: 11
+                            zIndex: 11,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0'
                           }}
                         >
+                          {isSelected && (
+                            <svg 
+                              viewBox="0 0 24 24" 
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                fill: 'none',
+                                stroke: '#3bbf6b',
+                                strokeWidth: 4,
+                                strokeLinecap: 'round',
+                                strokeLinejoin: 'round',
+                                zIndex: 15
+                              }}
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
                         </div>
                         <svg
                           className="speech-bubble-svg"
@@ -27237,16 +27396,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
                     const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
                     
+                    // Green color for selected state, blue before selection
+                    const strokeColor = isSelected ? "#3bbf6b" : "#0d6efd"
+                    const strokeWidth = isSelected ? "2" : "1"
+                    
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage26Box4b : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage26Box4b : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0' }}>
+                          {isSelected && (
+                            <svg viewBox="0 0 24 24" style={{ width: '70%', height: '70%', fill: 'none', stroke: '#3bbf6b', strokeWidth: 4, strokeLinecap: 'round', strokeLinejoin: 'round', zIndex: 15 }}>
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </div>
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill={isSelected ? "#f05f40" : "transparent"} />
+                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -28739,11 +28908,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 19 && !editorMode && page20Box5Selected && (
                     <>
                       {(() => {
-                      const boxLeft = 71.69
+                      const boxLeftBase = 71.69
                       const boxTop = 90.72
                       const boxWidth = 3.25
                       const boxHeight = 2.44
                       const isSelected = page20Box6Selected
+
+                      // Move right by 3px
+                      const rightOffsetPx = 3
+                      const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                      const boxLeft = boxLeftBase + rightOffsetPercent
 
                       const bubbleFontSize = Math.min(16, Math.max(6, 16 * stageRelativeScale))
                       const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
@@ -28773,16 +28947,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               fontSize: `${bubbleFontSize}px`,
                               fontFamily: 'Roboto, sans-serif',
                               textAlign: 'center',
-                              padding: '4px 8px',
+                              padding: '0',
                               boxSizing: 'border-box',
                               borderRadius: `${borderRadiusPx}px`,
-                              backgroundColor: isSelected ? '#f05f40' : 'rgba(255, 255, 255, 0.95)',
-                              border: '1px solid',
-                              borderColor: isSelected ? '#f05f40' : '#0d6efd',
-                              outline: isSelected ? '1px solid #f05f40' : 'none',
+                              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                              border: isSelected ? '2px solid #3bbf6b' : '1px solid #0d6efd',
+                              outline: 'none',
                               outlineOffset: '0px'
                             }}
                           >
+                            {isSelected && (
+                              <svg 
+                                viewBox="0 0 24 24" 
+                                style={{
+                                  width: '70%',
+                                  height: '70%',
+                                  fill: 'none',
+                                  stroke: '#3bbf6b',
+                                  strokeWidth: 4,
+                                  strokeLinecap: 'round',
+                                  strokeLinejoin: 'round',
+                                  zIndex: 15
+                                }}
+                              >
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            )}
                           </div>
                         </div>
                       )
@@ -33402,14 +33592,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           
                           const greenBoxStyle = {
                             ...baseStyle,
-                            backgroundColor: isSelected ? '#3bbf6b' : 'white',
+                            backgroundColor: 'white',
                             border: `0.5px solid #3bbf6b`,
                             borderRadius: `${borderRadiusPx}px`,
                             cursor: 'pointer',
                             pointerEvents: 'auto',
                             zIndex: 3000, // Very high z-index to ensure clickability above everything
                             boxSizing: 'border-box',
-                            userSelect: 'none'
+                            userSelect: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
                           }
                           return (
                             <div 
@@ -33423,7 +33616,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               onMouseDown={(e) => {
                                 e.stopPropagation()
                               }}
-                            />
+                            >
+                              {isSelected && (
+                                <svg 
+                                  viewBox="0 0 24 24" 
+                                  style={{
+                                    width: '120%',
+                                    height: '120%',
+                                    fill: 'none',
+                                    stroke: '#3bbf6b',
+                                    strokeWidth: 4,
+                                    strokeLinecap: 'round',
+                                    strokeLinejoin: 'round'
+                                  }}
+                                >
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              )}
+                            </div>
                           )
                         })}
                       </>
@@ -33973,18 +34183,37 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                     }}
                                     style={{
                                       position: 'relative',
-                                      width: `${16 * stageRelativeScale}px`,
-                                      height: `${16 * stageRelativeScale}px`,
-                                      backgroundColor: page4Checkbox1 ? '#f05f40' : 'transparent',
-                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox1 ? '#f05f40' : '#0d6efd'}`,
+                                      width: `${20 * stageRelativeScale}px`,
+                                      height: `${20 * stageRelativeScale}px`,
+                                      backgroundColor: 'transparent',
+                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox1 ? '#3bbf6b' : '#0d6efd'}`,
                                       borderRadius: `${3 * stageRelativeScale}px`,
                                       zIndex: 15,
                                       cursor: 'pointer',
-                                      display: 'inline-block',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
                                       verticalAlign: 'middle',
                                       pointerEvents: 'auto'
                                     }} 
-                                  />
+                                  >
+                                    {page4Checkbox1 && (
+                                      <svg 
+                                        viewBox="0 0 24 24" 
+                                        style={{
+                                          width: '120%',
+                                          height: '120%',
+                                          fill: 'none',
+                                          stroke: '#3bbf6b',
+                                          strokeWidth: 4,
+                                          strokeLinecap: 'round',
+                                          strokeLinejoin: 'round'
+                                        }}
+                                      >
+                                        <polyline points="20 6 9 17 4 12" />
+                                      </svg>
+                                    )}
+                                  </div>
                                 </span>
                               </div>
                               <div style={{ marginBottom: `${2 * stageRelativeScale}px`, fontWeight: 'normal', position: 'relative', display: 'inline-block', pointerEvents: 'auto' }}>
@@ -34000,18 +34229,37 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                     }}
                                     style={{
                                       position: 'relative',
-                                      width: `${16 * stageRelativeScale}px`,
-                                      height: `${16 * stageRelativeScale}px`,
-                                      backgroundColor: page4Checkbox2 ? '#f05f40' : 'transparent',
-                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox2 ? '#f05f40' : '#0d6efd'}`,
+                                      width: `${20 * stageRelativeScale}px`,
+                                      height: `${20 * stageRelativeScale}px`,
+                                      backgroundColor: 'transparent',
+                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox2 ? '#3bbf6b' : '#0d6efd'}`,
                                       borderRadius: `${3 * stageRelativeScale}px`,
                                       zIndex: 15,
                                       cursor: 'pointer',
-                                      display: 'inline-block',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
                                       verticalAlign: 'middle',
                                       pointerEvents: 'auto'
                                     }} 
-                                  />
+                                  >
+                                    {page4Checkbox2 && (
+                                      <svg 
+                                        viewBox="0 0 24 24" 
+                                        style={{
+                                          width: '120%',
+                                          height: '120%',
+                                          fill: 'none',
+                                          stroke: '#3bbf6b',
+                                          strokeWidth: 4,
+                                          strokeLinecap: 'round',
+                                          strokeLinejoin: 'round'
+                                        }}
+                                      >
+                                        <polyline points="20 6 9 17 4 12" />
+                                      </svg>
+                                    )}
+                                  </div>
                                 </span>
                               </div>
                               <div style={{ fontWeight: 'normal', position: 'relative', display: 'inline-block', pointerEvents: 'auto' }}>
@@ -34027,18 +34275,37 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                     }}
                                     style={{
                                       position: 'relative',
-                                      width: `${16 * stageRelativeScale}px`,
-                                      height: `${16 * stageRelativeScale}px`,
-                                      backgroundColor: page4Checkbox3 ? '#f05f40' : 'transparent',
-                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox3 ? '#f05f40' : '#0d6efd'}`,
+                                      width: `${20 * stageRelativeScale}px`,
+                                      height: `${20 * stageRelativeScale}px`,
+                                      backgroundColor: 'transparent',
+                                      border: `${2 * stageRelativeScale}px solid ${page4Checkbox3 ? '#3bbf6b' : '#0d6efd'}`,
                                       borderRadius: `${3 * stageRelativeScale}px`,
                                       zIndex: 15,
                                       cursor: 'pointer',
-                                      display: 'inline-block',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
                                       verticalAlign: 'middle',
                                       pointerEvents: 'auto'
                                     }} 
-                                  />
+                                  >
+                                    {page4Checkbox3 && (
+                                      <svg 
+                                        viewBox="0 0 24 24" 
+                                        style={{
+                                          width: '120%',
+                                          height: '120%',
+                                          fill: 'none',
+                                          stroke: '#3bbf6b',
+                                          strokeWidth: 4,
+                                          strokeLinecap: 'round',
+                                          strokeLinejoin: 'round'
+                                        }}
+                                      >
+                                        <polyline points="20 6 9 17 4 12" />
+                                      </svg>
+                                    )}
+                                  </div>
                                 </span>
                               </div>
                             </>
