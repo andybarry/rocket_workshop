@@ -782,6 +782,15 @@
   fill: white !important;
 }
 
+/* Page 24 premium button hover effect - increase blue glow */
+.page24-premium-button {
+  transition: box-shadow 0.2s ease;
+}
+
+.page24-premium-button:hover {
+  box-shadow: 0 0 12px rgba(13, 110, 253, 0.5) !important;
+}
+
 /* Safety glasses pop animation - expands by 9px in all directions */
 @keyframes safetyGlassesPop {
   0% {
