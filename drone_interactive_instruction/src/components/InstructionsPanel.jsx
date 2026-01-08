@@ -40,6 +40,8 @@ import page27 from '../assets/images/pages/27.png'
 import page27_1 from '../assets/images/pages/27.1.png'
 import page27_2 from '../assets/images/pages/27.2.png'
 import page27_3 from '../assets/images/pages/27.3.png'
+import page27_4 from '../assets/images/pages/27.4.png'
+import page27_5 from '../assets/images/pages/27.5.png'
 import page28 from '../assets/images/pages/28.png'
 import page29 from '../assets/images/pages/29.png'
 import page30 from '../assets/images/pages/30.png'
@@ -233,6 +235,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page27Box8Selected, setPage27Box8Selected] = useState(false)
   const [page27Box8Value, setPage27Box8Value] = useState('')
   const [page27Box9Value, setPage27Box9Value] = useState('')
+  const [page27Box10Value, setPage27Box10Value] = useState('')
   // Track page 26 box states
   const [page26Box1Selected, setPage26Box1Selected] = useState(false)
   const [page26Box2Selected, setPage26Box2Selected] = useState(false)
@@ -777,6 +780,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage27Box8Selected(false)
       setPage27Box8Value('')
       setPage27Box9Value('')
+      setPage27Box10Value('')
     } else if (currentPage === 25) {
       // Page 26 - reset box states
       setPage26Box1Selected(false)
@@ -2381,6 +2385,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         if (currentPage === 23 && page24ShowMainImage) return page24
                         if (currentPage === 23) return page24_1
                         if (currentPage === 26) {
+                          // Check if Box 10 has a valid value (50-100) - highest priority
+                          const box10Value = parseFloat(page27Box10Value)
+                          const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                          if (box10IsValid) return page27_5
+                          // Check if Box 9 has a valid value (50-100)
+                          const box9Value = parseFloat(page27Box9Value)
+                          const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                          if (box9IsValid) return page27_4
                           // Check if Box 8 has a valid value (50-100)
                           const box8Value = parseFloat(page27Box8Value)
                           const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
@@ -18538,8 +18550,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 7 on page 27 - only visible when 27.1.png is displayed (when all boxes 2-6 are selected) */}
+                  {/* Box 7 on page 27 - only visible when 27.1.png is displayed (when all boxes 2-6 are selected), hidden when 27.5.png is displayed */}
                   {currentPage === 26 && !editorMode && page27Box2Selected && page27Box3Selected && page27Box4Selected && page27Box5Selected && page27Box6Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Hide Box 7 when Box 10 has a valid value (when 27.5.png is displayed)
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    if (box10IsValid) return null
+                    
                     const boxLeft = 9.31
                     const boxTop = 70.68
                     const boxWidth = 62.63
@@ -18658,12 +18675,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const borderColor = isValid ? "#f05f40" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
+                    // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const isReadOnly = box10IsValid
+                    
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
                         <input
                           type="text"
                           value={page27Box8Value}
                           onChange={(e) => setPage27Box8Value(e.target.value)}
+                          readOnly={isReadOnly}
                           style={{
                             position: 'absolute',
                             left: 0,
@@ -18739,12 +18762,103 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const borderColor = isValid ? "#f05f40" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
+                    // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const isReadOnly = box10IsValid
+                    
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
                         <input
                           type="text"
                           value={page27Box9Value}
                           onChange={(e) => setPage27Box9Value(e.target.value)}
+                          readOnly={isReadOnly}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            border: 'none',
+                            background: 'transparent',
+                            outline: 'none',
+                            padding: '0',
+                            margin: '0',
+                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            textAlign: 'center',
+                            fontFamily: 'Roboto, sans-serif',
+                            color: '#000',
+                            zIndex: 11,
+                            boxSizing: 'border-box'
+                          }}
+                          placeholder=""
+                        />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value 50-100) */}
+                  {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Check if Box 9 has a valid value (50-100) to show Box 10
+                    const box9Value = parseFloat(page27Box9Value)
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    if (!box9IsValid) return null
+                    
+                    const boxLeft = 40.70
+                    const boxTop = 85.91
+                    const boxWidth = 5.68
+                    const boxHeight = 2.84
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = 0
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = 0
+                    const borderRadiusWrapperY = 0
+                    
+                    const roundedRectPath = `M 0,0 L 0,100 L 100,100 L 100,0 Z`
+                    const leftBorderPath = `M 0,0 L 0,100`
+                    const bottomBorderPath = `M 0,100 L 100,100`
+                    const rightBorderPath = `M 100,100 L 100,0`
+                    const topBorderPath = `M 0,0 L 100,0`
+                    
+                    // Check if value is between 50 and 100
+                    const numericValue = parseFloat(page27Box10Value)
+                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderWidth = isValid ? "2" : "1"
+                    
+                    // When Box 10 has valid value (27.5.png is displayed), make it read-only
+                    const isReadOnly = isValid
+                    
+                    return (
+                      <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
+                        <input
+                          type="text"
+                          value={page27Box10Value}
+                          onChange={(e) => setPage27Box10Value(e.target.value)}
+                          readOnly={isReadOnly}
                           style={{
                             position: 'absolute',
                             left: 0,
@@ -27325,8 +27439,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 7 on page 27 - only visible when 27.1.png is displayed (when all boxes 2-6 are selected) */}
+                  {/* Box 7 on page 27 - only visible when 27.1.png is displayed (when all boxes 2-6 are selected), hidden when 27.5.png is displayed */}
                   {currentPage === 26 && !editorMode && page27Box2Selected && page27Box3Selected && page27Box4Selected && page27Box5Selected && page27Box6Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Hide Box 7 when Box 10 has a valid value (when 27.5.png is displayed)
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    if (box10IsValid) return null
+                    
                     const boxLeft = 9.31
                     const boxTop = 70.68
                     const boxWidth = 62.63
@@ -27445,12 +27564,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const borderColor = isValid ? "#f05f40" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
+                    // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const isReadOnly = box10IsValid
+                    
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
                         <input
                           type="text"
                           value={page27Box8Value}
                           onChange={(e) => setPage27Box8Value(e.target.value)}
+                          readOnly={isReadOnly}
                           style={{
                             position: 'absolute',
                             left: 0,
@@ -27526,12 +27651,103 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const borderColor = isValid ? "#f05f40" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
+                    // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
+                    const box10Value = parseFloat(page27Box10Value)
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const isReadOnly = box10IsValid
+                    
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
                         <input
                           type="text"
                           value={page27Box9Value}
                           onChange={(e) => setPage27Box9Value(e.target.value)}
+                          readOnly={isReadOnly}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            border: 'none',
+                            background: 'transparent',
+                            outline: 'none',
+                            padding: '0',
+                            margin: '0',
+                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            textAlign: 'center',
+                            fontFamily: 'Roboto, sans-serif',
+                            color: '#000',
+                            zIndex: 11,
+                            boxSizing: 'border-box'
+                          }}
+                          placeholder=""
+                        />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value 50-100) */}
+                  {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Check if Box 9 has a valid value (50-100) to show Box 10
+                    const box9Value = parseFloat(page27Box9Value)
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    if (!box9IsValid) return null
+                    
+                    const boxLeft = 40.70
+                    const boxTop = 85.91
+                    const boxWidth = 5.68
+                    const boxHeight = 2.84
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = 0
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = 0
+                    const borderRadiusWrapperY = 0
+                    
+                    const roundedRectPath = `M 0,0 L 0,100 L 100,100 L 100,0 Z`
+                    const leftBorderPath = `M 0,0 L 0,100`
+                    const bottomBorderPath = `M 0,100 L 100,100`
+                    const rightBorderPath = `M 100,100 L 100,0`
+                    const topBorderPath = `M 0,0 L 100,0`
+                    
+                    // Check if value is between 50 and 100
+                    const numericValue = parseFloat(page27Box10Value)
+                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderWidth = isValid ? "2" : "1"
+                    
+                    // When Box 10 has valid value (27.5.png is displayed), make it read-only
+                    const isReadOnly = isValid
+                    
+                    return (
+                      <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
+                        <input
+                          type="text"
+                          value={page27Box10Value}
+                          onChange={(e) => setPage27Box10Value(e.target.value)}
+                          readOnly={isReadOnly}
                           style={{
                             position: 'absolute',
                             left: 0,
@@ -37826,12 +38042,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 21 && !page22Box6Selected) ||
               (currentPage === 22 && !page23Box4Selected) ||
               (currentPage === 23 && !page24Box1Selected) ||
+              (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !(!isNaN(box10Value) && box10Value >= 50 && box10Value <= 100); })()) ||
               (currentPage === 27 && !page28Box5Selected) ||
               (currentPage === 28 && !page29Box1Selected) ||
               (currentPage === 29 && !page30Box1Selected) ||
               (currentPage === 30 && !page31Box1Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
