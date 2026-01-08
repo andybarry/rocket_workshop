@@ -42,6 +42,7 @@ import page29 from '../assets/images/pages/29.png'
 import page30 from '../assets/images/pages/30.png'
 import page31 from '../assets/images/pages/31.png'
 import page32 from '../assets/images/pages/32.png'
+import page33 from '../assets/images/pages/33.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -237,10 +238,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page27Box5Selected, setPage27Box5Selected] = useState(false)
   // Track page 28 box selections
   const [page28Box1Selected, setPage28Box1Selected] = useState(false)
-  // Track page 29 box selections
-  const [page29Box1Selected, setPage29Box1Selected] = useState(false)
   // Track page 30 box selections
   const [page30Box1Selected, setPage30Box1Selected] = useState(false)
+  // Track page 31 box selections
+  const [page31Box1Selected, setPage31Box1Selected] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -299,7 +300,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page5HelpImageTimeoutRef = useRef(null)
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -778,12 +779,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     } else if (currentPage === 27) {
       // Page 28 - reset box states
       setPage28Box1Selected(false)
-    } else if (currentPage === 28) {
-      // Page 29 - reset box states
-      setPage29Box1Selected(false)
     } else if (currentPage === 29) {
       // Page 30 - reset box states
       setPage30Box1Selected(false)
+    } else if (currentPage === 30) {
+      // Page 31 - reset box states
+      setPage31Box1Selected(false)
     }
     
     // Clear dimensions capture
@@ -1456,11 +1457,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const handlePage28Box1 = () => {
     setPage28Box1Selected(true)
   }
-  const handlePage29Box1 = () => {
-    setPage29Box1Selected(true)
-  }
   const handlePage30Box1 = () => {
     setPage30Box1Selected(true)
+  }
+  const handlePage31Box1 = () => {
+    setPage31Box1Selected(true)
   }
 
   const handlePage24NeedHelp = () => {
@@ -19415,8 +19416,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* White cover box 1 on page 29 - hides when box 1 is selected */}
-                  {currentPage === 28 && !editorMode && !page29Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 1 on page 30 - hides when box 1 is selected */}
+                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 26.62
                     const boxTop = 70.30
                     const boxWidth = 50.05
@@ -19427,8 +19428,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 2 on page 29 - hides when box 1 is selected */}
-                  {currentPage === 28 && !editorMode && !page29Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 2 on page 30 - hides when box 1 is selected */}
+                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 7.13
                     const boxTop = 81.91
                     const boxWidth = 85.27
@@ -19439,13 +19440,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* Box 1 on page 29 - simple rectangle */}
-                  {currentPage === 28 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 30 - simple rectangle */}
+                  {currentPage === 29 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 12.77
                     const boxTop = 55.06
                     const boxWidth = 74.70
                     const boxHeight = 14.27
-                    const isSelected = page29Box1Selected
+                    const isSelected = page30Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -19487,7 +19488,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage29Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage30Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
@@ -19500,8 +19501,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Number "29" at Dot 3 position on page 29 */}
-                  {currentPage === 28 && !editorMode && (
+                  {/* Number "30" at Dot 3 position on page 30 */}
+                  {currentPage === 29 && !editorMode && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
                       <span
                         style={{
@@ -19521,8 +19522,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* White cover box on page 30 - hides when box 1 is selected */}
-                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box on page 31 - hides when box 1 is selected */}
+                  {currentPage === 30 && !editorMode && !page31Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 8.54
                     const boxTop = 75.01
                     const boxWidth = 83.63
@@ -19533,13 +19534,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* Box 1 on page 30 - simple rectangle */}
-                  {currentPage === 29 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 31 - simple rectangle */}
+                  {currentPage === 30 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 17.23
                     const boxTop = 63.04
                     const boxWidth = 64.84
                     const boxHeight = 10.65
-                    const isSelected = page30Box1Selected
+                    const isSelected = page31Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -19581,7 +19582,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage30Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage31Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
@@ -27929,8 +27930,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* White cover box 1 on page 29 - hides when box 1 is selected */}
-                  {currentPage === 28 && !editorMode && !page29Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 1 on page 30 - hides when box 1 is selected */}
+                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 26.62
                     const boxTop = 70.30
                     const boxWidth = 50.05
@@ -27941,8 +27942,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* White cover box 2 on page 29 - hides when box 1 is selected */}
-                  {currentPage === 28 && !editorMode && !page29Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box 2 on page 30 - hides when box 1 is selected */}
+                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 7.13
                     const boxTop = 81.91
                     const boxWidth = 85.27
@@ -27953,13 +27954,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* Box 1 on page 29 - simple rectangle */}
-                  {currentPage === 28 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 30 - simple rectangle */}
+                  {currentPage === 29 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 12.77
                     const boxTop = 55.06
                     const boxWidth = 74.70
                     const boxHeight = 14.27
-                    const isSelected = page29Box1Selected
+                    const isSelected = page30Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -28001,7 +28002,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage29Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage30Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
@@ -28014,8 +28015,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Number "29" at Dot 3 position on page 29 */}
-                  {currentPage === 28 && !editorMode && (
+                  {/* Number "30" at Dot 3 position on page 30 */}
+                  {currentPage === 29 && !editorMode && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
                       <span
                         style={{
@@ -28035,8 +28036,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* White cover box on page 30 - hides when box 1 is selected */}
-                  {currentPage === 29 && !editorMode && !page30Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White cover box on page 31 - hides when box 1 is selected */}
+                  {currentPage === 30 && !editorMode && !page31Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 8.54
                     const boxTop = 75.01
                     const boxWidth = 83.63
@@ -28047,13 +28048,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       <div style={{ ...buttonStyle, backgroundColor: 'white', zIndex: 20 }} />
                     )
                   })()}
-                  {/* Box 1 on page 30 - simple rectangle */}
-                  {currentPage === 29 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 31 - simple rectangle */}
+                  {currentPage === 30 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 17.23
                     const boxTop = 63.04
                     const boxWidth = 64.84
                     const boxHeight = 10.65
-                    const isSelected = page30Box1Selected
+                    const isSelected = page31Box1Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -28095,7 +28096,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage30Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage31Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
@@ -37252,10 +37253,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 23 && !page24Box1Selected) ||
               (currentPage === 26 && !page27Box5Selected) ||
               (currentPage === 27 && !page28Box1Selected) ||
-              (currentPage === 28 && !page29Box1Selected) ||
-              (currentPage === 29 && !page30Box1Selected)
+              (currentPage === 29 && !page30Box1Selected) ||
+              (currentPage === 30 && !page31Box1Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 26 && page27Box5Selected) || (currentPage === 27 && page28Box1Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && page21Box2Selected) || (currentPage === 21 && page22Box5Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 26 && page27Box5Selected) || (currentPage === 27 && page28Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
