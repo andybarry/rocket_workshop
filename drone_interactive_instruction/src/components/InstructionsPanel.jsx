@@ -219,6 +219,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page24ShowHelpText, setPage24ShowHelpText] = useState(true)
   // Track if label boxes should be visible on page 24.1 (shown after clicking "Show Labels")
   const [page24BoxesVisible, setPage24BoxesVisible] = useState(false)
+  // Track page 25 box states
+  const [page25Box1Selected, setPage25Box1Selected] = useState(false)
+  const [page25Box2Selected, setPage25Box2Selected] = useState(false)
   // Track page 27 box states (boxes 1-7 moved from page 25, box 1 renamed from box 2, box 2 renamed from box 3, box 3 renamed from box 4, box 4 renamed from box 5, box 5 renamed from box 6, box 6 renamed from box 7)
   const [page27Box1Selected, setPage27Box1Selected] = useState(false)
   const [page27Box2Selected, setPage27Box2Selected] = useState(false)
@@ -752,6 +755,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage24ShowMainImage(false)
       setPage24ShowHelpText(true)
       setPage24BoxesVisible(false)
+    } else if (currentPage === 24) {
+      // Page 25 - reset box states
+      setPage25Box1Selected(false)
+      setPage25Box2Selected(false)
     } else if (currentPage === 26) {
       // Page 27 - reset box states (boxes 1-7 moved from page 25, box 1 renamed from box 2, box 2 renamed from box 3, box 3 renamed from box 4, box 4 renamed from box 5, box 5 renamed from box 6, box 6 renamed from box 7)
       setPage27Box1Selected(false)
@@ -1393,6 +1400,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage24Box1 = () => {
     setPage24Box1Selected(true)
+  }
+
+  // Page 25 box handlers
+  const handlePage25Box1 = () => {
+    setPage25Box1Selected(true)
+  }
+  const handlePage25Box2 = () => {
+    setPage25Box2Selected(true)
   }
 
   const handlePage27Box1 = () => {
@@ -4972,7 +4987,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -6704,7 +6719,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -6934,7 +6949,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -7675,7 +7690,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -8143,7 +8158,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -8593,7 +8608,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -14445,7 +14460,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = adjustedDot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -16095,7 +16110,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -16303,7 +16318,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -17420,7 +17435,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -17599,6 +17614,300 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
+                  {/* White box 1 on page 25 - hidden when Box 1 is selected */}
+                  {currentPage === 24 && !editorMode && !page25Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 72.63
+                    const boxTop = 29.84
+                    const boxWidth = 18.12
+                    const boxHeight = 7.02
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Bottom edge adjustment - move bottom edge down 5px
+                    const bottomDownPx = 5
+                    const bottomDownPercent = imageNaturalSize.height > 0 ? (bottomDownPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust + bottomDownPercent)
+                    
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: `${adjustedLeft}%`,
+                          top: `${adjustedTop}%`,
+                          width: `${expandedWidth}%`,
+                          height: `${expandedHeight}%`,
+                          backgroundColor: 'white',
+                          zIndex: 5,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* White box 2 on page 25 - hidden when Box 1 is selected */}
+                  {currentPage === 24 && !editorMode && !page25Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 0.00
+                    const boxTop = 53.24
+                    const boxWidth = 100.00
+                    const boxHeight = 40.04
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: `${adjustedLeft}%`,
+                          top: `${adjustedTop}%`,
+                          width: `${expandedWidth}%`,
+                          height: `${expandedHeight}%`,
+                          backgroundColor: 'white',
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* Box 1 on page 25 - speech bubble with triangle pointing down-left */}
+                  {currentPage === 24 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 64.65
+                    const boxTop = 24.22
+                    const boxWidth = 23.29
+                    const boxHeight = 6.84
+                    const dot1X = 68.33
+                    const dot1Y = 31.05
+                    const dot2X = 73.73
+                    const dot2Y = 31.05
+                    const dot3X = 60.10
+                    const dot3Y = 32.76
+                    const isSelected = page25Box1Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Edge adjustments for box 1 on page 25
+                    // Top edge down 4px, left edge right 2px, right edge left 4px, bottom edge up 3px
+                    const topDownPx = 4
+                    const leftRightPx = 2
+                    const rightLeftPx = 4
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topY = 0
+                    const bottomY = 100
+                    const triangleBaseLeftWrapper = ((dot1X - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((dot2X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${topY + borderRadiusWrapperY}
+                      L 0,${bottomY - borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                      L ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      L ${100 - borderRadiusWrapperX},${bottomY}
+                      Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY}
+                      L 100,${topY + borderRadiusWrapperY}
+                      Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${topY + borderRadiusWrapperY}
+                      L 0,${bottomY - borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                      L ${triangleBaseLeftWrapper},${bottomY}
+                    `
+                    const triangleLeftLegPath = `M ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const triangleRightLegPath = `M ${triangleBaseRightWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const rightBorderPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${100 - borderRadiusWrapperX},${bottomY}
+                      Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY}
+                      L 100,${topY + borderRadiusWrapperY}
+                      Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}
+                    `
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage25Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 2 on page 25 - speech bubble with triangle pointing left */}
+                  {currentPage === 24 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 56.90
+                    const boxTop = 68.48
+                    const boxWidth = 27.98
+                    const boxHeight = 5.38
+                    const dot1X = 56.90
+                    const dot1YBase = 71.30
+                    const dot2X = 56.90
+                    const dot2Y = 72.75
+                    const dot3X = 46.01
+                    const dot3Y = 74.13
+                    const isSelected = page25Box2Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    // Dot 1 adjustment - move down 1px
+                    const dot1DownPx = 1
+                    const dot1DownPercent = imageNaturalSize.height > 0 ? (dot1DownPx / imageNaturalSize.height) * 100 : 0
+                    const dot1Y = dot1YBase + dot1DownPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const leftX = 0
+                    const rightX = 100
+                    const topY = 0
+                    const bottomY = 100
+                    // Triangle base is on the left edge
+                    const triangleBaseTopWrapper = ((dot1Y - adjustedTop) / expandedHeight) * 100
+                    const triangleBaseBottomWrapper = ((dot2Y - adjustedTop) / expandedHeight) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    // Speech bubble path with triangle pointing left from left edge
+                    const speechBubblePath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${rightX - borderRadiusWrapperX},${topY}
+                      Q ${rightX},${topY} ${rightX},${topY + borderRadiusWrapperY}
+                      L ${rightX},${bottomY - borderRadiusWrapperY}
+                      Q ${rightX},${bottomY} ${rightX - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY}
+                      L ${leftX},${triangleBaseBottomWrapper}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${leftX},${triangleBaseTopWrapper}
+                      L ${leftX},${topY + borderRadiusWrapperY}
+                      Q ${leftX},${topY} ${borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    // Border paths for left-pointing triangle
+                    const topBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${rightX - borderRadiusWrapperX},${topY}
+                    `
+                    const rightBorderPath = `
+                      M ${rightX - borderRadiusWrapperX},${topY}
+                      Q ${rightX},${topY} ${rightX},${topY + borderRadiusWrapperY}
+                      L ${rightX},${bottomY - borderRadiusWrapperY}
+                      Q ${rightX},${bottomY} ${rightX - borderRadiusWrapperX},${bottomY}
+                    `
+                    const bottomBorderPath = `
+                      M ${rightX - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY}
+                      L ${leftX},${triangleBaseBottomWrapper}
+                    `
+                    const triangleBottomLegPath = `M ${leftX},${triangleBaseBottomWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const triangleTopLegPath = `M ${leftX},${triangleBaseTopWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const leftBorderTopPath = `
+                      M ${leftX},${triangleBaseTopWrapper}
+                      L ${leftX},${topY + borderRadiusWrapperY}
+                      Q ${leftX},${topY} ${borderRadiusWrapperX},${topY}
+                    `
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage25Box2 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
                   {/* White box for Box 1 on page 27 - hidden when Box 1 is selected */}
                   {currentPage === 26 && !editorMode && !page27Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 3.73
@@ -18508,13 +18817,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -18569,13 +18891,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -18799,13 +19134,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -19007,7 +19355,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -22822,7 +23170,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = adjustedDot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -24472,7 +24820,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -24680,7 +25028,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -25797,7 +26145,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -25976,6 +26324,300 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
+                  {/* White box 1 on page 25 - hidden when Box 1 is selected */}
+                  {currentPage === 24 && !editorMode && !page25Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 72.63
+                    const boxTop = 29.84
+                    const boxWidth = 18.12
+                    const boxHeight = 7.02
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Bottom edge adjustment - move bottom edge down 5px
+                    const bottomDownPx = 5
+                    const bottomDownPercent = imageNaturalSize.height > 0 ? (bottomDownPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust + bottomDownPercent)
+                    
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: `${adjustedLeft}%`,
+                          top: `${adjustedTop}%`,
+                          width: `${expandedWidth}%`,
+                          height: `${expandedHeight}%`,
+                          backgroundColor: 'white',
+                          zIndex: 5,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* White box 2 on page 25 - hidden when Box 1 is selected */}
+                  {currentPage === 24 && !editorMode && !page25Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 0.00
+                    const boxTop = 53.24
+                    const boxWidth = 100.00
+                    const boxHeight = 40.04
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: `${adjustedLeft}%`,
+                          top: `${adjustedTop}%`,
+                          width: `${expandedWidth}%`,
+                          height: `${expandedHeight}%`,
+                          backgroundColor: 'white',
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* Box 1 on page 25 - speech bubble with triangle pointing down-left */}
+                  {currentPage === 24 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 64.65
+                    const boxTop = 24.22
+                    const boxWidth = 23.29
+                    const boxHeight = 6.84
+                    const dot1X = 68.33
+                    const dot1Y = 31.05
+                    const dot2X = 73.73
+                    const dot2Y = 31.05
+                    const dot3X = 60.10
+                    const dot3Y = 32.76
+                    const isSelected = page25Box1Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Edge adjustments for box 1 on page 25
+                    // Top edge down 4px, left edge right 2px, right edge left 4px, bottom edge up 3px
+                    const topDownPx = 4
+                    const leftRightPx = 2
+                    const rightLeftPx = 4
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topY = 0
+                    const bottomY = 100
+                    const triangleBaseLeftWrapper = ((dot1X - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((dot2X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${topY + borderRadiusWrapperY}
+                      L 0,${bottomY - borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                      L ${triangleBaseLeftWrapper},${bottomY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseRightWrapper},${bottomY}
+                      L ${100 - borderRadiusWrapperX},${bottomY}
+                      Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY}
+                      L 100,${topY + borderRadiusWrapperY}
+                      Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    const leftBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${topY + borderRadiusWrapperY}
+                      L 0,${bottomY - borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                      L ${triangleBaseLeftWrapper},${bottomY}
+                    `
+                    const triangleLeftLegPath = `M ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const triangleRightLegPath = `M ${triangleBaseRightWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const rightBorderPath = `
+                      M ${triangleBaseRightWrapper},${bottomY}
+                      L ${100 - borderRadiusWrapperX},${bottomY}
+                      Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY}
+                      L 100,${topY + borderRadiusWrapperY}
+                      Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}
+                    `
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage25Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* Box 2 on page 25 - speech bubble with triangle pointing left */}
+                  {currentPage === 24 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 56.90
+                    const boxTop = 68.48
+                    const boxWidth = 27.98
+                    const boxHeight = 5.38
+                    const dot1X = 56.90
+                    const dot1YBase = 71.30
+                    const dot2X = 56.90
+                    const dot2Y = 72.75
+                    const dot3X = 46.01
+                    const dot3Y = 74.13
+                    const isSelected = page25Box2Selected
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    // Dot 1 adjustment - move down 1px
+                    const dot1DownPx = 1
+                    const dot1DownPercent = imageNaturalSize.height > 0 ? (dot1DownPx / imageNaturalSize.height) * 100 : 0
+                    const dot1Y = dot1YBase + dot1DownPercent
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const leftX = 0
+                    const rightX = 100
+                    const topY = 0
+                    const bottomY = 100
+                    // Triangle base is on the left edge
+                    const triangleBaseTopWrapper = ((dot1Y - adjustedTop) / expandedHeight) * 100
+                    const triangleBaseBottomWrapper = ((dot2Y - adjustedTop) / expandedHeight) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    // Speech bubble path with triangle pointing left from left edge
+                    const speechBubblePath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${rightX - borderRadiusWrapperX},${topY}
+                      Q ${rightX},${topY} ${rightX},${topY + borderRadiusWrapperY}
+                      L ${rightX},${bottomY - borderRadiusWrapperY}
+                      Q ${rightX},${bottomY} ${rightX - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY}
+                      L ${leftX},${triangleBaseBottomWrapper}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${leftX},${triangleBaseTopWrapper}
+                      L ${leftX},${topY + borderRadiusWrapperY}
+                      Q ${leftX},${topY} ${borderRadiusWrapperX},${topY}
+                      Z
+                    `
+                    
+                    // Border paths for left-pointing triangle
+                    const topBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${rightX - borderRadiusWrapperX},${topY}
+                    `
+                    const rightBorderPath = `
+                      M ${rightX - borderRadiusWrapperX},${topY}
+                      Q ${rightX},${topY} ${rightX},${topY + borderRadiusWrapperY}
+                      L ${rightX},${bottomY - borderRadiusWrapperY}
+                      Q ${rightX},${bottomY} ${rightX - borderRadiusWrapperX},${bottomY}
+                    `
+                    const bottomBorderPath = `
+                      M ${rightX - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY}
+                      L ${leftX},${triangleBaseBottomWrapper}
+                    `
+                    const triangleBottomLegPath = `M ${leftX},${triangleBaseBottomWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const triangleTopLegPath = `M ${leftX},${triangleBaseTopWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper}`
+                    const leftBorderTopPath = `
+                      M ${leftX},${triangleBaseTopWrapper}
+                      L ${leftX},${topY + borderRadiusWrapperY}
+                      Q ${leftX},${topY} ${borderRadiusWrapperX},${topY}
+                    `
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage25Box2 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleBottomLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleTopLegPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderTopPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
                   {/* White box for Box 1 on page 27 - hidden when Box 1 is selected */}
                   {currentPage === 26 && !editorMode && !page27Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 3.73
@@ -26885,13 +27527,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -26946,13 +27601,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -27176,13 +27844,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
+                    // Edge adjustments for box 2 on page 25
+                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 3px
+                    const topDownPx = 2
+                    const leftRightPx = 2
+                    const rightLeftPx = 3
+                    const bottomUpPx = 3
+                    const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
+                    const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
+                    const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
+                    const heightReductionPx = topDownPx + bottomUpPx  // Total height reduction
+                    const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
+                    const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -27384,7 +28065,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -29509,7 +30190,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -29734,7 +30415,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -32089,7 +32770,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -32316,7 +32997,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -35025,7 +35706,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const triangleTipX = dot3X
                     const triangleTipY = dot3Y
                     
-                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(14, Math.max(5, 14 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -36989,13 +37670,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               (currentPage === 21 && !page22Box4Selected) ||
               (currentPage === 22 && !page23Box4Selected) ||
               (currentPage === 23 && !page24Box1Selected) ||
+              (currentPage === 24 && !page25Box2Selected) ||
               (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !(!isNaN(box10Value) && box10Value >= 50 && box10Value <= 100); })()) ||
               (currentPage === 27 && !page28Box5Selected) ||
               (currentPage === 28 && !page29Box1Selected) ||
               (currentPage === 29 && !page30Box1Selected) ||
               (currentPage === 30 && !page31Box1Selected)
             }
-            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
+            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
             aria-label="Next page"
           >
             Next
