@@ -48,6 +48,7 @@ import page30 from '../assets/images/pages/30.png'
 import page31 from '../assets/images/pages/31.png'
 import page32 from '../assets/images/pages/32.png'
 import page33 from '../assets/images/pages/33.png'
+import page34 from '../assets/images/pages/34.png'
 
 function RightPanel({ editorMode, onToggleEditorMode, dimensions, onRefresh, onPageSelect }) {
   const [copied, setCopied] = useState(false)
@@ -308,6 +309,10 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             <div className="image-selector-item" onClick={() => onPageSelect(32, false, false, false, false)}>
               <img src={page33} alt="Page 33" className="image-selector-thumbnail" />
               <span className="image-selector-label">33.png</span>
+            </div>
+            <div className="image-selector-item" onClick={() => onPageSelect(33, false, false, false, false)}>
+              <img src={page34} alt="Page 34" className="image-selector-thumbnail" />
+              <span className="image-selector-label">34.png</span>
             </div>
           </div>
         </div>
