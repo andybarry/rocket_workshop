@@ -189,6 +189,11 @@
   overflow: hidden;
 }
 
+/* When zoomed, align content to flex-start so horizontal scroll works from left edge */
+.page-container:not(.no-scrollbars) {
+  justify-content: flex-start;
+}
+
 /* Hide scrollbars but keep scrolling functionality when zoomed */
 .page-container:not(.no-scrollbars)::-webkit-scrollbar,
 .instructions-panel:not(.no-scrollbars)::-webkit-scrollbar {
