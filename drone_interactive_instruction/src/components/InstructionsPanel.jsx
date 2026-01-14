@@ -232,7 +232,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page27Box7Selected, setPage27Box7Selected] = useState(false)
   const [page27Box8Selected, setPage27Box8Selected] = useState(false)
   const [page27Box8Value, setPage27Box8Value] = useState('')
+  const [page27Box7ClickedAfterBox8Valid, setPage27Box7ClickedAfterBox8Valid] = useState(false)
   const [page27Box9Value, setPage27Box9Value] = useState('')
+  const [page27Box7ClickedAfterBox9Valid, setPage27Box7ClickedAfterBox9Valid] = useState(false)
   const [page27Box10Value, setPage27Box10Value] = useState('')
   // Track page 26 box states
   const [page26Box1Selected, setPage26Box1Selected] = useState(false)
@@ -768,9 +770,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage27Box5Selected(false)
       setPage27Box6Selected(false)
       setPage27Box7Selected(false)
+      setPage27Box7ClickedAfterBox8Valid(false)
       setPage27Box8Selected(false)
       setPage27Box8Value('')
       setPage27Box9Value('')
+      setPage27Box7ClickedAfterBox9Valid(false)
       setPage27Box10Value('')
     } else if (currentPage === 25) {
       // Page 26 - reset box states
@@ -1429,7 +1433,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage27Box6Selected(true)
   }
   const handlePage27Box7 = () => {
-    setPage27Box7Selected(true)
+    // Check if box 8 has a valid value
+    const box8Value = parseFloat(page27Box8Value)
+    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+    
+    // Check if box 9 has a valid value
+    const box9Value = parseFloat(page27Box9Value)
+    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+    
+    if (box9IsValid && page27Box7ClickedAfterBox8Valid) {
+      // Box 7 clicked again after box 9 has valid value - trigger transition to 27.4
+      setPage27Box7ClickedAfterBox9Valid(true)
+    } else if (box8IsValid && page27Box7Selected) {
+      // Box 7 clicked again after box 8 has valid value - trigger transition to 27.3
+      setPage27Box7ClickedAfterBox8Valid(true)
+    } else {
+      // First click on box 7 - just select it
+      setPage27Box7Selected(true)
+    }
   }
   const handlePage27Box8 = () => {
     setPage27Box8Selected(true)
@@ -2372,14 +2393,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           const box10Value = parseFloat(page27Box10Value)
                           const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
                           if (box10IsValid) return page27_5
-                          // Check if Box 9 has a valid value (50-100)
+                          // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after
                           const box9Value = parseFloat(page27Box9Value)
                           const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
-                          if (box9IsValid) return page27_4
-                          // Check if Box 8 has a valid value (50-100)
+                          if (box9IsValid && page27Box7ClickedAfterBox9Valid) return page27_4
+                          // If box 9 has valid value but box 7 not clicked yet, stay on 27.3
+                          if (box9IsValid) return page27_3
+                          // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after
                           const box8Value = parseFloat(page27Box8Value)
                           const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
-                          if (box8IsValid) return page27_3
+                          if (box8IsValid && page27Box7ClickedAfterBox8Valid) return page27_3
+                          // If box 8 has valid value but box 7 not clicked yet, stay on 27.2
+                          if (box8IsValid) return page27_2
                         }
                         if (currentPage === 26 && page27Box7Selected) return page27_2
                         if (currentPage === 26 && page27Box1Selected && page27Box2Selected && page27Box3Selected && page27Box4Selected && page27Box5Selected && page27Box6Selected) return page27_1
@@ -17942,7 +17967,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Box 1 on page 27 - simple rectangle */}
+                  {/* Box 1 on page 27 - simple rectangle with rounded corners */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 9.18
                     const boxTop = 12.85
@@ -17963,17 +17988,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = 0
+                    const borderRadiusPx = Math.min(17, Math.max(7, 17 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                    const borderRadiusWrapperX = 0
-                    const borderRadiusWrapperY = 0
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
                     
-                    const roundedRectPath = `M 0,0 L 0,100 L 100,100 L 100,0 Z`
-                    const leftBorderPath = `M 0,0 L 0,100`
-                    const bottomBorderPath = `M 0,100 L 100,100`
-                    const rightBorderPath = `M 100,100 L 100,0`
-                    const topBorderPath = `M 0,0 L 100,0`
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const roundedRectPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
+                    const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
+                    const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
@@ -18322,11 +18350,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
                     if (box10IsValid) return null
                     
+                    // Check if box 8 has valid value - show box 7 as clickable again
+                    const box8Value = parseFloat(page27Box8Value)
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    
+                    // Check if box 9 has valid value - show box 7 as clickable again
+                    const box9Value = parseFloat(page27Box9Value)
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    
+                    // Check box 10 valid value for hide condition
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    
+                    // Hide box 7 only when box 10 has valid value (transitioning to 27.5)
+                    if (box10Valid) return null
+                    
                     const boxLeft = 9.31
                     const boxTop = 70.68
                     const boxWidth = 62.63
                     const boxHeight = 6.24
-                    const isSelected = page27Box7Selected
+                    // Check if box 10 has valid value
+                    const box10ValueNum = parseFloat(page27Box10Value)
+                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 50 && box10ValueNum <= 100
+                    
+                    // Show orange border when:
+                    // - on 27.3 but box 9 doesn't have valid value yet, OR
+                    // - on 27.4 but box 10 doesn't have valid value yet (not clickable)
+                    const showOrangeBorder = (page27Box7ClickedAfterBox8Valid && !box9IsValid) || (page27Box7ClickedAfterBox9Valid && !box10IsValidLocal)
+                    // Determine if clickable:
+                    // - clickable when box 8 has valid value (before 27.3), OR
+                    // - clickable when box 9 has valid value but not yet on 27.4, OR
+                    // - clickable when box 10 has valid value (on 27.4)
+                    // NOT clickable when showing orange border
+                    const isClickable = (box8IsValid && !page27Box7ClickedAfterBox8Valid) || (box9IsValid && !page27Box7ClickedAfterBox9Valid) || box10IsValidLocal
+                    const isSelected = (isClickable || showOrangeBorder) ? false : page27Box7Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -18353,16 +18410,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},100 Q 100,100 100,${100 - borderRadiusWrapperY} L 100,${borderRadiusWrapperY} Q 100,0 ${100 - borderRadiusWrapperX},0`
                     const topBorderPath = `M ${borderRadiusWrapperX},0 L ${100 - borderRadiusWrapperX},0`
                     
+                    // Determine border color: orange when box 9 valid, blue otherwise (when box 8 valid or not selected)
+                    const borderColor = showOrangeBorder ? "#f05f40" : (isSelected ? "#f05f40" : "#0d6efd")
+                    const borderWidth = showOrangeBorder ? "2" : (isSelected ? "2" : "1")
+                    
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage27Box7 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={isClickable ? handlePage27Box7 : (!isSelected && !showOrangeBorder ? handlePage27Box7 : undefined)} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: (isClickable || (!isSelected && !showOrangeBorder)) ? 'auto' : 'none', cursor: (isClickable || (!isSelected && !showOrangeBorder)) ? 'pointer' : 'default', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <path d={roundedRectPath} fill={(isSelected && !isClickable) || showOrangeBorder ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -18404,10 +18465,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 8 on page 27 - input box, only visible when 27.2.png is displayed (when box 7 is selected) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
                     const boxLeft = 35.33
                     const boxTop = 80.13
                     const boxWidth = 3.57
                     const boxHeight = 1.98
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -18416,9 +18488,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -18443,7 +18515,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    const isReadOnly = box10IsValid
+                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const isReadOnly = isValid || box10IsValid
                     
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
@@ -18463,38 +18536,57 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
-                  {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value 50-100) */}
+                  {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 8 has a valid value (50-100) to show Box 9
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
+                    // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
                     const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
-                    if (!box8IsValid) return null
+                    // Only show Box 9 when 27.3 is visible (box 7 clicked after box 8 valid)
+                    if (!box8IsValid || !page27Box7ClickedAfterBox8Valid) return null
                     
                     const boxLeft = 29.67
                     const boxTop = 83.06
-                    const boxWidth = 5.76
-                    const boxHeight = 2.42
+                    const boxWidth = 3.57
+                    const boxHeight = 1.98
+                    
+                    // Move entire box to the right by 2px
+                    const boxRightOffsetPx = 2
+                    const boxRightOffsetPercent = imageNaturalSize.width > 0 ? (boxRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + boxRightOffsetPercent
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px (same as box 8)
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -18503,9 +18595,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -18530,7 +18622,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    const isReadOnly = box10IsValid
+                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const isReadOnly = isValid || box10IsValid
                     
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
@@ -18550,38 +18643,60 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
-                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value 50-100) */}
+                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 9 has a valid value (50-100) to show Box 10
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
+                    // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
                     const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
-                    if (!box9IsValid) return null
+                    // Only show Box 10 when 27.4 is visible (box 7 clicked after box 9 valid)
+                    if (!box9IsValid || !page27Box7ClickedAfterBox9Valid) return null
                     
                     const boxLeft = 40.70
                     const boxTop = 85.91
-                    const boxWidth = 5.68
-                    const boxHeight = 2.84
+                    const boxWidth = 3.57
+                    const boxHeight = 1.98
+                    
+                    // Move entire box down by 4px and right by 2px
+                    const boxDownOffsetPx = 4
+                    const boxDownOffsetPercent = imageNaturalSize.height > 0 ? (boxDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                    const adjustedBoxTop = boxTop + boxDownOffsetPercent
+                    const boxRightOffsetPx = 2
+                    const boxRightOffsetPercent = imageNaturalSize.width > 0 ? (boxRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + boxRightOffsetPercent
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px (same as box 8 and 9)
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -18590,9 +18705,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
+                    const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -18635,24 +18750,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
@@ -19538,6 +19655,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         26
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "27" at Dot 3 position on page 27 (also shows on 27.1.png, 27.2.png, 27.3.png, 27.4.png, 27.5.png) */}
+                  {currentPage === 26 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        27
                       </span>
                     </div>
                   )}
@@ -26672,7 +26810,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Box 1 on page 27 - simple rectangle */}
+                  {/* Box 1 on page 27 - simple rectangle with rounded corners */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 9.18
                     const boxTop = 12.85
@@ -26693,17 +26831,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = 0
+                    const borderRadiusPx = Math.min(17, Math.max(7, 17 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                    const borderRadiusWrapperX = 0
-                    const borderRadiusWrapperY = 0
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
                     
-                    const roundedRectPath = `M 0,0 L 0,100 L 100,100 L 100,0 Z`
-                    const leftBorderPath = `M 0,0 L 0,100`
-                    const bottomBorderPath = `M 0,100 L 100,100`
-                    const rightBorderPath = `M 100,100 L 100,0`
-                    const topBorderPath = `M 0,0 L 100,0`
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    const roundedRectPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
+                    const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
+                    const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
@@ -27052,11 +27193,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
                     if (box10IsValid) return null
                     
+                    // Check if box 8 has valid value - show box 7 as clickable again
+                    const box8Value = parseFloat(page27Box8Value)
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    
+                    // Check if box 9 has valid value - show box 7 as clickable again
+                    const box9Value = parseFloat(page27Box9Value)
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    
+                    // Check box 10 valid value for hide condition
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    
+                    // Hide box 7 only when box 10 has valid value (transitioning to 27.5)
+                    if (box10Valid) return null
+                    
                     const boxLeft = 9.31
                     const boxTop = 70.68
                     const boxWidth = 62.63
                     const boxHeight = 6.24
-                    const isSelected = page27Box7Selected
+                    // Check if box 10 has valid value
+                    const box10ValueNum = parseFloat(page27Box10Value)
+                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 50 && box10ValueNum <= 100
+                    
+                    // Show orange border when:
+                    // - on 27.3 but box 9 doesn't have valid value yet, OR
+                    // - on 27.4 but box 10 doesn't have valid value yet (not clickable)
+                    const showOrangeBorder = (page27Box7ClickedAfterBox8Valid && !box9IsValid) || (page27Box7ClickedAfterBox9Valid && !box10IsValidLocal)
+                    // Determine if clickable:
+                    // - clickable when box 8 has valid value (before 27.3), OR
+                    // - clickable when box 9 has valid value but not yet on 27.4, OR
+                    // - clickable when box 10 has valid value (on 27.4)
+                    // NOT clickable when showing orange border
+                    const isClickable = (box8IsValid && !page27Box7ClickedAfterBox8Valid) || (box9IsValid && !page27Box7ClickedAfterBox9Valid) || box10IsValidLocal
+                    const isSelected = (isClickable || showOrangeBorder) ? false : page27Box7Selected
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -27083,16 +27253,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},100 Q 100,100 100,${100 - borderRadiusWrapperY} L 100,${borderRadiusWrapperY} Q 100,0 ${100 - borderRadiusWrapperX},0`
                     const topBorderPath = `M ${borderRadiusWrapperX},0 L ${100 - borderRadiusWrapperX},0`
                     
+                    // Determine border color: orange when box 9 valid, blue otherwise (when box 8 valid or not selected)
+                    const borderColor = showOrangeBorder ? "#f05f40" : (isSelected ? "#f05f40" : "#0d6efd")
+                    const borderWidth = showOrangeBorder ? "2" : (isSelected ? "2" : "1")
+                    
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage27Box7 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={isClickable ? handlePage27Box7 : (!isSelected && !showOrangeBorder ? handlePage27Box7 : undefined)} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: (isClickable || (!isSelected && !showOrangeBorder)) ? 'auto' : 'none', cursor: (isClickable || (!isSelected && !showOrangeBorder)) ? 'pointer' : 'default', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <path d={roundedRectPath} fill={(isSelected && !isClickable) || showOrangeBorder ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
                           <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                           </g>
                         </svg>
                       </div>
@@ -27134,10 +27308,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 8 on page 27 - input box, only visible when 27.2.png is displayed (when box 7 is selected) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
                     const boxLeft = 35.33
                     const boxTop = 80.13
                     const boxWidth = 3.57
                     const boxHeight = 1.98
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -27146,9 +27331,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -27173,7 +27358,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    const isReadOnly = box10IsValid
+                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const isReadOnly = isValid || box10IsValid
                     
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
@@ -27193,38 +27379,57 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
-                  {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value 50-100) */}
+                  {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 8 has a valid value (50-100) to show Box 9
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
+                    // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
                     const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
-                    if (!box8IsValid) return null
+                    // Only show Box 9 when 27.3 is visible (box 7 clicked after box 8 valid)
+                    if (!box8IsValid || !page27Box7ClickedAfterBox8Valid) return null
                     
                     const boxLeft = 29.67
                     const boxTop = 83.06
-                    const boxWidth = 5.76
-                    const boxHeight = 2.42
+                    const boxWidth = 3.57
+                    const boxHeight = 1.98
+                    
+                    // Move entire box to the right by 2px
+                    const boxRightOffsetPx = 2
+                    const boxRightOffsetPercent = imageNaturalSize.width > 0 ? (boxRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + boxRightOffsetPercent
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px (same as box 8)
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -27233,9 +27438,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -27260,7 +27465,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
                     const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    const isReadOnly = box10IsValid
+                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const isReadOnly = isValid || box10IsValid
                     
                     return (
                       <div className="speech-bubble-wrapper" style={{ ...buttonStyle, zIndex: 12 }}>
@@ -27280,38 +27486,60 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
-                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value 50-100) */}
+                  {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 9 has a valid value (50-100) to show Box 10
+                    // Check if box 10 has valid value - hide borders but keep value visible
+                    const box10Val = parseFloat(page27Box10Value)
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const hideBorders = box10Valid
+                    
+                    // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
                     const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
-                    if (!box9IsValid) return null
+                    // Only show Box 10 when 27.4 is visible (box 7 clicked after box 9 valid)
+                    if (!box9IsValid || !page27Box7ClickedAfterBox9Valid) return null
                     
                     const boxLeft = 40.70
                     const boxTop = 85.91
-                    const boxWidth = 5.68
-                    const boxHeight = 2.84
+                    const boxWidth = 3.57
+                    const boxHeight = 1.98
+                    
+                    // Move entire box down by 4px and right by 2px
+                    const boxDownOffsetPx = 4
+                    const boxDownOffsetPercent = imageNaturalSize.height > 0 ? (boxDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                    const adjustedBoxTop = boxTop + boxDownOffsetPercent
+                    const boxRightOffsetPx = 2
+                    const boxRightOffsetPercent = imageNaturalSize.width > 0 ? (boxRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedBoxLeft = boxLeft + boxRightOffsetPercent
+                    
+                    // Move left edge to the left by 2px and right edge to the right by 5px (same as box 8 and 9)
+                    const leftEdgeLeftPx = 2
+                    const rightEdgeRightPx = 5
+                    const leftEdgeLeftPercent = imageNaturalSize.width > 0 ? (leftEdgeLeftPx / imageNaturalSize.width) * 100 : 0
+                    const rightEdgeRightPercent = imageNaturalSize.width > 0 ? (rightEdgeRightPx / imageNaturalSize.width) * 100 : 0
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
@@ -27320,9 +27548,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust)
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust)
+                    const adjustedLeft = Math.max(0, adjustedBoxLeft - leftOffsetAdjust - leftEdgeLeftPercent)
+                    const adjustedTop = Math.max(0, adjustedBoxTop - topOffsetAdjust)
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust + leftEdgeLeftPercent + rightEdgeRightPercent)
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
@@ -27365,24 +27593,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             outline: 'none',
                             padding: '0',
                             margin: '0',
-                            fontSize: `${Math.max(8, Math.min(16, 12 * stageRelativeScale))}px`,
+                            fontSize: `${Math.max(10, Math.min(20, 15 * stageRelativeScale))}px`,
                             textAlign: 'center',
-                            fontFamily: 'Roboto, sans-serif',
-                            color: '#000',
+                            fontFamily: "'Roboto Mono', monospace",
+                            color: '#0000ff',
                             zIndex: 11,
                             boxSizing: 'border-box'
                           }}
                           placeholder=""
                         />
-                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
-                          <g className="speech-bubble-border-group">
-                            <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                            <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
-                          </g>
-                        </svg>
+                        {!hideBorders && (
+                          <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d={roundedRectPath} fill="rgba(255, 255, 255, 0.95)" />
+                            <g className="speech-bubble-border-group">
+                              <path d={leftBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={bottomBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                              <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            </g>
+                          </svg>
+                        )}
                       </div>
                     )
                   })()}
@@ -28268,6 +28498,27 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         26
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "27" at Dot 3 position on page 27 (also shows on 27.1.png, 27.2.png, 27.3.png, 27.4.png, 27.5.png) */}
+                  {currentPage === 26 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        27
                       </span>
                     </div>
                   )}
