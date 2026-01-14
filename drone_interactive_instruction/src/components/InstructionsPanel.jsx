@@ -48,6 +48,7 @@ import page30 from '../assets/images/pages/30.png'
 import page31 from '../assets/images/pages/31.png'
 import page32 from '../assets/images/pages/32.png'
 import page33 from '../assets/images/pages/33.png'
+import page34 from '../assets/images/pages/34.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -253,6 +254,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page30Box1Selected, setPage30Box1Selected] = useState(false)
   // Track page 31 box selections
   const [page31Box1Selected, setPage31Box1Selected] = useState(false)
+  // Track page 33 box selections
+  const [page33Box1Selected, setPage33Box1Selected] = useState(false)
+  // Track selected green boxes on page 33
+  const [selectedGreenBoxesPage33, setSelectedGreenBoxesPage33] = useState(new Set())
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -311,7 +316,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page5HelpImageTimeoutRef = useRef(null)
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -798,6 +803,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     } else if (currentPage === 30) {
       // Page 31 - reset box states
       setPage31Box1Selected(false)
+    } else if (currentPage === 32) {
+      // Page 33 - reset box states and green boxes
+      setPage33Box1Selected(false)
+      setSelectedGreenBoxesPage33(new Set())
     }
     
     // Clear dimensions capture
@@ -1490,6 +1499,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }
   const handlePage31Box1 = () => {
     setPage31Box1Selected(true)
+  }
+  const handlePage33Box1 = () => {
+    setPage33Box1Selected(true)
+  }
+  
+  // Handler for green box clicks on page 33
+  const handleGreenBoxClickPage33 = (index) => {
+    setSelectedGreenBoxesPage33(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(index)) {
+        newSet.delete(index) // Toggle off if already selected
+      } else {
+        newSet.add(index) // Toggle on if not selected
+      }
+      return newSet
+    })
   }
 
   const handlePage24NeedHelp = () => {
@@ -19371,10 +19396,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
                     // Move top edge down 3px, bottom edge up 4px, right edge left 2px, left edge right 4px
-                    const topShiftPx = 3
-                    const heightReductionPx = 7 // 3px from top + 4px from bottom
+                    // Additional: move top edge up 9px total (net: -6px), right edge right 60px total (net: 58px right)
+                    const topShiftPx = -6 // Was -2px, now -6px (moved up 4px more)
+                    const heightReductionPx = 0 // Was -2px, now 0px (moved bottom edge up 2px)
                     const leftShiftPx = 4
-                    const widthReductionPx = 6 // 4px from left + 2px from right
+                    const widthReductionPx = -39 // Was -54px, now -39px (moved right edge 15px to the left)
                     const topShiftPercent = imageNaturalSize.height > 0 ? (topShiftPx / imageNaturalSize.height) * 100 : 0
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
@@ -19386,7 +19412,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(17, Math.max(7, 17 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(22, Math.max(10, 22 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -19481,10 +19507,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
                     
-                    // Move dot2 to the left 3px
-                    const dot2LeftShiftPx = 3
+                    // Move dot2 to the left 6px
+                    const dot2LeftShiftPx = 6
                     const dot2LeftShiftPercent = imageNaturalSize.width > 0 ? (dot2LeftShiftPx / imageNaturalSize.width) * 100 : 0
                     const adjustedDot2X = dot2X - dot2LeftShiftPercent
+                    
+                    // Move dot3 to the right 2px
+                    const dot3RightShiftPx = 2
+                    const dot3RightShiftPercent = imageNaturalSize.width > 0 ? (dot3RightShiftPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedDot3X = dot3X + dot3RightShiftPercent
                     
                     const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topShiftPercent)
@@ -19492,7 +19523,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -19502,7 +19533,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const bottomY = 100
                     const triangleBaseLeftWrapper = ((dot1X - adjustedLeft) / expandedWidth) * 100
                     const triangleBaseRightWrapper = ((adjustedDot2X - adjustedLeft) / expandedWidth) * 100
-                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((adjustedDot3X - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
                     
                     const speechBubblePath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
@@ -19569,6 +19600,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
                     
+                    // Move dot3 to the left 3px
+                    const dot3LeftShiftPx = 3
+                    const dot3LeftShiftPercent = imageNaturalSize.width > 0 ? (dot3LeftShiftPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedDot3X = dot3X - dot3LeftShiftPercent
+                    
                     const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topShiftPercent)
                     const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
@@ -19586,7 +19622,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftX = 0
                     const triangleBaseTopWrapper = ((dot1Y - adjustedTop) / expandedHeight) * 100
                     const triangleBaseBottomWrapper = ((dot2Y - adjustedTop) / expandedHeight) * 100
-                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((adjustedDot3X - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
                     
                     const speechBubblePath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY} Q 100,${topY} 100,${topY + borderRadiusWrapperY} L 100,${bottomY - borderRadiusWrapperY} Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY} L ${borderRadiusWrapperX},${bottomY} Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY} L ${leftX},${triangleBaseBottomWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${leftX},${triangleBaseTopWrapper} L ${leftX},${topY + borderRadiusWrapperY} Q ${leftX},${topY} ${borderRadiusWrapperX},${topY} Z`
@@ -20033,6 +20069,245 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         32
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "33" at Dot 3 position on page 33 */}
+                  {currentPage === 32 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        33
+                      </span>
+                    </div>
+                  )}
+                  {/* Box 1 on page 33 - triangle pointing down */}
+                  {currentPage === 32 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 62.77
+                    const boxTop = 34.56
+                    const boxWidth = 26.34
+                    const boxHeight = 5.38
+                    const dot1X = 65.51
+                    const dot2X = 72.56
+                    const dot3X = 58.69
+                    const dot3Y = 42.02
+                    const isSelected = page33Box1Selected
+                    
+                    // Edge adjustments in pixels
+                    const topDownPx = 2    // top edge down 2px
+                    const rightLeftPx = 3  // right edge to the left 3px
+                    const bottomUpPx = 3   // bottom edge up 3px
+                    const leftRightPx = 2  // left edge to the right 2px
+                    
+                    // Convert pixel adjustments to percentages
+                    const topDownPercent = stageHeightPx > 0 ? (topDownPx / stageHeightPx) * 100 : 0
+                    const rightLeftPercent = stageWidthPx > 0 ? (rightLeftPx / stageWidthPx) * 100 : 0
+                    const bottomUpPercent = stageHeightPx > 0 ? (bottomUpPx / stageHeightPx) * 100 : 0
+                    const leftRightPercent = stageWidthPx > 0 ? (leftRightPx / stageWidthPx) * 100 : 0
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const widthReductionPercent = leftRightPercent + rightLeftPercent
+                    const heightReductionPercent = topDownPercent + bottomUpPercent
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Dot position adjustments
+                    const dot1RightShiftPx = 6  // dot 1 to the right 6px
+                    const dot1RightShiftPercent = stageWidthPx > 0 ? (dot1RightShiftPx / stageWidthPx) * 100 : 0
+                    const adjustedDot1X = dot1X + dot1RightShiftPercent
+                    const dot2RightShiftPx = 2  // dot 2 to the right 2px
+                    const dot2RightShiftPercent = stageWidthPx > 0 ? (dot2RightShiftPx / stageWidthPx) * 100 : 0
+                    const adjustedDot2X = dot2X + dot2RightShiftPercent
+                    
+                    const topY = 0
+                    const bottomY = 100
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
+                    const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
+                    const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage33Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White cover box on page 33 - hides when box 1 is selected */}
+                  {currentPage === 32 && !editorMode && !page33Box1Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '8.77%',
+                        top: '42.54%',
+                        width: '83.63%',
+                        height: '50.20%',
+                        backgroundColor: 'white',
+                        pointerEvents: 'none',
+                        zIndex: 5
+                      }}
+                    />
+                  )}
+                  {/* Small green boxes on page 33 - displayed when box 1 is selected */}
+                  {currentPage === 32 && !editorMode && page33Box1Selected && (() => {
+                    // Fixed pixel size for all boxes - 20px × 20px squares
+                    const boxSizePx = 20
+                    const boxSizeWidthPercent = imageNaturalSize.width > 0 ? (boxSizePx / imageNaturalSize.width) * 100 : 0
+                    const boxSizeHeightPercent = imageNaturalSize.height > 0 ? (boxSizePx / imageNaturalSize.height) * 100 : 0
+                    const borderRadiusPx = 2
+                    // Same row positions as page 3
+                    const row1Top = 55.84
+                    const row2Top = 72.62
+                    const row3Top = 87.99
+                    
+                    // Same box positions as page 3
+                    const greenBoxes = [
+                      { left: 19.46, top: row1Top },
+                      { left: 40.63, top: row1Top },
+                      { left: 62.25, top: row1Top },
+                      { left: 78.96, top: row1Top },
+                      { left: 19.55, top: row2Top },
+                      { left: 40.45, top: row2Top },
+                      { left: 61.79, top: row2Top },
+                      { left: 79.05, top: row2Top },
+                      { left: 40.08, top: row3Top },
+                      { left: 61.52, top: row3Top }
+                    ]
+
+                    return (
+                      <>
+                        {greenBoxes.map((box, index) => {
+                          const isSelected = selectedGreenBoxesPage33.has(index)
+                          // Same position adjustments as page 3
+                          const isRow1 = index >= 0 && index <= 3
+                          const isRow2 = index >= 4 && index <= 7
+                          const isRow3 = index >= 8 && index <= 9
+                          const isRow1FarRight = index === 3
+                          const isRow2FarRight = index === 7
+                          const isRow3FarLeft = index === 8
+                          const isTopLeft = index === 0
+                          const baseLeftOffsetPx = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5)
+                          const row1LeftOffset = isTopLeft ? (baseLeftOffsetPx - 2) : (baseLeftOffsetPx - 3)
+                          const leftOffsetPx = isRow1 ? row1LeftOffset : (isRow2 ? (baseLeftOffsetPx - 3) : (isRow3 ? (baseLeftOffsetPx - 3) : baseLeftOffsetPx))
+                          const baseTopOffsetPx = isRow2 ? 4 : 3
+                          const topOffsetPx = isRow1 ? (baseTopOffsetPx - 4) : (isRow2 ? (baseTopOffsetPx - 2) : (isRow3 ? (baseTopOffsetPx - 3) : baseTopOffsetPx))
+                          
+                          const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                          const topOffsetPercent = imageNaturalSize.height > 0 ? (topOffsetPx / imageNaturalSize.height) * 100 : 0
+                          
+                          const adjustedLeft = box.left + leftOffsetPercent
+                          const adjustedTop = box.top + topOffsetPercent
+                          
+                          const baseStyle = getButtonStyle(adjustedLeft, adjustedTop, boxSizeWidthPercent, boxSizeHeightPercent)
+                          
+                          const greenBoxStyle = {
+                            ...baseStyle,
+                            backgroundColor: 'white',
+                            border: `0.5px solid #3bbf6b`,
+                            borderRadius: `${borderRadiusPx}px`,
+                            cursor: 'pointer',
+                            pointerEvents: 'auto',
+                            zIndex: 3000,
+                            boxSizing: 'border-box',
+                            userSelect: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }
+                          return (
+                            <div 
+                              key={`green-box-page33-${index}`} 
+                              style={greenBoxStyle}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                                handleGreenBoxClickPage33(index)
+                              }}
+                              onMouseDown={(e) => {
+                                e.stopPropagation()
+                              }}
+                            >
+                              {isSelected && (
+                                <svg 
+                                  viewBox="0 0 24 24" 
+                                  style={{
+                                    width: '120%',
+                                    height: '120%',
+                                    fill: 'none',
+                                    stroke: '#3bbf6b',
+                                    strokeWidth: 4,
+                                    strokeLinecap: 'round',
+                                    strokeLinejoin: 'round'
+                                  }}
+                                >
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </>
+                    )
+                  })()}
+                  {/* Number "34" at Dot 3 position on page 34 */}
+                  {currentPage === 33 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        34
                       </span>
                     </div>
                   )}
@@ -28214,10 +28489,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
                     // Move top edge down 3px, bottom edge up 4px, right edge left 2px, left edge right 4px
-                    const topShiftPx = 3
-                    const heightReductionPx = 7 // 3px from top + 4px from bottom
+                    // Additional: move top edge up 9px total (net: -6px), right edge right 60px total (net: 58px right)
+                    const topShiftPx = -6 // Was -2px, now -6px (moved up 4px more)
+                    const heightReductionPx = 0 // Was -2px, now 0px (moved bottom edge up 2px)
                     const leftShiftPx = 4
-                    const widthReductionPx = 6 // 4px from left + 2px from right
+                    const widthReductionPx = -39 // Was -54px, now -39px (moved right edge 15px to the left)
                     const topShiftPercent = imageNaturalSize.height > 0 ? (topShiftPx / imageNaturalSize.height) * 100 : 0
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
@@ -28229,7 +28505,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(17, Math.max(7, 17 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(22, Math.max(10, 22 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -28324,10 +28600,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
                     
-                    // Move dot2 to the left 3px
-                    const dot2LeftShiftPx = 3
+                    // Move dot2 to the left 6px
+                    const dot2LeftShiftPx = 6
                     const dot2LeftShiftPercent = imageNaturalSize.width > 0 ? (dot2LeftShiftPx / imageNaturalSize.width) * 100 : 0
                     const adjustedDot2X = dot2X - dot2LeftShiftPercent
+                    
+                    // Move dot3 to the right 2px
+                    const dot3RightShiftPx = 2
+                    const dot3RightShiftPercent = imageNaturalSize.width > 0 ? (dot3RightShiftPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedDot3X = dot3X + dot3RightShiftPercent
                     
                     const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topShiftPercent)
@@ -28335,7 +28616,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -28345,7 +28626,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const bottomY = 100
                     const triangleBaseLeftWrapper = ((dot1X - adjustedLeft) / expandedWidth) * 100
                     const triangleBaseRightWrapper = ((adjustedDot2X - adjustedLeft) / expandedWidth) * 100
-                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((adjustedDot3X - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
                     
                     const speechBubblePath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
@@ -28412,6 +28693,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftShiftPercent = imageNaturalSize.width > 0 ? (leftShiftPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPercent = imageNaturalSize.width > 0 ? (widthReductionPx / imageNaturalSize.width) * 100 : 0
                     
+                    // Move dot3 to the left 3px
+                    const dot3LeftShiftPx = 3
+                    const dot3LeftShiftPercent = imageNaturalSize.width > 0 ? (dot3LeftShiftPx / imageNaturalSize.width) * 100 : 0
+                    const adjustedDot3X = dot3X - dot3LeftShiftPercent
+                    
                     const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftShiftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topShiftPercent)
                     const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
@@ -28429,7 +28715,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftX = 0
                     const triangleBaseTopWrapper = ((dot1Y - adjustedTop) / expandedHeight) * 100
                     const triangleBaseBottomWrapper = ((dot2Y - adjustedTop) / expandedHeight) * 100
-                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((adjustedDot3X - adjustedLeft) / expandedWidth) * 100
                     const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
                     
                     const speechBubblePath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY} Q 100,${topY} 100,${topY + borderRadiusWrapperY} L 100,${bottomY - borderRadiusWrapperY} Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY} L ${borderRadiusWrapperX},${bottomY} Q ${leftX},${bottomY} ${leftX},${bottomY - borderRadiusWrapperY} L ${leftX},${triangleBaseBottomWrapper} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${leftX},${triangleBaseTopWrapper} L ${leftX},${topY + borderRadiusWrapperY} Q ${leftX},${topY} ${borderRadiusWrapperX},${topY} Z`
@@ -28876,6 +29162,245 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         }}
                       >
                         32
+                      </span>
+                    </div>
+                  )}
+                  {/* Number "33" at Dot 3 position on page 33 */}
+                  {currentPage === 32 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        33
+                      </span>
+                    </div>
+                  )}
+                  {/* Box 1 on page 33 - triangle pointing down */}
+                  {currentPage === 32 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxLeft = 62.77
+                    const boxTop = 34.56
+                    const boxWidth = 26.34
+                    const boxHeight = 5.38
+                    const dot1X = 65.51
+                    const dot2X = 72.56
+                    const dot3X = 58.69
+                    const dot3Y = 42.02
+                    const isSelected = page33Box1Selected
+                    
+                    // Edge adjustments in pixels
+                    const topDownPx = 2    // top edge down 2px
+                    const rightLeftPx = 3  // right edge to the left 3px
+                    const bottomUpPx = 3   // bottom edge up 3px
+                    const leftRightPx = 2  // left edge to the right 2px
+                    
+                    // Convert pixel adjustments to percentages
+                    const topDownPercent = stageHeightPx > 0 ? (topDownPx / stageHeightPx) * 100 : 0
+                    const rightLeftPercent = stageWidthPx > 0 ? (rightLeftPx / stageWidthPx) * 100 : 0
+                    const bottomUpPercent = stageHeightPx > 0 ? (bottomUpPx / stageHeightPx) * 100 : 0
+                    const leftRightPercent = stageWidthPx > 0 ? (leftRightPx / stageWidthPx) * 100 : 0
+                    
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    
+                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const widthReductionPercent = leftRightPercent + rightLeftPercent
+                    const heightReductionPercent = topDownPercent + bottomUpPercent
+                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Dot position adjustments
+                    const dot1RightShiftPx = 6  // dot 1 to the right 6px
+                    const dot1RightShiftPercent = stageWidthPx > 0 ? (dot1RightShiftPx / stageWidthPx) * 100 : 0
+                    const adjustedDot1X = dot1X + dot1RightShiftPercent
+                    const dot2RightShiftPx = 2  // dot 2 to the right 2px
+                    const dot2RightShiftPercent = stageWidthPx > 0 ? (dot2RightShiftPx / stageWidthPx) * 100 : 0
+                    const adjustedDot2X = dot2X + dot2RightShiftPercent
+                    
+                    const topY = 0
+                    const bottomY = 100
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - adjustedLeft) / expandedWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - adjustedLeft) / expandedWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - adjustedTop) / expandedHeight) * 100
+                    
+                    const speechBubblePath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY} Z`
+                    const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${triangleBaseLeftWrapper},${bottomY} L ${triangleTipXWrapper},${triangleTipYWrapper} L ${triangleBaseRightWrapper},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
+                    const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    
+                    return (
+                      <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage33Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <path d={speechBubblePath} fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"} />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                            <path d={topBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
+                  {/* White cover box on page 33 - hides when box 1 is selected */}
+                  {currentPage === 32 && !editorMode && !page33Box1Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '8.77%',
+                        top: '42.54%',
+                        width: '83.63%',
+                        height: '50.20%',
+                        backgroundColor: 'white',
+                        pointerEvents: 'none',
+                        zIndex: 5
+                      }}
+                    />
+                  )}
+                  {/* Small green boxes on page 33 - displayed when box 1 is selected */}
+                  {currentPage === 32 && !editorMode && page33Box1Selected && (() => {
+                    // Fixed pixel size for all boxes - 20px × 20px squares
+                    const boxSizePx = 20
+                    const boxSizeWidthPercent = imageNaturalSize.width > 0 ? (boxSizePx / imageNaturalSize.width) * 100 : 0
+                    const boxSizeHeightPercent = imageNaturalSize.height > 0 ? (boxSizePx / imageNaturalSize.height) * 100 : 0
+                    const borderRadiusPx = 2
+                    // Same row positions as page 3
+                    const row1Top = 55.84
+                    const row2Top = 72.62
+                    const row3Top = 87.99
+                    
+                    // Same box positions as page 3
+                    const greenBoxes = [
+                      { left: 19.46, top: row1Top },
+                      { left: 40.63, top: row1Top },
+                      { left: 62.25, top: row1Top },
+                      { left: 78.96, top: row1Top },
+                      { left: 19.55, top: row2Top },
+                      { left: 40.45, top: row2Top },
+                      { left: 61.79, top: row2Top },
+                      { left: 79.05, top: row2Top },
+                      { left: 40.08, top: row3Top },
+                      { left: 61.52, top: row3Top }
+                    ]
+
+                    return (
+                      <>
+                        {greenBoxes.map((box, index) => {
+                          const isSelected = selectedGreenBoxesPage33.has(index)
+                          // Same position adjustments as page 3
+                          const isRow1 = index >= 0 && index <= 3
+                          const isRow2 = index >= 4 && index <= 7
+                          const isRow3 = index >= 8 && index <= 9
+                          const isRow1FarRight = index === 3
+                          const isRow2FarRight = index === 7
+                          const isRow3FarLeft = index === 8
+                          const isTopLeft = index === 0
+                          const baseLeftOffsetPx = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5)
+                          const row1LeftOffset = isTopLeft ? (baseLeftOffsetPx - 2) : (baseLeftOffsetPx - 3)
+                          const leftOffsetPx = isRow1 ? row1LeftOffset : (isRow2 ? (baseLeftOffsetPx - 3) : (isRow3 ? (baseLeftOffsetPx - 3) : baseLeftOffsetPx))
+                          const baseTopOffsetPx = isRow2 ? 4 : 3
+                          const topOffsetPx = isRow1 ? (baseTopOffsetPx - 4) : (isRow2 ? (baseTopOffsetPx - 2) : (isRow3 ? (baseTopOffsetPx - 3) : baseTopOffsetPx))
+                          
+                          const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                          const topOffsetPercent = imageNaturalSize.height > 0 ? (topOffsetPx / imageNaturalSize.height) * 100 : 0
+                          
+                          const adjustedLeft = box.left + leftOffsetPercent
+                          const adjustedTop = box.top + topOffsetPercent
+                          
+                          const baseStyle = getButtonStyle(adjustedLeft, adjustedTop, boxSizeWidthPercent, boxSizeHeightPercent)
+                          
+                          const greenBoxStyle = {
+                            ...baseStyle,
+                            backgroundColor: 'white',
+                            border: `0.5px solid #3bbf6b`,
+                            borderRadius: `${borderRadiusPx}px`,
+                            cursor: 'pointer',
+                            pointerEvents: 'auto',
+                            zIndex: 3000,
+                            boxSizing: 'border-box',
+                            userSelect: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }
+                          return (
+                            <div 
+                              key={`green-box-page33-${index}`} 
+                              style={greenBoxStyle}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                                handleGreenBoxClickPage33(index)
+                              }}
+                              onMouseDown={(e) => {
+                                e.stopPropagation()
+                              }}
+                            >
+                              {isSelected && (
+                                <svg 
+                                  viewBox="0 0 24 24" 
+                                  style={{
+                                    width: '120%',
+                                    height: '120%',
+                                    fill: 'none',
+                                    stroke: '#3bbf6b',
+                                    strokeWidth: 4,
+                                    strokeLinecap: 'round',
+                                    strokeLinejoin: 'round'
+                                  }}
+                                >
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </>
+                    )
+                  })()}
+                  {/* Number "34" at Dot 3 position on page 34 */}
+                  {currentPage === 33 && !editorMode && (
+                    <div style={getPageNumberStyle(94.83, 95.96)}>
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          fontFamily: 'Roboto, sans-serif',
+                          color: '#595959',
+                          fontSize: `${12 * stageRelativeScale}px`,
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }}
+                      >
+                        34
                       </span>
                     </div>
                   )}
@@ -37933,48 +38458,50 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </svg>
           </button>
         </div>
-        <div className="nav-button-right">
-          <button 
-            onClick={handleNext}
-            disabled={
-              currentPage === pages.length - 1 || 
-              (currentPage === 0 && !visitedPages.has(0)) ||
-              (currentPage === 1 && !visitedPages.has(1)) ||
-              (currentPage === 2 && (!page3ButtonClicked || !page3SecondButtonClicked)) ||
-              (currentPage === 3 && !page4Button5Clicked) ||
-              (currentPage === 4 && !page5GreenDotSelected) ||
-              (currentPage === 5 && (!page6Button1Clicked || !page6Button2Clicked)) ||
-              (currentPage === 6 && !page7Box4EverSelected) ||
-              (currentPage === 7 && page8Box2Selected && !page8Box4Selected) ||
-              (currentPage === 8 && !page9Box2Selected) ||
-              (currentPage === 9 && !page10Box4Selected) ||
-              (currentPage === 10 && !page11Box4Selected) ||
-              (currentPage === 11 && !page12Box4Selected) ||
-              (currentPage === 12 && !page13Box1Selected) ||
-              (currentPage === 13 && !page14Box5Selected) ||
-              (currentPage === 14 && !page15Box3Selected) ||
-              (currentPage === 16 && !page17Box4bSelected) ||
-              (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) ||
-              (currentPage === 18 && !page19Box3Selected) ||
-              (currentPage === 19 && !page20Box6Selected) ||
-              (currentPage === 20 && !page21ShowHelpImage && !page21BoxSelected) ||
-              (currentPage === 21 && !page22Box4Selected) ||
-              (currentPage === 22 && !page23Box4Selected) ||
-              (currentPage === 23 && !page24Box1Selected) ||
-              (currentPage === 24 && !page25Box2Selected) ||
-              (currentPage === 25 && !page26Box5Selected) ||
-              (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !(!isNaN(box10Value) && box10Value >= 50 && box10Value <= 100); })()) ||
-              (currentPage === 27 && !page28Box5Selected) ||
-              (currentPage === 28 && !page29Box1Selected) ||
-              (currentPage === 29 && !page30Box1Selected) ||
-              (currentPage === 30 && !page31Box1Selected)
-            }
-            className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
-            aria-label="Next page"
-          >
-            Next
-          </button>
-        </div>
+        {currentPage !== pages.length - 1 && (
+          <div className="nav-button-right">
+            <button 
+              onClick={handleNext}
+              disabled={
+                currentPage === pages.length - 1 || 
+                (currentPage === 0 && !visitedPages.has(0)) ||
+                (currentPage === 1 && !visitedPages.has(1)) ||
+                (currentPage === 2 && (!page3ButtonClicked || !page3SecondButtonClicked)) ||
+                (currentPage === 3 && !page4Button5Clicked) ||
+                (currentPage === 4 && !page5GreenDotSelected) ||
+                (currentPage === 5 && (!page6Button1Clicked || !page6Button2Clicked)) ||
+                (currentPage === 6 && !page7Box4EverSelected) ||
+                (currentPage === 7 && page8Box2Selected && !page8Box4Selected) ||
+                (currentPage === 8 && !page9Box2Selected) ||
+                (currentPage === 9 && !page10Box4Selected) ||
+                (currentPage === 10 && !page11Box4Selected) ||
+                (currentPage === 11 && !page12Box4Selected) ||
+                (currentPage === 12 && !page13Box1Selected) ||
+                (currentPage === 13 && !page14Box5Selected) ||
+                (currentPage === 14 && !page15Box3Selected) ||
+                (currentPage === 16 && !page17Box4bSelected) ||
+                (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) ||
+                (currentPage === 18 && !page19Box3Selected) ||
+                (currentPage === 19 && !page20Box6Selected) ||
+                (currentPage === 20 && !page21ShowHelpImage && !page21BoxSelected) ||
+                (currentPage === 21 && !page22Box4Selected) ||
+                (currentPage === 22 && !page23Box4Selected) ||
+                (currentPage === 23 && !page24Box1Selected) ||
+                (currentPage === 24 && !page25Box2Selected) ||
+                (currentPage === 25 && !page26Box5Selected) ||
+                (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !(!isNaN(box10Value) && box10Value >= 50 && box10Value <= 100); })()) ||
+                (currentPage === 27 && !page28Box5Selected) ||
+                (currentPage === 28 && !page29Box1Selected) ||
+                (currentPage === 29 && !page30Box1Selected) ||
+                (currentPage === 30 && !page31Box1Selected)
+              }
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) ? 'btn-nav-blue' : ''}`}
+              aria-label="Next page"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
