@@ -17810,7 +17810,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(6, Math.max(2, 6 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -27239,7 +27239,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(6, Math.max(2, 6 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -39200,9 +39200,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 28 && !page29Box1Selected) ||
                 (currentPage === 29 && !page30Box1Selected) ||
                 (currentPage === 30 && !page31Box1Selected) ||
-                (currentPage === 31 && !page32Box3Selected)
+                (currentPage === 31 && !page32Box3Selected) ||
+                (currentPage === 32 && !page33Box1Selected)
               }
-              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) ? 'btn-nav-blue' : ''}`}
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && page3SecondButtonClicked && !returningToPage3AfterSecondButton) || (currentPage === 3 && page4Button5Clicked) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Button1Clicked && page6Button2Clicked) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box1Selected || page8Box4Selected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
               Next
