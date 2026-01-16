@@ -84,6 +84,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page5BlueDotSelected, setPage5BlueDotSelected] = useState(false)
   // Track page 5 green dot connection selection
   const [page5GreenDotSelected, setPage5GreenDotSelected] = useState(false)
+  // Track page 5 wrong dot selection error
+  const [page5WrongDotError, setPage5WrongDotError] = useState(false)
   // Track if page 5 should temporarily show 5.1.png (when "Need Help?" is clicked)
   const [page5ShowHelpImage, setPage5ShowHelpImage] = useState(false)
   const [page21ShowHelpImage, setPage21ShowHelpImage] = useState(false)
@@ -619,6 +621,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage5Button2Clicked(false)
       setPage5BlueDotSelected(false)
       setPage5GreenDotSelected(false)
+      setPage5WrongDotError(false)
     } else if (currentPage === 5) {
       // Page 6 - reset button and checkbox states
       setPage6Button1Clicked(false)
@@ -996,6 +999,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage5GreenDot = () => {
     setPage5GreenDotSelected(true)
+  }
+
+  // Handler for page 5 wrong dot selection
+  const handlePage5WrongDot = () => {
+    setPage5WrongDotError(true)
+    // Hide the error after 5 seconds
+    setTimeout(() => {
+      setPage5WrongDotError(false)
+    }, 5000)
   }
 
   // Handler for page 5 "Show/Hide Connections" button
@@ -38068,7 +38080,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden until button is selected */}
+                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden until button is selected, clickable to show error */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                     const dots = [
                       { x: 24.09, y: 68.11 },
@@ -38098,17 +38110,134 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       return (
                         <div
                           key={`dummy-dot-${index}`}
+                          onClick={handlePage5WrongDot}
                           style={{
                             ...dotStyle,
                             backgroundColor: 'white',
                             border: '1px solid #0d6efd',
                             borderRadius: '50%',
-                            pointerEvents: 'none',
+                            pointerEvents: 'auto',
+                            cursor: 'pointer',
                             zIndex: 12
                           }}
                         />
                       )
                     })
+                  })()}
+                  {/* Error box on page 5 - shows when wrong dot is selected */}
+                  {currentPage === 4 && !editorMode && page5WrongDotError && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const boxWidth = 33.15
+                    const boxLeft = (100 - boxWidth) / 2  // Center horizontally
+                    const baseBoxTop = 66.31
+                    const baseBoxHeight = 5.38
+                    
+                    // Move down by 4px
+                    const moveDownPx = 4
+                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const boxTop = baseBoxTop + moveDownPercent
+                    
+                    // Reduce height by 10px
+                    const heightDecreasePx = 10
+                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    // Calculate wrapper dimensions for SVG coordinate conversion
+                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
+                    
+                    // Border radius
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Rounded rectangle path
+                    const roundedRectPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border path
+                    const borderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              color: '#dc3545',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Not the correct connection try again
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={roundedRectPath} fill="white" />
+                          <path d={borderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                        </svg>
+                      </div>
+                    )
                   })()}
                   {/* Red line connecting red dot to selected blue edge dot on page 5 */}
                   {/* Red edge red infill box on page 5 (5.png) - appears when blue edge dot is selected */}
