@@ -19315,9 +19315,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxTop = 83.63
                     const boxWidth = 26.38
                     const boxHeight = 5.48
-                    const dot1Y = 84.37
-                    const dot2Y = 86.11
-                    const dot3X = 41.44
+                    // Dot adjustments: dot1 moved down 16px, dot2 moved down 12px, dot3 moved right 33px
+                    const dot1YAdjustPx = 16
+                    const dot2YAdjustPx = 12
+                    const dot3XAdjustPx = 33
+                    const dot1YAdjust = imageNaturalSize.height > 0 ? (dot1YAdjustPx / imageNaturalSize.height) * 100 : 0
+                    const dot2YAdjust = imageNaturalSize.height > 0 ? (dot2YAdjustPx / imageNaturalSize.height) * 100 : 0
+                    const dot3XAdjust = imageNaturalSize.width > 0 ? (dot3XAdjustPx / imageNaturalSize.width) * 100 : 0
+                    const dot1Y = 84.37 + dot1YAdjust
+                    const dot2Y = 86.11 + dot2YAdjust
+                    const dot3X = 41.44 + dot3XAdjust
                     const dot3Y = 86.21
                     const isSelected = page26Box5Selected
                     
@@ -19328,12 +19335,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    // Edge adjustments for box 2 on page 25
-                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 1px (lowered by 2px from 3px)
-                    const topDownPx = 2
-                    const leftRightPx = 2
-                    const rightLeftPx = 3
-                    const bottomUpPx = 1
+                    // Edge adjustments for box 5 on page 26
+                    // Top edge down 17px, left edge right 44px, right edge right 40px, bottom edge down 13px
+                    const topDownPx = 17
+                    const leftRightPx = 44
+                    const rightLeftPx = -40
+                    const bottomUpPx = -13
                     const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
                     const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
@@ -19347,7 +19354,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
@@ -28744,9 +28751,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxTop = 83.63
                     const boxWidth = 26.38
                     const boxHeight = 5.48
-                    const dot1Y = 84.37
-                    const dot2Y = 86.11
-                    const dot3X = 41.44
+                    // Dot adjustments: dot1 moved down 16px, dot2 moved down 12px, dot3 moved right 33px
+                    const dot1YAdjustPx = 16
+                    const dot2YAdjustPx = 12
+                    const dot3XAdjustPx = 33
+                    const dot1YAdjust = imageNaturalSize.height > 0 ? (dot1YAdjustPx / imageNaturalSize.height) * 100 : 0
+                    const dot2YAdjust = imageNaturalSize.height > 0 ? (dot2YAdjustPx / imageNaturalSize.height) * 100 : 0
+                    const dot3XAdjust = imageNaturalSize.width > 0 ? (dot3XAdjustPx / imageNaturalSize.width) * 100 : 0
+                    const dot1Y = 84.37 + dot1YAdjust
+                    const dot2Y = 86.11 + dot2YAdjust
+                    const dot3X = 41.44 + dot3XAdjust
                     const dot3Y = 86.21
                     const isSelected = page26Box5Selected
                     
@@ -28757,12 +28771,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    // Edge adjustments for box 2 on page 25
-                    // Top edge down 2px, left edge right 2px, right edge left 3px, bottom edge up 1px (lowered by 2px from 3px)
-                    const topDownPx = 2
-                    const leftRightPx = 2
-                    const rightLeftPx = 3
-                    const bottomUpPx = 1
+                    // Edge adjustments for box 5 on page 26
+                    // Top edge down 17px, left edge right 44px, right edge right 40px, bottom edge down 13px
+                    const topDownPx = 17
+                    const leftRightPx = 44
+                    const rightLeftPx = -40
+                    const bottomUpPx = -13
                     const topDownPercent = imageNaturalSize.height > 0 ? (topDownPx / imageNaturalSize.height) * 100 : 0
                     const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
                     const widthReductionPx = leftRightPx + rightLeftPx  // Total width reduction
@@ -28776,7 +28790,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    const borderRadiusPx = Math.min(8, Math.max(3, 8 * stageRelativeScale))
+                    const borderRadiusPx = Math.min(12, Math.max(5, 12 * stageRelativeScale))
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
