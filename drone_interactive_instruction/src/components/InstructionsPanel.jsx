@@ -238,6 +238,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page27Box7ClickedAfterBox9Valid, setPage27Box7ClickedAfterBox9Valid] = useState(false)
   const [page27Box10Value, setPage27Box10Value] = useState('')
   const [showPage27Box8TooLowError, setShowPage27Box8TooLowError] = useState(false)
+  const [showPage27Box9TooLowError, setShowPage27Box9TooLowError] = useState(false)
+  const [showPage27Box10TooLowError, setShowPage27Box10TooLowError] = useState(false)
   // Track page 26 box states
   const [page26Box1Selected, setPage26Box1Selected] = useState(false)
   const [page26Box2Selected, setPage26Box2Selected] = useState(false)
@@ -1688,6 +1690,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setShowPage27Box8TooLowError(false)
     }
   }, [page27Box8Value])
+
+  // Handle delayed display of "Value too low" error box on page 27.3 (Box 9)
+  useEffect(() => {
+    const box9Value = parseFloat(page27Box9Value)
+    const isTooLow = !isNaN(box9Value) && box9Value >= 1 && box9Value <= 49
+    
+    if (isTooLow) {
+      // Delay showing the error by 0.75 seconds
+      const timeoutId = setTimeout(() => {
+        setShowPage27Box9TooLowError(true)
+      }, 750)
+      return () => clearTimeout(timeoutId)
+    } else {
+      // Hide immediately when value is no longer too low
+      setShowPage27Box9TooLowError(false)
+    }
+  }, [page27Box9Value])
+
+  // Handle delayed display of "Value too low" error box on page 27.4 (Box 10)
+  useEffect(() => {
+    const box10Value = parseFloat(page27Box10Value)
+    const isTooLow = !isNaN(box10Value) && box10Value >= 1 && box10Value <= 49
+    
+    if (isTooLow) {
+      // Delay showing the error by 0.75 seconds
+      const timeoutId = setTimeout(() => {
+        setShowPage27Box10TooLowError(true)
+      }, 750)
+      return () => clearTimeout(timeoutId)
+    } else {
+      // Hide immediately when value is no longer too low
+      setShowPage27Box10TooLowError(false)
+    }
+  }, [page27Box10Value])
 
   // Initialize box when editor mode is enabled or page changes
   useEffect(() => {
@@ -18540,10 +18576,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 8 on page 27 - input box, only visible when 27.2.png is displayed (when box 7 is selected) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     const boxLeft = 35.33
                     const boxTop = 80.13
@@ -18584,7 +18620,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box8Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
@@ -18629,6 +18665,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                               <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                             </g>
+                          </svg>
+                        )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         )}
                       </div>
@@ -18808,10 +18862,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
@@ -18863,7 +18917,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box9Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
@@ -18910,15 +18964,211 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </g>
                           </svg>
                         )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
+                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-49 (with 0.75s delay) */}
+                  {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox8Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box9TooLowError && (() => {
+                    
+                    const baseBoxLeft = 39.77
+                    const baseBoxTop = 84.09
+                    const baseBoxWidth = 27.98
+                    const baseBoxHeight = 5.39
+                    
+                    // Adjust position: move left 23px and down 17px from Box 8 error position
+                    const moveLeftPx = 23
+                    const moveDownPx = 17
+                    const moveLeftPercent = stageWidthPx > 0 ? (moveLeftPx / stageWidthPx) * 100 : 0
+                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const boxLeft = baseBoxLeft - moveLeftPercent
+                    const boxTop = baseBoxTop + moveDownPercent
+                    
+                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as Box 8 error)
+                    const widthDecreasePx = 15
+                    const heightDecreasePx = 10
+                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
+                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const boxWidth = baseBoxWidth - widthDecreasePercent
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    
+                    // Triangle pointer dots - dot1 and dot2 on top edge, dot3 is tip pointing upward
+                    const dot1X = 50.96
+                    const dot1Y = 84.09
+                    const dot2X = 44.02
+                    const dot2Y = 84.09
+                    const baseDot3X = 39.67
+                    const baseDot3Y = 82.66
+                    
+                    // Adjust dot3 position: move right 3px and down 3px (same as Box 8 error)
+                    const dot3RightPx = 3
+                    const dot3DownPx = 3
+                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
+                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3X = baseDot3X + dot3RightPercent - moveLeftPercent
+                    const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
+                    
+                    // Adjust dot1 and dot2 for the new box position
+                    const adjustedDot1X = dot1X - moveLeftPercent
+                    const adjustedDot2X = dot2X - moveLeftPercent
+                    const adjustedDot1Y = dot1Y + moveDownPercent
+                    const adjustedDot2Y = dot2Y + moveDownPercent
+                    
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    // Calculate wrapper dimensions for SVG coordinate conversion
+                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
+                    
+                    // Border radius
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - boxLeft) / boxWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - boxLeft) / boxWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - boxLeft) / boxWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - boxTop) / boxHeight) * 100
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Speech bubble path with triangle pointer extending upward
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const triangleRightLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              color: '#dc3545',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Value too low. Increase it.
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={speechBubblePath} fill="white" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
                       </div>
                     )
                   })()}
                   {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
@@ -18973,7 +19223,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box10Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // When Box 10 has valid value (27.5.png is displayed), make it read-only
@@ -19017,6 +19267,203 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </g>
                           </svg>
                         )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
+                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-49 (with 0.75s delay) */}
+                  {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox9Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box10TooLowError && (() => {
+                    
+                    const baseBoxLeft = 39.77
+                    const baseBoxTop = 84.09
+                    const baseBoxWidth = 27.98
+                    const baseBoxHeight = 5.39
+                    
+                    // Adjust position: move right 27px and down 36px from Box 8 error position
+                    // (This is 50px right and 19px down from error box 2's position)
+                    const moveRightPx = 27
+                    const moveDownPx = 36
+                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
+                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const boxLeft = baseBoxLeft + moveRightPercent
+                    const boxTop = baseBoxTop + moveDownPercent
+                    
+                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as other error boxes)
+                    const widthDecreasePx = 15
+                    const heightDecreasePx = 10
+                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
+                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const boxWidth = baseBoxWidth - widthDecreasePercent
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    
+                    // Triangle pointer dots - dot1 and dot2 on top edge, dot3 is tip pointing upward
+                    const dot1X = 50.96
+                    const dot1Y = 84.09
+                    const dot2X = 44.02
+                    const dot2Y = 84.09
+                    const baseDot3X = 39.67
+                    const baseDot3Y = 82.66
+                    
+                    // Adjust dot3 position for new box location
+                    const dot3RightPx = 3
+                    const dot3DownPx = 3
+                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
+                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3X = baseDot3X + dot3RightPercent + moveRightPercent
+                    const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
+                    
+                    // Adjust dot1 and dot2 for the new box position
+                    const adjustedDot1X = dot1X + moveRightPercent
+                    const adjustedDot2X = dot2X + moveRightPercent
+                    const adjustedDot1Y = dot1Y + moveDownPercent
+                    const adjustedDot2Y = dot2Y + moveDownPercent
+                    
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    // Calculate wrapper dimensions for SVG coordinate conversion
+                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
+                    
+                    // Border radius
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - boxLeft) / boxWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - boxLeft) / boxWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - boxLeft) / boxWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - boxTop) / boxHeight) * 100
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Speech bubble path with triangle pointer extending upward
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const triangleRightLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              color: '#dc3545',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Value too low. Increase it.
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={speechBubblePath} fill="white" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
                       </div>
                     )
                   })()}
@@ -28148,10 +28595,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 8 on page 27 - input box, only visible when 27.2.png is displayed (when box 7 is selected) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     const boxLeft = 35.33
                     const boxTop = 80.13
@@ -28192,7 +28639,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box8Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
@@ -28237,6 +28684,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               <path d={rightBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                               <path d={topBorderPath} fill="none" stroke={borderColor} strokeWidth={borderWidth} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                             </g>
+                          </svg>
+                        )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         )}
                       </div>
@@ -28416,10 +28881,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
@@ -28471,7 +28936,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box9Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
@@ -28518,15 +28983,211 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </g>
                           </svg>
                         )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
+                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-49 (with 0.75s delay) */}
+                  {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox8Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box9TooLowError && (() => {
+                    
+                    const baseBoxLeft = 39.77
+                    const baseBoxTop = 84.09
+                    const baseBoxWidth = 27.98
+                    const baseBoxHeight = 5.39
+                    
+                    // Adjust position: move left 23px and down 17px from Box 8 error position
+                    const moveLeftPx = 23
+                    const moveDownPx = 17
+                    const moveLeftPercent = stageWidthPx > 0 ? (moveLeftPx / stageWidthPx) * 100 : 0
+                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const boxLeft = baseBoxLeft - moveLeftPercent
+                    const boxTop = baseBoxTop + moveDownPercent
+                    
+                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as Box 8 error)
+                    const widthDecreasePx = 15
+                    const heightDecreasePx = 10
+                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
+                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const boxWidth = baseBoxWidth - widthDecreasePercent
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    
+                    // Triangle pointer dots - dot1 and dot2 on top edge, dot3 is tip pointing upward
+                    const dot1X = 50.96
+                    const dot1Y = 84.09
+                    const dot2X = 44.02
+                    const dot2Y = 84.09
+                    const baseDot3X = 39.67
+                    const baseDot3Y = 82.66
+                    
+                    // Adjust dot3 position: move right 3px and down 3px (same as Box 8 error)
+                    const dot3RightPx = 3
+                    const dot3DownPx = 3
+                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
+                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3X = baseDot3X + dot3RightPercent - moveLeftPercent
+                    const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
+                    
+                    // Adjust dot1 and dot2 for the new box position
+                    const adjustedDot1X = dot1X - moveLeftPercent
+                    const adjustedDot2X = dot2X - moveLeftPercent
+                    const adjustedDot1Y = dot1Y + moveDownPercent
+                    const adjustedDot2Y = dot2Y + moveDownPercent
+                    
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    // Calculate wrapper dimensions for SVG coordinate conversion
+                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
+                    
+                    // Border radius
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - boxLeft) / boxWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - boxLeft) / boxWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - boxLeft) / boxWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - boxTop) / boxHeight) * 100
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Speech bubble path with triangle pointer extending upward
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const triangleRightLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              color: '#dc3545',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Value too low. Increase it.
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={speechBubblePath} fill="white" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
                       </div>
                     )
                   })()}
                   {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if box 10 has valid value - hide borders but keep value visible
+                    // Check if box 10 has valid value - keep green borders visible on 27.5
                     const box10Val = parseFloat(page27Box10Value)
                     const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
-                    const hideBorders = box10Valid
+                    const hideBorders = false
                     
                     // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
@@ -28581,7 +29242,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box10Value)
                     const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
-                    const borderColor = isValid ? "#f05f40" : "#0d6efd"
+                    const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // When Box 10 has valid value (27.5.png is displayed), make it read-only
@@ -28625,6 +29286,203 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             </g>
                           </svg>
                         )}
+                        {isValid && (
+                          <svg
+                            style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              width: '16px',
+                              height: '16px',
+                              zIndex: 15,
+                              pointerEvents: 'none'
+                            }}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle cx="12" cy="12" r="10" fill="#28a745" />
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
+                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-49 (with 0.75s delay) */}
+                  {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox9Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box10TooLowError && (() => {
+                    
+                    const baseBoxLeft = 39.77
+                    const baseBoxTop = 84.09
+                    const baseBoxWidth = 27.98
+                    const baseBoxHeight = 5.39
+                    
+                    // Adjust position: move right 27px and down 36px from Box 8 error position
+                    // (This is 50px right and 19px down from error box 2's position)
+                    const moveRightPx = 27
+                    const moveDownPx = 36
+                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
+                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const boxLeft = baseBoxLeft + moveRightPercent
+                    const boxTop = baseBoxTop + moveDownPercent
+                    
+                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as other error boxes)
+                    const widthDecreasePx = 15
+                    const heightDecreasePx = 10
+                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
+                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const boxWidth = baseBoxWidth - widthDecreasePercent
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    
+                    // Triangle pointer dots - dot1 and dot2 on top edge, dot3 is tip pointing upward
+                    const dot1X = 50.96
+                    const dot1Y = 84.09
+                    const dot2X = 44.02
+                    const dot2Y = 84.09
+                    const baseDot3X = 39.67
+                    const baseDot3Y = 82.66
+                    
+                    // Adjust dot3 position for new box location
+                    const dot3RightPx = 3
+                    const dot3DownPx = 3
+                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
+                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3X = baseDot3X + dot3RightPercent + moveRightPercent
+                    const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
+                    
+                    // Adjust dot1 and dot2 for the new box position
+                    const adjustedDot1X = dot1X + moveRightPercent
+                    const adjustedDot2X = dot2X + moveRightPercent
+                    const adjustedDot1Y = dot1Y + moveDownPercent
+                    const adjustedDot2Y = dot2Y + moveDownPercent
+                    
+                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    
+                    // Calculate wrapper dimensions for SVG coordinate conversion
+                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
+                    
+                    // Border radius
+                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    
+                    // Convert triangle points to wrapper-relative coordinates
+                    const triangleBaseLeftWrapper = ((adjustedDot1X - boxLeft) / boxWidth) * 100
+                    const triangleBaseRightWrapper = ((adjustedDot2X - boxLeft) / boxWidth) * 100
+                    const triangleTipXWrapper = ((dot3X - boxLeft) / boxWidth) * 100
+                    const triangleTipYWrapper = ((dot3Y - boxTop) / boxHeight) * 100
+                    
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+                    
+                    // Speech bubble path with triangle pointer extending upward
+                    const speechBubblePath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                      L ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    
+                    // Border paths
+                    const leftBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${triangleBaseRightWrapper},${topY}
+                    `
+                    
+                    const triangleLeftLegPath = `
+                      M ${triangleBaseRightWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const triangleRightLegPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${triangleTipXWrapper},${triangleTipYWrapper}
+                    `
+                    
+                    const rightBorderPath = `
+                      M ${triangleBaseLeftWrapper},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    const bottomBorderPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      L ${topRight - borderRadiusWrapperX},${bottomY}
+                    `
+                    
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 15,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              color: '#dc3545',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Value too low. Increase it.
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={speechBubblePath} fill="white" />
+                          <g className="speech-bubble-border-group">
+                            <path d={leftBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleLeftLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={triangleRightLegPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={rightBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                            <path d={bottomBorderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          </g>
+                        </svg>
                       </div>
                     )
                   })()}
