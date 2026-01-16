@@ -38210,7 +38210,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
                               fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
-                              color: '#dc3545',
+                              color: 'white',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
                             }}
@@ -38233,8 +38233,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           viewBox="0 0 100 100"
                           preserveAspectRatio="none"
                         >
-                          <path d={roundedRectPath} fill="white" />
-                          <path d={borderPath} fill="none" stroke="#dc3545" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          <path d={roundedRectPath} fill={page5Button2Clicked ? '#28a745' : '#dc3545'} />
+                          <path d={borderPath} fill="none" stroke={page5Button2Clicked ? '#28a745' : '#dc3545'} strokeWidth="2" vectorEffect="non-scaling-stroke" />
                         </svg>
                       </div>
                     )
