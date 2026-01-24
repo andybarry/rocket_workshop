@@ -783,6 +783,7 @@ function App() {
       <Split initialPrimarySize={"32vw"} minPrimarySize={"5vw"} minSecondarySize={"10vw"}>
         <div style={{
           height: '100%',
+          overflow: 'hidden',
         }}
         >
           <InstructionsPanel editorMode={false} />
