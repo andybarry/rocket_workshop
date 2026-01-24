@@ -10,8 +10,7 @@ import ErrorBoundary from './ErrorBoundary';
 import { ResetAllButton } from "./ResetAllButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import DroneInstructionsPDF from './Drone_Instructions.pdf';
-import AdvancedDroneInstructionsPDF from './Advanced_Drone_Instructions.pdf';
+import InstructionsPanel from './components/InstructionsPanel';
 
 
 // Import search-related addons
@@ -201,7 +200,6 @@ function App() {
   const [codeError, setCodeError] = React.useState('');
   const [codeMirrorHeight, setCodeMirrorHeight] = useState('88vh');
   const [showAutonomous, setShowAutonomous] = useState(false);
-  const [isAdvanced, setIsAdvanced] = useState(false);
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
@@ -741,14 +739,6 @@ function App() {
     codemirrorSize = "38vh"
   }
 
-  const basePdf = isAdvanced
-    ? AdvancedDroneInstructionsPDF   // e.g. "/docs/advanced.pdf"
-    : DroneInstructionsPDF;          // e.g. "/docs/basic.pdf"
-
-  // Important: put the hash *after* any query string the URL might already have
-  const pdfUrl =
-    `${basePdf}#view=FitH&navpanes=0&toolbar=1&scrollbar=0`;  // or …#zoom=page-width
-
 
   return (
     <ErrorBoundary>
@@ -768,29 +758,6 @@ function App() {
         </div>
 
         <div className="download-links">
-          <label
-            htmlFor="advanced-mode"
-            className="advanced-toggle"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              cursor: "pointer",
-              marginRight: "0.75rem",      // space before the first link
-              color: 'white',
-              marginLeft: '15px',
-            }}
-          >
-            <input
-              id="advanced-mode"
-              type="checkbox"
-              checked={isAdvanced}
-              onChange={(e) => setIsAdvanced(e.target.checked)}
-              style={{ marginRight: "0.35rem" }}
-            />
-            Advanced mode
-          </label>
-
-          <a href={pdfUrl} target="_blank">Instructions</a>
           <a
             href="https://stageoneeducation.com/UART-USB-Driver.html"
             target="_blank"
@@ -818,11 +785,7 @@ function App() {
           height: '100%',
         }}
         >
-          <iframe
-            src={pdfUrl}
-            title="Drone Instructions"
-            style={{ width: '100%', height: '100%', border: 'none' }}
-          />
+          <InstructionsPanel editorMode={false} />
         </div>
         <div>
           <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"}>

@@ -47,8 +47,8 @@ ssh "$REMOTE_SERVER" << EOF
 #  sudo -n systemctl restart feedback.service || { echo "Failed to restart service"; exit 1; }
 EOF
 
-echo "sudo -n ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/ || { echo \"Failed to link service file\"; exit 1; }"
-echo "sudo -n systemctl daemon-reload || { echo \"Failed to reload systemd\"; exit 1; }"
-echo "sudo -n systemctl restart feedback.service || { echo \"Failed to restart service\"; exit 1; }"
+echo "sudo ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/ || { echo \"Failed to link service file\"; }"
+echo "sudo systemctl daemon-reload || { echo \"Failed to reload systemd\"; }"
+echo "sudo systemctl restart feedback.service || { echo \"Failed to restart service\"; }"
 
 echo "Deployment complete."

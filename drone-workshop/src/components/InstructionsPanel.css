@@ -1,0 +1,834 @@
+.instructions-panel {
+  width: 100%;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+  background-color: white;
+  position: relative;
+}
+
+.instructions-panel.no-scrollbars {
+  overflow-y: hidden;
+}
+
+.instructions-background {
+  width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.instructions-content {
+  padding: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.instructions-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.instruction-step {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.instruction-step p {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+.instruction-step input {
+  margin: 10px 0;
+  padding: 8px 12px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.instruction-step input:focus {
+  outline: none;
+  border-color: #f05f40ff;
+  box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.2);
+}
+
+.step-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.step-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: #f05f40ff;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #d04a2e;
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.btn-secondary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 0 10px 0;
+  padding: 0;
+  overflow: auto;
+  height: calc(100vh - 138px);
+  min-height: calc(100vh - 138px);
+}
+
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When zoomed (container is scrollable), align to top and allow overflow */
+.page-container:not(.no-scrollbars) .page-wrapper {
+  align-items: flex-start;
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+  width: auto;
+  min-width: 100%;
+  position: relative;
+  flex-shrink: 0;
+  justify-content: center;
+  /* Add padding to create scrollable space for scaled image overflow */
+  box-sizing: content-box;
+}
+
+.page-stage-frame {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* When zoomed, keep stage-frame at original size (not expanding with wrapper) */
+.page-container:not(.no-scrollbars) .page-stage-frame {
+  /* Keep original size - don't expand with wrapper */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  /* Keep content centered so image scales from center correctly */
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  position: relative;
+}
+
+.page-stage {
+  position: relative;
+  display: block;
+  line-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: visible;
+}
+
+/* When zoomed, allow stage to show overflow from scaled image */
+.page-container:not(.no-scrollbars) .page-stage {
+  max-height: none;
+  max-width: none;
+  overflow: visible;
+  /* Ensure stage expands to show scaled content */
+  display: block;
+}
+
+.page-container.no-scrollbars {
+  overflow: hidden;
+}
+
+/* When zoomed, align content to flex-start so horizontal scroll works from left edge */
+.page-container:not(.no-scrollbars) {
+  justify-content: flex-start;
+}
+
+/* Hide scrollbars but keep scrolling functionality when zoomed */
+.page-container:not(.no-scrollbars)::-webkit-scrollbar,
+.instructions-panel:not(.no-scrollbars)::-webkit-scrollbar {
+  display: block;
+}
+
+.page-container:not(.no-scrollbars),
+.instructions-panel:not(.no-scrollbars) {
+  -ms-overflow-style: auto;
+  scrollbar-width: thin;
+}
+
+.instruction-page {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+.page-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  padding: clamp(1px, 0.5vw, 3px) clamp(6px, 1.5vw, 12px);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 8px rgba(240, 95, 64, 0.3);
+  backdrop-filter: blur(10px);
+  gap: clamp(3px, 1.2vw, 8px);
+  position: absolute;
+  bottom: 5px;
+  left: clamp(8px, 2.5vw, 20px);
+  right: clamp(8px, 2.5vw, 20px);
+  z-index: 100;
+  width: calc(100% - clamp(16px, 5vw, 40px));
+  min-width: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  container-type: inline-size;
+  container-name: page-nav;
+}
+
+.nav-button-left {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 0;
+  overflow: visible;
+  flex: 1 1 0;
+}
+
+.nav-button-right {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+  overflow: visible;
+  flex: 1 1 0;
+}
+
+.btn-modern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2px, 0.5vw, 4px);
+  padding: clamp(2px, 0.8vw, 4px) clamp(4px, 1.2vw, 10px);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: clamp(6px, 0.9vw, 10px);
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-modern:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.btn-modern:disabled {
+  background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+  color: #9e9e9e;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.btn-modern svg {
+  flex-shrink: 0;
+  width: clamp(10px, 2.8vw, 16px);
+  height: clamp(10px, 2.8vw, 16px);
+}
+
+.btn-nav {
+  min-width: 45px;
+  width: auto;
+  max-width: none;
+  background: transparent;
+  color: #f05f40;
+  box-shadow: none;
+  border: 1px solid #f05f40;
+  border-radius: 15px;
+  /* Pulse border thickness animation when enabled */
+  animation: pulseBorder 2s ease-in-out infinite;
+  /* Fixed padding to maintain button size regardless of panel width */
+  padding: 2px 8px;
+  gap: 2px;
+  font-size: 10px;
+  /* Ensure text doesn't overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Prevent button from shrinking */
+  flex-shrink: 0;
+}
+
+/* Remove container queries that reduce button size - buttons should maintain fixed size */
+
+/* Previous button should never pulse */
+.btn-nav-previous {
+  animation: none !important;
+  border-width: 1px !important;
+}
+
+.btn-nav svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* Pulse border thickness animation - pulses proportionally */
+@keyframes pulseBorder {
+  0%, 100% {
+    border-width: 1px;
+  }
+  50% {
+    border-width: 2px;
+  }
+}
+
+/* Stop animation when button is disabled */
+.btn-nav:disabled {
+  animation: none;
+  border-width: 1px;
+}
+
+/* Stop animation when button is clicked/active */
+.btn-nav:active:not(:disabled) {
+  animation: none;
+  border-width: 2px;
+}
+
+.btn-nav-blue:active:not(:disabled) {
+  animation: none;
+  border-width: 2px;
+}
+
+/* Blue variant for Next button when enabled on page 3 */
+.btn-nav-blue {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  /* Pulse animation continues for blue variant */
+  animation: pulseBorder 2s ease-in-out infinite;
+}
+
+.btn-nav-blue:hover:not(:disabled) {
+  background-color: #0d6efd;
+  color: white;
+  /* Keep pulsing on hover */
+  animation: pulseBorder 2s ease-in-out infinite;
+}
+
+.zoom-controls {
+  display: flex;
+  gap: 1px;
+  align-items: center;
+  min-width: 0;
+  flex-shrink: 1;
+  justify-content: center;
+}
+
+.reset-button-container {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+}
+
+.zoom-text {
+  color: #f05f40;
+  font-size: clamp(6px, 0.9vw, 10px);
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  padding: 0 2px;
+  display: inline-block;
+}
+
+.btn-zoom {
+  padding: clamp(2px, 0.8vw, 4px);
+  min-width: 0;
+  width: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #f05f40;
+  flex-shrink: 0;
+}
+
+.btn-reset {
+  padding: clamp(2px, 0.8vw, 4px);
+  font-size: clamp(6px, 0.9vw, 10px);
+}
+
+.btn-zoom svg {
+  stroke: currentColor;
+  fill: none;
+  width: clamp(14px, 3.5vw, 20px);
+  height: clamp(14px, 3.5vw, 20px);
+}
+
+.btn-zoom svg circle {
+  stroke-width: clamp(0.5px, 0.25vw, 1px);
+}
+
+.btn-zoom svg path {
+  stroke-width: clamp(1px, 0.4vw, 2px);
+}
+
+.btn-zoom:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.btn-zoom:active:not(:disabled) {
+  opacity: 0.5;
+}
+
+.btn-zoom:disabled {
+  background: transparent;
+  box-shadow: none;
+}
+
+.btn-zoom:disabled svg {
+  stroke: #bdbdbd;
+}
+
+/* Pulsing glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 3px rgba(13, 110, 253, 0.2), 0 0 6px rgba(13, 110, 253, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.3), 0 0 9px rgba(13, 110, 253, 0.2);
+  }
+}
+
+/* Pulsing border animation for page-start-button - same as speech bubbles */
+@keyframes pageStartButtonBorderPulse {
+  0%, 100% {
+    border-width: 1px;
+  }
+  50% {
+    border-width: 2px;
+  }
+}
+
+.page-start-button {
+  position: absolute;
+  z-index: 10;
+  
+  /* Styling as requested */
+  background-color: white;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  border-radius: 999px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  /* No transition on transform - scale immediately with image */
+  /* Border changes instantly on hover, no delay - border is not in transition */
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  /* Pulsing border animation for unselected buttons - same as page 3 speech bubbles */
+  animation: pageStartButtonBorderPulse 3s ease-in-out infinite;
+  
+  /* Center text horizontally and vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  /* Ensure smooth rendering without delay */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Selected button state - no pulse, 2px border */
+.page-start-button.selected {
+  border: 2px solid #0d6efd;
+  animation: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Button returning from page 3 - orange 2px border, no animation, still clickable */
+.page-start-button.returning-from-page3 {
+  border: 2px solid #f05f40 !important;
+  animation: none;
+  box-shadow: none;
+}
+
+/* No hover effect when returning from page 3 - keep orange border, no color change */
+.page-start-button.returning-from-page3:hover:not(.disabled):not(:disabled) {
+  background-color: white;
+  color: #000;
+  border: 2px solid #f05f40 !important;
+}
+
+/* Button returning from page 2 - orange 2px border, orange font color, no animation, still clickable */
+.page-start-button.returning-from-page2 {
+  border: 2px solid #f05f40 !important;
+  color: #f05f40 !important;
+  animation: none;
+  box-shadow: none;
+}
+
+/* No hover effect when returning from page 2 - keep orange border and font color */
+.page-start-button.returning-from-page2:hover:not(.disabled):not(:disabled) {
+  background-color: white;
+  color: #f05f40 !important;
+  border: 2px solid #f05f40 !important;
+}
+
+.page-start-button:hover:not(.disabled):not(:disabled):not(.selected):not(.returning-from-page3):not(.returning-from-page2) {
+  background-color: #0d6efd;
+  color: white;
+  border: 2px solid #0d6efd !important;
+  /* Stop pulsing on hover - keep 2px border */
+  animation: none;
+}
+
+.page-start-button:hover:not(.disabled):not(:disabled).selected:not(.returning-from-page3):not(.returning-from-page2) {
+  background-color: #0d6efd;
+  color: white;
+  border: 2px solid #0d6efd !important;
+  /* No glow effect on hover */
+}
+
+.page-start-button:active:not(.disabled):not(:disabled) {
+  opacity: 0.9;
+}
+
+.page-start-button.disabled,
+.page-start-button:disabled {
+  pointer-events: none;
+}
+
+/* Editor mode styles */
+.instructions-panel.editor-mode .page-wrapper {
+  user-select: none;
+}
+
+.editor-mode .instruction-page {
+  opacity: 0.9;
+}
+
+/* Resizable box styles */
+.resizable-box {
+  box-sizing: border-box;
+  pointer-events: auto;
+  user-select: none;
+  /* Ensure box transforms properly */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.resizable-box-content {
+  width: 100%;
+  height: 100%;
+  cursor: move;
+}
+
+/* Resize handles */
+.resize-handle {
+  position: absolute;
+  background-color: #0d6efd;
+  border: 2px solid white;
+  box-sizing: border-box;
+  z-index: 21;
+}
+
+/* Corner handles */
+.resize-handle-nw,
+.resize-handle-ne,
+.resize-handle-sw,
+.resize-handle-se {
+  width: 12px;
+  height: 12px;
+}
+
+.resize-handle-nw {
+  top: -6px;
+  left: -6px;
+  cursor: nwse-resize;
+}
+
+.resize-handle-ne {
+  top: -6px;
+  right: -6px;
+  cursor: nesw-resize;
+}
+
+.resize-handle-sw {
+  bottom: -6px;
+  left: -6px;
+  cursor: nesw-resize;
+}
+
+.resize-handle-se {
+  bottom: -6px;
+  right: -6px;
+  cursor: nwse-resize;
+}
+
+/* Edge handles */
+.resize-handle-n,
+.resize-handle-s {
+  width: 8px;
+  height: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.resize-handle-n {
+  top: -6px;
+  cursor: ns-resize;
+}
+
+.resize-handle-s {
+  bottom: -6px;
+  cursor: ns-resize;
+}
+
+.resize-handle-e,
+.resize-handle-w {
+  width: 12px;
+  height: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.resize-handle-e {
+  right: -6px;
+  cursor: ew-resize;
+}
+
+.resize-handle-w {
+  left: -6px;
+  cursor: ew-resize;
+}
+
+.resize-handle:hover {
+  background-color: #0b5ed7;
+  transform: scale(1.2);
+  z-index: 22;
+}
+
+.resize-handle-n:hover,
+.resize-handle-s:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.resize-handle-e:hover,
+.resize-handle-w:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Edge dots */
+.edge-dot {
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.edge-dot:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+  background-color: #ff5252;
+  z-index: 26;
+}
+
+.edge-dot:active {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Dot3 specific styling */
+.edge-dot.dot3 {
+  background-color: #4ecdc4;
+}
+
+.edge-dot.dot3:hover {
+  background-color: #26a69a;
+  transform: translate(-50%, -50%) scale(1.3);
+  z-index: 26;
+}
+
+.edge-dot.dot3:active {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Connection lines */
+.connection-line {
+  opacity: 0.7;
+}
+
+/* Speech bubble styles */
+.speech-bubble-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.speech-bubble-box {
+  transition: all 0.2s ease;
+}
+
+.speech-bubble-box.selected {
+  box-shadow: none;
+}
+
+/* Border thickness - default 1px, hover 2px - same as start button (1px border, 2px on hover) */
+.speech-bubble-border {
+  stroke-width: 1;
+  transition: stroke-width 0.2s ease;
+}
+
+/* Slow pulse animation for border thickness - pulses from 1px to 2px */
+.speech-bubble-wrapper:not(.has-selected) .speech-bubble-border {
+  animation: speechBubbleBorderPulse 3s ease-in-out infinite;
+}
+
+/* Disable pulse animation for box 4 on page 7 */
+.speech-bubble-wrapper.no-pulse .speech-bubble-border {
+  animation: none;
+}
+
+/* Pulsing border animation - slowly goes from 1px to 2px and back */
+@keyframes speechBubbleBorderPulse {
+  0%, 100% {
+    stroke-width: 1;
+  }
+  50% {
+    stroke-width: 2;
+  }
+}
+
+/* On hover over the box, increase border to 2px and stop animation */
+.speech-bubble-box:hover:not(.disabled) ~ .speech-bubble-svg .speech-bubble-border {
+  stroke-width: 2;
+  animation: none;
+}
+
+/* When box is selected, use thicker border (2px) and stop animation */
+.speech-bubble-wrapper.has-selected .speech-bubble-svg .speech-bubble-border {
+  stroke-width: 2;
+  animation: none;
+}
+
+/* Ensure fill always stays white for speech bubble paths, regardless of state */
+.speech-bubble-svg path[fill="white"],
+.speech-bubble-svg path[fill="white"]:hover,
+.speech-bubble-wrapper.has-selected .speech-bubble-svg path[fill="white"] {
+  fill: white !important;
+}
+
+/* Page 24 premium button hover effect - increase blue glow */
+.page24-premium-button {
+  transition: box-shadow 0.2s ease;
+}
+
+.page24-premium-button:hover {
+  box-shadow: 0 0 12px rgba(13, 110, 253, 0.5) !important;
+}
+
+/* Safety glasses pop animation - expands by 9px in all directions */
+@keyframes safetyGlassesPop {
+  0% {
+    left: calc(var(--base-left, 0));
+    top: calc(var(--base-top, 0));
+    width: calc(var(--base-width, 0));
+    height: calc(var(--base-height, 0));
+  }
+  50% {
+    left: calc(var(--base-left, 0) - var(--left-expansion, 0));
+    top: calc(var(--base-top, 0) - var(--top-expansion, 0));
+    width: calc(var(--base-width, 0) + var(--width-expansion, 0));
+    height: calc(var(--base-height, 0) + var(--height-expansion, 0));
+  }
+  100% {
+    left: calc(var(--base-left, 0));
+    top: calc(var(--base-top, 0));
+    width: calc(var(--base-width, 0));
+    height: calc(var(--base-height, 0));
+  }
+}
+
+.safety-glasses-pop {
+  animation: safetyGlassesPop 1s ease-in-out;
+}
+
+/* Red dot shrink animation - starts at 2x size and shrinks to normal */
+@keyframes shrinkDot {
+  from {
+    transform: scale(2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
