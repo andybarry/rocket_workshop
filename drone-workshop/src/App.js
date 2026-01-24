@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -963,9 +964,27 @@ function App() {
         contentClassName="modal-content"
       >
         <Modal.Header closeButton className="text-orange">
-          <Modal.Title>Drone Tester</Modal.Title>
+          <Modal.Title style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            Admin Tools
+            <Link 
+              to="/editor" 
+              style={{ 
+                padding: '6px 14px',
+                backgroundColor: '#0d6efd',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '6px',
+                fontWeight: '500',
+                fontSize: '14px'
+              }}
+              onClick={handleAdminDialogClose}
+            >
+              Editor
+            </Link>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h5 style={{ marginBottom: '15px' }}>Drone Tester</h5>
           {!isAuthenticated ? (
             <Form onSubmit={handlePasswordSubmit}>
               <Form.Group className="mb-3">

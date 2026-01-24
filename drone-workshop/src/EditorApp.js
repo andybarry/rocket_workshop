@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Split } from '@geoffcox/react-splitter';
 import InstructionsPanel from './components/InstructionsPanel';
 import EditorPanel from './components/EditorPanel';
@@ -9,6 +10,102 @@ function EditorApp() {
   const [capturedDimensions, setCapturedDimensions] = useState(null);
   const refreshHandlerRef = useRef(null);
   const pageSelectHandlerRef = useRef(null);
+  
+  // Password protection
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === 'uptonogood') {
+      setIsAuthenticated(true);
+      setPasswordError('');
+    } else {
+      setPasswordError('Incorrect password');
+    }
+  };
+
+  // Show password screen if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div>
+        <div
+          style={{
+            alignItems: 'center',
+            backgroundColor: "#f05f40ff",
+          }}>
+          <div className="orange-bar">
+            <h1 className="stageone-heading">
+              <span className="stageone-education">Robotics Workshop</span>
+              <span className="drone-workshop"> | Editor Mode</span>
+            </h1>
+            <span className="stageone-org">STAGE ONE EDUCATION</span>
+          </div>
+          <div className="download-links">
+            <Link to="/" style={{ marginLeft: '15px' }}>← Back to Workshop</Link>
+          </div>
+        </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 'calc(100vh - 58px)',
+          backgroundColor: '#f5f5f5'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '40px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            maxWidth: '400px',
+            width: '100%'
+          }}>
+            <h2 style={{ marginBottom: '20px', color: '#333', textAlign: 'center' }}>
+              Editor Access
+            </h2>
+            <form onSubmit={handlePasswordSubmit}>
+              <div style={{ marginBottom: '15px' }}>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  autoFocus
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    fontSize: '16px',
+                    border: '1px solid #ddd',
+                    borderRadius: '6px',
+                    boxSizing: 'border-box'
+                  }}
+                />
+                {passwordError && (
+                  <p style={{ color: 'red', marginTop: '8px', marginBottom: '0' }}>{passwordError}</p>
+                )}
+              </div>
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  fontSize: '16px',
+                  backgroundColor: '#f05f40',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Enter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -28,7 +125,7 @@ function EditorApp() {
         </div>
 
         <div className="download-links">
-          <a href="/" style={{ marginLeft: '15px' }}>← Back to Workshop</a>
+          <Link to="/" style={{ marginLeft: '15px' }}>← Back to Workshop</Link>
         </div>
       </div>
 
