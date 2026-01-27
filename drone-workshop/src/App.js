@@ -215,6 +215,7 @@ function App() {
   const passwordInputRef = useRef(null);
   const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
   const [pageJumpApi, setPageJumpApi] = useState(null);
+  const [resetInstructionsPressedOnce, setResetInstructionsPressedOnce] = useState(false);
 
   const LOCAL_STORAGE_VERSION = "1.0"
 
@@ -949,14 +950,13 @@ function App() {
               />
               <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
                 {pageJumpApi && (
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <label htmlFor="right-panel-page-jump" style={{ fontSize: '12px', color: '#666' }}>Page</label>
+                  <span style={{ display: 'flex', alignItems: 'center' }}>
                     <input
                       id="right-panel-page-jump"
                       type="number"
                       min={1}
                       max={pageJumpApi.totalPages}
-                      placeholder=""
+                      placeholder="Page"
                       value={pageJumpApi.pageJumpInput}
                       onChange={(e) => pageJumpApi.setPageJumpInput(e.target.value)}
                       onKeyDown={(e) => { if (e.key === 'Enter') pageJumpApi.handlePageJump(e); }}
@@ -969,16 +969,37 @@ function App() {
                   <FontAwesomeIcon icon={faCog} />
                 </a>
                 {resetInstructionsFunc && (
-                  <Button 
-                    variant="outline-secondary" 
-                    onClick={resetInstructionsFunc}
-                    style={{ marginRight: '10px' }}
-                  >
-                    Reset Instructions
-                  </Button>
+                  resetInstructionsPressedOnce ? (
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => {
+                        resetInstructionsFunc();
+                        setResetInstructionsPressedOnce(false);
+                      }}
+                      className="right-panel-action-btn"
+                      style={{ marginRight: '10px' }}
+                    >
+                      Confirm Reset
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() => {
+                        setResetInstructionsPressedOnce(true);
+                        setTimeout(() => setResetInstructionsPressedOnce(false), 5000);
+                      }}
+                      className="right-panel-action-btn"
+                      style={{ marginRight: '10px' }}
+                    >
+                      Reset Instructions
+                    </Button>
+                  )
                 )}
                 <ResetAllButton
                   callback={resetAll}
+                  size="sm"
                 />
               </div>
             </div>

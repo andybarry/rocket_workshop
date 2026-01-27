@@ -217,8 +217,8 @@
 }
 
 .right-panel-page-jump {
-  width: 48px;
-  padding: 2px 4px;
+  width: 56px;
+  padding: 2px 6px;
   font-size: 11px;
   font-family: 'Roboto', sans-serif;
   text-align: center;
@@ -248,6 +248,11 @@
 .right-panel-page-jump[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+.right-panel-action-btn {
+  font-size: 12px;
+  padding: 2px 8px;
 }
 
 /* Style for modals and form controls with consistent orange theme */

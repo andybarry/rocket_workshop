@@ -20,14 +20,15 @@ function ResetAllButton(props) {
     }, 5000);
   }
 
+  const btnSize = props.size || "sm";
   let button = (
-    <Button variant="outline-secondary" onClick={handleButtonClick}>
+    <Button variant="outline-secondary" size={btnSize} onClick={handleButtonClick} className="right-panel-action-btn">
       Reset All
     </Button>
   )
   if (pressedOnce) {
     button = (
-        <Button variant="danger" onClick={handleButtonClick}>
+        <Button variant="danger" size={btnSize} onClick={handleButtonClick} className="right-panel-action-btn">
           Confirm Reset
         </Button>
       )
