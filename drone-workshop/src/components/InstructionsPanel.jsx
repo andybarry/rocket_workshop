@@ -54,9 +54,12 @@ import safetyGlasses from '../assets/images/safety-glasses.png'
 const DEFAULT_PAGE_ASPECT = 0.75
 const STAGE_FRAME_PADDING = 6
 const START_BUTTON_SMALL_THRESHOLD = 80 // px width threshold to shrink border
+const INSTRUCTIONS_STORAGE_KEY = 'droneWorkshopInstructionsState'
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady }) {
   const [currentPage, setCurrentPage] = useState(0)
+  // Track completed pages (pages where user clicked Next to proceed)
+  const [completedPages, setCompletedPages] = useState([])
   const [zoom, setZoom] = useState(100)
   const [hasStarted, setHasStarted] = useState(false)
   // Track which pages have been visited/completed (button clicked)
@@ -329,6 +332,337 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page10HelpImageTimeoutRef = useRef(null)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
+  // Function to restore all box states for a completed page
+  const restoreCompletedPageStates = useCallback((pageIndex) => {
+    switch (pageIndex) {
+      case 0: // Page 1
+        setHasStarted(true)
+        setVisitedPages(prev => new Set(prev).add(0))
+        break
+      case 1: // Page 2
+        setVisitedPages(prev => new Set(prev).add(1))
+        break
+      case 2: // Page 3
+        setPage3ButtonClicked(true)
+        setPage3SecondButtonClicked(true)
+        break
+      case 3: // Page 4
+        setPage4Button1Clicked(true)
+        setPage4Button2Clicked(true)
+        setPage4Button3Clicked(true)
+        setPage4Button4Clicked(true)
+        setPage4Button5Clicked(true)
+        break
+      case 4: // Page 5
+        setPage5GreenDotSelected(true)
+        break
+      case 5: // Page 6
+        setPage6Button1Clicked(true)
+        setPage6Button2Clicked(true)
+        break
+      case 6: // Page 7
+        setPage7Box4EverSelected(true)
+        setPage7Visited(true)
+        break
+      case 7: // Page 8
+        setPage8Box1Selected(true)
+        setPage8Box4Selected(true)
+        break
+      case 8: // Page 9
+        setPage9Box2Selected(true)
+        break
+      case 9: // Page 10
+        setPage10Box4Selected(true)
+        break
+      case 10: // Page 11
+        setPage11Box4Selected(true)
+        break
+      case 11: // Page 12
+        setPage12Box4Selected(true)
+        break
+      case 12: // Page 13
+        setPage13Box1Selected(true)
+        break
+      case 13: // Page 14
+        setPage14Box5Selected(true)
+        break
+      case 14: // Page 15
+        setPage15Box3Selected(true)
+        break
+      case 15: // Page 16
+        setPage16Box3Selected(true)
+        break
+      case 16: // Page 17
+        setPage17Box4bSelected(true)
+        break
+      case 17: // Page 18
+        setPage18Box1Selected(true)
+        setPage18Box2Selected(true)
+        setPage18Box3Selected(true)
+        setPage18Box4Selected(true)
+        break
+      case 18: // Page 19
+        setPage19Box3Selected(true)
+        break
+      case 19: // Page 20
+        setPage20Box6Selected(true)
+        break
+      case 20: // Page 21
+        setPage21BoxSelected(true)
+        break
+      case 21: // Page 22
+        setPage22Box4Selected(true)
+        break
+      case 22: // Page 23
+        setPage23Box4Selected(true)
+        break
+      case 23: // Page 24
+        setPage24Box1Selected(true)
+        break
+      case 24: // Page 25
+        setPage25Box2Selected(true)
+        break
+      case 25: // Page 26
+        setPage26Box5Selected(true)
+        break
+      case 26: // Page 27
+        setPage27Box10Value('75') // Set a valid value
+        break
+      case 27: // Page 28
+        setPage28Box5Selected(true)
+        break
+      case 28: // Page 29
+        setPage29Box1Selected(true)
+        break
+      case 29: // Page 30
+        setPage30Box1Selected(true)
+        break
+      case 30: // Page 31
+        setPage31Box1Selected(true)
+        break
+      case 31: // Page 32
+        setPage32Box3Selected(true)
+        break
+      case 32: // Page 33
+        setPage33Box1Selected(true)
+        break
+      default:
+        break
+    }
+  }, [])
+
+  // Load completed pages and all box/checkbox state from localStorage on mount (survives refresh)
+  useEffect(() => {
+    const savedState = localStorage.getItem(INSTRUCTIONS_STORAGE_KEY)
+    if (!savedState) return
+    try {
+      const p = JSON.parse(savedState)
+      if (!p.completedPages || !Array.isArray(p.completedPages)) return
+
+      setCompletedPages(p.completedPages)
+      if (p.visitedPages && Array.isArray(p.visitedPages)) setVisitedPages(new Set(p.visitedPages))
+      if (typeof p.hasStarted === 'boolean') setHasStarted(p.hasStarted)
+
+      if (typeof p.page3ButtonClicked === 'boolean') setPage3ButtonClicked(p.page3ButtonClicked)
+      if (typeof p.page3SecondButtonClicked === 'boolean') setPage3SecondButtonClicked(p.page3SecondButtonClicked)
+      if (Array.isArray(p.selectedGreenBoxes)) setSelectedGreenBoxes(new Set(p.selectedGreenBoxes))
+
+      if (typeof p.page4Button1Clicked === 'boolean') setPage4Button1Clicked(p.page4Button1Clicked)
+      if (typeof p.page4Button2Clicked === 'boolean') setPage4Button2Clicked(p.page4Button2Clicked)
+      if (typeof p.page4Button3Clicked === 'boolean') setPage4Button3Clicked(p.page4Button3Clicked)
+      if (typeof p.page4Button4Clicked === 'boolean') setPage4Button4Clicked(p.page4Button4Clicked)
+      if (typeof p.page4Button5Clicked === 'boolean') setPage4Button5Clicked(p.page4Button5Clicked)
+      if (typeof p.page4SpeechBubbleClicked === 'boolean') setPage4SpeechBubbleClicked(p.page4SpeechBubbleClicked)
+      if (typeof p.page4Checkbox1 === 'boolean') setPage4Checkbox1(p.page4Checkbox1)
+      if (typeof p.page4Checkbox2 === 'boolean') setPage4Checkbox2(p.page4Checkbox2)
+      if (typeof p.page4Checkbox3 === 'boolean') setPage4Checkbox3(p.page4Checkbox3)
+
+      if (typeof p.page5Button1Clicked === 'boolean') setPage5Button1Clicked(p.page5Button1Clicked)
+      if (typeof p.page5Button2Clicked === 'boolean') setPage5Button2Clicked(p.page5Button2Clicked)
+      if (typeof p.page5BlueDotSelected === 'boolean') setPage5BlueDotSelected(p.page5BlueDotSelected)
+      if (typeof p.page5GreenDotSelected === 'boolean') setPage5GreenDotSelected(p.page5GreenDotSelected)
+
+      if (typeof p.page6Button1Clicked === 'boolean') setPage6Button1Clicked(p.page6Button1Clicked)
+      if (typeof p.page6Button2Clicked === 'boolean') setPage6Button2Clicked(p.page6Button2Clicked)
+
+      if (typeof p.page7Box1Selected === 'boolean') setPage7Box1Selected(p.page7Box1Selected)
+      if (typeof p.page7Box2Selected === 'boolean') setPage7Box2Selected(p.page7Box2Selected)
+      if (typeof p.page7Box3Selected === 'boolean') setPage7Box3Selected(p.page7Box3Selected)
+      if (typeof p.page7Box4Selected === 'boolean') setPage7Box4Selected(p.page7Box4Selected)
+      if (typeof p.page7Box4EverSelected === 'boolean') setPage7Box4EverSelected(p.page7Box4EverSelected)
+      if (typeof p.page7Visited === 'boolean') setPage7Visited(p.page7Visited)
+
+      if (typeof p.page8Box1Selected === 'boolean') setPage8Box1Selected(p.page8Box1Selected)
+      if (typeof p.page8Box2Selected === 'boolean') setPage8Box2Selected(p.page8Box2Selected)
+      if (typeof p.page8Box3Selected === 'boolean') setPage8Box3Selected(p.page8Box3Selected)
+      if (typeof p.page8Box4Selected === 'boolean') setPage8Box4Selected(p.page8Box4Selected)
+      if (typeof p.page8WhiteBoxHidden === 'boolean') setPage8WhiteBoxHidden(p.page8WhiteBoxHidden)
+      if (typeof p.page8Box3WhiteBoxHidden === 'boolean') setPage8Box3WhiteBoxHidden(p.page8Box3WhiteBoxHidden)
+
+      if (typeof p.page9Box1Selected === 'boolean') setPage9Box1Selected(p.page9Box1Selected)
+      if (typeof p.page9Box2Selected === 'boolean') setPage9Box2Selected(p.page9Box2Selected)
+      if (typeof p.page9Box2bSelected === 'boolean') setPage9Box2bSelected(p.page9Box2bSelected)
+      if (typeof p.page9Box3Selected === 'boolean') setPage9Box3Selected(p.page9Box3Selected)
+      if (typeof p.page9WhiteBoxesHidden === 'boolean') setPage9WhiteBoxesHidden(p.page9WhiteBoxesHidden)
+      if (typeof p.page9RightWhiteBoxHidden === 'boolean') setPage9RightWhiteBoxHidden(p.page9RightWhiteBoxHidden)
+
+      if (typeof p.page10BoxSelected === 'boolean') setPage10BoxSelected(p.page10BoxSelected)
+      if (typeof p.page10BoxesVisible === 'boolean') setPage10BoxesVisible(p.page10BoxesVisible)
+      if (typeof p.page10Box1Selected === 'boolean') setPage10Box1Selected(p.page10Box1Selected)
+      if (typeof p.page10Box2Selected === 'boolean') setPage10Box2Selected(p.page10Box2Selected)
+      if (typeof p.page10Box3Selected === 'boolean') setPage10Box3Selected(p.page10Box3Selected)
+      if (typeof p.page10Box4Selected === 'boolean') setPage10Box4Selected(p.page10Box4Selected)
+      if (typeof p.page10WhiteBoxesHidden === 'boolean') setPage10WhiteBoxesHidden(p.page10WhiteBoxesHidden)
+      if (typeof p.page10WhiteBox1Hidden === 'boolean') setPage10WhiteBox1Hidden(p.page10WhiteBox1Hidden)
+      if (typeof p.page10NeedHelpWhiteBoxVisible === 'boolean') setPage10NeedHelpWhiteBoxVisible(p.page10NeedHelpWhiteBoxVisible)
+      if (typeof p.page10WhiteBox3Hidden === 'boolean') setPage10WhiteBox3Hidden(p.page10WhiteBox3Hidden)
+      if (typeof p.page10NewWhiteBoxHidden === 'boolean') setPage10NewWhiteBoxHidden(p.page10NewWhiteBoxHidden)
+
+      if (typeof p.page11BoxSelected === 'boolean') setPage11BoxSelected(p.page11BoxSelected)
+      if (typeof p.page11Box2Selected === 'boolean') setPage11Box2Selected(p.page11Box2Selected)
+      if (typeof p.page11Box3Selected === 'boolean') setPage11Box3Selected(p.page11Box3Selected)
+      if (typeof p.page11Box4Selected === 'boolean') setPage11Box4Selected(p.page11Box4Selected)
+
+      if (typeof p.page12Box1Selected === 'boolean') setPage12Box1Selected(p.page12Box1Selected)
+      if (typeof p.page12Box2Selected === 'boolean') setPage12Box2Selected(p.page12Box2Selected)
+      if (typeof p.page12Box3Selected === 'boolean') setPage12Box3Selected(p.page12Box3Selected)
+      if (typeof p.page12Box4Selected === 'boolean') setPage12Box4Selected(p.page12Box4Selected)
+      if (typeof p.page12_1BoxSelected === 'boolean') setPage12_1BoxSelected(p.page12_1BoxSelected)
+
+      if (typeof p.page13Box1Selected === 'boolean') setPage13Box1Selected(p.page13Box1Selected)
+      if (typeof p.page13Box2Selected === 'boolean') setPage13Box2Selected(p.page13Box2Selected)
+      if (typeof p.page13Box3Selected === 'boolean') setPage13Box3Selected(p.page13Box3Selected)
+      if (typeof p.page13Box4Selected === 'boolean') setPage13Box4Selected(p.page13Box4Selected)
+
+      if (typeof p.page14Box1Selected === 'boolean') setPage14Box1Selected(p.page14Box1Selected)
+      if (typeof p.page14Box2Selected === 'boolean') setPage14Box2Selected(p.page14Box2Selected)
+      if (typeof p.page14Box3Selected === 'boolean') setPage14Box3Selected(p.page14Box3Selected)
+      if (typeof p.page14Box4Selected === 'boolean') setPage14Box4Selected(p.page14Box4Selected)
+      if (typeof p.page14Box4bSelected === 'boolean') setPage14Box4bSelected(p.page14Box4bSelected)
+      if (typeof p.page14Box5Selected === 'boolean') setPage14Box5Selected(p.page14Box5Selected)
+
+      if (typeof p.page15BoxSelected === 'boolean') setPage15BoxSelected(p.page15BoxSelected)
+      if (typeof p.page15BoxesVisible === 'boolean') setPage15BoxesVisible(p.page15BoxesVisible)
+      if (typeof p.page15Box1Selected === 'boolean') setPage15Box1Selected(p.page15Box1Selected)
+      if (typeof p.page15Box2Selected === 'boolean') setPage15Box2Selected(p.page15Box2Selected)
+      if (typeof p.page15Box3Selected === 'boolean') setPage15Box3Selected(p.page15Box3Selected)
+      if (typeof p.page15ShowHelpText === 'boolean') setPage15ShowHelpText(p.page15ShowHelpText)
+
+      if (typeof p.page16Box1Selected === 'boolean') setPage16Box1Selected(p.page16Box1Selected)
+      if (typeof p.page16Box2Selected === 'boolean') setPage16Box2Selected(p.page16Box2Selected)
+      if (typeof p.page16Box3Selected === 'boolean') setPage16Box3Selected(p.page16Box3Selected)
+
+      if (typeof p.page17Box1Selected === 'boolean') setPage17Box1Selected(p.page17Box1Selected)
+      if (typeof p.page17Box2Selected === 'boolean') setPage17Box2Selected(p.page17Box2Selected)
+      if (typeof p.page17Box3Selected === 'boolean') setPage17Box3Selected(p.page17Box3Selected)
+      if (typeof p.page17Box4Selected === 'boolean') setPage17Box4Selected(p.page17Box4Selected)
+      if (typeof p.page17Box4bSelected === 'boolean') setPage17Box4bSelected(p.page17Box4bSelected)
+
+      if (typeof p.page18Box1Selected === 'boolean') setPage18Box1Selected(p.page18Box1Selected)
+      if (typeof p.page18Box2Selected === 'boolean') setPage18Box2Selected(p.page18Box2Selected)
+      if (typeof p.page18Box3Selected === 'boolean') setPage18Box3Selected(p.page18Box3Selected)
+      if (typeof p.page18Box4Selected === 'boolean') setPage18Box4Selected(p.page18Box4Selected)
+      if (typeof p.page18BoxesVisible === 'boolean') setPage18BoxesVisible(p.page18BoxesVisible)
+      if (typeof p.page18ShowHelpText === 'boolean') setPage18ShowHelpText(p.page18ShowHelpText)
+      if (typeof p.page18HelpImageState === 'number') setPage18HelpImageState(p.page18HelpImageState)
+
+      if (typeof p.page19Box1Selected === 'boolean') setPage19Box1Selected(p.page19Box1Selected)
+      if (typeof p.page19Box2Selected === 'boolean') setPage19Box2Selected(p.page19Box2Selected)
+      if (typeof p.page19Box3Selected === 'boolean') setPage19Box3Selected(p.page19Box3Selected)
+
+      if (typeof p.page20Box1Selected === 'boolean') setPage20Box1Selected(p.page20Box1Selected)
+      if (typeof p.page20Box2Selected === 'boolean') setPage20Box2Selected(p.page20Box2Selected)
+      if (typeof p.page20Box3Selected === 'boolean') setPage20Box3Selected(p.page20Box3Selected)
+      if (typeof p.page20Box4Selected === 'boolean') setPage20Box4Selected(p.page20Box4Selected)
+      if (typeof p.page20Box5Selected === 'boolean') setPage20Box5Selected(p.page20Box5Selected)
+      if (typeof p.page20Box6Selected === 'boolean') setPage20Box6Selected(p.page20Box6Selected)
+
+      if (typeof p.page21BoxSelected === 'boolean') setPage21BoxSelected(p.page21BoxSelected)
+      if (typeof p.page21LabelsVisible === 'boolean') setPage21LabelsVisible(p.page21LabelsVisible)
+
+      if (typeof p.page22Box1Selected === 'boolean') setPage22Box1Selected(p.page22Box1Selected)
+      if (typeof p.page22Box2Selected === 'boolean') setPage22Box2Selected(p.page22Box2Selected)
+      if (typeof p.page22Box3Selected === 'boolean') setPage22Box3Selected(p.page22Box3Selected)
+      if (typeof p.page22Box4Selected === 'boolean') setPage22Box4Selected(p.page22Box4Selected)
+      if (typeof p.page22Box5Selected === 'boolean') setPage22Box5Selected(p.page22Box5Selected)
+      if (typeof p.page22Box6Selected === 'boolean') setPage22Box6Selected(p.page22Box6Selected)
+
+      if (typeof p.page23Box1Selected === 'boolean') setPage23Box1Selected(p.page23Box1Selected)
+      if (typeof p.page23Box2Selected === 'boolean') setPage23Box2Selected(p.page23Box2Selected)
+      if (typeof p.page23Box3Selected === 'boolean') setPage23Box3Selected(p.page23Box3Selected)
+      if (typeof p.page23Box4Selected === 'boolean') setPage23Box4Selected(p.page23Box4Selected)
+
+      if (typeof p.page24Box1Selected === 'boolean') setPage24Box1Selected(p.page24Box1Selected)
+      if (typeof p.page24ShowMainImage === 'boolean') setPage24ShowMainImage(p.page24ShowMainImage)
+      if (typeof p.page24ShowHelpText === 'boolean') setPage24ShowHelpText(p.page24ShowHelpText)
+      if (typeof p.page24BoxesVisible === 'boolean') setPage24BoxesVisible(p.page24BoxesVisible)
+
+      if (typeof p.page25Box1Selected === 'boolean') setPage25Box1Selected(p.page25Box1Selected)
+      if (typeof p.page25Box2Selected === 'boolean') setPage25Box2Selected(p.page25Box2Selected)
+
+      if (typeof p.page26Box1Selected === 'boolean') setPage26Box1Selected(p.page26Box1Selected)
+      if (typeof p.page26Box2Selected === 'boolean') setPage26Box2Selected(p.page26Box2Selected)
+      if (typeof p.page26Box3Selected === 'boolean') setPage26Box3Selected(p.page26Box3Selected)
+      if (typeof p.page26Box4Selected === 'boolean') setPage26Box4Selected(p.page26Box4Selected)
+      if (typeof p.page26Box4bSelected === 'boolean') setPage26Box4bSelected(p.page26Box4bSelected)
+      if (typeof p.page26Box5Selected === 'boolean') setPage26Box5Selected(p.page26Box5Selected)
+
+      if (typeof p.page27Box1Selected === 'boolean') setPage27Box1Selected(p.page27Box1Selected)
+      if (typeof p.page27Box2Selected === 'boolean') setPage27Box2Selected(p.page27Box2Selected)
+      if (typeof p.page27Box3Selected === 'boolean') setPage27Box3Selected(p.page27Box3Selected)
+      if (typeof p.page27Box4Selected === 'boolean') setPage27Box4Selected(p.page27Box4Selected)
+      if (typeof p.page27Box5Selected === 'boolean') setPage27Box5Selected(p.page27Box5Selected)
+      if (typeof p.page27Box6Selected === 'boolean') setPage27Box6Selected(p.page27Box6Selected)
+      if (typeof p.page27Box7Selected === 'boolean') setPage27Box7Selected(p.page27Box7Selected)
+      if (typeof p.page27Box8Selected === 'boolean') setPage27Box8Selected(p.page27Box8Selected)
+      if (typeof p.page27Box8Value === 'string') setPage27Box8Value(p.page27Box8Value)
+      if (typeof p.page27Box7ClickedAfterBox8Valid === 'boolean') setPage27Box7ClickedAfterBox8Valid(p.page27Box7ClickedAfterBox8Valid)
+      if (typeof p.page27Box9Value === 'string') setPage27Box9Value(p.page27Box9Value)
+      if (typeof p.page27Box7ClickedAfterBox9Valid === 'boolean') setPage27Box7ClickedAfterBox9Valid(p.page27Box7ClickedAfterBox9Valid)
+      if (typeof p.page27Box10Value === 'string') setPage27Box10Value(p.page27Box10Value)
+
+      if (typeof p.page28Box1Selected === 'boolean') setPage28Box1Selected(p.page28Box1Selected)
+      if (typeof p.page28Box2Selected === 'boolean') setPage28Box2Selected(p.page28Box2Selected)
+      if (typeof p.page28Box5Selected === 'boolean') setPage28Box5Selected(p.page28Box5Selected)
+
+      if (typeof p.page29Box1Selected === 'boolean') setPage29Box1Selected(p.page29Box1Selected)
+      if (typeof p.page30Box1Selected === 'boolean') setPage30Box1Selected(p.page30Box1Selected)
+      if (typeof p.page31Box1Selected === 'boolean') setPage31Box1Selected(p.page31Box1Selected)
+      if (typeof p.page32Box1Selected === 'boolean') setPage32Box1Selected(p.page32Box1Selected)
+      if (typeof p.page32Box2Selected === 'boolean') setPage32Box2Selected(p.page32Box2Selected)
+      if (typeof p.page32Box3Selected === 'boolean') setPage32Box3Selected(p.page32Box3Selected)
+      if (typeof p.page33Box1Selected === 'boolean') setPage33Box1Selected(p.page33Box1Selected)
+      if (Array.isArray(p.selectedGreenBoxesPage33)) setSelectedGreenBoxesPage33(new Set(p.selectedGreenBoxesPage33))
+      if (typeof p.page34Box1Selected === 'boolean') setPage34Box1Selected(p.page34Box1Selected)
+
+      const nextPage = typeof p.currentPage === 'number'
+        ? Math.min(Math.max(0, p.currentPage), pages.length - 1)
+        : (p.completedPages?.length ? Math.min(Math.max(...p.completedPages) + 1, pages.length - 1) : 0)
+      setCurrentPage(nextPage)
+
+      // Old format: only completedPages saved — restore minimal box state per completed page
+      const isOldFormat = !('page4Checkbox1' in p) && !('selectedGreenBoxes' in p)
+      if (isOldFormat && p.completedPages.length) {
+        p.completedPages.forEach((pageIndex) => restoreCompletedPageStates(pageIndex))
+      }
+    } catch (e) {
+      console.error('Error loading instructions state:', e)
+    }
+  }, [pages.length, restoreCompletedPageStates])
+
+  // Function to reset instructions (will be passed to parent via callback)
+  const resetInstructions = useCallback(() => {
+    localStorage.removeItem(INSTRUCTIONS_STORAGE_KEY)
+    window.location.reload()
+  }, [])
+
+  // Pass reset function to parent when ready
+  useEffect(() => {
+    if (onResetInstructionsReady) {
+      onResetInstructionsReady(resetInstructions)
+    }
+  }, [onResetInstructionsReady, resetInstructions])
+
   const handlePrevious = () => {
     if (currentPage > 0) {
       const previousPage = currentPage - 1
@@ -351,9 +685,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page8WhiteBoxTimeoutRef.current = null
         }
       }
-      // Reset right white box state when navigating away from page 9
+      // When navigating away from page 9: clear any pending timeout but do NOT reset page9RightWhiteBoxHidden
+      // so that when user returns via back button the completed state (last white box hidden) is preserved
       if (currentPage === 8) {
-        setPage9RightWhiteBoxHidden(false)
         if (page9RightWhiteBoxTimeoutRef.current) {
           clearTimeout(page9RightWhiteBoxTimeoutRef.current)
           page9RightWhiteBoxTimeoutRef.current = null
@@ -379,7 +713,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage15ShowHelpText(true)
         setPage15Box1Selected(false)
         setPage15Box2Selected(false)
-        setPage15Box3Selected(false)
+        // Only reset page15Box3Selected if page is not already completed
+        if (!completedPages.includes(14)) {
+          setPage15Box3Selected(false)
+        }
       }
       // Reset page 18 state when navigating away from page 18
       if (currentPage === 17) {
@@ -486,7 +823,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 20) {
         setPage21ShowHelpImage(false)
         setPage21LabelsVisible(false)
-        setPage21BoxSelected(false)
+        // Don't reset page21BoxSelected - preserve completion state for when user navigates back
       }
       // Mark page 7 as visited when navigating to it from page 6
       if (currentPage === 5) {
@@ -500,9 +837,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page8WhiteBoxTimeoutRef.current = null
         }
       }
-      // Reset right white box state when navigating away from page 9
+      // When navigating away from page 9: clear any pending timeout but do NOT reset page9RightWhiteBoxHidden
+      // so that when user returns via back button the completed state (last white box hidden) is preserved
       if (currentPage === 8) {
-        setPage9RightWhiteBoxHidden(false)
         if (page9RightWhiteBoxTimeoutRef.current) {
           clearTimeout(page9RightWhiteBoxTimeoutRef.current)
           page9RightWhiteBoxTimeoutRef.current = null
@@ -521,19 +858,180 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage10WhiteBox3Hidden(false)
         setPage10NewWhiteBoxHidden(false)
       }
-      // Reset page 15 state when navigating away from page 15
+      // Reset page 15 state when navigating away from page 15 (forward)
+      // Don't reset page15Box1Selected, page15Box2Selected, page15Box3Selected - preserve completion state for when user navigates back or refreshes
       if (currentPage === 14) {
         setPage15BoxSelected(false)
         setPage15BoxesVisible(false)
         setPage15ShowHelpText(true)
-        setPage15Box1Selected(false)
-        setPage15Box2Selected(false)
-        setPage15Box3Selected(false)
       }
       // Reset returning states when navigating forward (except returningToPage3AfterSecondButton which is set in useEffect)
       setReturningFromPage3(false)
       setReturningFromPage2(false)
       // Don't reset returningToPage3AfterSecondButton here - it will be set in useEffect when arriving at page 3
+      
+      // Mark current page as completed and save to localStorage (including green boxes, checkboxes, etc.)
+      setCompletedPages(prev => {
+        const newCompleted = prev.includes(currentPage) ? prev : [...prev, currentPage]
+        const stateToSave = {
+          completedPages: newCompleted,
+          currentPage: currentPage + 1,
+          visitedPages: Array.from(visitedPages),
+          hasStarted,
+          page3ButtonClicked,
+          page3SecondButtonClicked,
+          selectedGreenBoxes: Array.from(selectedGreenBoxes),
+          page4Button1Clicked,
+          page4Button2Clicked,
+          page4Button3Clicked,
+          page4Button4Clicked,
+          page4Button5Clicked,
+          page4SpeechBubbleClicked,
+          page4Checkbox1,
+          page4Checkbox2,
+          page4Checkbox3,
+          page5Button1Clicked,
+          page5Button2Clicked,
+          page5BlueDotSelected,
+          page5GreenDotSelected,
+          page6Button1Clicked,
+          page6Button2Clicked,
+          page7Box1Selected,
+          page7Box2Selected,
+          page7Box3Selected,
+          page7Box4Selected,
+          page7Box4EverSelected,
+          page7Visited,
+          page8Box1Selected,
+          page8Box2Selected,
+          page8Box3Selected,
+          page8Box4Selected,
+          page8WhiteBoxHidden,
+          page8Box3WhiteBoxHidden,
+          page9Box1Selected,
+          page9Box2Selected,
+          page9Box2bSelected,
+          page9Box3Selected,
+          page9WhiteBoxesHidden,
+          page9RightWhiteBoxHidden,
+          page10BoxSelected,
+          page10BoxesVisible,
+          page10Box1Selected,
+          page10Box2Selected,
+          page10Box3Selected,
+          page10Box4Selected,
+          page10WhiteBoxesHidden,
+          page10WhiteBox1Hidden,
+          page10NeedHelpWhiteBoxVisible,
+          page10WhiteBox3Hidden,
+          page10NewWhiteBoxHidden,
+          page11BoxSelected,
+          page11Box2Selected,
+          page11Box3Selected,
+          page11Box4Selected,
+          page12Box1Selected,
+          page12Box2Selected,
+          page12Box3Selected,
+          page12Box4Selected,
+          page12_1BoxSelected,
+          page13Box1Selected,
+          page13Box2Selected,
+          page13Box3Selected,
+          page13Box4Selected,
+          page14Box1Selected,
+          page14Box2Selected,
+          page14Box3Selected,
+          page14Box4Selected,
+          page14Box4bSelected,
+          page14Box5Selected,
+          page15BoxSelected,
+          page15BoxesVisible,
+          page15Box1Selected,
+          page15Box2Selected,
+          page15Box3Selected,
+          page15ShowHelpText,
+          page16Box1Selected,
+          page16Box2Selected,
+          page16Box3Selected,
+          page17Box1Selected,
+          page17Box2Selected,
+          page17Box3Selected,
+          page17Box4Selected,
+          page17Box4bSelected,
+          page18Box1Selected,
+          page18Box2Selected,
+          page18Box3Selected,
+          page18Box4Selected,
+          page18BoxesVisible,
+          page18ShowHelpText,
+          page18HelpImageState,
+          page19Box1Selected,
+          page19Box2Selected,
+          page19Box3Selected,
+          page20Box1Selected,
+          page20Box2Selected,
+          page20Box3Selected,
+          page20Box4Selected,
+          page20Box5Selected,
+          page20Box6Selected,
+          page21BoxSelected,
+          page21LabelsVisible,
+          page22Box1Selected,
+          page22Box2Selected,
+          page22Box3Selected,
+          page22Box4Selected,
+          page22Box5Selected,
+          page22Box6Selected,
+          page23Box1Selected,
+          page23Box2Selected,
+          page23Box3Selected,
+          page23Box4Selected,
+          page24Box1Selected,
+          page24ShowMainImage,
+          page24ShowHelpText,
+          page24BoxesVisible,
+          page25Box1Selected,
+          page25Box2Selected,
+          page26Box1Selected,
+          page26Box2Selected,
+          page26Box3Selected,
+          page26Box4Selected,
+          page26Box4bSelected,
+          page26Box5Selected,
+          page27Box1Selected,
+          page27Box2Selected,
+          page27Box3Selected,
+          page27Box4Selected,
+          page27Box5Selected,
+          page27Box6Selected,
+          page27Box7Selected,
+          page27Box8Selected,
+          page27Box8Value,
+          page27Box7ClickedAfterBox8Valid,
+          page27Box9Value,
+          page27Box7ClickedAfterBox9Valid,
+          page27Box10Value,
+          page28Box1Selected,
+          page28Box2Selected,
+          page28Box5Selected,
+          page29Box1Selected,
+          page30Box1Selected,
+          page31Box1Selected,
+          page32Box1Selected,
+          page32Box2Selected,
+          page32Box3Selected,
+          page33Box1Selected,
+          selectedGreenBoxesPage33: Array.from(selectedGreenBoxesPage33),
+          page34Box1Selected,
+        }
+        try {
+          localStorage.setItem(INSTRUCTIONS_STORAGE_KEY, JSON.stringify(stateToSave))
+        } catch (e) {
+          console.error('Error saving instructions state:', e)
+        }
+        return newCompleted
+      })
+      
       setCurrentPage(prev => prev + 1)
       setZoom(100)
     }
@@ -545,6 +1043,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setHasStarted(true)
     // Mark page 0 as visited
     setVisitedPages(prev => new Set(prev).add(0))
+    // Persist "started" so refresh keeps us on page 1
+    try {
+      localStorage.setItem(INSTRUCTIONS_STORAGE_KEY, JSON.stringify({
+        completedPages: [],
+        currentPage: 1,
+        visitedPages: [0],
+        hasStarted: true,
+      }))
+    } catch (e) {
+      console.error('Error saving instructions state:', e)
+    }
     // Move to next page after clicking Start
     if (currentPage < pages.length - 1) {
       setCurrentPage(1)
@@ -1771,6 +2280,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setReturningToPage3AfterSecondButton(false)
     }
   }, [currentPage])
+
+  // Restore page 15 completed state when navigating back after refresh (completed state can be lost when user is past page 15, refreshes, then uses Back)
+  useEffect(() => {
+    if (currentPage === 14 && completedPages.includes(14) && !(page15Box1Selected && page15Box2Selected && page15Box3Selected)) {
+      setPage15Box1Selected(true)
+      setPage15Box2Selected(true)
+      setPage15Box3Selected(true)
+    }
+  }, [currentPage, completedPages, page15Box1Selected, page15Box2Selected, page15Box3Selected])
 
   // Trigger white boxes fade on page 2 when Start button was clicked
   useEffect(() => {

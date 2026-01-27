@@ -213,6 +213,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [droneTestingString, setDroneTestingString] = useState("");
   const passwordInputRef = useRef(null);
+  const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
 
   const LOCAL_STORAGE_VERSION = "1.0"
 
@@ -787,7 +788,10 @@ function App() {
           overflow: 'hidden',
         }}
         >
-          <InstructionsPanel editorMode={false} />
+          <InstructionsPanel 
+            editorMode={false} 
+            onResetInstructionsReady={(fn) => setResetInstructionsFunc(() => fn)}
+          />
         </div>
         <div>
           <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"}>
@@ -945,6 +949,15 @@ function App() {
                 <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
                   <FontAwesomeIcon icon={faCog} />
                 </a>
+                {resetInstructionsFunc && (
+                  <Button 
+                    variant="outline-secondary" 
+                    onClick={resetInstructionsFunc}
+                    style={{ marginRight: '10px' }}
+                  >
+                    Reset Instructions
+                  </Button>
+                )}
                 <ResetAllButton
                   callback={resetAll}
                 />
