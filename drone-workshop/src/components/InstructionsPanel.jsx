@@ -19244,8 +19244,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
@@ -19541,8 +19541,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft - moveLeftPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as Box 8 error)
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as Box 8 error)
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
@@ -19845,8 +19845,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as other error boxes)
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as other error boxes)
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
@@ -29263,8 +29263,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
@@ -29560,8 +29560,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft - moveLeftPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as Box 8 error)
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as Box 8 error)
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
@@ -29864,8 +29864,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
-                    // Adjust dimensions: reduce width by 15px, reduce height by 10px (same as other error boxes)
-                    const widthDecreasePx = 15
+                    // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as other error boxes)
+                    const widthDecreasePx = -3
                     const heightDecreasePx = 10
                     const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
                     const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
