@@ -1503,10 +1503,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Handler for page 5 wrong dot selection
   const handlePage5WrongDot = () => {
     setPage5WrongDotError(true)
-    // Hide the error after 5 seconds
+    // Hide the error after 2 seconds
     setTimeout(() => {
       setPage5WrongDotError(false)
-    }, 5000)
+    }, 2000)
   }
 
   // Handler for page 5 "Show/Hide Connections" button
@@ -38547,7 +38547,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Green edge green infill dot on page 5 (5.png) - appears when button 2 is selected, not active */}
+                  {/* Always active green dot on page 5 (5.png) - hidden until box 2 is selected; when box 2 selected displays green edge green infill */}
                   {currentPage === 4 && !editorMode && page5Button2Clicked && (() => {
                     const dotX = 15.88
                     const dotY = 78.44
@@ -38574,8 +38574,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Blue edge white infill dot that connects to green dot on page 5 (5.png) - hidden until button is selected, inactive until green dot is displayed */}
-                  {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
+                  {/* Blue edge white infill dot that connects to green dot on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. On box 1 (selecting red), clicking shows error. */}
+                  {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dotX = 44.46
                     const dotY = 78.39
                     const dotSizePx = 7
@@ -38587,25 +38587,28 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const dotTop = dotY - (dotSizeHeightPercent / 2)
                     
                     const dotStyle = getButtonStyle(dotLeft, dotTop, dotSizeWidthPercent, dotSizeHeightPercent)
+                    const handleClick = !page5GreenDotSelected
+                      ? (page5Button2Clicked ? handlePage5GreenDot : handlePage5WrongDot)
+                      : undefined
                     
                     return (
                       <div
-                        onClick={!page5GreenDotSelected && page5Button2Clicked ? handlePage5GreenDot : undefined}
+                        onClick={handleClick}
                         style={{
                           ...dotStyle,
                           backgroundColor: page5GreenDotSelected ? '#3bbf6b' : 'white',
                           border: page5GreenDotSelected ? '1px solid #3bbf6b' : '1px solid #0d6efd',
                           borderRadius: '50%',
-                          pointerEvents: page5GreenDotSelected ? 'none' : (page5Button2Clicked ? 'auto' : 'none'),
-                          cursor: page5GreenDotSelected ? 'default' : (page5Button2Clicked ? 'pointer' : 'default'),
+                          pointerEvents: page5GreenDotSelected ? 'none' : 'auto',
+                          cursor: page5GreenDotSelected ? 'default' : 'pointer',
                           opacity: 1,
                           zIndex: 12
                         }}
                       />
                     )
                   })()}
-                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden until button is selected, clickable to show error */}
-                  {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
+                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white */}
+                  {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dots = [
                       { x: 24.09, y: 68.11 },
                       { x: 32.43, y: 64.80 },
@@ -38648,9 +38651,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       )
                     })
                   })()}
-                  {/* Error box on page 5 - shows when wrong dot is selected */}
+                  {/* Error box on page 5 - shows when wrong dot is selected (red or green) */}
                   {currentPage === 4 && !editorMode && page5WrongDotError && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    const boxWidth = 33.15
+                    const baseBoxWidth = 33.15
+                    // Increase width by 25px so "Not the correct connection try again" fits (15px + 10px)
+                    const widthIncreasePx = 25
+                    const widthIncreasePercent = stageWidthPx > 0 ? (widthIncreasePx / stageWidthPx) * 100 : 0
+                    const boxWidth = baseBoxWidth + widthIncreasePercent
                     const boxLeft = (100 - boxWidth) / 2  // Center horizontally
                     const baseBoxTop = 66.31
                     const baseBoxHeight = 5.38
@@ -38757,8 +38764,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           viewBox="0 0 100 100"
                           preserveAspectRatio="none"
                         >
-                          <path d={roundedRectPath} fill={page5Button2Clicked ? '#28a745' : '#dc3545'} />
-                          <path d={borderPath} fill="none" stroke={page5Button2Clicked ? '#28a745' : '#dc3545'} strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                          <path d={roundedRectPath} fill="#f05f40" />
+                          <path d={borderPath} fill="none" stroke="#f05f40" strokeWidth="2" vectorEffect="non-scaling-stroke" />
                         </svg>
                       </div>
                     )
