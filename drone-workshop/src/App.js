@@ -651,6 +651,13 @@ function App() {
     window.location.reload();
   }
 
+  // Combined reset for nav bar on page 34: does both Reset Instructions and Reset All (same as both bottom-right buttons)
+  const resetAllAndInstructions = () => {
+    localStorage.removeItem('droneWorkshopInstructionsState');
+    localStorage.setItem("droneWorkshopState", JSON.stringify([]));
+    window.location.reload();
+  }
+
   const handleConnect = async () => {
     try {
       const port = await navigator.serial.requestPort();
@@ -794,6 +801,7 @@ function App() {
             editorMode={false} 
             onResetInstructionsReady={(fn) => setResetInstructionsFunc(() => fn)}
             onPageJumpSlotReady={(api) => setPageJumpApi(api)}
+            onResetAll={resetAllAndInstructions}
           />
         </div>
         <div>
@@ -949,6 +957,41 @@ function App() {
                 title=""
               />
               <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
+                <a className="gear-icon" onClick={handleAdminDialogOpen}>
+                  <FontAwesomeIcon icon={faCog} />
+                </a>
+                {resetInstructionsFunc && (
+                  resetInstructionsPressedOnce ? (
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => {
+                        resetInstructionsFunc();
+                        setResetInstructionsPressedOnce(false);
+                      }}
+                      className="right-panel-action-btn"
+                    >
+                      Confirm Reset
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() => {
+                        setResetInstructionsPressedOnce(true);
+                        setTimeout(() => setResetInstructionsPressedOnce(false), 5000);
+                      }}
+                      className="right-panel-action-btn"
+                    >
+                      Reset Instructions
+                    </Button>
+                  )
+                )}
+                <ResetAllButton
+                  callback={resetAll}
+                  size="sm"
+                  label="Reset Code"
+                />
                 {pageJumpApi && (
                   <span style={{ display: 'flex', alignItems: 'center' }}>
                     <input
@@ -965,42 +1008,6 @@ function App() {
                     />
                   </span>
                 )}
-                <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
-                  <FontAwesomeIcon icon={faCog} />
-                </a>
-                {resetInstructionsFunc && (
-                  resetInstructionsPressedOnce ? (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => {
-                        resetInstructionsFunc();
-                        setResetInstructionsPressedOnce(false);
-                      }}
-                      className="right-panel-action-btn"
-                      style={{ marginRight: '10px' }}
-                    >
-                      Confirm Reset
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline-secondary"
-                      size="sm"
-                      onClick={() => {
-                        setResetInstructionsPressedOnce(true);
-                        setTimeout(() => setResetInstructionsPressedOnce(false), 5000);
-                      }}
-                      className="right-panel-action-btn"
-                      style={{ marginRight: '10px' }}
-                    >
-                      Reset Instructions
-                    </Button>
-                  )
-                )}
-                <ResetAllButton
-                  callback={resetAll}
-                  size="sm"
-                />
               </div>
             </div>
           </Split>

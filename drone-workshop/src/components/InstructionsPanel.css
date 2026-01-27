@@ -391,6 +391,32 @@
   animation: pulseBorder 2s ease-in-out infinite;
 }
 
+/* Gray nav button (page 34 Reset All) - same size/format as Next, no pulse, gray like right-panel Reset All */
+.btn-nav-gray {
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  animation: none;
+}
+
+.btn-nav-gray:hover:not(:disabled) {
+  background-color: #6c757d;
+  color: white;
+  animation: none;
+}
+
+/* Red nav button (page 34 Confirm Reset) - matches bottom-right Confirm Reset / Bootstrap danger */
+.btn-nav-danger {
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  animation: none;
+}
+
+.btn-nav-danger:hover:not(:disabled) {
+  background-color: #dc3545;
+  color: white;
+  animation: none;
+}
+
 .zoom-controls {
   display: flex;
   flex-direction: column;

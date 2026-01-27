@@ -21,9 +21,10 @@ function ResetAllButton(props) {
   }
 
   const btnSize = props.size || "sm";
+  const label = props.label ?? "Reset All";
   let button = (
     <Button variant="outline-secondary" size={btnSize} onClick={handleButtonClick} className="right-panel-action-btn">
-      Reset All
+      {label}
     </Button>
   )
   if (pressedOnce) {

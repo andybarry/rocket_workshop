@@ -212,25 +212,27 @@
 
 .gear-icon {
   font-size: 16px; /* Smaller size */
-  color: lightgray; /* Light gray color */
+  color: #adb5bd; /* Same gray as Reset Instructions / Reset Code buttons */
   cursor: pointer;
 }
 
+/* Page entry box – match Reset Instructions / Reset Code (outline-secondary) */
 .right-panel-page-jump {
   width: 56px;
-  padding: 2px 6px;
-  font-size: 11px;
+  padding: 1px 5px;
+  font-size: 10px;
   font-family: 'Roboto', sans-serif;
   text-align: center;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  color: #333;
-  background: #fff;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25rem;
+  color: #adb5bd;
+  background: transparent;
   box-sizing: border-box;
+  line-height: 1.25;
 }
 
 .right-panel-page-jump::placeholder {
-  color: #9e9e9e;
+  color: #adb5bd;
 }
 
 .right-panel-page-jump:focus {
@@ -251,8 +253,20 @@
 }
 
 .right-panel-action-btn {
-  font-size: 12px;
-  padding: 2px 8px;
+  font-size: 10px;
+  padding: 1px 5px;
+}
+
+/* Lighter gray for Reset Instructions / Reset Code (outline-secondary) */
+.right-panel-action-btn.btn-outline-secondary {
+  color: #adb5bd;
+  border-color: #adb5bd;
+}
+
+.right-panel-action-btn.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #adb5bd;
+  border-color: #adb5bd;
 }
 
 /* Style for modals and form controls with consistent orange theme */

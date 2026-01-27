@@ -56,7 +56,7 @@ const STAGE_FRAME_PADDING = 6
 const START_BUTTON_SMALL_THRESHOLD = 80 // px width threshold to shrink border
 const INSTRUCTIONS_STORAGE_KEY = 'droneWorkshopInstructionsState'
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -273,6 +273,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [selectedGreenBoxesPage33, setSelectedGreenBoxesPage33] = useState(new Set())
   // Track page 34 box selections
   const [page34Box1Selected, setPage34Box1Selected] = useState(false)
+  // Track page 34 nav Reset All confirm-twice state
+  const [page34NavResetPressedOnce, setPage34NavResetPressedOnce] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -21805,6 +21807,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxWidth = 42.30
                     const boxHeight = 6.84
                     const isSelected = page34Box1Selected
+                    const boxMoveDownPx = 20   // move box down 20px from current location
+                    const boxWidthIncreasePx = 100  // increase width by 100px
+                    const boxWidthIncreaseLeftShiftPx = 50  // shift left by half so box stays centered on PNG
+                    const box1TopEdgeUpPx = 1  // move top edge up 1px, other edges unchanged
+                    const box1BottomEdgeDownPx = 3  // move bottom edge down 3px, top edge unchanged
+                    const box1BottomEdgeUpPx = 1  // move bottom edge up 1px, top edge unchanged
+                    const box1LeftEdgeLeftPx = 47.5   // move left edge left 47.5px (45 + 2.5)
+                    const box1RightEdgeRightPx = 47.5  // move right edge right 47.5px (45 + 2.5)
                     
                     // Edge adjustments in pixels
                     const topDownPx = 3    // top edge down 3px
@@ -21824,13 +21834,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const boxMoveDownPercent = stageHeightPx > 0 ? (boxMoveDownPx / stageHeightPx) * 100 : 0
+                    const boxWidthIncreasePercent = stageWidthPx > 0 ? (boxWidthIncreasePx / stageWidthPx) * 100 : 0
+                    const boxWidthIncreaseLeftShiftPercent = stageWidthPx > 0 ? (boxWidthIncreaseLeftShiftPx / stageWidthPx) * 100 : 0
+                    const box1TopEdgeUpPercent = stageHeightPx > 0 ? (box1TopEdgeUpPx / stageHeightPx) * 100 : 0
+                    const box1BottomEdgeDownPercent = stageHeightPx > 0 ? (box1BottomEdgeDownPx / stageHeightPx) * 100 : 0
+                    const box1BottomEdgeUpPercent = stageHeightPx > 0 ? (box1BottomEdgeUpPx / stageHeightPx) * 100 : 0
+                    const box1LeftEdgeLeftPercent = stageWidthPx > 0 ? (box1LeftEdgeLeftPx / stageWidthPx) * 100 : 0
+                    const box1RightEdgeRightPercent = stageWidthPx > 0 ? (box1RightEdgeRightPx / stageWidthPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const leftFromEdges = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent - boxWidthIncreaseLeftShiftPercent - box1LeftEdgeLeftPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent + boxMoveDownPercent - box1TopEdgeUpPercent)
                     const widthReductionPercent = leftRightPercent + rightLeftPercent
                     const heightReductionPercent = topDownPercent + bottomUpPercent
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const expandedWidth = Math.min(100 - leftFromEdges, boxWidth + widthPercentAdjust - widthReductionPercent + boxWidthIncreasePercent + box1RightEdgeRightPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent - box1TopEdgeUpPercent + box1BottomEdgeDownPercent - box1BottomEdgeUpPercent)
+                    const adjustedLeft = (100 - expandedWidth) / 2  // center box on PNG
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
@@ -31824,6 +31843,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxWidth = 42.30
                     const boxHeight = 6.84
                     const isSelected = page34Box1Selected
+                    const boxMoveDownPx = 20   // move box down 20px from current location
+                    const boxWidthIncreasePx = 100  // increase width by 100px
+                    const boxWidthIncreaseLeftShiftPx = 50  // shift left by half so box stays centered on PNG
+                    const box1TopEdgeUpPx = 1  // move top edge up 1px, other edges unchanged
+                    const box1BottomEdgeDownPx = 3  // move bottom edge down 3px, top edge unchanged
+                    const box1BottomEdgeUpPx = 1  // move bottom edge up 1px, top edge unchanged
+                    const box1LeftEdgeLeftPx = 47.5   // move left edge left 47.5px (45 + 2.5)
+                    const box1RightEdgeRightPx = 47.5  // move right edge right 47.5px (45 + 2.5)
                     
                     // Edge adjustments in pixels
                     const topDownPx = 3    // top edge down 3px
@@ -31843,13 +31870,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const boxMoveDownPercent = stageHeightPx > 0 ? (boxMoveDownPx / stageHeightPx) * 100 : 0
+                    const boxWidthIncreasePercent = stageWidthPx > 0 ? (boxWidthIncreasePx / stageWidthPx) * 100 : 0
+                    const boxWidthIncreaseLeftShiftPercent = stageWidthPx > 0 ? (boxWidthIncreaseLeftShiftPx / stageWidthPx) * 100 : 0
+                    const box1TopEdgeUpPercent = stageHeightPx > 0 ? (box1TopEdgeUpPx / stageHeightPx) * 100 : 0
+                    const box1BottomEdgeDownPercent = stageHeightPx > 0 ? (box1BottomEdgeDownPx / stageHeightPx) * 100 : 0
+                    const box1BottomEdgeUpPercent = stageHeightPx > 0 ? (box1BottomEdgeUpPx / stageHeightPx) * 100 : 0
+                    const box1LeftEdgeLeftPercent = stageWidthPx > 0 ? (box1LeftEdgeLeftPx / stageWidthPx) * 100 : 0
+                    const box1RightEdgeRightPercent = stageWidthPx > 0 ? (box1RightEdgeRightPx / stageWidthPx) * 100 : 0
                     
-                    const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent)
-                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent)
+                    const leftFromEdges = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent - boxWidthIncreaseLeftShiftPercent - box1LeftEdgeLeftPercent)
+                    const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent + boxMoveDownPercent - box1TopEdgeUpPercent)
                     const widthReductionPercent = leftRightPercent + rightLeftPercent
                     const heightReductionPercent = topDownPercent + bottomUpPercent
-                    const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
-                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                    const expandedWidth = Math.min(100 - leftFromEdges, boxWidth + widthPercentAdjust - widthReductionPercent + boxWidthIncreasePercent + box1RightEdgeRightPercent)
+                    const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent - box1TopEdgeUpPercent + box1BottomEdgeDownPercent - box1BottomEdgeUpPercent)
+                    const adjustedLeft = (100 - expandedWidth) / 2  // center box on PNG
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
@@ -41163,6 +41199,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               aria-label="Next page"
             >
               Next
+            </button>
+          </div>
+        )}
+        {currentPage === pages.length - 1 && onResetAll && (
+          <div className="nav-button-right">
+            <button
+              onClick={() => {
+                if (page34NavResetPressedOnce) {
+                  onResetAll();
+                  setPage34NavResetPressedOnce(false);
+                } else {
+                  setPage34NavResetPressedOnce(true);
+                  setTimeout(() => setPage34NavResetPressedOnce(false), 5000);
+                }
+              }}
+              className={`btn-modern btn-nav ${page34NavResetPressedOnce ? 'btn-nav-danger' : 'btn-nav-gray'}`}
+              aria-label="Reset all"
+            >
+              {page34NavResetPressedOnce ? 'Confirm Reset' : 'Reset All'}
             </button>
           </div>
         )}
