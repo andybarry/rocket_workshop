@@ -784,7 +784,7 @@ function App() {
       893
       401 */}
 
-      <Split initialPrimarySize={"32vw"} minPrimarySize={"5vw"} minSecondarySize={"10vw"}>
+      <Split initialPrimarySize={"32vw"} minPrimarySize={"5vw"} minSecondarySize={"10vw"} resetOnDoubleClick>
         <div style={{
           height: '100%',
           overflow: 'hidden',
@@ -797,7 +797,7 @@ function App() {
           />
         </div>
         <div>
-          <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"}>
+          <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"} resetOnDoubleClick>
             <div style={{ height: '100%', overflow: 'auto' }}>
               <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
 
