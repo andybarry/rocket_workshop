@@ -38518,96 +38518,126 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* White dot with blue edge on page 5 (5.png) - hidden until button is selected */}
+                  {/* Red active dot: white/blue edge on page 5 (5.png) - hidden until button is selected. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                     const dotX = 18.55
                     const dotY = 63.62
                     const dotSizePx = 7
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
-                    
-                    // Center the dot on the specified coordinates
-                    const dotLeft = dotX - (dotSizeWidthPercent / 2)
-                    const dotTop = dotY - (dotSizeHeightPercent / 2)
-                    
-                    const dotStyle = getButtonStyle(dotLeft, dotTop, dotSizeWidthPercent, dotSizeHeightPercent)
-                    
+                    const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
+                    const hitAreaHeightPercent = dotSizeHeightPercent * 1.5
+                    const hitAreaLeft = dotX - (hitAreaWidthPercent / 2)
+                    const hitAreaTop = dotY - (hitAreaHeightPercent / 2)
+                    const hitAreaStyle = getButtonStyle(hitAreaLeft, hitAreaTop, hitAreaWidthPercent, hitAreaHeightPercent)
                     return (
                       <div
                         onClick={!page5BlueDotSelected ? handlePage5BlueDot : undefined}
                         style={{
-                          ...dotStyle,
-                          backgroundColor: page5BlueDotSelected ? '#dd1712' : 'white',
-                          border: page5BlueDotSelected ? '1px solid #dd1712' : '1px solid #0d6efd',
-                          borderRadius: '50%',
+                          ...hitAreaStyle,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           pointerEvents: page5BlueDotSelected ? 'none' : 'auto',
                           cursor: page5BlueDotSelected ? 'default' : 'pointer',
                           zIndex: 12
                         }}
-                      />
+                      >
+                        <div
+                          style={{
+                            width: '66.67%',
+                            height: '66.67%',
+                            backgroundColor: page5BlueDotSelected ? '#dd1712' : 'white',
+                            border: page5BlueDotSelected ? '1px solid #dd1712' : '1px solid #0d6efd',
+                            borderRadius: '50%',
+                            boxSizing: 'border-box',
+                            flexShrink: 0
+                          }}
+                        />
+                      </div>
                     )
                   })()}
-                  {/* Always active green dot on page 5 (5.png) - hidden until box 2 is selected; when box 2 selected displays green edge green infill */}
+                  {/* Green active dot on page 5 (5.png) - hidden until box 2 is selected; when box 2 selected displays green edge green infill. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button2Clicked && (() => {
                     const dotX = 15.88
                     const dotY = 78.44
                     const dotSizePx = 7
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
-                    
-                    // Center the dot on the specified coordinates
-                    const dotLeft = dotX - (dotSizeWidthPercent / 2)
-                    const dotTop = dotY - (dotSizeHeightPercent / 2)
-                    
-                    const dotStyle = getButtonStyle(dotLeft, dotTop, dotSizeWidthPercent, dotSizeHeightPercent)
-                    
+                    const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
+                    const hitAreaHeightPercent = dotSizeHeightPercent * 1.5
+                    const hitAreaLeft = dotX - (hitAreaWidthPercent / 2)
+                    const hitAreaTop = dotY - (hitAreaHeightPercent / 2)
+                    const hitAreaStyle = getButtonStyle(hitAreaLeft, hitAreaTop, hitAreaWidthPercent, hitAreaHeightPercent)
                     return (
                       <div
                         style={{
-                          ...dotStyle,
-                          backgroundColor: '#3bbf6b',
-                          border: '1px solid #3bbf6b',
-                          borderRadius: '50%',
+                          ...hitAreaStyle,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           pointerEvents: 'none',
                           zIndex: 12
                         }}
-                      />
+                      >
+                        <div
+                          style={{
+                            width: '66.67%',
+                            height: '66.67%',
+                            backgroundColor: '#3bbf6b',
+                            border: '1px solid #3bbf6b',
+                            borderRadius: '50%',
+                            boxSizing: 'border-box',
+                            flexShrink: 0
+                          }}
+                        />
+                      </div>
                     )
                   })()}
-                  {/* Blue edge white infill dot that connects to green dot on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. On box 1 (selecting red), clicking shows error. */}
+                  {/* Blue edge white infill dot that connects to green dot on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. On box 1 (selecting red), clicking shows error. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dotX = 44.46
                     const dotY = 78.39
                     const dotSizePx = 7
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
-                    
-                    // Center the dot on the specified coordinates
-                    const dotLeft = dotX - (dotSizeWidthPercent / 2)
-                    const dotTop = dotY - (dotSizeHeightPercent / 2)
-                    
-                    const dotStyle = getButtonStyle(dotLeft, dotTop, dotSizeWidthPercent, dotSizeHeightPercent)
+                    const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
+                    const hitAreaHeightPercent = dotSizeHeightPercent * 1.5
+                    const hitAreaLeft = dotX - (hitAreaWidthPercent / 2)
+                    const hitAreaTop = dotY - (hitAreaHeightPercent / 2)
+                    const hitAreaStyle = getButtonStyle(hitAreaLeft, hitAreaTop, hitAreaWidthPercent, hitAreaHeightPercent)
                     const handleClick = !page5GreenDotSelected
                       ? (page5Button2Clicked ? handlePage5GreenDot : handlePage5WrongDot)
                       : undefined
-                    
                     return (
                       <div
                         onClick={handleClick}
                         style={{
-                          ...dotStyle,
-                          backgroundColor: page5GreenDotSelected ? '#3bbf6b' : 'white',
-                          border: page5GreenDotSelected ? '1px solid #3bbf6b' : '1px solid #0d6efd',
-                          borderRadius: '50%',
+                          ...hitAreaStyle,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           pointerEvents: page5GreenDotSelected ? 'none' : 'auto',
                           cursor: page5GreenDotSelected ? 'default' : 'pointer',
                           opacity: 1,
                           zIndex: 12
                         }}
-                      />
+                      >
+                        <div
+                          style={{
+                            width: '66.67%',
+                            height: '66.67%',
+                            backgroundColor: page5GreenDotSelected ? '#3bbf6b' : 'white',
+                            border: page5GreenDotSelected ? '1px solid #3bbf6b' : '1px solid #0d6efd',
+                            borderRadius: '50%',
+                            boxSizing: 'border-box',
+                            flexShrink: 0
+                          }}
+                        />
+                      </div>
                     )
                   })()}
-                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white */}
+                  {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dots = [
                       { x: 24.09, y: 68.11 },
@@ -38624,30 +38654,42 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const dotSizePx = 7
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
+                    const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
+                    const hitAreaHeightPercent = dotSizeHeightPercent * 1.5
                     // Move dot #1 up by 6px (2px + 4px additional)
                     const moveUp6pxPercent = stageHeightPx > 0 ? (6 / stageHeightPx) * 100 : 0
                     
                     return dots.map((dot, index) => {
-                      // Apply 6px upward adjustment to dot #1 (index 0)
                       const adjustedY = index === 0 ? dot.y - moveUp6pxPercent : dot.y
-                      const dotLeft = dot.x - (dotSizeWidthPercent / 2)
-                      const dotTop = adjustedY - (dotSizeHeightPercent / 2)
-                      const dotStyle = getButtonStyle(dotLeft, dotTop, dotSizeWidthPercent, dotSizeHeightPercent)
-                      
+                      const hitAreaLeft = dot.x - (hitAreaWidthPercent / 2)
+                      const hitAreaTop = adjustedY - (hitAreaHeightPercent / 2)
+                      const hitAreaStyle = getButtonStyle(hitAreaLeft, hitAreaTop, hitAreaWidthPercent, hitAreaHeightPercent)
                       return (
                         <div
                           key={`dummy-dot-${index}`}
                           onClick={handlePage5WrongDot}
                           style={{
-                            ...dotStyle,
-                            backgroundColor: 'white',
-                            border: '1px solid #0d6efd',
-                            borderRadius: '50%',
+                            ...hitAreaStyle,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                             pointerEvents: 'auto',
                             cursor: 'pointer',
                             zIndex: 12
                           }}
-                        />
+                        >
+                          <div
+                            style={{
+                              width: '66.67%',
+                              height: '66.67%',
+                              backgroundColor: 'white',
+                              border: '1px solid #0d6efd',
+                              borderRadius: '50%',
+                              boxSizing: 'border-box',
+                              flexShrink: 0
+                            }}
+                          />
+                        </div>
                       )
                     })
                   })()}
