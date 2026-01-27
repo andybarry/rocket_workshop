@@ -56,11 +56,12 @@ const STAGE_FRAME_PADDING = 6
 const START_BUTTON_SMALL_THRESHOLD = 80 // px width threshold to shrink border
 const INSTRUCTIONS_STORAGE_KEY = 'droneWorkshopInstructionsState'
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
   const [zoom, setZoom] = useState(100)
+  const [pageJumpInput, setPageJumpInput] = useState('')
   const [hasStarted, setHasStarted] = useState(false)
   // Track which pages have been visited/completed (button clicked)
   const [visitedPages, setVisitedPages] = useState(new Set())
@@ -693,8 +694,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page9RightWhiteBoxTimeoutRef.current = null
         }
       }
-      // Reset page 10 state when navigating away from page 10
-      if (currentPage === 9) {
+      // When navigating away from page 10 (back to page 9): preserve completion state if page is completed
+      // so that when user returns via back button from a later page, page 10 still displays as completed
+      if (currentPage === 9 && !completedPages.includes(9)) {
         setPage10BoxSelected(false)
         setPage10BoxesVisible(false)
         setPage10Box1Selected(false)
@@ -845,19 +847,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page9RightWhiteBoxTimeoutRef.current = null
         }
       }
-      // Reset page 10 state when navigating away from page 10
-      if (currentPage === 9) {
-        setPage10BoxSelected(false)
-        setPage10BoxesVisible(false)
-        setPage10Box1Selected(false)
-        setPage10Box2Selected(false)
-        setPage10Box3Selected(false)
-        setPage10WhiteBoxesHidden(false)
-        setPage10WhiteBox1Hidden(false)
-        setPage10NeedHelpWhiteBoxVisible(false)
-        setPage10WhiteBox3Hidden(false)
-        setPage10NewWhiteBoxHidden(false)
-      }
+      // When navigating away from page 10 (forward): do not reset page 10 state — preserve for back navigation
+      // (same as page 15). We only reach this when user has completed page 10, so box state stays.
       // Reset page 15 state when navigating away from page 15 (forward)
       // Don't reset page15Box1Selected, page15Box2Selected, page15Box3Selected - preserve completion state for when user navigates back or refreshes
       if (currentPage === 14) {
@@ -2146,6 +2137,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const handleReset = () => {
     setZoom(100)
   }
+
+  const handlePageJump = useCallback((e) => {
+    e?.preventDefault?.()
+    const n = parseInt(pageJumpInput, 10)
+    if (!Number.isNaN(n) && n >= 1 && n <= pages.length) {
+      setCurrentPage(n - 1)
+      setPageJumpInput('')
+    }
+  }, [pageJumpInput, pages.length])
+
+  // Expose page jump API to parent so it can render the input in the right panel
+  useEffect(() => {
+    if (onPageJumpSlotReady) {
+      onPageJumpSlotReady({ currentPage, totalPages: pages.length, pageJumpInput, setPageJumpInput, handlePageJump })
+    }
+  }, [onPageJumpSlotReady, currentPage, pageJumpInput, pages.length, handlePageJump])
 
   // Track container size changes to ensure buttons scale correctly with panel resizing
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
@@ -41006,41 +41013,58 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           )}
         </div>
         <div className="zoom-controls">
-          <button 
-            onClick={handleZoomOut}
-            disabled={zoom <= 50}
-            className="btn-modern btn-zoom"
-            aria-label="Zoom out"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M8 12h8"/>
-            </svg>
-          </button>
-          <div className="reset-button-container">
-            {zoom !== 100 ? (
-              <button 
-                onClick={handleReset}
-                className="btn-modern btn-zoom btn-reset"
-                aria-label="Reset zoom"
-              >
-                Reset
-              </button>
-            ) : (
-              <span className="zoom-text">zoom</span>
-            )}
+          <div className="zoom-controls-row">
+            <button 
+              onClick={handleZoomOut}
+              disabled={zoom <= 50}
+              className="btn-modern btn-zoom"
+              aria-label="Zoom out"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12h8"/>
+              </svg>
+            </button>
+            <div className="reset-button-container">
+              {zoom !== 100 ? (
+                <button 
+                  onClick={handleReset}
+                  className="btn-modern btn-zoom btn-reset"
+                  aria-label="Reset zoom"
+                >
+                  Reset
+                </button>
+              ) : (
+                <span className="zoom-text">zoom</span>
+              )}
+            </div>
+            <button 
+              onClick={handleZoomIn}
+              disabled={zoom >= 300}
+              className="btn-modern btn-zoom"
+              aria-label="Zoom in"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 8v8M8 12h8"/>
+              </svg>
+            </button>
           </div>
-          <button 
-            onClick={handleZoomIn}
-            disabled={zoom >= 300}
-            className="btn-modern btn-zoom"
-            aria-label="Zoom in"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v8M8 12h8"/>
-            </svg>
-          </button>
+          {!onPageJumpSlotReady && (
+            <div className="page-jump-row">
+              <input
+                type="number"
+                min={1}
+                max={pages.length}
+                placeholder="Page"
+                value={pageJumpInput}
+                onChange={(e) => setPageJumpInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') handlePageJump(e) }}
+                className="page-jump-input"
+                aria-label="Jump to page number"
+              />
+            </div>
+          )}
         </div>
         {currentPage !== pages.length - 1 && (
           <div className="nav-button-right">

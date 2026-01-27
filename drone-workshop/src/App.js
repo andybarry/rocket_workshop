@@ -214,6 +214,7 @@ function App() {
   const [droneTestingString, setDroneTestingString] = useState("");
   const passwordInputRef = useRef(null);
   const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
+  const [pageJumpApi, setPageJumpApi] = useState(null);
 
   const LOCAL_STORAGE_VERSION = "1.0"
 
@@ -791,6 +792,7 @@ function App() {
           <InstructionsPanel 
             editorMode={false} 
             onResetInstructionsReady={(fn) => setResetInstructionsFunc(() => fn)}
+            onPageJumpSlotReady={(api) => setPageJumpApi(api)}
           />
         </div>
         <div>
@@ -945,7 +947,24 @@ function App() {
                 height="100%"
                 title=""
               />
-              <div style={{ textAlign: 'right', marginTop: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
+                {pageJumpApi && (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <label htmlFor="right-panel-page-jump" style={{ fontSize: '12px', color: '#666' }}>Page</label>
+                    <input
+                      id="right-panel-page-jump"
+                      type="number"
+                      min={1}
+                      max={pageJumpApi.totalPages}
+                      placeholder=""
+                      value={pageJumpApi.pageJumpInput}
+                      onChange={(e) => pageJumpApi.setPageJumpInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Enter') pageJumpApi.handlePageJump(e); }}
+                      className="right-panel-page-jump"
+                      aria-label="Jump to page number"
+                    />
+                  </span>
+                )}
                 <a className="gear-icon" style={{ marginRight: '10px' }} onClick={handleAdminDialogOpen}>
                   <FontAwesomeIcon icon={faCog} />
                 </a>
