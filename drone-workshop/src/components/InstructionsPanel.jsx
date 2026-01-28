@@ -3242,11 +3242,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - topEdgeDownPercent - bottomEdgeUpPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     
-                    // Calculate border radius as half the height (maximum corner radius)
+                    // Calculate border radius as half the height, then increase by 25% for rounder corners
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                    // Half the height in pixels, converted to percentage of wrapper dimensions
-                    const borderRadiusPx = wrapperHeightPx / 2
+                    const borderRadiusPx = (wrapperHeightPx / 2) * 1.25
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                     const borderRadiusWrapperY = 50 // Always 50% of height for max radius
                     
