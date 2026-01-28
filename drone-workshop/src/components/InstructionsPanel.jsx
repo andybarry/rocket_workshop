@@ -396,8 +396,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page5HelpImageTimeoutRef = useRef(null)
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
-  const page33ConfettiFiredRef = useRef(false)
+  const prevCountPage3Ref = useRef(0)
+  const prevCountPage33Ref = useRef(0)
   const page3ConfettiFiredRef = useRef(false)
+  const page33ConfettiFiredRef = useRef(false)
   const confettiWrapperRef = useRef(null)
   const confettiCanvasRef = useRef(null)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
@@ -2281,18 +2283,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     return () => ro.disconnect()
   }, [])
 
-  // Easter egg: confetti in left panel when all page 3 green boxes are checked
+  // Easter egg: confetti only when user checks the *last* box on page 3 (9->10). Not when returning via nav with all checked.
   useEffect(() => {
     const onPage3 = currentPage === 2 && !editorMode
-    const allChecked = page3SecondButtonClicked && selectedGreenBoxes.size >= PAGE3_GREEN_BOX_COUNT
+    if (!onPage3) return
 
-    if (!onPage3 || !allChecked) {
-      page3ConfettiFiredRef.current = false
-      return
-    }
+    const count = selectedGreenBoxes.size
+    const prevCount = prevCountPage3Ref.current
+    prevCountPage3Ref.current = count
 
-    if (page3ConfettiFiredRef.current) return
-    page3ConfettiFiredRef.current = true
+    const allChecked = page3SecondButtonClicked && count >= PAGE3_GREEN_BOX_COUNT
+    if (!allChecked) return
+    if (prevCount !== PAGE3_GREEN_BOX_COUNT - 1) return
 
     const canvas = confettiCanvasRef.current
     if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
@@ -2301,18 +2303,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     return () => cleanup()
   }, [currentPage, editorMode, page3SecondButtonClicked, selectedGreenBoxes])
 
-  // Easter egg: confetti in left panel when all page 33 green boxes are checked
+  // Easter egg: confetti only when user checks the *last* box on page 33 (9->10). Not when returning via nav with all checked.
   useEffect(() => {
     const onPage33 = currentPage === 32 && !editorMode
-    const allChecked = page33Box1Selected && selectedGreenBoxesPage33.size >= PAGE33_GREEN_BOX_COUNT
+    if (!onPage33) return
 
-    if (!onPage33 || !allChecked) {
-      page33ConfettiFiredRef.current = false
-      return
-    }
+    const count = selectedGreenBoxesPage33.size
+    const prevCount = prevCountPage33Ref.current
+    prevCountPage33Ref.current = count
 
-    if (page33ConfettiFiredRef.current) return
-    page33ConfettiFiredRef.current = true
+    const allChecked = page33Box1Selected && count >= PAGE33_GREEN_BOX_COUNT
+    if (!allChecked) return
+    if (prevCount !== PAGE33_GREEN_BOX_COUNT - 1) return
 
     const canvas = confettiCanvasRef.current
     if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
