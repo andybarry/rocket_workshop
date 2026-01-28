@@ -55,6 +55,69 @@ const DEFAULT_PAGE_ASPECT = 0.75
 const STAGE_FRAME_PADDING = 6
 const START_BUTTON_SMALL_THRESHOLD = 80 // px width threshold to shrink border
 const INSTRUCTIONS_STORAGE_KEY = 'droneWorkshopInstructionsState'
+const PAGE33_GREEN_BOX_COUNT = 10
+const PAGE3_GREEN_BOX_COUNT = 10
+
+const CONFETTI_COLORS = ['#3bbf6b', '#f05f40', '#0d6efd', '#ffc107', '#6f42c1']
+
+function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
+  if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
+  const w = canvas.width
+  const h = canvas.height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+
+  const particles = []
+  const cx = originX * w
+  const cy = originY * h
+
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 0.5) + (Math.random() - 0.5) * Math.PI
+    const speed = 4 + Math.random() * 8
+    particles.push({
+      x: cx + (Math.random() - 0.5) * 40,
+      y: cy,
+      vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 2,
+      vy: -Math.sin(angle) * speed - Math.random() * 2,
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      size: 4 + Math.random() * 6,
+      w: 6 + Math.random() * 6,
+      h: 4 + Math.random() * 4,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.2
+    })
+  }
+
+  let raf = null
+  let cancelled = false
+  const gravity = 0.15
+
+  const tick = () => {
+    if (cancelled) return
+    ctx.clearRect(0, 0, w, h)
+    let alive = 0
+    for (const p of particles) {
+      p.x += p.vx
+      p.y += p.vy
+      p.vy += gravity
+      p.rot += p.rotSpeed
+      if (p.y < h + 50) alive++
+      ctx.save()
+      ctx.translate(p.x, p.y)
+      ctx.rotate(p.rot)
+      ctx.fillStyle = p.color
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h)
+      ctx.restore()
+    }
+    if (alive > 0) raf = requestAnimationFrame(tick)
+  }
+  tick()
+  return () => {
+    cancelled = true
+    if (raf) cancelAnimationFrame(raf)
+    ctx.clearRect(0, 0, w, h)
+  }
+}
 
 function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll }) {
   const [currentPage, setCurrentPage] = useState(0)
@@ -333,6 +396,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page5HelpImageTimeoutRef = useRef(null)
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
+  const page33ConfettiFiredRef = useRef(false)
+  const page3ConfettiFiredRef = useRef(false)
+  const confettiWrapperRef = useRef(null)
+  const confettiCanvasRef = useRef(null)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
   // Function to restore all box states for a completed page
@@ -2192,6 +2259,68 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
   }, [currentPage])
 
+  // Size confetti canvas to overlay wrapper (left panel only)
+  useEffect(() => {
+    const wrapper = confettiWrapperRef.current
+    const canvas = confettiCanvasRef.current
+    if (!wrapper || !canvas) return
+
+    const sizeCanvas = () => {
+      const rect = wrapper.getBoundingClientRect()
+      const w = Math.max(1, Math.round(rect.width))
+      const h = Math.max(1, Math.round(rect.height))
+      canvas.width = w
+      canvas.height = h
+      canvas.style.width = `${w}px`
+      canvas.style.height = `${h}px`
+    }
+
+    sizeCanvas()
+    const ro = new ResizeObserver(sizeCanvas)
+    ro.observe(wrapper)
+    return () => ro.disconnect()
+  }, [])
+
+  // Easter egg: confetti in left panel when all page 3 green boxes are checked
+  useEffect(() => {
+    const onPage3 = currentPage === 2 && !editorMode
+    const allChecked = page3SecondButtonClicked && selectedGreenBoxes.size >= PAGE3_GREEN_BOX_COUNT
+
+    if (!onPage3 || !allChecked) {
+      page3ConfettiFiredRef.current = false
+      return
+    }
+
+    if (page3ConfettiFiredRef.current) return
+    page3ConfettiFiredRef.current = true
+
+    const canvas = confettiCanvasRef.current
+    if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
+
+    const cleanup = runConfetti(canvas, 0.5, 0.6, 80)
+    return () => cleanup()
+  }, [currentPage, editorMode, page3SecondButtonClicked, selectedGreenBoxes])
+
+  // Easter egg: confetti in left panel when all page 33 green boxes are checked
+  useEffect(() => {
+    const onPage33 = currentPage === 32 && !editorMode
+    const allChecked = page33Box1Selected && selectedGreenBoxesPage33.size >= PAGE33_GREEN_BOX_COUNT
+
+    if (!onPage33 || !allChecked) {
+      page33ConfettiFiredRef.current = false
+      return
+    }
+
+    if (page33ConfettiFiredRef.current) return
+    page33ConfettiFiredRef.current = true
+
+    const canvas = confettiCanvasRef.current
+    if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
+
+    const cleanup = runConfetti(canvas, 0.5, 0.6, 80)
+    return () => cleanup()
+  }, [currentPage, editorMode, page33Box1Selected, selectedGreenBoxesPage33])
+
   // Handle white box visibility on page 8
   useEffect(() => {
     if (currentPage === 7 && page8Box1Selected && !page8WhiteBoxHidden) {
@@ -2980,6 +3109,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   return (
     <div className={`instructions-panel ${zoom === 100 ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
+      <div
+        ref={confettiWrapperRef}
+        className="confetti-overlay"
+        aria-hidden="true"
+      >
+        <canvas ref={confettiCanvasRef} />
+      </div>
       <div className="instructions-background">
         <div className="instructions-content">
           <div className={`page-container ${zoom === 100 ? 'no-scrollbars' : ''}`}>
