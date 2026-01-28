@@ -784,7 +784,7 @@ function App() {
           >
             Firmware
           </a>
-          <a href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/" target="_blank">Feedback</a>
+          <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" target="_blank">Feedback</a>
         </div>
       </div>
 
