@@ -762,7 +762,8 @@ function App() {
         <div className="orange-bar">
           <h1 className="stageone-heading">
             <span className="stageone-education">Robotics Workshop</span>
-            <span className="drone-workshop"> | Drone IDE</span>
+            <span className="heading-pipe" aria-hidden="true" />
+            <span className="drone-workshop">Drone IDE</span>
           </h1>
 
           <span className="stageone-org">STAGE ONE EDUCATION</span>

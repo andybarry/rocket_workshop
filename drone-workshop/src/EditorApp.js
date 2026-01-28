@@ -38,7 +38,8 @@ function EditorApp() {
           <div className="orange-bar">
             <h1 className="stageone-heading">
               <span className="stageone-education">Robotics Workshop</span>
-              <span className="drone-workshop"> | Editor Mode</span>
+              <span className="heading-pipe" aria-hidden="true" />
+              <span className="drone-workshop">Editor Mode</span>
             </h1>
             <span className="stageone-org">STAGE ONE EDUCATION</span>
           </div>
@@ -118,7 +119,8 @@ function EditorApp() {
         <div className="orange-bar">
           <h1 className="stageone-heading">
             <span className="stageone-education">Robotics Workshop</span>
-            <span className="drone-workshop"> | Editor Mode</span>
+            <span className="heading-pipe" aria-hidden="true" />
+            <span className="drone-workshop">Editor Mode</span>
           </h1>
 
           <span className="stageone-org">STAGE ONE EDUCATION</span>

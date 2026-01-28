@@ -92,10 +92,20 @@
   font-weight: bold;
 }
 
-/* "Drone Workshop" is not bold */
+/* "Drone Workshop" / "Drone IDE" / "Editor Mode" – not bold, thinner weight */
 .drone-workshop {
-  font-weight: normal;
+  font-weight: 300;
   font-family: 'Roboto', sans-serif;
+}
+
+/* Thin vertical separator between "Robotics Workshop" and "Drone IDE" / "Editor Mode" */
+.heading-pipe {
+  display: inline-block;
+  width: 0;
+  height: 1em;
+  border-left: 1px solid rgba(255, 255, 255, 0.9);
+  margin: 0 0.35em;
+  vertical-align: middle;
 }
 
 /* For the Connect to Serial button */

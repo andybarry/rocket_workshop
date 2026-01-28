@@ -3671,13 +3671,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       const dot1RightPercent = stageWidthPx > 0 ? (dot1RightPx / stageWidthPx) * 100 : 0
                       const adjustedDot1X = dot1X + dot1RightPercent
                       
+                      // Move dot 2 to the left by 2px
+                      const dot2LeftPx = 2
+                      const dot2LeftPercent = stageWidthPx > 0 ? (dot2LeftPx / stageWidthPx) * 100 : 0
+                      const adjustedDot2X = dot2X - dot2LeftPercent
+                      
                       // Lower top edge down by 2px (reduce height)
                       const topEdgeDownPx = 2
                       const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
                       const heightReducePx = 2
                       const heightReducePercent = stageHeightPx > 0 ? (heightReducePx / stageHeightPx) * 100 : 0
-                      // Bring bottom edge up by 1px (moved down 1px from previous 2px up)
-                      const bottomEdgeUpPx = 1
+                      // Bring bottom edge up by 2px (moved up 1px from previous 1px up)
+                      const bottomEdgeUpPx = 2
                       const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
                       const adjustedBoxTop = boxTop + topEdgeDownPercent
                       const adjustedBoxHeight = boxHeight - heightReducePercent - bottomEdgeUpPercent
@@ -3703,8 +3708,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       
                       // Calculate triangle - it extends DOWNWARD from the bottom edge (between dot2 and dot1) to dot3
                       // Dot3 is BELOW the box (33.81% > 29.58%), so triangle points downward
-                      const triangleBaseLeft = dot2X  // Left point on bottom edge (40.64%)
-                      const triangleBaseRight = adjustedDot1X  // Right point on bottom edge (45.51% - moved left 1px)
+                      const triangleBaseLeft = adjustedDot2X  // Left point on bottom edge (40.64% - moved left 2px)
+                      const triangleBaseRight = adjustedDot1X  // Right point on bottom edge (45.51% - moved right 2px)
                       const triangleBaseY = adjustedTop + expandedHeight  // Bottom edge Y position
                       const triangleTipX = dot3X  // Triangle tip X (54.73%)
                       const triangleTipY = dot3Y  // Triangle tip Y (33.81% - below the box)
@@ -4737,8 +4742,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       // Move top edge down 2px (reduce height)
                       const topEdgeDownPx = 2
                       const topEdgeDownPercent = stageHeightPx > 0 ? (topEdgeDownPx / stageHeightPx) * 100 : 0
-                      // Move bottom edge up 2px (reduce height further)
-                      const bottomEdgeUpPx = 2
+                      // Move bottom edge up 3px (reduce height further)
+                      const bottomEdgeUpPx = 3
                       const bottomEdgeUpPercent = stageHeightPx > 0 ? (bottomEdgeUpPx / stageHeightPx) * 100 : 0
                       const adjustedBoxTop = boxTop + topEdgeDownPercent
                       const adjustedBoxHeight = boxHeight - topEdgeDownPercent - bottomEdgeUpPercent
@@ -5775,9 +5780,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    // Move top edge down by 4px and bottom edge up by 3px (reduce height)
+                    // Move top edge down by 4px and bottom edge up by 5px (reduce height)
                     const topEdgeDownPx = 4
-                    const bottomEdgeUpPx = 3
+                    const bottomEdgeUpPx = 5
                     const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
                     const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
                     const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
@@ -5986,9 +5991,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    // Move top edge down by 4px and bottom edge up by 3px (reduce height)
+                    // Move top edge down by 4px and bottom edge up by 5px (reduce height)
                     const topEdgeDownPx = 4
-                    const bottomEdgeUpPx = 3
+                    const bottomEdgeUpPx = 5
                     const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
                     const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
                     const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
@@ -6211,9 +6216,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                     
-                    // Move top edge down by 2px and bottom edge up by 3px (reduce height)
+                    // Move top edge down by 2px and bottom edge up by 4px (reduce height)
                     const topEdgeDownPx = 2
-                    const bottomEdgeUpPx = 3
+                    const bottomEdgeUpPx = 4
                     const topEdgeDownPercent = imageNaturalSize.height > 0 ? (topEdgeDownPx / imageNaturalSize.height) * 100 : 0
                     const bottomEdgeUpPercent = imageNaturalSize.height > 0 ? (bottomEdgeUpPx / imageNaturalSize.height) * 100 : 0
                     const totalHeightReductionPercent = topEdgeDownPercent + bottomEdgeUpPercent
@@ -7956,9 +7961,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const bottomUpPercent = imageNaturalSize.height > 0 ? (bottomUpPx / imageNaturalSize.height) * 100 : 0
                     const totalHeightReductionPercent = topDownPercent + bottomUpPercent
                     
-                    // Reduce box width: move left edge to the right 4px, move right edge to the left 1px
+                    // Reduce box width: move left edge to the right 4px, move right edge to the left 2px
                     const leftRightPx = 4
-                    const rightLeftPx = 1
+                    const rightLeftPx = 2
                     const leftRightPercent = imageNaturalSize.width > 0 ? (leftRightPx / imageNaturalSize.width) * 100 : 0
                     const rightLeftPercent = imageNaturalSize.width > 0 ? (rightLeftPx / imageNaturalSize.width) * 100 : 0
                     const totalWidthReductionPercent = leftRightPercent + rightLeftPercent
@@ -39534,7 +39539,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const leftIncreasePercent = stageWidthPx > 0 ? (leftIncreasePx / stageWidthPx) * 100 : 0
                     const topIncreasePx = 2  // Move top down by 2px
                     const topIncreasePercent = stageHeightPx > 0 ? (topIncreasePx / stageHeightPx) * 100 : 0
-                    const heightReductionPx = 3  // Move bottom up by 3px (1px + 2px)
+                    const heightReductionPx = 5  // Move bottom up by 5px (moved up 2px from previous 3px)
                     const heightReductionPercent = stageHeightPx > 0 ? (heightReductionPx / stageHeightPx) * 100 : 0
                     
                     const adjustedLeft = Math.max(0, button2Left - leftOffsetAdjust + leftIncreasePercent)
