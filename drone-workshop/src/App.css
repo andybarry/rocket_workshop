@@ -186,6 +186,27 @@
   height: 100%;
 }
 
+/* Drone-instructions: stage and image match so overlay boxes (e.g. page 34) scale correctly */
+.drone-instructions-panel-wrapper .page-stage-frame {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  align-items: flex-start;
+}
+.drone-instructions-panel-wrapper .page-stage {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+}
+.drone-instructions-panel-wrapper .instruction-page {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
+}
+
 /* Drone-instructions: all text in orange header white */
 .drone-instructions-header .drone-instructions-orange-bar-mobile,
 .drone-instructions-header .drone-instructions-orange-bar-desktop {
