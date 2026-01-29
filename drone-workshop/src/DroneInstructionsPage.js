@@ -61,7 +61,7 @@ function DroneInstructionsPage() {
 
         {/* Mobile only: notice bar below gray bar, same height as orange bar */}
         <div className="drone-instructions-mobile-notice">
-          Instructions only. Laptop required for the Drone IDE.
+          Instructions only. Laptop or desktop required for the Drone IDE.
         </div>
       </div>
 
