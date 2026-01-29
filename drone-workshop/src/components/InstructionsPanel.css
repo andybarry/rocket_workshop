@@ -454,6 +454,16 @@
   width: 100%;
 }
 
+.center-nav-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
 .page-jump-input {
   width: 48px;
   padding: 2px 4px;

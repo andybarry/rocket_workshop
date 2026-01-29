@@ -144,6 +144,208 @@
   color: #f05f40;
   text-decoration: none; /* or whatever hover styling you prefer */
 }
+
+/* Drone-instructions page only: header text */
+.drone-instructions-header .stageone-heading {
+  font-size: 18px;
+}
+.drone-instructions-header .stageone-org {
+  font-size: 11.5px;
+}
+.drone-instructions-header .download-links {
+  font-size: 13px;
+}
+
+/* Drone-instructions: fixed header (stays at top when user zooms with fingers) */
+.drone-instructions-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Drone-instructions: hide orange header and light gray header */
+.drone-instructions-fixed-header .drone-instructions-header {
+  display: none !important;
+}
+
+.drone-instructions-panel-wrapper {
+  box-sizing: border-box;
+  height: 100vh;
+  padding-top: 0;
+}
+@media (max-width: 768px) {
+  .drone-instructions-panel-wrapper {
+    padding-top: 76px;
+  }
+}
+.drone-instructions-panel-wrapper .instructions-panel {
+  height: 100%;
+}
+
+/* Drone-instructions: all text in orange header white */
+.drone-instructions-header .drone-instructions-orange-bar-mobile,
+.drone-instructions-header .drone-instructions-orange-bar-desktop {
+  color: #fff;
+}
+.drone-instructions-header .drone-instructions-orange-bar-mobile *,
+.drone-instructions-header .drone-instructions-orange-bar-desktop * {
+  color: #fff;
+}
+
+/* Drone-instructions: mobile = STAGE ONE EDUCATION below, pipe spans both lines; desktop = single row */
+.drone-instructions-orange-bar-mobile {
+  display: none;
+}
+.drone-instructions-orange-bar-desktop {
+  display: flex;
+}
+@media (max-width: 768px) {
+  .drone-instructions-orange-bar-mobile {
+    display: flex;
+    align-items: center;
+  }
+  .drone-instructions-orange-bar-desktop {
+    display: none !important;
+  }
+}
+.drone-instructions-heading-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.35em;
+}
+.drone-instructions-heading-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.drone-instructions-heading-left .stageone-education {
+  line-height: 1.2;
+}
+.drone-instructions-heading-left .stageone-org {
+  line-height: 1.2;
+  margin-top: 2px;
+}
+.drone-instructions-pipe {
+  display: block;
+  width: 0;
+  min-width: 1px;
+  min-height: 2.6em;
+  border-left: 1px solid rgba(255, 255, 255, 0.9);
+  align-self: stretch;
+  margin: 3px 0;
+  flex-shrink: 0;
+}
+.drone-instructions-heading-row .drone-workshop {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+/* Drone-instructions: mobile-only notice bar (one line, orange text) */
+.drone-instructions-mobile-notice {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  background: #fff;
+  color: #f05f40;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 11px;
+  text-align: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .drone-instructions-mobile-notice {
+    display: flex;
+  }
+}
+
+/* Drone-instructions: pin bottom nav bar to viewport so it's always visible (stays fixed when user zooms) */
+.drone-instructions-panel-wrapper .page-navigation {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin: 10px;
+  margin-bottom: max(10px, env(safe-area-inset-bottom));
+  padding: 4px 12px;
+  min-height: 36px;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.98);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.drone-instructions-panel-wrapper .page-container {
+  padding-bottom: 88px;
+}
+/* Drone-instructions: smaller height for bottom white nav bar */
+.drone-instructions-panel-wrapper .page-navigation .btn-nav {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.drone-instructions-panel-wrapper .page-navigation .btn-modern svg {
+  width: 14px;
+  height: 14px;
+}
+.drone-instructions-panel-wrapper .page-navigation .page-jump-input {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+/* Drone-instructions: center nav controls (page jump + reset) small and centered, same style */
+.drone-instructions-panel-wrapper .center-nav-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .center-nav-page-input {
+  width: 40px;
+  height: 28px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  background: transparent;
+  color: #333;
+  border: 1px solid #6c757d;
+  border-radius: 15px;
+  box-sizing: border-box;
+  -moz-appearance: textfield;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .center-nav-page-input::-webkit-outer-spin-button,
+.drone-instructions-panel-wrapper .center-nav-controls .center-nav-page-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .center-nav-page-input:focus {
+  outline: none;
+  border-color: #6c757d;
+  box-shadow: 0 0 0 1px #6c757d;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .center-nav-reset-btn {
+  height: 28px;
+  padding: 4px 8px;
+  font-size: 10px;
+  min-width: 0;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
 /* App.css (or another global stylesheet) */
 
 /* 0) Remove browser default appearance so we have full control */

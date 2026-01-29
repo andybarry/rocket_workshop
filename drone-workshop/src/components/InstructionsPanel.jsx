@@ -119,7 +119,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showCenterNavControls = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -338,6 +338,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page34Box1Selected, setPage34Box1Selected] = useState(false)
   // Track page 34 nav Reset All confirm-twice state
   const [page34NavResetPressedOnce, setPage34NavResetPressedOnce] = useState(false)
+  const [centerResetConfirmOnce, setCenterResetConfirmOnce] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page15ShowHelpText, setPage15ShowHelpText] = useState(true)
   // Track page 15 box selections
@@ -41244,6 +41245,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           )}
         </div>
         <div className="zoom-controls">
+          {showZoomControls && (
           <div className="zoom-controls-row">
             <button 
               onClick={handleZoomOut}
@@ -41281,7 +41283,39 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               </svg>
             </button>
           </div>
-          {!onPageJumpSlotReady && (
+          )}
+          {showCenterNavControls && (
+            <div className="center-nav-controls">
+              <input
+                type="number"
+                min={1}
+                max={pages.length}
+                placeholder="Page"
+                value={pageJumpInput}
+                onChange={(e) => setPageJumpInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') handlePageJump(e) }}
+                className="page-jump-input center-nav-page-input"
+                aria-label="Jump to page number"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (centerResetConfirmOnce) {
+                    resetInstructions()
+                    setCenterResetConfirmOnce(false)
+                  } else {
+                    setCenterResetConfirmOnce(true)
+                    setTimeout(() => setCenterResetConfirmOnce(false), 5000)
+                  }
+                }}
+                className={`btn-modern btn-nav center-nav-reset-btn ${centerResetConfirmOnce ? 'btn-nav-danger' : 'btn-nav-gray'}`}
+                aria-label="Reset instructions"
+              >
+                {centerResetConfirmOnce ? 'Confirm' : 'Reset'}
+              </button>
+            </div>
+          )}
+          {!onPageJumpSlotReady && !showCenterNavControls && (
             <div className="page-jump-row">
               <input
                 type="number"
