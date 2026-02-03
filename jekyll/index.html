@@ -3,6 +3,97 @@ layout: default
 title: "Stage One Education | Hands-on AI, Robotics & Mechanical Engineering Workshops"
 description: "Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
 ---
+<!-- Cursor-following 3D glow on light gray background (home only) -->
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  /* Hide pointer only over the grid background; show pointer over buttons, boxes, navbar */
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .workshop-main-button { cursor: pointer !important; }
+  /* Grid on light gray (home only) */
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    /* Grid in #f05f40, revealed only where the mouse hovers (mask) */
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  /* Soft glow overlay at the pointer */
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .workshop-main-button') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     let posters = [
@@ -42,11 +133,11 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<body id="page-top" style="margin-top: 70px">
+<body id="page-top" class="cursor-glow-page" style="margin-top: 70px">
 
     {% include navigation.html %}
             
-<section style="padding-top: 10px;" id="tab-section" class="tab-section less-padding">
+<section style="padding-top: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
     <div class="container" id="ai">
 
 <!-- First Workshop Box -->  
