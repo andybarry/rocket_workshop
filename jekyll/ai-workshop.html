@@ -3,8 +3,116 @@ layout: default
 title: AI Workshop | Stage One Education
 description: Explore hands-on learning in artificial intelligence with Stage One Education. Engage in interactive activities like building neural networks, creating AI-generated films, and discussing AI ethics. No prior experience needed—ideal for all ages and led by real engineers.
 ---
+<!-- Grid and cursor-following glow (same as home page) -->
+<body id="page-top" class="cursor-glow-page">
 
-<body id="page-top">
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .glow-text,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container *,
+  body.cursor-glow-page .scrolling-hero,
+  body.cursor-glow-page .scrolling-hero *,
+  body.cursor-glow-page .overview-text-box,
+  body.cursor-glow-page .overview-text-box *,
+  body.cursor-glow-page .quote-container,
+  body.cursor-glow-page .quote-container * { cursor: pointer !important; }
+  body.cursor-glow-page .glow-text:hover {
+    background-color: #f05f40;
+    color: #fff;
+    border-color: #f05f40;
+  }
+  body.cursor-glow-page .quote-container .quote-text {
+    border-radius: 12px;
+    transition: box-shadow 0.2s ease;
+  }
+  body.cursor-glow-page .quote-container:hover .quote-text {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
+  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container') ||
+        under.matches('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
 
     {% include navigation.html %}
 
@@ -15,12 +123,9 @@ description: Explore hands-on learning in artificial intelligence with Stage One
         <div class="row">
             <div class="col-sm-12">
         <div style="margin: 0 auto; text-align: center;">
-            <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
+            <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; margin-bottom: 0.2em;">
                 Artificial Intelligence Workshop
             </h2>
-    
-            <h3 class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px;">Human Neural Network | AI Film Studio | Ethics</h3>
-    
         </div>
     </div>
     
@@ -63,17 +168,31 @@ description: Explore hands-on learning in artificial intelligence with Stage One
       background-color: rgba(255, 255, 255, 0.05); /* Reduced opacity */
       z-index: 1;
     }
+    /* Scrolling image with slight transparency */
+    .scrolling-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('img/film-poster.webp');
+      background-size: 1100px auto;
+      background-position: center top;
+      background-repeat: no-repeat;
+      animation: moveBackground 100s linear infinite;
+      opacity: 0.88;
+      z-index: 0;
+    }
     </style>
     
-    <div style="position: relative; 
+    <div class="scrolling-hero" style="position: relative; 
     max-width: 1100px; 
-    height: 200px; 
+    height: 280px; 
     margin: 0 auto; 
-    background-image: url('img/film_poster_1.jpg'); 
-    background-size: 1100px auto; 
-    background-position: center top; 
     padding: 5px 0; 
-    animation: moveBackground 60s linear infinite;">
+    overflow: hidden;
+    background-color: #f5f5f5;">
 
 <!-- Centered Container for Text + Buttons -->
 <div style="position: absolute; 
@@ -113,10 +232,11 @@ description: Explore hands-on learning in artificial intelligence with Stage One
 
 
 <!-- Feedback Survey Button -->
-<a href="https://feedback.stageoneeducation.com/workshop-feedback/artificial-intelligence-feedback-survey/"
+<a href="https://input.stageoneeducation.com/artificial-intelligence-feedback-survey.html"
 target="_blank" 
 rel="noopener noreferrer" 
-class="feedback-spacing">
+class="glow-text"
+style="margin-bottom: 20px; text-decoration: none;">
 Feedback Survey
 </a>
 </div>
@@ -125,24 +245,15 @@ Feedback Survey
 
 <!-- Overlay (if needed) -->
 <div class="overlay"></div>
-</div>
 
-<p style="color: #5b5b5b; 
-          font-size: 85%; 
-          text-align: right; 
-          padding-top: 5px;
-          margin: 0 auto; 
-          font-family: 'Roboto', sans-serif; 
-          margin-right: 15px;">
+<p style="position: absolute; bottom: 8px; right: 15px; color: #f05f40; font-size: 85%; font-weight: bold; text-align: right; margin: 0; font-family: 'Roboto', sans-serif; z-index: 5;">
   participant-created movie posters
 </p>
+</div>
 
+<hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
 
-    
-    
-    <span class="workshop-title" style="display: block; height: 5px; background-color: white;"></span>
-
-    <div style="max-width: 1100px; max-width: 100%; margin: 5px auto;">
+    <div style="max-width: 1100px; max-width: 100%; margin: 5px auto 0 auto;">
         <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
             Overview
         </span>
@@ -151,9 +262,17 @@ Feedback Survey
     
     <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
+    <style>
+      .overview-text-box {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 24px 20px 29px 20px;
+        border: 1px solid #e8e8e8;
+      }
+    </style>
     <section class="less-padding">
         <div class="container">
+            <div class="overview-text-box">
             <div class="row">
                 <!-- Text Section -->
                 <div class="col-lg-6 col-md-6 col-sm-6" style="flex: 1; padding-right: 20px;">
@@ -161,8 +280,6 @@ Feedback Survey
                         <div class="workshop-subdata" style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
-
-                        
 
                         <div class="tab-content tab-active" 
                         style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 2.5;">
@@ -228,9 +345,6 @@ Feedback Survey
                        </li>
                      </ul>
                    </div>
-                   
-
-
 
                     </div>
                 </div>
@@ -315,6 +429,7 @@ Feedback Survey
                     <!-- Text under the image -->
                     <p style="color: #5b5b5b; font-size: 85%; text-align: center; padding-top: 5px; margin: 0 auto; font-family: 'Roboto', sans-serif;">participant-created movie posters</p>
                 </div>
+            </div>
             </div>
         </div>
     </section>
@@ -423,7 +538,7 @@ Feedback Survey
                 /* Container for smooth scroll */
                 .scroll-container {
                     display: inline-block;
-                    animation: scroll 60s linear infinite;
+                    animation: scroll 100s linear infinite;
                     white-space: nowrap;
                     padding-bottom: 20px;
                 }
@@ -436,54 +551,181 @@ Feedback Survey
                     object-fit: cover;
                     border-radius: 20px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    /* Adjust margin between images */
                     margin-right: 40px;
+                    transition: box-shadow 0.2s ease;
+                }
+                .scroll-image:hover {
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
                 }
 
-
-/* Pause animation when hovered over the scroll container */
-.scroll-container:hover {
-    animation-play-state: paused;
-}
+                /* Pause animation when hovered over the scroll container */
+                .scroll-container:hover {
+                    animation-play-state: paused;
+                }
 
                 </style>
 
- <!-- Quotes -->
- <div class="row">
-    <div class="col-lg-6">
-        <div class="quote-container quote-two">
-            <p class="quote-text">
-                &ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging
-                and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash;
-                    Student, Boston 2023</em>
-            </p>
-        </div>
-        <div class="quote-container quote-one">
-            <p class="quote-text">
-                &ldquo;You guys did well explaining everything and having <strong>everyone
-                    engage</strong> with the lesson, and you helped make it <strong>fun to
-                    learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em>
-            </p>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="quote-container quote-three">
-            <p class="quote-text">
-                &ldquo;With the development of the times, AI has become inseparable from our lives, but
-                <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are
-                avoiding the use of AI. However, through this class, I was able to learn how to use and
-                utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable
-                    time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em>
-            </p>
-        </div>
-
-        
-    </div>
+ <!-- Quotes: top row fixed 260px (two boxes). Wide box 10px below in its own block. -->
+ <style>
+   .quotes-stage {
+     max-width: 1100px;
+     margin: 0 auto;
+   }
+   .quotes-stage .quotes-top {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     column-gap: 20px;
+     height: 260px;
+     align-items: start;
+     overflow: hidden;
+   }
+   .quotes-stage .quote-slot {
+     position: relative;
+     min-height: 260px;
+     cursor: pointer;
+   }
+   .quotes-stage .quote-slot[data-slot="0"] {
+     top: -20px;
+   }
+   .quotes-stage .quote-slot[data-slot="1"] {
+     height: 260px;
+   }
+   .quotes-stage .quote-slot[data-slot="2"] {
+     width: 100%;
+     min-height: 200px;
+     margin-top: 10px;
+   }
+   .quotes-stage .quote-slot .quote-item {
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     opacity: 0;
+     transform: scale(0.4);
+     pointer-events: none;
+   }
+   .quotes-stage .quote-slot .quote-item.active {
+     opacity: 1;
+     transform: scale(1);
+     pointer-events: auto;
+   }
+   @keyframes quoteZoomIn {
+     from { opacity: 0; transform: scale(0.4); }
+     to   { opacity: 1; transform: scale(1); }
+   }
+   @keyframes quoteZoomOut {
+     from { opacity: 1; transform: scale(1); }
+     to   { opacity: 0; transform: scale(0.4); }
+   }
+   .quotes-stage .quote-slot .quote-item.zooming-in {
+     animation: quoteZoomIn 2s ease-out forwards;
+     pointer-events: auto;
+   }
+   .quotes-stage .quote-slot .quote-item.zooming-out {
+     animation: quoteZoomOut 1.8s ease-in forwards;
+   }
+ </style>
+ <div class="quotes-stage">
+   <div class="quotes-top">
+     <div class="quote-slot" data-slot="0">
+     <div class="quote-item active" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+     <div class="quote-item" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+     <div class="quote-item" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
+  </div>
+  <div class="quote-slot" data-slot="1">
+     <div class="quote-item" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+     <div class="quote-item active" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+     <div class="quote-item" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
+  </div>
+   </div>
+  <div class="quote-slot" data-slot="2">
+     <div class="quote-item" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+     <div class="quote-item" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+     <div class="quote-item active" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
+    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
+  </div>
 </div>
-
-<span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+<script>
+ (function() {
+   var stage = document.querySelector('.quotes-stage');
+   if (!stage) return;
+   var slots = stage.querySelectorAll('.quote-slot');
+   var numQuotes = 6;
+   var slotIndices = [0, 1, 2];
+   var zoomOutMs = 1800;
+   var pauseMs = 500;
+   var zoomInMs = 2000;
+   var intervalId;
+   function getSlotQuoteEl(slotIdx, quoteIdx) {
+     return slots[slotIdx].querySelector('.quote-item[data-quote-index="' + quoteIdx + '"]');
+   }
+   function pickRandomSlot() {
+     return Math.floor(Math.random() * 3);
+   }
+   function pickNewQuoteForSlot(slotIdx) {
+     var used = slotIndices.slice();
+     var candidates = [];
+     for (var i = 0; i < numQuotes; i++) {
+       if (used.indexOf(i) === -1) candidates.push(i);
+     }
+     if (candidates.length === 0) return slotIndices[slotIdx];
+     return candidates[Math.floor(Math.random() * candidates.length)];
+   }
+   function runTransition(slotIdx) {
+     if (slotIdx === undefined) slotIdx = pickRandomSlot();
+     var oldQuoteIdx = slotIndices[slotIdx];
+     var newQuoteIdx = pickNewQuoteForSlot(slotIdx);
+     if (newQuoteIdx === oldQuoteIdx) return;
+     var currEl = getSlotQuoteEl(slotIdx, oldQuoteIdx);
+     var nextEl = getSlotQuoteEl(slotIdx, newQuoteIdx);
+     currEl.classList.add('zooming-out');
+     currEl.classList.remove('active');
+     setTimeout(function() {
+       nextEl.classList.remove('active');
+       nextEl.classList.add('zooming-in');
+       slotIndices[slotIdx] = newQuoteIdx;
+       setTimeout(function() {
+         currEl.classList.remove('zooming-out');
+         nextEl.classList.remove('zooming-in');
+         nextEl.classList.add('active');
+       }, zoomInMs);
+     }, zoomOutMs + pauseMs);
+   }
+   function scheduleNext() {
+     intervalId = setInterval(function() { runTransition(); }, 15000);
+   }
+   stage.addEventListener('click', function(e) {
+     var slotEl = e.target.closest('.quote-slot');
+     if (!slotEl) return;
+     var slotIdx = Array.prototype.indexOf.call(slots, slotEl);
+     if (slotIdx < 0) return;
+     if (intervalId) clearInterval(intervalId);
+     runTransition(slotIdx);
+     scheduleNext();
+   });
+   scheduleNext();
+ })();
+ </script>
 
  <!-- Timeline -->
+<style>
+  .ai-workshop-timeline-images .horizontal-image,
+  .ai-workshop-timeline-images .vertical-image {
+    border-radius: 12px;
+    border: 1px solid #d0d0d0;
+    width: 75%;
+    max-width: 75%;
+  }
+</style>
 <div class="row">
     <div style="max-width: 1100px; max-width: 100%; margin: 5px auto;">
         <span style="display: block; text-align: left; margin-left: 30px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
@@ -493,9 +735,9 @@ Feedback Survey
 
     <hr style="border: none; height: 3px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
-    <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+    <div style="height: 20px; background-color: #fafafa; max-width: 1100px; margin: 0 auto;"></div>
 
-    <div class="text-center">
+    <div class="text-center ai-workshop-timeline-images">
         <img src="img/ai_timeline.jpg" alt="AI Workshop Timeline" class="horizontal-image">
         <img src="img/ai-timeline-vertical.svg" alt="AI Workshop Timeline" class="vertical-image">
     </div>

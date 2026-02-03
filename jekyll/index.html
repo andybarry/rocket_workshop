@@ -16,8 +16,10 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   body.cursor-glow-page .btn,
   body.cursor-glow-page .workshop-main-button,
   body.cursor-glow-page .about-box,
-  body.cursor-glow-page .about-box * { cursor: pointer !important; }
-  /* Hide orange glow when over buttons/boxes/nav so only pointer shows */
+  body.cursor-glow-page .about-box *,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container * { cursor: pointer !important; }
+  /* Hide orange glow when over buttons/boxes/nav/scroll so only pointer shows */
   body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
   /* Grid on light gray (home only) */
   body.cursor-glow-page {
@@ -89,8 +91,8 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box')
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -302,7 +304,18 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     border: 1px solid #d0d0d0;
     border-radius: 12px;
     text-align: center;
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+  }
+  .about-box:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  .about-box:hover i.fa {
+    transform: scale(1.12);
+    transition: transform 0.2s ease;
+  }
+  .about-box i.fa {
+    transition: transform 0.2s ease;
   }
 </style>
 
@@ -402,6 +415,10 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin-right: 40px;
+        transition: box-shadow 0.2s ease;
+    }
+    .scroll-image:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
     }
     
     /* Pause scroll animation on hover */
