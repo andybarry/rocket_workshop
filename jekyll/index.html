@@ -14,7 +14,11 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   body.cursor-glow-page a,
   body.cursor-glow-page button,
   body.cursor-glow-page .btn,
-  body.cursor-glow-page .workshop-main-button { cursor: pointer !important; }
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .about-box,
+  body.cursor-glow-page .about-box * { cursor: pointer !important; }
+  /* Hide orange glow when over buttons/boxes/nav so only pointer shows */
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
   /* Grid on light gray (home only) */
   body.cursor-glow-page {
     background-color: #fafafa;
@@ -85,8 +89,8 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button')
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -289,13 +293,23 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 <span class="workshop-title">About</span>
 <hr class="main-page-hr" />
 
+<style>
+  .about-box {
+    flex: 1 1 calc(20% - 20px);
+    max-width: 250px;
+    padding: 24px 16px;
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: none;
+  }
+</style>
 
-
-
-    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px">
+    <div class="container about-section" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px; position: relative; z-index: 1;">
         
         <!-- Hands-on Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;"> 
+        <div class="about-box"> 
             <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
             <h3 class="about-title-text">hands-on</h3>
             <h4 class="about-body-text" style="line-height: 1.6;">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
@@ -303,14 +317,14 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         
         
         <!-- Turn-key Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+        <div class="about-box">
             <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
             <h3 class="about-title-text">turn-key</h3>
             <h4 class="about-body-text" style="line-height: 1.6;">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
         </div>
 
         <!-- Curriculum Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+        <div class="about-box">
             <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
             <h3 class="about-title-text">curriculum</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
@@ -320,14 +334,14 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         </div>
 
         <!-- Experienced Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+        <div class="about-box">
             <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
             <h3 class="about-title-text">experienced</h3>
             <h4 class="about-body-text" style="line-height: 1.6;">Since 2013, Stage One Education has provided hands-on engineering workshops to 15,000+ participants.</h4>
         </div>
 
         <!-- Safe & Exciting Box -->
-        <div style="flex: 1 1 calc(20% - 20px); padding: 10px; border: none; border-radius: 10px; max-width: 250px; box-shadow: none;">
+        <div class="about-box">
             <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
             <h3 class="about-title-text">safe & exciting</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
@@ -339,19 +353,9 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     </div>
 
 
-
-<span class="workshop-title" style="display: block; height: 5px; background-color: white;"></span>
-
-
-
-
 <hr class="main-page-hr" />
 <span class="workshop-title">Feedback</span>
 <hr class="main-page-hr" />
-
-
-<span class="workshop-title" style="display: block; height: 20px; background-color: white;"></span>
-
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
 <div style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
@@ -516,7 +520,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
                     <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
                         <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                            style="color: #f05f40; animation: pulse 1s infinite;"></i>
+                            style="color: #f05f40; animation: pulse 2.5s infinite;"></i>
                     </a>
                 </div>
 
@@ -528,20 +532,12 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         </p>
 
     <br>
-        
-    <div
-    style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 20px auto; max-width: 800px;">
-
-    Explore engineering workshops and presentation events <br/> schedule a virtual workshop demo today</div>
 
   <!-- Request a Demo Button -->
   <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone">
   Request a demo
 </a>
 </section>
-
-<span class="workshop-title" style="display: block; height: 40px; background-color: white;"></span>
-
 
 {% include copyright.html %}
 
