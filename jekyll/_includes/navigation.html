@@ -11,28 +11,31 @@
             </button>
             <a href="index.html">
                 <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
-                    style="width: 150px; height: auto; margin-top: 5px; margin-left: 100px; margin-right: 20px; margin-bottom: 5px;">
+                    style="width: 150px; height: auto; margin-top: 5px; margin-left: 100px; margin-right: 20px; margin-bottom: 5px; opacity: 1;">
             </a>
         </div>
 
         <!-- Navigation Links and Inline Logo -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-bottom: 2px; margin-top: 1px;">
-            <ul class="nav navbar-nav">
-                <!-- "Request a demo" button -->
-                <li>
-                    <a href={% include demo_link.html %} target="_blank" class="nav-button-stageone-highlight">
-                        Request a demo
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                {% assign on_home_page = page.url == '/' or page.url == '/index.html' %}
+                {% if on_home_page %}
+                <li class="dropdown nav-dropdown">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false">
+                        Workshops <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="ai-workshop.html">AI</a></li>
+                        <li><a class="nav-dropdown-link" href="robotics-workshop.html">Robotics</a></li>
+                        <li><a class="nav-dropdown-link" href="rocket-workshop.html">Mechanical</a></li>
+                    </ul>
                 </li>
-
+                {% else %}
                 <li>
                     <a href="index.html" class="nav-button-stageone">Home</a>
                 </li>
-                <li>
-                    <a href="presentations.html" class="nav-button-stageone">
-                        Presentations
-                    </a>
-                </li>
+                {% endif %}
                 <li>
                     <a href="locations.html" class="nav-button-stageone">
                         Locations
@@ -58,38 +61,14 @@
                         About
                     </a>
                 </li>
+                <!-- "Request a demo" button -->
+                <li class="nav-request-demo">
+                    <a href={% include demo_link.html %} target="_blank" class="nav-button-stageone-highlight">
+                        Request a demo
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Custom JavaScript for Scroll Event -->
-<script>
-    // Apply scroll fade effect only on index.html page
-    if (window.location.pathname === '/index.html' || window.location.pathname === '/') {
-        window.addEventListener('scroll', function() {
-            var logo = document.getElementById('logo');
-            if (window.scrollY > 80) {
-                logo.style.opacity = 1; // Fade in the logo after scrolling 80px
-            } else {
-                logo.style.opacity = 0; // Fade out the logo if less than 80px
-            }
-        });
-    } else {
-        // Ensure logo is always visible on other pages
-        var logo = document.getElementById('logo');
-        logo.style.opacity = 1;
-    }
-</script>
-
-<style>
-    /* Additional styles for logo visibility */
-    #logo {
-        opacity: 0; /* Initially hidden */
-        transition: opacity 0.5s; /* Smooth transition for fading */
-    }
-</style>
