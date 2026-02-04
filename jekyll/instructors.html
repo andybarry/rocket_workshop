@@ -3,7 +3,102 @@ layout: default
 title: Instructors | Stage One Education, LLC
 ---
 
-<body id="page-top">
+<body id="page-top" class="cursor-glow-page">
+
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .about-box,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container *,
+  body.cursor-glow-page .location-item,
+  body.cursor-glow-page .location-item *,
+  body.cursor-glow-page .instructors-content-box,
+  body.cursor-glow-page .instructors-content-box * { cursor: pointer !important; }
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
+  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .location-item, .instructors-content-box') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .location-item, .instructors-content-box')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
 
     {% include navigation.html %}
 
@@ -18,46 +113,46 @@ title: Instructors | Stage One Education, LLC
             <hr class="main-page-hr" />
     </div>
 
-    <!-- Mission Statement -->
-    <div style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; text-align: center; margin-top: 20px; font-weight: bold; text-align: center; margin: 20px auto; max-width: 80%;">
-        Mission: Inspiring learners through hands-on engineering workshops
-    </div>
+    <!-- White box with rounded corners containing mission, description, contact, and requirements -->
+    <div class="instructors-content-box" style="background-color: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 32px; max-width: 800px; margin: 20px auto;">
+        <!-- Mission Statement -->
+        <div style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; text-align: center; font-weight: bold; margin-bottom: 20px;">
+            Mission: Inspiring learners through hands-on engineering workshops
+        </div>
 
-    <!-- Workshop Description -->
-    <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 20px auto; max-width: 60%;">
-        At Stage One Education, we offer workshops that capture the expertise and practices of top researchers and engineering professionals. Our workshops are led by a nationwide network of experienced instructors who guide participants through immersive, hands-on, project-based learning reflecting the latest engineering fields. This dynamic approach provides an experience powered by the insights and passion of real-world engineers.
-    </div>
+        <!-- Workshop Description -->
+        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 0 auto 24px auto; max-width: 100%; line-height: 1.6;">
+            At Stage One Education, we offer workshops that capture the expertise and practices of top researchers and engineering professionals. Our workshops are led by a nationwide network of experienced instructors who guide participants through immersive, hands-on, project-based learning reflecting the latest engineering fields. This dynamic approach provides an experience powered by the insights and passion of real-world engineers.
+        </div>
 
-    <!-- Invitation to Join the Team -->
-    <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 40px auto; margin: 50px auto;max-width: 800px; font-weight: normal;">
-        Want to join our team?
+        <!-- Thin horizontal line (2/3 width) that fades on left and right -->
+        <div style="height: 1px; max-width: 66.67%; margin: 20px auto; background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 20%, rgba(0,0,0,0.12) 80%, transparent 100%);"></div>
 
-<br/>
-<br/>
+        <!-- Invitation to Join the Team -->
+        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin-bottom: 16px;">
+            Want to join our team?
+        </div>
 
-    <span class="workshop-title">Contact</span>
-   
-
+        <div style="text-align: center; margin-bottom: 16px;">
+            <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40;">Contact</span>
+        </div>
 
         <!-- Email Address -->
-        <p style="font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; margin: 0;">
+        <p style="font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; margin: 0 0 24px 0;">
             <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
                 workshops@stageoneeducation.com
             </a>
         </p>
-    </section>
-<br/>
 
         <!-- Requirements Section -->
-        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 10px; text-align: center; margin: 10px auto; max-width: 70%;">
+        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 10px; text-align: center; margin: 8px auto; max-width: 100%;">
             Requirements: Team Leadership - Excellent Presentation Skills - Strong Portfolio of Engineering Experience
         </div>
-        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 10px; text-align: center; margin: 10px auto; max-width: 70%;">
+        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 10px; text-align: center; margin: 8px auto; max-width: 100%;">
             Authorized to work in the U.S. as a 1099 independent contractor
         </div>
     </div>
 
-    
     {% include copyright.html %}
 
 

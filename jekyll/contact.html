@@ -3,7 +3,100 @@ layout: default
 title: Instructors | Stage One Education, LLC
 ---
 
-<body id="page-top">
+<body id="page-top" class="cursor-glow-page">
+
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .about-box,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container *,
+  body.cursor-glow-page .contact-content-box,
+  body.cursor-glow-page .contact-content-box * { cursor: pointer !important; }
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
+  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .contact-content-box') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .contact-content-box')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
 
     {% include navigation.html %}
 
@@ -28,43 +121,30 @@ title: Instructors | Stage One Education, LLC
 
     <div class="container">
 
-        <!-- Title -->
-        <span class="workshop-title"
-            style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; margin-bottom: 20px;">Contact
-            us:</span>
+        <!-- White box with rounded corners -->
+        <div class="contact-content-box" style="background-color: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 32px; max-width: 800px; margin: 20px auto;">
+            <!-- Title -->
+            <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px; margin-bottom: 20px;">Contact us:</span>
 
-        <!-- Email Section with Pulsing Heartbeat Effect -->
-        <div class="col-lg-8 col-lg-offset-2 text-center">
-            <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
-                <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                    style="color: #f05f40; animation: pulse 1s;"></i>
-                <div style="font-size: 20px; margin-top: 10px;">
-                    workshops@stageoneeducation.com
-                </div>
-            </a>
-        </div>
-
-        <!-- Instructor Section -->
-        <section id="instructors" class="less-padding">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div
-                        style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 50px auto; max-width: 800px;">
-                        Our hands-on workshops in <strong>Artificial Intelligence</strong>, <strong>Robotics</strong>,
-                        and
-                        <strong>Mechanical Engineering</strong> are led by PhDs, engineers, and educators. In just three
-                        hours, participants gain essential skills and tools that ignite their passion for STEM.
-                        <br><br>
-                        Let us bring the excitement and education to your event—reach out now to get started!                    </div>
-                </div>
+            <!-- Email Section with Pulsing Heartbeat Effect -->
+            <div class="text-center" style="margin-bottom: 28px;">
+                <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s" style="color: #f05f40; animation: pulse 1s;"></i>
+                    <div style="font-size: 20px; margin-top: 10px;">
+                        workshops@stageoneeducation.com
+                    </div>
+                </a>
             </div>
 
+            <!-- Workshop description -->
+            <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; max-width: 100%; line-height: 1.6;">
+                Our hands-on workshops in <strong>Artificial Intelligence</strong>, <strong>Robotics</strong>, and <strong>Mechanical Engineering</strong> are led by real engineers. In just three hours, participants gain essential skills and tools that ignite their passion for STEM.<br><br>No prior experience needed.
+                <br><br>
+                <strong>Let us bring the excitement and education to your event—reach out now to get started!</strong>
+            </div>
+        </div>
 
-        <!-- Footer Section -->
-
-        
         {% include copyright.html %}
-
 
     </div>
 
