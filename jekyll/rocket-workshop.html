@@ -11,7 +11,102 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<body id="page-top">
+<!-- Grid and cursor-following glow (same as home, AI and robotics pages) -->
+<body id="page-top" class="cursor-glow-page">
+
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .about-box,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container *,
+  body.cursor-glow-page .button-container,
+  body.cursor-glow-page .button-container *,
+  body.cursor-glow-page .feedback-spacing { cursor: pointer !important; }
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
+  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
 
     {% include navigation.html %}
 
@@ -19,22 +114,16 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
 
    <!-- Title Section -->
 <div style="max-width: 100%; margin: 0 auto; text-align: center;">
-    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold;">
+    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
         Mechanical Engineering Workshop
     </h2>
 </div>
 
 <div class="container">
-    <h3 class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px; font-weight: thin;
-">
-        Computer-Aided Design (CAD) & 3D Printing
-    </h3>
-
-
         <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
         <!-- Section with Background Video Loop -->
-        <div style="position: relative; margin: 0 auto; height: 200px; background-color: white; overflow: hidden;">
+        <div style="position: relative; margin: 0 auto; height: 280px; background-color: white; overflow: hidden;">
             <div class="video-background autosize" style="height: 100%; width: 100%;">
                 <video autoplay loop muted playsinline style="width: 100%; height: auto;">
                     <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
@@ -63,11 +152,12 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
        Start
     </a>
 
-    <!-- Feedback Survey Link -->
-    <a href="https://feedback.stageoneeducation.com/workshop-feedback/mechanical-engineering-feedback-survey/"
+    <!-- Feedback Survey -->
+    <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html"
        target="_blank"
        rel="noopener noreferrer"
-       class="feedback-spacing">
+       class="glow-button"
+       style="margin-bottom: 20px;">
        Feedback Survey
     </a>
 
@@ -121,6 +211,13 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                 text-decoration: none;
             }
 
+            /* No underline when selected/focused */
+            .glow-button:focus,
+            .glow-button:active,
+            .glow-button:visited {
+                text-decoration: none !important;
+            }
+
             /* Overlay style */
             .overlay {
                 position: absolute;
@@ -136,9 +233,7 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
 
         <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
-        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
-
-        <div style="max-width: 100%; margin: 5px auto;">
+        <div style="max-width: 100%; margin: 20px auto 5px auto;">
             <span
                 style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
                 Overview
@@ -147,33 +242,54 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
 
         <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
+        <style>
+            .overview-text-box {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 24px 20px 29px 20px;
+                border: 1px solid #e8e8e8;
+            }
+        </style>
         <section class="less-padding">
-            <div class="row">
+            <div class="overview-text-box">
+            <div class="row" style="align-items: center;">
                 <!-- Text Section -->
-                <div class="col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
                         <div class="workshop-subdata"
                             style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
 
-                        
                         <div class="tab-content tab-active"
-                        style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 2.5;">
-                     <ul>
-                       <li>
-                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                           Explore the world of engineering and discover CAD (computer aided design)
+                        style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 1.65;">
+                     <p style="margin: 0 0 0.75em 0; font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.65;">
+                       In the Mechanical Engineering Workshop, participants <strong>become rocket designers!</strong>
+                     </p>
+                     <ul style="list-style-type: disc; padding-left: 20px; margin: 0;">
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Design and engineer your own three-part rocket using <strong>industry-standard Computer Aided Design (CAD)</strong> software.
                          </h3>
                        </li>
-                       <li>
-                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                           Build a three-part (virtual) rocket using a professional CAD platform
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Guided by <strong>GIF‑style micro‑videos</strong> and concise text, no prior experience is required.
                          </h3>
                        </li>
-                       <li>
-                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                           With our comprehensive online tutorial, master CAD in just a few hours!
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Master core CAD skills: sketching, parametric modeling, assemblies.
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Live 3D‑printing demo.
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Learn from open‑forum Q&A where you can ask our <strong>real engineers</strong> anything about your design, CAD techniques, and careers in engineering.
                          </h3>
                        </li>
                      </ul>
@@ -185,10 +301,11 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                     </div>
                 </div>
                 <!-- Image Section -->
-                <div class="col-sm-6">
-                    <img src="img/me_placeholder.jpg" alt="Robotics Placeholder"
-                        style="width: 400px; height: auto; object-fit: cover;">
+                <div class="col-lg-6 col-md-6 col-sm-6" style="display: flex; justify-content: center; align-items: center;">
+                    <img src="img/mechanical-placeholder.png" alt="Mechanical Engineering Workshop"
+                        style="width: 520px; max-width: 100%; height: auto; object-fit: cover; border-radius: 10px;">
                 </div>
+            </div>
             </div>
         </section>
 
@@ -206,7 +323,7 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
 
 
         <!-- Continuous Scroll for Feedback -->
-        <div
+        <div class="feedback-scroll-wrapper"
             style="overflow: hidden; margin-top: 40px; margin: 20px auto; white-space: nowrap; position: relative;">
             <div class="scroll-container">
                 <img src="img/me_feedback_1.png" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
@@ -225,8 +342,12 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
         </div>
 
 
-        <!-- Keyframes for continuous scroll without fade effect -->
+        <!-- Keyframes for continuous scroll with left/right fade (same as home and AI) -->
         <style>
+            .feedback-scroll-wrapper {
+                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+            }
             @keyframes scroll {
                 0% {
                     transform: translateX(0);
@@ -262,8 +383,6 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                 animation-play-state: paused;
             }
         </style>
-
-        <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
 
         <head>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -307,8 +426,6 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                 </div>
             </div>
         </div>
-
-        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
 
         <!-- Timeline -->
         <div class="row">

@@ -1,14 +1,110 @@
 ---
 layout: default
 title: Robotics / Electronics Workshop | Stage One Education
-description: Master drone flight control with Arduino & ESP32 at Stage One Education’s Robotics Workshop. Enjoy hands-on electronics and coding—no experience needed!
+description: Master drone flight control with Arduino & ESP32 at Stage One Education’s Robotics Drone Workshop. Enjoy hands-on electronics and coding—no experience needed!
 ---
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<!-- Grid and cursor-following glow (same as home and AI pages) -->
+<body id="page-top" class="cursor-glow-page">
+
+<div id="cursor-glow" aria-hidden="true"></div>
+<style>
+  body.cursor-glow-page.cursor-over-bg,
+  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
+  body.cursor-glow-page .navbar,
+  body.cursor-glow-page .navbar * { cursor: default !important; }
+  body.cursor-glow-page a,
+  body.cursor-glow-page button,
+  body.cursor-glow-page .btn,
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .about-box,
+  body.cursor-glow-page .scroll-container,
+  body.cursor-glow-page .scroll-container *,
+  body.cursor-glow-page .button-container,
+  body.cursor-glow-page .button-container *,
+  body.cursor-glow-page .overview-text-box,
+  body.cursor-glow-page .overview-text-box * { cursor: pointer !important; }
+  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
+  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, #f05f40 1px, transparent 1px),
+      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(
+      circle 45px at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      black 35%,
+      rgba(0, 0, 0, 0.5) 60%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+  }
+  #cursor-glow::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(240, 95, 64, 0.25) 0%,
+      rgba(240, 95, 64, 0.08) 50%,
+      transparent 75%
+    );
+    transform: translateZ(0);
+    will-change: left, top;
+    pointer-events: none;
+  }
+</style>
+<script>
+  (function() {
+    var el = document.getElementById('cursor-glow');
+    if (!el) return;
+    function move(e) {
+      el.style.setProperty('--mouse-x', e.clientX + 'px');
+      el.style.setProperty('--mouse-y', e.clientY + 'px');
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var overInteractive = under && (
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box')
+      );
+      document.body.classList.toggle('cursor-over-bg', !overInteractive);
+    }
+    document.addEventListener('mousemove', move, { passive: true });
+  })();
+</script>
 
     {% include navigation.html %}
 
@@ -20,18 +116,14 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
             <div class="col-sm-12">
                 <div style="margin: 0 auto; text-align: center;">
                     <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold;">
-                        Robotics Workshop
+                        Robotics Drone Workshop
                     </h2>
     
-                    <h3 class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px; font-weight: thin;">Electronics & Coding</h3>
     
                 </div>
             </div>
         </div>
     
-        <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-
         <!-- Section with Background Image -->
         <style>
             /* Define animations for the drones entering from the edges */
@@ -124,6 +216,15 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 z-index: 2;
             }
 
+            /* No underline on robotics buttons in any state */
+            .button-container .glow-button,
+            .button-container .glow-button:hover,
+            .button-container .glow-button:focus,
+            .button-container .glow-button:active,
+            .button-container .glow-button:visited {
+                text-decoration: none !important;
+            }
+
             /* Drone images */
             .drone {
                 position: absolute;
@@ -195,8 +296,9 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
         </style>
 
         <div class="row">
-
-            <div style="position: relative;  height: 230px; background-color: white; overflow: hidden;">
+            <div class="col-12" style="padding-left: 0; padding-right: 0;">
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+                <div style="position: relative; height: 280px; background-color: white; overflow: hidden; display: flex; justify-content: center; align-items: center;">
                 <!-- Add Horizontal Moving Drone Images from left to right -->
                 <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
                     style="top: 10%; left: -150px;" />
@@ -224,23 +326,17 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 <!-- Title Section with Buttons -->
                 <div class="button-container">
                     <!-- First Button: Drone Workshop Link -->
-                    <a href="drone/" target="_blank" rel="noopener noreferrer"
+                    <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer"
                         class="glow-button">
                         stageoneeducation.com/drone
                     </a>
 
-                    <!-- Second Button: Instructions -->
-                    <a href="Robotics_Workshop_STAGE_ONE_EDUCATION_V8.1_091824.pdf" target="_blank"
-                        rel="noopener noreferrer" class="glow-button">
-                        Instructions
-                    </a>
-                    
-                    <!-- Feedback Survey Link with matching spacing but no glow -->
-                    <a href="https://feedback.stageoneeducation.com/workshop-feedback/robotics-feedback-survey/" 
-                    target="_blank"
-                    rel="noopener noreferrer" 
-                    class="feedback-spacing">
-                    Feedback Survey
+                    <!-- Feedback Survey -->
+                    <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" 
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        class="glow-button">
+                        Feedback Survey
                     </a>
 
 
@@ -248,61 +344,93 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
 
                 <!-- Overlay Div -->
                 <div class="overlay"></div>
+                </div>
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
             </div>
         </div>
+        </div>
+        <div class="container">
 
 
      
 
-        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
-        <div style="max-width: 100%; margin: 5px auto;">
+        <div style="max-width: 100%; margin: 5px auto; margin-top: 15px;">
             <span
                 style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
-                Robotics Workshop Overview
+                Overview
             </span>
         </div>
         <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            @keyframes droneCodeScrollDown {
+                0% { background-position: center top; }
+                100% { background-position: center bottom; }
+            }
+            .robotics-overview-drone-code-scroll-box {
+                overflow: hidden;
+            }
+            .robotics-overview-drone-code-scroll-box::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url('img/drone-code.png');
+                background-size: 280px auto;
+                background-position: center top;
+                background-repeat: no-repeat;
+                animation: droneCodeScrollDown 50s linear infinite;
+                opacity: 0.3;
+                z-index: 0;
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+            }
+            .overview-text-box {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 24px 20px 29px 20px;
+                border: 1px solid #e8e8e8;
+            }
+        </style>
         <section class="less-padding">
+            <div class="overview-text-box">
             <div class="row">
-                <!-- Text Section -->
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <!-- Text Section (wider column so text can extend right) -->
+                <div class="col-lg-8 col-md-6 col-sm-6">
                     <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
                         <div class="workshop-subdata"
                             style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
                             3-3.5 Hours | All Ages | No Experience Needed
                         </div>
 
-                        
                         <div class="tab-content tab-active"
-                        style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 2.5;">
-                     <ul>
-                       <li>
-                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                           Immerse yourself in hands-on circuit-building and software development.
+                        style="text-align: left; max-width: calc(70vw + 140px); font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 1.65;">
+                     <p style="margin: 0 0 0.75em 0; font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.65;">
+                       In the Robotics Workshop, students get a drone, but <strong>no controller!</strong><br>
+                       Learn engineering by building your own RC controller for a quadrotor:
+                     </p>
+                     <ul style="list-style-type: disc; padding-left: 20px; margin: 0 0 0 0;">
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Wire a complete circuit, including a <strong>dual-core microcontroller</strong> with WiFi, 6-axis accelerometer, lights, potentiometers, and buttons.
                          </h3>
                        </li>
-                       <li>
-                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                           With the goal of achieving autonomous flight of a small toy RC drone, participants collaborate on:
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           With your team, learn how to <strong>read and translate circuit diagrams</strong> into real, working circuits
                          </h3>
-                         <ul style="list-style-type: circle; padding-left: 20px;">
-                           <li>
-                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                               hardware
-                             </h3>
-                           </li>
-                           <li>
-                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                               software design
-                             </h3>
-                           </li>
-                           <li>
-                             <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal;">
-                               learning problem-solving and debugging skills
-                             </h3>
-                           </li>
-                         </ul>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           <strong>Program, upload, and execute</strong> your own autonomous flights
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Participate in the autonomous airshow to showcase your custom flight
+                         </h3>
                        </li>
                      </ul>
                    </div>
@@ -312,26 +440,22 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
 
                     </div>
                 </div>
-                <!-- Image Section -->
-                <div class="col-lg-6 col-md-6 col-sm-6" style="flex: 1; display: flex; justify-content: center;">
-                    <img src="img/robotics_placeholder.jpg" alt="Workshop Placeholder"
-                        style="width: 300px; height: auto; object-fit: cover;">
-             
-                         <!-- Overlay Image -->
-            <img src="img/drone.png"
-            alt="Drone Image"
-            style="
-               position: absolute;
-               top: 60%;
-               left: 70%;
-               transform: translate(-50%, -50%);
-               pointer-events: none;
-               width: 150px;
-               height: 150px;
-               object-fit: contain;
-            ">
-
+                <!-- Image Section: scrolling code (back), drone-circuit over it, drone on top -->
+                <div class="col-lg-4 col-md-6 col-sm-6" style="display: flex; justify-content: center;">
+                    <div style="position: relative; width: 310px; height: 280px;">
+                        <!-- Scrolling code box (back, 280px height) -->
+                        <div class="robotics-overview-drone-code-scroll-box" style="position: absolute; left: 0; top: 0; width: 310px; height: 280px; background: white; border-radius: 8px; z-index: 0;"></div>
+                        <!-- Drone-circuit over the scrolling code -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1;">
+                            <img src="img/drone-circuit.png" alt="Drone Circuit" style="width: 280px; height: 280px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <!-- Drone on top of drone-circuit -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;">
+                            <img src="img/drone.png" alt="Drone" style="width: 170px; height: auto; object-fit: contain;">
+                        </div>
                     </div>
+                </div>
+            </div>
             </div>
         </section>
 
@@ -340,7 +464,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
             <div style="max-width: 100%; margin: 5px auto;">
                 <span
                     style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
-                    Robotics Workshop Testimonials
+                    Testimonials
                 </span>
             </div>
 
@@ -349,7 +473,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
 
 
             <!-- New Image Section with Continuous Scroll for Feedback -->
-            <div
+            <div class="feedback-scroll-wrapper"
                 style="overflow: hidden; margin-top: 50px; margin: 20px auto; white-space: nowrap; position: relative;">
                 <div class="scroll-container">
                     <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
@@ -372,8 +496,12 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 </div>
             </div>
 
-            <!-- Keyframes for continuous scroll without fade effect -->
+            <!-- Keyframes for continuous scroll with left/right fade (same as home and AI) -->
             <style>
+                .feedback-scroll-wrapper {
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                }
                 @keyframes scroll {
                     0% {
                         transform: translateX(0);
@@ -418,33 +546,41 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
 
 
         </div>
+        <style>
+            .quote-attribution { display: block; text-align: right; }
+        </style>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-6">
+                <div class="quote-container quote-five" style="margin-bottom: 10px; max-width: 100%;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was <strong>extremely well done</strong>. The instructors were very nice and approachable. I am extremely grateful for this as it has opened my eyes to a new area of electronics I never would've thought I would do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, San Francisco, CA 2025</em></span>
+                    </p>
+                </div>
                 <div class="quote-container quote-one" style="margin-bottom: 10px;">
                     <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                        &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I
-                        liked
-                        the
-                        coding portion and the electronics hardware&rdquo;
-                        <em>&mdash; Student, Berkeley 2023</em>
+                        &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I liked the coding portion and the electronics hardware&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Berkeley 2023</em></span>
                     </p>
                 </div>
                 <div class="quote-container quote-two" style="margin-bottom: 10px;">
                     <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                        &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more
-                        engineering and coding!&rdquo;
-                        <em>&mdash; Student, Boston 2023</em>
+                        &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more engineering and coding!&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston 2023</em></span>
                     </p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <div class="quote-container quote-three" style="margin-bottom: 10px;">
                     <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                        &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use
-                            some
-                            of
-                            this knowledge</strong> for other projects I may do.&rdquo;
-                        <em>&mdash; Student, Houston 2022</em>
+                        &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use some of this knowledge</strong> for other projects I may do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston 2022</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-four" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was the best workshop in the whole program&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston, MA 2024</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-seven" style="margin-bottom: 10px; max-width: 320px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;Yeehaw-tastic&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston, TX 2025</em></span>
                     </p>
                 </div>
             </div>
@@ -459,16 +595,14 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
             <div style="max-width: 100%; margin: 5px auto;">
                 <span
                     style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
-                    Robotics Workshop Timeline
+                    Timeline
                 </span>
             </div>
 
             <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
-            <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
-
-            <div class="text-center">
-                <img src="img/robotics-timeline-drone.png" alt="Robotics Workshop Timeline" class="horizontal-image">
+            <div class="text-center" style="margin-top: 40px;">
+                <img src="img/robotics-timeline-drone.png" alt="Timeline" class="horizontal-image" style="border: 1px solid #d0d0d0; border-radius: 24px;">
             </div>
         </div>
 
