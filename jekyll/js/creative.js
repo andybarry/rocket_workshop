@@ -27,6 +27,21 @@
         $('.navbar-toggle:visible').click();
     });
 
+    // Workshops dropdown opens on hover (no click required)
+    var dropdownTimeout;
+    $('.nav-dropdown').hover(
+        function() {
+            clearTimeout(dropdownTimeout);
+            $(this).addClass('open');
+        },
+        function() {
+            var $self = $(this);
+            dropdownTimeout = setTimeout(function() {
+                $self.removeClass('open');
+            }, 150);
+        }
+    );
+
     // Fit Text Plugin for Main Header
     $("h1").fitText(
         1.2, {
