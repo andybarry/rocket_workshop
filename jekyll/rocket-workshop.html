@@ -29,7 +29,15 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
   body.cursor-glow-page .scroll-container *,
   body.cursor-glow-page .button-container,
   body.cursor-glow-page .button-container *,
-  body.cursor-glow-page .feedback-spacing { cursor: pointer !important; }
+  body.cursor-glow-page .feedback-spacing,
+  body.cursor-glow-page .quote-container,
+  body.cursor-glow-page .quote-container *,
+  body.cursor-glow-page .overview-text-box,
+  body.cursor-glow-page .overview-text-box *,
+  body.cursor-glow-page .me-timeline-section,
+  body.cursor-glow-page .me-timeline-section *,
+  body.cursor-glow-page .rocket-video-section,
+  body.cursor-glow-page .rocket-video-section * { cursor: pointer !important; }
   body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
   body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
   body.cursor-glow-page {
@@ -99,8 +107,8 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing')
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing, .quote-container, .overview-text-box, .me-timeline-section, .rocket-video-section') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .feedback-spacing, .quote-container, .overview-text-box, .me-timeline-section, .rocket-video-section')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -123,7 +131,7 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
         <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
         <!-- Section with Background Video Loop -->
-        <div style="position: relative; margin: 0 auto; height: 280px; background-color: white; overflow: hidden;">
+        <div class="rocket-video-section" style="position: relative; margin: 0 auto; height: 280px; background-color: white; overflow: hidden;">
             <div class="video-background autosize" style="height: 100%; width: 100%;">
                 <video autoplay loop muted playsinline style="width: 100%; height: auto;">
                     <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
@@ -144,7 +152,7 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
             align-items: center;">
     
     <!-- First Button: Drone Workshop Link -->
-    <a href="cad-tutorial/index-single.html"
+    <a href="cad-tutorial/portal.html"
        target="_blank"
        rel="noopener noreferrer"
        class="glow-button"
@@ -403,17 +411,6 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                             <em>&mdash; Student, Houston 2023</em>
                         </p>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="quote-container quote-two">
-                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
-                            &ldquo;This workshop was <strong>my favorite workshop by far</strong>. As I want to be a
-                            civil
-                            engineer it was very nice to see a potential software I would be using when I do become a
-                            civil
-                            engineer&rdquo; <em>&mdash; Student, Berkeley 2021</em>
-                        </p>
-                    </div>
                     <div class="quote-container">
                         <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
                             &ldquo;<strong>Challenging but well paced</strong> at the same time. Piqued my interest in
@@ -424,11 +421,46 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                         </p>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="quote-container quote-two">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;<strong>I loved this workshop.</strong> I&rsquo;ve never used any CAD program before and I was able to learn how and <strong>finish the entire rocket within the allotted time.</strong> I&rsquo;m glad I know how to use programs like this and would like to try with a little less guidance next time. :)&rdquo;
+                            <em>&mdash; Student, Los Angeles, CA 2025</em>
+                        </p>
+                    </div>
+                    <div class="quote-container quote-two">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;This workshop was <strong>my favorite workshop by far</strong>. As I want to be a
+                            civil
+                            engineer it was very nice to see a potential software I would be using when I do become a
+                            civil
+                            engineer&rdquo; <em>&mdash; Student, Berkeley 2021</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="quote-container quote-one">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;The guidance coupled with creative freedom of the workshop was perfect!&rdquo;
+                            <em>&mdash; Student, Berkeley, CA 2025</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="quote-container">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;Great workshop, <strong>I had an awesome time</strong> while learning valuable skills that will be <strong>essential for my success</strong> later in engineering and beyond.&rdquo;
+                            <em>&mdash; Student, Atlanta, GA 2025</em>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Timeline -->
-        <div class="row">
+        <div class="row me-timeline-section">
             <div style="max-width: 100%; margin: 5px auto;">
                 <span
                     style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">

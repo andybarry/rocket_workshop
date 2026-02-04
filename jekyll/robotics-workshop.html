@@ -27,7 +27,13 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
   body.cursor-glow-page .button-container,
   body.cursor-glow-page .button-container *,
   body.cursor-glow-page .overview-text-box,
-  body.cursor-glow-page .overview-text-box * { cursor: pointer !important; }
+  body.cursor-glow-page .overview-text-box *,
+  body.cursor-glow-page .quote-container,
+  body.cursor-glow-page .quote-container *,
+  body.cursor-glow-page .robotics-timeline-section,
+  body.cursor-glow-page .robotics-timeline-section *,
+  body.cursor-glow-page .robotics-drone-moving-area,
+  body.cursor-glow-page .robotics-drone-moving-area * { cursor: pointer !important; }
   body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
   body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
   body.cursor-glow-page {
@@ -97,8 +103,8 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box')
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box, .quote-container, .robotics-timeline-section, .robotics-drone-moving-area') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .button-container, .overview-text-box, .quote-container, .robotics-timeline-section, .robotics-drone-moving-area')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -126,24 +132,24 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
     
         <!-- Section with Background Image -->
         <style>
-            /* Define animations for the drones entering from the edges */
+            /* Define animations for the drones entering from the edges - values sized so drones travel fully off the box before reset */
             @keyframes moveDroneHorizontalLeftToRight {
                 0% {
                     transform: translateX(-150px);
                 }
 
                 100% {
-                    transform: translateX(1250px);
+                    transform: translateX(1500px);
                 }
             }
 
             @keyframes moveDroneHorizontalRightToLeft {
                 0% {
-                    transform: translateX(1250px);
+                    transform: translateX(1500px);
                 }
 
                 100% {
-                    transform: translateX(-150px);
+                    transform: translateX(-1500px);
                 }
             }
 
@@ -153,10 +159,8 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 }
 
                 100% {
-                    transform: translateY(-200px);
+                    transform: translateY(-350px);
                 }
-
-                /* Move fully up past the top */
             }
 
             @keyframes moveDroneVerticalDown {
@@ -165,10 +169,8 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 }
 
                 100% {
-                    transform: translateY(200px);
+                    transform: translateY(350px);
                 }
-
-                /* Move fully down past the bottom */
             }
 
             @keyframes moveDroneDiagonalUpRight {
@@ -177,7 +179,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 }
 
                 100% {
-                    transform: translate(1200px, -200px);
+                    transform: translate(1500px, -350px);
                 }
             }
 
@@ -187,7 +189,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
                 }
 
                 100% {
-                    transform: translate(1200px, 200px);
+                    transform: translate(1500px, 350px);
                 }
             }
 
@@ -298,7 +300,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
         <div class="row">
             <div class="col-12" style="padding-left: 0; padding-right: 0;">
                 <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-                <div style="position: relative; height: 280px; background-color: white; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                <div class="robotics-drone-moving-area" style="position: relative; height: 280px; background-color: white; overflow: hidden; display: flex; justify-content: center; align-items: center;">
                 <!-- Add Horizontal Moving Drone Images from left to right -->
                 <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
                     style="top: 10%; left: -150px;" />
@@ -591,7 +593,7 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
         <div style="height: 30px;"></div>
 
         <!-- Timeline -->
-        <div class="row">
+        <div class="row robotics-timeline-section">
             <div style="max-width: 100%; margin: 5px auto;">
                 <span
                     style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">

@@ -23,7 +23,9 @@ description: Explore hands-on learning in artificial intelligence with Stage One
   body.cursor-glow-page .overview-text-box,
   body.cursor-glow-page .overview-text-box *,
   body.cursor-glow-page .quote-container,
-  body.cursor-glow-page .quote-container * { cursor: pointer !important; }
+  body.cursor-glow-page .quote-container *,
+  body.cursor-glow-page .ai-workshop-timeline-section,
+  body.cursor-glow-page .ai-workshop-timeline-section * { cursor: pointer !important; }
   body.cursor-glow-page .glow-text:hover {
     background-color: #f05f40;
     color: #fff;
@@ -105,8 +107,8 @@ description: Explore hands-on learning in artificial intelligence with Stage One
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container') ||
-        under.matches('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container')
+        under.closest('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container, .ai-workshop-timeline-section') ||
+        under.matches('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container, .ai-workshop-timeline-section')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -623,7 +625,7 @@ Feedback Survey
     max-width: 75%;
   }
 </style>
-<div class="row">
+<div class="row ai-workshop-timeline-section">
     <div style="max-width: 1100px; max-width: 100%; margin: 5px auto;">
         <span style="display: block; text-align: left; margin-left: 30px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
             Timeline
