@@ -231,6 +231,52 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
         mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
     }
+    /* Drone flight animations - 4 set paths */
+    @keyframes dronePath1 {
+        0% { transform: translate(-400%, 400%); }
+        100% { transform: translate(400%, -400%); }
+    }
+    @keyframes dronePath2 {
+        0% { transform: translate(-400%, -400%); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath3 {
+        0% { transform: translate(-400%, 0); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath4 {
+        0% { transform: translate(0, -600%); }
+        100% { transform: translate(-400%, 400%); }
+    }
+    @keyframes droneContainerFadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .drone-flight-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 95px;
+        bottom: 145px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        animation: droneContainerFadeIn 0.3s ease-out 2.5s forwards;
+    }
+    .drone-flight-container img {
+        position: absolute;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+    }
+    .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
+    .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
+    .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
+    .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
 </style>
 <div class="col-sm-4 text-center">
     <a href="robotics-workshop.html" class="workshop-main-button" style="position: relative;">
@@ -247,6 +293,14 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
             <img src="img/drone-circuit.png"
                  alt="Drone Circuit"
                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
+        </div>
+
+        <!-- Drone flights across the box -->
+        <div class="drone-flight-container">
+            <img src="img/drone.png" alt="" class="drone-path1">
+            <img src="img/drone.png" alt="" class="drone-path2">
+            <img src="img/drone.png" alt="" class="drone-path3">
+            <img src="img/drone.png" alt="" class="drone-path4">
         </div>
 
 <!-- Text Section with h3 Title added -->
