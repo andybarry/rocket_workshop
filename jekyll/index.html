@@ -429,22 +429,21 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         <!-- Safe & Exciting Box -->
         <div class="about-box">
             <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text">safe & exciting</h3>
+            <h3 class="about-title-text">safe</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
                 <li class="about-body-text">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
-                <li class="about-body-text">Your mind will be blown!</li>
             </ul>
         </div>
 
     </div>
 
 
-<hr class="main-page-hr" />
+<hr class="main-page-hr" style="margin-top: 20px;"/>
 <span class="workshop-title">Feedback</span>
 <hr class="main-page-hr" />
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
-<div style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
+<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
     <div class="scroll-container">
         <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
         <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
@@ -461,6 +460,10 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <!-- Keyframes for continuous scroll without fade effect -->
 <style>
+    .feedback-scroll-wrapper {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
     @keyframes scroll {
         0% {
             transform: translateX(0);

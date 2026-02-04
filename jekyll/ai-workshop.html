@@ -209,7 +209,7 @@ description: Explore hands-on learning in artificial intelligence with Stage One
 <!-- Title/Text -->
    
 <a 
-  href="/ai-network/human-neural-network.html" 
+  href="https://stageoneeducation.com/ai-network/human-neural-network.html" 
   target="_blank" 
   rel="noopener noreferrer" 
   class="glow-text"
@@ -253,7 +253,7 @@ Feedback Survey
 
 <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
 
-    <div style="max-width: 1100px; max-width: 100%; margin: 5px auto 0 auto;">
+    <div style="max-width: 1100px; max-width: 100%; margin: 5px auto 0 auto; margin-top: 20px;">
         <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
             Overview
         </span>
@@ -490,7 +490,7 @@ Feedback Survey
     
 
 
-<section class="less-padding">
+<section class="less-padding" style="padding-top: 5px;">
     <div class="container">
         <!-- Header and horizontal line -->
         <div class="row">
@@ -509,7 +509,7 @@ Feedback Survey
         
                
                 <!-- New Image Section with Continuous Scroll for Feedback -->
-                <div style="overflow: hidden; margin-top: 40px; max-width: 1100px; margin: 20px auto; white-space: nowrap; position: relative;">
+                <div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; max-width: 1100px; margin: 20px auto; white-space: nowrap; position: relative;">
                     <div class="scroll-container">
                         <img src="img/ai_feedback_1.png" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
                         <img src="img/ai_feedback_2.png" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
@@ -524,8 +524,12 @@ Feedback Survey
                     </div>
                 </div>
         
-                <!-- Keyframes for continuous scroll without fade effect -->
+                <!-- Keyframes for continuous scroll with transparent edge fade (same as home) -->
                 <style>
+                .feedback-scroll-wrapper {
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                }
                 @keyframes scroll {
                     0% {
                         transform: translateX(0);
@@ -565,156 +569,28 @@ Feedback Survey
 
                 </style>
 
- <!-- Quotes: top row fixed 260px (two boxes). Wide box 10px below in its own block. -->
- <style>
-   .quotes-stage {
-     max-width: 1100px;
-     margin: 0 auto;
-   }
-   .quotes-stage .quotes-top {
-     display: grid;
-     grid-template-columns: 1fr 1fr;
-     column-gap: 20px;
-     height: 260px;
-     align-items: start;
-     overflow: hidden;
-   }
-   .quotes-stage .quote-slot {
-     position: relative;
-     min-height: 260px;
-     cursor: pointer;
-   }
-   .quotes-stage .quote-slot[data-slot="0"] {
-     top: -20px;
-   }
-   .quotes-stage .quote-slot[data-slot="1"] {
-     height: 260px;
-   }
-   .quotes-stage .quote-slot[data-slot="2"] {
-     width: 100%;
-     min-height: 200px;
-     margin-top: 10px;
-   }
-   .quotes-stage .quote-slot .quote-item {
-     position: absolute;
-     top: 0;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     opacity: 0;
-     transform: scale(0.4);
-     pointer-events: none;
-   }
-   .quotes-stage .quote-slot .quote-item.active {
-     opacity: 1;
-     transform: scale(1);
-     pointer-events: auto;
-   }
-   @keyframes quoteZoomIn {
-     from { opacity: 0; transform: scale(0.4); }
-     to   { opacity: 1; transform: scale(1); }
-   }
-   @keyframes quoteZoomOut {
-     from { opacity: 1; transform: scale(1); }
-     to   { opacity: 0; transform: scale(0.4); }
-   }
-   .quotes-stage .quote-slot .quote-item.zooming-in {
-     animation: quoteZoomIn 2s ease-out forwards;
-     pointer-events: auto;
-   }
-   .quotes-stage .quote-slot .quote-item.zooming-out {
-     animation: quoteZoomOut 1.8s ease-in forwards;
-   }
- </style>
- <div class="quotes-stage">
-   <div class="quotes-top">
-     <div class="quote-slot" data-slot="0">
-     <div class="quote-item active" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-     <div class="quote-item" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-     <div class="quote-item" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
-  </div>
-  <div class="quote-slot" data-slot="1">
-     <div class="quote-item" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-     <div class="quote-item active" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-     <div class="quote-item" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
-  </div>
+ <!-- Quotes: static three quotes (same as old version) -->
+ <div class="row">
+   <div class="col-lg-6">
+     <div class="quote-container quote-two">
+       <p class="quote-text">
+         &ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em>
+       </p>
+     </div>
+     <div class="quote-container quote-one">
+       <p class="quote-text">
+         &ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em>
+       </p>
+     </div>
    </div>
-  <div class="quote-slot" data-slot="2">
-     <div class="quote-item" data-quote-index="0"><div class="quote-container"><p class="quote-text">&ldquo;<strong>I loved the activity</strong> with neural networks. That was an engaging and <strong>easy-to-understand</strong> way of learning that concept.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-     <div class="quote-item" data-quote-index="1"><div class="quote-container"><p class="quote-text">&ldquo;You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-     <div class="quote-item active" data-quote-index="2"><div class="quote-container"><p class="quote-text">&ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="3"><div class="quote-container"><p class="quote-text">&ldquo;The movie poster activity was so creative&mdash;we got to see how AI can be a tool for storytelling. <strong>I never thought I could make something like that</strong> in one workshop.&rdquo; <em>&mdash; Student, Boston 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="4"><div class="quote-container"><p class="quote-text">&ldquo;The ethics discussion made me think about <strong>how AI choices affect real people</strong>. It was great to debate with classmates and hear different perspectives.&rdquo; <em>&mdash; Student, Berkeley 2023</em></p></div></div>
-    <div class="quote-item" data-quote-index="5"><div class="quote-container"><p class="quote-text">&ldquo;As a teacher, I appreciated that the materials were <strong>ready to go and the facilitators knew their stuff</strong>. My students were engaged the whole time.&rdquo; <em>&mdash; Educator, 2023</em></p></div></div>
-  </div>
-</div>
-<script>
- (function() {
-   var stage = document.querySelector('.quotes-stage');
-   if (!stage) return;
-   var slots = stage.querySelectorAll('.quote-slot');
-   var numQuotes = 6;
-   var slotIndices = [0, 1, 2];
-   var zoomOutMs = 1800;
-   var pauseMs = 500;
-   var zoomInMs = 2000;
-   var intervalId;
-   function getSlotQuoteEl(slotIdx, quoteIdx) {
-     return slots[slotIdx].querySelector('.quote-item[data-quote-index="' + quoteIdx + '"]');
-   }
-   function pickRandomSlot() {
-     return Math.floor(Math.random() * 3);
-   }
-   function pickNewQuoteForSlot(slotIdx) {
-     var used = slotIndices.slice();
-     var candidates = [];
-     for (var i = 0; i < numQuotes; i++) {
-       if (used.indexOf(i) === -1) candidates.push(i);
-     }
-     if (candidates.length === 0) return slotIndices[slotIdx];
-     return candidates[Math.floor(Math.random() * candidates.length)];
-   }
-   function runTransition(slotIdx) {
-     if (slotIdx === undefined) slotIdx = pickRandomSlot();
-     var oldQuoteIdx = slotIndices[slotIdx];
-     var newQuoteIdx = pickNewQuoteForSlot(slotIdx);
-     if (newQuoteIdx === oldQuoteIdx) return;
-     var currEl = getSlotQuoteEl(slotIdx, oldQuoteIdx);
-     var nextEl = getSlotQuoteEl(slotIdx, newQuoteIdx);
-     currEl.classList.add('zooming-out');
-     currEl.classList.remove('active');
-     setTimeout(function() {
-       nextEl.classList.remove('active');
-       nextEl.classList.add('zooming-in');
-       slotIndices[slotIdx] = newQuoteIdx;
-       setTimeout(function() {
-         currEl.classList.remove('zooming-out');
-         nextEl.classList.remove('zooming-in');
-         nextEl.classList.add('active');
-       }, zoomInMs);
-     }, zoomOutMs + pauseMs);
-   }
-   function scheduleNext() {
-     intervalId = setInterval(function() { runTransition(); }, 15000);
-   }
-   stage.addEventListener('click', function(e) {
-     var slotEl = e.target.closest('.quote-slot');
-     if (!slotEl) return;
-     var slotIdx = Array.prototype.indexOf.call(slots, slotEl);
-     if (slotIdx < 0) return;
-     if (intervalId) clearInterval(intervalId);
-     runTransition(slotIdx);
-     scheduleNext();
-   });
-   scheduleNext();
- })();
- </script>
+   <div class="col-lg-6">
+     <div class="quote-container quote-three">
+       <p class="quote-text">
+         &ldquo;With the development of the times, AI has become inseparable from our lives, but <strong>I have not been able to use AI</strong> (ChatGPT) well because schools are avoiding the use of AI. However, through this class, I was able to learn how to use and utilize AI through practice, and I think it was a <strong>very beneficial and enjoyable time</strong>.&rdquo; <em>&mdash; Student, Boston 2023</em>
+       </p>
+     </div>
+   </div>
+ </div>
 
  <!-- Timeline -->
 <style>
@@ -738,7 +614,7 @@ Feedback Survey
     <div style="height: 20px; background-color: #fafafa; max-width: 1100px; margin: 0 auto;"></div>
 
     <div class="text-center ai-workshop-timeline-images">
-        <img src="img/ai_timeline.jpg" alt="AI Workshop Timeline" class="horizontal-image">
+        <img src="img/ai-timeline.png" alt="AI Workshop Timeline" class="horizontal-image">
         <img src="img/ai-timeline-vertical.svg" alt="AI Workshop Timeline" class="vertical-image">
     </div>
 </div>
