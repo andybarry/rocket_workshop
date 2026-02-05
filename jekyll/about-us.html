@@ -347,15 +347,19 @@ title: About | STAGE ONE EDUCATION
     }
     body.cursor-glow-page .about-us-intro-box .quote-container {
       max-width: 295px;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     body.cursor-glow-page .about-us-intro-box .quote-container--wide {
       max-width: 360px;
     }
-    body.cursor-glow-page .about-us-intro-box .quote-container--wide .quote-text {
-      white-space: nowrap;
-    }
     body.cursor-glow-page .about-us-intro-box .quote-container .quote-text {
       font-size: 14px;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      box-sizing: border-box;
+      padding: 8px 10px;
     }
     body.cursor-glow-page .about-us-intro-box .quote-container::before {
       font-size: 7em;

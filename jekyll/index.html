@@ -81,6 +81,20 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     will-change: left, top;
     pointer-events: none;
   }
+  /* All content max 80% screen width */
+  body.cursor-glow-page #tab-section .container,
+  body.cursor-glow-page .about-section,
+  body.cursor-glow-page .feedback-scroll-wrapper,
+  body.cursor-glow-page #contact .container,
+  body.cursor-glow-page .main-page-hr {
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+  }
+  body.cursor-glow-page .feedback-scroll-wrapper {
+    width: 80vw !important;
+  }
   /* Mobile: keep grid background, remove mouse pointer glow/highlight */
   @media (max-width: 767px) {
     body.cursor-glow-page.cursor-over-bg,
