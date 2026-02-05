@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Instructors | Stage One Education, LLC
+title: About | Stage One Education, LLC
 ---
 
 <style>
@@ -12,10 +12,43 @@ title: Instructors | Stage One Education, LLC
         font-weight: bold;
         font-size: 1.8em;
     }
+    .about-us-intro-box .workshop-title {
+        font-family: 'Roboto', sans-serif;
+        font-size: 2.6em;
+    }
 
     .profile {
         margin-bottom: 40px;
         padding: 20px;
+    }
+    .leadership-profile-box {
+        background: white;
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        transition: box-shadow 0.2s ease;
+    }
+    .leadership-profile-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35);
+    }
+    .leadership-row {
+        display: flex;
+    }
+    .leadership-row .col-sm-4 {
+        display: flex;
+    }
+    .leadership-row .leadership-profile-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+    .leadership-row .leadership-profile-box img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .profile img {
@@ -46,6 +79,94 @@ title: Instructors | Stage One Education, LLC
         line-height: 1.6em;
         margin: 0 auto;
         max-width: 400px;
+    }
+
+    /* Quote boxes: same style as workshop pages (creative.css + ai-workshop hover). Quote symbol slightly stronger so it shows on white. */
+    .about-us-intro-box .quote-container::before {
+        content: '\201C';
+        font-size: 10em;
+        color: rgba(0, 0, 0, 0.18);
+        position: absolute;
+        top: -5%;
+        left: 5%;
+        z-index: 0;
+    }
+    .about-us-intro-box .quote-container .quote-text {
+        position: relative;
+        z-index: 1;
+        border-radius: 6px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease;
+        text-align: center;
+    }
+    .about-us-intro-box .quote-container:hover .quote-text {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+    }
+    .about-us-intro-box .quote-container {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .about-us-intro-box .quote-container--wide {
+        max-width: 420px;
+    }
+    .about-us-intro-box {
+        transition: box-shadow 0.2s ease;
+        border-radius: 8px;
+    }
+    .about-us-intro-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    }
+    .about-us-workshops-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 28px rgba(240, 95, 64, 0.4) !important;
+    }
+    /* Workshop buttons: fit width and height to text, reduce space between */
+    #tab-section .workshop-main-button-sm {
+        width: auto;
+        min-width: 140px;
+        height: auto;
+        padding: 16px 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 4px;
+    }
+    #tab-section .workshop-main-button-sm > .main-button-title-text-sm {
+        padding: 0;
+        line-height: 1.3;
+    }
+    #tab-section .row > [class*="col-sm-4"] {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    /* Bring left and right buttons toward center by constraining row width; keep centered */
+    #tab-section .workshop-buttons-row {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .instructors-callout-box {
+        transition: box-shadow 0.2s ease;
+        border-radius: 8px;
+    }
+    .instructors-callout-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    }
+    .workshop-details-box {
+        transition: box-shadow 0.2s ease;
+    }
+    .workshop-details-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    }
+    .presentation-events-box {
+        transition: box-shadow 0.2s ease;
+    }
+    .presentation-events-box:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    }
+    /* Less space above the intro white box */
+    .container > section.less-padding:first-of-type {
+        padding-top: 8px;
     }
 </style>
 
@@ -105,6 +226,10 @@ title: Instructors | Stage One Education, LLC
   body.cursor-glow-page .btn,
   body.cursor-glow-page .workshop-main-button,
   body.cursor-glow-page .about-box,
+  body.cursor-glow-page .leadership-profile-box,
+  body.cursor-glow-page .leadership-profile-box *,
+  body.cursor-glow-page .quote-container,
+  body.cursor-glow-page .quote-container *,
   body.cursor-glow-page .scroll-container,
   body.cursor-glow-page .scroll-container * { cursor: pointer !important; }
   body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
@@ -176,8 +301,8 @@ title: Instructors | Stage One Education, LLC
       el.style.setProperty('--mouse-y', e.clientY + 'px');
       var under = document.elementFromPoint(e.clientX, e.clientY);
       var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container')
+        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .leadership-profile-box, .quote-container, .scroll-container') ||
+        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .leadership-profile-box, .quote-container, .scroll-container')
       );
       document.body.classList.toggle('cursor-over-bg', !overInteractive);
     }
@@ -203,32 +328,26 @@ title: Instructors | Stage One Education, LLC
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div style="margin-bottom: 10px;">
-                        <span class="workshop-title">We’re dedicated to sharing our love of engineering </span>
-                    </div>
-                </div>
-            </div>
+                    <div class="about-us-intro-box about-box"
+                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 4px auto 20px auto; max-width: 80%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer;">
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div
-                        style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 20px auto; max-width: 80%;">
+                        <div style="margin-bottom: 10px;">
+                            <span class="workshop-title">We're dedicated to sharing our love of engineering</span>
+                        </div>
+
+                        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
 
                         <!-- Adjusted spacing for these elements -->
                         <p style="margin-bottom: 5px;">Our workshops answer questions like,</p>
-                        <div style="position: relative;">
-                            <div class="inline-quote-container">
-                                <p class="quote-text">
-                                    can I do engineering?
-                                </p>
-                            </div>
+                        <div class="quote-container">
+                            <p class="quote-text">
+                                <strong>can I do engineering?</strong>
+                            </p>
                         </div>
-                        <div style="position: relative;">
-                            <div class="inline-quote-container">
-                                <p class="quote-text">
-                                    what do engineers really do?
-                                </p>
-                            </div>
+                        <div class="quote-container quote-container--wide">
+                            <p class="quote-text">
+                                <strong>what do engineers really do?</strong>
+                            </p>
                         </div>
 
                         <!-- Apply similar spacing to these paragraphs -->
@@ -244,20 +363,24 @@ title: Instructors | Stage One Education, LLC
                             walk away more confident, inspired, and excited about their potential future in engineering.
                         </p>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+    </div>
+    <!-- Leadership Team heading and hrs outside container so they match home page About section width -->
+    <div style="width: 100%;">
         <hr class="main-page-hr" style="margin-top: 10px;" />
         <span class="workshop-title">Leadership Team</span>
         <hr class="main-page-hr" style="margin-bottom: 10px;" />
+    </div>
+    <div class="container">
 
-        
-
-        <div class="row">
+        <div class="row leadership-row">
             <div class="col-sm-4">
-                <div class="profile">
+                <div class="profile leadership-profile-box">
                     <img src="img/andy.jpg" alt="Andrew Barry">
                     <div class="profile-title">Andrew Barry, MIT Ph.D.</div>
                     <div class="role">Founder</div>
@@ -274,7 +397,7 @@ title: Instructors | Stage One Education, LLC
             </div>
 
             <div class="col-sm-4">
-                <div class="profile">
+                <div class="profile leadership-profile-box">
                     <img src="img/pete.jpg" alt="Pete Florence">
                     <div class="profile-title">Pete Florence, MIT Ph.D.</div>
                     <div class="role">Co-Founder</div>
@@ -292,7 +415,7 @@ title: Instructors | Stage One Education, LLC
             </div>
 
             <div class="col-sm-4">
-                <div class="profile">
+                <div class="profile leadership-profile-box">
                     <img src="img/robbie.jpg" alt="Robbie Kipp">
                     <div class="profile-title">Robbie Kipp, Engineer</div>
                     <div class="role">Director of Operations</div>
@@ -310,80 +433,46 @@ title: Instructors | Stage One Education, LLC
 
         </div>
         <div class="row"> 
-            <div class="col-lg-8 col-lg-offset-2"
-                style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-                <p><strong>Stage One Education Instructors</strong><br/>
-                Nationwide network of passionate engineering professionals</p>
-                <ul style="list-style: none; padding: 0; margin: 20px; margin-bottom: 50px;">
-                </ul>
+            <div class="col-lg-12">
+                <div class="instructors-callout-box about-box"
+                    style="background: white; border-radius: 8px; padding: 16px 40px; margin: 0 auto 50px auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
+                    <p style="margin: 0;"><strong>Stage One Education Instructors</strong><br/>
+                    Nationwide network of passionate engineering professionals</p>
+                </div>
             </div>
         </div>
-        
-
-
+    </div>
+    <div style="width: 100%;">
         <hr class="main-page-hr" style="margin-top: 10px;" />
         <span class="workshop-title">Hands-on Engineering Workshops</span>
         <hr class="main-page-hr" style="margin-bottom: 10px;" />
-
-
-        <section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
+    </div>
+    <div class="container">
+        <section id="contact" class="less-padding" style="padding-top: 8px;">
             <div class="row">
-                <!-- First Workshop Box (AI) -->
-                <div class="col-sm-4 text-center">
-                    <a href="ai-workshop.html" class="workshop-main-button-sm">
-                        <!-- Title Section -->
-                        <div class="main-button-title-text-sm">
-                            Artificial<br>Intelligence<br>
+                <div class="col-lg-12">
+                    <div class="workshop-details-box about-box"
+                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 0 auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
+                        <div id="tab-section" class="tab-section" style="padding-top: 0;">
+                            <div class="row workshop-buttons-row">
+                                <div class="col-sm-4 text-center">
+                                    <a href="ai-workshop.html" class="workshop-main-button-sm">
+                                        <div class="main-button-title-text-sm">Artificial<br>Intelligence</div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <a href="robotics-workshop.html" class="workshop-main-button-sm">
+                                        <div class="main-button-title-text-sm">Robotics<br>Drone</div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <a href="rocket-workshop.html" class="workshop-main-button-sm">
+                                        <div class="main-button-title-text-sm">Mechanical<br>Engineering</div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Image Section -->
-                        <div>
-                            <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters"
-                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Second Workshop Box (Robotics) -->
-                <div class="col-sm-4 text-center">
-                    <a href="robotics-workshop.html" class="workshop-main-button-sm">
-                        <!-- Title Section -->
-                        <div class="main-button-title-text-sm">
-                            Robotics<br><br>
-                        </div>
-                        <!-- Image Section -->
-                        <div>
-                            <img src="img/robotics_placeholder.jpg" alt="Robotics Placeholder"
-                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Third Workshop Box (Mechanical Engineering) -->
-                <div class="col-sm-4 text-center">
-                    <a href="rocket-workshop.html" class="workshop-main-button-sm">
-                        <!-- Title Section -->
-                        <div class="main-button-title-text-sm">
-                            Mechanical Engineering
-                        </div>
-                        <!-- Video Section -->
-                        <div>
-                            <video autoplay loop muted playsinline
-                                style="width: 125px; height: 125px; object-fit: cover; border-radius: 10px;">
-                                <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
-                                <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="less-padding" style="padding-top: 0px">
-            <div>
-                <div class="row">
-                    <div
-                        style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin: 10px auto; margin-top: 1px; max-width: 80%;">
-                        <h3>Turn-key</h3>
+                        <h3 style="margin-top: 24px;">Turn-key</h3>
                         <ul>
                         <p style="margin-bottom: 5px;">
                             We offer complete workshops with instructors, materials, and curriculum all included.
@@ -420,41 +509,39 @@ title: Instructors | Stage One Education, LLC
                                 needs, please get in touch with our team today.
                                 We’re here to help create the perfect engineering experience for you.</p><br>
                         </ul>
+                        </div>
                     </div>
-
-
                 </div>
-
-
             </div>
         </section>
-
-
+    </div>
+    <div style="width: 100%;">
         <hr class="main-page-hr" style="margin-top: 10px;" />
         <span class="workshop-title">Presentation Events
         </span>
         <hr class="main-page-hr" style="margin-bottom: 10px;" />
-
+    </div>
+    <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2"
-                style="text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-                <strong style="display: block; margin: 20px;">We offer 1-hour interactive lecture-style presentations by
-                    industry experts.</strong>
-                <ul style="list-style: none; padding: 0; margin: 20px;">
-                    <li>
-                        Deep dives into:
-                        <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                            <li>Virtual Reality</li>
-                            <li>Artificial Intelligence</li>
-                            <li>Robotics and more</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p style="margin: 20px;">These sessions will spark innovation and expand your participants'
-                    understanding of
-                    the latest technological breakthroughs.</p>
-                <br>
-
+            <div class="col-lg-12">
+                <div class="presentation-events-box about-box"
+                    style="background: white; border-radius: 8px; padding: 28px 32px; margin: 0 auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
+                    <strong style="display: block; margin-bottom: 16px;">We offer 1-hour interactive lecture-style presentations by
+                        industry experts.</strong>
+                    <ul style="list-style: none; padding: 0; margin: 16px 0;">
+                        <li>
+                            Deep dives into:
+                            <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                                <li>Virtual Reality</li>
+                                <li>Artificial Intelligence</li>
+                                <li>Robotics and more</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p style="margin: 16px 0 0 0;">These sessions will spark innovation and expand your participants'
+                        understanding of
+                        the latest technological breakthroughs.</p>
+                </div>
             </div>
         </div>
 
@@ -462,12 +549,13 @@ title: Instructors | Stage One Education, LLC
 
         <!-- Include Roboto font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
-
-
+    </div>
+    <div style="width: 100%;">
         <hr class="main-page-hr" style="margin-top: 50px" />
         <span class="workshop-title">Contact</span>
         <hr class="main-page-hr" />
-
+    </div>
+    <div class="container">
         <section id="contact" class="less-padding" style="padding-top: 20px;">
             <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
 
@@ -520,15 +608,8 @@ title: Instructors | Stage One Education, LLC
                 </a>
         </section>
 
-        <span class="workshop-title" style="display: block; height: 40px; background-color: white;"></span>
-
-
         <div style="text-align: right; margin-top: 10px;">
             <!-- Copyright Text on its own line -->
             {% include copyright.html %}
-
-
-        <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
-
 
     </div>
