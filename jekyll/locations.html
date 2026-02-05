@@ -93,6 +93,23 @@ title: Locations | STAGE ONE EDUCATION
       pointer-events: none;
     }
   }
+  /* Mobile: same content width as index and workshop pages */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .locations-content-box,
+    body.cursor-glow-page .location-item,
+    body.cursor-glow-page .feedback-scroll-wrapper {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
 </style>
 <script>
   (function() {

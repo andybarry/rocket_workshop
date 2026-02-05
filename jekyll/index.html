@@ -93,6 +93,48 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       pointer-events: none;
     }
   }
+  /* Mobile: content width with side margins (match workshop pages) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page #tab-section,
+    body.cursor-glow-page #tab-section .container,
+    body.cursor-glow-page .tab-section,
+    body.cursor-glow-page .about-section,
+    body.cursor-glow-page #contact,
+    body.cursor-glow-page #contact .container {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .workshop-main-button {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .workshop-main-button video {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .feedback-scroll-wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .about-section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    body.cursor-glow-page .main-page-hr {
+      max-width: 100%;
+    }
+  }
 </style>
 <script>
   (function() {
@@ -403,15 +445,27 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   .about-box i.fa {
     transition: transform 0.2s ease;
   }
+  /* Desktop: increase side margins to reduce box width */
+  @media (min-width: 768px) {
+    .about-section {
+      padding-left: 60px;
+      padding-right: 60px;
+      box-sizing: border-box;
+    }
+  }
   /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
   @media (max-width: 767px) {
     .about-section {
       max-width: 100%;
       width: 100%;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 40px;
+      padding-right: 40px;
       gap: 10px !important; /* override inline gap so 2 boxes fit per row */
       box-sizing: border-box;
+    }
+    .about-box {
+      overflow: hidden;
+      word-wrap: break-word;
     }
     .about-box:first-child {
       flex: 0 0 100%;
@@ -425,6 +479,18 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       width: calc(50% - 5px);
       min-width: 0;
       padding: 20px 12px;
+    }
+    .about-box .about-title-text {
+      font-size: 16px;
+    }
+    .about-box .about-body-text,
+    .about-box h4,
+    .about-box li {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .about-box .fa-4x {
+      font-size: 2em;
     }
   }
 </style>
@@ -480,7 +546,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 <hr class="main-page-hr" />
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
-<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; max-width: 1200px; margin: 20px auto; white-space: nowrap; position: relative;">
+<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; white-space: nowrap; position: relative;">
     <div class="scroll-container">
         <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
         <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
@@ -500,6 +566,11 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     .feedback-scroll-wrapper {
         -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
         mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        width: 80vw;
+        max-width: 80vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        box-sizing: border-box;
     }
     @keyframes scroll {
         0% {

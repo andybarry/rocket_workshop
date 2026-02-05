@@ -109,6 +109,46 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
       pointer-events: none;
     }
   }
+  /* Mobile: same content width as index and robotics; video fill/crop; buttons scale */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .overview-text-box,
+    body.cursor-glow-page .quote-container,
+    body.cursor-glow-page .feedback-scroll-wrapper,
+    body.cursor-glow-page .me-timeline-section {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    /* Video: scale and crop to fill entire box */
+    body.cursor-glow-page .rocket-video-section .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    body.cursor-glow-page .rocket-video-section .video-background video {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    /* Buttons: scale to fit */
+    body.cursor-glow-page .rocket-video-section .button-container {
+      max-width: 90%;
+    }
+    body.cursor-glow-page .rocket-video-section .glow-button {
+      font-size: 16px;
+      padding: 8px 20px;
+      max-width: 100%;
+    }
+  }
 </style>
 <script>
   (function() {
@@ -218,6 +258,7 @@ description: Experience mechanical engineering fundamentals in this CAD & Rocket
                 border: 3px solid #f05f40;
                 text-decoration: none;
                 display: inline-block;
+                white-space: nowrap;
                 animation: pulseGlow 2s infinite;
                 position: relative;
                 z-index: 2;

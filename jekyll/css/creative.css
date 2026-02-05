@@ -1075,8 +1075,7 @@ inline-quote-container {
     display: none;
 }
 
-/* Desktop: full horizontal nav (1200px and up) - avoids overlap at 1024px and similar */
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     #mainNav {
         display: flex;
         align-items: center;
@@ -1115,7 +1114,6 @@ inline-quote-container {
         position: relative;
         margin: 0;
         margin-right: 100px;
-        gap: 3px;
     }
 
     .nav-main-links > li {
@@ -1133,21 +1131,7 @@ inline-quote-container {
     }
 }
 
-/* Mobile + tablet: collapsed menu with logo left + Menu right (up to 1199px) */
-@media (max-width: 1199px) {
-    /* Override Bootstrap: keep toggle visible and collapse hidden at tablet widths */
-    #mainNav .navbar-toggle {
-        display: flex !important;
-    }
-    #mainNav .navbar-collapse.collapse {
-        display: none !important;
-    }
-    #mainNav .navbar-collapse.collapse.in {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+@media (max-width: 767px) {
     .nav-main-links {
         display: block;
         margin-right: 0;
@@ -1178,7 +1162,6 @@ inline-quote-container {
         padding-right: 15px;
         box-sizing: border-box;
         overflow: visible;
-        gap: 3px;
     }
 
     #mainNav .navbar-header > a {
@@ -1236,19 +1219,14 @@ inline-quote-container {
     /* Center the open menu dropdown on screen */
     #mainNav .navbar-collapse {
         text-align: center;
-        width: 100%;
-        left: 0;
-        right: 0;
     }
 
     #mainNav .navbar-collapse .nav-main-links {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        margin-left: auto;
-        margin-right: auto;
-        gap: 3px;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     #mainNav .navbar-collapse .nav-main-links > li {
@@ -1404,22 +1382,6 @@ inline-quote-container {
     text-decoration: none;
 }
 
-/* Tablet (768px-991px): stack workshop buttons to avoid overlap; enforce 3px min gap */
-@media (min-width: 768px) and (max-width: 991px) {
-    #tab-section .row > .col-sm-4 {
-        width: 100% !important;
-        max-width: 100% !important;
-        float: none !important;
-    }
-    #tab-section .row > .col-sm-4 .workshop-main-button,
-    #tab-section .row > .col-sm-4 .workshop-main-button-sm {
-        margin-bottom: 20px;
-    }
-    #tab-section .row > .col-sm-4:last-child .workshop-main-button,
-    #tab-section .row > .col-sm-4:last-child .workshop-main-button-sm {
-        margin-bottom: 0;
-    }
-}
 
 .workshop-main-button-sm {
     display: block;
@@ -1517,6 +1479,7 @@ inline-quote-container {
     flex-basis: calc(20% - 10px);
     text-decoration: none;
     display: block;
+    white-space: nowrap;
     animation: pulseGlow 2s infinite;
     position: relative;
     z-index: 2;
@@ -1543,6 +1506,7 @@ text-decoration: none; /* Remove underline on hover */
     border: 3px solid #f05f40;
     text-decoration: none;
     display: block;
+    white-space: nowrap;
     animation: pulseGlow 2s infinite;
     position: relative;
     z-index: 2;
@@ -1595,6 +1559,13 @@ text-decoration: none; /* Remove underline on hover */
         z-index: 2;
         /* No glow animation */
     }
+
+/* Mobile: scrolling feedback/testimonial images at 80% of screen width */
+@media (max-width: 767px) {
+    .scroll-image {
+        width: 80vw !important;
+    }
+}
     
 
     

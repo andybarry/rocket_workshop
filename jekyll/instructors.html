@@ -93,6 +93,30 @@ title: Instructors | STAGE ONE EDUCATION
       pointer-events: none;
     }
   }
+  /* Mobile: same content width as index and workshop pages */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .instructors-content-box {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .instructors-email {
+      max-width: 80vw;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 12px !important;
+    }
+    body.cursor-glow-page .instructors-email a {
+      white-space: nowrap;
+    }
+  }
 </style>
 <script>
   (function() {
@@ -150,7 +174,7 @@ title: Instructors | STAGE ONE EDUCATION
         </div>
 
         <!-- Email Address -->
-        <p style="font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; margin: 0 0 24px 0;">
+        <p class="instructors-email" style="font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; margin: 0 0 24px 0;">
             <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
                 workshops@stageoneeducation.com
             </a>

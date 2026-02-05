@@ -103,6 +103,7 @@ title: About | STAGE ONE EDUCATION
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
     }
     .about-us-intro-box .quote-container {
+        position: relative;
         max-width: 300px;
         margin-left: auto;
         margin-right: auto;
@@ -291,7 +292,7 @@ title: About | STAGE ONE EDUCATION
     will-change: left, top;
     pointer-events: none;
   }
-  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
+  /* Mobile: same content width as AI workshop and other pages; one leadership box per line, centered */
   @media (max-width: 767px) {
     body.cursor-glow-page.cursor-over-bg,
     body.cursor-glow-page.cursor-over-bg * {
@@ -301,6 +302,79 @@ title: About | STAGE ONE EDUCATION
       opacity: 0 !important;
       visibility: hidden;
       pointer-events: none;
+    }
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .instructors-callout-box,
+    body.cursor-glow-page .workshop-details-box,
+    body.cursor-glow-page .presentation-events-box {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .about-us-intro-box {
+      max-width: 360px !important;
+      width: 100%;
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.cursor-glow-page .leadership-row {
+      flex-direction: column;
+      align-items: center;
+    }
+    body.cursor-glow-page .leadership-row .col-sm-4 {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+    body.cursor-glow-page .leadership-row .leadership-profile-box {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.cursor-glow-page .about-us-intro-headline {
+      font-size: 1.2em !important;
+    }
+    body.cursor-glow-page .about-us-intro-box .quote-container {
+      max-width: 295px;
+    }
+    body.cursor-glow-page .about-us-intro-box .quote-container--wide {
+      max-width: 360px;
+    }
+    body.cursor-glow-page .about-us-intro-box .quote-container--wide .quote-text {
+      white-space: nowrap;
+    }
+    body.cursor-glow-page .about-us-intro-box .quote-container .quote-text {
+      font-size: 14px;
+    }
+    body.cursor-glow-page .about-us-intro-box .quote-container::before {
+      font-size: 7em;
+      top: 0;
+      left: 8%;
+      z-index: 2;
+    }
+    body.cursor-glow-page #tab-section .workshop-main-button-sm {
+      min-width: 155px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+    }
+    body.cursor-glow-page #tab-section .workshop-main-button-sm > .main-button-title-text-sm {
+      font-size: 10px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    body.cursor-glow-page #tab-section .workshop-main-button-sm > .main-button-title-text-sm br {
+      display: none;
     }
   }
 </style>
@@ -344,7 +418,7 @@ title: About | STAGE ONE EDUCATION
                         style="background: white; border-radius: 8px; padding: 28px 32px; margin: 4px auto 20px auto; max-width: 80%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer;">
 
                         <div style="margin-bottom: 10px;">
-                            <span class="workshop-title">We're dedicated to sharing our love of engineering</span>
+                            <span class="workshop-title about-us-intro-headline">We're dedicated to sharing our love of engineering</span>
                         </div>
 
                         <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
@@ -469,17 +543,17 @@ title: About | STAGE ONE EDUCATION
                             <div class="row workshop-buttons-row">
                                 <div class="col-sm-4 text-center">
                                     <a href="ai-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm">Artificial<br>Intelligence</div>
+                                        <div class="main-button-title-text-sm">Artificial <br>Intelligence</div>
                                     </a>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <a href="robotics-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm">Robotics<br>Drone</div>
+                                        <div class="main-button-title-text-sm">Robotics <br>Drone</div>
                                     </a>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <a href="rocket-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm">Mechanical<br>Engineering</div>
+                                        <div class="main-button-title-text-sm">Mechanical <br>Engineering</div>
                                     </a>
                                 </div>
                             </div>

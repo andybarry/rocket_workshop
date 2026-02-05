@@ -105,6 +105,34 @@ description: Master drone flight control with Arduino & ESP32 at Stage One Educa
       pointer-events: none;
     }
   }
+  /* Mobile: content width with side margins (match index and rocket workshop) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .overview-text-box,
+    body.cursor-glow-page .quote-container,
+    body.cursor-glow-page .feedback-scroll-wrapper,
+    body.cursor-glow-page .robotics-timeline-section {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .quote-container {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .row .col-lg-6 {
+      max-width: 100%;
+    }
+  }
 </style>
 <script>
   (function() {
