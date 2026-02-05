@@ -459,12 +459,17 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   .about-box i.fa {
     transition: transform 0.2s ease;
   }
-  /* Desktop: increase side margins to reduce box width */
+  /* Desktop: 5 boxes always on one line */
   @media (min-width: 768px) {
     .about-section {
       padding-left: 60px;
       padding-right: 60px;
       box-sizing: border-box;
+      flex-wrap: nowrap !important;
+    }
+    .about-box {
+      flex: 0 0 calc(20% - 16px) !important;
+      min-width: 0;
     }
   }
   /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
