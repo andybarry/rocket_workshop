@@ -81,6 +81,18 @@ title: Locations | STAGE ONE EDUCATION
     will-change: left, top;
     pointer-events: none;
   }
+  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
+  @media (max-width: 767px) {
+    body.cursor-glow-page.cursor-over-bg,
+    body.cursor-glow-page.cursor-over-bg * {
+      cursor: default !important;
+    }
+    #cursor-glow {
+      opacity: 0 !important;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
 </style>
 <script>
   (function() {

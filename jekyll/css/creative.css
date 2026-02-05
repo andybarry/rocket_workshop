@@ -1065,6 +1065,16 @@ inline-quote-container {
     min-height: 56px !important;
 }
 
+/* Hide "Menu" text on desktop (hamburger icon shown instead) */
+.navbar-toggle-menu-text {
+    display: none;
+}
+
+/* Mobile-only: hide workshop flat links on desktop */
+.nav-mobile-workshop-item {
+    display: none;
+}
+
 @media (min-width: 768px) {
     #mainNav {
         display: flex;
@@ -1090,6 +1100,10 @@ inline-quote-container {
         justify-content: flex-end;
         float: none !important;
         margin: 0;
+    }
+
+    .nav-mobile-workshop-item {
+        display: none !important;
     }
 
     .nav-main-links {
@@ -1125,6 +1139,122 @@ inline-quote-container {
 
     .nav-main-links > li {
         display: block;
+    }
+
+    /* Mobile navbar: logo left + Menu right, both vertically centred */
+    /* Equal spacing: logo left edge and Menu right edge same distance from nav edges */
+    #mainNav {
+        overflow: visible;
+    }
+
+    #mainNav .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+        overflow: visible;
+    }
+
+    #mainNav .navbar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 15px;
+        box-sizing: border-box;
+        overflow: visible;
+    }
+
+    #mainNav .navbar-header > a {
+        order: 1;
+        margin-left: -100px;
+    }
+
+    #mainNav .navbar-header > .navbar-toggle {
+        order: 2;
+        margin-right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Hide hamburger lines on mobile; show "Menu" text instead */
+    #mainNav .navbar-toggle .icon-bar {
+        display: none !important;
+    }
+
+    .navbar-toggle-menu-text {
+        display: inline !important;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    /* Menu button: override Bootstrap gray; default = transparent/orange bar, white text */
+    #mainNav .navbar-toggle {
+        background-color: transparent !important;
+        border-color: rgba(255,255,255,0.5) !important;
+    }
+
+    #mainNav .navbar-toggle:hover,
+    #mainNav .navbar-toggle:focus {
+        background-color: rgba(255,255,255,0.2) !important;
+        border-color: #fff !important;
+    }
+
+    /* When menu is open (selected): white infill, orange text */
+    #mainNav .navbar-toggle[aria-expanded="true"] {
+        background-color: #fff !important;
+        border-color: #fff !important;
+    }
+
+    #mainNav .navbar-toggle[aria-expanded="true"] .navbar-toggle-menu-text {
+        color: #f05f40 !important;
+    }
+
+    #mainNav .navbar-header img#logo {
+        margin-left: 0 !important; /* Reset inline margin; anchor has margin-left for positioning */
+    }
+
+    /* Center the open menu dropdown on screen */
+    #mainNav .navbar-collapse {
+        text-align: center;
+    }
+
+    #mainNav .navbar-collapse .nav-main-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #mainNav .navbar-collapse .nav-main-links > li {
+        display: block;
+        float: none;
+    }
+
+    /* Mobile: hide Workshops dropdown, show three flat workshop links */
+    #mainNav .nav-desktop-workshop {
+        display: none !important;
+    }
+
+    #mainNav .nav-mobile-workshop-item {
+        display: block !important;
+    }
+
+    /* Mobile dropdown: selected/hover/focus = white background, orange text */
+    #mainNav .navbar-collapse .nav-main-links a:hover,
+    #mainNav .navbar-collapse .nav-main-links a:focus,
+    #mainNav .navbar-collapse .nav-main-links li.active > a {
+        background-color: #fff !important;
+        color: #f05f40 !important;
+    }
+
+    #mainNav .navbar-collapse .nav-main-links .nav-button-stageone-highlight:hover,
+    #mainNav .navbar-collapse .nav-main-links .nav-button-stageone-highlight:focus {
+        background-color: #fff !important;
+        color: #f05f40 !important;
     }
 }
 

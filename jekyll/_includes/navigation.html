@@ -8,6 +8,7 @@
                 <span class="icon-bar" style="background-color: white;"></span>
                 <span class="icon-bar" style="background-color: white;"></span>
                 <span class="icon-bar" style="background-color: white;"></span>
+                <span class="navbar-toggle-menu-text" aria-hidden="true">Menu</span>
             </button>
             <a href="index.html">
                 <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
@@ -20,7 +21,8 @@
             <ul class="nav navbar-nav nav-main-links">
                 {% assign on_home_page = page.url == '/' or page.url == '/index.html' %}
                 {% if on_home_page %}
-                <li class="dropdown nav-dropdown">
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
                     <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-haspopup="true" aria-expanded="false">
                         Workshops <span class="caret"></span>
@@ -30,6 +32,16 @@
                         <li><a class="nav-dropdown-link" href="robotics-workshop.html">Robotics Drone</a></li>
                         <li><a class="nav-dropdown-link" href="rocket-workshop.html">Mechanical Engineering</a></li>
                     </ul>
+                </li>
+                <!-- Mobile: three workshop links in main list (no nested dropdown) -->
+                <li class="nav-mobile-workshop-item">
+                    <a href="ai-workshop.html" class="nav-button-stageone">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="robotics-workshop.html" class="nav-button-stageone">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="rocket-workshop.html" class="nav-button-stageone">Mechanical Engineering</a>
                 </li>
                 {% else %}
                 <li>

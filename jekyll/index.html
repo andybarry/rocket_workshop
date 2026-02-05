@@ -81,6 +81,18 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     will-change: left, top;
     pointer-events: none;
   }
+  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
+  @media (max-width: 767px) {
+    body.cursor-glow-page.cursor-over-bg,
+    body.cursor-glow-page.cursor-over-bg * {
+      cursor: default !important;
+    }
+    #cursor-glow {
+      opacity: 0 !important;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
 </style>
 <script>
   (function() {
@@ -379,6 +391,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease;
+    box-sizing: border-box;
   }
   .about-box:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.28);
@@ -389,6 +402,30 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   }
   .about-box i.fa {
     transition: transform 0.2s ease;
+  }
+  /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
+  @media (max-width: 767px) {
+    .about-section {
+      max-width: 100%;
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      gap: 10px !important; /* override inline gap so 2 boxes fit per row */
+      box-sizing: border-box;
+    }
+    .about-box:first-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 0;
+      padding: 20px 12px;
+    }
+    .about-box:not(:first-child) {
+      flex: 0 0 calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      min-width: 0;
+      padding: 20px 12px;
+    }
   }
 </style>
 
