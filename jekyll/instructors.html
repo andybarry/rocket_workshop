@@ -5,95 +5,20 @@ title: Instructors | STAGE ONE EDUCATION
 
 <body id="page-top" class="cursor-glow-page">
 
-<div id="cursor-glow" aria-hidden="true"></div>
 <style>
-  body.cursor-glow-page.cursor-over-bg,
-  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
   body.cursor-glow-page .navbar { cursor: default !important; }
   body.cursor-glow-page .navbar a,
   body.cursor-glow-page .navbar button,
   body.cursor-glow-page .navbar img { cursor: pointer !important; }
-  body.cursor-glow-page a,
-  body.cursor-glow-page button,
-  body.cursor-glow-page .btn,
-  body.cursor-glow-page .workshop-main-button,
-  body.cursor-glow-page .about-box,
-  body.cursor-glow-page .scroll-container,
-  body.cursor-glow-page .scroll-container *,
-  body.cursor-glow-page .location-item,
-  body.cursor-glow-page .location-item *,
-  body.cursor-glow-page .instructors-content-box,
-  body.cursor-glow-page .instructors-content-box * { cursor: pointer !important; }
-  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
-  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page,
+  body.cursor-glow-page *:not(.navbar):not(.navbar *) { cursor: default !important; }
+  body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
       linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
-  }
-  #cursor-glow {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-    background-color: transparent;
-    background-image:
-      linear-gradient(to right, #f05f40 1px, transparent 1px),
-      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    mask-size: 100% 100%;
-    mask-position: 0 0;
-    -webkit-mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    -webkit-mask-size: 100% 100%;
-    -webkit-mask-position: 0 0;
-  }
-  #cursor-glow::before {
-    content: '';
-    position: absolute;
-    left: var(--mouse-x);
-    top: var(--mouse-y);
-    width: 100px;
-    height: 100px;
-    margin: -50px 0 0 -50px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      rgba(240, 95, 64, 0.25) 0%,
-      rgba(240, 95, 64, 0.08) 50%,
-      transparent 75%
-    );
-    transform: translateZ(0);
-    will-change: left, top;
-    pointer-events: none;
-  }
-  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
-  @media (max-width: 767px) {
-    body.cursor-glow-page.cursor-over-bg,
-    body.cursor-glow-page.cursor-over-bg * {
-      cursor: default !important;
-    }
-    #cursor-glow {
-      opacity: 0 !important;
-      visibility: hidden;
-      pointer-events: none;
-    }
   }
   /* Mobile: same content width as index and workshop pages */
   @media (max-width: 767px) {
@@ -120,23 +45,6 @@ title: Instructors | STAGE ONE EDUCATION
     }
   }
 </style>
-<script>
-  (function() {
-    var el = document.getElementById('cursor-glow');
-    if (!el) return;
-    function move(e) {
-      el.style.setProperty('--mouse-x', e.clientX + 'px');
-      el.style.setProperty('--mouse-y', e.clientY + 'px');
-      var under = document.elementFromPoint(e.clientX, e.clientY);
-      var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .location-item, .instructors-content-box') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container, .location-item, .instructors-content-box')
-      );
-      document.body.classList.toggle('cursor-over-bg', !overInteractive);
-    }
-    document.addEventListener('mousemove', move, { passive: true });
-  })();
-</script>
 
     {% include navigation.html %}
 
@@ -145,7 +53,7 @@ title: Instructors | STAGE ONE EDUCATION
 
     <!-- Title Section -->
     <div style="max-width: 100%; margin: 0 auto; text-align: center;">
-        <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap; line-height: 1; padding: 0;">
+        <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold; white-space: nowrap; line-height: 1; padding: 0; cursor: default;">
             Instructors
     
             <hr class="main-page-hr" />
@@ -173,6 +81,20 @@ title: Instructors | STAGE ONE EDUCATION
 
         <div style="text-align: center; margin-bottom: 16px;">
             <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40;">Contact</span>
+        </div>
+
+        <style>
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+        </style>
+        <div style="text-align: center; margin-bottom: 10px;">
+            <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
+                <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
+                    style="color: #f05f40; animation: pulse 2.5s infinite;"></i>
+            </a>
         </div>
 
         <!-- Email Address -->

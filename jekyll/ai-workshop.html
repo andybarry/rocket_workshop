@@ -6,28 +6,11 @@ description: Explore hands-on learning in artificial intelligence with Stage One
 <!-- Grid and cursor-following glow (same as home page) -->
 <body id="page-top" class="cursor-glow-page">
 
-<div id="cursor-glow" aria-hidden="true"></div>
 <style>
-  body.cursor-glow-page.cursor-over-bg,
-  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
   body.cursor-glow-page .navbar { cursor: default !important; }
   body.cursor-glow-page .navbar a,
   body.cursor-glow-page .navbar button,
   body.cursor-glow-page .navbar img { cursor: pointer !important; }
-  body.cursor-glow-page a,
-  body.cursor-glow-page button,
-  body.cursor-glow-page .btn,
-  body.cursor-glow-page .glow-text,
-  body.cursor-glow-page .scroll-container,
-  body.cursor-glow-page .scroll-container *,
-  body.cursor-glow-page .scrolling-hero,
-  body.cursor-glow-page .scrolling-hero *,
-  body.cursor-glow-page .overview-text-box,
-  body.cursor-glow-page .overview-text-box *,
-  body.cursor-glow-page .quote-container,
-  body.cursor-glow-page .quote-container *,
-  body.cursor-glow-page .ai-workshop-timeline-section,
-  body.cursor-glow-page .ai-workshop-timeline-section * { cursor: pointer !important; }
   body.cursor-glow-page .glow-text:hover {
     background-color: #f05f40;
     color: #fff;
@@ -40,8 +23,11 @@ description: Explore hands-on learning in artificial intelligence with Stage One
   body.cursor-glow-page .quote-container:hover .quote-text {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
   }
-  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
-  body.cursor-glow-page > *:not(#cursor-glow):not(.navbar) { position: relative; z-index: 1; }
+  .overview-text-box,
+  .overview-text-box *,
+  .quote-container,
+  .quote-container * { cursor: default !important; }
+  body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
@@ -49,86 +35,7 @@ description: Explore hands-on learning in artificial intelligence with Stage One
       linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  #cursor-glow {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-    background-color: transparent;
-    background-image:
-      linear-gradient(to right, #f05f40 1px, transparent 1px),
-      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    mask-size: 100% 100%;
-    mask-position: 0 0;
-    -webkit-mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    -webkit-mask-size: 100% 100%;
-    -webkit-mask-position: 0 0;
-  }
-  #cursor-glow::before {
-    content: '';
-    position: absolute;
-    left: var(--mouse-x);
-    top: var(--mouse-y);
-    width: 100px;
-    height: 100px;
-    margin: -50px 0 0 -50px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      rgba(240, 95, 64, 0.25) 0%,
-      rgba(240, 95, 64, 0.08) 50%,
-      transparent 75%
-    );
-    transform: translateZ(0);
-    will-change: left, top;
-    pointer-events: none;
-  }
-  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
-  @media (max-width: 767px) {
-    body.cursor-glow-page.cursor-over-bg,
-    body.cursor-glow-page.cursor-over-bg * {
-      cursor: default !important;
-    }
-    #cursor-glow {
-      opacity: 0 !important;
-      visibility: hidden;
-      pointer-events: none;
-    }
-  }
 </style>
-<script>
-  (function() {
-    var el = document.getElementById('cursor-glow');
-    if (!el) return;
-    function move(e) {
-      el.style.setProperty('--mouse-x', e.clientX + 'px');
-      el.style.setProperty('--mouse-y', e.clientY + 'px');
-      var under = document.elementFromPoint(e.clientX, e.clientY);
-      var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container, .ai-workshop-timeline-section') ||
-        under.matches('a, button, .btn, .navbar, .glow-text, .scroll-container, .scrolling-hero, .overview-text-box, .quote-container, .ai-workshop-timeline-section')
-      );
-      document.body.classList.toggle('cursor-over-bg', !overInteractive);
-    }
-    document.addEventListener('mousemove', move, { passive: true });
-  })();
-</script>
 
     {% include navigation.html %}
 
@@ -139,7 +46,7 @@ description: Explore hands-on learning in artificial intelligence with Stage One
         <div class="row">
             <div class="col-sm-12">
         <div style="margin: 0 auto; text-align: center;">
-            <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; margin-bottom: 0.2em;">
+            <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; margin-bottom: 0.2em; cursor: default;">
                 Artificial Intelligence Workshop
             </h2>
         </div>
@@ -270,7 +177,7 @@ Feedback Survey
 <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
 
     <div style="max-width: 1100px; max-width: 100%; margin: 5px auto 0 auto; margin-top: 20px;">
-        <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+        <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
             Overview
         </span>
     </div>
@@ -537,7 +444,7 @@ Feedback Survey
             <div class="col-lg-12 col-med-12 col-sm-12">
              
                 <div style="max-width: 1100px; max-width: 100%; margin: 5px auto;">
-                    <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                    <span style="display: block; text-align: left; margin-left: 20px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
                         Testimonials
                     </span>
                 </div>
@@ -602,12 +509,82 @@ Feedback Survey
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
                 }
 
-                /* Pause animation when hovered over the scroll container */
-                .scroll-container:hover {
-                    animation-play-state: paused;
+                /* Cursor for drag */
+                .scroll-container {
+                    cursor: grab;
+                }
+                .scroll-container.dragging {
+                    cursor: grabbing !important;
+                }
+                .scroll-container.dragging .scroll-image {
+                    cursor: grabbing !important;
                 }
 
                 </style>
+
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 100;
+        var offset = fraction * duration;
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight;
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
 
  <!-- Quotes: static three quotes (same as old version) -->
  <style>
@@ -662,7 +639,7 @@ Feedback Survey
 </style>
 <div class="row ai-workshop-timeline-section">
     <div style="max-width: 1100px; max-width: 100%; margin: 5px auto;">
-        <span style="display: block; text-align: left; margin-left: 30px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+        <span style="display: block; text-align: left; margin-left: 30px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
             Timeline
         </span>
     </div>
