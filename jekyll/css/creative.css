@@ -1573,6 +1573,15 @@ text-decoration: none; /* Remove underline on hover */
     .scroll-image {
         width: 80vw !important;
     }
+
+    /* Fix: WOW.js sets visibility:hidden and animation-name:none on .wow
+       elements, then reveals them on scroll. On mobile this detection can
+       fail, leaving the envelope icon invisible and its pulse animation
+       killed. Force both back on so the icon always shows. */
+    .fa-envelope-o.wow {
+        visibility: visible !important;
+        animation-name: pulse !important;
+    }
 }
     
 
