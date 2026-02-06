@@ -4,23 +4,7 @@ title: "STAGE ONE EDUCATION | Hands-on Engineering Workshops"
 description: "Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
 ---
 <!-- Cursor-following 3D glow on light gray background (home only) -->
-<div id="cursor-glow" aria-hidden="true"></div>
 <style>
-  /* Hide pointer only over the grid background; show pointer over buttons, boxes, navbar */
-  body.cursor-glow-page.cursor-over-bg,
-  body.cursor-glow-page.cursor-over-bg * { cursor: none !important; }
-  body.cursor-glow-page .navbar,
-  body.cursor-glow-page .navbar * { cursor: default !important; }
-  body.cursor-glow-page a,
-  body.cursor-glow-page button,
-  body.cursor-glow-page .btn,
-  body.cursor-glow-page .workshop-main-button,
-  body.cursor-glow-page .about-box,
-  body.cursor-glow-page .about-box *,
-  body.cursor-glow-page .scroll-container,
-  body.cursor-glow-page .scroll-container * { cursor: pointer !important; }
-  /* Hide orange glow when over buttons/boxes/nav/scroll so only pointer shows */
-  body.cursor-glow-page:not(.cursor-over-bg) #cursor-glow { opacity: 0; }
   /* Grid on light gray (home only) */
   body.cursor-glow-page {
     background-color: #fafafa;
@@ -28,58 +12,6 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
-  }
-  #cursor-glow {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-    /* Grid in #f05f40, revealed only where the mouse hovers (mask) */
-    background-color: transparent;
-    background-image:
-      linear-gradient(to right, #f05f40 1px, transparent 1px),
-      linear-gradient(to bottom, #f05f40 1px, transparent 1px);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    mask-size: 100% 100%;
-    mask-position: 0 0;
-    -webkit-mask-image: radial-gradient(
-      circle 45px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-      black 35%,
-      rgba(0, 0, 0, 0.5) 60%,
-      transparent 100%
-    );
-    -webkit-mask-size: 100% 100%;
-    -webkit-mask-position: 0 0;
-  }
-  /* Soft glow overlay at the pointer */
-  #cursor-glow::before {
-    content: '';
-    position: absolute;
-    left: var(--mouse-x);
-    top: var(--mouse-y);
-    width: 100px;
-    height: 100px;
-    margin: -50px 0 0 -50px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      rgba(240, 95, 64, 0.25) 0%,
-      rgba(240, 95, 64, 0.08) 50%,
-      transparent 75%
-    );
-    transform: translateZ(0);
-    will-change: left, top;
-    pointer-events: none;
   }
   /* All content max 80% screen width */
   body.cursor-glow-page #tab-section .container,
@@ -94,18 +26,6 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   }
   body.cursor-glow-page .feedback-scroll-wrapper {
     width: 80vw !important;
-  }
-  /* Mobile: keep grid background, remove mouse pointer glow/highlight */
-  @media (max-width: 767px) {
-    body.cursor-glow-page.cursor-over-bg,
-    body.cursor-glow-page.cursor-over-bg * {
-      cursor: default !important;
-    }
-    #cursor-glow {
-      opacity: 0 !important;
-      visibility: hidden;
-      pointer-events: none;
-    }
   }
   /* Mobile: content width with side margins (match workshop pages) */
   @media (max-width: 767px) {
@@ -150,24 +70,6 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     }
   }
 </style>
-<script>
-  (function() {
-    var el = document.getElementById('cursor-glow');
-    if (!el) return;
-    function move(e) {
-      el.style.setProperty('--mouse-x', e.clientX + 'px');
-      el.style.setProperty('--mouse-y', e.clientY + 'px');
-      var under = document.elementFromPoint(e.clientX, e.clientY);
-      var overInteractive = under && (
-        under.closest('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container') ||
-        under.matches('a, button, .btn, .navbar, .workshop-main-button, .about-box, .scroll-container')
-      );
-      document.body.classList.toggle('cursor-over-bg', !overInteractive);
-    }
-    document.addEventListener('mousemove', move, { passive: true });
-  })();
-</script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     let posters = [
@@ -215,7 +117,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     <div class="container" id="ai">
 
 <div class="our-workshops-header">
-    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100);">Our workshops</h2>
+    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100); font-family: 'Roboto', sans-serif; font-weight: 400;">Our workshops</h2>
     <div class="our-workshops-line"></div>
 </div>
 
@@ -259,11 +161,11 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
             <!-- Text Section with h3 Title added -->
             <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Discover AI Neural Networks</h3>
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Use the latest AI models:
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Discover AI Neural Networks</h3>
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Use the latest AI models:
                     <ul style="list-style: none; padding-left: 0; margin: 0;">
                         <li style="margin-bottom: 10px;"><em>text, image, and music</em></li>                    </ul></h3>
-                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 10px;">AI ethics discussion</h3>    
+                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 10px;">AI ethics discussion</h3>    
 
                 </ul>
             </div>
@@ -373,9 +275,9 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <!-- Text Section with h3 Title added -->
 <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px; padding-top: 15px;">Fly mini drones</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Build a circuit for drone control</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Program for autonomous flight</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Fly mini drones</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Build a circuit for drone control</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Program for autonomous flight</h3>
 </div>
 
     </a>
@@ -403,7 +305,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
             alt="Rocket Image"
             style="
                position: absolute;
-               top: 50%;
+               top: calc(50% - 7px);
                left: 75%;
                transform: translate(-50%, -50%);
                pointer-events: none;
@@ -416,9 +318,9 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <!-- Text Section with h3 Title added -->
 <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px; padding-top: 15px;">Use professional CAD software</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Design a multi-part model rocket</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; margin: 0; padding-bottom: 15px;">Explore 3D printing</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Use professional CAD software</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Design a multi-part model rocket</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Explore 3D printing</h3>
 </div>
 
         
@@ -438,6 +340,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <style>
   .about-box {
+    cursor: default;
     flex: 1 1 calc(20% - 20px);
     max-width: 250px;
     padding: 24px 16px;
@@ -624,14 +527,12 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
     }
     
-    /* Pause scroll animation on hover */
-    .scroll-container:hover {
-        animation-play-state: paused;
-    }
-    
     /* Cursor changes when dragging */
-    .scroll-container.active {
-        cursor: grabbing;
+    .scroll-container.dragging {
+        cursor: grabbing !important;
+    }
+    .scroll-container.dragging .scroll-image {
+        cursor: grabbing !important;
     }
     
     /* Hide scrollbar */
@@ -639,67 +540,80 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         display: none;
     }
     
-    </style>
-    
-    <!-- JavaScript to control drag functionality -->
-    <script>
-        // Get the scroll container
-        const scrollContainer = document.getElementById('robotics-scroll-container');
-    
-        let isDragging = false;
-        let startX;
-        let scrollLeft;
-    
-        // Stop the continuous scroll animation on mouse over
-        scrollContainer.addEventListener('mouseover', () => {
-            scrollContainer.style.animationPlayState = 'paused';
-        });
-    
-        // Resume the continuous scroll animation on mouse leave
-        scrollContainer.addEventListener('mouseout', () => {
-            if (!isDragging) {
-                scrollContainer.style.animationPlayState = 'running';
-            }
-        });
-    
-        // Mouse down event to start dragging
-        scrollContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            scrollContainer.classList.add('active');
-            startX = e.pageX - scrollContainer.offsetLeft;
-            scrollLeft = scrollContainer.scrollLeft;
-        });
-    
-        // Mouse leave event to stop dragging
-        scrollContainer.addEventListener('mouseleave', () => {
-            isDragging = false;
-            scrollContainer.classList.remove('active');
-        });
-    
-        // Mouse up event to stop dragging
-        scrollContainer.addEventListener('mouseup', () => {
-            isDragging = false;
-            scrollContainer.classList.remove('active');
-        });
-    
-        // Mouse move event to enable dragging functionality
-        scrollContainer.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - scrollContainer.offsetLeft;
-            const walk = (x - startX); // Distance scrolled
-            scrollContainer.scrollLeft = scrollLeft - walk;
-        });
-    </script>
 </style>
 
-</style>
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        // Pause animation and capture current translated position
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        // Calculate where in the animation cycle we are and resume from there
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 45;
+        var offset = fraction * duration;
+        // Restart animation from the current position
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight; // force reflow
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
 
 
 
 
 <!-- Centering the Feedback box below the images -->
-<div style="display: flex; justify-content: center; padding: 0px;">
+<div style="display: flex; justify-content: center; padding: 0px; margin-top: 20px;">
     <ul style="list-style: none; padding: 0; margin: 0;">
         <li>
             <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight">
@@ -738,15 +652,15 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         <div style="display: flex; justify-content: center; align-items: center;">
 
 
-                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
+                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40; cursor: default;">
                         <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                            style="color: #f05f40; animation: pulse 2.5s infinite;"></i>
+                            style="color: #f05f40; animation: pulse 2.5s infinite; cursor: default;"></i>
                     </a>
                 </div>
 
         <!-- Email Link on its own line -->
         <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
-            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
+            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none; cursor: default;">
                 workshops@stageoneducation.com
             </a>
         </p>
@@ -754,7 +668,8 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     <br>
 
   <!-- Let's chat Button -->
-  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone">
+  <style>.lets-chat-btn.nav-button-stageone:hover::after { display: none !important; }</style>
+  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn">
   Let's chat
 </a>
 </section>
