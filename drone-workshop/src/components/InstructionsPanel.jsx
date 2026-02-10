@@ -11697,39 +11697,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                      {/* "Show Labels" / "Show Wiring Diagram" button on 18.1.png - bottom centered */}
+                      {/* "Show Labels" / "Hide Wiring Diagram" / "Show Wiring Diagram" button on 18.1.png - same box and text scaling as page 7 */}
                       {currentPage === 17 && !editorMode && page18HelpImageState !== 1 && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -11808,7 +11809,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -11818,7 +11819,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && (page18BoxesVisible ? 'Hide Wiring Diagram' : 'Show Labels')}
@@ -11883,39 +11885,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on 18.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 18.png - same box and text scaling as page 7 */}
                       {currentPage === 17 && !editorMode && page18HelpImageState === 1 && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -11994,7 +11997,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -12004,7 +12007,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -14616,11 +14620,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Hide Wiring Diagram" button on 21.1.png - bottom centered */}
+                  {/* "Hide Wiring Diagram" button on 21.1.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const widthExpansionPx = 30
@@ -14629,12 +14634,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
 
                     return (
@@ -14665,14 +14682,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: '#6C757D',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: 'italic',
                             fontWeight: '500',
                             textAlign: 'center',
                             padding: '2px 4px',
                             boxSizing: 'border-box',
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           Hide Wiring Diagram
@@ -14680,39 +14698,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* "Show Labels" button on 21.1.png - centered at bottom (same style as 18.1.png) */}
+                  {/* "Show Labels" button on 21.1.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && !page21LabelsVisible && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
-                    
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                    
-                    // Add 15px on each side (30px total width increase)
                     const widthExpansionPx = 30
                     const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                    
-                    // Reduce height by lowering top edge 7px
                     const heightReductionPx = 7
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                    
-                    // Position button centered horizontally at bottom, 24px up from bottom
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    
-                    // Center horizontally
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    
-                    // Position from bottom: 100% - boxHeight - bottomOffset
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                    
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                    // Max radius is half the height for pill shape
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                     const borderRadiusWrapperY = 50
@@ -14790,7 +14807,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: showHelpText ? 'italic' : 'normal',
                             fontWeight: showHelpText ? '500' : 'normal',
@@ -14800,7 +14817,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             userSelect: 'auto',
                             WebkitUserSelect: 'auto',
                             opacity: showHelpText ? 1 : 0,
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           {showHelpText && 'Show Labels'}
@@ -15105,11 +15123,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Show Wiring Diagram" button on 21.png - bottom centered */}
+                  {/* "Show Wiring Diagram" button on 21.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && page21ShowHelpImage && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const widthExpansionPx = 30
@@ -15118,12 +15137,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
 
                     return (
@@ -15154,14 +15185,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: '#6C757D',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: 'italic',
                             fontWeight: '500',
                             textAlign: 'center',
                             padding: '2px 4px',
                             boxSizing: 'border-box',
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           Show Wiring Diagram
@@ -17813,48 +17845,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Show Labels" / "Hide Wiring Diagram" button on 24.1.png - bottom centered */}
+                  {/* "Show Labels" / "Hide Wiring Diagram" button on 24.1.png - same box and text scaling as page 7 */}
                   {currentPage === 23 && !editorMode && !page24ShowMainImage && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
                         const edgeExpansionPx = 1
                         const bottomExtraPx = 4
                         const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
-                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
-                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
-                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
-                        
-                        // Center horizontally (width expansion automatically moves left/right edges)
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
                         const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -17935,7 +17957,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -17945,7 +17967,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && buttonText}
@@ -18010,48 +18033,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on 24.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 24.png - same box and text scaling as page 7 */}
                       {currentPage === 23 && !editorMode && page24ShowMainImage && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
                         const edgeExpansionPx = 1
                         const bottomExtraPx = 4
                         const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
-                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
-                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
-                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
-                        
-                        // Center horizontally (width expansion automatically moves left/right edges)
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
                         const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -18130,7 +18143,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -18140,7 +18153,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -24652,11 +24666,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Hide Wiring Diagram" button on 21.1.png - bottom centered */}
+                  {/* "Hide Wiring Diagram" button on 21.1.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const widthExpansionPx = 30
@@ -24665,12 +24680,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
 
                     return (
@@ -24701,14 +24728,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: '#6C757D',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: 'italic',
                             fontWeight: '500',
                             textAlign: 'center',
                             padding: '2px 4px',
                             boxSizing: 'border-box',
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           Hide Wiring Diagram
@@ -24716,39 +24744,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* "Show Labels" button on 21.1.png - centered at bottom (same style as 18.1.png) */}
+                  {/* "Show Labels" button on 21.1.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && !page21ShowHelpImage && !page21LabelsVisible && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
-                    
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                    
-                    // Add 15px on each side (30px total width increase)
                     const widthExpansionPx = 30
                     const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                    
-                    // Reduce height by lowering top edge 7px
                     const heightReductionPx = 7
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                    
-                    // Position button centered horizontally at bottom, 24px up from bottom
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    
-                    // Center horizontally
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    
-                    // Position from bottom: 100% - boxHeight - bottomOffset
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                    
                     const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                    // Max radius is half the height for pill shape
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                     const borderRadiusWrapperY = 50
@@ -24826,7 +24853,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: showHelpText ? 'italic' : 'normal',
                             fontWeight: showHelpText ? '500' : 'normal',
@@ -24836,7 +24863,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             userSelect: 'auto',
                             WebkitUserSelect: 'auto',
                             opacity: showHelpText ? 1 : 0,
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           {showHelpText && 'Show Labels'}
@@ -25141,11 +25169,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Show Wiring Diagram" button on 21.png - bottom centered */}
+                  {/* "Show Wiring Diagram" button on 21.png - same box and text scaling as page 7 */}
                   {currentPage === 20 && !editorMode && page21ShowHelpImage && (() => {
                     const boxWidth = 18
                     const boxHeight = 3
                     const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const widthExpansionPx = 30
@@ -25154,12 +25183,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
                     const bottomOffsetPx = 24
                     const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                    const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                    const edgeExpansionPx = 1
+                    const bottomExtraPx = 4
+                    const boxDownShiftPx = 2
+                    const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                    const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                    const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                    const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                     const adjustedLeft = (100 - expandedWidth) / 2
-                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                    const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                    const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                    const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                     const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const page7Chars = 20
+                    const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                    const page7FontFromHeight = wrapperHeightPx * 1.15
+                    const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                     const borderRadiusPx = wrapperHeightPx / 2
 
                     return (
@@ -25190,14 +25231,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: '#6C757D',
-                            fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                            fontSize: `${page7BtnFontSizePx}px`,
                             fontFamily: 'Roboto, sans-serif',
                             fontStyle: 'italic',
                             fontWeight: '500',
                             textAlign: 'center',
                             padding: '2px 4px',
                             boxSizing: 'border-box',
-                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                            textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                            overflow: 'hidden'
                           }}
                         >
                           Show Wiring Diagram
@@ -27849,48 +27891,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* "Show Labels" / "Hide Wiring Diagram" button on 24.1.png - bottom centered */}
+                  {/* "Show Labels" / "Hide Wiring Diagram" button on 24.1.png - same box and text scaling as page 7 */}
                   {currentPage === 23 && !editorMode && !page24ShowMainImage && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
                         const edgeExpansionPx = 1
                         const bottomExtraPx = 4
                         const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
-                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
-                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
-                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
-                        
-                        // Center horizontally (width expansion automatically moves left/right edges)
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
                         const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -27971,7 +28003,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -27981,7 +28013,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && buttonText}
@@ -28046,48 +28079,38 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on 24.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 24.png - same box and text scaling as page 7 */}
                       {currentPage === 23 && !editorMode && page24ShowMainImage && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
                         const edgeExpansionPx = 1
                         const bottomExtraPx = 4
                         const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
-                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
-                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
-                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
-                        
-                        // Center horizontally (width expansion automatically moves left/right edges)
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
                         const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -28166,7 +28189,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -28176,7 +28199,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -34243,39 +34267,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                      {/* "Show Labels" / "Show Wiring Diagram" button on 15.1.png - bottom centered */}
+                      {/* "Show Labels" / "Show Wiring Diagram" / "Hide Wiring Diagram" button on 15.1.png - same box and text scaling as page 7 */}
                       {currentPage === 14 && !editorMode && !page15BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -34354,7 +34379,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -34364,7 +34389,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && (page15BoxesVisible ? 'Hide Wiring Diagram' : 'Show Labels')}
@@ -34429,39 +34455,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on 15.png - bottom centered */}
+                      {/* "Show Wiring Diagram" button on 15.png - same box and text scaling as page 7 */}
                       {currentPage === 14 && !editorMode && page15BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -34540,7 +34567,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -34550,7 +34577,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -38678,7 +38706,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                     const dotX = 18.55
                     const dotY = 66.89
-                    const dotSizePx = 7
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     
@@ -38705,7 +38734,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                     const dotX = 18.55
                     const dotY = 63.62
-                    const dotSizePx = 7
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -38744,7 +38774,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 4 && !editorMode && page5Button2Clicked && (() => {
                     const dotX = 15.88
                     const dotY = 78.44
-                    const dotSizePx = 7
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -38781,7 +38812,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dotX = 44.46
                     const dotY = 78.39
-                    const dotSizePx = 7
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -38834,7 +38866,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       { x: 11.90, y: 72.18 },
                       { x: 89.30, y: 73.22 }
                     ]
-                    const dotSizePx = 7
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -38876,38 +38909,35 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       )
                     })
                   })()}
-                  {/* Error box on page 5 - shows when wrong dot is selected (red or green) */}
-                  {currentPage === 4 && !editorMode && page5WrongDotError && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Error box on page 5 - same box and text scaling as LED/Button text boxes on page 10 (embedded, scales with image) */}
+                  {currentPage === 4 && !editorMode && page5WrongDotError && stageWidthPx > 0 && stageHeightPx > 0 && imageNaturalSize.width > 0 && imageNaturalSize.height > 0 && (() => {
                     const baseBoxWidth = 33.15
-                    // Increase width by 25px so "Not the correct connection try again" fits (15px + 10px)
-                    const widthIncreasePx = 25
-                    const widthIncreasePercent = stageWidthPx > 0 ? (widthIncreasePx / stageWidthPx) * 100 : 0
-                    const boxWidth = baseBoxWidth + widthIncreasePercent
-                    const boxLeft = (100 - boxWidth) / 2  // Center horizontally
                     const baseBoxTop = 66.31
                     const baseBoxHeight = 5.38
-                    
-                    // Move down by 4px
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const widthIncreasePx = 45
+                    const widthIncreasePercent = (widthIncreasePx / imageNaturalSize.width) * 100
+                    const heightDecreasePx = 14
+                    const heightDecreasePercent = (heightDecreasePx / imageNaturalSize.height) * 100
                     const moveDownPx = 4
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
-                    const boxTop = baseBoxTop + moveDownPercent
-                    
-                    // Reduce height by 10px
-                    const heightDecreasePx = 10
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const moveDownPercent = (moveDownPx / imageNaturalSize.height) * 100
+                    const boxWidth = baseBoxWidth + widthIncreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
-                    
-                    const buttonStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
-                    
-                    // Calculate wrapper dimensions for SVG coordinate conversion
-                    const wrapperWidthPx = (boxWidth / 100) * stageWidthPx
-                    const wrapperHeightPx = (boxHeight / 100) * stageHeightPx
-                    
-                    // Border radius
-                    const borderRadiusPx = Math.min(8, Math.max(4, 8 * stageRelativeScale))
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - baseBoxTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = (100 - expandedWidth) / 2
+                    const adjustedTop = Math.max(0, baseBoxTop - topOffsetAdjust + moveDownPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
                     const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                     const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
-                    
+                    const errorBoxFontSize = 14 * stageRelativeScale
                     const topLeft = 0
                     const topRight = 100
                     const topY = 0
@@ -38958,14 +38988,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${errorBoxFontSize}px`,
                               color: 'white',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -38995,33 +39028,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Red line connecting red dot to selected blue edge dot on page 5 */}
+                  {/* Red line connecting red dot to selected blue edge dot on page 5 - percentage-based so it scales with the stage */}
                   {/* Red edge red infill box on page 5 (5.png) - appears when blue edge dot is selected */}
                   {currentPage === 4 && !editorMode && page5BlueDotSelected && (() => {
-                    const boxLeft = 17.25
+                    // Red dot center X=18.55%; align vertical line with dot using % only so scaling is consistent
+                    const lineWidthPercent = 0.5
+                    const boxLeft = 18.55 - (lineWidthPercent / 2)
                     const boxTop = 64.13
-                    const boxWidth = 2.00
+                    const boxWidth = lineWidthPercent
                     const boxHeight = 3.55
-                    
-                    // Move box to the right by 4.25px (4.5px - 0.25px left = 4.25px)
-                    const moveRightPx = 4.25
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const adjustedBoxLeft = boxLeft + moveRightPercent
-                    
-                    // Move box up by 4px (6px - 2px down = 4px)
-                    const moveUpPx = 4
-                    const moveUpPercent = stageHeightPx > 0 ? (moveUpPx / stageHeightPx) * 100 : 0
-                    const adjustedBoxTop = boxTop - moveUpPercent
-                    
-                    // Reduce width by 6px (2px + 4px more)
-                    const widthReducePx = 6
-                    const widthReducePercent = stageWidthPx > 0 ? (widthReducePx / stageWidthPx) * 100 : 0
-                    const adjustedBoxWidth = Math.max(0, boxWidth - widthReducePercent)
-                    
                     return (
                       <div
                         style={{
-                          ...getButtonStyle(adjustedBoxLeft, adjustedBoxTop, adjustedBoxWidth, boxHeight),
+                          ...getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight),
                           backgroundColor: '#dd1712',
                           border: '1px solid #dd1712',
                           pointerEvents: 'none',
@@ -39030,33 +39049,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* Green edge green infill box on page 5 (5.png) - appears when green active box is selected */}
+                  {/* Green edge green infill box on page 5 (5.png) - appears when green active box is selected - connects left green dot (15.88%) to right dot (44.46%) */}
                   {currentPage === 4 && !editorMode && page5GreenDotSelected && (() => {
-                    const boxLeft = 13.91
-                    const boxTop = 78.11
-                    const boxWidth = 29.29
-                    
-                    // Move box to the right by 10px (8px + 2px = 10px)
-                    const moveRightPx = 10
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const adjustedBoxLeft = boxLeft + moveRightPercent
-                    
-                    // Reduce width by 5px
-                    const widthReducePx = 5
-                    const widthReducePercent = stageWidthPx > 0 ? (widthReducePx / stageWidthPx) * 100 : 0
-                    const adjustedBoxWidth = Math.max(0, boxWidth - widthReducePercent)
-                    
-                    // Make height the same as the width of the red edge red infill box
-                    // Red box width: 2.00% reduced by 6px
-                    const redBoxWidth = 2.00
-                    const redBoxWidthReducePx = 6
-                    const redBoxWidthReducePercent = stageWidthPx > 0 ? (redBoxWidthReducePx / stageWidthPx) * 100 : 0
-                    const adjustedBoxHeight = Math.max(0, redBoxWidth - redBoxWidthReducePercent)
-                    
+                    const leftGreenDotX = 15.88
+                    const rightDotX = 44.46
+                    const lineY = 78.44
+                    const lineHeightPercent = 0.5
+                    const boxLeft = leftGreenDotX
+                    const boxTop = lineY - (lineHeightPercent / 2)
+                    const boxWidth = rightDotX - leftGreenDotX
+                    const boxHeight = lineHeightPercent
                     return (
                       <div
                         style={{
-                          ...getButtonStyle(adjustedBoxLeft, boxTop, adjustedBoxWidth, adjustedBoxHeight),
+                          ...getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight),
                           backgroundColor: '#3bbf6b',
                           border: '1px solid #3bbf6b',
                           pointerEvents: 'none',
@@ -39096,48 +39102,36 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* "Show Connections" / "Hide Connections" button on page 5 (5.png and 5.1.png) - bottom centered */}
+                  {/* "Show Connections" / "Hide Connections" button on page 5 - same box and text scaling as error box and LED/Button on page 10 */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Expand by 1px in all directions (2px total width, 2px total height) + 4px extra on bottom
                         const edgeExpansionPx = 1
                         const bottomExtraPx = 4
                         const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = stageWidthPx > 0 ? (2 * edgeExpansionPx / stageWidthPx) * 100 : 0
-                        const heightExpansion1pxPercent = stageHeightPx > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / stageHeightPx) * 100 : 0
-                        const topShiftPercent = stageHeightPx > 0 ? (edgeExpansionPx / stageHeightPx) * 100 : 0
-                        const boxDownShiftPercent = stageHeightPx > 0 ? (boxDownShiftPx / stageHeightPx) * 100 : 0
-                        
-                        // Center horizontally (width expansion automatically moves left/right edges)
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset, shift top up 1px, then down 2px
                         const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -39218,7 +39212,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${16 * stageRelativeScale}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -40474,39 +40468,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on page 7 (7.png) - visible when boxes 1, 2, 3 are selected */}
+                      {/* "Show Wiring Diagram" button on page 7 (7.png) - same box and text scaling as page 5 Show Connections */}
                       {currentPage === 6 && !editorMode && !page7Box4Selected && page7Box1Selected && page7Box2Selected && page7Box3Selected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -40589,7 +40584,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? textColor : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -40599,7 +40594,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Show Wiring Diagram'}
@@ -41038,39 +41034,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Hide Wiring Diagram" button on 7.1.png */}
+                      {/* "Hide Wiring Diagram" button on 7.1.png - same box and text scaling as page 5 Show Connections */}
                       {(() => {
                         const boxWidth = 18
                         const boxHeight = 3
-                        
                         const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
                         const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                         const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        
-                        // Add 15px on each side (30px total width increase)
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
                         const widthExpansionPx = 30
                         const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        
-                        // Reduce height by lowering top edge 7px
                         const heightReductionPx = 7
                         const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Position button centered horizontally at bottom, 24px up from bottom
                         const bottomOffsetPx = 24
                         const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        
-                        // Center horizontally
-                        const expandedWidth = boxWidth + widthPercentAdjust + widthExpansionPercent
+                        const edgeExpansionPx = 1
+                        const bottomExtraPx = 4
+                        const boxDownShiftPx = 2
+                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
+                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
+                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
+                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
+                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
                         const adjustedLeft = (100 - expandedWidth) / 2
-                        
-                        // Position from bottom: 100% - boxHeight - bottomOffset
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent
-                        const adjustedTop = 100 - expandedHeight - bottomOffsetPercent
+                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
+                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
                         const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        
                         const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
                         const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        // Max radius is half the height for pill shape
+                        const page7Chars = 20
+                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
+                        const page7FontFromHeight = wrapperHeightPx * 1.15
+                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
                         const borderRadiusPx = wrapperHeightPx / 2
                         const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
                         const borderRadiusWrapperY = 50
@@ -41149,7 +41146,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${Math.min(16, Math.max(6, 16 * stageRelativeScale))}px`,
+                                fontSize: `${page7BtnFontSizePx}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontStyle: showHelpText ? 'italic' : 'normal',
                                 fontWeight: showHelpText ? '500' : 'normal',
@@ -41159,7 +41156,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 userSelect: 'auto',
                                 WebkitUserSelect: 'auto',
                                 opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)'
+                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
+                                overflow: 'hidden'
                               }}
                             >
                               {showHelpText && 'Hide Wiring Diagram'}

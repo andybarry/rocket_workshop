@@ -306,22 +306,40 @@
   box-sizing: border-box;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  overflow: hidden;
 }
 .drone-instructions-panel-wrapper .page-container {
   padding-bottom: 88px;
 }
-/* Drone-instructions: smaller height for bottom white nav bar */
-.drone-instructions-panel-wrapper .page-navigation .btn-nav {
-  padding: 4px 10px;
-  font-size: 12px;
+/* Drone-instructions: nav bar buttons scale with nav bar width (see InstructionsPanel.css container scaling) */
+@supports (container-type: inline-size) {
+  .drone-instructions-panel-wrapper .page-navigation .btn-nav {
+    padding: clamp(3px, 1.2cqw, 6px) clamp(6px, 2.5cqw, 12px);
+    font-size: clamp(9px, 3.2cqw, 13px);
+  }
+  .drone-instructions-panel-wrapper .page-navigation .btn-modern svg {
+    width: clamp(10px, 4cqw, 16px);
+    height: clamp(10px, 4cqw, 16px);
+  }
+  .drone-instructions-panel-wrapper .page-navigation .page-jump-input {
+    padding: clamp(2px, 0.6cqw, 4px) clamp(4px, 1.2cqw, 6px);
+    font-size: clamp(9px, 2.5cqw, 12px);
+  }
 }
-.drone-instructions-panel-wrapper .page-navigation .btn-modern svg {
-  width: 14px;
-  height: 14px;
-}
-.drone-instructions-panel-wrapper .page-navigation .page-jump-input {
-  padding: 4px 6px;
-  font-size: 12px;
+/* Fallback when container queries not supported */
+@supports not (container-type: inline-size) {
+  .drone-instructions-panel-wrapper .page-navigation .btn-nav {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+  .drone-instructions-panel-wrapper .page-navigation .btn-modern svg {
+    width: 14px;
+    height: 14px;
+  }
+  .drone-instructions-panel-wrapper .page-navigation .page-jump-input {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
 }
 
 /* Drone-instructions: center nav controls (page jump + reset) small and centered, same style */

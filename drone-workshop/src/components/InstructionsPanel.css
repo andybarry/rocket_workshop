@@ -242,7 +242,8 @@
 
 .page-navigation {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto;
   align-items: center;
   padding: 8px 16px;
   margin: 10px clamp(8px, 2.5vw, 20px);
@@ -257,22 +258,26 @@
   box-sizing: border-box;
   container-type: inline-size;
   container-name: page-nav;
+  /* Keep all items in one row; never stack; three equal columns so zoom cannot overlap Back/Next */
+  overflow: hidden;
 }
 
 .nav-button-left {
   display: flex;
   justify-content: flex-start;
   min-width: 0;
-  overflow: visible;
+  overflow: hidden;
   flex: 1 1 0;
+  flex-wrap: nowrap;
 }
 
 .nav-button-right {
   display: flex;
   justify-content: flex-end;
   min-width: 0;
-  overflow: visible;
+  overflow: hidden;
   flex: 1 1 0;
+  flex-wrap: nowrap;
 }
 
 .btn-modern {
@@ -429,6 +434,63 @@
   background-color: #dc3545;
   color: white;
   animation: none;
+}
+
+/* Scale nav bar when width is reduced: buttons shrink, never stack or overlap */
+@supports (container-type: inline-size) {
+  .page-navigation {
+    gap: clamp(4px, 1.5cqw, 12px);
+    padding: clamp(4px, 1.2cqw, 8px) clamp(8px, 2.5cqw, 16px);
+  }
+  .page-navigation .zoom-controls {
+    max-width: 100%;
+    justify-content: center;
+  }
+  .page-navigation .zoom-controls,
+  .page-navigation .zoom-controls-row {
+    flex-wrap: nowrap;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  /* Back/Next: corner radius scales with button (pill = half height) */
+  .page-navigation .btn-nav {
+    flex-shrink: 1;
+    font-size: clamp(8px, 2.8cqw, 13px);
+    padding: clamp(2px, 1cqw, 6px) clamp(4px, 2cqw, 12px);
+    min-width: clamp(24px, 10cqw, 60px);
+    height: clamp(22px, 6.5cqw, 32px);
+    border-radius: 9999px;
+    box-sizing: border-box;
+  }
+  .page-navigation .btn-nav svg {
+    width: clamp(8px, 3.2cqw, 16px);
+    height: clamp(8px, 3.2cqw, 16px);
+    flex-shrink: 0;
+  }
+  .page-navigation .btn-zoom {
+    padding: clamp(1px, 0.8cqw, 4px);
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .page-navigation .btn-zoom svg {
+    width: clamp(12px, 4.5cqw, 24px);
+    height: clamp(12px, 4.5cqw, 24px);
+  }
+  .page-navigation .btn-reset {
+    font-size: clamp(8px, 2.4cqw, 12px);
+    padding: clamp(1px, 0.6cqw, 4px) clamp(2px, 1.5cqw, 8px);
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .page-navigation .zoom-text {
+    font-size: clamp(8px, 2.4cqw, 13px);
+    padding: 0 clamp(1px, 0.6cqw, 4px);
+  }
+  .page-navigation .page-jump-input {
+    width: clamp(28px, 9cqw, 48px);
+    padding: clamp(1px, 0.5cqw, 4px) clamp(2px, 1cqw, 6px);
+    font-size: clamp(8px, 2.2cqw, 11px);
+  }
 }
 
 .zoom-controls {
