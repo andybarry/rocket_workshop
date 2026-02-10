@@ -19395,19 +19395,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move right 3px and down 6px
+                    // Adjust position: move right 3px and down 6px (use imageNaturalSize so position is fixed on the png)
                     const moveRightPx = 3
                     const moveDownPx = 6
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const moveRightPercent = imageNaturalSize.width > 0 ? (moveRightPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -19422,8 +19422,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position: move right 3px and down 3px
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent
                     const dot3Y = baseDot3Y + dot3DownPercent
                     
@@ -19516,14 +19516,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -19692,19 +19695,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move left 23px and down 17px from Box 8 error position
+                    // Adjust position: move left 23px and down 32px from Box 8 error position (use imageNaturalSize so position is fixed on the png)
                     const moveLeftPx = 23
-                    const moveDownPx = 17
-                    const moveLeftPercent = stageWidthPx > 0 ? (moveLeftPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const moveDownPx = 32
+                    const moveLeftPercent = imageNaturalSize.width > 0 ? (moveLeftPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft - moveLeftPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as Box 8 error)
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -19719,8 +19722,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position: move right 3px and down 3px (same as Box 8 error)
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent - moveLeftPercent
                     const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
                     
@@ -19819,14 +19822,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -19995,20 +20001,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move right 27px and down 36px from Box 8 error position
-                    // (This is 50px right and 19px down from error box 2's position)
-                    const moveRightPx = 27
-                    const moveDownPx = 36
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    // Adjust position: move right 37px and down 66px from Box 8 error position (use imageNaturalSize so position is fixed on the png)
+                    const moveRightPx = 37
+                    const moveDownPx = 66
+                    const moveRightPercent = imageNaturalSize.width > 0 ? (moveRightPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as other error boxes)
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -20023,8 +20028,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position for new box location
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent + moveRightPercent
                     const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
                     
@@ -20123,14 +20128,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -29441,19 +29449,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move right 3px and down 6px
+                    // Adjust position: move right 3px and down 6px (use imageNaturalSize so position is fixed on the png)
                     const moveRightPx = 3
                     const moveDownPx = 6
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const moveRightPercent = imageNaturalSize.width > 0 ? (moveRightPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -29468,8 +29476,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position: move right 3px and down 3px
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent
                     const dot3Y = baseDot3Y + dot3DownPercent
                     
@@ -29562,14 +29570,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -29738,19 +29749,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move left 23px and down 17px from Box 8 error position
+                    // Adjust position: move left 23px and down 32px from Box 8 error position (use imageNaturalSize so position is fixed on the png)
                     const moveLeftPx = 23
-                    const moveDownPx = 17
-                    const moveLeftPercent = stageWidthPx > 0 ? (moveLeftPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    const moveDownPx = 32
+                    const moveLeftPercent = imageNaturalSize.width > 0 ? (moveLeftPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft - moveLeftPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as Box 8 error)
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -29765,8 +29776,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position: move right 3px and down 3px (same as Box 8 error)
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent - moveLeftPercent
                     const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
                     
@@ -29865,14 +29876,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
@@ -30041,20 +30055,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const baseBoxWidth = 27.98
                     const baseBoxHeight = 5.39
                     
-                    // Adjust position: move right 27px and down 36px from Box 8 error position
-                    // (This is 50px right and 19px down from error box 2's position)
-                    const moveRightPx = 27
-                    const moveDownPx = 36
-                    const moveRightPercent = stageWidthPx > 0 ? (moveRightPx / stageWidthPx) * 100 : 0
-                    const moveDownPercent = stageHeightPx > 0 ? (moveDownPx / stageHeightPx) * 100 : 0
+                    // Adjust position: move right 37px and down 66px from Box 8 error position (use imageNaturalSize so position is fixed on the png)
+                    const moveRightPx = 37
+                    const moveDownPx = 66
+                    const moveRightPercent = imageNaturalSize.width > 0 ? (moveRightPx / imageNaturalSize.width) * 100 : 0
+                    const moveDownPercent = imageNaturalSize.height > 0 ? (moveDownPx / imageNaturalSize.height) * 100 : 0
                     const boxLeft = baseBoxLeft + moveRightPercent
                     const boxTop = baseBoxTop + moveDownPercent
                     
                     // Adjust dimensions: increase width by 8px from prior, reduce height by 10px (same as other error boxes)
                     const widthDecreasePx = -3
                     const heightDecreasePx = 10
-                    const widthDecreasePercent = stageWidthPx > 0 ? (widthDecreasePx / stageWidthPx) * 100 : 0
-                    const heightDecreasePercent = stageHeightPx > 0 ? (heightDecreasePx / stageHeightPx) * 100 : 0
+                    const widthDecreasePercent = imageNaturalSize.width > 0 ? (widthDecreasePx / imageNaturalSize.width) * 100 : 0
+                    const heightDecreasePercent = imageNaturalSize.height > 0 ? (heightDecreasePx / imageNaturalSize.height) * 100 : 0
                     const boxWidth = baseBoxWidth - widthDecreasePercent
                     const boxHeight = baseBoxHeight - heightDecreasePercent
                     
@@ -30069,8 +30082,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     // Adjust dot3 position for new box location
                     const dot3RightPx = 3
                     const dot3DownPx = 3
-                    const dot3RightPercent = stageWidthPx > 0 ? (dot3RightPx / stageWidthPx) * 100 : 0
-                    const dot3DownPercent = stageHeightPx > 0 ? (dot3DownPx / stageHeightPx) * 100 : 0
+                    const dot3RightPercent = imageNaturalSize.width > 0 ? (dot3RightPx / imageNaturalSize.width) * 100 : 0
+                    const dot3DownPercent = imageNaturalSize.height > 0 ? (dot3DownPx / imageNaturalSize.height) * 100 : 0
                     const dot3X = baseDot3X + dot3RightPercent + moveRightPercent
                     const dot3Y = baseDot3Y + dot3DownPercent + moveDownPercent
                     
@@ -30169,14 +30182,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 11
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
                           }}
                         >
                           <span
                             style={{
                               fontFamily: "'Roboto Black', 'Roboto', sans-serif",
                               fontWeight: 900,
-                              fontSize: `${Math.max(8, Math.min(12, 10 * stageRelativeScale))}px`,
+                              fontSize: `${14 * stageRelativeScale}px`,
                               color: '#dc3545',
                               textAlign: 'center',
                               whiteSpace: 'nowrap'
