@@ -39028,43 +39028,52 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Red line connecting red dot to selected blue edge dot on page 5 - percentage-based so it scales with the stage */}
-                  {/* Red edge red infill box on page 5 (5.png) - appears when blue edge dot is selected */}
+                  {/* Red line connecting top red dot (63.62%) to bottom red dot (66.89%) on page 5 - pixel width like dots so zoom transform-origin stays aligned */}
                   {currentPage === 4 && !editorMode && page5BlueDotSelected && (() => {
-                    // Red dot center X=18.55%; align vertical line with dot using % only so scaling is consistent
-                    const lineWidthPercent = 0.5
-                    const boxLeft = 18.55 - (lineWidthPercent / 2)
-                    const boxTop = 64.13
-                    const boxWidth = lineWidthPercent
-                    const boxHeight = 3.55
+                    // Use same dot positions as the two red dots
+                    const dotCenterX = 18.55
+                    const topDotCenterY = 63.62
+                    const bottomDotCenterY = 66.89
+                    // Use pixel-based width like dots so transformOrigin is consistent at all zoom levels
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const lineWidthPx = Math.max(2, Math.min(4, minStagePx * 0.005))
+                    const lineWidthPercent = stageWidthPx > 0 ? (lineWidthPx / stageWidthPx) * 100 : 0.5
+                    const lineHeightPercent = bottomDotCenterY - topDotCenterY
+                    const boxLeft = dotCenterX - (lineWidthPercent / 2)
+                    const boxTop = topDotCenterY
                     return (
                       <div
                         style={{
-                          ...getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight),
+                          ...getButtonStyle(boxLeft, boxTop, lineWidthPercent, lineHeightPercent),
                           backgroundColor: '#dd1712',
-                          border: '1px solid #dd1712',
+                          border: 'none',
                           pointerEvents: 'none',
                           zIndex: 12
                         }}
                       />
                     )
                   })()}
-                  {/* Green edge green infill box on page 5 (5.png) - appears when green active box is selected - connects left green dot (15.88%) to right dot (44.46%) */}
+                  {/* Green line connecting left green dot (15.88%, 78.44%) to right green dot (44.46%, 78.39%) on page 5 - pixel height like dots so zoom transform-origin stays aligned */}
                   {currentPage === 4 && !editorMode && page5GreenDotSelected && (() => {
-                    const leftGreenDotX = 15.88
-                    const rightDotX = 44.46
-                    const lineY = 78.44
-                    const lineHeightPercent = 0.5
-                    const boxLeft = leftGreenDotX
-                    const boxTop = lineY - (lineHeightPercent / 2)
-                    const boxWidth = rightDotX - leftGreenDotX
-                    const boxHeight = lineHeightPercent
+                    const leftDotCenterX = 15.88
+                    const rightDotCenterX = 44.46
+                    const leftDotCenterY = 78.44
+                    const rightDotCenterY = 78.39
+                    // Average Y of the two dots for the line center
+                    const lineCenterY = (leftDotCenterY + rightDotCenterY) / 2
+                    // Use pixel-based height like dots so transformOrigin is consistent at all zoom levels
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const lineHeightPx = Math.max(2, Math.min(4, minStagePx * 0.005))
+                    const lineHeightPercent = stageHeightPx > 0 ? (lineHeightPx / stageHeightPx) * 100 : 0.5
+                    const boxLeft = leftDotCenterX
+                    const boxTop = lineCenterY - (lineHeightPercent / 2)
+                    const boxWidth = rightDotCenterX - leftDotCenterX
                     return (
                       <div
                         style={{
-                          ...getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight),
+                          ...getButtonStyle(boxLeft, boxTop, boxWidth, lineHeightPercent),
                           backgroundColor: '#3bbf6b',
-                          border: '1px solid #3bbf6b',
+                          border: 'none',
                           pointerEvents: 'none',
                           zIndex: 12
                         }}
