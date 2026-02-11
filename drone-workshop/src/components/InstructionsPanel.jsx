@@ -21972,14 +21972,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxWidth = 42.30
                     const boxHeight = 6.84
                     const isSelected = page34Box1Selected
-                    const boxMoveDownPx = 20   // move box down 20px from current location
-                    const boxWidthIncreasePx = 100  // increase width by 100px
-                    const boxWidthIncreaseLeftShiftPx = 50  // shift left by half so box stays centered on PNG
-                    const box1TopEdgeUpPx = 1  // move top edge up 1px, other edges unchanged
-                    const box1BottomEdgeDownPx = 3  // move bottom edge down 3px, top edge unchanged
-                    const box1BottomEdgeUpPx = 1  // move bottom edge up 1px, top edge unchanged
-                    const box1LeftEdgeLeftPx = 47.5   // move left edge left 47.5px (45 + 2.5)
-                    const box1RightEdgeRightPx = 47.5  // move right edge right 47.5px (45 + 2.5)
+                    const boxMoveDownPx = 34   // move box down 34px from current location
+                    const boxWidthIncreasePx = 180  // increase width by 180px
+                    const boxWidthIncreaseLeftShiftPx = 90  // shift left by half so box stays centered on PNG
+                    const box1TopEdgeUpPx = -1  // move top edge down 2px from prior (was up 1px, now down 1px net)
+                    const box1BottomEdgeDownPx = 4  // move bottom edge down 4px, top edge unchanged
+                    const box1BottomEdgeUpPx = 3  // move bottom edge up 3px, top edge unchanged
+                    const box1LeftEdgeLeftPx = 92.5   // move left edge left 92.5px
+                    const box1RightEdgeRightPx = 92.5  // move right edge right 92.5px
                     
                     // Edge adjustments in pixels
                     const topDownPx = 3    // top edge down 3px
@@ -21987,26 +21987,28 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const bottomUpPx = 4   // bottom edge up 4px
                     const leftRightPx = 2  // left edge to the right 2px
                     
-                    // Convert pixel adjustments to percentages
-                    const topDownPercent = stageHeightPx > 0 ? (topDownPx / stageHeightPx) * 100 : 0
-                    const rightLeftPercent = stageWidthPx > 0 ? (rightLeftPx / stageWidthPx) * 100 : 0
-                    const bottomUpPercent = stageHeightPx > 0 ? (bottomUpPx / stageHeightPx) * 100 : 0
-                    const leftRightPercent = stageWidthPx > 0 ? (leftRightPx / stageWidthPx) * 100 : 0
+                    // Convert pixel adjustments to percentages (use imageNaturalSize so position is fixed on the png)
+                    const imgW = imageNaturalSize.width > 0 ? imageNaturalSize.width : 1
+                    const imgH = imageNaturalSize.height > 0 ? imageNaturalSize.height : 1
+                    const topDownPercent = (topDownPx / imgH) * 100
+                    const rightLeftPercent = (rightLeftPx / imgW) * 100
+                    const bottomUpPercent = (bottomUpPx / imgH) * 100
+                    const leftRightPercent = (leftRightPx / imgW) * 100
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
-                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
-                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                    const boxMoveDownPercent = stageHeightPx > 0 ? (boxMoveDownPx / stageHeightPx) * 100 : 0
-                    const boxWidthIncreasePercent = stageWidthPx > 0 ? (boxWidthIncreasePx / stageWidthPx) * 100 : 0
-                    const boxWidthIncreaseLeftShiftPercent = stageWidthPx > 0 ? (boxWidthIncreaseLeftShiftPx / stageWidthPx) * 100 : 0
-                    const box1TopEdgeUpPercent = stageHeightPx > 0 ? (box1TopEdgeUpPx / stageHeightPx) * 100 : 0
-                    const box1BottomEdgeDownPercent = stageHeightPx > 0 ? (box1BottomEdgeDownPx / stageHeightPx) * 100 : 0
-                    const box1BottomEdgeUpPercent = stageHeightPx > 0 ? (box1BottomEdgeUpPx / stageHeightPx) * 100 : 0
-                    const box1LeftEdgeLeftPercent = stageWidthPx > 0 ? (box1LeftEdgeLeftPx / stageWidthPx) * 100 : 0
-                    const box1RightEdgeRightPercent = stageWidthPx > 0 ? (box1RightEdgeRightPx / stageWidthPx) * 100 : 0
+                    const widthPercentAdjust = (pixelIncrease / imgW) * 100
+                    const heightPercentAdjust = (pixelIncrease / imgH) * 100
+                    const leftOffsetAdjust = (halfPixelIncrease / imgW) * 100
+                    const topOffsetAdjust = (halfPixelIncrease / imgH) * 100
+                    const boxMoveDownPercent = (boxMoveDownPx / imgH) * 100
+                    const boxWidthIncreasePercent = (boxWidthIncreasePx / imgW) * 100
+                    const boxWidthIncreaseLeftShiftPercent = (boxWidthIncreaseLeftShiftPx / imgW) * 100
+                    const box1TopEdgeUpPercent = (box1TopEdgeUpPx / imgH) * 100
+                    const box1BottomEdgeDownPercent = (box1BottomEdgeDownPx / imgH) * 100
+                    const box1BottomEdgeUpPercent = (box1BottomEdgeUpPx / imgH) * 100
+                    const box1LeftEdgeLeftPercent = (box1LeftEdgeLeftPx / imgW) * 100
+                    const box1RightEdgeRightPercent = (box1RightEdgeRightPx / imgW) * 100
                     
                     const leftFromEdges = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent - boxWidthIncreaseLeftShiftPercent - box1LeftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent + boxMoveDownPercent - box1TopEdgeUpPercent)
@@ -32026,14 +32028,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxWidth = 42.30
                     const boxHeight = 6.84
                     const isSelected = page34Box1Selected
-                    const boxMoveDownPx = 20   // move box down 20px from current location
-                    const boxWidthIncreasePx = 100  // increase width by 100px
-                    const boxWidthIncreaseLeftShiftPx = 50  // shift left by half so box stays centered on PNG
-                    const box1TopEdgeUpPx = 1  // move top edge up 1px, other edges unchanged
-                    const box1BottomEdgeDownPx = 3  // move bottom edge down 3px, top edge unchanged
-                    const box1BottomEdgeUpPx = 1  // move bottom edge up 1px, top edge unchanged
-                    const box1LeftEdgeLeftPx = 47.5   // move left edge left 47.5px (45 + 2.5)
-                    const box1RightEdgeRightPx = 47.5  // move right edge right 47.5px (45 + 2.5)
+                    const boxMoveDownPx = 34   // move box down 34px from current location
+                    const boxWidthIncreasePx = 180  // increase width by 180px
+                    const boxWidthIncreaseLeftShiftPx = 90  // shift left by half so box stays centered on PNG
+                    const box1TopEdgeUpPx = -1  // move top edge down 2px from prior (was up 1px, now down 1px net)
+                    const box1BottomEdgeDownPx = 4  // move bottom edge down 4px, top edge unchanged
+                    const box1BottomEdgeUpPx = 3  // move bottom edge up 3px, top edge unchanged
+                    const box1LeftEdgeLeftPx = 92.5   // move left edge left 92.5px
+                    const box1RightEdgeRightPx = 92.5  // move right edge right 92.5px
                     
                     // Edge adjustments in pixels
                     const topDownPx = 3    // top edge down 3px
@@ -32041,26 +32043,28 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const bottomUpPx = 4   // bottom edge up 4px
                     const leftRightPx = 2  // left edge to the right 2px
                     
-                    // Convert pixel adjustments to percentages
-                    const topDownPercent = stageHeightPx > 0 ? (topDownPx / stageHeightPx) * 100 : 0
-                    const rightLeftPercent = stageWidthPx > 0 ? (rightLeftPx / stageWidthPx) * 100 : 0
-                    const bottomUpPercent = stageHeightPx > 0 ? (bottomUpPx / stageHeightPx) * 100 : 0
-                    const leftRightPercent = stageWidthPx > 0 ? (leftRightPx / stageWidthPx) * 100 : 0
+                    // Convert pixel adjustments to percentages (use imageNaturalSize so position is fixed on the png)
+                    const imgW = imageNaturalSize.width > 0 ? imageNaturalSize.width : 1
+                    const imgH = imageNaturalSize.height > 0 ? imageNaturalSize.height : 1
+                    const topDownPercent = (topDownPx / imgH) * 100
+                    const rightLeftPercent = (rightLeftPx / imgW) * 100
+                    const bottomUpPercent = (bottomUpPx / imgH) * 100
+                    const leftRightPercent = (leftRightPx / imgW) * 100
                     
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
-                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
-                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                    const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                    const boxMoveDownPercent = stageHeightPx > 0 ? (boxMoveDownPx / stageHeightPx) * 100 : 0
-                    const boxWidthIncreasePercent = stageWidthPx > 0 ? (boxWidthIncreasePx / stageWidthPx) * 100 : 0
-                    const boxWidthIncreaseLeftShiftPercent = stageWidthPx > 0 ? (boxWidthIncreaseLeftShiftPx / stageWidthPx) * 100 : 0
-                    const box1TopEdgeUpPercent = stageHeightPx > 0 ? (box1TopEdgeUpPx / stageHeightPx) * 100 : 0
-                    const box1BottomEdgeDownPercent = stageHeightPx > 0 ? (box1BottomEdgeDownPx / stageHeightPx) * 100 : 0
-                    const box1BottomEdgeUpPercent = stageHeightPx > 0 ? (box1BottomEdgeUpPx / stageHeightPx) * 100 : 0
-                    const box1LeftEdgeLeftPercent = stageWidthPx > 0 ? (box1LeftEdgeLeftPx / stageWidthPx) * 100 : 0
-                    const box1RightEdgeRightPercent = stageWidthPx > 0 ? (box1RightEdgeRightPx / stageWidthPx) * 100 : 0
+                    const widthPercentAdjust = (pixelIncrease / imgW) * 100
+                    const heightPercentAdjust = (pixelIncrease / imgH) * 100
+                    const leftOffsetAdjust = (halfPixelIncrease / imgW) * 100
+                    const topOffsetAdjust = (halfPixelIncrease / imgH) * 100
+                    const boxMoveDownPercent = (boxMoveDownPx / imgH) * 100
+                    const boxWidthIncreasePercent = (boxWidthIncreasePx / imgW) * 100
+                    const boxWidthIncreaseLeftShiftPercent = (boxWidthIncreaseLeftShiftPx / imgW) * 100
+                    const box1TopEdgeUpPercent = (box1TopEdgeUpPx / imgH) * 100
+                    const box1BottomEdgeDownPercent = (box1BottomEdgeDownPx / imgH) * 100
+                    const box1BottomEdgeUpPercent = (box1BottomEdgeUpPx / imgH) * 100
+                    const box1LeftEdgeLeftPercent = (box1LeftEdgeLeftPx / imgW) * 100
+                    const box1RightEdgeRightPercent = (box1RightEdgeRightPx / imgW) * 100
                     
                     const leftFromEdges = Math.max(0, boxLeft - leftOffsetAdjust + leftRightPercent - boxWidthIncreaseLeftShiftPercent - box1LeftEdgeLeftPercent)
                     const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + topDownPercent + boxMoveDownPercent - box1TopEdgeUpPercent)
