@@ -215,8 +215,8 @@ function InstructorFeedbackSurvey() {
         
         <footer className="footer">
           <div className="footer-content">
-            © 2026 Stage One Education, LLC
-            <span className="footer-version">V26.2</span>
+            © {SITE_CONFIG.copyrightYear} {SITE_CONFIG.companyName}
+            <span className="footer-version">{SITE_CONFIG.version}</span>
           </div>
         </footer>
       </div>
@@ -494,8 +494,8 @@ function InstructorFeedbackSurvey() {
       
       <footer className="footer">
         <div className="footer-content">
-          © 2026 Stage One Education, LLC
-          <span className="footer-version">V26.2</span>
+          © {SITE_CONFIG.copyrightYear} {SITE_CONFIG.companyName}
+          <span className="footer-version">{SITE_CONFIG.version}</span>
         </div>
       </footer>
     </div>
