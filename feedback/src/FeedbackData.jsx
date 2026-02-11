@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Login from './Login'
+import { SITE_CONFIG } from './config'
 
 function FeedbackData() {
   // Authentication state
@@ -3042,8 +3043,8 @@ function FeedbackData() {
       
       <footer className="footer">
         <div className="footer-content">
-          © 2025 Stage One Education, LLC
-          <span className="footer-version">V25.10</span>
+          © 2026 Stage One Education, LLC
+          <span className="footer-version">V26.2</span>
         </div>
       </footer>
       

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { SITE_CONFIG } from './config'
 
 function MechanicalEngineeringFeedbackSurvey() {
   const [formData, setFormData] = useState({
@@ -127,8 +128,8 @@ function MechanicalEngineeringFeedbackSurvey() {
         
         <footer className="footer">
           <div className="footer-content">
-            © 2025 Stage One Education, LLC
-            <span className="footer-version">V25.10</span>
+            © 2026 Stage One Education, LLC
+            <span className="footer-version">V26.2</span>
           </div>
         </footer>
       </div>
@@ -384,8 +385,8 @@ function MechanicalEngineeringFeedbackSurvey() {
       
       <footer className="footer">
         <div className="footer-content">
-          © 2025 Stage One Education, LLC
-          <span className="footer-version">V25.10</span>
+          © 2026 Stage One Education, LLC
+          <span className="footer-version">V26.2</span>
         </div>
       </footer>
     </div>
