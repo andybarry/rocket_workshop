@@ -43,7 +43,7 @@
 
 
 
-.CodeMirror { min-height: 38vh !important; }
+.CodeMirror { min-height: 120px; }
 
 
 
@@ -580,4 +580,33 @@
 .serial-monitor {
   font-family: 'Roboto', sans-serif;
   font-weight: bold; 
+}
+
+/* Small circle with question mark – autonomous section help button */
+.autonomous-help-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #adb5bd;
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1;
+  cursor: pointer;
+  margin-left: 0;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.autonomous-help-btn:hover {
+  background-color: #f05f40;
+  border-color: #f05f40;
+  color: #fff;
 }

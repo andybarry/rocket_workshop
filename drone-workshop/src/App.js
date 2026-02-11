@@ -200,6 +200,7 @@ function App() {
   const [codeText, setCodeText] = React.useState(BASE_CODE);
   const [codeError, setCodeError] = React.useState('');
   const [codeMirrorHeight, setCodeMirrorHeight] = useState('88vh');
+  const [autonomousMirrorHeight, setAutonomousMirrorHeight] = useState('38vh');
   const [showAutonomous, setShowAutonomous] = useState(false);
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
@@ -283,8 +284,11 @@ function App() {
         const autonomousHeight = autonomousTitle.height;
 
         // Recompute the element height with 2 code mirrors and the title
-        const heightAvilable = windowHeight - elementPosition.top - padding - autonomousHeight;
-        elementHeight = heightAvilable / 2;
+        // Give 35% to the top code editor, 65% to the autonomous editor
+        const heightAvailable = windowHeight - elementPosition.top - padding - autonomousHeight;
+        elementHeight = heightAvailable * 0.35;
+        const autonomousEditorHeight = heightAvailable * 0.65;
+        setAutonomousMirrorHeight(`${autonomousEditorHeight}px`);
       }
       let codemirrorSize = `${elementHeight}px`;
       setCodeMirrorHeight(codemirrorSize);
@@ -303,28 +307,35 @@ function App() {
   }, [codeMirrorHeight, showAutonomous]);
 
   useEffect(() => {
-    const element = document.querySelector('.CodeMirror');
+    const applyHeight = (container, height) => {
+      const element = container?.querySelector('.CodeMirror');
+      if (!element) return;
 
-    if (element) {
       const currentStyle = element.getAttribute('style') || '';
-      const minHeightRule = `min-height: ${codeMirrorHeight} !important`;
+      const heightRules = `min-height: ${height} !important; max-height: ${height} !important`;
 
-      // Remove any existing min-height rule and trim excess semicolons
+      // Remove any existing min-height and max-height rules and trim excess semicolons
       let cleanedStyle = currentStyle
         .replace(/min-height:[^;]*;?/gi, '')
+        .replace(/max-height:[^;]*;?/gi, '')
         .split(';')
         .map(s => s.trim())
         .filter(Boolean) // Remove empty strings
         .join('; ');
 
-      // Append new min-height rule correctly
+      // Append new height rules correctly
       const newStyle = cleanedStyle
-        ? `${cleanedStyle}; ${minHeightRule};`
-        : `${minHeightRule};`;
+        ? `${cleanedStyle}; ${heightRules};`
+        : `${heightRules};`;
 
       element.setAttribute('style', newStyle);
-    }
-  }, [codeMirrorHeight]);
+    };
+
+    // Apply main code editor height
+    applyHeight(document.getElementById('codeMirror1'), codeMirrorHeight);
+    // Apply autonomous editor height
+    applyHeight(document.getElementById('codeMirror2'), autonomousMirrorHeight);
+  }, [codeMirrorHeight, autonomousMirrorHeight]);
 
 
   // Effect to save state to localStorage whenever any state changes
@@ -808,12 +819,12 @@ function App() {
         </div>
         <div>
           <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"} resetOnDoubleClick>
-            <div style={{ height: '100%', overflow: 'auto' }}>
-              <Container className="py-3" style={{ backgroundColor: '#F7F7F7' }}>
+            <div style={{ height: '100%', overflow: 'hidden' }}>
+              <Container className="py-3" style={{ backgroundColor: '#F7F7F7', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
 
-                <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace' }}>{connectionError}</span>
-                <Form>
+                <span style={{ fontSize: '150%', color: 'red', fontFamily: 'monospace', flexShrink: 0 }}>{connectionError}</span>
+                <Form style={{ flexShrink: 0 }}>
                   <Button
                     onClick={handleConnect}
                     className="mb-3 connect-serial-button"
@@ -845,8 +856,8 @@ function App() {
                     {isUploading ? 'Uploading...' : 'Upload'}
                   </Button>
                 </Form>
-                <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace' }}><b>{codeError}</b></span>
-                <div id="codeMirror1">
+                <span style={{ color: 'red', fontSize: '125%', fontFamily: 'monospace', flexShrink: 0 }}><b>{codeError}</b></span>
+                <div id="codeMirror1" style={{ flex: '1 1 auto', minHeight: 0, overflow: 'hidden' }}>
                   <CodeMirror
                     value={codeText}
                     className="full-height"
@@ -900,31 +911,40 @@ function App() {
                     }}
                   />
                 </div>
-                <div style={{ display: autonomousDisp, marginTop: '15px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center' }} id="autonomousDiv">
-                    <div style={{ marginBottom: '15px' }}><b>Autonomous Flight Commands</b></div>
-                    <Button
-                      onClick={handleSend}
-                      className="mb-3"
-                      style={{ marginLeft: '20px', ...uploadButtonColor }}
-                      disabled={!isConnected || isUploading}
-                      variant={uploadButtonClass}
+                <div style={{ display: autonomousDisp ? autonomousDisp : 'flex', flexDirection: 'column', flex: '1 1 auto', minHeight: 0, overflow: 'hidden', marginTop: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }} id="autonomousDiv">
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div style={{ marginBottom: '10px' }}><b>Autonomous Flight Commands</b></div>
+                      <Button
+                        onClick={handleSend}
+                        className="mb-3"
+                        style={{ marginLeft: '20px', ...uploadButtonColor }}
+                        disabled={!isConnected || isUploading}
+                        variant={uploadButtonClass}
+                      >
+                        {isUploading ? (
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            style={{ marginRight: '5px' }}
+                          />
+                        ) : null}
+                        {isUploading ? 'Uploading...' : 'Upload'}
+                      </Button>
+                    </div>
+                    <span
+                      className="autonomous-help-btn"
+                      title="View instructions (page 27)"
+                      onClick={() => { if (pageJumpApi?.goToPage) pageJumpApi.goToPage(27); }}
                     >
-                      {isUploading ? (
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          style={{ marginRight: '5px' }} // Optional: to add spacing between spinner and text
-                        />
-                      ) : null}
-                      {isUploading ? 'Uploading...' : 'Upload'}
-                    </Button>
+                      ?
+                    </span>
                   </div>
 
-                  <div id="codeMirror2">
+                  <div id="codeMirror2" style={{ flex: '1 1 auto', minHeight: 0, overflow: 'hidden' }}>
                     <CodeMirrorUncontrolled
                       value={HOLDCOMMAND_CODE}
                       // ref={holdCommandRef}

@@ -2226,7 +2226,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Expose page jump API to parent so it can render the input in the right panel
   useEffect(() => {
     if (onPageJumpSlotReady) {
-      onPageJumpSlotReady({ currentPage, totalPages: pages.length, pageJumpInput, setPageJumpInput, handlePageJump })
+      onPageJumpSlotReady({ currentPage, totalPages: pages.length, pageJumpInput, setPageJumpInput, handlePageJump, goToPage: (n) => { if (n >= 1 && n <= pages.length) setCurrentPage(n - 1) } })
     }
   }, [onPageJumpSlotReady, currentPage, pageJumpInput, pages.length, handlePageJump])
 
