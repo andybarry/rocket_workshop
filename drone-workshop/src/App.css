@@ -352,7 +352,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 28px;
   flex-wrap: nowrap;
 }
 .drone-instructions-panel-wrapper .center-nav-controls .center-nav-page-input {
@@ -388,6 +388,16 @@
   box-sizing: border-box;
   line-height: 1;
   border-radius: 10px;
+}
+/* Drone-instructions: zoom buttons, text, and reset match the gray of Page/Reset (#6c757d) */
+.drone-instructions-panel-wrapper .center-nav-controls .btn-zoom {
+  color: #6c757d;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .zoom-text {
+  color: #6c757d;
+}
+.drone-instructions-panel-wrapper .center-nav-controls .btn-reset {
+  color: #6c757d;
 }
 
 /* App.css (or another global stylesheet) */
