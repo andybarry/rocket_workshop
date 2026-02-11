@@ -521,8 +521,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
   min-width: 0;
 }
 
@@ -572,7 +572,7 @@
   font-size: 13px;
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
-  padding: 0 4px;
+  padding: 0 1px;
   display: inline-block;
 }
 

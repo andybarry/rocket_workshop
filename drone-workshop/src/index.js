@@ -24,13 +24,28 @@ function DroneAppOrRedirect() {
   return <App />;
 }
 
+function DroneInstructionsOrRedirect() {
+  const [isMobile, setIsMobile] = useState(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT_PX);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  if (isMobile === null) return null;
+  if (!isMobile) return <Navigate to="/" replace />;
+  return <DroneInstructionsPage />;
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter basename="/drone">
     <Routes>
       <Route path="/" element={<DroneAppOrRedirect />} />
-      <Route path="/drone-instructions" element={<DroneInstructionsPage />} />
+      <Route path="/drone-instructions" element={<DroneInstructionsOrRedirect />} />
       <Route path="/editor" element={<EditorApp />} />
     </Routes>
   </BrowserRouter>

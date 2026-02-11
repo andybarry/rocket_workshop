@@ -41388,6 +41388,43 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           )}
           {showCenterNavControls && (
             <div className="center-nav-controls">
+              <div className="zoom-controls-row">
+                <button
+                  onClick={handleZoomOut}
+                  disabled={zoom <= 50}
+                  className="btn-modern btn-zoom"
+                  aria-label="Zoom out"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8"/>
+                  </svg>
+                </button>
+                <div className="reset-button-container">
+                  {zoom !== 100 ? (
+                    <button
+                      onClick={handleReset}
+                      className="btn-modern btn-zoom btn-reset"
+                      aria-label="Reset zoom"
+                    >
+                      Reset
+                    </button>
+                  ) : (
+                    <span className="zoom-text">zoom</span>
+                  )}
+                </div>
+                <button
+                  onClick={handleZoomIn}
+                  disabled={zoom >= 300}
+                  className="btn-modern btn-zoom"
+                  aria-label="Zoom in"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v8M8 12h8"/>
+                  </svg>
+                </button>
+              </div>
               <input
                 type="number"
                 min={1}
