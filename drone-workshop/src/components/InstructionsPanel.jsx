@@ -734,7 +734,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (onResetInstructionsReady) {
       onResetInstructionsReady(resetInstructions)
     }
-  }, [onResetInstructionsReady, resetInstructions])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetInstructions])
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -1512,14 +1513,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (onRefresh) {
       onRefresh(handleRefresh)
     }
-  }, [onRefresh, handleRefresh])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleRefresh])
 
   // Expose page select function to parent
   useEffect(() => {
     if (onPageSelect) {
       onPageSelect(handlePageSelect)
     }
-  }, [onPageSelect, handlePageSelect])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handlePageSelect])
 
   // Handler for page 1 button
   const handlePage1Button = () => {
@@ -2228,7 +2231,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (onPageJumpSlotReady) {
       onPageJumpSlotReady({ currentPage, totalPages: pages.length, pageJumpInput, setPageJumpInput, handlePageJump, goToPage: (n) => { if (n >= 1 && n <= pages.length) setCurrentPage(n - 1) } })
     }
-  }, [onPageJumpSlotReady, currentPage, pageJumpInput, pages.length, handlePageJump])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, pageJumpInput, pages.length, handlePageJump])
 
   // Track container size changes to ensure buttons scale correctly with panel resizing
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
