@@ -53,15 +53,15 @@
   justify-content: space-between;/* push heading left, label right     */
   align-items: center;           /* vertical-centre both               */
   background: #f05f40ff;         /* the solid orange you already use   */
-  padding: 0 12px;               /* bit of left/right breathing room   */
+  padding: 4px 12px;             /* vertical + horizontal breathing room */
 }
 
 /* 2.  NEW right-side label */
 .stageone-org {
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
-  font-weight: 600;              /* optional – makes it pop            */
-  letter-spacing: .4px;          /* optional – readability             */
+  font-weight: 600;
+  letter-spacing: .4px;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
 }
@@ -71,20 +71,21 @@
 .stageone-heading {
   margin: 0;
   background-color: #f05f40ff;
-  color: white;      /* Keep your desired color here */
-  font-size: 30px;       /* New text size */
+  color: white;
+  font-size: 19px;
   margin-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 0;
   font-family: 'Roboto', sans-serif;
+  line-height: 1;
 }
 
 .stageone-heading-right {
   margin: 0;
   background-color: #f05f40ff;
-  color: white;      /* Keep your desired color here */
-  font-size: 10px;       /* New text size */
+  color: white;
+  font-size: 10px;
   margin-right: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 0;
 }
 
 /* Make "Stage One Education" bold & uppercase */
@@ -122,18 +123,21 @@
 
 .download-links {
   background-color: #969696;
-  font-size: 13px;
+  font-size: 11px;
+  padding: 1px 12px 1px 17px;
   margin-bottom: 3px;
   font-family: 'Roboto', sans-serif;
-  display: flex;          /* put label + links on a flex row          */
-  align-items: center;    /* vertically center every child in the row */
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
 }
 
 /* For the two links (USB/UART Drivers and Firmware) */
 .download-links a {
   color: white;
   text-decoration: none;
-  margin-left: 20px; /* If you want to keep some spacing as in your inline style */
+  margin-left: 0;
+  margin-right: 20px;
 }
 
 #advanced-mode[type="checkbox"] {

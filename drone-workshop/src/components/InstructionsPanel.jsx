@@ -403,6 +403,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page33ConfettiFiredRef = useRef(false)
   const confettiWrapperRef = useRef(null)
   const confettiCanvasRef = useRef(null)
+  const pageNumbersRef = useRef(null)
+  const pageNumbersDrag = useRef({ isDragging: false, startX: 0, scrollLeft: 0 })
+  const [hoveredPage, setHoveredPage] = useState(null)
+  const hoveredPageTimeout = useRef(null)
+  const arrowScrollInterval = useRef(null)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
   // Function to restore all box states for a completed page
@@ -41535,6 +41540,87 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               {page34NavResetPressedOnce ? 'Confirm Reset' : 'Reset All'}
             </button>
           </div>
+        )}
+        {showZoomControls && (
+        <div className="page-numbers-container">
+          <span className="page-numbers-label">page</span>
+          <button
+            className="page-numbers-arrow page-numbers-arrow-left"
+            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 40 }}
+            onMouseEnter={() => {
+              arrowScrollInterval.current = setInterval(() => {
+                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 1
+              }, 20)
+            }}
+            onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
+            aria-label="Scroll page numbers left"
+          >
+            &#8249;
+          </button>
+          <div
+            className="page-numbers-row"
+            ref={pageNumbersRef}
+            onMouseDown={(e) => {
+              const el = pageNumbersRef.current
+              pageNumbersDrag.current = { isDragging: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft }
+              el.style.cursor = 'grabbing'
+            }}
+            onMouseMove={(e) => {
+              if (!pageNumbersDrag.current.isDragging) return
+              e.preventDefault()
+              const el = pageNumbersRef.current
+              const x = e.pageX - el.offsetLeft
+              el.scrollLeft = pageNumbersDrag.current.scrollLeft - (x - pageNumbersDrag.current.startX)
+            }}
+            onMouseUp={() => {
+              pageNumbersDrag.current.isDragging = false
+              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
+            }}
+            onMouseLeave={() => {
+              pageNumbersDrag.current.isDragging = false
+              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
+            }}
+          >
+            {Array.from({ length: pages.length }, (_, i) => i + 1).map((num) => (
+              <span key={num} className="page-number-wrapper"
+                onMouseEnter={() => {
+                  clearTimeout(hoveredPageTimeout.current)
+                  if (!pageNumbersDrag.current.isDragging) setHoveredPage(num)
+                }}
+                onMouseLeave={() => {
+                  hoveredPageTimeout.current = setTimeout(() => setHoveredPage(null), 150)
+                }}
+              >
+                <button
+                  onClick={() => { if (!pageNumbersDrag.current.isDragging) setCurrentPage(num - 1) }}
+                  className={`btn-page-number ${currentPage === num - 1 ? 'active' : ''}`}
+                  aria-label={`Go to page ${num}`}
+                >
+                  {num}
+                </button>
+              </span>
+            ))}
+          </div>
+          {hoveredPage && (
+            <div className="page-preview-popup">
+              <img src={pages[hoveredPage - 1]} alt={`Page ${hoveredPage} preview`} />
+              <span className="page-preview-label">{hoveredPage}</span>
+            </div>
+          )}
+          <button
+            className="page-numbers-arrow page-numbers-arrow-right"
+            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 40 }}
+            onMouseEnter={() => {
+              arrowScrollInterval.current = setInterval(() => {
+                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 1
+              }, 20)
+            }}
+            onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
+            aria-label="Scroll page numbers right"
+          >
+            &#8250;
+          </button>
+        </div>
         )}
       </div>
     </div>
