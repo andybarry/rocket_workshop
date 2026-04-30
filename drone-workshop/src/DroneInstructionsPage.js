@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import InstructionsPanel from './components/InstructionsPanel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,10 +8,13 @@ function DroneInstructionsPage() {
   const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
   const [pageJumpApi, setPageJumpApi] = useState(null);
 
-  const resetInstructionsOnly = () => {
+  const resetInstructionsOnly = useCallback(() => {
     localStorage.removeItem('droneWorkshopInstructionsState');
     window.location.reload();
-  };
+  }, []);
+
+  const handleResetInstructionsReady = useCallback((fn) => setResetInstructionsFunc(() => fn), []);
+  const handlePageJumpSlotReady = useCallback((api) => setPageJumpApi(api), []);
 
   return (
     <ErrorBoundary>
@@ -76,8 +79,8 @@ function DroneInstructionsPage() {
           editorMode={false}
           showZoomControls={false}
           showCenterNavControls={true}
-          onResetInstructionsReady={(fn) => setResetInstructionsFunc(() => fn)}
-          onPageJumpSlotReady={(api) => setPageJumpApi(api)}
+          onResetInstructionsReady={handleResetInstructionsReady}
+          onPageJumpSlotReady={handlePageJumpSlotReady}
           onResetAll={resetInstructionsOnly}
         />
       </div>

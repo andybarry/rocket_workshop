@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
@@ -217,6 +217,8 @@ function App() {
   const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
   const [pageJumpApi, setPageJumpApi] = useState(null);
   const [resetInstructionsPressedOnce, setResetInstructionsPressedOnce] = useState(false);
+  const handleResetInstructionsReady = useCallback((fn) => setResetInstructionsFunc(() => fn), []);
+  const handlePageJumpSlotReady = useCallback((api) => setPageJumpApi(api), []);
 
   const LOCAL_STORAGE_VERSION = "1.0"
 
@@ -812,8 +814,8 @@ function App() {
         >
           <InstructionsPanel 
             editorMode={false} 
-            onResetInstructionsReady={(fn) => setResetInstructionsFunc(() => fn)}
-            onPageJumpSlotReady={(api) => setPageJumpApi(api)}
+            onResetInstructionsReady={handleResetInstructionsReady}
+            onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}
           />
         </div>
