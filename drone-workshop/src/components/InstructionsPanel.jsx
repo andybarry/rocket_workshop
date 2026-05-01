@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react'
 import './InstructionsPanel.css'
 import page1 from '../assets/images/pages/1.png'
 import page2 from '../assets/images/pages/2.png'
@@ -409,7 +409,60 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const hoveredPageTimeout = useRef(null)
   const arrowScrollInterval = useRef(null)
   const [navBarHovered, setNavBarHovered] = useState(false)
+  const [pagePillHovered, setPagePillHovered] = useState(false)
+  const [pagePillExpandDone, setPagePillExpandDone] = useState(false)
+  const pagePillHoverRef = useRef(false)
+  pagePillHoverRef.current = pagePillHovered
+  const clearPageNumbersArrowAutoscroll = useCallback(() => {
+    if (arrowScrollInterval.current) {
+      clearInterval(arrowScrollInterval.current)
+      arrowScrollInterval.current = null
+    }
+  }, [])
+  /** Hold over ‹ › to scroll the page list; direction -1 = left, +1 = right */
+  const startPageNumbersArrowAutoscroll = useCallback(
+    (direction) => {
+      clearPageNumbersArrowAutoscroll()
+      const el = pageNumbersRef.current
+      if (!el) return
+      const step = 3
+      el.scrollLeft += direction * step
+      arrowScrollInterval.current = setInterval(() => {
+        const row = pageNumbersRef.current
+        if (row) row.scrollLeft += direction * step
+      }, 24)
+    },
+    [clearPageNumbersArrowAutoscroll]
+  )
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
+
+  /** Center the active page in the white row. Uses viewport rects — offsetLeft is wrong for flex children. */
+  const centerActiveInPageNumberRow = useCallback(() => {
+    const row = pageNumbersRef.current
+    if (!row) return
+    if (row.clientWidth < 2) return
+    const activeBtn = row.querySelector('.btn-page-number.active')
+    if (!activeBtn) return
+    const cell = activeBtn.closest('.page-number-wrapper') || activeBtn
+    const rowRect = row.getBoundingClientRect()
+    const cellRect = cell.getBoundingClientRect()
+    const elLeftInScroll = row.scrollLeft + (cellRect.left - rowRect.left)
+    const elCenter = elLeftInScroll + cellRect.width / 2
+    const maxScroll = Math.max(0, row.scrollWidth - row.clientWidth)
+    if (maxScroll < 0.5) return
+    const next = elCenter - row.clientWidth / 2
+    row.scrollLeft = Math.max(0, Math.min(next, maxScroll))
+  }, [])
+
+  /**
+   * After the gray pill's max-width transition (collapse OR expand), update expand-done.
+   * Centering then runs in a layout effect so it sees the new DOM and runs before paint.
+   */
+  const onPagePillMaxWidthTransitionEnd = useCallback((e) => {
+    if (e.target !== e.currentTarget) return
+    if (e.propertyName !== 'max-width') return
+    setPagePillExpandDone(pagePillHoverRef.current)
+  }, [])
 
   // Function to restore all box states for a completed page
   const restoreCompletedPageStates = useCallback((pageIndex) => {
@@ -2240,16 +2293,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, pageJumpInput, pages.length, handlePageJump])
 
-  // Auto-scroll pill to show active page at the left edge when mouse leaves nav bar
+  // On hover leave, hide the surrounding numbers immediately so the collapse animation only shows the active number.
   useEffect(() => {
-    if (!navBarHovered && pageNumbersRef.current) {
-      const container = pageNumbersRef.current
-      const wrappers = container.querySelectorAll('.page-number-wrapper')
-      if (wrappers[currentPage]) {
-        container.scrollLeft = wrappers[currentPage].offsetLeft - container.offsetLeft
-      }
+    if (!pagePillHovered) setPagePillExpandDone(false)
+  }, [pagePillHovered])
+
+  // Whenever the surrounding numbers become visible (.expand-done), or while expanded the active page changes,
+  // synchronously center the active number BEFORE the browser paints. Prevents the 1,2,3 flash on expand.
+  useLayoutEffect(() => {
+    if (pagePillExpandDone) {
+      centerActiveInPageNumberRow()
     }
-  }, [navBarHovered, currentPage])
+  }, [pagePillExpandDone, currentPage, centerActiveInPageNumberRow])
+
+  useEffect(
+    () => () => {
+      clearPageNumbersArrowAutoscroll()
+    },
+    [clearPageNumbersArrowAutoscroll]
+  )
 
   // Track container size changes to ensure buttons scale correctly with panel resizing
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
@@ -41372,6 +41434,85 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         </div>
         <div className="zoom-controls">
           {showZoomControls && (
+          <div className="zoom-page-group">
+          <div
+            className={`page-numbers-container${pagePillExpandDone ? ' expand-done' : ''}`}
+            onPointerEnter={() => setPagePillHovered(true)}
+            onPointerLeave={() => setPagePillHovered(false)}
+            onTransitionEnd={onPagePillMaxWidthTransitionEnd}
+          >
+          <span className="page-numbers-label">page</span>
+          <button
+            className="page-numbers-arrow page-numbers-arrow-left"
+            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 40 }}
+            onPointerEnter={() => { startPageNumbersArrowAutoscroll(-1) }}
+            onPointerLeave={clearPageNumbersArrowAutoscroll}
+            onPointerCancel={clearPageNumbersArrowAutoscroll}
+            aria-label="Scroll page numbers left"
+          >
+            &#8249;
+          </button>
+          <div
+            className="page-numbers-row"
+            ref={pageNumbersRef}
+            onMouseDown={(e) => {
+              const el = pageNumbersRef.current
+              pageNumbersDrag.current = { isDragging: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft }
+              el.style.cursor = 'grabbing'
+            }}
+            onMouseMove={(e) => {
+              if (!pageNumbersDrag.current.isDragging) return
+              e.preventDefault()
+              const el = pageNumbersRef.current
+              const x = e.pageX - el.offsetLeft
+              el.scrollLeft = pageNumbersDrag.current.scrollLeft - (x - pageNumbersDrag.current.startX)
+            }}
+            onMouseUp={() => {
+              pageNumbersDrag.current.isDragging = false
+              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
+            }}
+            onMouseLeave={() => {
+              pageNumbersDrag.current.isDragging = false
+              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
+            }}
+          >
+            {Array.from({ length: pages.length }, (_, i) => i + 1).map((num) => (
+              <span key={num} className="page-number-wrapper"
+                onMouseEnter={() => {
+                  clearTimeout(hoveredPageTimeout.current)
+                  if (!pageNumbersDrag.current.isDragging) setHoveredPage(num)
+                }}
+                onMouseLeave={() => {
+                  hoveredPageTimeout.current = setTimeout(() => setHoveredPage(null), 150)
+                }}
+              >
+                <button
+                  onClick={() => { if (!pageNumbersDrag.current.isDragging) setCurrentPage(num - 1) }}
+                  className={`btn-page-number ${currentPage === num - 1 ? 'active' : ''}`}
+                  aria-label={`Go to page ${num}`}
+                >
+                  {num}
+                </button>
+              </span>
+            ))}
+          </div>
+          {hoveredPage && (
+            <div className="page-preview-popup">
+              <img src={pages[hoveredPage - 1]} alt={`Page ${hoveredPage} preview`} />
+              <span className="page-preview-label">{hoveredPage}</span>
+            </div>
+          )}
+          <button
+            className="page-numbers-arrow page-numbers-arrow-right"
+            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 40 }}
+            onPointerEnter={() => { startPageNumbersArrowAutoscroll(1) }}
+            onPointerLeave={clearPageNumbersArrowAutoscroll}
+            onPointerCancel={clearPageNumbersArrowAutoscroll}
+            aria-label="Scroll page numbers right"
+          >
+            &#8250;
+          </button>
+          </div>
           <div className="zoom-controls-row">
             <button 
               onClick={handleZoomOut}
@@ -41391,7 +41532,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   className="btn-modern btn-zoom btn-reset"
                   aria-label="Reset zoom"
                 >
-                  Reset
+                  reset
                 </button>
               ) : (
                 <span className="zoom-text">zoom</span>
@@ -41408,6 +41549,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 <path d="M12 8v8M8 12h8"/>
               </svg>
             </button>
+          </div>
           </div>
           )}
           {showCenterNavControls && (
@@ -41431,7 +41573,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       className="btn-modern btn-zoom btn-reset"
                       aria-label="Reset zoom"
                     >
-                      Reset
+                      reset
                     </button>
                   ) : (
                     <span className="zoom-text">zoom</span>
@@ -41559,87 +41701,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               {page34NavResetPressedOnce ? 'Confirm Reset' : 'Reset All'}
             </button>
           </div>
-        )}
-        {showZoomControls && (
-        <div className="page-numbers-container">
-          <span className="page-numbers-label">page</span>
-          <button
-            className="page-numbers-arrow page-numbers-arrow-left"
-            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 40 }}
-            onMouseEnter={() => {
-              arrowScrollInterval.current = setInterval(() => {
-                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 2
-              }, 15)
-            }}
-            onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
-            aria-label="Scroll page numbers left"
-          >
-            &#8249;
-          </button>
-          <div
-            className="page-numbers-row"
-            ref={pageNumbersRef}
-            onMouseDown={(e) => {
-              const el = pageNumbersRef.current
-              pageNumbersDrag.current = { isDragging: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft }
-              el.style.cursor = 'grabbing'
-            }}
-            onMouseMove={(e) => {
-              if (!pageNumbersDrag.current.isDragging) return
-              e.preventDefault()
-              const el = pageNumbersRef.current
-              const x = e.pageX - el.offsetLeft
-              el.scrollLeft = pageNumbersDrag.current.scrollLeft - (x - pageNumbersDrag.current.startX)
-            }}
-            onMouseUp={() => {
-              pageNumbersDrag.current.isDragging = false
-              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
-            }}
-            onMouseLeave={() => {
-              pageNumbersDrag.current.isDragging = false
-              if (pageNumbersRef.current) pageNumbersRef.current.style.cursor = 'grab'
-            }}
-          >
-            {Array.from({ length: pages.length }, (_, i) => i + 1).map((num) => (
-              <span key={num} className="page-number-wrapper"
-                onMouseEnter={() => {
-                  clearTimeout(hoveredPageTimeout.current)
-                  if (!pageNumbersDrag.current.isDragging) setHoveredPage(num)
-                }}
-                onMouseLeave={() => {
-                  hoveredPageTimeout.current = setTimeout(() => setHoveredPage(null), 150)
-                }}
-              >
-                <button
-                  onClick={() => { if (!pageNumbersDrag.current.isDragging) setCurrentPage(num - 1) }}
-                  className={`btn-page-number ${currentPage === num - 1 ? 'active' : ''}`}
-                  aria-label={`Go to page ${num}`}
-                >
-                  {num}
-                </button>
-              </span>
-            ))}
-          </div>
-          {hoveredPage && (
-            <div className="page-preview-popup">
-              <img src={pages[hoveredPage - 1]} alt={`Page ${hoveredPage} preview`} />
-              <span className="page-preview-label">{hoveredPage}</span>
-            </div>
-          )}
-          <button
-            className="page-numbers-arrow page-numbers-arrow-right"
-            onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 40 }}
-            onMouseEnter={() => {
-              arrowScrollInterval.current = setInterval(() => {
-                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 2
-              }, 15)
-            }}
-            onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
-            aria-label="Scroll page numbers right"
-          >
-            &#8250;
-          </button>
-        </div>
         )}
       </div>
     </div>

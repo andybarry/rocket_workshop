@@ -805,11 +805,11 @@ function App() {
       893
       401 */}
 
-      <Split initialPrimarySize={"32vw"} minPrimarySize={"250px"} minSecondarySize={"10vw"} resetOnDoubleClick>
+      <Split initialPrimarySize={"32vw"} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick>
         <div style={{
           height: '100%',
           overflow: 'hidden',
-          minWidth: 250,
+          minWidth: 300,
         }}
         >
           <InstructionsPanel 

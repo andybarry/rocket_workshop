@@ -242,10 +242,10 @@
 
 .page-navigation {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto;
   align-items: center;
-  padding: 3px 16px 2px;
+  padding: 4px 8px;
   margin: 10px clamp(8px, 2.5vw, 20px);
   background: rgba(255, 255, 255, 0.98);
   border-radius: 24px;
@@ -270,7 +270,7 @@
   overflow: hidden;
   flex: 1 1 0;
   flex-wrap: nowrap;
-  grid-row: 1 / 3;
+  grid-row: 1;
   grid-column: 1;
 }
 
@@ -282,7 +282,7 @@
   overflow: hidden;
   flex: 1 1 0;
   flex-wrap: nowrap;
-  grid-row: 1 / 3;
+  grid-row: 1;
   grid-column: 3;
 }
 
@@ -447,17 +447,20 @@
   .page-navigation {
     column-gap: clamp(4px, 1.5cqw, 12px);
     row-gap: 0px;
-    padding: clamp(3px, 1cqw, 6px) clamp(8px, 2.5cqw, 16px) clamp(2px, 0.8cqw, 4px);
+    padding: clamp(3px, 1cqw, 6px) 8px clamp(2px, 0.8cqw, 4px);
   }
   .page-navigation .zoom-controls {
     max-width: 100%;
     justify-content: center;
   }
-  .page-navigation .zoom-controls,
-  .page-navigation .zoom-controls-row {
+  .page-navigation .zoom-controls {
     flex-wrap: nowrap;
     min-width: 0;
     flex-shrink: 1;
+  }
+  .page-navigation .zoom-controls-row {
+    flex-wrap: nowrap;
+    flex-shrink: 0;
   }
   /* Back/Next: corner radius scales with button (pill = half height) */
   .page-navigation .btn-nav {
@@ -476,7 +479,7 @@
   }
   .page-navigation .btn-zoom {
     padding: clamp(1px, 0.8cqw, 4px);
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-width: 0;
   }
   .page-navigation .btn-zoom svg {
@@ -510,16 +513,26 @@
   align-items: center;
   min-width: 0;
   flex-shrink: 1;
-  justify-content: flex-start;
+  justify-content: center;
   grid-row: 1;
   grid-column: 2;
   position: relative;
-  top: -3px;
-  background: #f0f1f3;
-  border-radius: 9999px;
-  padding: 0px 0px;
-  width: fit-content;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.zoom-page-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
 }
 
 .zoom-controls-row {
@@ -529,21 +542,46 @@
   justify-content: center;
   padding: 0;
   margin: -1px 0;
+  background: #f0f1f3;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .page-numbers-container {
   display: flex;
   align-items: center;
   gap: 4px;
-  grid-column: 1 / -1;
-  grid-row: 2;
-  justify-self: center;
-  width: 66.66%;
   box-sizing: border-box;
   position: relative;
   background: #f0f1f3;
   border-radius: 9999px;
-  padding: 5px 8px;
+  padding: clamp(1px, 0.8cqw, 4px) 8px;
+  margin: -1px 0;
+  max-width: 88px;
+  min-width: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  transition: max-width 0.3s ease, overflow 0s 0.3s;
+}
+
+.page-numbers-container:hover {
+  max-width: 125px;
+  overflow: visible;
+  transition: max-width 0.3s ease, overflow 0s 0s;
+}
+
+/* Collapsed (and during the expand transition): only show the active page number, centered in the white pill */
+.page-numbers-container:not(.expand-done) .page-numbers-row {
+  justify-content: center;
+  overflow: hidden;
+}
+.page-numbers-container:not(.expand-done) .page-numbers-row .page-number-wrapper {
+  display: none;
+}
+.page-numbers-container:not(.expand-done) .page-numbers-row .page-number-wrapper:has(.btn-page-number.active) {
+  display: flex;
 }
 
 .page-numbers-arrow {
@@ -574,7 +612,9 @@
   align-items: center;
   background: #ffffff;
   border-radius: 9999px;
-  padding: 1px 6px;
+  padding: 0 6px;
+  height: clamp(10px, 3.5cqw, 16px);
+  min-height: clamp(10px, 3.5cqw, 16px);
   overflow-x: auto;
   overflow-y: visible;
   flex-wrap: nowrap;
@@ -614,7 +654,7 @@
   width: 140px;
   background: #fff;
   border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   padding: 4px;
   z-index: 10000;
   pointer-events: none;
@@ -688,6 +728,9 @@
   gap: 6px;
   flex-wrap: nowrap;
   min-width: 0;
+  background: #f0f1f3;
+  border-radius: 9999px;
+  padding: 2px 6px;
 }
 
 .page-jump-input {
@@ -729,6 +772,7 @@
   align-items: center;
   justify-content: center;
   padding: 0 2px;
+  flex-shrink: 0;
 }
 
 .zoom-text {
@@ -737,6 +781,8 @@
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   padding: 0 1px;
+  flex-shrink: 0;
+  white-space: nowrap;
   display: inline-block;
 }
 
