@@ -628,3 +628,30 @@
   border-color: #f05f40;
   color: #fff;
 }
+
+/* Splitter handle hover: subtle darken on the divider track and a more
+   prominent grip tab (no functional changes — drag behavior unchanged) */
+.splitter-handle:hover {
+  background-color: #7a7a7a !important;
+}
+.splitter-handle:hover .splitter-handle-tab,
+.splitter-handle[data-dragging="true"] .splitter-handle-tab {
+  background-color: #7a7a7a !important;
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.30) !important;
+}
+
+/* Allow our custom splitter handle (the dark gray tab) to visually overflow
+   past the narrow divider track on both sides. @geoffcox/react-splitter
+   wraps the renderSplitter content in two divs (.splitter and .full-content)
+   that both have overflow: hidden and the panels next to it (.primary,
+   .secondary) sit above the splitter in the DOM, so we relax overflow on
+   the splitter wrappers and lift the splitter above the panels with z-index. */
+.react-split > .split-container > .splitter {
+  overflow: visible !important;
+  position: relative;
+  z-index: 5;
+}
+.react-split > .split-container > .splitter > .full-content {
+  overflow: visible !important;
+}

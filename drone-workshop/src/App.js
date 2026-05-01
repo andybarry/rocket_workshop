@@ -33,6 +33,74 @@ function isInt(value) {
     !isNaN(parseInt(value, 10));
 }
 
+const renderSplitterHandle = ({ horizontal, dragging }) => {
+  const isVerticalDivider = !horizontal;
+  // Arrow glyphs: vertical divider → left/right arrows; horizontal divider → up/down arrows.
+  const startArrow = isVerticalDivider ? '‹' : '‹';
+  const endArrow = isVerticalDivider ? '›' : '›';
+  return (
+    <div
+      className="splitter-handle"
+      data-dragging={dragging ? 'true' : 'false'}
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: isVerticalDivider ? 'col-resize' : 'row-resize',
+        backgroundColor: dragging ? '#7a7a7a' : '#969696',
+        transition: 'background-color 0.15s ease',
+        overflow: 'visible',
+        zIndex: 5,
+      }}
+    >
+      <div
+        className="splitter-handle-tab"
+        style={{
+          // Tab extends past the divider track on each side for a clear grip.
+          // Vertical divider track is 5px, so tab width = 5 + 5 + 5 = 15px.
+          // Positioned absolutely + centered so it can visually overflow the
+          // narrow divider container without being clipped by flex sizing.
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: isVerticalDivider ? '15px' : '32px',
+          height: isVerticalDivider ? '32px' : '15px',
+          backgroundColor: dragging ? '#7a7a7a' : '#969696',
+          border: '1px solid #7a7a7a',
+          borderRadius: '4px',
+          transition: 'background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease',
+          boxShadow: dragging
+            ? '0 3px 8px rgba(0, 0, 0, 0.30)'
+            : '0 2px 4px rgba(0, 0, 0, 0.20)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexDirection: isVerticalDivider ? 'row' : 'column',
+          color: '#f8f9fa',
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '11px',
+          fontWeight: 700,
+          lineHeight: 1,
+          userSelect: 'none',
+          padding: isVerticalDivider ? '0 1px' : '1px 0',
+          boxSizing: 'border-box',
+        }}
+      >
+        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+          {startArrow}
+        </span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+          {endArrow}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 const firmwareVersionString = "Drone workshop firmware: v"
 
 const getInitialEditableLines = () => {
@@ -809,7 +877,7 @@ function App() {
       401 */}
 
       <div style={{ flex: '1 1 auto', minHeight: 0, position: 'relative' }}>
-      <Split initialPrimarySize={"32vw"} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick>
+      <Split initialPrimarySize={"32vw"} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick splitterSize="3px" renderSplitter={renderSplitterHandle}>
         <div style={{
           height: '100%',
           overflow: 'hidden',
@@ -818,13 +886,14 @@ function App() {
         >
           <InstructionsPanel 
             editorMode={false} 
+            showZoomButtons={false}
             onResetInstructionsReady={handleResetInstructionsReady}
             onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>
-          <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"} resetOnDoubleClick>
+          <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"} resetOnDoubleClick splitterSize="3px" renderSplitter={renderSplitterHandle}>
             <div style={{ height: '100%', overflow: 'hidden' }}>
               <Container className="py-3" style={{ backgroundColor: '#F7F7F7', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 

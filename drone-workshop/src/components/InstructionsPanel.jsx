@@ -119,7 +119,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showCenterNavControls = false }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -390,6 +390,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [dot3Position, setDot3Position] = useState({ x: 50, y: 50 }) // Start at center
   const stageRef = useRef(null)
   const stageFrameRef = useRef(null)
+  // Ref for the .page-container element. Used to measure the *true* available
+  // viewport for the stage. The page-container is flex: 1 of the column layout
+  // so it always represents the panel's visible area, even when its inner
+  // wrapper grows to enable vertical scrolling for an oversized stage.
+  const pageContainerRef = useRef(null)
   const imgRef = useRef(null)
   const boxRef = useRef(null)
   const page8WhiteBoxTimeoutRef = useRef(null)
@@ -2320,25 +2325,40 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [safetyGlassesSize, setSafetyGlassesSize] = useState({ width: 0, height: 0 })
   
   useEffect(() => {
+    // Measure the .page-container (the scrollable viewport) rather than the
+    // .page-stage-frame. The stage-frame can grow vertically when the stage
+    // overflows (zoom 100% with a wide panel that makes the image taller than
+    // the panel), which would create a feedback loop with our container-size
+    // calculation. The page-container is flex: 1 of the column layout, so it
+    // always represents the actual visible panel area regardless of overflow.
+    //
+    // Use clientWidth/clientHeight (not getBoundingClientRect) so the values
+    // exclude the vertical scrollbar's width when one appears — otherwise the
+    // stage would be sized slightly wider than the visible content area and a
+    // spurious horizontal scrollbar would appear.
     const updateContainerSize = () => {
-      if (stageFrameRef.current) {
-        const rect = stageFrameRef.current.getBoundingClientRect()
-        setContainerSize({ width: rect.width, height: rect.height })
+      const target = pageContainerRef.current || stageFrameRef.current
+      if (target) {
+        const width = target.clientWidth || target.getBoundingClientRect().width
+        const height = target.clientHeight || target.getBoundingClientRect().height
+        setContainerSize({ width, height })
       }
     }
-    
+
     updateContainerSize()
-    
+
     const resizeObserver = new ResizeObserver(() => {
       updateContainerSize()
     })
-    
-    if (stageFrameRef.current) {
+
+    if (pageContainerRef.current) {
+      resizeObserver.observe(pageContainerRef.current)
+    } else if (stageFrameRef.current) {
       resizeObserver.observe(stageFrameRef.current)
     }
-    
+
     window.addEventListener('resize', updateContainerSize)
-    
+
     return () => {
       resizeObserver.disconnect()
       window.removeEventListener('resize', updateContainerSize)
@@ -3137,6 +3157,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   let stageWidthPx = 0
   let stageHeightPx = 0
+  let stageAvailableHeightPx = 0
 
   const stageStyle = (() => {
     const baseStyle = { cursor: editorMode ? 'default' : 'default' }
@@ -3145,27 +3166,39 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     const availableWidth = Math.max(containerSize.width - STAGE_FRAME_PADDING, 0)
     const availableHeight = Math.max(containerSize.height - STAGE_FRAME_PADDING, 0)
+    stageAvailableHeightPx = availableHeight
     if (!availableWidth || !availableHeight) {
       return baseStyle
     }
     const aspect = imageAspect || DEFAULT_PAGE_ASPECT
     let stageWidth = availableWidth
     let stageHeight = stageWidth / aspect
-    
-    if (stageHeight > availableHeight) {
+
+    // At standard zoom (100%) the stage always fills the full panel width,
+    // even when the resulting height exceeds the panel height (the user
+    // scrolls vertically). When the user has manually zoomed (+/-), keep the
+    // original fit-to-contain logic so the manual zoom transform behaves
+    // consistently with its scrollable padding.
+    if (zoom !== 100 && stageHeight > availableHeight) {
       stageHeight = availableHeight
       stageWidth = stageHeight * aspect
     }
-    
+
     stageWidthPx = stageWidth
     stageHeightPx = stageHeight
-    
+
     return {
       ...baseStyle,
       width: `${stageWidth}px`,
       height: `${stageHeight}px`
     }
   })()
+
+  // At zoom 100% we hide scrollbars only when the stage actually fits the
+  // panel. Once the stage is taller than the panel (e.g. user widened the
+  // panel), allow vertical scrolling.
+  const stageFitsHeight = stageHeightPx === 0 || stageHeightPx <= stageAvailableHeightPx
+  const noScrollbars = zoom === 100 && stageFitsHeight
   
   // Calculate padding for wrapper when zoomed to create scrollable space
   const wrapperPadding = (() => {
@@ -3194,7 +3227,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const buttonBorderWidth = Math.max(1, Math.min(2, 2 * stageRelativeScale))
 
   return (
-    <div className={`instructions-panel ${zoom === 100 ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
+    <div className={`instructions-panel ${noScrollbars ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
       <div
         ref={confettiWrapperRef}
         className="confetti-overlay"
@@ -3204,7 +3237,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       </div>
       <div className="instructions-background">
         <div className="instructions-content">
-          <div className={`page-container ${zoom === 100 ? 'no-scrollbars' : ''}`}>
+          <div ref={pageContainerRef} className={`page-container ${noScrollbars ? 'no-scrollbars' : ''}`}>
             <div className="page-wrapper" style={wrapperPadding}>
               <div className="page-stage-frame" ref={stageFrameRef}>
                 <div 
@@ -41513,6 +41546,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             &#8250;
           </button>
           </div>
+          {showZoomButtons && (
           <div className="zoom-controls-row">
             <button 
               onClick={handleZoomOut}
@@ -41550,6 +41584,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               </svg>
             </button>
           </div>
+          )}
           </div>
           )}
           {showCenterNavControls && (

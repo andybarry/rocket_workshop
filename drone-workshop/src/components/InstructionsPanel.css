@@ -567,7 +567,7 @@
 }
 
 .page-numbers-container:hover {
-  max-width: 125px;
+  max-width: 220px;
   overflow: visible;
   transition: max-width 0.3s ease, overflow 0s 0s;
 }
