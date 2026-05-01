@@ -408,6 +408,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [hoveredPage, setHoveredPage] = useState(null)
   const hoveredPageTimeout = useRef(null)
   const arrowScrollInterval = useRef(null)
+  const [navBarHovered, setNavBarHovered] = useState(false)
   const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
   // Function to restore all box states for a completed page
@@ -2238,6 +2239,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, pageJumpInput, pages.length, handlePageJump])
+
+  // Auto-scroll pill to show active page at the left edge when mouse leaves nav bar
+  useEffect(() => {
+    if (!navBarHovered && pageNumbersRef.current) {
+      const container = pageNumbersRef.current
+      const wrappers = container.querySelectorAll('.page-number-wrapper')
+      if (wrappers[currentPage]) {
+        container.scrollLeft = wrappers[currentPage].offsetLeft - container.offsetLeft
+      }
+    }
+  }, [navBarHovered, currentPage])
 
   // Track container size changes to ensure buttons scale correctly with panel resizing
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
@@ -41343,7 +41355,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           </div>
         </div>
       </div>
-      <div className="page-navigation">
+      <div className="page-navigation"
+        onMouseEnter={() => setNavBarHovered(true)}
+        onMouseLeave={() => setNavBarHovered(false)}
+      >
         <div className="nav-button-left">
           {currentPage >= 1 && (
             <button 
@@ -41553,8 +41568,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 40 }}
             onMouseEnter={() => {
               arrowScrollInterval.current = setInterval(() => {
-                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 1
-              }, 20)
+                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft -= 2
+              }, 15)
             }}
             onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
             aria-label="Scroll page numbers left"
@@ -41616,8 +41631,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             onClick={() => { if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 40 }}
             onMouseEnter={() => {
               arrowScrollInterval.current = setInterval(() => {
-                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 1
-              }, 20)
+                if (pageNumbersRef.current) pageNumbersRef.current.scrollLeft += 2
+              }, 15)
             }}
             onMouseLeave={() => { clearInterval(arrowScrollInterval.current) }}
             aria-label="Scroll page numbers right"

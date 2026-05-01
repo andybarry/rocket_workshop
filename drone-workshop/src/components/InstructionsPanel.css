@@ -515,6 +515,11 @@
   grid-column: 2;
   position: relative;
   top: -3px;
+  background: #f0f1f3;
+  border-radius: 9999px;
+  padding: 0px 0px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .zoom-controls-row {
@@ -522,6 +527,8 @@
   gap: 1px;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: -1px 0;
 }
 
 .page-numbers-container {
@@ -534,6 +541,9 @@
   width: 66.66%;
   box-sizing: border-box;
   position: relative;
+  background: #f0f1f3;
+  border-radius: 9999px;
+  padding: 5px 8px;
 }
 
 .page-numbers-arrow {
@@ -562,7 +572,7 @@
   display: flex;
   gap: 2px;
   align-items: center;
-  background: #e9ecef;
+  background: #ffffff;
   border-radius: 9999px;
   padding: 1px 6px;
   overflow-x: auto;
@@ -731,7 +741,7 @@
 }
 
 .btn-zoom {
-  padding: 4px;
+  padding: 0px;
   min-width: 0;
   width: auto;
   background: transparent;
@@ -762,7 +772,8 @@
 }
 
 .btn-zoom:hover:not(:disabled) {
-  opacity: 0.7;
+  color: #f05f40;
+  opacity: 1;
 }
 
 .btn-zoom:active:not(:disabled) {
