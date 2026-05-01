@@ -119,7 +119,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, resetSplitOnPageChange = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -2364,6 +2364,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       window.removeEventListener('resize', updateContainerSize)
     }
   }, [currentPage])
+
+  // When navigating to a new page (Next/Previous/page-jump/etc.), reset the
+  // page-container scroll back to the top so the user always sees the new
+  // page from the top — no matter how far they had scrolled on the previous
+  // page when the panel was widened enough to require vertical scrolling.
+  // When `resetSplitOnPageChange` is true (used by the main App's left
+  // panel), also collapse the surrounding @geoffcox/react-splitter divider
+  // back to its initialPrimarySize, exactly as a user double-click on the
+  // divider would do — so each new page is shown at the standard panel
+  // width and the image is re-fit accordingly.
+  useEffect(() => {
+    if (pageContainerRef.current) {
+      pageContainerRef.current.scrollTop = 0
+      pageContainerRef.current.scrollLeft = 0
+    }
+    if (!resetSplitOnPageChange || !pageContainerRef.current) return
+    const reactSplit = pageContainerRef.current.closest('.react-split')
+    if (!reactSplit) return
+    const splitter = reactSplit.querySelector(':scope > .split-container > .splitter')
+    if (!splitter) return
+    splitter.dispatchEvent(new MouseEvent('dblclick', {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    }))
+  }, [currentPage, resetSplitOnPageChange])
 
   // Size confetti canvas to overlay wrapper (left panel only)
   useEffect(() => {

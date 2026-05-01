@@ -213,7 +213,7 @@ const SerialMonitor = ({
       <div style={{ display: 'flex', flexFlow: 'column', height: '100%' }}>
         <div style={{ flex: '0 1 auto' }}>
           <h5>{title}</h5>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', gap: '6px' }}>
             <Form.Check
               type="checkbox"
               label="Autoscroll"
@@ -225,7 +225,14 @@ const SerialMonitor = ({
               variant="outline-primary"
               onClick={onClear}
               size="sm"
-              style={{ color: '#f05f40', borderColor: '#f05f40', backgroundColor: 'transparent' }}
+              style={{
+                color: '#f05f40',
+                borderColor: '#f05f40',
+                backgroundColor: 'transparent',
+                padding: '1px 8px',
+                fontSize: '12px',
+                lineHeight: 1.4,
+              }}
               className="orange-btn"
             >
               Clear
@@ -887,6 +894,7 @@ function App() {
           <InstructionsPanel 
             editorMode={false} 
             showZoomButtons={false}
+            resetSplitOnPageChange={true}
             onResetInstructionsReady={handleResetInstructionsReady}
             onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}
