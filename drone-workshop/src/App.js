@@ -660,6 +660,7 @@ function App() {
   }
 
   const resetAll = () => {
+    localStorage.removeItem('droneWorkshopInstructionsState');
     localStorage.setItem("droneWorkshopState", JSON.stringify([]));
     window.location.reload();
   }
@@ -766,10 +767,12 @@ function App() {
 
   return (
     <ErrorBoundary>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
       <div
         style={{
           alignItems: 'center',
           backgroundColor: "#f05f40ff",
+          flexShrink: 0,
         }}>
 
         <div className="orange-bar">
@@ -782,7 +785,7 @@ function App() {
           <span className="stageone-org">STAGE ONE EDUCATION</span>
         </div>
 
-        <div className="download-links">
+        <div className="download-links" style={{ marginBottom: 0 }}>
           <a
             href="https://stageoneeducation.com/UART-USB-Driver.html"
             target="_blank"
@@ -805,6 +808,7 @@ function App() {
       893
       401 */}
 
+      <div style={{ flex: '1 1 auto', minHeight: 0, position: 'relative' }}>
       <Split initialPrimarySize={"32vw"} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick>
         <div style={{
           height: '100%',
@@ -819,7 +823,7 @@ function App() {
             onResetAll={resetAllAndInstructions}
           />
         </div>
-        <div>
+        <div style={{ height: '100%', overflow: 'hidden' }}>
           <Split initialPrimarySize={"60%"} minPrimarySize={"10%"} minSecondarySize={"10%"} resetOnDoubleClick>
             <div style={{ height: '100%', overflow: 'hidden' }}>
               <Container className="py-3" style={{ backgroundColor: '#F7F7F7', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -969,74 +973,36 @@ function App() {
                 </div>
               </Container >
             </div>
-            <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'auto', padding: '10px' }}>
-              <div className="serial-monitor">
+            <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'hidden', padding: '10px', boxSizing: 'border-box' }}>
+              <div className="serial-monitor" style={{ flexShrink: 0 }}>
                 <h4>Serial Monitor</h4>
-              </div>              <SerialMonitor
-                data={data}
-                autoScroll={autoScroll}
-                onAutoScrollChange={handleCheckboxChange}
-                onClear={handleClearSerialData}
-                height="100%"
-                title=""
-              />
-              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
-                <a className="gear-icon" onClick={handleAdminDialogOpen}>
-                  <FontAwesomeIcon icon={faCog} />
-                </a>
-                {resetInstructionsFunc && (
-                  resetInstructionsPressedOnce ? (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => {
-                        resetInstructionsFunc();
-                        setResetInstructionsPressedOnce(false);
-                      }}
-                      className="right-panel-action-btn"
-                    >
-                      Confirm Reset
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline-secondary"
-                      size="sm"
-                      onClick={() => {
-                        setResetInstructionsPressedOnce(true);
-                        setTimeout(() => setResetInstructionsPressedOnce(false), 5000);
-                      }}
-                      className="right-panel-action-btn"
-                    >
-                      Reset Instructions
-                    </Button>
-                  )
-                )}
+              </div>
+              <div style={{ flex: '1 1 auto', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+                <SerialMonitor
+                  data={data}
+                  autoScroll={autoScroll}
+                  onAutoScrollChange={handleCheckboxChange}
+                  onClear={handleClearSerialData}
+                  height="100%"
+                  title=""
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap', flexShrink: 0 }}>
                 <ResetAllButton
                   callback={resetAll}
                   size="sm"
-                  label="Reset Code"
+                  label="Reset"
                 />
-                {pageJumpApi && (
-                  <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <input
-                      id="right-panel-page-jump"
-                      type="number"
-                      min={1}
-                      max={pageJumpApi.totalPages}
-                      placeholder="Page"
-                      value={pageJumpApi.pageJumpInput}
-                      onChange={(e) => pageJumpApi.setPageJumpInput(e.target.value)}
-                      onKeyDown={(e) => { if (e.key === 'Enter') pageJumpApi.handlePageJump(e); }}
-                      className="right-panel-page-jump"
-                      aria-label="Jump to page number"
-                    />
-                  </span>
-                )}
+                <a className="gear-icon" onClick={handleAdminDialogOpen}>
+                  <FontAwesomeIcon icon={faCog} />
+                </a>
               </div>
             </div>
           </Split>
         </div>
       </Split >
+      </div>
+      </div>
 
       <Modal
         show={showAdminDialog}
