@@ -655,3 +655,133 @@
 .react-split > .split-container > .splitter > .full-content {
   overflow: visible !important;
 }
+
+/* Page 1 "Start" button — modern primary-action styling.
+   Scope: only the active (not visited / not returning from page 2) state is restyled.
+   Size, position, and zoom-scaling (transform) are still driven by inline styles. */
+.page-start-button {
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.page-start-button:not(.disabled):not(.returning-from-page2) {
+  background: linear-gradient(180deg, #2f86ff 0%, #0d6efd 55%, #0a58ca 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(10, 88, 202, 0.9) !important;
+  box-shadow:
+    0 2px 6px rgba(13, 110, 253, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+  animation: page-start-pulse 2.4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* Subtle periodic "shine" sweep — a soft, wide highlight that fades up
+   in the middle of its travel and fades back out before reaching the far
+   edge. The wide gradient (0% → 50% → 100% across the whole element) and
+   the opacity fade make it read as a brief glow rather than a stripe
+   crossing the button. Most of the cycle is idle (rest state). */
+.page-start-button:not(.disabled):not(.returning-from-page2)::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 80%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%) skewX(-8deg);
+  opacity: 0;
+  animation: page-start-shine 9s ease-in-out infinite;
+}
+
+.page-start-button:not(.disabled):not(.returning-from-page2):hover {
+  background: linear-gradient(180deg, #4a96ff 0%, #1f7cff 55%, #0d6efd 100%) !important;
+  box-shadow:
+    0 3px 9px rgba(13, 110, 253, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  filter: brightness(1.04);
+  animation-play-state: paused;
+}
+
+.page-start-button:not(.disabled):not(.returning-from-page2):active {
+  background: linear-gradient(180deg, #0a58ca 0%, #084298 100%) !important;
+  box-shadow:
+    0 1px 3px rgba(13, 110, 253, 0.20),
+    inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  filter: brightness(0.97);
+}
+
+.page-start-button:not(.disabled):not(.returning-from-page2):focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(13, 110, 253, 0.25),
+    0 2px 6px rgba(13, 110, 253, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+@keyframes page-start-pulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 6px rgba(13, 110, 253, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.20);
+  }
+  50% {
+    box-shadow:
+      0 3px 10px rgba(13, 110, 253, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+}
+
+/* Shine sweep: drifts continuously from left to right over the first
+   ~45% of the cycle, but only becomes visible during the middle of that
+   travel — invisible during entry, fades up while crossing the button,
+   fades back down before reaching the far edge, then rests. This avoids
+   the "line entering and leaving an edge" look. */
+@keyframes page-start-shine {
+  0% {
+    transform: translateX(-100%) skewX(-8deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(180%) skewX(-8deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(180%) skewX(-8deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-start-button:not(.disabled):not(.returning-from-page2) {
+    animation: none;
+  }
+  .page-start-button:not(.disabled):not(.returning-from-page2)::before {
+    animation: none;
+    display: none;
+  }
+}

@@ -1165,6 +1165,91 @@
   fill: white !important;
 }
 
+/* ──────────────────────────────────────────────────────────────────────
+   Speech-bubble "start action" button — modern primary-action styling
+   that follows the page 1 Start button theme. Reusable across pages
+   (currently used on page 2 and page 3). Only the active (not visited)
+   state is restyled; the selected/orange state is left untouched. */
+
+/* Soft blue drop-shadow halo. Uses filter (not box-shadow) so the glow
+   follows the rounded pill shape painted by the SVG, not a rectangle. */
+.start-action-bubble:not(.has-selected) .speech-bubble-svg {
+  filter:
+    drop-shadow(0 2px 6px rgba(13, 110, 253, 0.22))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+/* Slightly more pronounced border pulse than the default speech-bubble
+   pulse. Stroke color stays at the brand blue (#0d6efd) from the SVG's
+   inline attribute. */
+.start-action-bubble:not(.has-selected) .speech-bubble-border {
+  animation: start-action-border-pulse 3s ease-in-out infinite;
+}
+
+@keyframes start-action-border-pulse {
+  0%, 100% { stroke-width: 1.2; }
+  50%      { stroke-width: 2.0; }
+}
+
+/* Hover: thicker border, pulse paused — same pattern as the page 1 button. */
+.start-action-bubble:not(.has-selected) .speech-bubble-box:hover ~ .speech-bubble-svg .speech-bubble-border {
+  stroke-width: 2.2;
+  animation: none;
+}
+
+/* Periodic subtle shine, mirroring the page 1 Start button. Tinted blue
+   (instead of white) because the button has a white veil — a white shine
+   on white is invisible. The ::after inherits border-radius from the
+   wrapper so its gradient is clipped to the same shape as the SVG box
+   (pill on page 2, rounded rectangle on page 3, etc.) — avoids needing
+   overflow:hidden on the wrapper, which would risk clipping the stroke. */
+.start-action-bubble:not(.has-selected)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    rgba(13, 110, 253, 0) 0%,
+    rgba(13, 110, 253, 0.14) 50%,
+    rgba(13, 110, 253, 0) 100%
+  );
+  background-size: 220% 100%;
+  background-position: -110% 0;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: start-action-shine 9s ease-in-out infinite;
+  z-index: 12;
+}
+
+@keyframes start-action-shine {
+  0% {
+    background-position: -110% 0;
+    opacity: 0;
+  }
+  10% { opacity: 0; }
+  22% { opacity: 1; }
+  33% { opacity: 1; }
+  45% {
+    background-position: 210% 0;
+    opacity: 0;
+  }
+  100% {
+    background-position: 210% 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .start-action-bubble:not(.has-selected) .speech-bubble-border {
+    animation: none;
+  }
+  .start-action-bubble:not(.has-selected)::after {
+    display: none;
+  }
+}
+
 /* Page 24 premium button hover effect - increase blue glow */
 .page24-premium-button {
   transition: box-shadow 0.2s ease;

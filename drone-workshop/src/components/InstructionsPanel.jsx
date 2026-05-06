@@ -1,19 +1,19 @@
 import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react'
 import './InstructionsPanel.css'
-import page1 from '../assets/images/pages/1.png'
-import page2 from '../assets/images/pages/2.png'
-import page3 from '../assets/images/pages/3.png'
-import page4 from '../assets/images/pages/4.png'
+import page1 from '../assets/images/pages/1.svg'
+import page2 from '../assets/images/pages/2.svg'
+import page3 from '../assets/images/pages/3.svg'
+import page4 from '../assets/images/pages/4.svg'
 import page5 from '../assets/images/pages/5.png'
 import page5_1 from '../assets/images/pages/5.1.png'
-import page6 from '../assets/images/pages/6.png'
-import page7 from '../assets/images/pages/7.png'
-import page7_1 from '../assets/images/pages/7.1.png'
-import page8 from '../assets/images/pages/8.png'
+import page6 from '../assets/images/pages/6.svg'
+import page7 from '../assets/images/pages/7.svg'
+import page7_1 from '../assets/images/pages/7.1.svg'
+import page8 from '../assets/images/pages/8.svg'
 import page8_1 from '../assets/images/pages/8.1.png'
-import page9 from '../assets/images/pages/9.png'
-import page10 from '../assets/images/pages/10.png'
-import page10_1 from '../assets/images/pages/10.1.png'
+import page9 from '../assets/images/pages/9.svg'
+import page10 from '../assets/images/pages/10.svg'
+import page10_1 from '../assets/images/pages/10.1.svg'
 import page11 from '../assets/images/pages/11.png'
 import page12 from '../assets/images/pages/12.png'
 import page12_1 from '../assets/images/pages/12.1.png'
@@ -874,10 +874,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     // For page 1 (index 1), require button click only on first visit
     if (currentPage === 1 && !visitedPages.has(1)) {
-      return
-    }
-    // For page 3 (index 2), require both buttons to be clicked
-    if (currentPage === 2 && (!page3ButtonClicked || !page3SecondButtonClicked)) {
       return
     }
     // For page 5 (index 4), require green active button to be selected
@@ -3353,16 +3349,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const buttonHeight = 3.86
                     const pixelIncrease = 3
                     const halfPixelIncrease = pixelIncrease / 2
+                    const topEdgeUpPx = 1
                     const isDisabled = visitedPages.has(0)
                     const startFontSize = Math.min(24, Math.max(8, 24 * stageRelativeScale))
                     const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
                     const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
                     const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
                     const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const topEdgeUpPercent = stageHeightPx > 0 ? (topEdgeUpPx / stageHeightPx) * 100 : 0
                     const adjustedLeft = Math.max(0, buttonLeft - leftOffsetAdjust)
-                    const adjustedTop = Math.max(0, buttonTop - topOffsetAdjust)
+                    const adjustedTop = Math.max(0, buttonTop - topOffsetAdjust - topEdgeUpPercent)
                     const expandedWidth = Math.min(100 - adjustedLeft, buttonWidth + widthPercentAdjust)
-                    const expandedHeight = Math.min(100 - adjustedTop, buttonHeight + heightPercentAdjust)
+                    const expandedHeight = Math.min(100 - adjustedTop, buttonHeight + heightPercentAdjust + topEdgeUpPercent)
                     const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
                     const buttonWidthPx = stageWidthPx > 0 ? (expandedWidth / 100) * stageWidthPx : 0
                     const displayWidthPx = buttonWidthPx * (zoom / 100)
@@ -3464,8 +3462,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div 
-                        className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`}
-                        style={buttonStyle}
+                        className={`speech-bubble-wrapper start-action-bubble ${isSelected ? 'has-selected' : ''}`}
+                        style={{
+                          ...buttonStyle,
+                          borderRadius: `${borderRadiusWrapperX}% / ${borderRadiusWrapperY}%`
+                        }}
                       >
                         <div
                           className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
@@ -36985,8 +36986,153 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Page 3 large user selection box — 500px x 500px centered, same format/style as the page 2 button.
+                      Hidden entirely once selected (instead of switching to the orange selected state). */}
+                  {currentPage === 2 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && !visitedPages.has(2) && (() => {
+                    const isSelected = false
+
+                    // Base 500x500 centered, then per-edge adjustments (in image-natural
+                    // pixels) to fine-tune size and location on the underlying image.
+                    const imgW = imageNaturalSize.width > 0 ? imageNaturalSize.width : 1
+                    const imgH = imageNaturalSize.height > 0 ? imageNaturalSize.height : 1
+                    const baseSizePx = 500
+                    const topEdgeDownPx = 177      // top edge moves DOWN
+                    const bottomEdgeDownPx = 179   // bottom edge moves DOWN
+                    const leftEdgeLeftPx = 64      // left edge moves LEFT
+                    const rightEdgeRightPx = 65    // right edge moves RIGHT
+
+                    const baseLeftPx = (imgW - baseSizePx) / 2
+                    const baseTopPx = (imgH - baseSizePx) / 2
+                    const finalLeftPx = baseLeftPx - leftEdgeLeftPx
+                    const finalTopPx = baseTopPx + topEdgeDownPx
+                    const finalWidthPx = baseSizePx + leftEdgeLeftPx + rightEdgeRightPx
+                    const finalHeightPx = baseSizePx - topEdgeDownPx + bottomEdgeDownPx
+
+                    const adjustedLeft = (finalLeftPx / imgW) * 100
+                    const adjustedTop = (finalTopPx / imgH) * 100
+                    const widthPercent = Math.min(100, (finalWidthPx / imgW) * 100)
+                    const heightPercent = Math.min(100, (finalHeightPx / imgH) * 100)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, widthPercent, heightPercent)
+
+                    // 20px corner radius in image-natural pixels — scales with the
+                    // box (consistent with the edge adjustments above) so corners
+                    // stay proportional at any panel width or zoom.
+                    const borderRadiusPx = 20
+                    const borderRadiusWrapperX = Math.min(finalWidthPx > 0 ? (borderRadiusPx / finalWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(finalHeightPx > 0 ? (borderRadiusPx / finalHeightPx) * 100 : 0, 50)
+
+                    const topY = 0
+                    const bottomY = 100
+
+                    const roundedRectPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      L ${100 - borderRadiusWrapperX},${topY}
+                      Q 100,${topY} 100,${borderRadiusWrapperY}
+                      L 100,${100 - borderRadiusWrapperY}
+                      Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY}
+                      L ${borderRadiusWrapperX},${bottomY}
+                      Q 0,${bottomY} 0,${100 - borderRadiusWrapperY}
+                      L 0,${borderRadiusWrapperY}
+                      Q 0,${topY} ${borderRadiusWrapperX},${topY}
+                      Z
+                    `
+
+                    const leftBorderPath = `
+                      M ${borderRadiusWrapperX},${topY}
+                      Q 0,${topY} 0,${borderRadiusWrapperY}
+                      L 0,${100 - borderRadiusWrapperY}
+                      Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}
+                    `
+                    const rightBorderPath = `
+                      M ${100 - borderRadiusWrapperX},${topY}
+                      Q 100,${topY} 100,${borderRadiusWrapperY}
+                      L 100,${100 - borderRadiusWrapperY}
+                      Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY}
+                    `
+                    const topBorderPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY}`
+                    const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
+
+                    return (
+                      <div
+                        className={`speech-bubble-wrapper start-action-bubble ${isSelected ? 'has-selected' : ''}`}
+                        style={{
+                          ...buttonStyle,
+                          borderRadius: `${borderRadiusWrapperX}% / ${borderRadiusWrapperY}%`
+                        }}
+                      >
+                        <div
+                          className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`}
+                          onClick={!isSelected ? () => setVisitedPages(prev => new Set(prev).add(2)) : undefined}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: isSelected ? 'none' : 'auto',
+                            cursor: isSelected ? 'default' : 'pointer',
+                            zIndex: 11
+                          }}
+                        />
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path
+                            d={roundedRectPath}
+                            fill={isSelected ? "transparent" : "rgba(255, 255, 255, 0.95)"}
+                          />
+                          <g className="speech-bubble-border-group">
+                            <path
+                              d={leftBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={rightBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={topBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                            <path
+                              d={bottomBorderPath}
+                              fill="none"
+                              stroke={isSelected ? "#f05f40" : "#0d6efd"}
+                              strokeWidth={isSelected ? "2" : "1"}
+                              className="speech-bubble-border"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                    )
+                  })()}
                   {/* Speech bubble button on page 3 (3.png) */}
-                  {currentPage === 2 && !editorMode && (() => {
+                  {false && currentPage === 2 && !editorMode && (() => {
                     // Speech bubble dimensions from provided data
                     const bubbleLeft = 9.81
                     const bubbleTop = 30.42
@@ -37251,7 +37397,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Second speech bubble button on page 3 (3.png) - appears after connect to power is clicked or when returning after second button */}
-                  {currentPage === 2 && !editorMode && (page3ButtonClicked || returningToPage3AfterSecondButton) && (() => {
+                  {false && currentPage === 2 && !editorMode && (page3ButtonClicked || returningToPage3AfterSecondButton) && (() => {
                     // Speech bubble dimensions from provided data
                     const bubble2Left = 62.30
                     const bubble2Top = 33.73
@@ -37518,7 +37664,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White boxes on page 3 (3.png) - hide when first box is selected or when returning after second button */}
-                  {currentPage === 2 && !editorMode && !page3ButtonClicked && !returningToPage3AfterSecondButton && (() => {
+                  {false && currentPage === 2 && !editorMode && !page3ButtonClicked && !returningToPage3AfterSecondButton && (() => {
                     // Box 1: Left: 6.88%, Top: 41.74%, Width: 86.24%, Height: 54.35%
                     const page3Box1Style = getButtonStyle(6.88, 41.74, 86.24, 54.35)
                     const page3Box1ExpandedStyle = {
@@ -37553,7 +37699,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White box with rounded corners on page 3 (3.png) - hide when second button is selected or when returning */}
-                  {currentPage === 2 && !editorMode && !page3SecondButtonClicked && !returningToPage3AfterSecondButton && (() => {
+                  {false && currentPage === 2 && !editorMode && !page3SecondButtonClicked && !returningToPage3AfterSecondButton && (() => {
                     // Box: Left: 12.51%, Top: 43.83%, Width: 75.20%, Height: 46.69%
                     const page3Box3Style = getButtonStyle(12.51, 43.83, 75.20, 46.69)
                     // Calculate border radius - increased for more rounded corners
