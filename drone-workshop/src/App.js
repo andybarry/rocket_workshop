@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -12,6 +11,7 @@ import { ResetAllButton } from "./ResetAllButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import InstructionsPanel from './components/InstructionsPanel';
+import EditorPanel from './components/EditorPanel';
 
 
 // Import search-related addons
@@ -291,6 +291,10 @@ function App() {
   const passwordInputRef = useRef(null);
   const [resetInstructionsFunc, setResetInstructionsFunc] = useState(null);
   const [pageJumpApi, setPageJumpApi] = useState(null);
+  const [editorMode, setEditorMode] = useState(false);
+  const [capturedDimensions, setCapturedDimensions] = useState(null);
+  const refreshHandlerRef = useRef(null);
+  const pageSelectHandlerRef = useRef(null);
   const [resetInstructionsPressedOnce, setResetInstructionsPressedOnce] = useState(false);
   const handleResetInstructionsReady = useCallback((fn) => setResetInstructionsFunc(() => fn), []);
   const handlePageJumpSlotReady = useCallback((api) => setPageJumpApi(api), []);
@@ -892,12 +896,15 @@ function App() {
         }}
         >
           <InstructionsPanel 
-            editorMode={false} 
+            editorMode={editorMode} 
             showZoomButtons={false}
             resetSplitOnPageChange={true}
             onResetInstructionsReady={handleResetInstructionsReady}
             onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}
+            onDimensionsCapture={setCapturedDimensions}
+            onRefresh={(handler) => { refreshHandlerRef.current = handler; }}
+            onPageSelect={(handler) => { pageSelectHandlerRef.current = handler; }}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>
@@ -1050,31 +1057,43 @@ function App() {
                 </div>
               </Container >
             </div>
-            <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'hidden', padding: '10px', boxSizing: 'border-box' }}>
-              <div className="serial-monitor" style={{ flexShrink: 0 }}>
-                <h4>Serial Monitor</h4>
-              </div>
-              <div style={{ flex: '1 1 auto', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-                <SerialMonitor
-                  data={data}
-                  autoScroll={autoScroll}
-                  onAutoScrollChange={handleCheckboxChange}
-                  onClear={handleClearSerialData}
-                  height="100%"
-                  title=""
+            {editorMode ? (
+              <div style={{ height: '100%', overflow: 'auto', backgroundColor: '#F7F7F7' }}>
+                <EditorPanel
+                  editorMode={editorMode}
+                  onToggleEditorMode={setEditorMode}
+                  dimensions={capturedDimensions}
+                  onRefresh={() => refreshHandlerRef.current?.()}
+                  onPageSelect={(...args) => pageSelectHandlerRef.current?.(...args)}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap', flexShrink: 0 }}>
-                <ResetAllButton
-                  callback={resetAll}
-                  size="sm"
-                  label="Reset"
-                />
-                <a className="gear-icon" onClick={handleAdminDialogOpen}>
-                  <FontAwesomeIcon icon={faCog} />
-                </a>
+            ) : (
+              <div style={{ display: 'flex', flexFlow: 'column', height: '100%', backgroundColor: '#F7F7F7', overflow: 'hidden', padding: '10px', boxSizing: 'border-box' }}>
+                <div className="serial-monitor" style={{ flexShrink: 0 }}>
+                  <h4>Serial Monitor</h4>
+                </div>
+                <div style={{ flex: '1 1 auto', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+                  <SerialMonitor
+                    data={data}
+                    autoScroll={autoScroll}
+                    onAutoScrollChange={handleCheckboxChange}
+                    onClear={handleClearSerialData}
+                    height="100%"
+                    title=""
+                  />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginTop: '10px', flexWrap: 'wrap', flexShrink: 0 }}>
+                  <ResetAllButton
+                    callback={resetAll}
+                    size="sm"
+                    label="Reset"
+                  />
+                  <a className="gear-icon" onClick={handleAdminDialogOpen}>
+                    <FontAwesomeIcon icon={faCog} />
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </Split>
         </div>
       </Split >
@@ -1093,21 +1112,26 @@ function App() {
         <Modal.Header closeButton className="text-orange">
           <Modal.Title style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             Admin Tools
-            <Link 
-              to="/editor" 
-              style={{ 
+            <button
+              type="button"
+              style={{
                 padding: '6px 14px',
                 backgroundColor: '#0d6efd',
                 color: 'white',
                 textDecoration: 'none',
                 borderRadius: '6px',
                 fontWeight: '500',
-                fontSize: '14px'
+                fontSize: '14px',
+                border: 'none',
+                cursor: 'pointer'
               }}
-              onClick={handleAdminDialogClose}
+              onClick={() => {
+                setEditorMode(true);
+                handleAdminDialogClose();
+              }}
             >
               Editor
-            </Link>
+            </button>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

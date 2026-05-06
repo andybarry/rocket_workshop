@@ -24,6 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "fix-page-svgs": "node scripts/fix-page-svgs.js",
+    "prestart": "node scripts/fix-page-svgs.js",
+    "prebuild": "node scripts/fix-page-svgs.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

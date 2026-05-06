@@ -316,6 +316,7 @@
   /* Widen center column so all controls fit on one line */
   grid-template-columns: auto 1fr auto;
 }
+
 .drone-instructions-panel-wrapper .page-container {
   padding-bottom: 56px;
 }

@@ -260,6 +260,67 @@
   container-type: inline-size;
   container-name: page-nav;
   overflow: visible;
+  position: relative;
+}
+
+/* Floating tab anchored to the top edge of the .page-navigation pill.
+   Sits seamlessly above the nav, centered horizontally above the page pill. */
+.page-navigation .wiring-diagram-tab {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  margin: 0;
+  padding: 0 10px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  color: #ffffff;
+  background: linear-gradient(180deg, #2f86ff 0%, #0d6efd 55%, #0a58ca 100%);
+  border: 1px solid rgba(10, 88, 202, 0.9);
+  border-bottom: none;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* Pulled down 1px so the tab's bottom border merges into the nav's top edge with no seam */
+  margin-bottom: -1px;
+  /* Match the nav's soft halo (subtle outward glow) for visual continuity */
+  box-shadow:
+    0 -2px 8px rgba(13, 110, 253, 0.18),
+    0 0 6px rgba(240, 95, 64, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: background 200ms ease, filter 200ms ease, box-shadow 200ms ease;
+}
+.page-navigation .wiring-diagram-tab:hover {
+  background: linear-gradient(180deg, #4a96ff 0%, #1f7cff 55%, #0d6efd 100%);
+  box-shadow:
+    0 -3px 10px rgba(13, 110, 253, 0.26),
+    0 0 8px rgba(240, 95, 64, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
+  filter: brightness(1.04);
+}
+.page-navigation .wiring-diagram-tab:active {
+  background: linear-gradient(180deg, #0a58ca 0%, #084298 100%);
+  box-shadow:
+    0 -1px 4px rgba(13, 110, 253, 0.20),
+    inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  filter: brightness(0.97);
 }
 
 .nav-button-left {
