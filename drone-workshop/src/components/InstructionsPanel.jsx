@@ -3393,16 +3393,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         className={`page-start-button ${isDisabled ? 'disabled' : ''} ${isDisabled ? 'selected' : ''} ${returningFromPage2 ? 'returning-from-page2' : ''}`}
                         style={{
                           ...expandedButtonStyle,
-                          backgroundColor: 'white',
-                          color: returningFromPage2 ? '#f05f40' : '#0d6efd',
                           cursor: isDisabled ? 'default' : 'pointer',
                           fontSize: `${startFontSize}px`,
-                          fontFamily: 'Roboto, sans-serif',
-                          border: returningFromPage2 ? '2px solid #f05f40' : undefined
+                          fontFamily: 'Roboto, sans-serif'
                         }}
                         aria-label="Start"
                       >
-                        Start
+                        <span className="page-start-button-label">Start</span>
                       </button>
                     )
                   })()}
@@ -40111,194 +40108,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Hide Wiring Diagram" button on 7.1.png - same box and text scaling as page 5 Show Connections */}
-                      {(() => {
-                        const boxWidth = 18
-                        const boxHeight = 3
-                        const pixelIncrease = 3
-                        const halfPixelIncrease = pixelIncrease / 2
-                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
-                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
-                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
-                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
-                        const widthExpansionPx = 30
-                        const widthExpansionPercent = imageNaturalSize.width > 0 ? (widthExpansionPx / imageNaturalSize.width) * 100 : 0
-                        const heightReductionPx = 7
-                        const heightReductionPercent = imageNaturalSize.height > 0 ? (heightReductionPx / imageNaturalSize.height) * 100 : 0
-                        const bottomOffsetPx = 24
-                        const bottomOffsetPercent = imageNaturalSize.height > 0 ? (bottomOffsetPx / imageNaturalSize.height) * 100 : 0
-                        const edgeExpansionPx = 1
-                        const bottomExtraPx = 4
-                        const boxDownShiftPx = 2
-                        const widthExpansion1pxPercent = imageNaturalSize.width > 0 ? (2 * edgeExpansionPx / imageNaturalSize.width) * 100 : 0
-                        const heightExpansion1pxPercent = imageNaturalSize.height > 0 ? ((2 * edgeExpansionPx + bottomExtraPx) / imageNaturalSize.height) * 100 : 0
-                        const topShiftPercent = imageNaturalSize.height > 0 ? (edgeExpansionPx / imageNaturalSize.height) * 100 : 0
-                        const boxDownShiftPercent = imageNaturalSize.height > 0 ? (boxDownShiftPx / imageNaturalSize.height) * 100 : 0
-                        const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust + widthExpansionPercent + widthExpansion1pxPercent)
-                        const adjustedLeft = (100 - expandedWidth) / 2
-                        const expandedHeight = boxHeight + heightPercentAdjust - heightReductionPercent + heightExpansion1pxPercent
-                        const adjustedTop = Math.max(0, 100 - expandedHeight - bottomOffsetPercent - topShiftPercent + boxDownShiftPercent)
-                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
-                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
-                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
-                        const page7Chars = 20
-                        const page7FontFromWidth = (wrapperWidthPx / page7Chars) * 1.6
-                        const page7FontFromHeight = wrapperHeightPx * 1.15
-                        const page7BtnFontSizePx = Math.min(34, Math.max(1, Math.min(page7FontFromWidth, page7FontFromHeight)))
-                        const borderRadiusPx = wrapperHeightPx / 2
-                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
-                        const borderRadiusWrapperY = 50
-                        
-                        const topLeft = 0
-                        const topRight = 100
-                        const topY = 0
-                        const bottomY = 100
-                        
-                        // Rounded corners on all sides
-                        const roundedRectPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                          L ${topRight},${topY + borderRadiusWrapperY}
-                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
-                          Z
-                        `
-                        
-                        const leftBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
-                          L ${topLeft},${bottomY - borderRadiusWrapperY}
-                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
-                        `
-                        
-                        const rightBorderPath = `
-                          M ${topRight - borderRadiusWrapperX},${bottomY}
-                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
-                          L ${topRight},${topY + borderRadiusWrapperY}
-                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
-                        `
-                        
-                        const topBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${topY}
-                          L ${topRight - borderRadiusWrapperX},${topY}
-                        `
-                        
-                        const bottomBorderPath = `
-                          M ${topLeft + borderRadiusWrapperX},${bottomY}
-                          L ${topRight - borderRadiusWrapperX},${bottomY}
-                        `
-                        
-                        const strokeColor = "#0d6efd"
-                        const strokeWidth = "1"
-                        const showHelpText = true
-                        
-                        return (
-                          <div 
-                            className="speech-bubble-wrapper no-pulse page24-premium-button"
-                            style={{
-                              ...buttonStyle, 
-                              zIndex: 9999,
-                              background: '#ffffff',
-                              boxShadow: '0 0 8px rgba(13, 110, 253, 0.3)',
-                              borderRadius: `${borderRadiusPx}px`,
-                              border: '0.5px solid #6C757D'
-                            }}
-                          >
-                            <div
-                              className="speech-bubble-box"
-                              onClick={handlePage7ShowConnections}
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                width: '100%',
-                                height: '100%',
-                                pointerEvents: 'auto',
-                                cursor: 'pointer',
-                                zIndex: 10000,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: showHelpText ? '#6C757D' : 'rgba(108, 117, 125, 0.05)',
-                                fontSize: `${page7BtnFontSizePx}px`,
-                                fontFamily: 'Roboto, sans-serif',
-                                fontStyle: showHelpText ? 'italic' : 'normal',
-                                fontWeight: showHelpText ? '500' : 'normal',
-                                textAlign: 'center',
-                                padding: '2px 4px',
-                                boxSizing: 'border-box',
-                                userSelect: 'auto',
-                                WebkitUserSelect: 'auto',
-                                opacity: showHelpText ? 1 : 0,
-                                textShadow: '0 1px 1px rgba(255, 255, 255, 0.8)',
-                                overflow: 'hidden'
-                              }}
-                            >
-                              {showHelpText && 'Hide Wiring Diagram'}
-                            </div>
-                            <svg
-                              className="speech-bubble-svg"
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                width: '100%',
-                                height: '100%',
-                                pointerEvents: 'none',
-                                overflow: 'visible',
-                                zIndex: 9998
-                              }}
-                              viewBox="0 0 100 100"
-                              preserveAspectRatio="none"
-                            >
-                              <defs>
-                              </defs>
-                              <path
-                                d={roundedRectPath}
-                                fill="transparent"
-                                style={{ fill: 'transparent' }}
-                              />
-                              <g className="speech-bubble-border-group">
-                                <path
-                                  d={leftBorderPath}
-                                  fill="none"
-                                  stroke="none"
-                                  strokeWidth={strokeWidth}
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={rightBorderPath}
-                                  fill="none"
-                                  stroke="none"
-                                  strokeWidth={strokeWidth}
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={topBorderPath}
-                                  fill="none"
-                                  stroke="none"
-                                  strokeWidth={strokeWidth}
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                                <path
-                                  d={bottomBorderPath}
-                                  fill="none"
-                                  stroke="none"
-                                  strokeWidth={strokeWidth}
-                                  className="speech-bubble-border"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                              </g>
-                            </svg>
-                          </div>
-                        )
-                      })()}
                     </>
                   )}
                 </div>
@@ -40311,16 +40120,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         onMouseEnter={() => setNavBarHovered(true)}
         onMouseLeave={() => setNavBarHovered(false)}
       >
-        {currentPage === 6 && page7NewBoxSelected && (
-          <button
-            type="button"
-            className="wiring-diagram-tab"
-            onClick={() => setPage7Box4Selected(false)}
-            aria-label="Hide wiring diagram"
-          >
-            Hide Wiring Diagram
-          </button>
-        )}
         <div className="nav-button-left">
           {currentPage >= 1 && (
             <button 
@@ -40538,6 +40337,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </div>
           )}
         </div>
+        {currentPage === 6 && page7NewBoxSelected && (
+          <button
+            type="button"
+            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+            onClick={handlePage7ShowConnections}
+            aria-label={page7Box4Selected ? 'Hide wiring diagram' : 'Show wiring diagram'}
+            aria-pressed={page7Box4Selected}
+          >
+            <span className="wiring-diagram-tab-label">
+              {page7Box4Selected ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'}
+            </span>
+          </button>
+        )}
         {currentPage !== pages.length - 1 && (
           <div className="nav-button-right">
             <button 
@@ -40581,7 +40393,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && page8Box2Selected) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
-              Next
+              <span className="btn-nav-label">Next</span>
             </button>
           </div>
         )}

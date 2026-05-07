@@ -263,64 +263,188 @@
   position: relative;
 }
 
-/* Floating tab anchored to the top edge of the .page-navigation pill.
-   Sits seamlessly above the nav, centered horizontally above the page pill. */
+/* Inline nav button — sits between the page pill and the Next button.
+   White surface with a blue rim, gray label (matching the pill's
+   "page" label so the typography reads cohesive across the nav
+   bar). On hover it flips to filled blue with white text for
+   unambiguous interaction feedback. Flat styling (no halo glow);
+   a periodic light-blue shine stripe sweeps across the white fill
+   via the ::after below to signal "I'm selectable". */
 .page-navigation .wiring-diagram-tab {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 28px;
-  margin: 0;
-  padding: 0 10px;
+  background-color: white;
+  /* Blue label matches the blue border for a unified two-tone look,
+     while font-weight and letter-spacing still mirror .page-numbers-label
+     (the "page" text in the pill) so the typography reads cohesive
+     with the rest of the nav bar. */
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
   font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.2px;
-  line-height: 1;
-  color: #ffffff;
-  background: linear-gradient(180deg, #2f86ff 0%, #0d6efd 55%, #0a58ca 100%);
-  border: 1px solid rgba(10, 88, 202, 0.9);
-  border-bottom: none;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: normal;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  display: inline-flex;
+  position: relative;
+  isolation: isolate;
+  box-shadow: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Periodic light-blue shine stripe — same shape and rhythm as the
+   Next button's white shine (9 s cycle, soft wide gradient, 220 %
+   background size, start-action-shine keyframes), but tinted blue
+   instead of white so it's actually visible against the white fill
+   here. Peak opacity (0.30) is intentionally soft so the stripe
+   reads as a quiet "I'm selectable" cue rather than an attention-
+   grabbing flash. inset: 0 + border-radius: inherit clips the stripe
+   to the pill shape; pointer-events: none keeps it click-through. */
+.page-navigation .wiring-diagram-tab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    rgba(13, 110, 253, 0) 0%,
+    rgba(13, 110, 253, 0.11) 50%,
+    rgba(13, 110, 253, 0) 100%
+  );
+  background-size: 220% 100%;
+  background-position: -110% 0;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: start-action-shine 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Hover: deeper blue confirms the affordance. Border thickness stays
+   at 1 px so the outer dimensions don't shift; the
+   .wiring-diagram-tab-label scale below provides the visual feedback.
+   overflow: visible lets the slightly-scaled label render outside
+   the .btn-modern overflow:hidden clip on hover. No outer halo —
+   the colour change alone is the cue. */
+.page-navigation .wiring-diagram-tab:hover:not(:disabled) {
+  background-color: #0a58ca;
+  color: white;
+  border-color: #0a58ca;
+  border-width: 1px;
+  overflow: visible;
+  box-shadow: none;
+}
+
+/* Stop the shine on hover — the filled-blue state already provides
+   strong "I'm being interacted with" feedback, so the moving stripe
+   would just compete with the colour change. */
+.page-navigation .wiring-diagram-tab:hover:not(:disabled)::after {
+  display: none;
+}
+
+/* Inner label — scales on hover to give visual feedback while the
+   button's outer dimensions stay locked (transform doesn't affect
+   layout). */
+.wiring-diagram-tab-label {
+  display: inline-block;
+  transform-origin: center center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+}
+
+.page-navigation .wiring-diagram-tab:hover:not(:disabled) > .wiring-diagram-tab-label {
+  transform: scale(1.05);
+}
+
+/* Focus ring — accessibility-required keyboard focus indicator.
+   Two-tone outline (inner white spacer + outer blue ring) is a
+   focus marker, not a glow; kept so keyboard users always see
+   where they are. */
+.page-navigation .wiring-diagram-tab:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.95),
+    0 0 0 4px rgba(13, 110, 253, 0.55);
+}
+
+/* Pressed feedback — fill darkens further and a subtle inset shadow
+   gives a tactile "pushed in" feel. No outer halo. */
+.page-navigation .wiring-diagram-tab:active:not(:disabled) {
+  background-color: #084298;
+  border-color: #084298;
+  color: white;
+  border-width: 1px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.20);
+}
+
+/* Size overrides: match the page pill's compact dimensions instead of
+   the regular nav buttons (which are ~2× as tall). Page pill total
+   height = inner row clamp(10px, 3.5cqw, 16px) + container padding
+   clamp(1px, 0.8cqw, 4px) × 2 ≈ clamp(12px, 5.1cqw, 24px). The
+   compound selector below has specificity 0,3,0, which beats both
+   .btn-nav (0,1,0) and the container-query .page-navigation .btn-nav
+   (0,2,0) — so these values win regardless of source order. */
+.page-navigation .btn-nav.wiring-diagram-tab {
+  height: clamp(12px, 5cqw, 24px);
+  min-height: clamp(12px, 5cqw, 24px);
+  min-width: 0;
+  padding: 0 clamp(8px, 2cqw, 12px);
+  font-size: clamp(7px, 2.2cqw, 10px);
+  line-height: 1;
+  border-radius: 9999px;
+}
+
+/* Honour user motion preferences — disable the shine sweep for
+   users who opt out of motion. Static appearance is preserved (the
+   button still shows white fill, blue border, blue text); only the
+   periodic stripe animation stops. */
+@media (prefers-reduced-motion: reduce) {
+  .page-navigation .wiring-diagram-tab::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Layout: when the wiring tab is mounted in the nav, switch from the
+   3-column grid to a flex row with justify-content: space-between so
+   the four elements (Back, Pill, Wiring, Next) share equal gaps while
+   Back and Next stay anchored at the left/right edges. The page pill
+   is the only flex item allowed to shrink — combined with column-gap
+   as a minimum-spacing floor, this guarantees the pill (even when
+   hovered/expanded) can never grow past the available space and so
+   never overlaps Back, the wiring button, or Next. */
+.page-navigation:has(.wiring-diagram-tab) {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  /* Pulled down 1px so the tab's bottom border merges into the nav's top edge with no seam */
-  margin-bottom: -1px;
-  /* Match the nav's soft halo (subtle outward glow) for visual continuity */
-  box-shadow:
-    0 -2px 8px rgba(13, 110, 253, 0.18),
-    0 0 6px rgba(240, 95, 64, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition: background 200ms ease, filter 200ms ease, box-shadow 200ms ease;
+  flex-wrap: nowrap;
+  /* Minimum gap between any two adjacent items. justify-content:
+     space-between distributes the *remaining* space as gaps, so this
+     value only kicks in when the pill expands enough to consume that
+     remainder — at which point it acts as a hard floor that prevents
+     visual overlap with the surrounding buttons. */
+  column-gap: 10px;
 }
-.page-navigation .wiring-diagram-tab:hover {
-  background: linear-gradient(180deg, #4a96ff 0%, #1f7cff 55%, #0d6efd 100%);
-  box-shadow:
-    0 -3px 10px rgba(13, 110, 253, 0.26),
-    0 0 8px rgba(240, 95, 64, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.30);
-  filter: brightness(1.04);
+
+.page-navigation:has(.wiring-diagram-tab) > .nav-button-left,
+.page-navigation:has(.wiring-diagram-tab) > .nav-button-right,
+.page-navigation:has(.wiring-diagram-tab) > .wiring-diagram-tab {
+  flex: 0 0 auto;
 }
-.page-navigation .wiring-diagram-tab:active {
-  background: linear-gradient(180deg, #0a58ca 0%, #084298 100%);
-  box-shadow:
-    0 -1px 4px rgba(13, 110, 253, 0.20),
-    inset 0 1px 3px rgba(0, 0, 0, 0.12);
-  filter: brightness(0.97);
+
+/* The page pill is the only shrinkable item. When hovered it tries to
+   grow to max-width: 220px; flex-shrink: 1 + min-width: 0 caps it at
+   whatever room remains after Back, the wiring button, and Next have
+   taken their natural widths and the column-gaps have been honoured —
+   so the pill stops growing exactly at the safety margin instead of
+   pushing into the buttons. */
+.page-navigation:has(.wiring-diagram-tab) > .zoom-controls {
+  flex: 0 1 auto;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  margin: 0;
 }
 
 .nav-button-left {
@@ -405,8 +529,6 @@
   box-shadow: none;
   border: 1px solid #f05f40;
   border-radius: 15px;
-  /* Pulse border thickness animation when enabled */
-  animation: pulseBorder 2s ease-in-out infinite;
   /* Fixed padding to maintain button size regardless of panel width */
   padding: 6px 12px;
   gap: 4px;
@@ -416,18 +538,13 @@
   text-overflow: ellipsis;
   /* Prevent button from shrinking */
   flex-shrink: 0;
-  /* Fixed height to prevent nav bar from resizing during pulse animation */
+  /* Fixed height keeps the nav bar stable even when adjacent buttons
+     change state (hover/active) on hover. */
   height: 32px;
   box-sizing: border-box;
 }
 
 /* Remove container queries that reduce button size - buttons should maintain fixed size */
-
-/* Previous button should never pulse */
-.btn-nav-previous {
-  animation: none !important;
-  border-width: 1px !important;
-}
 
 .btn-nav svg {
   width: 16px;
@@ -435,46 +552,88 @@
   flex-shrink: 0;
 }
 
-/* Pulse border thickness animation - pulses proportionally */
-@keyframes pulseBorder {
-  0%, 100% {
-    border-width: 1px;
-  }
-  50% {
-    border-width: 2px;
-  }
-}
-
-/* Stop animation when button is disabled */
+/* Disabled state — no shadow, default 1 px border. */
 .btn-nav:disabled {
-  animation: none;
-  border-width: 1px;
+  box-shadow: none;
 }
 
-/* Stop animation when button is clicked/active */
+/* Pressed feedback — sharp 1.5 px colour-matched outer ring (zero
+   blur), giving a snappy tactile "click" cue without changing the
+   button's geometry (the ring is a box-shadow, so it lives outside
+   the layout box). */
 .btn-nav:active:not(:disabled) {
-  animation: none;
-  border-width: 2px;
+  box-shadow: 0 0 0 1.5px rgba(240, 95, 64, 1);
 }
 
 .btn-nav-blue:active:not(:disabled) {
-  animation: none;
-  border-width: 2px;
+  box-shadow: 0 0 0 1.5px rgba(13, 110, 253, 1);
 }
 
 /* Blue variant for Next button when enabled on page 3 */
 .btn-nav-blue {
   color: #0d6efd;
   border: 1px solid #0d6efd;
-  /* Pulse animation continues for blue variant */
-  animation: pulseBorder 2s ease-in-out infinite;
+  /* Isolated stacking context so the ::after shine stripe below
+     stays contained within the button (and the .btn-nav-label
+     z-index can layer text above it). */
+  isolation: isolate;
 }
 
 .btn-nav-blue:hover:not(:disabled) {
   background-color: #0d6efd;
   color: white;
-  /* Keep pulsing on hover */
-  animation: pulseBorder 2s ease-in-out infinite;
+}
+
+/* Periodic light-blue shine stripe — same calm sweep used on the
+   page 7 Show/Hide Wiring Diagram button (8 s cycle, soft wide
+   gradient, 0.11 peak opacity, blue tint, start-action-shine
+   keyframes). Only attaches to the .btn-nav-blue variant — i.e.
+   when the Next button is in its enabled, ready-to-advance state —
+   so disabled states and the default outlined-orange state both
+   stay still. inset: 0 + border-radius: inherit clips the stripe
+   to the pill shape; pointer-events: none keeps it click-through. */
+.btn-nav-blue:not(:disabled)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    rgba(13, 110, 253, 0) 0%,
+    rgba(13, 110, 253, 0.11) 50%,
+    rgba(13, 110, 253, 0) 100%
+  );
+  background-size: 220% 100%;
+  background-position: -110% 0;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: start-action-shine 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Stop the shine on hover — the filled-blue hover state already
+   provides strong "I'm being interacted with" feedback, and the
+   .btn-modern::before hover shimmer takes over for that moment. */
+.btn-nav-blue:hover:not(:disabled)::after {
+  display: none;
+}
+
+/* Inner label — sits above the ::after shine stripe so the text
+   never gets washed by the moving gradient. Layout-neutral
+   (position: relative + z-index only). */
+.btn-nav-label {
+  position: relative;
+  z-index: 2;
+}
+
+/* Honour user motion preferences — disable the Next button's blue
+   shine for users who opt out of motion. Static appearance preserved. */
+@media (prefers-reduced-motion: reduce) {
+  .btn-nav-blue:not(:disabled)::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* Gray nav button (page 34 Reset All) - same size/format as Next, no pulse, gray like right-panel Reset All */
@@ -906,7 +1065,12 @@
   }
 }
 
-/* Pulsing border animation for page-start-button - same as speech bubbles */
+/* Legacy border-thickness pulse — still defined for backward
+   compatibility with anywhere else that may reference it. The
+   .page-start-button itself has been migrated to a halo-glow pulse
+   below since border-thickness changes are invisible on a filled
+   blue button (border colour matches background) and only cause a
+   1 px geometry jitter. */
 @keyframes pageStartButtonBorderPulse {
   0%, 100% {
     border-width: 1px;
@@ -916,13 +1080,31 @@
   }
 }
 
+/* Halo-glow pulse for filled-blue primary CTAs (page 1 Start button +
+   the wiring-diagram tab). Geometry stays put; only the surrounding
+   light breathes — smooth at any zoom level. */
+@keyframes startButtonFilledPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 6px rgba(13, 110, 253, 0.25),
+      0 0 8px rgba(13, 110, 253, 0.20);
+  }
+  50% {
+    box-shadow:
+      0 4px 14px rgba(13, 110, 253, 0.42),
+      0 0 20px rgba(13, 110, 253, 0.50);
+  }
+}
+
 .page-start-button {
   position: absolute;
   z-index: 10;
-  
-  /* Styling as requested */
-  background-color: white;
-  color: #0d6efd;
+
+  /* Filled-blue primary CTA at rest — fresh page load reads as a
+     strong "click me to start" affordance. Selected/visited states
+     below override this with the orange "completed" treatment. */
+  background-color: #0d6efd;
+  color: white;
   border: 1px solid #0d6efd;
   border-radius: 999px;
   padding: 0;
@@ -930,33 +1112,40 @@
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
-  /* No transition on transform - scale immediately with image */
-  /* Border changes instantly on hover, no delay - border is not in transition */
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  /* Pulsing border animation for unselected buttons - same as page 3 speech bubbles */
-  animation: pageStartButtonBorderPulse 3s ease-in-out infinite;
-  
-  /* Center text horizontally and vertically */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  /* Halo glow pulse — see @keyframes above for rationale. */
+  animation: startButtonFilledPulse 3s ease-in-out infinite;
+
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  
-  /* Ensure smooth rendering without delay */
-  will-change: transform;
+
+  will-change: box-shadow;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-/* Selected button state - no pulse, 2px border */
+/* Selected (visited) state — flips to the orange "completed"
+   treatment so the user can see at a glance that the button has
+   already been used. White surface with orange text + 2 px orange
+   border, no pulse, soft drop shadow for a settled appearance. */
 .page-start-button.selected {
-  border: 2px solid #0d6efd;
+  background-color: white;
+  color: #f05f40;
+  border: 2px solid #f05f40;
   animation: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Button returning from page 3 - orange 2px border, no animation, still clickable */
+/* Button returning from page 3 — orange 2px border, no animation, still clickable */
 .page-start-button.returning-from-page3 {
+  background-color: white;
+  color: #f05f40 !important;
   border: 2px solid #f05f40 !important;
   animation: none;
   box-shadow: none;
@@ -965,12 +1154,13 @@
 /* No hover effect when returning from page 3 - keep orange border, no color change */
 .page-start-button.returning-from-page3:hover:not(.disabled):not(:disabled) {
   background-color: white;
-  color: #000;
+  color: #f05f40 !important;
   border: 2px solid #f05f40 !important;
 }
 
-/* Button returning from page 2 - orange 2px border, orange font color, no animation, still clickable */
+/* Button returning from page 2 — orange 2px border, orange font color, no animation, still clickable */
 .page-start-button.returning-from-page2 {
+  background-color: white;
   border: 2px solid #f05f40 !important;
   color: #f05f40 !important;
   animation: none;
@@ -984,19 +1174,43 @@
   border: 2px solid #f05f40 !important;
 }
 
+/* Hover (rest, not selected/returning) — deeper blue confirms the
+   affordance, with a restrained halo. Border thickness stays at 1 px
+   so the button's outer dimensions don't shift on hover; the
+   .page-start-button-label scale below provides the visual feedback. */
 .page-start-button:hover:not(.disabled):not(:disabled):not(.selected):not(.returning-from-page3):not(.returning-from-page2) {
-  background-color: #0d6efd;
+  background-color: #0a58ca;
   color: white;
-  border: 2px solid #0d6efd !important;
-  /* Stop pulsing on hover - keep 2px border */
+  border: 1px solid #0a58ca !important;
   animation: none;
+  box-shadow:
+    0 2px 6px rgba(13, 110, 253, 0.22),
+    0 0 8px rgba(13, 110, 253, 0.20);
 }
 
+/* Hover when selected — fill with the orange so the visited state
+   confirms "still clickable" without losing the orange identity.
+   Border stays at 2 px (matches .page-start-button.selected rest). */
 .page-start-button:hover:not(.disabled):not(:disabled).selected:not(.returning-from-page3):not(.returning-from-page2) {
-  background-color: #0d6efd;
+  background-color: #f05f40;
   color: white;
-  border: 2px solid #0d6efd !important;
-  /* No glow effect on hover */
+  border: 2px solid #f05f40 !important;
+  box-shadow: 0 2px 6px rgba(240, 95, 64, 0.22);
+}
+
+/* Inner label — scales on hover to give visual feedback while the
+   button's outer dimensions stay locked. transform doesn't affect
+   layout, so the surrounding image / nav doesn't shift. The flex
+   centring on the parent keeps the scaled label visually centred. */
+.page-start-button-label {
+  display: inline-block;
+  transform-origin: center center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.page-start-button:hover:not(.disabled):not(:disabled) > .page-start-button-label {
+  transform: scale(1.04);
 }
 
 .page-start-button:active:not(.disabled):not(:disabled) {
