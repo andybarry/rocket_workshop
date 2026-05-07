@@ -10,8 +10,9 @@ import page6 from '../assets/images/pages/6.svg'
 import page7 from '../assets/images/pages/7.svg'
 import page7_1 from '../assets/images/pages/7.1.svg'
 import page8 from '../assets/images/pages/8.svg'
-import page8_1 from '../assets/images/pages/8.1.png'
 import page9 from '../assets/images/pages/9.svg'
+import page9_1 from '../assets/images/pages/9.1.svg'
+import page9_2 from '../assets/images/pages/9.2.svg'
 import page10 from '../assets/images/pages/10.svg'
 import page10_1 from '../assets/images/pages/10.1.svg'
 import page11 from '../assets/images/pages/11.png'
@@ -119,7 +120,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, resetSplitOnPageChange = false }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, onSerialConnectAttempt, onUploadAttempt, isConnected = false, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, resetSplitOnPageChange = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -180,6 +181,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Track box selections on page 9
   const [page9Box1Selected, setPage9Box1Selected] = useState(false)
   const [page9Box2Selected, setPage9Box2Selected] = useState(false)
+  // Tracks whether the user has clicked Upload at least once while on
+  // page 9 (currentPage === 8). Drives the image swap from 9.svg to
+  // 9.1.svg. Independent of page9Box2Selected (Next-button gating) so
+  // the image swap and the Next-button activation can have different
+  // triggers.
+  const [page9UploadAttempted, setPage9UploadAttempted] = useState(false)
+  // Tracks whether the user has ticked the green checkbox shown on
+  // 9.1.svg. When true, the image swaps from 9.1.svg to 9.2.svg AND
+  // page9Box2Selected is set so the Next button activates.
+  const [page9CheckboxSelected, setPage9CheckboxSelected] = useState(false)
   const [page9Box2bSelected, setPage9Box2bSelected] = useState(false)
   const [page9Box3Selected, setPage9Box3Selected] = useState(false)
   // Track if white boxes on page 9 should be hidden (hidden after box 1 is selected)
@@ -190,6 +201,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page10BoxSelected, setPage10BoxSelected] = useState(false)
   // Track if button/LED/ground boxes should be visible on 10.1.png
   const [page10BoxesVisible, setPage10BoxesVisible] = useState(false)
+  // Page 10 nav-bar tab state — page opens on 10.1.svg (wiring shown,
+  // but no labels yet) and the button cycles through three labels:
+  //   1. "Show Labels"          (initial; image 10.1.svg, labels hidden)
+  //   2. "Hide Wiring Diagram"  (after first click; image still 10.1.svg,
+  //                             LED/Button green-infill text labels shown
+  //                             via page10BoxesVisible)
+  //   3. "Show Wiring Diagram"  (after second click; image 10.svg)
+  // page10ShowLabelsClicked latches once the very first click happens so
+  // the label never reverts to "Show Labels" again. page10WiringShown
+  // toggles between states 2 and 3, driving the 10.svg / 10.1.svg image
+  // swap. page10WiringShown defaults to true so 10.1.svg is shown first.
+  const [page10ShowLabelsClicked, setPage10ShowLabelsClicked] = useState(false)
+  const [page10WiringShown, setPage10WiringShown] = useState(true)
+  // Square checkbox on page 10 (visible on both 10.svg and 10.1.svg).
+  // Selecting it is what activates the Next button on page 10.
+  const [page10CheckboxSelected, setPage10CheckboxSelected] = useState(false)
   // Track page 10 box selections
   const [page10Box1Selected, setPage10Box1Selected] = useState(false)
   const [page10Box2Selected, setPage10Box2Selected] = useState(false)
@@ -624,6 +651,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
       if (typeof p.page9Box1Selected === 'boolean') setPage9Box1Selected(p.page9Box1Selected)
       if (typeof p.page9Box2Selected === 'boolean') setPage9Box2Selected(p.page9Box2Selected)
+      if (typeof p.page9UploadAttempted === 'boolean') setPage9UploadAttempted(p.page9UploadAttempted)
+      if (typeof p.page9CheckboxSelected === 'boolean') setPage9CheckboxSelected(p.page9CheckboxSelected)
       if (typeof p.page9Box2bSelected === 'boolean') setPage9Box2bSelected(p.page9Box2bSelected)
       if (typeof p.page9Box3Selected === 'boolean') setPage9Box3Selected(p.page9Box3Selected)
       if (typeof p.page9WhiteBoxesHidden === 'boolean') setPage9WhiteBoxesHidden(p.page9WhiteBoxesHidden)
@@ -631,6 +660,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
       if (typeof p.page10BoxSelected === 'boolean') setPage10BoxSelected(p.page10BoxSelected)
       if (typeof p.page10BoxesVisible === 'boolean') setPage10BoxesVisible(p.page10BoxesVisible)
+      if (typeof p.page10ShowLabelsClicked === 'boolean') setPage10ShowLabelsClicked(p.page10ShowLabelsClicked)
+      if (typeof p.page10WiringShown === 'boolean') setPage10WiringShown(p.page10WiringShown)
+      if (typeof p.page10CheckboxSelected === 'boolean') setPage10CheckboxSelected(p.page10CheckboxSelected)
       if (typeof p.page10Box1Selected === 'boolean') setPage10Box1Selected(p.page10Box1Selected)
       if (typeof p.page10Box2Selected === 'boolean') setPage10Box2Selected(p.page10Box2Selected)
       if (typeof p.page10Box3Selected === 'boolean') setPage10Box3Selected(p.page10Box3Selected)
@@ -822,6 +854,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 9 && !completedPages.includes(9)) {
         setPage10BoxSelected(false)
         setPage10BoxesVisible(false)
+        // Page 10 opens on 10.1.svg with no labels → button starts at "Show Labels".
+        setPage10ShowLabelsClicked(false)
+        setPage10WiringShown(true)
+        setPage10CheckboxSelected(false)
         setPage10Box1Selected(false)
         setPage10Box2Selected(false)
         setPage10Box3Selected(false)
@@ -890,12 +926,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 6 && !page7Box4EverSelected) {
       return
     }
-    // For page 8 (index 7), require box 2 to be selected
-    if (currentPage === 7 && !page8Box2Selected) {
+    // For page 8 (index 7), require box 2 to be selected OR an active
+    // serial connection (isConnected). Mirrors the Next button's
+    // disabled / btn-nav-blue gating so clicks always advance when the
+    // button looks active.
+    if (currentPage === 7 && !page8Box2Selected && !isConnected) {
       return
     }
     // For page 10 (index 9), require box 4 to be selected (on both 10.1.png and 10.png)
-    if (currentPage === 9 && !page10Box4Selected) {
+    if (currentPage === 9 && !page10CheckboxSelected) {
       return
     }
     // For page 11 (index 10), require box 4 to be selected
@@ -1018,12 +1057,17 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page8Box3WhiteBoxHidden,
           page9Box1Selected,
           page9Box2Selected,
+          page9UploadAttempted,
+          page9CheckboxSelected,
           page9Box2bSelected,
           page9Box3Selected,
           page9WhiteBoxesHidden,
           page9RightWhiteBoxHidden,
           page10BoxSelected,
           page10BoxesVisible,
+          page10ShowLabelsClicked,
+          page10WiringShown,
+          page10CheckboxSelected,
           page10Box1Selected,
           page10Box2Selected,
           page10Box3Selected,
@@ -1263,6 +1307,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       // Page 9 - reset box states
       setPage9Box1Selected(false)
       setPage9Box2Selected(false)
+      setPage9UploadAttempted(false)
+      setPage9CheckboxSelected(false)
       setPage9Box2bSelected(false)
       setPage9Box3Selected(false)
       setPage9WhiteBoxesHidden(false)
@@ -1276,6 +1322,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       // Page 10 - reset box state
       setPage10BoxSelected(false)
       setPage10BoxesVisible(false)
+      // Page 10 opens on 10.1.svg with no labels → button starts at "Show Labels".
+      setPage10ShowLabelsClicked(false)
+      setPage10WiringShown(true)
+      setPage10CheckboxSelected(false)
       setPage10Box1Selected(false)
       setPage10Box2Selected(false)
       setPage10Box3Selected(false)
@@ -1479,6 +1529,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setCurrentPage(9)
       setPage10BoxSelected(false)
       setPage10BoxesVisible(false)
+      // Jumping directly to 10.1: wiring is shown, so labels-button starts
+      // at "Hide Wiring Diagram" (post-first-click state).
+      setPage10ShowLabelsClicked(true)
+      setPage10WiringShown(true)
+      setPage10CheckboxSelected(false)
       setPage10Box1Selected(false)
       setPage10Box2Selected(false)
       setPage10Box3Selected(false)
@@ -1517,6 +1572,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setCurrentPage(9)
       setPage10BoxSelected(true)
       setPage10BoxesVisible(false)
+      // Jumping directly to 10: wiring hidden but user has already cycled
+      // past the initial "Show Labels" state.
+      setPage10ShowLabelsClicked(true)
+      setPage10WiringShown(false)
+      setPage10CheckboxSelected(false)
       setPage10Box1Selected(false)
       setPage10Box2Selected(false)
       setPage10Box3Selected(false)
@@ -1550,6 +1610,35 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleRefresh])
+
+  // Expose a handler that App.js calls the moment the "Connect to Serial"
+  // button is clicked. We mark page 8 (currentPage === 7) as engaged
+  // immediately, so the Next button activates regardless of whether the
+  // user then accepts or cancels the browser-native port selection popup.
+  useEffect(() => {
+    if (!onSerialConnectAttempt) return
+    onSerialConnectAttempt(() => {
+      if (currentPage === 7) {
+        setPage8Box2Selected(true)
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
+
+  // Expose a handler that App.js calls the moment the "Upload" button is
+  // clicked. On page 9 (currentPage === 8) the first click swaps the
+  // displayed image from 9.svg to 9.1.svg, but does NOT activate the Next
+  // button — that activation is gated separately on page9Box2Selected,
+  // which a later interaction will set.
+  useEffect(() => {
+    if (!onUploadAttempt) return
+    onUploadAttempt(() => {
+      if (currentPage === 8) {
+        setPage9UploadAttempted(true)
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
 
   // Expose page select function to parent
   useEffect(() => {
@@ -1736,6 +1825,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (page9RightWhiteBoxTimeoutRef.current) {
       clearTimeout(page9RightWhiteBoxTimeoutRef.current)
       page9RightWhiteBoxTimeoutRef.current = null
+    }
+  }
+
+  // Handler for the new page 10 nav-bar tab.
+  // Cycles through three labels: Show Labels → Hide Wiring Diagram → Show Wiring Diagram.
+  // First click latches `page10ShowLabelsClicked`, keeps the wiring image
+  // (10.1.svg) visible, and reveals the LED/Button green-infill text
+  // labels via `page10BoxesVisible`. Every subsequent click toggles
+  // wiring visibility (10.1.svg ↔ 10.svg). The labels stay enabled once
+  // shown, so they reappear automatically when the user toggles wiring
+  // back on.
+  const handlePage10NavTab = () => {
+    if (!page10ShowLabelsClicked) {
+      setPage10ShowLabelsClicked(true)
+      setPage10WiringShown(true)
+      setPage10BoxesVisible(true)
+    } else {
+      setPage10WiringShown(prev => !prev)
     }
   }
 
@@ -3189,8 +3296,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       try {
                         if (currentPage === 4 && page5ShowHelpImage) return page5_1
                         if (currentPage === 6 && page7Box4Selected) return page7_1
-                        if (currentPage === 7 && page8Box2Selected) return page8_1
-                        if (currentPage === 9 && !page10BoxSelected) return page10_1
+                        if (currentPage === 8 && page9CheckboxSelected) return page9_2
+                        if (currentPage === 8 && page9UploadAttempted) return page9_1
+                        if (currentPage === 9 && page10WiringShown) return page10_1
                         if (currentPage === 9) return page10
                         if (currentPage === 10) return page11
                         if (currentPage === 14 && page15BoxSelected) return page15
@@ -3695,8 +3803,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* White box on page 8 - displayed until button box 1 is selected (with 1 second delay) */}
-                  {currentPage === 7 && !editorMode && !page8WhiteBoxHidden && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "White box on page 8 - displayed until button box 1 is selected
+                      (with 1 second delay)". Short-circuited with `false &&` so the
+                      block stays in source for easy revert without affecting layout. */}
+                  {false && currentPage === 7 && !editorMode && !page8WhiteBoxHidden && (
                     <div
                       style={{
                         ...getButtonStyle(1.70, 42.44, 95.93, 47.73),
@@ -3707,8 +3818,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button box on page 8 */}
-                  {currentPage === 7 && !editorMode && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "Button box on page 8" (Box 1). */}
+                  {false && currentPage === 7 && !editorMode && (
                     <>
                       {(() => {
                       const boxLeft = 26.48
@@ -3940,8 +4052,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* Button box 2 on page 8 */}
-                  {currentPage === 7 && !editorMode && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "Button box 2 on page 8". */}
+                  {false && currentPage === 7 && !editorMode && (
                     <>
                       {(() => {
                       const boxLeft = 30.99
@@ -4194,8 +4307,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* White box on page 8.1.png - displayed until button box 3 is selected, covering box 4 */}
-                  {currentPage === 7 && !editorMode && page8Box2Selected && !page8Box3WhiteBoxHidden && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "White box on page 8.1.png - displayed until button box 3 is
+                      selected, covering box 4". */}
+                  {false && currentPage === 7 && !editorMode && page8Box2Selected && !page8Box3WhiteBoxHidden && (
                     <div
                       style={{
                         ...getButtonStyle(41.13, 77.60, 16.62, 7.51),
@@ -4206,8 +4321,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button box 3 on page 8.1.png - only shown when 8.1.png is displayed */}
-                  {currentPage === 7 && !editorMode && page8Box2Selected && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "Button box 3 on page 8.1.png - only shown when 8.1.png is displayed". */}
+                  {false && currentPage === 7 && !editorMode && page8Box2Selected && (
                     <>
                       {(() => {
                       const boxLeft = 32.34
@@ -4478,8 +4594,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     })()}
                     </>
                   )}
-                  {/* Button box 4 on page 8.1.png - only shown when 8.1.png is displayed */}
-                  {currentPage === 7 && !editorMode && page8Box2Selected && (
+                  {/* Removed (boxes/white boxes disabled on page 8): originally
+                      "Button box 4 on page 8.1.png - only shown when 8.1.png is displayed". */}
+                  {false && currentPage === 7 && !editorMode && page8Box2Selected && (
                     <>
                       {(() => {
                       const boxLeft = 41.80
@@ -4739,8 +4856,141 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
+                  {/* Green checkbox on 9.1 / 9.2 — matches the page 4 team-
+                      member checkbox visual + behaviour exactly. Sized as a
+                      true pixel square (height === width) so it never
+                      stretches with the image aspect ratio. Visible once the
+                      user has clicked Upload at least once
+                      (page9UploadAttempted). Clicking it both swaps the
+                      image to 9.2.svg AND activates the Next button by
+                      setting page9Box2Selected. Position placeholder:
+                      left=34.37%, top=68.20% (same anchor the prior page-9
+                      Box 2b used). */}
+                  {currentPage === 8 && !editorMode && page9UploadAttempted && (() => {
+                    const sidePx = 32 * stageRelativeScale
+                    return (
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          e.preventDefault()
+                          if (!page9CheckboxSelected) {
+                            setPage9CheckboxSelected(true)
+                            setPage9Box2Selected(true)
+                          }
+                        }}
+                        onMouseDown={(e) => { e.stopPropagation() }}
+                        style={{
+                          position: 'absolute',
+                          left: '34.37%',
+                          // 68.20% is the original anchor (matched the
+                          // prior page-9 Box 2b position); the +50px push
+                          // (30px initial nudge + 20px additional) moves
+                          // the checkbox a total of 50 display pixels
+                          // lower regardless of stage zoom, since calc()
+                          // lets the percentage and the absolute pixel
+                          // offset coexist without one overriding the
+                          // other.
+                          top: 'calc(68.20% + 50px)',
+                          width: `${sidePx}px`,
+                          height: `${sidePx}px`,
+                          backgroundColor: 'white',
+                          border: `${3 * stageRelativeScale}px solid ${page9CheckboxSelected ? '#3bbf6b' : '#0d6efd'}`,
+                          borderRadius: `${5 * stageRelativeScale}px`,
+                          zIndex: 15,
+                          cursor: page9CheckboxSelected ? 'default' : 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxSizing: 'border-box',
+                          pointerEvents: 'auto'
+                        }}
+                      >
+                        {page9CheckboxSelected && (
+                          <svg
+                            viewBox="0 0 24 24"
+                            style={{
+                              width: '120%',
+                              height: '120%',
+                              fill: 'none',
+                              stroke: '#3bbf6b',
+                              strokeWidth: 4,
+                              strokeLinecap: 'round',
+                              strokeLinejoin: 'round'
+                            }}
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
+                  {/* Square checkbox on page 10 (visible on both 10.svg and
+                      10.1.svg). Mirrors the page-9 checkbox visually:
+                      white infill, blue border, turns green and shows a
+                      checkmark when selected. Selecting it activates the
+                      Next button on page 10. The anchor reuses the
+                      previous Box 4 position (left=48.56%, top=88.40%) so
+                      it sits roughly where the old "Box 4" used to live;
+                      adjust if a different spot is desired. */}
+                  {currentPage === 9 && !editorMode && (() => {
+                    const sidePx = 32 * stageRelativeScale
+                    const baseLeftPercent = 48.56
+                    const baseTopPercent = 88.40
+                    const leftOffsetPx = 5
+                    const downOffsetPx = 23
+                    const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                    const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                    const adjustedLeftPercent = baseLeftPercent - leftOffsetPercent
+                    const adjustedTopPercent = baseTopPercent + downOffsetPercent
+                    return (
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          e.preventDefault()
+                          if (!page10CheckboxSelected) {
+                            setPage10CheckboxSelected(true)
+                          }
+                        }}
+                        onMouseDown={(e) => { e.stopPropagation() }}
+                        style={{
+                          position: 'absolute',
+                          left: `${adjustedLeftPercent}%`,
+                          top: `${adjustedTopPercent}%`,
+                          width: `${sidePx}px`,
+                          height: `${sidePx}px`,
+                          backgroundColor: 'white',
+                          border: `${3 * stageRelativeScale}px solid ${page10CheckboxSelected ? '#3bbf6b' : '#0d6efd'}`,
+                          borderRadius: `${5 * stageRelativeScale}px`,
+                          zIndex: 15,
+                          cursor: page10CheckboxSelected ? 'default' : 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxSizing: 'border-box',
+                          pointerEvents: 'auto'
+                        }}
+                      >
+                        {page10CheckboxSelected && (
+                          <svg
+                            viewBox="0 0 24 24"
+                            style={{
+                              width: '120%',
+                              height: '120%',
+                              fill: 'none',
+                              stroke: '#3bbf6b',
+                              strokeWidth: 4,
+                              strokeLinecap: 'round',
+                              strokeLinejoin: 'round'
+                            }}
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
                   {/* White boxes on page 9 - displayed until button box 1 is selected */}
-                  {currentPage === 8 && !editorMode && !page9WhiteBoxesHidden && (
+                  {false && currentPage === 8 && !editorMode && !page9WhiteBoxesHidden && (
                     <div
                       style={{
                         position: 'absolute',
@@ -4756,7 +5006,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* Right white box on page 9 - displayed until box 2b is selected (with 0.75s delay), hides to reveal box 3 */}
-                  {currentPage === 8 && !editorMode && !page9RightWhiteBoxHidden && (
+                  {false && currentPage === 8 && !editorMode && !page9RightWhiteBoxHidden && (
                     <div
                       style={{
                         position: 'absolute',
@@ -4772,7 +5022,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* Button box 1 on page 9 */}
-                  {currentPage === 8 && !editorMode && (
+                  {false && currentPage === 8 && !editorMode && (
                     <>
                       {(() => {
                       const boxLeft = 23.10
@@ -4994,7 +5244,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* Button box 3 on page 9 (right side pointer box) - only active after box 2b is selected */}
-                  {currentPage === 8 && !editorMode && page9RightWhiteBoxHidden && (
+                  {false && currentPage === 8 && !editorMode && page9RightWhiteBoxHidden && (
                     <>
                       {(() => {
                       const boxLeft = 69.06
@@ -5213,7 +5463,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* Button box 2b on page 9 (between box 2 and box 3) - hidden until box 2 (large box) is selected */}
-                  {currentPage === 8 && !editorMode && page9Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 8 && !editorMode && page9Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 34.37
                     const boxTop = 68.20
                     const boxWidth = 4.68
@@ -5353,7 +5603,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Button box 2 on page 9 (large no pointer box) - visible after box 1 is selected */}
-                  {currentPage === 8 && !editorMode && page9Box1Selected && (
+                  {false && currentPage === 8 && !editorMode && page9Box1Selected && (
                     <>
                       {(() => {
                       const boxLeft = 14.82
@@ -5473,7 +5723,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* Box 4 on page 10 (10.png and 10.1.png) - same style as box 2b on page 9 */}
-                  {currentPage === 9 && !editorMode && page10Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 9 && !editorMode && page10Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 48.56
                     const boxTop = 88.40
                     const boxWidth = 3.13
@@ -34771,7 +35021,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                   {/* White box 1 on page 10.1.png - displayed until box 2 is selected */}
-                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox1Hidden && (
+                  {false && currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox1Hidden && (
                     <div
                       style={{
                         ...getButtonStyle(6.43, 41.04, 20.00, 6.99),
@@ -34783,7 +35033,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* New white box on page 10.1.png - displayed until box 2 is selected */}
-                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10NewWhiteBoxHidden && (() => {
+                  {false && currentPage === 9 && !editorMode && !page10BoxSelected && !page10NewWhiteBoxHidden && (() => {
                     // Move white box down by 40px
                     const downOffsetPx = 40
                     const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
@@ -34801,7 +35051,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White box over "Need Help?" box on page 10.1.png - displayed after box 2 is selected, hidden when box 1 is selected */}
-                  {currentPage === 9 && !editorMode && !page10BoxSelected && page10NeedHelpWhiteBoxVisible && !page10Box2Selected && (
+                  {false && currentPage === 9 && !editorMode && !page10BoxSelected && page10NeedHelpWhiteBoxVisible && !page10Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(8.23, 38.78, 15.49, 4.21),
@@ -34813,7 +35063,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 2 on page 10.1.png - displayed until both box 1 and box 2 are selected */}
-                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBoxesHidden && (
+                  {false && currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBoxesHidden && (
                     <div
                       style={{
                         ...getButtonStyle(32.34, 72.03, 35.77, 21.44),
@@ -34825,7 +35075,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 3 on page 10.1.png - displayed until box 1 is selected */}
-                  {currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox3Hidden && (
+                  {false && currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox3Hidden && (
                     <div
                       style={{
                         ...getButtonStyle(57.35, 58.11, 27.21, 13.26),
@@ -34839,8 +35089,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {/* Button boxes on 10.1.png and 10.png */}
                   {currentPage === 9 && !editorMode && (
                     <>
-                      {/* Button, LED, and Ground boxes - only show on 10.1.png when page10BoxesVisible is true */}
-                      {!page10BoxSelected && page10BoxesVisible && (
+                      {/* Button, LED, and Ground green-infill text labels —
+                          shown only on 10.1.svg (page10WiringShown) after
+                          the user clicks "Show Labels" (page10BoxesVisible). */}
+                      {page10WiringShown && page10BoxesVisible && (
                         <>
                       {/* Button box */}
                       {(() => {
@@ -35398,7 +35650,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         </>
                       )}
                       {/* "Show Wiring Diagram" button on 10.1.png - bottom centered */}
-                      {currentPage === 9 && !editorMode && !page10BoxSelected && (() => {
+                      {false && currentPage === 9 && !editorMode && !page10BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         
@@ -35591,7 +35843,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                       {/* "Show Wiring Diagram" button on 10.png - bottom centered */}
-                      {currentPage === 9 && !editorMode && page10BoxSelected && (() => {
+                      {false && currentPage === 9 && !editorMode && page10BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         
@@ -35783,8 +36035,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* Box 1 on 10.1.png and 10.png - with pointer */}
-                      {(() => {
+                      {/* Box 1 on 10.1.png and 10.png - with pointer
+                          DISABLED: legacy in-page interactive box, kept as
+                          dead code now that page-10 navigation uses the
+                          nav-bar tab. */}
+                      {false && (() => {
                         const boxLeft = 59.15
                         const boxTop = 46.09
                         const boxWidth = 29.24
@@ -36002,8 +36257,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* Box 2 on 10.1.png and 10.png - no pointer */}
-                      {(() => {
+                      {/* Box 2 on 10.1.png and 10.png - no pointer
+                          DISABLED: legacy in-page interactive box. */}
+                      {false && (() => {
                         const boxLeft = 58.70
                         const boxTop = 59.85
                         const boxWidth = 24.51
@@ -36178,8 +36434,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* Box 3 on 10.1.png and 10.png - no pointer */}
-                      {(() => {
+                      {/* Box 3 on 10.1.png and 10.png - no pointer
+                          DISABLED: legacy in-page interactive box. */}
+                      {false && (() => {
                         const boxLeft = 34.59
                         const boxTop = 73.43
                         const boxWidth = 31.04
@@ -40131,6 +40388,68 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )}
         </div>
+        {currentPage === 6 && page7NewBoxSelected && (
+          <button
+            type="button"
+            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+            onClick={handlePage7ShowConnections}
+            aria-label={page7Box4Selected ? 'Hide wiring diagram' : 'Show wiring diagram'}
+            aria-pressed={page7Box4Selected}
+          >
+            <span className="wiring-diagram-tab-label">
+              <span className="wiring-diagram-tab-label-text">
+                {page7Box4Selected ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'}
+              </span>
+              {/* Ghost label — invisible but occupies space so the
+                  button width is always max(show, hide). aria-hidden
+                  keeps screen readers from announcing it; the
+                  button's aria-label is the source of truth. */}
+              <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
+                {page7Box4Selected ? 'Show Wiring Diagram' : 'Hide Wiring Diagram'}
+              </span>
+            </span>
+          </button>
+        )}
+        {currentPage === 9 && (() => {
+          // Three-state cycle:
+          //   1. !page10ShowLabelsClicked          → "Show Labels"
+          //   2. page10ShowLabelsClicked && wiring → "Hide Wiring Diagram"
+          //   3. page10ShowLabelsClicked && !wiring→ "Show Wiring Diagram"
+          let label
+          let aria
+          if (!page10ShowLabelsClicked) {
+            label = 'Show Labels'
+            aria = 'Show labels'
+          } else if (page10WiringShown) {
+            label = 'Hide Wiring Diagram'
+            aria = 'Hide wiring diagram'
+          } else {
+            label = 'Show Wiring Diagram'
+            aria = 'Show wiring diagram'
+          }
+          return (
+            <button
+              type="button"
+              className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+              onClick={handlePage10NavTab}
+              aria-label={aria}
+              aria-pressed={page10WiringShown}
+            >
+              <span className="wiring-diagram-tab-label">
+                <span className="wiring-diagram-tab-label-text">
+                  {label}
+                </span>
+                {/* Ghost label — invisible but reserves enough room
+                    that the button width never changes between the
+                    three possible labels. The longest of the three is
+                    "Hide Wiring Diagram" / "Show Wiring Diagram". */}
+                <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
+                  Hide Wiring Diagram
+                </span>
+              </span>
+            </button>
+          )
+        })()}
         <div className="zoom-controls">
           {showZoomControls && (
           <div className="zoom-page-group">
@@ -40337,19 +40656,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </div>
           )}
         </div>
-        {currentPage === 6 && page7NewBoxSelected && (
-          <button
-            type="button"
-            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
-            onClick={handlePage7ShowConnections}
-            aria-label={page7Box4Selected ? 'Hide wiring diagram' : 'Show wiring diagram'}
-            aria-pressed={page7Box4Selected}
-          >
-            <span className="wiring-diagram-tab-label">
-              {page7Box4Selected ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'}
-            </span>
-          </button>
-        )}
         {currentPage !== pages.length - 1 && (
           <div className="nav-button-right">
             <button 
@@ -40363,9 +40669,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 4 && !page5GreenDotSelected) ||
                 (currentPage === 5 && !page6Box1Selected) ||
                 (currentPage === 6 && !page7Box4EverSelected) ||
-                (currentPage === 7 && !page8Box2Selected) ||
+                (currentPage === 7 && !page8Box2Selected && !isConnected) ||
                 (currentPage === 8 && !page9Box2Selected) ||
-                (currentPage === 9 && !page10Box4Selected) ||
+                (currentPage === 9 && !page10CheckboxSelected) ||
                 (currentPage === 10 && !page11Box4Selected) ||
                 (currentPage === 11 && !page12Box4Selected) ||
                 (currentPage === 12 && !page13Box1Selected) ||
@@ -40390,7 +40696,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 31 && !page32Box3Selected) ||
                 (currentPage === 32 && !page33Box1Selected)
               }
-              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && page8Box2Selected) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10Box4Selected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11Box4Selected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>

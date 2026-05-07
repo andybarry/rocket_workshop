@@ -295,6 +295,14 @@ function App() {
   const [capturedDimensions, setCapturedDimensions] = useState(null);
   const refreshHandlerRef = useRef(null);
   const pageSelectHandlerRef = useRef(null);
+  // Fires the moment the user clicks "Connect to Serial" so InstructionsPanel
+  // can mark page 8 as engaged regardless of whether the browser-native port
+  // selection popup is then accepted or cancelled.
+  const instructionsSerialConnectRef = useRef(null);
+  // Fires the moment the user clicks "Upload" so InstructionsPanel can mark
+  // page 9 as engaged on the very first click — regardless of whether the
+  // upload then succeeds, fails, or hits the empty-message early-return.
+  const instructionsUploadAttemptRef = useRef(null);
   const [resetInstructionsPressedOnce, setResetInstructionsPressedOnce] = useState(false);
   const handleResetInstructionsReady = useCallback((fn) => setResetInstructionsFunc(() => fn), []);
   const handlePageJumpSlotReady = useCallback((api) => setPageJumpApi(api), []);
@@ -752,6 +760,10 @@ function App() {
   }
 
   const handleConnect = async () => {
+    // Notify InstructionsPanel that the user attempted a serial connection.
+    // Fired before requestPort() so it persists even if the user cancels
+    // out of the browser-native port selection popup.
+    instructionsSerialConnectRef.current?.();
     try {
       const port = await navigator.serial.requestPort();
       setPort(port);
@@ -762,6 +774,10 @@ function App() {
   };
 
   const handleSend = async () => {
+    // Notify InstructionsPanel that the user attempted an upload. Fired at
+    // the very top so the page-9 Next button activates on the very first
+    // click, even if there is no message to send or the port write fails.
+    instructionsUploadAttemptRef.current?.();
     setIsUploading(true);
     const message = getValuesForChip();
     console.log(message)
@@ -905,6 +921,9 @@ function App() {
             onDimensionsCapture={setCapturedDimensions}
             onRefresh={(handler) => { refreshHandlerRef.current = handler; }}
             onPageSelect={(handler) => { pageSelectHandlerRef.current = handler; }}
+            onSerialConnectAttempt={(handler) => { instructionsSerialConnectRef.current = handler; }}
+            onUploadAttempt={(handler) => { instructionsUploadAttemptRef.current = handler; }}
+            isConnected={isConnected}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>

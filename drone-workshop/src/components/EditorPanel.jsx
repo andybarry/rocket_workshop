@@ -10,7 +10,6 @@ import page6 from '../assets/images/pages/6.svg'
 import page7 from '../assets/images/pages/7.svg'
 import page7_1 from '../assets/images/pages/7.1.svg'
 import page8 from '../assets/images/pages/8.svg'
-import page8_1 from '../assets/images/pages/8.1.png'
 import page9 from '../assets/images/pages/9.svg'
 import page10 from '../assets/images/pages/10.svg'
 import page10_1 from '../assets/images/pages/10.1.svg'
@@ -156,11 +155,7 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(7, false, false, false, false)}>
               <img src={page8} alt="Page 8" className="image-selector-thumbnail" />
-              <span className="image-selector-label">8.png</span>
-            </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(7, false, true, false, false)}>
-              <img src={page8_1} alt="Page 8.1" className="image-selector-thumbnail" />
-              <span className="image-selector-label">8.1.png</span>
+              <span className="image-selector-label">8.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(8, false, false, false, false)}>
               <img src={page9} alt="Page 9" className="image-selector-thumbnail" />

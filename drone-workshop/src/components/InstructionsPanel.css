@@ -341,16 +341,38 @@
   display: none;
 }
 
-/* Inner label — scales on hover to give visual feedback while the
-   button's outer dimensions stay locked (transform doesn't affect
-   layout). */
+/* Inner label — uses an inline-grid stack so the visible text and
+   an invisible "ghost" label sharing the cell both contribute to
+   the cell's width. The cell sizes to max(show-width, hide-width),
+   so the button's overall width never changes when the label
+   toggles between "Show Wiring Diagram" and "Hide Wiring Diagram"
+   — even though those two strings render at slightly different
+   widths in Roboto due to per-character metrics. The label still
+   scales on hover for visual feedback (the transform applies to
+   the grid container as a whole, so both stacked children scale
+   together). */
 .wiring-diagram-tab-label {
-  display: inline-block;
+  display: inline-grid;
   transform-origin: center center;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
   position: relative;
   z-index: 2;
+}
+
+/* Stack both labels (visible text + invisible ghost) in the same
+   grid cell. The cell sizes to the wider of the two so the button
+   width is locked. */
+.wiring-diagram-tab-label > .wiring-diagram-tab-label-text,
+.wiring-diagram-tab-label > .wiring-diagram-tab-label-ghost {
+  grid-area: 1 / 1;
+}
+
+/* Ghost label — kept in layout (so it contributes to the cell's
+   intrinsic width) but invisible and click-through. */
+.wiring-diagram-tab-label-ghost {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .page-navigation .wiring-diagram-tab:hover:not(:disabled) > .wiring-diagram-tab-label {
@@ -557,16 +579,23 @@
   box-shadow: none;
 }
 
-/* Pressed feedback — sharp 1.5 px colour-matched outer ring (zero
-   blur), giving a snappy tactile "click" cue without changing the
-   button's geometry (the ring is a box-shadow, so it lives outside
-   the layout box). */
-.btn-nav:active:not(:disabled) {
-  box-shadow: 0 0 0 1.5px rgba(240, 95, 64, 1);
-}
+/* No pressed-state ring on .btn-nav / .btn-nav-blue: the prior
+   1.5 px box-shadow ring traced the button's border-radius with a
+   slightly larger outer radius (button 15 px → ring ≈16.5 px), and
+   because .btn-modern animates `all` over 0.2 s the corners visibly
+   detached from the button edge while the click was held. The hover
+   background colour change is enough click feedback on its own. */
 
-.btn-nav-blue:active:not(:disabled) {
-  box-shadow: 0 0 0 1.5px rgba(13, 110, 253, 1);
+/* Back button hover — fill with the same orange used for the rest
+   state's text/border so the button reads as a primary affordance
+   on hover (mirrors how .btn-nav-blue fills with blue). Selector is
+   scoped to .btn-nav-previous so it doesn't catch the Reset
+   (.btn-nav-gray / .btn-nav-danger) variants, and the compound
+   .btn-nav.btn-nav-previous bumps specificity high enough to beat
+   any later .btn-nav-* hover rules in the cascade. */
+.btn-nav.btn-nav-previous:hover:not(:disabled) {
+  background-color: #f05f40;
+  color: white;
 }
 
 /* Blue variant for Next button when enabled on page 3 */
