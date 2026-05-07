@@ -4936,8 +4936,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const sidePx = 32 * stageRelativeScale
                     const baseLeftPercent = 48.56
                     const baseTopPercent = 88.40
-                    const leftOffsetPx = 5
-                    const downOffsetPx = 23
+                    const leftOffsetPx = 7
+                    const downOffsetPx = 29
                     const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
                     const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
                     const adjustedLeftPercent = baseLeftPercent - leftOffsetPercent
