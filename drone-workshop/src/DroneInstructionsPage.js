@@ -82,6 +82,7 @@ function DroneInstructionsPage() {
           onResetInstructionsReady={handleResetInstructionsReady}
           onPageJumpSlotReady={handlePageJumpSlotReady}
           onResetAll={resetInstructionsOnly}
+          yellowButtonConnectedIsTrue={true}
         />
       </div>
     </ErrorBoundary>

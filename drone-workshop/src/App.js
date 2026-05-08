@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -280,6 +280,12 @@ function App() {
 
   const [editableLines, setEditableLines] = useState(getInitialEditableLines());
 
+  // Page 16: editableLines key 2 is `const bool yellow_button_connected = ...`
+  const yellowButtonConnectedIsTrue = useMemo(() => {
+    const line = editableLines[2]
+    if (!line?.value) return false
+    return /yellow_button_connected\s*=\s*true\b/.test(String(line.value))
+  }, [editableLines])
 
   const holdCommandRef = useRef(null);
 
@@ -931,6 +937,7 @@ function App() {
             onSerialConnectAttempt={(handler) => { instructionsSerialConnectRef.current = handler; }}
             onUploadAttempt={(handler) => { instructionsUploadAttemptRef.current = handler; }}
             isConnected={isConnected}
+            yellowButtonConnectedIsTrue={yellowButtonConnectedIsTrue}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>

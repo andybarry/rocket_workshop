@@ -23,9 +23,8 @@ import page14 from '../assets/images/pages/14.svg'
 import page15 from '../assets/images/pages/15.svg'
 import page15_1 from '../assets/images/pages/15.1.svg'
 import page16 from '../assets/images/pages/16.svg'
-import page17 from '../assets/images/pages/17.png'
-import page18 from '../assets/images/pages/18.png'
-import page18_1 from '../assets/images/pages/18.1.png'
+import page17 from '../assets/images/pages/17.svg'
+import page18_1 from '../assets/images/pages/18.1.svg'
 import page19 from '../assets/images/pages/19.png'
 import page20 from '../assets/images/pages/20.png'
 import page21 from '../assets/images/pages/21.png'
@@ -120,7 +119,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, onSerialConnectAttempt, onUploadAttempt, isConnected = false, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, resetSplitOnPageChange = false }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, onSerialConnectAttempt, onUploadAttempt, isConnected = false, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, resetSplitOnPageChange = false, yellowButtonConnectedIsTrue = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -281,6 +280,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page15BoxSelected, setPage15BoxSelected] = useState(false)
   // Track if button/LED boxes should be visible on 15.1.png
   const [page15BoxesVisible, setPage15BoxesVisible] = useState(false)
+  // Page 15 nav — same three-state cycle as page 10 (Show Labels → Hide Wiring Diagram → Show Wiring Diagram)
+  const [page15ShowLabelsClicked, setPage15ShowLabelsClicked] = useState(false)
+  const [page15WiringShown, setPage15WiringShown] = useState(true)
   // Track page 16 box selection
   const [page16Box1Selected, setPage16Box1Selected] = useState(false)
   const [page16Box2Selected, setPage16Box2Selected] = useState(false)
@@ -291,6 +293,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page17Box3Selected, setPage17Box3Selected] = useState(false)
   const [page17Box4Selected, setPage17Box4Selected] = useState(false)
   const [page17Box4bSelected, setPage17Box4bSelected] = useState(false)
+  const [page17SelectionBoxSelected, setPage17SelectionBoxSelected] = useState(false)
+  const [page17CheckboxSelected, setPage17CheckboxSelected] = useState(false)
   const [page18Box1Selected, setPage18Box1Selected] = useState(false)
   const [page18Box2Selected, setPage18Box2Selected] = useState(false)
   const [page18Box3Selected, setPage18Box3Selected] = useState(false)
@@ -299,7 +303,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page18BoxesVisible, setPage18BoxesVisible] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
   const [page18ShowHelpText, setPage18ShowHelpText] = useState(true)
-  // Track which image to show based on Need Help button clicks (0 = 18.1.png, 1 = 18.png, 2 = 18.1.png)
+  // Legacy: wiring toggle state (overlays removed); image on page 18 is always 18.1.svg
   const [page18HelpImageState, setPage18HelpImageState] = useState(0)
   // Track page 19 box state
   const [page19Box1Selected, setPage19Box1Selected] = useState(false)
@@ -481,7 +485,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     },
     [clearPageNumbersArrowAutoscroll]
   )
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18_1, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
 
   /** Center the active page in the white row. Uses viewport rects — offsetLeft is wrong for flex children. */
   const centerActiveInPageNumberRow = useCallback(() => {
@@ -730,6 +734,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
       if (typeof p.page15BoxSelected === 'boolean') setPage15BoxSelected(p.page15BoxSelected)
       if (typeof p.page15BoxesVisible === 'boolean') setPage15BoxesVisible(p.page15BoxesVisible)
+      if (typeof p.page15ShowLabelsClicked === 'boolean') setPage15ShowLabelsClicked(p.page15ShowLabelsClicked)
+      if (typeof p.page15WiringShown === 'boolean') setPage15WiringShown(p.page15WiringShown)
+      else if (typeof p.page15BoxSelected === 'boolean') setPage15WiringShown(!p.page15BoxSelected)
       if (typeof p.page15Box1Selected === 'boolean') setPage15Box1Selected(p.page15Box1Selected)
       if (typeof p.page15Box2Selected === 'boolean') setPage15Box2Selected(p.page15Box2Selected)
       if (typeof p.page15Box3Selected === 'boolean') setPage15Box3Selected(p.page15Box3Selected)
@@ -744,6 +751,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page17Box3Selected === 'boolean') setPage17Box3Selected(p.page17Box3Selected)
       if (typeof p.page17Box4Selected === 'boolean') setPage17Box4Selected(p.page17Box4Selected)
       if (typeof p.page17Box4bSelected === 'boolean') setPage17Box4bSelected(p.page17Box4bSelected)
+      if (typeof p.page17SelectionBoxSelected === 'boolean') setPage17SelectionBoxSelected(p.page17SelectionBoxSelected)
+      if (typeof p.page17CheckboxSelected === 'boolean') setPage17CheckboxSelected(p.page17CheckboxSelected)
 
       if (typeof p.page18Box1Selected === 'boolean') setPage18Box1Selected(p.page18Box1Selected)
       if (typeof p.page18Box2Selected === 'boolean') setPage18Box2Selected(p.page18Box2Selected)
@@ -926,6 +935,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 14) {
         setPage15BoxSelected(false)
         setPage15BoxesVisible(false)
+        setPage15ShowLabelsClicked(false)
+        setPage15WiringShown(true)
         setPage15ShowHelpText(true)
         setPage15Box1Selected(false)
         setPage15Box2Selected(false)
@@ -1012,16 +1023,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 14 && !page15Box3Selected) {
       return
     }
-    // For page 16 (index 15), require box 3 to be selected
-    if (currentPage === 15 && !page16Box3Selected) {
+    // For page 16 (index 15), require yellow_button_connected = true in code (editable line 2)
+    if (currentPage === 15 && !yellowButtonConnectedIsTrue) {
       return
     }
-    // For page 17 (index 16), require box 4b to be selected
-    if (currentPage === 16 && !page17Box4bSelected) {
-      return
-    }
-    // For page 18 (index 17), require all 4 boxes to be selected
-    if (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) {
+    // For page 17 (index 16), require Dot 3 checkbox after selection box
+    if (currentPage === 16 && !page17CheckboxSelected) {
       return
     }
     // For page 22 (index 21), require box 5 to be selected
@@ -1070,6 +1077,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 14) {
         setPage15BoxSelected(false)
         setPage15BoxesVisible(false)
+        setPage15ShowLabelsClicked(false)
+        setPage15WiringShown(true)
         setPage15ShowHelpText(true)
       }
       // Reset returning states when navigating forward (except returningToPage3AfterSecondButton which is set in useEffect)
@@ -1159,8 +1168,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page14Box4Selected,
           page14Box4bSelected,
           page14Box5Selected,
-          page15BoxSelected,
+          page15BoxSelected: !page15WiringShown,
           page15BoxesVisible,
+          page15ShowLabelsClicked,
+          page15WiringShown,
           page15Box1Selected,
           page15Box2Selected,
           page15Box3Selected,
@@ -1173,6 +1184,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page17Box3Selected,
           page17Box4Selected,
           page17Box4bSelected,
+          page17SelectionBoxSelected,
+          page17CheckboxSelected,
           page18Box1Selected,
           page18Box2Selected,
           page18Box3Selected,
@@ -1437,6 +1450,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       // Page 15 - reset box state
       setPage15BoxSelected(false)
       setPage15BoxesVisible(false)
+      setPage15ShowLabelsClicked(false)
+      setPage15WiringShown(true)
       setPage15ShowHelpText(true)
       setPage15Box1Selected(false)
       setPage15Box2Selected(false)
@@ -1459,6 +1474,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage17Box3Selected(false)
       setPage17Box4bSelected(false)
       setPage17Box4Selected(false)
+      setPage17SelectionBoxSelected(false)
+      setPage17CheckboxSelected(false)
     } else if (currentPage === 17) {
       // Page 18 - reset box states
       setPage18Box1Selected(false)
@@ -1925,6 +1942,21 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
   }
 
+  const handlePage15NavTab = () => {
+    if (!page15ShowLabelsClicked) {
+      setPage15ShowLabelsClicked(true)
+      setPage15WiringShown(true)
+      setPage15BoxesVisible(true)
+      setPage15BoxSelected(false)
+    } else {
+      setPage15WiringShown(prev => {
+        const next = !prev
+        setPage15BoxSelected(!next)
+        return next
+      })
+    }
+  }
+
   // Handler for page 10 "Show Labels" / "Show Wiring Diagram" / "Hide Wiring Diagram" button
   const handlePage10ShowConnections = () => {
     if (page10BoxSelected) {
@@ -2121,6 +2153,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage17Box4b = () => {
     setPage17Box4bSelected(true)
+  }
+
+  const handlePage17SelectionBox = () => {
+    setPage17SelectionBoxSelected(true)
   }
 
   const handlePage18Box1 = () => {
@@ -3388,8 +3424,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         if (currentPage === 9 && page10WiringShown) return page10_1
                         if (currentPage === 9) return page10
                         if (currentPage === 10) return page11
-                        if (currentPage === 14 && page15BoxSelected) return page15
-                        if (currentPage === 14) return page15_1
+                        if (currentPage === 14 && page15WiringShown) return page15_1
+                        if (currentPage === 14) return page15
                         if (currentPage === 20 && page21ShowHelpImage) return page21
                         if (currentPage === 20) return page21_1
                         if (currentPage === 11 && page12Box3Selected) {
@@ -3409,22 +3445,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           return page12
                         }
                         if (currentPage === 17) {
-                          // Show 18.png only when Need Help button has been clicked and page18HelpImageState === 1 (second click)
-                          if (page18BoxesVisible && page18HelpImageState === 1) {
-                            // Second click: show 18.png
-                            if (!page18) {
-                              console.error('page18 is undefined!')
-                              return page1
-                            }
-                            return page18
-                          } else {
-                            // Show 18.1.png in all other cases (including when all 4 boxes are selected)
-                            if (!page18_1) {
-                              console.error('page18_1 is undefined!')
-                              return page1
-                            }
-                            return page18_1
+                          if (!page18_1) {
+                            console.error('page18_1 is undefined!')
+                            return page1
                           }
+                          return page18_1
                         }
                         if (currentPage === 22 && page23Box1Selected) return page23_1
                         if (currentPage === 23 && page24ShowMainImage) return page24
@@ -5022,7 +5047,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const newBoxHeightPercent = 19.42
 
                     const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
-                    const borderRadiusPx = 24 * stageRelativeScale
+                    const borderRadiusPx = 32 * stageRelativeScale
                     const fontSize = 16 * stageRelativeScale
 
                     return (
@@ -8247,7 +8272,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const newBoxHeightPercent = 32.51
 
                     const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
-                    const borderRadiusPx = 24 * stageRelativeScale
+                    const borderRadiusPx = 32 * stageRelativeScale
                     const fontSize = 16 * stageRelativeScale
 
                     return (
@@ -9748,7 +9773,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         height: '8.28%',
                         backgroundColor: 'white',
                         border: '2px solid #0d6efd',
-                        borderRadius: `${8 * stageRelativeScale}px`,
+                        borderRadius: `${14 * stageRelativeScale}px`,
                         zIndex: 101,
                         cursor: 'pointer',
                         display: 'inline-flex',
@@ -10596,6 +10621,22 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
+                  {/* Page 16 — white cover until code sets yellow_button_connected = true (editable line 2) */}
+                  {currentPage === 15 && !editorMode && !yellowButtonConnectedIsTrue && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0.00%',
+                        top: '37.70%',
+                        width: '99.85%',
+                        height: '57.62%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'none',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
                   {/* Number "16" at Dot 3 position on page 16 */}
                   {currentPage === 15 && !editorMode && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
@@ -10618,7 +10659,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </div>
                   )}
                   {/* Box 1 on page 17.png - with pointer (downward) */}
-                  {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 38.20
                     const boxTop = 30.77
                     const boxWidth = 11.89
@@ -10852,7 +10893,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 2 on page 17.png - with pointer (rightward) */}
-                  {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 33.92
                     const boxTop = 37.21
                     const boxWidth = 15.49
@@ -11100,7 +11141,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 3 on page 17.png - simple box (no pointer) */}
-                  {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 21.53
                     const boxTop = 73.60
                     const boxWidth = 27.89
@@ -11228,7 +11269,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 4 on page 17.png - simple box (no pointer) */}
-                  {currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 16 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 53.07
                     const boxTop = 73.25
                     const boxWidth = 27.89
@@ -11356,7 +11397,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Button box 4b on page 17 - same style as box 2b on page 9 - hidden until box 4 is selected */}
-                  {currentPage === 16 && !editorMode && page17Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 16 && !editorMode && page17Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 65.01
                     const boxTop = 87.79
                     const boxWidth = 3.55
@@ -11500,8 +11541,133 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Page 17 — selection box; white overlays until selected; Dot 3 checkbox gates Next */}
+                  {currentPage === 16 && !editorMode && !page17SelectionBoxSelected && (() => {
+                    const selLeft = 3.35
+                    const selTop = 19.13
+                    const selW = 45.65
+                    const selH = 10.23
+                    const buttonStyle = getButtonStyle(selLeft, selTop, selW, selH)
+                    const borderRadiusPx = 32 * stageRelativeScale
+                    const selectionBoxBorderRadiusPx = 22 * stageRelativeScale
+                    return (
+                      <>
+                        <div
+                          key="page17-white-cover-1"
+                          style={{
+                            ...getButtonStyle(0, 29.74, 79.55, 63.80),
+                            backgroundColor: 'white',
+                            border: 'none',
+                            borderRadius: `${borderRadiusPx}px`,
+                            zIndex: 100,
+                            pointerEvents: 'none'
+                          }}
+                        />
+                        <div
+                          key="page17-white-cover-2"
+                          style={{
+                            ...getButtonStyle(49.24, 19.13, 23.66, 74.41),
+                            backgroundColor: 'white',
+                            border: 'none',
+                            borderRadius: `${borderRadiusPx}px`,
+                            zIndex: 100,
+                            pointerEvents: 'none'
+                          }}
+                        />
+                        <div
+                          key="page17-white-cover-3"
+                          style={{
+                            ...getButtonStyle(49.24, 46.19, 48.40, 47.36),
+                            backgroundColor: 'white',
+                            border: 'none',
+                            borderRadius: `${borderRadiusPx}px`,
+                            zIndex: 100,
+                            pointerEvents: 'none'
+                          }}
+                        />
+                        <button
+                          key="page17-selection-box"
+                          type="button"
+                          onClick={handlePage17SelectionBox}
+                          style={{
+                            ...buttonStyle,
+                            backgroundColor: 'white',
+                            cursor: 'pointer',
+                            borderRadius: `${selectionBoxBorderRadiusPx}px`,
+                            border: '2px solid #0d6efd',
+                            zIndex: 102,
+                            padding: `${8 * stageRelativeScale}px`,
+                            boxSizing: 'border-box'
+                          }}
+                          aria-label="Select highlighted area"
+                        />
+                      </>
+                    )
+                  })()}
+                  {currentPage === 16 && !editorMode && page17SelectionBoxSelected && (() => {
+                    const sidePx = 32 * stageRelativeScale
+                    const dotLeft = 68.09
+                    const dotTop = 89.26
+                    const checkboxBorderColor = page17CheckboxSelected ? '#3bbf6b' : '#0d6efd'
+                    return (
+                      <div
+                        role="checkbox"
+                        aria-checked={page17CheckboxSelected}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            if (!page17CheckboxSelected) setPage17CheckboxSelected(true)
+                          }
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          e.preventDefault()
+                          if (!page17CheckboxSelected) {
+                            setPage17CheckboxSelected(true)
+                          }
+                        }}
+                        onMouseDown={(e) => { e.stopPropagation() }}
+                        style={{
+                          position: 'absolute',
+                          left: `${dotLeft}%`,
+                          top: `${dotTop}%`,
+                          width: `${sidePx}px`,
+                          height: `${sidePx}px`,
+                          transform: 'translate(-50%, -50%)',
+                          backgroundColor: 'white',
+                          border: `${3 * stageRelativeScale}px solid ${checkboxBorderColor}`,
+                          borderRadius: `${5 * stageRelativeScale}px`,
+                          zIndex: 105,
+                          cursor: page17CheckboxSelected ? 'default' : 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxSizing: 'border-box',
+                          pointerEvents: 'auto'
+                        }}
+                      >
+                        {page17CheckboxSelected && (
+                          <svg
+                            viewBox="0 0 24 24"
+                            style={{
+                              width: '120%',
+                              height: '120%',
+                              fill: 'none',
+                              stroke: '#3bbf6b',
+                              strokeWidth: 4,
+                              strokeLinecap: 'round',
+                              strokeLinejoin: 'round'
+                            }}
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </div>
+                    )
+                  })()}
                   {/* White boxes on page 17 - hidden when box 1 is selected */}
-                  {currentPage === 16 && !editorMode && !page17Box1Selected && (
+                  {false && currentPage === 16 && !editorMode && !page17Box1Selected && (
                     <>
                       {/* White box 1 on page 17 */}
                       <div
@@ -11536,7 +11702,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* White boxes on page 17 - hidden when box 2 is selected */}
-                  {currentPage === 16 && !editorMode && !page17Box2Selected && (
+                  {false && currentPage === 16 && !editorMode && !page17Box2Selected && (
                     <>
                       {/* White box 1 on page 17 (hidden when box 2 selected) */}
                       <div
@@ -11581,7 +11747,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* White boxes on page 17 - hidden when box 3 is selected */}
-                  {currentPage === 16 && !editorMode && !page17Box3Selected && (
+                  {false && currentPage === 16 && !editorMode && !page17Box3Selected && (
                     <>
                       {/* White box 3 on page 17 (hidden when box 3 selected) */}
                       <div
@@ -11646,7 +11812,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* White boxes on page 17 - hidden when box 4 is selected */}
-                  {currentPage === 16 && !editorMode && !page17Box4Selected && (
+                  {false && currentPage === 16 && !editorMode && !page17Box4Selected && (
                     <>
                       {/* White box 1 on page 17 (hidden when box 4 selected) */}
                       <div
@@ -11743,7 +11909,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </div>
                   )}
                   {/* Box 1 on page 18.1.png - with pointer (downward) */}
-                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 37.52
                     const boxTop = 40.70
                     const boxWidth = 25.18
@@ -11967,7 +12133,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 2 on page 18.1.png - with pointer (downward) */}
-                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 66.36
                     const boxTop = 43.66
                     const boxWidth = 25.18
@@ -12191,7 +12357,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 3 on page 18.1.png - with pointer (upward) */}
-                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 45.41
                     const boxTop = 81.43
                     const boxWidth = 23.60
@@ -12420,7 +12586,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 4 on page 18.1.png - with pointer (upward) */}
-                  {currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 17 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 72.89
                     const boxTop = 78.82
                     const boxWidth = 20.23
@@ -12644,7 +12810,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White box on page 18.1 - hidden when all 4 boxes are selected */}
-                  {currentPage === 17 && !editorMode && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
+                  {false && currentPage === 17 && !editorMode && !(page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) && (
                     <div
                       style={{
                         ...getButtonStyle(54.42, 86.92, 41.85, 7.34),
@@ -12656,7 +12822,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                       {/* "Show Labels" / "Hide Wiring Diagram" / "Show Wiring Diagram" button on 18.1.png - same box and text scaling as page 7 */}
-                      {currentPage === 17 && !editorMode && page18HelpImageState !== 1 && (() => {
+                      {false && currentPage === 17 && !editorMode && page18HelpImageState !== 1 && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         const pixelIncrease = 3
@@ -12844,7 +13010,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         )
                       })()}
                       {/* "Show Wiring Diagram" button on 18.png - same box and text scaling as page 7 */}
-                      {currentPage === 17 && !editorMode && page18HelpImageState === 1 && (() => {
+                      {false && currentPage === 17 && !editorMode && page18HelpImageState === 1 && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         const pixelIncrease = 3
@@ -13031,9 +13197,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                  {/* Button, LED, and Ground boxes - show on 18.1.png when page18BoxesVisible is true, or on 24.1.png when page24BoxesVisible is true */}
-                  {/* Only show on 18.1.png (not 18.png) - hide when page18HelpImageState === 1 (18.png) */}
-                  {(((currentPage === 17 && page18BoxesVisible && page18HelpImageState !== 1) || (currentPage === 23 && !page24ShowMainImage && page24BoxesVisible)) && !editorMode) && (
+                  {/* Button, LED, and Ground boxes on 24.1.png when page24BoxesVisible is true (page 18 overlays removed) */}
+                  {((currentPage === 23 && !page24ShowMainImage && page24BoxesVisible) && !editorMode) && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -23982,7 +24147,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time - REMOVED */}
-                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
+                  {currentPage === 14 && !editorMode && page15Box3Selected && !page15ShowLabelsClicked && page15WiringShown && (() => {
                     const boxLeft = 64.56
                     const boxTop = 52.01
                     const boxWidth = 26.08
@@ -24016,8 +24181,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true - REMOVED */}
-                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
+                  {/* Button, LED, Ground boxes on 15.1.svg when labels are on */}
+                  {currentPage === 14 && !editorMode && page15Box3Selected && page15WiringShown && page15BoxesVisible && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -24129,7 +24294,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: '#ffeb3b', // Yellow text
+                                color: 'white',
                                 fontSize: `${buttonFontSize}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontWeight: 'bold',
@@ -24160,8 +24325,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill="#ffffff"
-                                style={{ fill: '#ffffff' }}
+                                fill="#099b4d"
+                                style={{ fill: '#099b4d' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
@@ -24190,6 +24355,190 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 />
                                 <path
                                   d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* LED text box */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 10
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 15px
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const ledRightOffsetPx = 43
+                        const downOffsetPx = 15
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercent = imageNaturalSize.width > 0 ? (ledRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent + ledRightOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPathLed = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPathLed = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPathLed = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPathLed = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPathLed = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: `${ledFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPathLed}
+                                fill="#099b4d"
+                                style={{ fill: '#099b4d' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPathLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPathLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPathLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPathLed}
                                   fill="none"
                                   stroke="#595959"
                                   strokeWidth="1"
@@ -24345,8 +24694,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               </defs>
                               <path
                                 d={roundedRectPath}
-                                fill="#ffeb3b"
-                                style={{ fill: '#ffeb3b' }}
+                                fill="#f1c232"
+                                style={{ fill: '#f1c232' }}
                               />
                               <g className="speech-bubble-border-group">
                                 <path
@@ -34049,7 +34398,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     </>
                   )}
                   {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time - REMOVED */}
-                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
+                  {currentPage === 14 && !editorMode && page15Box3Selected && !page15ShowLabelsClicked && page15WiringShown && (() => {
                     const boxLeft = 64.56
                     const boxTop = 52.01
                     const boxWidth = 26.08
@@ -34083,8 +34432,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true - REMOVED */}
-                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
+                  {/* Button, LED, Ground boxes on 15.1.svg when labels are on */}
+                  {currentPage === 14 && !editorMode && page15Box3Selected && page15WiringShown && page15BoxesVisible && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -34361,7 +34710,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         `
                         
                         // Font size scales exactly with image using stageRelativeScale
-                        const buttonFontSize = 10.5 * stageRelativeScale
+                        const ledFontSize = 10.5 * stageRelativeScale
                         
                         return (
                           <div 
@@ -34381,7 +34730,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: 'white',
-                                fontSize: `${buttonFontSize}px`,
+                                fontSize: `${ledFontSize}px`,
                                 fontFamily: 'Roboto, sans-serif',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
@@ -34637,9 +34986,377 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
+                      {/* Duplicate LED text box - 100px to the right */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        // Reduce LED box height by 5px and width by 15px, then additional reductions
+                        const heightReductionPxLed = 5
+                        const widthReductionPxLed = 15
+                        // Additional reductions for height and width
+                        const additionalHeightReductionPxLed = 5
+                        const additionalWidthReductionPxLed = 10
+                        const totalHeightReductionPxLed = heightReductionPxLed + additionalHeightReductionPxLed
+                        const totalWidthReductionPxLed = widthReductionPxLed + additionalWidthReductionPxLed
+                        const heightReductionPercentLed = imageNaturalSize.height > 0 ? (totalHeightReductionPxLed / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercentLed = imageNaturalSize.width > 0 ? (totalWidthReductionPxLed / imageNaturalSize.width) * 100 : 0
+                        
+                        // Move LED box: right 10px, then left 4px, then right 3px (net: right 9px), then right 43px more, and down 15px
+                        // Add 90px to the right for duplicate (100px - 10px left)
+                        const rightOffsetPxLed = 10
+                        const leftOffsetPxLed = 4
+                        const additionalRightOffsetPxLed = 3
+                        const ledRightOffsetPxLed = 43
+                        const duplicateRightOffsetPxLed = 90
+                        const downOffsetPxLed = 15
+                        const rightOffsetPercentLed = imageNaturalSize.width > 0 ? (rightOffsetPxLed / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercentLed = imageNaturalSize.width > 0 ? (leftOffsetPxLed / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercentLed = imageNaturalSize.width > 0 ? (additionalRightOffsetPxLed / imageNaturalSize.width) * 100 : 0
+                        const ledRightOffsetPercentLed = imageNaturalSize.width > 0 ? (ledRightOffsetPxLed / imageNaturalSize.width) * 100 : 0
+                        const duplicateRightOffsetPercentLed = imageNaturalSize.width > 0 ? (duplicateRightOffsetPxLed / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercentLed = imageNaturalSize.height > 0 ? (downOffsetPxLed / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercentLed = rightOffsetPercentLed - leftOffsetPercentLed + additionalRightOffsetPercentLed + ledRightOffsetPercentLed + duplicateRightOffsetPercentLed
+                        
+                        const adjustedLeftLed = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercentLed)
+                        const adjustedTopLed = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercentLed)
+                        const expandedWidthLed = Math.min(100 - adjustedLeftLed, boxWidth + widthPercentAdjust - widthReductionPercentLed)
+                        const expandedHeightLed = Math.min(100 - adjustedTopLed, boxHeight + heightPercentAdjust - heightReductionPercentLed)
+                        const buttonStyleLed = getButtonStyle(adjustedLeftLed, adjustedTopLed, expandedWidthLed, expandedHeightLed)
+                        
+                        // Reduced corner radius for button box only
+                        const borderRadiusPxLed = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPxLed = (expandedWidthLed / 100) * stageWidthPx
+                        const wrapperHeightPxLed = (expandedHeightLed / 100) * stageHeightPx
+                        const borderRadiusWrapperXLed = Math.min(wrapperWidthPxLed > 0 ? (borderRadiusPxLed / wrapperWidthPxLed) * 100 : 0, 50)
+                        const borderRadiusWrapperYLed = Math.min(wrapperHeightPxLed > 0 ? (borderRadiusPxLed / wrapperHeightPxLed) * 100 : 0, 50)
+                        
+                        const topLeftLed = 0
+                        const topRightLed = 100
+                        const topYLed = 0
+                        const bottomYLed = 100
+                        
+                        const roundedRectPathDupLed = `
+                          M ${topLeftLed + borderRadiusWrapperXLed},${topYLed}
+                          Q ${topLeftLed},${topYLed} ${topLeftLed},${topYLed + borderRadiusWrapperYLed}
+                          L ${topLeftLed},${bottomYLed - borderRadiusWrapperYLed}
+                          Q ${topLeftLed},${bottomYLed} ${topLeftLed + borderRadiusWrapperXLed},${bottomYLed}
+                          L ${topRightLed - borderRadiusWrapperXLed},${bottomYLed}
+                          Q ${topRightLed},${bottomYLed} ${topRightLed},${bottomYLed - borderRadiusWrapperYLed}
+                          L ${topRightLed},${topYLed + borderRadiusWrapperYLed}
+                          Q ${topRightLed},${topYLed} ${topRightLed - borderRadiusWrapperXLed},${topYLed}
+                          Z
+                        `
+                        
+                        const leftBorderPathDupLed = `
+                          M ${topLeftLed + borderRadiusWrapperXLed},${topYLed}
+                          Q ${topLeftLed},${topYLed} ${topLeftLed},${topYLed + borderRadiusWrapperYLed}
+                          L ${topLeftLed},${bottomYLed - borderRadiusWrapperYLed}
+                          Q ${topLeftLed},${bottomYLed} ${topLeftLed + borderRadiusWrapperXLed},${bottomYLed}
+                        `
+                        
+                        const rightBorderPathDupLed = `
+                          M ${topRightLed - borderRadiusWrapperXLed},${bottomYLed}
+                          Q ${topRightLed},${bottomYLed} ${topRightLed},${bottomYLed - borderRadiusWrapperYLed}
+                          L ${topRightLed},${topYLed + borderRadiusWrapperYLed}
+                          Q ${topRightLed},${topYLed} ${topRightLed - borderRadiusWrapperXLed},${topYLed}
+                        `
+                        
+                        const topBorderPathDupLed = `
+                          M ${topLeftLed + borderRadiusWrapperXLed},${topYLed}
+                          L ${topRightLed - borderRadiusWrapperXLed},${topYLed}
+                        `
+                        
+                        const bottomBorderPathDupLed = `
+                          M ${topLeftLed + borderRadiusWrapperXLed},${bottomYLed}
+                          L ${topRightLed - borderRadiusWrapperXLed},${bottomYLed}
+                        `
+                        
+                        // Font size scales exactly with image using stageRelativeScale
+                        const ledFontSizeDup = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyleLed}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'black',
+                                fontSize: `${ledFontSizeDup}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              LED
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPathDupLed}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPathDupLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPathDupLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPathDupLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPathDupLed}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
+                      {/* Ground text box on 15.1.png */}
+                      {(() => {
+                        const boxLeft = 44.28
+                        const boxTop = 57.58
+                        const boxWidth = 7.16
+                        const boxHeight = 2.00
+                        
+                        const pixelIncrease = 3
+                        const halfPixelIncrease = pixelIncrease / 2
+                        const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                        const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                        const leftOffsetAdjust = stageWidthPx > 0 ? (halfPixelIncrease / stageWidthPx) * 100 : 0
+                        const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                        
+                        const heightReductionPx = 5
+                        const widthReductionPx = 15
+                        const additionalHeightReductionPx = 5
+                        const additionalWidthReductionPx = 5
+                        const totalHeightReductionPx = heightReductionPx + additionalHeightReductionPx
+                        const totalWidthReductionPx = widthReductionPx + additionalWidthReductionPx
+                        const heightReductionPercent = imageNaturalSize.height > 0 ? (totalHeightReductionPx / imageNaturalSize.height) * 100 : 0
+                        const widthReductionPercent = imageNaturalSize.width > 0 ? (totalWidthReductionPx / imageNaturalSize.width) * 100 : 0
+                        
+                        const rightOffsetPx = 10
+                        const leftOffsetPx = 4
+                        const additionalRightOffsetPx = 3
+                        const downOffsetPx = 15
+                        const duplicateLeftOffsetPx = 25
+                        const duplicateDownOffsetPx = 86
+                        const rightOffsetPercent = imageNaturalSize.width > 0 ? (rightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const additionalRightOffsetPercent = imageNaturalSize.width > 0 ? (additionalRightOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const duplicateLeftOffsetPercent = imageNaturalSize.width > 0 ? (duplicateLeftOffsetPx / imageNaturalSize.width) * 100 : 0
+                        const duplicateDownOffsetPercent = imageNaturalSize.height > 0 ? (duplicateDownOffsetPx / imageNaturalSize.height) * 100 : 0
+                        const netRightOffsetPercent = rightOffsetPercent - leftOffsetPercent + additionalRightOffsetPercent - duplicateLeftOffsetPercent
+                        
+                        const adjustedLeft = Math.max(0, boxLeft - leftOffsetAdjust + netRightOffsetPercent)
+                        const adjustedTop = Math.max(0, boxTop - topOffsetAdjust + downOffsetPercent + duplicateDownOffsetPercent)
+                        const expandedWidth = Math.min(100 - adjustedLeft, boxWidth + widthPercentAdjust - widthReductionPercent)
+                        const expandedHeight = Math.min(100 - adjustedTop, boxHeight + heightPercentAdjust - heightReductionPercent)
+                        const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                        
+                        const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                        const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                        const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                        const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                        const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                        
+                        const topLeft = 0
+                        const topRight = 100
+                        const topY = 0
+                        const bottomY = 100
+                        
+                        const roundedRectPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                          Z
+                        `
+                        
+                        const leftBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          Q ${topLeft},${topY} ${topLeft},${topY + borderRadiusWrapperY}
+                          L ${topLeft},${bottomY - borderRadiusWrapperY}
+                          Q ${topLeft},${bottomY} ${topLeft + borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const rightBorderPath = `
+                          M ${topRight - borderRadiusWrapperX},${bottomY}
+                          Q ${topRight},${bottomY} ${topRight},${bottomY - borderRadiusWrapperY}
+                          L ${topRight},${topY + borderRadiusWrapperY}
+                          Q ${topRight},${topY} ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const topBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${topY}
+                          L ${topRight - borderRadiusWrapperX},${topY}
+                        `
+                        
+                        const bottomBorderPath = `
+                          M ${topLeft + borderRadiusWrapperX},${bottomY}
+                          L ${topRight - borderRadiusWrapperX},${bottomY}
+                        `
+                        
+                        const groundFontSize = 10.5 * stageRelativeScale
+                        
+                        return (
+                          <div 
+                            className="speech-bubble-wrapper no-pulse"
+                            style={buttonStyle}
+                          >
+                            <div
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                zIndex: 11,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#595959',
+                                fontSize: `${groundFontSize}px`,
+                                fontFamily: 'Roboto, sans-serif',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                boxSizing: 'border-box',
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none'
+                              }}
+                            >
+                              Ground
+                            </div>
+                            <svg
+                              className="speech-bubble-svg"
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                                pointerEvents: 'none',
+                                overflow: 'visible',
+                                zIndex: 10
+                              }}
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                              </defs>
+                              <path
+                                d={roundedRectPath}
+                                fill="#ffffff"
+                                style={{ fill: '#ffffff' }}
+                              />
+                              <g className="speech-bubble-border-group">
+                                <path
+                                  d={leftBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={rightBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={topBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                                <path
+                                  d={bottomBorderPath}
+                                  fill="none"
+                                  stroke="#595959"
+                                  strokeWidth="1"
+                                  className="speech-bubble-border"
+                                  vectorEffect="non-scaling-stroke"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        )
+                      })()}
                     </>
                   )}
-                  {/* Box 1 on page 15.1.png and 15.png - with pointer - REMOVED */}
+                  {/* Box 1 on page 15.1.png and 15.png - with pointer (disabled: page15Box3Selected is shared with intro overlay) */}
                   {false && currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 42.25
                     const boxTop = 34.78
@@ -35668,7 +36385,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         height: '9.34%',
                         backgroundColor: 'white',
                         border: '2px solid #0d6efd',
-                        borderRadius: `${8 * stageRelativeScale}px`,
+                        borderRadius: `${17 * stageRelativeScale}px`,
                         zIndex: 101,
                         cursor: 'pointer',
                         display: 'inline-flex',
@@ -41216,31 +41933,39 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )
         })()}
-        {/* Page 15 — Show / Hide Wiring Diagram bottom-nav tab. Appears once
-            the page 15 selection box has been clicked (page15Box3Selected).
-            Toggles page15BoxSelected, which drives the image swap between
-            15.1.svg (default) and 15.svg (wiring diagram) via the existing
-            <img src> logic at the top of this component. */}
-        {currentPage === 14 && page15Box3Selected && (
-          <button
-            type="button"
-            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
-            onClick={() => setPage15BoxSelected(prev => !prev)}
-            aria-label={page15BoxSelected ? 'Hide wiring diagram' : 'Show wiring diagram'}
-            aria-pressed={page15BoxSelected}
-          >
-            <span className="wiring-diagram-tab-label">
-              <span className="wiring-diagram-tab-label-text">
-                {page15BoxSelected ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'}
+        {/* Page 15 — same three-state wiring tab as page 10 (Show Labels → Hide Wiring Diagram → Show Wiring Diagram). */}
+        {currentPage === 14 && page15Box3Selected && (() => {
+          let label
+          let aria
+          if (!page15ShowLabelsClicked) {
+            label = 'Show Labels'
+            aria = 'Show labels'
+          } else if (page15WiringShown) {
+            label = 'Hide Wiring Diagram'
+            aria = 'Hide wiring diagram'
+          } else {
+            label = 'Show Wiring Diagram'
+            aria = 'Show wiring diagram'
+          }
+          return (
+            <button
+              type="button"
+              className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+              onClick={handlePage15NavTab}
+              aria-label={aria}
+              aria-pressed={page15WiringShown}
+            >
+              <span className="wiring-diagram-tab-label">
+                <span className="wiring-diagram-tab-label-text">
+                  {label}
+                </span>
+                <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
+                  Hide Wiring Diagram
+                </span>
               </span>
-              {/* Ghost label — invisible but reserves enough room so the
-                  button width never changes between the two labels. */}
-              <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
-                {page15BoxSelected ? 'Show Wiring Diagram' : 'Hide Wiring Diagram'}
-              </span>
-            </span>
-          </button>
-        )}
+            </button>
+          )
+        })()}
         <div className="zoom-controls">
           {showZoomControls && (
           <div className="zoom-page-group">
@@ -41468,9 +42193,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 12 && !(page13UploadAttempted && page13NewBoxSelected)) ||
                 (currentPage === 13 && !page14Box5Selected) ||
                 (currentPage === 14 && !page15Box3Selected) ||
-                (currentPage === 15 && !page16Box3Selected) ||
-                (currentPage === 16 && !page17Box4bSelected) ||
-                (currentPage === 17 && (!page18Box1Selected || !page18Box2Selected || !page18Box3Selected || !page18Box4Selected)) ||
+                (currentPage === 15 && !yellowButtonConnectedIsTrue) ||
+                (currentPage === 16 && !page17CheckboxSelected) ||
                 (currentPage === 18 && !page19Box3Selected) ||
                 (currentPage === 19 && !page20Box6Selected) ||
                 (currentPage === 20 && !page21ShowHelpImage && !page21BoxSelected) ||
@@ -41487,7 +42211,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 31 && !page32Box3Selected) ||
                 (currentPage === 32 && !page33Box1Selected)
               }
-              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Checkbox1Selected && page12Checkbox2Selected) || (currentPage === 12 && page13UploadAttempted && page13NewBoxSelected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Checkbox1Selected && page12Checkbox2Selected) || (currentPage === 12 && page13UploadAttempted && page13NewBoxSelected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && yellowButtonConnectedIsTrue) || (currentPage === 16 && page17CheckboxSelected) || (currentPage === 17) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>

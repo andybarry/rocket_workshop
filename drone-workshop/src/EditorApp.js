@@ -138,6 +138,7 @@ function EditorApp() {
             onDimensionsCapture={setCapturedDimensions}
             onRefresh={(handler) => { refreshHandlerRef.current = handler }}
             onPageSelect={(handler) => { pageSelectHandlerRef.current = handler }}
+            yellowButtonConnectedIsTrue={true}
           />
         </div>
         <div style={{ height: 'calc(100vh - 58px)', overflow: 'auto' }}>

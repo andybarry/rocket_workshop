@@ -21,9 +21,9 @@ import page14 from '../assets/images/pages/14.svg'
 import page15 from '../assets/images/pages/15.svg'
 import page15_1 from '../assets/images/pages/15.1.svg'
 import page16 from '../assets/images/pages/16.svg'
-import page17 from '../assets/images/pages/17.png'
-import page18 from '../assets/images/pages/18.png'
-import page18_1 from '../assets/images/pages/18.1.png'
+import page17 from '../assets/images/pages/17.svg'
+import page18 from '../assets/images/pages/18.svg'
+import page18_1 from '../assets/images/pages/18.1.svg'
 import page19 from '../assets/images/pages/19.png'
 import page20 from '../assets/images/pages/20.png'
 import page21 from '../assets/images/pages/21.png'
@@ -203,15 +203,15 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(16, false, false, false, false)}>
               <img src={page17} alt="Page 17" className="image-selector-thumbnail" />
-              <span className="image-selector-label">17.png</span>
+              <span className="image-selector-label">17.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(17, false, false, false, false)}>
               <img src={page18} alt="Page 18" className="image-selector-thumbnail" />
-              <span className="image-selector-label">18.png</span>
+              <span className="image-selector-label">18.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(17, false, false, false, false, false, false, true)}>
               <img src={page18_1} alt="Page 18.1" className="image-selector-thumbnail" />
-              <span className="image-selector-label">18.1.png</span>
+              <span className="image-selector-label">18.1.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(18, false, false, false, false)}>
               <img src={page19} alt="Page 19" className="image-selector-thumbnail" />
