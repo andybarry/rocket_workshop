@@ -3,6 +3,52 @@ import './App.css'
 import Login from './Login'
 import { SITE_CONFIG } from './config'
 
+// Print-safe primitives.
+//
+// Browsers strip CSS background colors/images on print whenever the user has
+// "Background graphics" disabled in the print dialog (and `print-color-adjust`
+// is only a hint). Foreground SVG content is rendered like text/images, so it
+// always prints regardless of that setting. Using these helpers in place of
+// background-color makes the PDF render identically to the on-screen view
+// without depending on any user print preference.
+const BarFill = ({ color }) => (
+  <svg
+    className="chart-bar-fill"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <rect width="100%" height="100%" fill={color} />
+  </svg>
+)
+
+const ChartGridlines = () => (
+  <svg
+    className="chart-gridlines"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <line x1="0" y1="25%" x2="100%" y2="25%" stroke="#e0e0e0" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+    <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#e0e0e0" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+    <line x1="0" y1="75%" x2="100%" y2="75%" stroke="#e0e0e0" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+    <rect x="0" y="96%" width="100%" height="4%" fill="#e0e0e0" />
+  </svg>
+)
+
+const LegendSwatch = ({ color }) => (
+  <span className="legend-color">
+    <svg
+      viewBox="0 0 1 1"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect width="1" height="1" fill={color} />
+    </svg>
+  </span>
+)
+
 function App() {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -928,254 +974,119 @@ function App() {
 
     const filterDisplayText = getFilterDisplayText()
 
+    const renderChartWindow = (data, index) => (
+      <div key={index} className="chart-window">
+        <div className="chart-header">
+          <div className="ai-workshop-text">{workshopName}</div>
+          {filterDisplayText && <div className="chart-filter-info">{filterDisplayText}</div>}
+        </div>
+        <div className="chart-title">{data.question}</div>
+        <div className="chart-surveyed-count">surveyed: {data.total}</div>
+        {data.isCombined ? (
+          <>
+            <div className="chart-legend">
+              <div className="legend-item">
+                <LegendSwatch color="#939393" />
+                <span>Before</span>
+              </div>
+              <div className="legend-item">
+                <LegendSwatch color="#f05f40" />
+                <span>After</span>
+              </div>
+            </div>
+            <div className="chart-content">
+              <ChartGridlines />
+              <div className="chart-bars">
+                {data.counts.map((count, barIndex) => {
+                  const afterCount = data.afterCounts[barIndex]
+                  const maxCount = Math.max(...data.counts, ...data.afterCounts)
+                  const beforePercentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                  const afterPercentage = maxCount > 0 ? (afterCount / maxCount) * 100 : 0
+                  const beforeActualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
+                  const afterActualPercentage = data.total > 0 ? Math.round((afterCount / data.total) * 100) : 0
+                  return (
+                    <div key={barIndex} className="combined-bar-container">
+                      <div className="combined-bar-group">
+                        <div className="combined-bar-value">
+                          <div>{count}</div>
+                          <div>({beforeActualPercentage}%)</div>
+                        </div>
+                        <div
+                          className="combined-chart-bar before-bar"
+                          style={{ height: `${beforePercentage}%` }}
+                        >
+                          <BarFill color="#939393" />
+                        </div>
+                      </div>
+                      <div className="combined-bar-group">
+                        <div className="combined-bar-value">
+                          <div>{afterCount}</div>
+                          <div>({afterActualPercentage}%)</div>
+                        </div>
+                        <div
+                          className="combined-chart-bar after-bar"
+                          style={{ height: `${afterPercentage}%` }}
+                        >
+                          <BarFill color="#f05f40" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="chart-content">
+              <ChartGridlines />
+              <div className="chart-bars">
+                {data.counts.map((count, barIndex) => {
+                  const maxCount = Math.max(...data.counts)
+                  const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
+                  const actualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
+                  return (
+                    <div key={barIndex} className="bar-container">
+                      <div className="bar-value">
+                        <div>{count}</div>
+                        <div>({actualPercentage}%)</div>
+                      </div>
+                      <div
+                        className="chart-bar"
+                        style={{ height: `${percentage}%` }}
+                      >
+                        <BarFill color="#f05f40" />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </>
+        )}
+        <div className="x-axis">
+          {data.responseOptions.map((option, optionIndex) => (
+            <div key={optionIndex} className="x-label">{option}</div>
+          ))}
+        </div>
+        <div className="stage-one-text">STAGE ONE EDUCATION</div>
+      </div>
+    )
+
+    const chartSheets = []
+    for (let i = 0; i < chartData.length; i += 4) {
+      chartSheets.push(chartData.slice(i, i + 4))
+    }
+
     return (
       <>
-        <div className="bar-graphs-container">
-          {chartData.slice(0, 3).map((data, index) => (
-            <div key={index} className="chart-window">
-              <div className="chart-header">
-                <div className="ai-workshop-text">{workshopName}</div>
-                {filterDisplayText && <div className="chart-filter-info">{filterDisplayText}</div>}
-              </div>
-              <div className="chart-title">{data.question}</div>
-              <div className="chart-surveyed-count">surveyed: {data.total}</div>
-              {data.isCombined ? (
-                <>
-                  <div className="chart-legend">
-                    <div className="legend-item">
-                      <div className="legend-color" style={{backgroundColor: '#939393'}}></div>
-                      <span>Before</span>
-                    </div>
-                    <div className="legend-item">
-                      <div className="legend-color" style={{backgroundColor: '#f05f40'}}></div>
-                      <span>After</span>
-                    </div>
-                  </div>
-                  <div className="chart-content">
-                    <div className="chart-bars">
-                      {data.counts.map((count, barIndex) => {
-                        const afterCount = data.afterCounts[barIndex]
-                        const maxCount = Math.max(...data.counts, ...data.afterCounts)
-                        const beforePercentage = maxCount > 0 ? (count / maxCount) * 100 : 0
-                        const afterPercentage = maxCount > 0 ? (afterCount / maxCount) * 100 : 0
-                        const beforeActualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
-                        const afterActualPercentage = data.total > 0 ? Math.round((afterCount / data.total) * 100) : 0
-                        return (
-                          <div key={barIndex} className="combined-bar-container">
-                            <div className="combined-bar-group">
-                              <div className="combined-bar-value">
-                                <div>{count}</div>
-                                <div>({beforeActualPercentage}%)</div>
-                              </div>
-                              <div 
-                                className="combined-chart-bar before-bar" 
-                                style={{
-                                  height: `${beforePercentage}%`, 
-                                  backgroundColor: '#939393'
-                                }}
-                              ></div>
-                            </div>
-                            <div className="combined-bar-group">
-                              <div className="combined-bar-value">
-                                <div>{afterCount}</div>
-                                <div>({afterActualPercentage}%)</div>
-                              </div>
-                              <div 
-                                className="combined-chart-bar after-bar" 
-                                style={{
-                                  height: `${afterPercentage}%`, 
-                                  backgroundColor: '#f05f40'
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>  
-                  <div className="chart-content">
-                    <div className="chart-bars">
-                      {data.counts.map((count, barIndex) => {
-                        const maxCount = Math.max(...data.counts)
-                        const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
-                        const actualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
-                        return (
-                          <div key={barIndex} className="bar-container">
-                            <div className="bar-value">
-                              <div>{count}</div>
-                              <div>({actualPercentage}%)</div>
-                            </div>
-                            <div 
-                              className="chart-bar" 
-                              style={{
-                                height: `${percentage}%`, 
-                                backgroundColor: '#f05f40'
-                              }}
-                            ></div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className="x-axis">
-                {data.responseOptions.map((option, optionIndex) => (
-                  <div key={optionIndex} className="x-label">{option}</div>
-                ))}
-              </div>
-              <div className="stage-one-text">STAGE ONE EDUCATION</div>
+        {chartSheets.map((chunk, sheetIdx) => (
+          <div key={sheetIdx} className="charts-print-sheet">
+            <div className="bar-graphs-container">
+              {chunk.map((data, idx) => renderChartWindow(data, sheetIdx * 4 + idx))}
             </div>
-          ))}
-        </div>
-        
-        <div className="bar-graphs-container">
-          {chartData.slice(3, 6).map((data, index) => (
-            <div key={index + 3} className="chart-window">
-              <div className="chart-header">
-                <div className="ai-workshop-text">{workshopName}</div>
-                {filterDisplayText && <div className="chart-filter-info">{filterDisplayText}</div>}
-              </div>
-              <div className="chart-title">{data.question}</div>
-              <div className="chart-surveyed-count">surveyed: {data.total}</div>
-              {data.isCombined ? (
-                <>
-                  <div className="chart-legend">
-                    <div className="legend-item">
-                      <div className="legend-color" style={{backgroundColor: '#939393'}}></div>
-                      <span>Before</span>
-                    </div>
-                    <div className="legend-item">
-                      <div className="legend-color" style={{backgroundColor: '#f05f40'}}></div>
-                      <span>After</span>
-                    </div>
-                  </div>
-                  <div className="chart-content">
-                    <div className="chart-bars">
-                      {data.counts.map((count, barIndex) => {
-                        const afterCount = data.afterCounts[barIndex]
-                        const maxCount = Math.max(...data.counts, ...data.afterCounts)
-                        const beforePercentage = maxCount > 0 ? (count / maxCount) * 100 : 0
-                        const afterPercentage = maxCount > 0 ? (afterCount / maxCount) * 100 : 0
-                        const beforeActualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
-                        const afterActualPercentage = data.total > 0 ? Math.round((afterCount / data.total) * 100) : 0
-                        return (
-                          <div key={barIndex} className="combined-bar-container">
-                            <div className="combined-bar-group">
-                              <div className="combined-bar-value">
-                                <div>{count}</div>
-                                <div>({beforeActualPercentage}%)</div>
-                              </div>
-                              <div 
-                                className="combined-chart-bar before-bar" 
-                                style={{
-                                  height: `${beforePercentage}%`, 
-                                  backgroundColor: '#939393'
-                                }}
-                              ></div>
-                            </div>
-                            <div className="combined-bar-group">
-                              <div className="combined-bar-value">
-                                <div>{afterCount}</div>
-                                <div>({afterActualPercentage}%)</div>
-                              </div>
-                              <div 
-                                className="combined-chart-bar after-bar" 
-                                style={{
-                                  height: `${afterPercentage}%`, 
-                                  backgroundColor: '#f05f40'
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>  
-                  <div className="chart-content">
-                    <div className="chart-bars">
-                      {data.counts.map((count, barIndex) => {
-                        const maxCount = Math.max(...data.counts)
-                        const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
-                        const actualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
-                        return (
-                          <div key={barIndex} className="bar-container">
-                            <div className="bar-value">
-                              <div>{count}</div>
-                              <div>({actualPercentage}%)</div>
-                            </div>
-                            <div 
-                              className="chart-bar" 
-                              style={{
-                                height: `${percentage}%`, 
-                                backgroundColor: '#f05f40'
-                              }}
-                            ></div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className="x-axis">
-                {data.responseOptions.map((option, optionIndex) => (
-                  <div key={optionIndex} className="x-label">{option}</div>
-                ))}
-              </div>
-              <div className="stage-one-text">STAGE ONE EDUCATION</div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="bar-graphs-container">
-          {chartData.slice(6, 9).map((data, index) => (
-            <div key={index + 6} className="chart-window">
-              <div className="chart-header">
-                <div className="ai-workshop-text">{workshopName}</div>
-                {filterDisplayText && <div className="chart-filter-info">{filterDisplayText}</div>}
-              </div>
-              <div className="chart-title">{data.question}</div>
-              <div className="chart-surveyed-count">surveyed: {data.total}</div>
-              <div className="chart-content">
-                <div className="chart-bars">
-                  {data.counts.map((count, barIndex) => {
-                    const maxCount = Math.max(...data.counts)
-                    const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0
-                    const actualPercentage = data.total > 0 ? Math.round((count / data.total) * 100) : 0
-                    return (
-                      <div key={barIndex} className="bar-container">
-                        <div className="bar-value">
-                          <div>{count}</div>
-                          <div>({actualPercentage}%)</div>
-                        </div>
-                        <div 
-                          className="chart-bar" 
-                          style={{
-                            height: `${percentage}%`, 
-                            backgroundColor: '#f05f40'
-                          }}
-                        ></div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-              <div className="x-axis">
-                {data.responseOptions.map((option, optionIndex) => (
-                  <div key={optionIndex} className="x-label">{option}</div>
-                ))}
-              </div>
-              <div className="stage-one-text">STAGE ONE EDUCATION</div>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </>
     )
   }
@@ -1321,11 +1232,38 @@ function App() {
             >
               Show Feedback
             </button>
+            <button
+              className="print-feedback-btn"
+              onClick={() => window.print()}
+              disabled={!showSpecificFeedback}
+              title={showSpecificFeedback ? 'Print the currently displayed feedback' : 'Click "Show Feedback" first to load feedback to print'}
+            >
+              Print Feedback
+            </button>
           </div>
         </div>
         {showSpecificFeedback && (
           <div className="feedback-graphs-section">
-            {renderSpecificCharts()}
+            <div className="print-only-header" aria-hidden="true">
+              <div className="print-header-org">Stage One Education Workshop Feedback</div>
+              <div className="print-header-workshop">
+                {specificWorkshop === 'ai-workshop' ? 'Artificial Intelligence Workshop' :
+                 specificWorkshop === 'robotics-workshop' ? 'Robotics Workshop' :
+                 specificWorkshop === 'mechanical-workshop' ? 'Mechanical Engineering Workshop' : 'Workshop'}
+              </div>
+              {getFilterDisplayText() && (
+                <div className="print-header-meta">{getFilterDisplayText()}</div>
+              )}
+            </div>
+            <div className="print-only-footer" aria-hidden="true">
+              <span className="print-footer-date">
+                Printed on {new Date().toLocaleDateString()}
+              </span>
+            </div>
+            <div className="print-content-window">
+            <div className="charts-wrapper">
+              {renderSpecificCharts()}
+            </div>
             <div className="favorite-part-section">
               <div className="favorite-part-title">
                 <h3>My favorite part of this workshop was</h3>
@@ -1444,6 +1382,7 @@ function App() {
                   </div>
                 )}
               </div>
+            </div>
             </div>
           </div>
         )}
