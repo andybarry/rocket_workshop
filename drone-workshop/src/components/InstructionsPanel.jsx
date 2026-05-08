@@ -20,9 +20,9 @@ import page12 from '../assets/images/pages/12.svg'
 import page12_1 from '../assets/images/pages/12.1.png'
 import page13 from '../assets/images/pages/13.svg'
 import page14 from '../assets/images/pages/14.svg'
-import page15 from '../assets/images/pages/15.png'
-import page15_1 from '../assets/images/pages/15.1.png'
-import page16 from '../assets/images/pages/16.png'
+import page15 from '../assets/images/pages/15.svg'
+import page15_1 from '../assets/images/pages/15.1.svg'
+import page16 from '../assets/images/pages/16.svg'
 import page17 from '../assets/images/pages/17.png'
 import page18 from '../assets/images/pages/18.png'
 import page18_1 from '../assets/images/pages/18.1.png'
@@ -9889,8 +9889,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Box 1 on page 16.png - with pointer (leftward) */}
-                  {currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 16.png - with pointer (leftward) - REMOVED */}
+                  {false && currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 67.94
                     const boxTop = 19.98
                     const boxWidth = 26.08
@@ -10114,8 +10114,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 2 on page 16.png - with pointer (leftward) */}
-                  {currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 2 on page 16.png - with pointer (leftward) - REMOVED */}
+                  {false && currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 63.66
                     const boxTop = 49.58
                     const boxWidth = 32.39
@@ -10339,8 +10339,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 3 on page 16.png - with pointer (leftward) */}
-                  {currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 3 on page 16.png - with pointer (leftward) - REMOVED */}
+                  {false && currentPage === 15 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 50.14
                     const boxTop = 77.08
                     const boxWidth = 15.49
@@ -10564,8 +10564,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box on page 16 - hidden when box 1 is selected */}
-                  {currentPage === 15 && !editorMode && !page16Box1Selected && (
+                  {/* White box on page 16 - hidden when box 1 is selected - REMOVED */}
+                  {false && currentPage === 15 && !editorMode && !page16Box1Selected && (
                     <div
                       style={{
                         position: 'absolute',
@@ -10580,8 +10580,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box on page 16 - hidden when box 2 is selected */}
-                  {currentPage === 15 && !editorMode && !page16Box2Selected && (
+                  {/* White box on page 16 - hidden when box 2 is selected - REMOVED */}
+                  {false && currentPage === 15 && !editorMode && !page16Box2Selected && (
                     <div
                       style={{
                         position: 'absolute',
@@ -23981,8 +23981,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     </>
                   )}
-                  {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
-                  {currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
+                  {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
                     const boxLeft = 64.56
                     const boxTop = 52.01
                     const boxWidth = 26.08
@@ -24004,8 +24004,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* White box on page 15.1.png and 15.png - hidden when both box 1 and box 2 are selected */}
-                  {currentPage === 14 && !editorMode && !(page15Box1Selected && page15Box2Selected) && (
+                  {/* White box on page 15.1.png and 15.png - hidden when both box 1 and box 2 are selected - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !(page15Box1Selected && page15Box2Selected) && (
                     <div
                       style={{
                         ...getButtonStyle(17.47, 76.91, 65.96, 15.87),
@@ -24016,8 +24016,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true */}
-                  {currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
+                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -34048,8 +34048,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     </>
                   )}
-                  {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time */}
-                  {currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
+                  {/* White box on page 15.1.png - hidden when "Need Help?" button is selected the first time - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && !page15BoxesVisible && (() => {
                     const boxLeft = 64.56
                     const boxTop = 52.01
                     const boxWidth = 26.08
@@ -34071,8 +34071,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* White box on page 15.1.png and 15.png - hidden when both box 1 and box 2 are selected */}
-                  {currentPage === 14 && !editorMode && !(page15Box1Selected && page15Box2Selected) && (
+                  {/* White box on page 15.1.png and 15.png - hidden when both box 1 and box 2 are selected - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !(page15Box1Selected && page15Box2Selected) && (
                     <div
                       style={{
                         ...getButtonStyle(17.47, 76.91, 65.96, 15.87),
@@ -34083,8 +34083,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true */}
-                  {currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
+                  {/* Button, LED boxes - only show on 15.1.png when page15BoxesVisible is true - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && !page15BoxSelected && page15BoxesVisible && (
                     <>
                       {/* Button box */}
                       {(() => {
@@ -34639,8 +34639,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       })()}
                     </>
                   )}
-                  {/* Box 1 on page 15.1.png and 15.png - with pointer */}
-                  {currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 15.1.png and 15.png - with pointer - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 42.25
                     const boxTop = 34.78
                     const boxWidth = 32.39
@@ -34864,8 +34864,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 2 on page 15.1.png and 15.png - with pointer */}
-                  {currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 2 on page 15.1.png and 15.png - with pointer - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 40.90
                     const boxTop = 69.94
                     const boxWidth = 31.26
@@ -35090,8 +35090,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 3 on page 15.1.png and 15.png - only active after both box 1 and box 2 are selected */}
-                  {currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 3 on page 15.1.png and 15.png - only active after both box 1 and box 2 are selected - REMOVED */}
+                  {false && currentPage === 14 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 19.50
                     const boxTop = 78.13
                     const boxWidth = 62.13
@@ -35267,8 +35267,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                      {/* "Show Labels" / "Show Wiring Diagram" / "Hide Wiring Diagram" button on 15.1.png - same box and text scaling as page 7 */}
-                      {currentPage === 14 && !editorMode && !page15BoxSelected && (() => {
+                      {/* "Show Labels" / "Show Wiring Diagram" / "Hide Wiring Diagram" button on 15.1.png - same box and text scaling as page 7 - REMOVED */}
+                      {false && currentPage === 14 && !editorMode && !page15BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         const pixelIncrease = 3
@@ -35455,8 +35455,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
-                      {/* "Show Wiring Diagram" button on 15.png - same box and text scaling as page 7 */}
-                      {currentPage === 14 && !editorMode && page15BoxSelected && (() => {
+                      {/* "Show Wiring Diagram" button on 15.png - same box and text scaling as page 7 - REMOVED */}
+                      {false && currentPage === 14 && !editorMode && page15BoxSelected && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         const pixelIncrease = 3
@@ -35643,6 +35643,61 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </div>
                         )
                       })()}
+                  {/* Page 15 - Large selection box. Same visual format as page
+                      12 / page 14 selection boxes: white infill, 2px blue
+                      edge, rounded corners. On click, hides the white cover
+                      box below, activates the bottom-nav Next button (via
+                      page15Box3Selected), and reveals the Show / Hide Wiring
+                      Diagram tab in the bottom nav. Then this box itself
+                      disappears. */}
+                  {currentPage === 14 && !editorMode && !page15Box3Selected && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        if (!page15Box3Selected) {
+                          setPage15Box3Selected(true)
+                        }
+                      }}
+                      onMouseDown={(e) => { e.stopPropagation() }}
+                      style={{
+                        position: 'absolute',
+                        left: '10.91%',
+                        top: '24.09%',
+                        width: '78.17%',
+                        height: '9.34%',
+                        backgroundColor: 'white',
+                        border: '2px solid #0d6efd',
+                        borderRadius: `${8 * stageRelativeScale}px`,
+                        zIndex: 101,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box',
+                        padding: `${8 * stageRelativeScale}px`,
+                        pointerEvents: 'auto'
+                      }}
+                    />
+                  )}
+                  {/* Page 15 - White cover box (lower portion). Hidden once
+                      the selection box above has been selected, revealing
+                      the underlying page 15 content. */}
+                  {currentPage === 14 && !editorMode && !page15Box3Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0%',
+                        top: '33.63%',
+                        width: '99.25%',
+                        height: '61.68%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        zIndex: 100,
+                        pointerEvents: 'none'
+                      }}
+                    />
+                  )}
                   {/* White box 1 on page 10.1.png - displayed until box 2 is selected */}
                   {false && currentPage === 9 && !editorMode && !page10BoxSelected && !page10WhiteBox1Hidden && (
                     <div
@@ -41161,6 +41216,31 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )
         })()}
+        {/* Page 15 — Show / Hide Wiring Diagram bottom-nav tab. Appears once
+            the page 15 selection box has been clicked (page15Box3Selected).
+            Toggles page15BoxSelected, which drives the image swap between
+            15.1.svg (default) and 15.svg (wiring diagram) via the existing
+            <img src> logic at the top of this component. */}
+        {currentPage === 14 && page15Box3Selected && (
+          <button
+            type="button"
+            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+            onClick={() => setPage15BoxSelected(prev => !prev)}
+            aria-label={page15BoxSelected ? 'Hide wiring diagram' : 'Show wiring diagram'}
+            aria-pressed={page15BoxSelected}
+          >
+            <span className="wiring-diagram-tab-label">
+              <span className="wiring-diagram-tab-label-text">
+                {page15BoxSelected ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'}
+              </span>
+              {/* Ghost label — invisible but reserves enough room so the
+                  button width never changes between the two labels. */}
+              <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
+                {page15BoxSelected ? 'Show Wiring Diagram' : 'Hide Wiring Diagram'}
+              </span>
+            </span>
+          </button>
+        )}
         <div className="zoom-controls">
           {showZoomControls && (
           <div className="zoom-page-group">

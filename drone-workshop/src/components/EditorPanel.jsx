@@ -18,9 +18,9 @@ import page12 from '../assets/images/pages/12.png'
 import page12_1 from '../assets/images/pages/12.1.png'
 import page13 from '../assets/images/pages/13.png'
 import page14 from '../assets/images/pages/14.svg'
-import page15 from '../assets/images/pages/15.png'
-import page15_1 from '../assets/images/pages/15.1.png'
-import page16 from '../assets/images/pages/16.png'
+import page15 from '../assets/images/pages/15.svg'
+import page15_1 from '../assets/images/pages/15.1.svg'
+import page16 from '../assets/images/pages/16.svg'
 import page17 from '../assets/images/pages/17.png'
 import page18 from '../assets/images/pages/18.png'
 import page18_1 from '../assets/images/pages/18.1.png'
@@ -191,15 +191,15 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(14, false, false, false, false)}>
               <img src={page15_1} alt="Page 15.1" className="image-selector-thumbnail" />
-              <span className="image-selector-label">15.1.png</span>
+              <span className="image-selector-label">15.1.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(14, false, false, false, false, true)}>
               <img src={page15} alt="Page 15" className="image-selector-thumbnail" />
-              <span className="image-selector-label">15.png</span>
+              <span className="image-selector-label">15.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(15, false, false, false, false)}>
               <img src={page16} alt="Page 16" className="image-selector-thumbnail" />
-              <span className="image-selector-label">16.png</span>
+              <span className="image-selector-label">16.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(16, false, false, false, false)}>
               <img src={page17} alt="Page 17" className="image-selector-thumbnail" />
