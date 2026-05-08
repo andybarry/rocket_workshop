@@ -1372,6 +1372,7 @@ html, body {
   display: flex;
   justify-content: space-around;
   margin-top: 0.3rem;
+  margin-bottom: 0.12rem;
   padding: 0;
   height: 1.8rem;
   align-items: flex-start;
@@ -1529,8 +1530,8 @@ html, body {
   position: relative;
   background-color: transparent;
   z-index: 1;
-  padding: 1rem 0;
-  margin-bottom: 1rem;
+  padding: 1rem 0 0.35rem 0;
+  margin-bottom: 0.35rem;
 }
 
 .dropdown-and-button-wrapper::after {
@@ -1539,7 +1540,7 @@ html, body {
   width: 100%;
   height: 1px;
   background: linear-gradient(to right, transparent 0%, #d1d5db 20%, #d1d5db 80%, transparent 100%);
-  margin: 1rem auto 0 auto;
+  margin: 0.45rem auto 0 auto;
 }
 
 .dropdown-container {
@@ -1753,6 +1754,11 @@ html, body {
 
 .comment-date {
   font-weight: 500;
+}
+
+.comment-time {
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .comment-location {
@@ -2051,6 +2057,12 @@ html, body {
   text-align: center;
   margin-top: 0.1rem;
   font-weight: 700;
+}
+
+/* Clear wrapped x-axis labels (charts only; login uses .stage-one-text without .chart-window) */
+.chart-window .stage-one-text {
+  margin-top: 0.38rem;
+  flex-shrink: 0;
 }
 
 .ai-workshop-text {
@@ -3655,12 +3667,24 @@ html, body {
     wraps all charts + feedback: cloned padding clears header/footer on every page
     fragment, border redraws per fragment, and rows/charts use break-inside:avoid.
   */
+  /*
+    Page counters do not resolve inside position:fixed footers in Chromium
+    (shows “Page 0 of 0”). Use @page margin boxes for page / pages — Chrome 131+.
+    Extra bottom margin reserves space for that line beside the fixed footer date.
+  */
   @page {
     size: letter portrait;
     margin-top: 0;
     margin-right: 0.4in;
-    margin-bottom: 0.38in;
+    margin-bottom: 0.55in;
     margin-left: 0.4in;
+
+    @bottom-right {
+      content: 'Page ' counter(page) ' of ' counter(pages);
+      font-family: 'Roboto', sans-serif;
+      font-size: 7pt;
+      color: #aaa;
+    }
   }
 
   /* Reset every layout constraint that's geared for the on-screen viewport.
@@ -3738,8 +3762,8 @@ html, body {
     overflow: visible !important;
     /* Matches .print-only-header top inset + header stack height (keep ≥ header paint height) */
     --print-header-band: 1.12in;
-    /* Footer strip + “Printed on …” line + slack */
-    --print-footer-band: 0.42in;
+    /* Clears fixed footer; @page margin-bottom also reserves @bottom-right page # line */
+    --print-footer-band: 0.52in;
   }
 
   .print-content-window {
@@ -3845,7 +3869,6 @@ html, body {
     bottom: 0;
     padding: 0;
     margin: 0;
-    text-align: center;
     font-family: 'Roboto', sans-serif;
     background: white;
     z-index: 9999;
@@ -3853,27 +3876,29 @@ html, body {
     box-shadow: none !important;
   }
 
-  /* Breathing room above date only — no rule or line below the date */
-  .print-only-footer::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 0.18in;
-    background: #fff;
-    box-sizing: border-box;
-    border: none !important;
+  /* Centred “Printed on …” — page numbers come from @page @bottom-right */
+  .print-only-footer .print-footer-row {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding-top: 0.18in !important;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
   }
 
   .print-only-footer .print-footer-date {
-    display: block;
-    padding: 0.05in 0.4in 0 0.4in;
-    margin-bottom: 0 !important;
-    font-size: 7pt;
-    color: #aaa;
-    line-height: 1.2;
+    display: inline-block !important;
+    margin: 0 auto !important;
+    padding: 0.05in 0 0 !important;
+    font-size: 7pt !important;
+    color: #aaa !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
     border: none !important;
   }
 
+  .print-only-footer::before,
   .print-only-footer::after {
     display: none !important;
     content: none !important;

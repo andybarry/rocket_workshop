@@ -49,6 +49,38 @@ const LegendSwatch = ({ color }) => (
   </span>
 )
 
+/** Submission clock time from DB ISO timestamp — viewer's local zone, 12-hour with AM/PM */
+function formatFeedbackRowTime(timestamp) {
+  if (!timestamp) return ''
+  try {
+    const dateObj = new Date(timestamp)
+    if (Number.isNaN(dateObj.getTime())) return ''
+    return dateObj.toLocaleTimeString(undefined, {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })
+  } catch {
+    return ''
+  }
+}
+
+function FeedbackCommentMeta({ commentData }) {
+  return (
+    <div className="comment-meta">
+      <span className="comment-date">{commentData.date}</span>
+      <span>-</span>
+      {commentData.time ? (
+        <>
+          <span className="comment-time">{commentData.time}</span>
+          <span>-</span>
+        </>
+      ) : null}
+      <span className="comment-location">{commentData.location}</span>
+    </div>
+  )
+}
+
 function App() {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -616,6 +648,7 @@ function App() {
       .map(item => ({
         comment: item.comments,
         date: item.date,
+        time: formatFeedbackRowTime(item.timestamp),
         location: item['workshop-location']
       }))
   }
@@ -629,6 +662,7 @@ function App() {
       .map(item => ({
         comment: item['favorite-part'],
         date: item.date,
+        time: formatFeedbackRowTime(item.timestamp),
         location: item['workshop-location']
       }))
   }
@@ -642,6 +676,7 @@ function App() {
       .map(item => ({
         comment: item['instructor'],
         date: item.date,
+        time: formatFeedbackRowTime(item.timestamp),
         location: item['workshop-location']
       }))
   }
@@ -655,6 +690,7 @@ function App() {
       .map(item => ({
         comment: item['next-electronics'],
         date: item.date,
+        time: formatFeedbackRowTime(item.timestamp),
         location: item['workshop-location']
       }))
   }
@@ -668,6 +704,7 @@ function App() {
       .map(item => ({
         comment: item['next-design'],
         date: item.date,
+        time: formatFeedbackRowTime(item.timestamp),
         location: item['workshop-location']
       }))
   }
@@ -1256,9 +1293,11 @@ function App() {
               )}
             </div>
             <div className="print-only-footer" aria-hidden="true">
-              <span className="print-footer-date">
-                Printed on {new Date().toLocaleDateString()}
-              </span>
+              <div className="print-footer-row">
+                <span className="print-footer-date">
+                  Printed on {new Date().toLocaleDateString()}
+                </span>
+              </div>
             </div>
             <div className="print-content-window">
             <div className="charts-wrapper">
@@ -1273,11 +1312,7 @@ function App() {
                   getSpecificWorkshopFavoriteParts().map((commentData, index) => (
                     <div key={index} className="feedback-comment">
                       <div className="comment-text">"{commentData.comment}"</div>
-                      <div className="comment-meta">
-                        <span className="comment-date">{commentData.date}</span>
-                        <span>-</span>
-                        <span className="comment-location">{commentData.location}</span>
-                      </div>
+                      <FeedbackCommentMeta commentData={commentData} />
                     </div>
                   ))
                 ) : (
@@ -1297,11 +1332,7 @@ function App() {
                     getSpecificWorkshopNextElectronics().map((commentData, index) => (
                       <div key={index} className="feedback-comment">
                         <div className="comment-text">"{commentData.comment}"</div>
-                        <div className="comment-meta">
-                          <span className="comment-date">{commentData.date}</span>
-                          <span>-</span>
-                          <span className="comment-location">{commentData.location}</span>
-                        </div>
+                        <FeedbackCommentMeta commentData={commentData} />
                       </div>
                     ))
                   ) : (
@@ -1322,11 +1353,7 @@ function App() {
                     getSpecificWorkshopNextDesign().map((commentData, index) => (
                       <div key={index} className="feedback-comment">
                         <div className="comment-text">"{commentData.comment}"</div>
-                        <div className="comment-meta">
-                          <span className="comment-date">{commentData.date}</span>
-                          <span>-</span>
-                          <span className="comment-location">{commentData.location}</span>
-                        </div>
+                        <FeedbackCommentMeta commentData={commentData} />
                       </div>
                     ))
                   ) : (
@@ -1346,11 +1373,7 @@ function App() {
                   getSpecificWorkshopInstructors().map((commentData, index) => (
                     <div key={index} className="feedback-comment">
                       <div className="comment-text">"{commentData.comment}"</div>
-                      <div className="comment-meta">
-                        <span className="comment-date">{commentData.date}</span>
-                        <span>-</span>
-                        <span className="comment-location">{commentData.location}</span>
-                      </div>
+                      <FeedbackCommentMeta commentData={commentData} />
                     </div>
                   ))
                 ) : (
@@ -1369,11 +1392,7 @@ function App() {
                   getSpecificWorkshopComments().map((commentData, index) => (
                     <div key={index} className="feedback-comment">
                       <div className="comment-text">"{commentData.comment}"</div>
-                      <div className="comment-meta">
-                        <span className="comment-date">{commentData.date}</span>
-                        <span>-</span>
-                        <span className="comment-location">{commentData.location}</span>
-                      </div>
+                      <FeedbackCommentMeta commentData={commentData} />
                     </div>
                   ))
                 ) : (
