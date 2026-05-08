@@ -18,7 +18,7 @@ import page10_1 from '../assets/images/pages/10.1.svg'
 import page11 from '../assets/images/pages/11.svg'
 import page12 from '../assets/images/pages/12.svg'
 import page12_1 from '../assets/images/pages/12.1.png'
-import page13 from '../assets/images/pages/13.png'
+import page13 from '../assets/images/pages/13.svg'
 import page14 from '../assets/images/pages/14.png'
 import page15 from '../assets/images/pages/15.png'
 import page15_1 from '../assets/images/pages/15.1.png'
@@ -251,11 +251,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page12Box4Selected, setPage12Box4Selected] = useState(false)
   // Track page 12.1 box selection
   const [page12_1BoxSelected, setPage12_1BoxSelected] = useState(false)
+  // Page 12 selectable rectangular checkboxes with blue edge.
+  // Checkbox 1 selection hides white box 1; checkbox 2 selection hides
+  // white boxes 3 and 4. When both are selected the bottom-nav Next
+  // button activates.
+  const [page12Checkbox1Selected, setPage12Checkbox1Selected] = useState(false)
+  const [page12Checkbox2Selected, setPage12Checkbox2Selected] = useState(false)
   // Track page 13 box selection
   const [page13Box1Selected, setPage13Box1Selected] = useState(false)
   const [page13Box2Selected, setPage13Box2Selected] = useState(false)
   const [page13Box3Selected, setPage13Box3Selected] = useState(false)
   const [page13Box4Selected, setPage13Box4Selected] = useState(false)
+  // Tracks whether the user has clicked Upload at least once while on page 13.
+  // Used as the bottom-nav Next gate for page 13.
+  const [page13UploadAttempted, setPage13UploadAttempted] = useState(false)
   // Track page 14 box selection
   const [page14Box1Selected, setPage14Box1Selected] = useState(false)
   const [page14Box2Selected, setPage14Box2Selected] = useState(false)
@@ -692,11 +701,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page12Box3Selected === 'boolean') setPage12Box3Selected(p.page12Box3Selected)
       if (typeof p.page12Box4Selected === 'boolean') setPage12Box4Selected(p.page12Box4Selected)
       if (typeof p.page12_1BoxSelected === 'boolean') setPage12_1BoxSelected(p.page12_1BoxSelected)
+      if (typeof p.page12Checkbox1Selected === 'boolean') setPage12Checkbox1Selected(p.page12Checkbox1Selected)
+      if (typeof p.page12Checkbox2Selected === 'boolean') setPage12Checkbox2Selected(p.page12Checkbox2Selected)
 
       if (typeof p.page13Box1Selected === 'boolean') setPage13Box1Selected(p.page13Box1Selected)
       if (typeof p.page13Box2Selected === 'boolean') setPage13Box2Selected(p.page13Box2Selected)
       if (typeof p.page13Box3Selected === 'boolean') setPage13Box3Selected(p.page13Box3Selected)
       if (typeof p.page13Box4Selected === 'boolean') setPage13Box4Selected(p.page13Box4Selected)
+      if (typeof p.page13UploadAttempted === 'boolean') setPage13UploadAttempted(p.page13UploadAttempted)
 
       if (typeof p.page14Box1Selected === 'boolean') setPage14Box1Selected(p.page14Box1Selected)
       if (typeof p.page14Box2Selected === 'boolean') setPage14Box2Selected(p.page14Box2Selected)
@@ -950,13 +962,12 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 10 && !page11CheckboxSelected) {
       return
     }
-    // For page 12 (index 11), require box 4 to be selected to proceed
-    // Box 3 selection shows 12.1.png, but box 4 must be selected to continue
-    if (currentPage === 11 && !page12Box4Selected) {
+    // For page 12 (index 11), require both blue-edge checkboxes to be selected
+    if (currentPage === 11 && !(page12Checkbox1Selected && page12Checkbox2Selected)) {
       return
     }
-    // For page 13 (index 12), require box 1 to be selected
-    if (currentPage === 12 && !page13Box1Selected) {
+    // For page 13 (index 12), require the user to have clicked Upload
+    if (currentPage === 12 && !page13UploadAttempted) {
       return
     }
     // For page 14 (index 13), require box 5 to be selected
@@ -1097,10 +1108,13 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page12Box3Selected,
           page12Box4Selected,
           page12_1BoxSelected,
+          page12Checkbox1Selected,
+          page12Checkbox2Selected,
           page13Box1Selected,
           page13Box2Selected,
           page13Box3Selected,
           page13Box4Selected,
+          page13UploadAttempted,
           page14Box1Selected,
           page14Box2Selected,
           page14Box3Selected,
@@ -1361,12 +1375,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage12Box3Selected(false)
       setPage12Box4Selected(false)
       setPage12_1BoxSelected(false)
+      setPage12Checkbox1Selected(false)
+      setPage12Checkbox2Selected(false)
     } else if (currentPage === 12) {
       // Page 13 - reset box states
       setPage13Box1Selected(false)
       setPage13Box2Selected(false)
       setPage13Box3Selected(false)
       setPage13Box4Selected(false)
+      setPage13UploadAttempted(false)
     } else if (currentPage === 13) {
       // Page 14 - reset box states
       setPage14Box1Selected(false)
@@ -1650,6 +1667,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage9UploadAttempted(true)
       } else if (currentPage === 10) {
         setPage11UploadAttempted(true)
+      } else if (currentPage === 12) {
+        setPage13UploadAttempted(true)
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -6186,7 +6205,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 1 on page 12.png - with pointer (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 48.48
                     const boxTop = 35.35
                     const boxWidth = 13.53
@@ -6398,7 +6417,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 2 on page 12.png - with pointer (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && (() => {
+                  {false && currentPage === 11 && !editorMode && (() => {
                     const boxLeft = 12.96
                     const boxTop = 40.35
                     const boxWidth = 37.35
@@ -6623,7 +6642,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* Box 3 on page 12.png - with pointer (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 11 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 6.43
                     const boxTop = 76.04
                     const boxWidth = 42.76
@@ -6849,7 +6868,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 4 on page 12.png and 12.1.png - visible when box 3 is selected (bottom z-index) */}
                   {/* Show box 4 when box 3 is selected, on both 12.png and 12.1.png */}
-                  {currentPage === 11 && page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 11 && page12Box3Selected && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 65.68
                     const boxTop = 76.91
                     const boxWidth = 29.91
@@ -7025,7 +7044,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White box 1 on page 12.png - hidden when box 1 is selected (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
+                  {false && currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(66.81, 45.40, 6.93, 4.03),
@@ -7037,7 +7056,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 2 on page 12.png - hidden when box 1 is selected */}
-                  {currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
+                  {false && currentPage === 11 && !page12Box3Selected && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(66.81, 46.96, 15.94, 12.56),
@@ -7049,7 +7068,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 3 on page 12.png - hidden when box 1 is selected (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && !page12Box1Selected && (() => {
+                  {false && currentPage === 11 && !editorMode && !page12Box1Selected && (() => {
                     const boxLeft = 10.04
                     const boxTop = 39.83
                     const boxWidth = 50.19
@@ -7073,7 +7092,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     )
                   })()}
                   {/* White box 4 on page 12.png - hidden when box 1 is selected */}
-                  {currentPage === 11 && !editorMode && !page12Box1Selected && (
+                  {false && currentPage === 11 && !editorMode && !page12Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(52.17, 49.92, 15.27, 17.44),
@@ -7085,7 +7104,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 5 on page 12.png - hidden when box 2 is selected (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && !page12Box2Selected && (
+                  {false && currentPage === 11 && !editorMode && !page12Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(0.00, 70.99, 100.00, 24.05),
@@ -7097,7 +7116,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 6 on page 12.png - hidden when box 2 is selected (also shows on 12.1.png) */}
-                  {currentPage === 11 && !editorMode && !page12Box2Selected && (
+                  {false && currentPage === 11 && !editorMode && !page12Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(74.35, 61.76, 25.65, 33.28),
@@ -7139,6 +7158,182 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       >
                         12
                       </span>
+                    </div>
+                  )}
+                  {/* Page 12 white cover box 1 — covers the middle band of the
+                      page (incl. blue-edge checkbox 2). Hidden once the user
+                      selects blue-edge checkbox 1, which reveals the area
+                      where checkbox 2 lives. */}
+                  {currentPage === 11 && !editorMode && !page12Checkbox1Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0.92%',
+                        top: '34.87%',
+                        width: '96.73%',
+                        height: '40.11%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'auto',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* Page 12 white cover box 2 — bottom strip. Hidden once
+                      blue-edge checkbox 2 is selected (along with white cover
+                      boxes 3 and 4). */}
+                  {currentPage === 11 && !editorMode && !page12Checkbox2Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0.00%',
+                        top: '74.39%',
+                        width: '100.00%',
+                        height: '22.31%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'auto',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* Page 12 white cover box 3 — bottom-right corner. Hidden
+                      once blue-edge checkbox 2 is selected. */}
+                  {currentPage === 11 && !editorMode && !page12Checkbox2Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '79.47%',
+                        top: '61.31%',
+                        width: '20.53%',
+                        height: '35.39%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'auto',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* Page 12 white cover box 4 — bottom-left corner. Hidden
+                      once blue-edge checkbox 2 is selected. */}
+                  {currentPage === 11 && !editorMode && !page12Checkbox2Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0.00%',
+                        top: '64.61%',
+                        width: '20.53%',
+                        height: '35.39%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        pointerEvents: 'auto',
+                        zIndex: 100
+                      }}
+                    />
+                  )}
+                  {/* Page 12 selectable checkbox 1 (top rectangle). Same
+                      visual format as the page-7 selection box: white infill,
+                      2px blue edge, rounded corners. On click, hides white
+                      cover box 1 and reveals checkbox 2 area, then this box
+                      itself disappears. */}
+                  {currentPage === 11 && !editorMode && !page12Checkbox1Selected && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        if (!page12Checkbox1Selected) {
+                          setPage12Checkbox1Selected(true)
+                        }
+                      }}
+                      onMouseDown={(e) => { e.stopPropagation() }}
+                      style={{
+                        position: 'absolute',
+                        left: '20.07%',
+                        top: '30.81%',
+                        width: '59.85%',
+                        height: '4.21%',
+                        backgroundColor: 'white',
+                        border: `2px solid ${page12Checkbox1Selected ? '#3bbf6b' : '#0d6efd'}`,
+                        borderRadius: `${8 * stageRelativeScale}px`,
+                        zIndex: 101,
+                        cursor: page12Checkbox1Selected ? 'default' : 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box',
+                        padding: `${8 * stageRelativeScale}px`,
+                        pointerEvents: 'auto'
+                      }}
+                    >
+                      {page12Checkbox1Selected && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          style={{
+                            width: `${20 * stageRelativeScale}px`,
+                            height: `${20 * stageRelativeScale}px`,
+                            fill: 'none',
+                            stroke: '#3bbf6b',
+                            strokeWidth: 4,
+                            strokeLinecap: 'round',
+                            strokeLinejoin: 'round'
+                          }}
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      )}
+                    </div>
+                  )}
+                  {/* Page 12 selectable checkbox 2 (lower rectangle). Same
+                      page-7 selection-box visual format. Only renders after
+                      checkbox 1 has been selected (so it's not hidden behind
+                      white cover box 1) and disappears once it has been
+                      selected itself. On click, hides white cover boxes 3
+                      and 4 and activates the bottom-nav Next button. */}
+                  {currentPage === 11 && !editorMode && page12Checkbox1Selected && !page12Checkbox2Selected && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        if (!page12Checkbox2Selected) {
+                          setPage12Checkbox2Selected(true)
+                        }
+                      }}
+                      onMouseDown={(e) => { e.stopPropagation() }}
+                      style={{
+                        position: 'absolute',
+                        left: '20.07%',
+                        top: '69.88%',
+                        width: '59.85%',
+                        height: '4.21%',
+                        backgroundColor: 'white',
+                        border: `2px solid ${page12Checkbox2Selected ? '#3bbf6b' : '#0d6efd'}`,
+                        borderRadius: `${8 * stageRelativeScale}px`,
+                        zIndex: 101,
+                        cursor: page12Checkbox2Selected ? 'default' : 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box',
+                        padding: `${8 * stageRelativeScale}px`,
+                        pointerEvents: 'auto'
+                      }}
+                    >
+                      {page12Checkbox2Selected && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          style={{
+                            width: `${20 * stageRelativeScale}px`,
+                            height: `${20 * stageRelativeScale}px`,
+                            fill: 'none',
+                            stroke: '#3bbf6b',
+                            strokeWidth: 4,
+                            strokeLinecap: 'round',
+                            strokeLinejoin: 'round'
+                          }}
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      )}
                     </div>
                   )}
                   {/* Box 2 on page 13.png - with pointer - REMOVED */}
@@ -7634,7 +7829,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 1 on page 13.png - hidden when box 1 is selected - bottom z-index */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(40.45, 81.36, 18.69, 7.64),
@@ -7647,7 +7842,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* White box 2 on page 13.png - hidden when box 1 is selected - bottom z-index */}
-                  {currentPage === 12 && !editorMode && !page13Box1Selected && (
+                  {false && currentPage === 12 && !editorMode && !page13Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(48.60, 84.12, 13.21, 5.57),
@@ -7660,7 +7855,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     />
                   )}
                   {/* Box 1 on page 13.png - with pointer */}
-                  {currentPage === 12 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {false && currentPage === 12 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 50.26
                     const boxTop = 63.96
                     const boxWidth = 27.58
@@ -40764,7 +40959,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 8 && !page9Box2Selected) ||
                 (currentPage === 9 && !page10CheckboxSelected) ||
                 (currentPage === 10 && !page11CheckboxSelected) ||
-                (currentPage === 11 && !page12Box4Selected) ||
+                (currentPage === 11 && !(page12Checkbox1Selected && page12Checkbox2Selected)) ||
                 (currentPage === 12 && !page13Box1Selected) ||
                 (currentPage === 13 && !page14Box5Selected) ||
                 (currentPage === 14 && !page15Box3Selected) ||
@@ -40787,7 +40982,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 31 && !page32Box3Selected) ||
                 (currentPage === 32 && !page33Box1Selected)
               }
-              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Box4Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Checkbox1Selected && page12Checkbox2Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>
