@@ -778,6 +778,13 @@ function App() {
     // the very top so the page-9 Next button activates on the very first
     // click, even if there is no message to send or the port write fails.
     instructionsUploadAttemptRef.current?.();
+    // If USB is not connected, there is no port to write to. We still want
+    // the click to register so that the upload-gated Next buttons (pages 9,
+    // 11, 13) become active and the user is not stuck. Exit before doing any
+    // upload work.
+    if (!isConnected) {
+      return;
+    }
     setIsUploading(true);
     const message = getValuesForChip();
     console.log(message)
@@ -947,9 +954,9 @@ function App() {
                   {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
                   <Button
                     onClick={handleSend}
-                    className="mb-3"
+                    className={`mb-3 ${!isConnected ? 'upload-inactive' : ''}`}
                     style={{ marginLeft: '10px', ...uploadButtonColor }}
-                    disabled={!isConnected || isUploading} // Disable during upload for better UX
+                    disabled={isUploading} // Only block clicks while an upload is actually in progress; when USB is disconnected the button looks inactive but stays clickable so the user can advance past upload-gated pages
                     variant={uploadButtonClass}
                   >
                     {isUploading ? (
@@ -1026,9 +1033,9 @@ function App() {
                       <div style={{ marginBottom: '10px' }}><b>Autonomous Flight Commands</b></div>
                       <Button
                         onClick={handleSend}
-                        className="mb-3"
+                        className={`mb-3 ${!isConnected ? 'upload-inactive' : ''}`}
                         style={{ marginLeft: '20px', ...uploadButtonColor }}
-                        disabled={!isConnected || isUploading}
+                        disabled={isUploading}
                         variant={uploadButtonClass}
                       >
                         {isUploading ? (

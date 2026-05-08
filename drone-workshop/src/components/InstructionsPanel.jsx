@@ -19,7 +19,7 @@ import page11 from '../assets/images/pages/11.svg'
 import page12 from '../assets/images/pages/12.svg'
 import page12_1 from '../assets/images/pages/12.1.png'
 import page13 from '../assets/images/pages/13.svg'
-import page14 from '../assets/images/pages/14.png'
+import page14 from '../assets/images/pages/14.svg'
 import page15 from '../assets/images/pages/15.png'
 import page15_1 from '../assets/images/pages/15.1.png'
 import page16 from '../assets/images/pages/16.png'
@@ -164,6 +164,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page7Box3Selected, setPage7Box3Selected] = useState(false)
   const [page7Box4Selected, setPage7Box4Selected] = useState(false)
   const [page7NewBoxSelected, setPage7NewBoxSelected] = useState(false)
+  const [page7NewBox2Selected, setPage7NewBox2Selected] = useState(false)
   const [page7Box4Hovered, setPage7Box4Hovered] = useState(false)
   // Track if page 7 has been visited (to hide white box on subsequent visits)
   const [page7Visited, setPage7Visited] = useState(false)
@@ -232,6 +233,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page10WhiteBox3Hidden, setPage10WhiteBox3Hidden] = useState(false)
   // Track if new white box on page 10.1 should be hidden (hidden after box 2 is selected)
   const [page10NewWhiteBoxHidden, setPage10NewWhiteBoxHidden] = useState(false)
+  // Track page 10 new selection box state (gates checkbox + Show Labels button)
+  const [page10NewBoxSelected, setPage10NewBoxSelected] = useState(false)
   // Track page 11 box selection
   const [page11BoxSelected, setPage11BoxSelected] = useState(false)
   const [page11Box2Selected, setPage11Box2Selected] = useState(false)
@@ -265,6 +268,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Tracks whether the user has clicked Upload at least once while on page 13.
   // Used as the bottom-nav Next gate for page 13.
   const [page13UploadAttempted, setPage13UploadAttempted] = useState(false)
+  // Track page 13 new selection box state (along with upload, gates Next button)
+  const [page13NewBoxSelected, setPage13NewBoxSelected] = useState(false)
   // Track page 14 box selection
   const [page14Box1Selected, setPage14Box1Selected] = useState(false)
   const [page14Box2Selected, setPage14Box2Selected] = useState(false)
@@ -554,6 +559,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         break
       case 12: // Page 13
         setPage13Box1Selected(true)
+        setPage13UploadAttempted(true)
+        setPage13NewBoxSelected(true)
         break
       case 13: // Page 14
         setPage14Box5Selected(true)
@@ -657,6 +664,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page7Box4Selected === 'boolean') setPage7Box4Selected(p.page7Box4Selected)
       if (typeof p.page7Box4EverSelected === 'boolean') setPage7Box4EverSelected(p.page7Box4EverSelected)
       if (typeof p.page7Visited === 'boolean') setPage7Visited(p.page7Visited)
+      if (typeof p.page7NewBoxSelected === 'boolean') setPage7NewBoxSelected(p.page7NewBoxSelected)
+      if (typeof p.page7NewBox2Selected === 'boolean') setPage7NewBox2Selected(p.page7NewBox2Selected)
 
       if (typeof p.page8Box1Selected === 'boolean') setPage8Box1Selected(p.page8Box1Selected)
       if (typeof p.page8Box2Selected === 'boolean') setPage8Box2Selected(p.page8Box2Selected)
@@ -688,6 +697,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page10NeedHelpWhiteBoxVisible === 'boolean') setPage10NeedHelpWhiteBoxVisible(p.page10NeedHelpWhiteBoxVisible)
       if (typeof p.page10WhiteBox3Hidden === 'boolean') setPage10WhiteBox3Hidden(p.page10WhiteBox3Hidden)
       if (typeof p.page10NewWhiteBoxHidden === 'boolean') setPage10NewWhiteBoxHidden(p.page10NewWhiteBoxHidden)
+      if (typeof p.page10NewBoxSelected === 'boolean') setPage10NewBoxSelected(p.page10NewBoxSelected)
 
       if (typeof p.page11BoxSelected === 'boolean') setPage11BoxSelected(p.page11BoxSelected)
       if (typeof p.page11Box2Selected === 'boolean') setPage11Box2Selected(p.page11Box2Selected)
@@ -709,6 +719,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page13Box3Selected === 'boolean') setPage13Box3Selected(p.page13Box3Selected)
       if (typeof p.page13Box4Selected === 'boolean') setPage13Box4Selected(p.page13Box4Selected)
       if (typeof p.page13UploadAttempted === 'boolean') setPage13UploadAttempted(p.page13UploadAttempted)
+      if (typeof p.page13NewBoxSelected === 'boolean') setPage13NewBoxSelected(p.page13NewBoxSelected)
 
       if (typeof p.page14Box1Selected === 'boolean') setPage14Box1Selected(p.page14Box1Selected)
       if (typeof p.page14Box2Selected === 'boolean') setPage14Box2Selected(p.page14Box2Selected)
@@ -825,6 +836,29 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       console.error('Error loading instructions state:', e)
     }
   }, [pages.length, restoreCompletedPageStates])
+
+  // Persist currentPage to localStorage whenever it changes so refreshing
+  // the tab keeps the user on their current page (handlePrevious, page
+  // jumps, and dev shortcuts otherwise wouldn't update the saved page —
+  // only handleNext / handleStart did, which is why refresh used to land
+  // on whatever page the last "Next" click navigated to).
+  const currentPagePersistInitialRenderRef = useRef(true)
+  useEffect(() => {
+    if (currentPagePersistInitialRenderRef.current) {
+      currentPagePersistInitialRenderRef.current = false
+      return
+    }
+    try {
+      const savedState = localStorage.getItem(INSTRUCTIONS_STORAGE_KEY)
+      if (!savedState) return
+      const parsed = JSON.parse(savedState)
+      if (parsed.currentPage === currentPage) return
+      parsed.currentPage = currentPage
+      localStorage.setItem(INSTRUCTIONS_STORAGE_KEY, JSON.stringify(parsed))
+    } catch (e) {
+      console.error('Error persisting current page:', e)
+    }
+  }, [currentPage])
 
   // Function to reset instructions (will be passed to parent via callback)
   const resetInstructions = useCallback(() => {
@@ -966,8 +1000,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     if (currentPage === 11 && !(page12Checkbox1Selected && page12Checkbox2Selected)) {
       return
     }
-    // For page 13 (index 12), require the user to have clicked Upload
-    if (currentPage === 12 && !page13UploadAttempted) {
+    // For page 13 (index 12), require the user to have clicked Upload AND selected the new selection box
+    if (currentPage === 12 && !(page13UploadAttempted && page13NewBoxSelected)) {
       return
     }
     // For page 14 (index 13), require box 5 to be selected
@@ -1069,6 +1103,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page7Box4Selected,
           page7Box4EverSelected,
           page7Visited,
+          page7NewBoxSelected,
+          page7NewBox2Selected,
           page8Box1Selected,
           page8Box2Selected,
           page8Box3Selected,
@@ -1097,6 +1133,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page10NeedHelpWhiteBoxVisible,
           page10WhiteBox3Hidden,
           page10NewWhiteBoxHidden,
+          page10NewBoxSelected,
           page11BoxSelected,
           page11Box2Selected,
           page11Box3Selected,
@@ -1115,6 +1152,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page13Box3Selected,
           page13Box4Selected,
           page13UploadAttempted,
+          page13NewBoxSelected,
           page14Box1Selected,
           page14Box2Selected,
           page14Box3Selected,
@@ -1315,6 +1353,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage7Box4Hovered(false)
       setPage7Box4EverSelected(false)
       setPage7NewBoxSelected(false)
+      setPage7NewBox2Selected(false)
     } else if (currentPage === 7) {
       // Page 8 - reset box states
       setPage8Box1Selected(false)
@@ -1360,6 +1399,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage10NeedHelpWhiteBoxVisible(false)
       setPage10WhiteBox3Hidden(false)
       setPage10NewWhiteBoxHidden(false)
+      setPage10NewBoxSelected(false)
     } else if (currentPage === 10) {
       // Page 11 - reset box state
       setPage11BoxSelected(false)
@@ -1384,6 +1424,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage13Box3Selected(false)
       setPage13Box4Selected(false)
       setPage13UploadAttempted(false)
+      setPage13NewBoxSelected(false)
     } else if (currentPage === 13) {
       // Page 14 - reset box states
       setPage14Box1Selected(false)
@@ -1792,6 +1833,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage7NewBoxSelected(true)
   }
 
+  const handlePage7NewBox2 = () => {
+    setPage7NewBox2Selected(true)
+  }
+
   const handlePage7Box4 = () => {
     setPage7Box4Selected(prev => {
       const newValue = !prev
@@ -1894,6 +1939,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       // Currently showing 10.1.png without boxes, show boxes (labels)
       setPage10BoxesVisible(true)
     }
+  }
+
+  const handlePage10NewBox = () => {
+    setPage10NewBoxSelected(true)
   }
 
   const handlePage10Box1 = () => {
@@ -1999,6 +2048,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const handlePage13Box1 = () => {
     setPage13Box1Selected(true)
+  }
+
+  const handlePage13NewBox = () => {
+    setPage13NewBoxSelected(true)
   }
 
   const handlePage13Box2 = () => {
@@ -4958,6 +5011,96 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Page 10 - new selection box (top half), hides when selected.
+                      Selecting it hides the two covering white boxes below,
+                      activates the small checkbox, and enables the
+                      "Show Labels" nav-bar button. */}
+                  {currentPage === 9 && !editorMode && !page10NewBoxSelected && (() => {
+                    const newBoxLeft = 11.83
+                    const newBoxTop = 24.09
+                    const newBoxWidthPercent = 76.57
+                    const newBoxHeightPercent = 19.42
+
+                    const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                    const borderRadiusPx = 24 * stageRelativeScale
+                    const fontSize = 16 * stageRelativeScale
+
+                    return (
+                      <button
+                        key="page10-new-box"
+                        onClick={handlePage10NewBox}
+                        className="page10-new-box"
+                        style={{
+                          ...buttonStyle,
+                          backgroundColor: 'white',
+                          color: '#000',
+                          cursor: 'pointer',
+                          fontSize: `${fontSize}px`,
+                          fontFamily: 'Roboto, sans-serif',
+                          fontWeight: 700,
+                          borderRadius: `${borderRadiusPx}px`,
+                          border: '2px solid #0d6efd',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          textAlign: 'center',
+                          zIndex: 102,
+                          padding: `${8 * stageRelativeScale}px`,
+                          boxSizing: 'border-box',
+                          lineHeight: '1.4'
+                        }}
+                      >
+                      </button>
+                    )
+                  })()}
+                  {/* Page 10 - white box A (lower portion), hides when the new selection box is selected */}
+                  {currentPage === 9 && !editorMode && !page10NewBoxSelected && (() => {
+                    const newBoxLeft = 1.52
+                    const newBoxTop = 43.89
+                    const newBoxWidthPercent = 95.58
+                    const newBoxHeightPercent = 48.60
+
+                    const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                    const borderRadiusPx = 32 * stageRelativeScale
+
+                    return (
+                      <div
+                        key="page10-new-white-box-a"
+                        style={{
+                          ...buttonStyle,
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: `${borderRadiusPx}px`,
+                          zIndex: 100,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* Page 10 - white box B (lower-left, taller), hides when the new selection box is selected */}
+                  {currentPage === 9 && !editorMode && !page10NewBoxSelected && (() => {
+                    const newBoxLeft = 1.52
+                    const newBoxTop = 43.89
+                    const newBoxWidthPercent = 78.63
+                    const newBoxHeightPercent = 56.11
+
+                    const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                    const borderRadiusPx = 32 * stageRelativeScale
+
+                    return (
+                      <div
+                        key="page10-new-white-box-b"
+                        style={{
+                          ...buttonStyle,
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: `${borderRadiusPx}px`,
+                          zIndex: 100,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
                   {/* Square checkbox on page 10 (visible on both 10.svg and
                       10.1.svg). Mirrors the page-9 checkbox visually:
                       white infill, blue border, turns green and shows a
@@ -4976,11 +5119,16 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
                     const adjustedLeftPercent = baseLeftPercent - leftOffsetPercent
                     const adjustedTopPercent = baseTopPercent + downOffsetPercent
+                    const checkboxActive = page10NewBoxSelected
+                    const checkboxBorderColor = page10CheckboxSelected
+                      ? '#3bbf6b'
+                      : (checkboxActive ? '#0d6efd' : '#adb5bd')
                     return (
                       <div
                         onClick={(e) => {
                           e.stopPropagation()
                           e.preventDefault()
+                          if (!checkboxActive) return
                           if (!page10CheckboxSelected) {
                             setPage10CheckboxSelected(true)
                           }
@@ -4993,10 +5141,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           width: `${sidePx}px`,
                           height: `${sidePx}px`,
                           backgroundColor: 'white',
-                          border: `${3 * stageRelativeScale}px solid ${page10CheckboxSelected ? '#3bbf6b' : '#0d6efd'}`,
+                          border: `${3 * stageRelativeScale}px solid ${checkboxBorderColor}`,
                           borderRadius: `${5 * stageRelativeScale}px`,
                           zIndex: 15,
-                          cursor: page10CheckboxSelected ? 'default' : 'pointer',
+                          cursor: (page10CheckboxSelected || !checkboxActive) ? 'default' : 'pointer',
+                          opacity: checkboxActive ? 1 : 0.6,
                           display: 'inline-flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -8087,6 +8236,72 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Page 13 - new selection box (top half), hides when selected.
+                      Selecting it hides the covering white box below and is
+                      required (along with the Upload button click) before
+                      the bottom-nav Next button activates. */}
+                  {currentPage === 12 && !editorMode && !page13NewBoxSelected && (() => {
+                    const newBoxLeft = 5.87
+                    const newBoxTop = 13.65
+                    const newBoxWidthPercent = 89.40
+                    const newBoxHeightPercent = 32.51
+
+                    const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                    const borderRadiusPx = 24 * stageRelativeScale
+                    const fontSize = 16 * stageRelativeScale
+
+                    return (
+                      <button
+                        key="page13-new-box"
+                        onClick={handlePage13NewBox}
+                        className="page13-new-box"
+                        style={{
+                          ...buttonStyle,
+                          backgroundColor: 'white',
+                          color: '#000',
+                          cursor: 'pointer',
+                          fontSize: `${fontSize}px`,
+                          fontFamily: 'Roboto, sans-serif',
+                          fontWeight: 700,
+                          borderRadius: `${borderRadiusPx}px`,
+                          border: '2px solid #0d6efd',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          textAlign: 'center',
+                          zIndex: 102,
+                          padding: `${8 * stageRelativeScale}px`,
+                          boxSizing: 'border-box',
+                          lineHeight: '1.4'
+                        }}
+                      >
+                      </button>
+                    )
+                  })()}
+                  {/* Page 13 - covering white box (lower portion), hides when the new selection box is selected */}
+                  {currentPage === 12 && !editorMode && !page13NewBoxSelected && (() => {
+                    const newBoxLeft = 0.00
+                    const newBoxTop = 46.90
+                    const newBoxWidthPercent = 98.33
+                    const newBoxHeightPercent = 49.13
+
+                    const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                    const borderRadiusPx = 32 * stageRelativeScale
+
+                    return (
+                      <div
+                        key="page13-new-white-box"
+                        style={{
+                          ...buttonStyle,
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: `${borderRadiusPx}px`,
+                          zIndex: 100,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
                   {/* Number "13" at Dot 3 position on page 13 */}
                   {currentPage === 12 && !editorMode && (
                     <div style={getPageNumberStyle(94.83, 95.96)}>
@@ -8108,8 +8323,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Box 1 on page 14.png - with pointer (downward) */}
-                  {currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 1 on page 14.png - with pointer (downward) - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 26.71
                     const boxTop = 27.64
                     const boxWidth = 11.66
@@ -8339,8 +8554,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 2 on page 14.png - with pointer (upward) */}
-                  {currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 2 on page 14.png - with pointer (upward) - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 60.95
                     const boxTop = 41.39
                     const boxWidth = 15.27
@@ -8568,8 +8783,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 3 on page 14.png - no pointer */}
-                  {currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 3 on page 14.png - no pointer - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 9.13
                     const boxTop = 35.82
                     const boxWidth = 24.51
@@ -8744,8 +8959,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 4 on page 14.png - no pointer */}
-                  {currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 4 on page 14.png - no pointer - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 60.73
                     const boxTop = 53.41
                     const boxWidth = 27.66
@@ -8920,8 +9135,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Button box 4b on page 14 - same style as box 2b on page 9 - hidden until box 4 is selected */}
-                  {currentPage === 13 && !editorMode && page14Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Button box 4b on page 14 - same style as box 2b on page 9 - hidden until box 4 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && page14Box4Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 74.70
                     const boxTop = 64.55
                     const boxWidth = 3.55
@@ -9067,8 +9282,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Box 5 on page 14.png - with pointer (leftward) - active when box 4b is selected */}
-                  {currentPage === 13 && !editorMode && page14Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* Box 5 on page 14.png - with pointer (leftward) - active when box 4b is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && page14Box4bSelected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 49.24
                     const boxTop = 80.56
                     const boxWidth = 19.10
@@ -9312,8 +9527,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* White box on page 14.png - hidden when box 4b is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box4bSelected && (
+                  {/* White box on page 14.png - hidden when box 4b is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box4bSelected && (
                     <div
                       style={{
                         ...getButtonStyle(0.00, 69.60, 100.00, 25.10),
@@ -9325,8 +9540,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box on page 14.png - hidden when box 1 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                  {/* White box on page 14.png - hidden when box 1 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(55.55, 41.57, 21.80, 5.95),
@@ -9338,8 +9553,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 1b on page 14.png - hidden when box 1 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                  {/* White box 1b on page 14.png - hidden when box 1 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(55.32, 41.57, 22.70, 5.77),
@@ -9351,8 +9566,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 1c on page 14.png - hidden when box 1 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                  {/* White box 1c on page 14.png - hidden when box 1 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box1Selected && (
                     <div
                       style={{
                         ...getButtonStyle(60.28, 39.83, 17.52, 8.56),
@@ -9364,8 +9579,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 2 on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                  {/* White box 2 on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 56.90
                     const boxTop = 52.36
                     const boxWidth = 33.97
@@ -9406,8 +9621,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
-                  {/* White box 3 on page 14.png - hidden when box 2 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box2Selected && (
+                  {/* White box 3 on page 14.png - hidden when box 2 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box2Selected && (
                     <div
                       style={{
                         ...getButtonStyle(7.56, 34.95, 27.21, 14.30),
@@ -9419,8 +9634,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3a on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3a on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(45.41, 40.00, 4.55, 4.55),
@@ -9432,8 +9647,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3b on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3b on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(47.08, 40.20, 4.55, 4.55),
@@ -9445,8 +9660,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3c on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3c on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(34.01, 45.60, 21.67, 23.88),
@@ -9458,8 +9673,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3d on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3d on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(9.46, 49.95, 36.77, 19.35),
@@ -9471,8 +9686,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3e on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3e on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(53.60, 25.25, 7.30, 6.77),
@@ -9484,8 +9699,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3f on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3f on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(54.99, 26.14, 7.30, 6.77),
@@ -9497,8 +9712,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* White box 3g on page 14.png - hidden when box 3 is selected */}
-                  {currentPage === 13 && !editorMode && !page14Box3Selected && (
+                  {/* White box 3g on page 14.png - hidden when box 3 is selected - REMOVED */}
+                  {false && currentPage === 13 && !editorMode && !page14Box3Selected && (
                     <div
                       style={{
                         ...getButtonStyle(57.04, 26.39, 3.94, 6.77),
@@ -9507,6 +9722,128 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         pointerEvents: 'none',
                         zIndex: 1000,
                         position: 'absolute'
+                      }}
+                    />
+                  )}
+                  {/* Page 14 - Large selection box (top). Same visual format as
+                      page 12 selection boxes: white infill, 2px blue edge,
+                      rounded corners. On click, hides white cover boxes A and
+                      B and reveals the small square check box below, then this
+                      box itself disappears. */}
+                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        if (!page14Box1Selected) {
+                          setPage14Box1Selected(true)
+                        }
+                      }}
+                      onMouseDown={(e) => { e.stopPropagation() }}
+                      style={{
+                        position: 'absolute',
+                        left: '3.35%',
+                        top: '18.60%',
+                        width: '65.81%',
+                        height: '8.28%',
+                        backgroundColor: 'white',
+                        border: '2px solid #0d6efd',
+                        borderRadius: `${8 * stageRelativeScale}px`,
+                        zIndex: 101,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box',
+                        padding: `${8 * stageRelativeScale}px`,
+                        pointerEvents: 'auto'
+                      }}
+                    />
+                  )}
+                  {/* Page 14 - White cover box A (upper-left region). Hidden
+                      once the large selection box above has been selected. */}
+                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '1.98%',
+                        top: '26.74%',
+                        width: '77.72%',
+                        height: '44.71%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        zIndex: 100,
+                        pointerEvents: 'none'
+                      }}
+                    />
+                  )}
+                  {/* Page 14 - White cover box B (mid region, full width).
+                      Hidden once the large selection box has been selected. */}
+                  {currentPage === 13 && !editorMode && !page14Box1Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '1.98%',
+                        top: '45.84%',
+                        width: '97.87%',
+                        height: '25.61%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        zIndex: 100,
+                        pointerEvents: 'none'
+                      }}
+                    />
+                  )}
+                  {/* Page 14 - Small square check box centered at Dot 3
+                      (78.40%, 68.57%). Only renders after the large selection
+                      box has been selected (so it's not hidden behind white
+                      cover box B) and disappears once it has been selected
+                      itself. On click, hides white cover box C and activates
+                      the bottom-nav Next button via page14Box5Selected. */}
+                  {currentPage === 13 && !editorMode && page14Box1Selected && !page14Box5Selected && (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        if (!page14Box5Selected) {
+                          setPage14Box5Selected(true)
+                        }
+                      }}
+                      onMouseDown={(e) => { e.stopPropagation() }}
+                      style={{
+                        position: 'absolute',
+                        left: '76.625%',
+                        top: '67.335%',
+                        width: '3.55%',
+                        height: '2.47%',
+                        backgroundColor: 'white',
+                        border: '2px solid #0d6efd',
+                        borderRadius: `${4 * stageRelativeScale}px`,
+                        zIndex: 101,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box',
+                        pointerEvents: 'auto'
+                      }}
+                    />
+                  )}
+                  {/* Page 14 - White cover box C (bottom region, full width).
+                      Hidden once the small square check box has been
+                      selected. */}
+                  {currentPage === 13 && !editorMode && !page14Box5Selected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0%',
+                        top: '71.30%',
+                        width: '100%',
+                        height: '25.08%',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        zIndex: 100,
+                        pointerEvents: 'none'
                       }}
                     />
                   )}
@@ -40011,6 +40348,93 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           </button>
                         )
                       })()}
+                      {/* Page 7 - second new white box (lower-left), hides when the second interactive box is selected */}
+                      {!page7NewBox2Selected && (() => {
+                        const newBoxLeft = 0.00
+                        const newBoxTop = 89.95
+                        const newBoxWidthPercent = 40.61
+                        const newBoxHeightPercent = 10.05
+
+                        const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                        const borderRadiusPx = 32 * stageRelativeScale
+
+                        return (
+                          <div
+                            key="page7-new-white-box-2"
+                            style={{
+                              ...buttonStyle,
+                              backgroundColor: 'white',
+                              border: 'none',
+                              borderRadius: `${borderRadiusPx}px`,
+                              zIndex: 10,
+                              pointerEvents: 'none'
+                            }}
+                          />
+                        )
+                      })()}
+                      {/* Page 7 - white box covering selection box 2; hides once selection box 1 is selected */}
+                      {!page7NewBoxSelected && (() => {
+                        const newBoxLeft = 4.73
+                        const newBoxTop = 77.31
+                        const newBoxWidthPercent = 88.94
+                        const newBoxHeightPercent = 13.23
+
+                        const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                        const borderRadiusPx = 32 * stageRelativeScale
+
+                        return (
+                          <div
+                            key="page7-new-white-box-cover-2"
+                            style={{
+                              ...buttonStyle,
+                              backgroundColor: 'white',
+                              border: 'none',
+                              borderRadius: `${borderRadiusPx}px`,
+                              zIndex: 13,
+                              pointerEvents: 'none'
+                            }}
+                          />
+                        )
+                      })()}
+                      {/* Page 7 - second new interactive box (lower portion), only clickable after box 1 is selected; hides when selected */}
+                      {page7NewBoxSelected && !page7NewBox2Selected && (() => {
+                        const newBoxLeft = 8.16
+                        const newBoxTop = 78.19
+                        const newBoxWidthPercent = 83.90
+                        const newBoxHeightPercent = 11.11
+
+                        const buttonStyle = getButtonStyle(newBoxLeft, newBoxTop, newBoxWidthPercent, newBoxHeightPercent)
+                        const borderRadiusPx = 24 * stageRelativeScale
+                        const fontSize = 16 * stageRelativeScale
+
+                        return (
+                          <button
+                            key="page7-new-box-2"
+                            onClick={handlePage7NewBox2}
+                            className="page7-new-box-2"
+                            style={{
+                              ...buttonStyle,
+                              backgroundColor: 'white',
+                              color: '#000',
+                              cursor: 'pointer',
+                              fontSize: `${fontSize}px`,
+                              fontFamily: 'Roboto, sans-serif',
+                              fontWeight: 700,
+                              borderRadius: `${borderRadiusPx}px`,
+                              border: '2px solid #0d6efd',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              textAlign: 'center',
+                              zIndex: 12,
+                              padding: `${8 * stageRelativeScale}px`,
+                              boxSizing: 'border-box',
+                              lineHeight: '1.4'
+                            }}
+                          >
+                          </button>
+                        )
+                      })()}
                       {/* White box on 7.png - displayed over box 4 until all boxes 1-3 are selected */}
                       {currentPage === 6 && !editorMode && !page7Box4Selected && !(page7Box1Selected && page7Box2Selected && page7Box3Selected) && (() => {
                         const boxLeft = 5.21
@@ -40674,7 +41098,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )}
         </div>
-        {currentPage === 6 && page7NewBoxSelected && (
+        {currentPage === 6 && page7NewBox2Selected && (
           <button
             type="button"
             className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
@@ -40720,6 +41144,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               onClick={handlePage10NavTab}
               aria-label={aria}
               aria-pressed={page10WiringShown}
+              disabled={!page10NewBoxSelected}
             >
               <span className="wiring-diagram-tab-label">
                 <span className="wiring-diagram-tab-label-text">
@@ -40960,7 +41385,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 9 && !page10CheckboxSelected) ||
                 (currentPage === 10 && !page11CheckboxSelected) ||
                 (currentPage === 11 && !(page12Checkbox1Selected && page12Checkbox2Selected)) ||
-                (currentPage === 12 && !page13Box1Selected) ||
+                (currentPage === 12 && !(page13UploadAttempted && page13NewBoxSelected)) ||
                 (currentPage === 13 && !page14Box5Selected) ||
                 (currentPage === 14 && !page15Box3Selected) ||
                 (currentPage === 15 && !page16Box3Selected) ||
@@ -40982,7 +41407,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                 (currentPage === 31 && !page32Box3Selected) ||
                 (currentPage === 32 && !page33Box1Selected)
               }
-              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Checkbox1Selected && page12Checkbox2Selected) || (currentPage === 12 && page13Box1Selected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
+              className={`btn-modern btn-nav ${(currentPage === 1 && visitedPages.has(1)) || (currentPage === 2 && visitedPages.has(2)) || (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) || (currentPage === 4 && page5GreenDotSelected) || (currentPage === 5 && page6Box1Selected) || (currentPage === 6 && page7Box4EverSelected) || (currentPage === 7 && (page8Box2Selected || isConnected)) || (currentPage === 8 && page9Box2Selected) || (currentPage === 9 && page10CheckboxSelected) || (currentPage === 10 && page11CheckboxSelected) || (currentPage === 11 && page12Checkbox1Selected && page12Checkbox2Selected) || (currentPage === 12 && page13UploadAttempted && page13NewBoxSelected) || (currentPage === 13 && page14Box5Selected) || (currentPage === 14 && page15Box3Selected) || (currentPage === 15 && page16Box3Selected) || (currentPage === 16 && page17Box4bSelected) || (currentPage === 17 && page18Box1Selected && page18Box2Selected && page18Box3Selected && page18Box4Selected) || (currentPage === 18 && page19Box3Selected) || (currentPage === 19 && page20Box6Selected) || (currentPage === 20 && (page21ShowHelpImage || page21BoxSelected)) || (currentPage === 21 && page22Box4Selected) || (currentPage === 22 && page23Box4Selected) || (currentPage === 23 && page24Box1Selected) || (currentPage === 24 && page25Box2Selected) || (currentPage === 25 && page26Box5Selected) || (currentPage === 26 && (() => { const box10Value = parseFloat(page27Box10Value); return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100; })()) || (currentPage === 27 && page28Box5Selected) || (currentPage === 28 && page29Box1Selected) || (currentPage === 29 && page30Box1Selected) || (currentPage === 30 && page31Box1Selected) || (currentPage === 31 && page32Box3Selected) || (currentPage === 32 && page33Box1Selected) ? 'btn-nav-blue' : ''}`}
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>

@@ -585,6 +585,22 @@
   background-color: transparent !important;
 }
 
+/* Inactive Upload button — visually matches :disabled (thin orange edge,
+   orange text, transparent fill, faded) but stays clickable so users can
+   advance past upload-gated pages without USB. No hover/focus/active visual
+   change is applied. */
+.btn-outline-primary.upload-inactive,
+.btn-outline-primary.upload-inactive:hover,
+.btn-outline-primary.upload-inactive:focus,
+.btn-outline-primary.upload-inactive:active {
+  color: #f05f40 !important;
+  border-color: #f05f40 !important;
+  background-color: transparent !important;
+  opacity: 0.65 !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
 /* Style for orange-background disabled buttons */
 .orange-btn:disabled,
 .orange-btn.disabled {

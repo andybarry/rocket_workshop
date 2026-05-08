@@ -17,7 +17,7 @@ import page11 from '../assets/images/pages/11.png'
 import page12 from '../assets/images/pages/12.png'
 import page12_1 from '../assets/images/pages/12.1.png'
 import page13 from '../assets/images/pages/13.png'
-import page14 from '../assets/images/pages/14.png'
+import page14 from '../assets/images/pages/14.svg'
 import page15 from '../assets/images/pages/15.png'
 import page15_1 from '../assets/images/pages/15.1.png'
 import page16 from '../assets/images/pages/16.png'
@@ -187,7 +187,7 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(13, false, false, false, false)}>
               <img src={page14} alt="Page 14" className="image-selector-thumbnail" />
-              <span className="image-selector-label">14.png</span>
+              <span className="image-selector-label">14.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(14, false, false, false, false)}>
               <img src={page15_1} alt="Page 15.1" className="image-selector-thumbnail" />
