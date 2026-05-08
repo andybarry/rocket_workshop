@@ -26,8 +26,8 @@ import page18 from '../assets/images/pages/18.svg'
 import page18_1 from '../assets/images/pages/18.1.svg'
 import page19 from '../assets/images/pages/19.svg'
 import page20 from '../assets/images/pages/20.svg'
-import page21 from '../assets/images/pages/21.png'
-import page21_1 from '../assets/images/pages/21.1.png'
+import page21 from '../assets/images/pages/21.svg'
+import page21_1 from '../assets/images/pages/21.1.svg'
 import page22 from '../assets/images/pages/22.png'
 import page23 from '../assets/images/pages/23.png'
 import page23_1 from '../assets/images/pages/23.1.png'
@@ -223,11 +223,11 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(20, false, false, false, false, false, false, false, false, true)}>
               <img src={page21} alt="Page 21" className="image-selector-thumbnail" />
-              <span className="image-selector-label">21.png</span>
+              <span className="image-selector-label">21.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(20, false, false, false, false, false, false, false, true)}>
               <img src={page21_1} alt="Page 21.1" className="image-selector-thumbnail" />
-              <span className="image-selector-label">21.1.png</span>
+              <span className="image-selector-label">21.1.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(21, false, false, false, false)}>
               <img src={page22} alt="Page 22" className="image-selector-thumbnail" />
