@@ -287,6 +287,13 @@ function App() {
     return /yellow_button_connected\s*=\s*true\b/.test(String(line.value))
   }, [editableLines])
 
+  // Page 19: editableLines key 3 is `const bool slide_connected = ...`
+  const slideConnectedIsTrue = useMemo(() => {
+    const line = editableLines[3]
+    if (!line?.value) return false
+    return /slide_connected\s*=\s*true\b/.test(String(line.value))
+  }, [editableLines])
+
   const holdCommandRef = useRef(null);
 
   const [showAdminDialog, setShowAdminDialog] = useState(false);
@@ -938,6 +945,7 @@ function App() {
             onUploadAttempt={(handler) => { instructionsUploadAttemptRef.current = handler; }}
             isConnected={isConnected}
             yellowButtonConnectedIsTrue={yellowButtonConnectedIsTrue}
+            slideConnectedIsTrue={slideConnectedIsTrue}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>

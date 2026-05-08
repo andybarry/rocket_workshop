@@ -139,6 +139,7 @@ function EditorApp() {
             onRefresh={(handler) => { refreshHandlerRef.current = handler }}
             onPageSelect={(handler) => { pageSelectHandlerRef.current = handler }}
             yellowButtonConnectedIsTrue={true}
+            slideConnectedIsTrue={true}
           />
         </div>
         <div style={{ height: 'calc(100vh - 58px)', overflow: 'auto' }}>
