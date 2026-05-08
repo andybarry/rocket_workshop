@@ -140,6 +140,7 @@ function EditorApp() {
             onPageSelect={(handler) => { pageSelectHandlerRef.current = handler }}
             yellowButtonConnectedIsTrue={true}
             slideConnectedIsTrue={true}
+            blueButtonConnectedIsTrue={true}
           />
         </div>
         <div style={{ height: 'calc(100vh - 58px)', overflow: 'auto' }}>
@@ -148,8 +149,8 @@ function EditorApp() {
             onToggleEditorMode={setEditorMode}
             dimensions={capturedDimensions}
             onRefresh={() => refreshHandlerRef.current?.()}
-            onPageSelect={(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1, isPage5_1, isPage18_1, isPage21_1, isPage21, isPage23_1, isPage24_1, isPage27_1, isPage27_2, isPage27_3, isPage27_4, isPage27_5) => 
-              pageSelectHandlerRef.current?.(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1, isPage5_1, isPage18_1, isPage21_1, isPage21, isPage23_1, isPage24_1, isPage27_1, isPage27_2, isPage27_3, isPage27_4, isPage27_5)
+            onPageSelect={(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1, isPage5_1, isPage18_1, isPage21_1, isPage21, isPage27_1, isPage27_2, isPage27_3, isPage27_4, isPage27_5) => 
+              pageSelectHandlerRef.current?.(pageIndex, isPage7_1, isPage8_1, isPage10_1, isPage10, isPage12_1, isPage5_1, isPage18_1, isPage21_1, isPage21, isPage27_1, isPage27_2, isPage27_3, isPage27_4, isPage27_5)
             }
           />
         </div>

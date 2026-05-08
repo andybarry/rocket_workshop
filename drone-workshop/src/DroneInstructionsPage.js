@@ -84,6 +84,7 @@ function DroneInstructionsPage() {
           onResetAll={resetInstructionsOnly}
           yellowButtonConnectedIsTrue={true}
           slideConnectedIsTrue={true}
+          blueButtonConnectedIsTrue={true}
         />
       </div>
     </ErrorBoundary>

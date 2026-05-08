@@ -27,17 +27,24 @@ function ensureSvgDimensions(filePath) {
   if (!svgOpenMatch) return { changed: false, reason: 'no <svg> tag found' };
 
   const svgOpen = svgOpenMatch[0];
-  const hasWidth = /\swidth\s*=/.test(svgOpen);
-  const hasHeight = /\sheight\s*=/.test(svgOpen);
+  const widthAttr = svgOpen.match(/\swidth\s*=\s*"([^"]*)"/i);
+  const heightAttr = svgOpen.match(/\sheight\s*=\s*"([^"]*)"/i);
+  const widthOk = widthAttr && widthAttr[1] === String(PAGE_WIDTH);
+  const heightOk = heightAttr && heightAttr[1] === String(PAGE_HEIGHT);
 
-  if (hasWidth && hasHeight) return { changed: false };
+  if (widthOk && heightOk) return { changed: false };
 
   let updatedOpen = svgOpen;
-  if (!hasWidth) {
+
+  if (widthAttr) {
+    updatedOpen = updatedOpen.replace(/\swidth\s*=\s*"[^"]*"/i, ` width="${PAGE_WIDTH}"`);
+  } else {
     updatedOpen = updatedOpen.replace(/<svg\b/i, `<svg width="${PAGE_WIDTH}"`);
   }
-  if (!hasHeight) {
-    // Insert height right after width (or after <svg if width was already there)
+
+  if (heightAttr) {
+    updatedOpen = updatedOpen.replace(/\sheight\s*=\s*"[^"]*"/i, ` height="${PAGE_HEIGHT}"`);
+  } else {
     updatedOpen = updatedOpen.replace(
       /<svg(\s+width="[^"]*")?/i,
       (match) => `${match} height="${PAGE_HEIGHT}"`,
@@ -46,7 +53,15 @@ function ensureSvgDimensions(filePath) {
 
   const updated = original.replace(svgOpen, updatedOpen);
   fs.writeFileSync(filePath, updated, 'utf8');
-  return { changed: true, addedWidth: !hasWidth, addedHeight: !hasHeight };
+  const addedWidth = !widthAttr;
+  const addedHeight = !heightAttr;
+  return {
+    changed: true,
+    addedWidth,
+    addedHeight,
+    normalizedWidth: widthAttr && !widthOk,
+    normalizedHeight: heightAttr && !heightOk,
+  };
 }
 
 function patchOne(file) {
@@ -54,9 +69,11 @@ function patchOne(file) {
     const result = ensureSvgDimensions(file);
     if (result.changed) {
       const parts = [];
-      if (result.addedWidth) parts.push(`width="${PAGE_WIDTH}"`);
-      if (result.addedHeight) parts.push(`height="${PAGE_HEIGHT}"`);
-      console.log(`[fix-page-svgs] patched ${path.basename(file)}: added ${parts.join(' and ')}`);
+      if (result.addedWidth) parts.push(`added width="${PAGE_WIDTH}"`);
+      else if (result.normalizedWidth) parts.push(`normalized width="${PAGE_WIDTH}"`);
+      if (result.addedHeight) parts.push(`added height="${PAGE_HEIGHT}"`);
+      else if (result.normalizedHeight) parts.push(`normalized height="${PAGE_HEIGHT}"`);
+      console.log(`[fix-page-svgs] patched ${path.basename(file)}: ${parts.join('; ')}`);
     }
     return result.changed;
   } catch (err) {

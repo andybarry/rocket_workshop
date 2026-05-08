@@ -294,6 +294,13 @@ function App() {
     return /slide_connected\s*=\s*true\b/.test(String(line.value))
   }, [editableLines])
 
+  // Page 25: editableLines key 4 is `const bool blue_button_connected = ...`
+  const blueButtonConnectedIsTrue = useMemo(() => {
+    const line = editableLines[4]
+    if (!line?.value) return false
+    return /blue_button_connected\s*=\s*true\b/.test(String(line.value))
+  }, [editableLines])
+
   const holdCommandRef = useRef(null);
 
   const [showAdminDialog, setShowAdminDialog] = useState(false);
@@ -946,6 +953,7 @@ function App() {
             isConnected={isConnected}
             yellowButtonConnectedIsTrue={yellowButtonConnectedIsTrue}
             slideConnectedIsTrue={slideConnectedIsTrue}
+            blueButtonConnectedIsTrue={blueButtonConnectedIsTrue}
           />
         </div>
         <div style={{ height: '100%', overflow: 'hidden' }}>
