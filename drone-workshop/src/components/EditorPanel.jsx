@@ -44,7 +44,6 @@ import page30 from '../assets/images/pages/30.svg'
 import page31 from '../assets/images/pages/31.svg'
 import page32 from '../assets/images/pages/32.svg'
 import page33 from '../assets/images/pages/33.svg'
-import page34 from '../assets/images/pages/34.png'
 
 function EditorPanel({ editorMode, onToggleEditorMode, dimensions, onRefresh, onPageSelect }) {
   const [copied, setCopied] = useState(false)
@@ -289,10 +288,6 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             <div className="image-selector-item" onClick={() => onPageSelect(32, false, false, false, false)}>
               <img src={page33} alt="Page 33" className="image-selector-thumbnail" />
               <span className="image-selector-label">33.svg</span>
-            </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(33, false, false, false, false)}>
-              <img src={page34} alt="Page 34" className="image-selector-thumbnail" />
-              <span className="image-selector-label">34.png</span>
             </div>
           </div>
         </div>

@@ -48,7 +48,6 @@ import page30 from '../assets/images/pages/30.svg'
 import page31 from '../assets/images/pages/31.svg'
 import page32 from '../assets/images/pages/32.svg'
 import page33 from '../assets/images/pages/33.svg'
-import page34 from '../assets/images/pages/34.png'
 import safetyGlasses from '../assets/images/safety-glasses.png'
 
 const DEFAULT_PAGE_ASPECT = 0.75
@@ -347,13 +346,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page28Box1Selected, setPage28Box1Selected] = useState(false)
   const [page29Box1Selected, setPage29Box1Selected] = useState(false)
   const [page30Box1Selected, setPage30Box1Selected] = useState(false)
-  // Track page 33 box selections
-  const [page33Box1Selected, setPage33Box1Selected] = useState(false)
-  // Track selected green boxes on page 33
-  const [selectedGreenBoxesPage33, setSelectedGreenBoxesPage33] = useState(new Set())
-  // Track page 34 box selections
+  // Final page (33): feedback survey pill clicked (opens survey URL)
   const [page34Box1Selected, setPage34Box1Selected] = useState(false)
-  // Track page 34 nav Reset All confirm-twice state
+  // Final page: bottom nav Reset All confirm-twice state
   const [page34NavResetPressedOnce, setPage34NavResetPressedOnce] = useState(false)
   const [centerResetConfirmOnce, setCenterResetConfirmOnce] = useState(false)
   // Track if "Need Help?" text should be shown (hidden after first click)
@@ -453,7 +448,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     },
     [clearPageNumbersArrowAutoscroll]
   )
-  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18_1, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33, page34]
+  const pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13, page14, page15_1, page16, page17, page18_1, page19, page20, page21, page22, page23, page24, page25, page26, page27, page28, page29, page30, page31, page32, page33]
 
   /** Center the active page in the white row. Uses viewport rects — offsetLeft is wrong for flex children. */
   const centerActiveInPageNumberRow = useCallback(() => {
@@ -590,8 +585,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       case 29: // Page 30
         setPage30Box1Selected(true)
         break
-      case 32: // Page 33
-        setPage33Box1Selected(true)
+      case 32: // Page 33 — survey gate (no checklist)
+        setPage34Box1Selected(true)
         break
       default:
         break
@@ -771,8 +766,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page28Box1Selected === 'boolean') setPage28Box1Selected(p.page28Box1Selected)
       if (typeof p.page29Box1Selected === 'boolean') setPage29Box1Selected(p.page29Box1Selected)
       if (typeof p.page30Box1Selected === 'boolean') setPage30Box1Selected(p.page30Box1Selected)
-      if (typeof p.page33Box1Selected === 'boolean') setPage33Box1Selected(p.page33Box1Selected)
-      if (Array.isArray(p.selectedGreenBoxesPage33)) setSelectedGreenBoxesPage33(new Set(p.selectedGreenBoxesPage33))
       if (typeof p.page34Box1Selected === 'boolean') setPage34Box1Selected(p.page34Box1Selected)
 
       const nextPage = typeof p.currentPage === 'number'
@@ -1213,8 +1206,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page28Box1Selected,
           page29Box1Selected,
           page30Box1Selected,
-          page33Box1Selected,
-          selectedGreenBoxesPage33: Array.from(selectedGreenBoxesPage33),
           page34Box1Selected,
         }
         try {
@@ -1513,10 +1504,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     } else if (currentPage === 29) {
       setPage30Box1Selected(false)
     } else if (currentPage === 32) {
-      // Page 33 — survey + legacy parts-cleanup state
+      // Page 33 — survey
       setPage34Box1Selected(false)
-      setPage33Box1Selected(false)
-      setSelectedGreenBoxesPage33(new Set())
       setPage34NavResetPressedOnce(false)
     }
 
@@ -2237,24 +2226,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const handlePage30Box1 = () => {
     setPage30Box1Selected(true)
   }
-  const handlePage33Box1 = () => {
-    setPage33Box1Selected(true)
-  }
-  
-  // Handler for green box clicks on page 33
-  const handleGreenBoxClickPage33 = (index) => {
-    setSelectedGreenBoxesPage33(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(index)) {
-        newSet.delete(index) // Toggle off if already selected
-      } else {
-        newSet.add(index) // Toggle on if not selected
-      }
-      return newSet
-    })
-  }
-  
-  // Handler for page 34 box 1 - opens feedback survey
+  // Final page: survey pill opens feedback URL
   const handlePage34Box1 = () => {
     setPage34Box1Selected(true)
     // Open the feedback survey in a new tab
@@ -3259,8 +3231,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     (currentPage === 26 && !page27Box10MetricValid) ||
     (currentPage === 27 && !page28Box1Selected) ||
     (currentPage === 28 && !page29Box1Selected) ||
-    (currentPage === 29 && !page30Box1Selected) ||
-    (currentPage === 32 && !page34Box1Selected)
+    (currentPage === 29 && !page30Box1Selected)
 
   const bottomNextNavBlueActive =
     (currentPage === 1 && visitedPages.has(1)) ||
@@ -3293,8 +3264,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     (currentPage === 28 && page29Box1Selected) ||
     (currentPage === 29 && page30Box1Selected) ||
     (currentPage === 30) ||
-    (currentPage === 31) ||
-    (currentPage === 32 && page34Box1Selected)
+    (currentPage === 31)
 
   return (
     <div className={`instructions-panel ${noScrollbars ? 'no-scrollbars' : ''} ${editorMode ? 'editor-mode' : ''}`}>
@@ -17885,28 +17855,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Number "34" at Dot 3 position on page 34 */}
-                  {currentPage === 33 && !editorMode && (
-                    <div style={getPageNumberStyle(94.83, 95.96)}>
-                      <span
-                        style={{
-                          position: 'absolute',
-                          left: '50%',
-                          top: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          fontFamily: 'Roboto, sans-serif',
-                          color: '#595959',
-                          fontSize: `${12 * stageRelativeScale}px`,
-                          fontWeight: 'bold',
-                          pointerEvents: 'none',
-                          zIndex: 10
-                        }}
-                      >
-                        34
-                      </span>
-                    </div>
-                  )}
-                  {/* Feedback survey pill — interaction moved from page 34 to page 33 */}
+                  {/* Feedback survey pill — final page */}
                   {currentPage === 32 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 28.97
                     const boxTop = 43.27
@@ -17969,7 +17918,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     const topY = 0
                     const bottomY = 100
-                    const roundedRectPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY} Q 100,${topY} 100,${topY + borderRadiusWrapperY} L 100,${bottomY - borderRadiusWrapperY} Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY} L ${borderRadiusWrapperX},${bottomY} Q 0,${bottomY} 0,${bottomY - borderRadiusWrapperY} L 0,${topY + borderRadiusWrapperY} Q 0,${topY} ${borderRadiusWrapperX},${topY} Z`
                     const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
                     const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
@@ -17977,9 +17925,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage34Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage34Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'transparent', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="transparent" />
                           <g className="speech-bubble-border-group">
                             <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                             <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
@@ -23035,28 +22982,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </span>
                     </div>
                   )}
-                  {/* Number "34" at Dot 3 position on page 34 */}
-                  {currentPage === 33 && !editorMode && (
-                    <div style={getPageNumberStyle(94.83, 95.96)}>
-                      <span
-                        style={{
-                          position: 'absolute',
-                          left: '50%',
-                          top: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          fontFamily: 'Roboto, sans-serif',
-                          color: '#595959',
-                          fontSize: `${12 * stageRelativeScale}px`,
-                          fontWeight: 'bold',
-                          pointerEvents: 'none',
-                          zIndex: 10
-                        }}
-                      >
-                        34
-                      </span>
-                    </div>
-                  )}
-                  {/* Feedback survey pill — interaction moved from page 34 to page 33 */}
+                  {/* Feedback survey pill — final page */}
                   {currentPage === 32 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 28.97
                     const boxTop = 43.27
@@ -23119,7 +23045,6 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     const topY = 0
                     const bottomY = 100
-                    const roundedRectPath = `M ${borderRadiusWrapperX},${topY} L ${100 - borderRadiusWrapperX},${topY} Q 100,${topY} 100,${topY + borderRadiusWrapperY} L 100,${bottomY - borderRadiusWrapperY} Q 100,${bottomY} ${100 - borderRadiusWrapperX},${bottomY} L ${borderRadiusWrapperX},${bottomY} Q 0,${bottomY} 0,${bottomY - borderRadiusWrapperY} L 0,${topY + borderRadiusWrapperY} Q 0,${topY} ${borderRadiusWrapperX},${topY} Z`
                     const leftBorderPath = `M ${borderRadiusWrapperX},${topY} Q 0,${topY} 0,${topY + borderRadiusWrapperY} L 0,${bottomY - borderRadiusWrapperY} Q 0,${bottomY} ${borderRadiusWrapperX},${bottomY}`
                     const bottomBorderPath = `M ${borderRadiusWrapperX},${bottomY} L ${100 - borderRadiusWrapperX},${bottomY}`
                     const rightBorderPath = `M ${100 - borderRadiusWrapperX},${bottomY} Q 100,${bottomY} 100,${bottomY - borderRadiusWrapperY} L 100,${topY + borderRadiusWrapperY} Q 100,${topY} ${100 - borderRadiusWrapperX},${topY}`
@@ -23127,9 +23052,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     return (
                       <div className={`speech-bubble-wrapper ${isSelected ? 'has-selected' : ''}`} style={buttonStyle}>
-                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage34Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
+                        <div className={`speech-bubble-box ${isSelected ? 'disabled selected' : ''}`} onClick={!isSelected ? handlePage34Box1 : undefined} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'transparent', pointerEvents: isSelected ? 'none' : 'auto', cursor: isSelected ? 'default' : 'pointer', zIndex: 11 }} />
                         <svg className="speech-bubble-svg" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible', zIndex: 10 }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                          <path d={roundedRectPath} fill="transparent" />
                           <g className="speech-bubble-border-group">
                             <path d={leftBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
                             <path d={bottomBorderPath} fill="none" stroke={isSelected ? "#f05f40" : "#0d6efd"} strokeWidth={isSelected ? "2" : "1"} className="speech-bubble-border" vectorEffect="non-scaling-stroke" />
@@ -31974,25 +31898,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           )}
         </div>
         {currentPage !== pages.length - 1 && currentPage !== 0 && (
-          <div className="nav-button-right" style={{ gap: '10px' }}>
-            {currentPage === pages.length - 2 && onResetAll && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (page34NavResetPressedOnce) {
-                    onResetAll();
-                    setPage34NavResetPressedOnce(false);
-                  } else {
-                    setPage34NavResetPressedOnce(true);
-                    setTimeout(() => setPage34NavResetPressedOnce(false), 5000);
-                  }
-                }}
-                className={`btn-modern btn-nav ${page34NavResetPressedOnce ? 'btn-nav-danger' : 'btn-nav-gray'}`}
-                aria-label="Reset all"
-              >
-                {page34NavResetPressedOnce ? 'Confirm Reset' : 'Reset All'}
-              </button>
-            )}
+          <div className="nav-button-right">
             <button 
               onClick={handleNext}
               disabled={bottomNextNavDisabled}
@@ -32000,6 +31906,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>
+            </button>
+          </div>
+        )}
+        {currentPage === pages.length - 1 && onResetAll && (
+          <div className="nav-button-right">
+            <button
+              type="button"
+              onClick={() => {
+                if (page34NavResetPressedOnce) {
+                  onResetAll();
+                  setPage34NavResetPressedOnce(false);
+                } else {
+                  setPage34NavResetPressedOnce(true);
+                  setTimeout(() => setPage34NavResetPressedOnce(false), 5000);
+                }
+              }}
+              className={`btn-modern btn-nav ${page34NavResetPressedOnce ? 'btn-nav-danger' : 'btn-nav-gray'}`}
+              aria-label="Reset all"
+            >
+              {page34NavResetPressedOnce ? 'Confirm Reset' : 'Reset All'}
             </button>
           </div>
         )}

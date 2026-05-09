@@ -772,7 +772,7 @@ function App() {
     window.location.reload();
   }
 
-  // Combined reset for nav bar on page 34: does both Reset Instructions and Reset All (same as both bottom-right buttons)
+  // Combined reset for nav bar on the final page (Reset All confirm flow)
   const resetAllAndInstructions = () => {
     localStorage.removeItem('droneWorkshopInstructionsState');
     localStorage.setItem("droneWorkshopState", JSON.stringify([]));

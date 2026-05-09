@@ -665,7 +665,7 @@
   }
 }
 
-/* Gray nav button (page 34 Reset All) - same size/format as Next, no pulse, gray like right-panel Reset All */
+/* Gray nav button (final page Reset All) - same size/format as Next, no pulse, gray like right-panel Reset All */
 .btn-nav-gray {
   color: #6c757d;
   border: 1px solid #6c757d;
@@ -678,7 +678,7 @@
   animation: none;
 }
 
-/* Red nav button (page 34 Confirm Reset) - matches bottom-right Confirm Reset / Bootstrap danger */
+/* Red nav button (final page Confirm Reset) - matches bottom-right Confirm Reset / Bootstrap danger */
 .btn-nav-danger {
   color: #dc3545;
   border: 1px solid #dc3545;
