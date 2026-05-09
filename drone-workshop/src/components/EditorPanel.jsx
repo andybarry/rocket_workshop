@@ -34,16 +34,15 @@ import page24 from '../assets/images/pages/24.svg'
 import page25 from '../assets/images/pages/25.svg'
 import page26 from '../assets/images/pages/26.svg'
 import page27 from '../assets/images/pages/27.svg'
-import page27_1 from '../assets/images/pages/27.1.svg'
 import page27_2 from '../assets/images/pages/27.2.svg'
 import page27_3 from '../assets/images/pages/27.3.svg'
 import page27_4 from '../assets/images/pages/27.4.svg'
 import page27_5 from '../assets/images/pages/27.5.svg'
-import page28 from '../assets/images/pages/28.png'
-import page29 from '../assets/images/pages/29.png'
-import page30 from '../assets/images/pages/30.png'
-import page31 from '../assets/images/pages/31.png'
-import page32 from '../assets/images/pages/32.png'
+import page28 from '../assets/images/pages/28.svg'
+import page29 from '../assets/images/pages/29.svg'
+import page30 from '../assets/images/pages/30.svg'
+import page31 from '../assets/images/pages/31.svg'
+import page32 from '../assets/images/pages/32.svg'
 import page33 from '../assets/images/pages/33.png'
 import page34 from '../assets/images/pages/34.png'
 
@@ -251,10 +250,6 @@ Dot 3 Y: ${dimensions.dot3.y}%`
               <img src={page27} alt="Page 27" className="image-selector-thumbnail" />
               <span className="image-selector-label">27.svg</span>
             </div>
-            <div className="image-selector-item" onClick={() => onPageSelect(26, false, false, false, false, false, false, false, false, false, true)}>
-              <img src={page27_1} alt="Page 27.1" className="image-selector-thumbnail" />
-              <span className="image-selector-label">27.1.svg</span>
-            </div>
             <div className="image-selector-item" onClick={() => onPageSelect(26, false, false, false, false, false, false, false, false, false, false, true)}>
               <img src={page27_2} alt="Page 27.2" className="image-selector-thumbnail" />
               <span className="image-selector-label">27.2.svg</span>
@@ -273,23 +268,23 @@ Dot 3 Y: ${dimensions.dot3.y}%`
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(27, false, false, false, false)}>
               <img src={page28} alt="Page 28" className="image-selector-thumbnail" />
-              <span className="image-selector-label">28.png</span>
+              <span className="image-selector-label">28.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(28, false, false, false, false)}>
               <img src={page29} alt="Page 29" className="image-selector-thumbnail" />
-              <span className="image-selector-label">29.png</span>
+              <span className="image-selector-label">29.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(29, false, false, false, false)}>
               <img src={page30} alt="Page 30" className="image-selector-thumbnail" />
-              <span className="image-selector-label">30.png</span>
+              <span className="image-selector-label">30.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(30, false, false, false, false)}>
               <img src={page31} alt="Page 31" className="image-selector-thumbnail" />
-              <span className="image-selector-label">31.png</span>
+              <span className="image-selector-label">31.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(31, false, false, false, false)}>
               <img src={page32} alt="Page 32" className="image-selector-thumbnail" />
-              <span className="image-selector-label">32.png</span>
+              <span className="image-selector-label">32.svg</span>
             </div>
             <div className="image-selector-item" onClick={() => onPageSelect(32, false, false, false, false)}>
               <img src={page33} alt="Page 33" className="image-selector-thumbnail" />
