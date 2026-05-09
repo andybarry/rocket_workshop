@@ -16493,6 +16493,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       />
                     )
                   })()}
+                  {/* Page 27 — bottom strip hidden until Box 7 (second speech-bubble) is clicked */}
+                  {currentPage === 26 && !editorMode && page27Box1Selected && !page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const stripStyle = getButtonStyle(0, 78.9, 100, 16.95)
+                    return (
+                      <div
+                        style={{
+                          ...stripStyle,
+                          backgroundColor: 'white',
+                          zIndex: 8,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
                   {/* Box 8 on page 27 - input box, only visible when 27.2.png is displayed (when box 7 is selected) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     const boxLeft = 35.33
@@ -21615,6 +21629,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           height: `${expandedHeight}%`,
                           backgroundColor: 'white',
                           zIndex: 5,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    )
+                  })()}
+                  {/* Page 27 — bottom strip hidden until Box 7 (second speech-bubble) is clicked */}
+                  {currentPage === 26 && !editorMode && page27Box1Selected && !page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    const stripStyle = getButtonStyle(0, 78.9, 100, 16.95)
+                    return (
+                      <div
+                        style={{
+                          ...stripStyle,
+                          backgroundColor: 'white',
+                          zIndex: 8,
                           pointerEvents: 'none'
                         }}
                       />
