@@ -574,7 +574,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
         setPage26CheckboxSelected(true)
         break
       case 26: // Page 27
-        setPage27Box10Value('75') // Set a valid value
+        setPage27Box10Value('7') // Set a valid value
         break
       case 27: // Page 28
         setPage28Box1Selected(true)
@@ -2197,11 +2197,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const handlePage27Box7 = () => {
     // Check if box 8 has a valid value
     const box8Value = parseFloat(page27Box8Value)
-    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+    const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
     
     // Check if box 9 has a valid value
     const box9Value = parseFloat(page27Box9Value)
-    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+    const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
     
     if (box9IsValid && page27Box7ClickedAfterBox8Valid) {
       // Box 7 clicked again after box 9 has valid value - trigger transition to 27.4
@@ -2457,7 +2457,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Handle delayed display of "Value too low" error box on page 27.2
   useEffect(() => {
     const box8Value = parseFloat(page27Box8Value)
-    const isTooLow = !isNaN(box8Value) && box8Value >= 1 && box8Value <= 49
+    const isTooLow = !isNaN(box8Value) && box8Value >= 1 && box8Value <= 4
     
     if (isTooLow) {
       // Delay showing the error by 0.75 seconds
@@ -2474,7 +2474,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Handle delayed display of "Value too low" error box on page 27.3 (Box 9)
   useEffect(() => {
     const box9Value = parseFloat(page27Box9Value)
-    const isTooLow = !isNaN(box9Value) && box9Value >= 1 && box9Value <= 49
+    const isTooLow = !isNaN(box9Value) && box9Value >= 1 && box9Value <= 4
     
     if (isTooLow) {
       // Delay showing the error by 0.75 seconds
@@ -2491,7 +2491,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   // Handle delayed display of "Value too low" error box on page 27.4 (Box 10)
   useEffect(() => {
     const box10Value = parseFloat(page27Box10Value)
-    const isTooLow = !isNaN(box10Value) && box10Value >= 1 && box10Value <= 49
+    const isTooLow = !isNaN(box10Value) && box10Value >= 1 && box10Value <= 4
     
     if (isTooLow) {
       // Delay showing the error by 0.75 seconds
@@ -3198,7 +3198,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
   const page27Box10MetricValid = (() => {
     const box10Value = parseFloat(page27Box10Value)
-    return !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+    return !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
   })()
 
   const bottomNextNavDisabled =
@@ -3336,19 +3336,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           return page24
                         }
                         if (currentPage === 26) {
-                          // Check if Box 10 has a valid value (50-100) - highest priority
+                          // Check if Box 10 has a valid value (5-10) - highest priority
                           const box10Value = parseFloat(page27Box10Value)
-                          const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                          const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
                           if (box10IsValid) return page27_5
-                          // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after
+                          // Check if Box 9 has a valid value (5-10) AND box 7 was clicked after
                           const box9Value = parseFloat(page27Box9Value)
-                          const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                          const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
                           if (box9IsValid && page27Box7ClickedAfterBox9Valid) return page27_4
                           // If box 9 has valid value but box 7 not clicked yet, stay on 27.3
                           if (box9IsValid) return page27_3
-                          // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after
+                          // Check if Box 8 has a valid value (5-10) AND box 7 was clicked after
                           const box8Value = parseFloat(page27Box8Value)
-                          const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                          const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
                           if (box8IsValid && page27Box7ClickedAfterBox8Valid) return page27_3
                           // If box 8 has valid value but box 7 not clicked yet, stay on 27.2
                           if (box8IsValid) return page27_2
@@ -16376,20 +16376,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 26 && !editorMode && page27Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     // Hide Box 7 when Box 10 has a valid value (when 27.5.png is displayed)
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
                     if (box10IsValid) return null
                     
                     // Check if box 8 has valid value - show box 7 as clickable again
                     const box8Value = parseFloat(page27Box8Value)
-                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
                     
                     // Check if box 9 has valid value - show box 7 as clickable again
                     const box9Value = parseFloat(page27Box9Value)
-                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
                     
                     // Check box 10 valid value for hide condition
                     const box10Val = parseFloat(page27Box10Value)
-                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 5 && box10Val <= 10
                     
                     // Hide box 7 only when box 10 has valid value (transitioning to 27.5)
                     if (box10Valid) return null
@@ -16400,7 +16400,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxHeight = 6.24
                     // Check if box 10 has valid value
                     const box10ValueNum = parseFloat(page27Box10Value)
-                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 50 && box10ValueNum <= 100
+                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 5 && box10ValueNum <= 10
                     
                     // Show orange border when:
                     // - on 27.3 but box 9 doesn't have valid value yet, OR
@@ -16547,14 +16547,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box8Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
+                    // Lock input once valid value (5-10) is entered, or when box 10 has valid value
                     const isReadOnly = isValid || box10IsValid
                     
                     return (
@@ -16617,7 +16617,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.2 - shows "Value too low" when Box 8 value is 1-49 (with 0.5s delay) */}
+                  {/* Error box on page 27.2 - shows "Value too low" when Box 8 value is 1-4 (with 0.5s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box8TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77
@@ -16794,9 +16794,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
+                    // Check if Box 8 has a valid value (5-10) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
-                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
                     // Only show Box 9 when 27.3 is visible (box 7 clicked after box 8 valid)
                     if (!box8IsValid || !page27Box7ClickedAfterBox8Valid) return null
                     
@@ -16843,14 +16843,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box9Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
+                    // Lock input once valid value (5-10) is entered, or when box 10 has valid value
                     const isReadOnly = isValid || box10IsValid
                     
                     return (
@@ -16913,7 +16913,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-49 (with 0.75s delay) */}
+                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-4 (with 0.75s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox8Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box9TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77
@@ -17096,9 +17096,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
+                    // Check if Box 9 has a valid value (5-10) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
-                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
                     // Only show Box 10 when 27.4 is visible (box 7 clicked after box 9 valid)
                     if (!box9IsValid || !page27Box7ClickedAfterBox9Valid) return null
                     
@@ -17148,7 +17148,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box10Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
@@ -17215,7 +17215,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-49 (with 0.75s delay) */}
+                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-4 (with 0.75s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox9Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box10TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77
@@ -21517,20 +21517,20 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {currentPage === 26 && !editorMode && page27Box1Selected && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
                     // Hide Box 7 when Box 10 has a valid value (when 27.5.png is displayed)
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
                     if (box10IsValid) return null
                     
                     // Check if box 8 has valid value - show box 7 as clickable again
                     const box8Value = parseFloat(page27Box8Value)
-                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
                     
                     // Check if box 9 has valid value - show box 7 as clickable again
                     const box9Value = parseFloat(page27Box9Value)
-                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
                     
                     // Check box 10 valid value for hide condition
                     const box10Val = parseFloat(page27Box10Value)
-                    const box10Valid = !isNaN(box10Val) && box10Val >= 50 && box10Val <= 100
+                    const box10Valid = !isNaN(box10Val) && box10Val >= 5 && box10Val <= 10
                     
                     // Hide box 7 only when box 10 has valid value (transitioning to 27.5)
                     if (box10Valid) return null
@@ -21541,7 +21541,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const boxHeight = 6.24
                     // Check if box 10 has valid value
                     const box10ValueNum = parseFloat(page27Box10Value)
-                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 50 && box10ValueNum <= 100
+                    const box10IsValidLocal = !isNaN(box10ValueNum) && box10ValueNum >= 5 && box10ValueNum <= 10
                     
                     // Show orange border when:
                     // - on 27.3 but box 9 doesn't have valid value yet, OR
@@ -21688,14 +21688,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box8Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
+                    // Lock input once valid value (5-10) is entered, or when box 10 has valid value
                     const isReadOnly = isValid || box10IsValid
                     
                     return (
@@ -21758,7 +21758,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.2 - shows "Value too low" when Box 8 value is 1-49 (with 0.5s delay) */}
+                  {/* Error box on page 27.2 - shows "Value too low" when Box 8 value is 1-4 (with 0.5s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7Selected && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box8TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77
@@ -21935,9 +21935,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 9 on page 27 - input box, only visible when 27.3.png is displayed (when box 8 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 8 has a valid value (50-100) AND box 7 was clicked after to show Box 9
+                    // Check if Box 8 has a valid value (5-10) AND box 7 was clicked after to show Box 9
                     const box8Value = parseFloat(page27Box8Value)
-                    const box8IsValid = !isNaN(box8Value) && box8Value >= 50 && box8Value <= 100
+                    const box8IsValid = !isNaN(box8Value) && box8Value >= 5 && box8Value <= 10
                     // Only show Box 9 when 27.3 is visible (box 7 clicked after box 8 valid)
                     if (!box8IsValid || !page27Box7ClickedAfterBox8Valid) return null
                     
@@ -21984,14 +21984,14 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box9Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
                     // Check if Box 10 has valid value (when 27.5.png is displayed) - make read-only
                     const box10Value = parseFloat(page27Box10Value)
-                    const box10IsValid = !isNaN(box10Value) && box10Value >= 50 && box10Value <= 100
-                    // Lock input once valid value (50-100) is entered, or when box 10 has valid value
+                    const box10IsValid = !isNaN(box10Value) && box10Value >= 5 && box10Value <= 10
+                    // Lock input once valid value (5-10) is entered, or when box 10 has valid value
                     const isReadOnly = isValid || box10IsValid
                     
                     return (
@@ -22054,7 +22054,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-49 (with 0.75s delay) */}
+                  {/* Error box on page 27.3 - shows "Value too low" when Box 9 value is 1-4 (with 0.75s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox8Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box9TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77
@@ -22237,9 +22237,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Box 10 on page 27 - input box, only visible when 27.4.png is displayed (when box 9 has valid value AND box 7 is clicked) */}
                   {currentPage === 26 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
-                    // Check if Box 9 has a valid value (50-100) AND box 7 was clicked after to show Box 10
+                    // Check if Box 9 has a valid value (5-10) AND box 7 was clicked after to show Box 10
                     const box9Value = parseFloat(page27Box9Value)
-                    const box9IsValid = !isNaN(box9Value) && box9Value >= 50 && box9Value <= 100
+                    const box9IsValid = !isNaN(box9Value) && box9Value >= 5 && box9Value <= 10
                     // Only show Box 10 when 27.4 is visible (box 7 clicked after box 9 valid)
                     if (!box9IsValid || !page27Box7ClickedAfterBox9Valid) return null
                     
@@ -22289,7 +22289,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     
                     // Check if value is between 50 and 100
                     const numericValue = parseFloat(page27Box10Value)
-                    const isValid = !isNaN(numericValue) && numericValue >= 50 && numericValue <= 100
+                    const isValid = !isNaN(numericValue) && numericValue >= 5 && numericValue <= 10
                     const borderColor = isValid ? "#28a745" : "#0d6efd"
                     const borderWidth = isValid ? "2" : "1"
                     
@@ -22356,7 +22356,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-49 (with 0.75s delay) */}
+                  {/* Error box on page 27.4 - shows "Value too low" when Box 10 value is 1-4 (with 0.75s delay) */}
                   {currentPage === 26 && !editorMode && page27Box7ClickedAfterBox9Valid && stageWidthPx > 0 && stageHeightPx > 0 && showPage27Box10TooLowError && (() => {
                     
                     const baseBoxLeft = 39.77

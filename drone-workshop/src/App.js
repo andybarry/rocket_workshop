@@ -663,7 +663,8 @@ function App() {
       return "";
     }
     for (let command of holdcmd) {
-      out.push(command['param1'] + ',' + command['param2'] + ',' + command['param3'] + ',' + command['param4'] + ',' + command['param5'] + ',' + command['color'])
+      // User enters params 1-4 on a 0-10 scale; firmware expects 0-100, so scale by 10 here.
+      out.push((command['param1'] * 10) + ',' + (command['param2'] * 10) + ',' + (command['param3'] * 10) + ',' + (command['param4'] * 10) + ',' + command['param5'] + ',' + command['color'])
     }
     return out.join('@');
   }
@@ -734,15 +735,21 @@ function App() {
           return null;
         }
 
-        if (param1 > 100 || param2 > 100 || param3 > 100 || param4 > 100) {
+        if (!isInt(param1) || !isInt(param2) || !isInt(param3) || !isInt(param4)) {
           console.log(`Invalid parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter > 100: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameters must be whole numbers 0 to 10: ${line}`);
+          return null;
+        }
+
+        if (param1 > 10 || param2 > 10 || param3 > 10 || param4 > 10) {
+          console.log(`Invalid parameters: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter > 10: ${line}`);
           return null;
         }
 
         if (param1 < 0 || param2 < 0 || param3 < 0 || param4 < 0) {
           console.log(`Invalid parameters: ${line}`);
-          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter > 100: ${line}`);
+          setCodeError(`Autonomous flight commands: error on line ${i + 1}: parameter < 0: ${line}`);
           return null;
         }
 
@@ -1297,15 +1304,15 @@ export default App;
 const HOLDCOMMAND_CODE = `
 // holdCommand(left/right, forward/back, throttle/speed, rotation, time-ms, neopixel color);
 //
-// all values (except time) are in range 0 to 100, higher is right/forward/faster
+// all values (except time) are in range 0 to 10, higher is right/forward/faster
 //
 // Colors are:
 //   white, red, green, blue, yellow, orange, purple
 //
-holdCommand(50, 50, 55, 50, 500, "blue");  // straight up 0.5 sec
-holdCommand(50, 50, 55, 100, 750, "purple"); // spin in place 0.75 sec
-holdCommand(50, 50, 55, 0, 750, "orange");   // spin in place the other way 0.75 sec
-holdCommand(50, 50, 25, 0, 750, "yellow");   // land
+holdCommand(5, 5, 6, 5, 500, "blue");  // straight up 0.5 sec
+holdCommand(5, 5, 6, 10, 750, "purple"); // spin in place 0.75 sec
+holdCommand(5, 5, 6, 0, 750, "orange");   // spin in place the other way 0.75 sec
+holdCommand(5, 5, 3, 0, 750, "yellow");   // land
 `
 
 const BASE_CODE = `
@@ -1333,7 +1340,7 @@ void AutonomousFlightFromBlueButton() {
   //
   // holdCommand(left/right, forward/back, throttle/speed, rotation, time-ms, neopixel color);
   //
-  // all values (except time) are in range 0 to 100, higher is right/forward/faster
+  // all values (except time) are in range 0 to 10, higher is right/forward/faster
   //
   // Colors are:
   //    white
@@ -1344,9 +1351,9 @@ void AutonomousFlightFromBlueButton() {
   //    orange
   //    purple
   //
-  // holdCommand(50, 50, 55, 50, 500, "blue");  // straight up 0.5 sec
-  // holdCommand(50, 50, 55, 100, 750, "purple"); // spin in place 0.75 sec
-  // holdCommand(50, 50, 55, 0, 750, "orange");   // spin in place the other way 0.75 sec
+  // holdCommand(5, 5, 6, 5, 500, "blue");  // straight up 0.5 sec
+  // holdCommand(5, 5, 6, 10, 750, "purple"); // spin in place 0.75 sec
+  // holdCommand(5, 5, 6, 0, 750, "orange");   // spin in place the other way 0.75 sec
 
   // <<< holdCommand filled in here >>> //
 }
