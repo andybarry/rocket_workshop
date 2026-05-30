@@ -941,7 +941,6 @@ function App() {
           <InstructionsPanel 
             editorMode={editorMode} 
             showZoomButtons={false}
-            resetSplitOnPageChange={true}
             onResetInstructionsReady={handleResetInstructionsReady}
             onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}

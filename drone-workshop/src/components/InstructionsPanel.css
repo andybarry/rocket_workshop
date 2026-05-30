@@ -129,7 +129,14 @@
   align-items: flex-start;
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Reserve the vertical scrollbar's space permanently so clientWidth stays
+     constant whether or not the scrollbar is shown. This breaks the
+     measurement feedback loop that otherwise made the image size oscillate
+     (the rapid shake/zoom-in-out) when the scrollbar toggled at the fit
+     boundary. */
+  scrollbar-gutter: stable;
   flex: 1;
   min-height: 0;
 }
@@ -212,9 +219,11 @@
   overflow: hidden;
 }
 
-/* When zoomed, align content to flex-start so horizontal scroll works from left edge */
+/* When zoomed, keep content centered. Horizontal scrolling is intentionally
+   disabled (overflow-x: hidden on .page-container), so center the scaled
+   content rather than left-aligning it. */
 .page-container:not(.no-scrollbars) {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 /* Hide scrollbars but keep scrolling functionality when zoomed */
