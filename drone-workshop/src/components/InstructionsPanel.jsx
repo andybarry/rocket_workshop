@@ -4,8 +4,8 @@ import page1 from '../assets/images/pages/1.svg'
 import page2 from '../assets/images/pages/2.svg'
 import page3 from '../assets/images/pages/3.svg'
 import page4 from '../assets/images/pages/4.svg'
-import page5 from '../assets/images/pages/5.png'
-import page5_1 from '../assets/images/pages/5.1.png'
+import page5 from '../assets/images/pages/5.svg'
+import page5_1 from '../assets/images/pages/5.1.svg'
 import page6 from '../assets/images/pages/6.svg'
 import page7 from '../assets/images/pages/7.svg'
 import page7_1 from '../assets/images/pages/7.1.svg'
@@ -137,7 +137,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page4Checkbox2, setPage4Checkbox2] = useState(false)
   const [page4Checkbox3, setPage4Checkbox3] = useState(false)
   // Track page 5 button states
-  const [page5Button1Clicked, setPage5Button1Clicked] = useState(false)
+  const [page5Button1Clicked, setPage5Button1Clicked] = useState(true)
   const [page5Button2Clicked, setPage5Button2Clicked] = useState(false)
   // Track page 5 blue edge dot selection
   const [page5BlueDotSelected, setPage5BlueDotSelected] = useState(false)
@@ -359,6 +359,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page15Box3Selected, setPage15Box3Selected] = useState(false)
   // Track selected green boxes on page 3
   const [selectedGreenBoxes, setSelectedGreenBoxes] = useState(new Set())
+  // Track selected green boxes on page 32 (independent from page 3)
+  const [selectedGreenBoxesPage32, setSelectedGreenBoxesPage32] = useState(new Set())
   // Track if returning from page 3 to page 2
   const [returningFromPage3, setReturningFromPage3] = useState(false)
   // Track if returning from page 2 to page 1
@@ -414,6 +416,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
   const prevCountPage3Ref = useRef(0)
+  // Page 32 cleanup-checklist confetti counter (mirrors page 3)
+  const prevCountPage32Ref = useRef(0)
   const page3ConfettiFiredRef = useRef(false)
   const confettiWrapperRef = useRef(null)
   const confettiCanvasRef = useRef(null)
@@ -608,13 +612,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page3ButtonClicked === 'boolean') setPage3ButtonClicked(p.page3ButtonClicked)
       if (typeof p.page3SecondButtonClicked === 'boolean') setPage3SecondButtonClicked(p.page3SecondButtonClicked)
       if (Array.isArray(p.selectedGreenBoxes)) setSelectedGreenBoxes(new Set(p.selectedGreenBoxes))
+      if (Array.isArray(p.selectedGreenBoxesPage32)) setSelectedGreenBoxesPage32(new Set(p.selectedGreenBoxesPage32))
 
       if (typeof p.page4Button1Clicked === 'boolean') setPage4Button1Clicked(p.page4Button1Clicked)
       if (typeof p.page4Checkbox1 === 'boolean') setPage4Checkbox1(p.page4Checkbox1)
       if (typeof p.page4Checkbox2 === 'boolean') setPage4Checkbox2(p.page4Checkbox2)
       if (typeof p.page4Checkbox3 === 'boolean') setPage4Checkbox3(p.page4Checkbox3)
 
-      if (typeof p.page5Button1Clicked === 'boolean') setPage5Button1Clicked(p.page5Button1Clicked)
+      // Box 1 on page 5 was removed; its gated dots now show by default
+      setPage5Button1Clicked(true)
       if (typeof p.page5Button2Clicked === 'boolean') setPage5Button2Clicked(p.page5Button2Clicked)
       if (typeof p.page5BlueDotSelected === 'boolean') setPage5BlueDotSelected(p.page5BlueDotSelected)
       if (typeof p.page5GreenDotSelected === 'boolean') setPage5GreenDotSelected(p.page5GreenDotSelected)
@@ -1070,6 +1076,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           page3ButtonClicked,
           page3SecondButtonClicked,
           selectedGreenBoxes: Array.from(selectedGreenBoxes),
+          selectedGreenBoxesPage32: Array.from(selectedGreenBoxesPage32),
           page4Button1Clicked,
           page4Checkbox1,
           page4Checkbox2,
@@ -1303,8 +1310,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage4FirstVisit(false)
       setSafetyGlassesPop(false)
     } else if (currentPage === 4) {
-      // Page 5 - reset button and dot states
-      setPage5Button1Clicked(false)
+      // Page 5 - reset button and dot states (Box 1 removed; keep its gated dots visible)
+      setPage5Button1Clicked(true)
       setPage5Button2Clicked(false)
       setPage5BlueDotSelected(false)
       setPage5GreenDotSelected(false)
@@ -1503,6 +1510,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage29Box1Selected(false)
     } else if (currentPage === 29) {
       setPage30Box1Selected(false)
+    } else if (currentPage === 31) {
+      // Page 32 — reset cleanup checklist green boxes
+      setSelectedGreenBoxesPage32(new Set())
     } else if (currentPage === 32) {
       // Page 33 — survey
       setPage34Box1Selected(false)
@@ -2275,6 +2285,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     })
   }
 
+  const handleGreenBoxClickPage32 = (index) => {
+    setSelectedGreenBoxesPage32(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(index)) {
+        newSet.delete(index) // Toggle off if already selected
+      } else {
+        newSet.add(index) // Toggle on if not selected
+      }
+      return newSet
+    })
+  }
+
   const handleZoomIn = () => {
     setZoom(prev => Math.min(prev + 25, 300))
   }
@@ -2444,8 +2466,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     const prevCount = prevCountPage3Ref.current
     prevCountPage3Ref.current = count
 
-    const allChecked = page3SecondButtonClicked && count >= PAGE3_GREEN_BOX_COUNT
-    if (!allChecked) return
+    if (count < PAGE3_GREEN_BOX_COUNT) return
     if (prevCount !== PAGE3_GREEN_BOX_COUNT - 1) return
 
     const canvas = confettiCanvasRef.current
@@ -2453,7 +2474,26 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
 
     const cleanup = runConfetti(canvas, 0.5, 0.6, 80)
     return () => cleanup()
-  }, [currentPage, editorMode, page3SecondButtonClicked, selectedGreenBoxes])
+  }, [currentPage, editorMode, selectedGreenBoxes])
+
+  // Easter egg: confetti when user checks the *last* box on page 32 (9->10). Not when returning via nav with all checked.
+  useEffect(() => {
+    const onPage32 = currentPage === 31 && !editorMode
+    if (!onPage32) return
+
+    const count = selectedGreenBoxesPage32.size
+    const prevCount = prevCountPage32Ref.current
+    prevCountPage32Ref.current = count
+
+    if (count < PAGE3_GREEN_BOX_COUNT) return
+    if (prevCount !== PAGE3_GREEN_BOX_COUNT - 1) return
+
+    const canvas = confettiCanvasRef.current
+    if (!canvas || canvas.width <= 0 || canvas.height <= 0) return
+
+    const cleanup = runConfetti(canvas, 0.5, 0.6, 80)
+    return () => cleanup()
+  }, [currentPage, editorMode, selectedGreenBoxesPage32])
 
   // Handle white box visibility on page 8
   useEffect(() => {
@@ -29178,6 +29218,104 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </>
                     )
                   })()}
+                  {/* Page 32 (Parts Cleanup) — same 10 small green check boxes as page 3, independent state */}
+                  {currentPage === 31 && !editorMode && stageWidthPx > 0 && stageHeightPx > 0 && (() => {
+                    // Fixed pixel size for all boxes - 20px × 20px squares
+                    const boxSizePx = 20
+                    const boxSizeWidthPercent = imageNaturalSize.width > 0 ? (boxSizePx / imageNaturalSize.width) * 100 : 0
+                    const boxSizeHeightPercent = imageNaturalSize.height > 0 ? (boxSizePx / imageNaturalSize.height) * 100 : 0
+                    const borderRadiusPx = 2
+                    const row1Top = 55.84
+                    const row2Top = 72.62
+                    const row3Top = 87.99
+
+                    const greenBoxes = [
+                      { left: 19.46, top: row1Top },
+                      { left: 40.63, top: row1Top },
+                      { left: 62.25, top: row1Top },
+                      { left: 78.96, top: row1Top },
+                      { left: 19.55, top: row2Top },
+                      { left: 40.45, top: row2Top },
+                      { left: 61.79, top: row2Top },
+                      { left: 79.05, top: row2Top },
+                      { left: 40.08, top: row3Top },
+                      { left: 61.52, top: row3Top }
+                    ]
+
+                    return (
+                      <>
+                        {greenBoxes.map((box, index) => {
+                          const isSelected = selectedGreenBoxesPage32.has(index)
+                          const isRow1 = index >= 0 && index <= 3
+                          const isRow2 = index >= 4 && index <= 7
+                          const isRow3 = index >= 8 && index <= 9
+                          const isRow1FarRight = index === 3
+                          const isRow2FarRight = index === 7
+                          const isRow3FarLeft = index === 8
+                          const isTopLeft = index === 0
+                          const baseLeftOffsetPx = (isRow1FarRight || isRow2FarRight) ? 4 : (isRow3FarLeft ? 6 : 5)
+                          const row1LeftOffset = isTopLeft ? (baseLeftOffsetPx - 2) : (baseLeftOffsetPx - 3)
+                          const leftOffsetPx = isRow1 ? row1LeftOffset : (isRow2 ? (baseLeftOffsetPx - 3) : (isRow3 ? (baseLeftOffsetPx - 3) : baseLeftOffsetPx))
+                          const baseTopOffsetPx = isRow2 ? 4 : 3
+                          const topOffsetPx = isRow1 ? (baseTopOffsetPx - 4) : (isRow2 ? (baseTopOffsetPx - 2) : (isRow3 ? (baseTopOffsetPx - 3) : baseTopOffsetPx))
+
+                          const leftOffsetPercent = imageNaturalSize.width > 0 ? (leftOffsetPx / imageNaturalSize.width) * 100 : 0
+                          const topOffsetPercent = imageNaturalSize.height > 0 ? (topOffsetPx / imageNaturalSize.height) * 100 : 0
+
+                          const adjustedLeft = box.left + leftOffsetPercent
+                          const adjustedTop = box.top + topOffsetPercent
+
+                          const baseStyle = getButtonStyle(adjustedLeft, adjustedTop, boxSizeWidthPercent, boxSizeHeightPercent)
+
+                          const greenBoxStyle = {
+                            ...baseStyle,
+                            backgroundColor: 'white',
+                            border: `0.5px solid #3bbf6b`,
+                            borderRadius: `${borderRadiusPx}px`,
+                            cursor: 'pointer',
+                            pointerEvents: 'auto',
+                            zIndex: 3000,
+                            boxSizing: 'border-box',
+                            userSelect: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }
+                          return (
+                            <div
+                              key={`green-box-p32-${index}`}
+                              style={greenBoxStyle}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                                handleGreenBoxClickPage32(index)
+                              }}
+                              onMouseDown={(e) => {
+                                e.stopPropagation()
+                              }}
+                            >
+                              {isSelected && (
+                                <svg
+                                  viewBox="0 0 24 24"
+                                  style={{
+                                    width: '120%',
+                                    height: '120%',
+                                    fill: 'none',
+                                    stroke: '#3bbf6b',
+                                    strokeWidth: 4,
+                                    strokeLinecap: 'round',
+                                    strokeLinejoin: 'round'
+                                  }}
+                                >
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </>
+                    )
+                  })()}
                   {/* White infill boxes on page 4 (4.png) - hide image areas under removed buttons; fade as team-member checkboxes are ticked */}
                   {currentPage === 3 && !editorMode && (() => {
                     // Box 2: covers the row of three small icon boxes in the underlying image
@@ -29581,8 +29719,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </>
                     )
                   })()}
-                  {/* Speech bubble buttons on page 5 (5.png) */}
-                  {currentPage === 4 && !editorMode && (() => {
+                  {/* Speech bubble buttons on page 5 (5.png) - Box 1 with pointer - REMOVED */}
+                  {false && currentPage === 4 && !editorMode && (() => {
                     // Button 1: Left: 32.64%, Top: 47.41%, Width: 35.84%, Height: 5.87%
                     const button1Left = 32.64
                     const button1Top = 47.41
@@ -30450,8 +30588,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       }}
                     />
                   )}
-                  {/* "Show Connections" / "Hide Connections" button on page 5 - same box and text scaling as error box and LED/Button on page 10 */}
-                  {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
+                  {/* "Show Connections" / "Hide Connections" button on page 5 - MOVED TO BOTTOM NAV BAR */}
+                  {false && currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
                         const boxWidth = 18
                         const boxHeight = 3
                         const pixelIncrease = 3
@@ -31554,6 +31692,24 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )}
         </div>
+        {currentPage === 4 && (
+          <button
+            type="button"
+            className="btn-modern btn-nav btn-nav-blue wiring-diagram-tab"
+            onClick={handlePage5NeedHelp}
+            aria-label={page5ShowHelpImage ? 'Hide connections' : 'Show connections'}
+            aria-pressed={page5ShowHelpImage}
+          >
+            <span className="wiring-diagram-tab-label">
+              <span className="wiring-diagram-tab-label-text">
+                {page5ShowHelpImage ? 'Hide Connections' : 'Show Connections'}
+              </span>
+              <span className="wiring-diagram-tab-label-ghost" aria-hidden="true">
+                {page5ShowHelpImage ? 'Show Connections' : 'Hide Connections'}
+              </span>
+            </span>
+          </button>
+        )}
         {currentPage === 6 && page7NewBox2Selected && (
           <button
             type="button"

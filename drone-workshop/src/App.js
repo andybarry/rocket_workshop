@@ -488,8 +488,12 @@ function App() {
         await port.open({ baudRate: 115200 }).catch(e => console.log(e.message));
         setIsConnected(true);
 
-        // Send a blank message to the serial port to trigger the firmware to send its version
-        setTimeout(handleSend, 100);
+        // Send a blank message to the serial port to trigger the firmware to send its version.
+        // Pass forceConnected=true because the `isConnected` captured in this closure is still
+        // stale (false) here -- setIsConnected(true) above won't be reflected until the next
+        // render -- so without the override handleSend would early-return and the version (and
+        // upload completion) would never fire until the user manually clicked Upload.
+        setTimeout(() => handleSend(true), 100);
 
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
@@ -800,7 +804,7 @@ function App() {
     }
   };
 
-  const handleSend = async () => {
+  const handleSend = async (forceConnected = false) => {
     // Notify InstructionsPanel that the user attempted an upload. Fired at
     // the very top so the page-9 Next button activates on the very first
     // click, even if there is no message to send or the port write fails.
@@ -808,8 +812,9 @@ function App() {
     // If USB is not connected, there is no port to write to. We still want
     // the click to register so that the upload-gated Next buttons (pages 9,
     // 11, 13) become active and the user is not stuck. Exit before doing any
-    // upload work.
-    if (!isConnected) {
+    // upload work. forceConnected lets the auto-send fired right after a
+    // successful connect bypass the stale `isConnected` closure value.
+    if (!isConnected && !forceConnected) {
       return;
     }
     setIsUploading(true);
@@ -983,7 +988,7 @@ function App() {
 
                   {/* <Button onClick={handleSend} className="mb-3" style={{ marginLeft: '10px' }} disabled={!isConnected} variant={uploadButtonVariant} >Upload</Button> */}
                   <Button
-                    onClick={handleSend}
+                    onClick={() => handleSend()}
                     className={`mb-3 ${!isConnected ? 'upload-inactive' : ''}`}
                     style={{ marginLeft: '10px', ...uploadButtonColor }}
                     disabled={isUploading} // Only block clicks while an upload is actually in progress; when USB is disconnected the button looks inactive but stays clickable so the user can advance past upload-gated pages
@@ -1062,7 +1067,7 @@ function App() {
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <div style={{ marginBottom: '10px' }}><b>Autonomous Flight Commands</b></div>
                       <Button
-                        onClick={handleSend}
+                        onClick={() => handleSend()}
                         className={`mb-3 ${!isConnected ? 'upload-inactive' : ''}`}
                         style={{ marginLeft: '20px', ...uploadButtonColor }}
                         disabled={isUploading}
