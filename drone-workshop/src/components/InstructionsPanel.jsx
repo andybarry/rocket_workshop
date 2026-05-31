@@ -4876,6 +4876,18 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       Box 2b used). */}
                   {currentPage === 8 && !editorMode && page9UploadAttempted && (() => {
                     const sidePx = 32 * stageRelativeScale
+                    // Position with the same rule as the page 10 checkbox: the
+                    // vertical nudge is expressed in natural-image pixels and
+                    // converted to a percentage of the image's natural height,
+                    // so the offset scales with the image. This keeps the
+                    // checkbox anchored to the same spot on the SVG at any tab
+                    // scale (the old `calc(68.20% + 50px)` used a fixed display
+                    // pixel offset, which made it drift when the scale changed).
+                    const baseLeftPercent = 34.37
+                    const baseTopPercent = 68.20
+                    const downOffsetPx = 94
+                    const downOffsetPercent = imageNaturalSize.height > 0 ? (downOffsetPx / imageNaturalSize.height) * 100 : 0
+                    const adjustedTopPercent = baseTopPercent + downOffsetPercent
                     return (
                       <div
                         onClick={(e) => {
@@ -4889,16 +4901,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         onMouseDown={(e) => { e.stopPropagation() }}
                         style={{
                           position: 'absolute',
-                          left: '34.37%',
-                          // 68.20% is the original anchor (matched the
-                          // prior page-9 Box 2b position); the +50px push
-                          // (30px initial nudge + 20px additional) moves
-                          // the checkbox a total of 50 display pixels
-                          // lower regardless of stage zoom, since calc()
-                          // lets the percentage and the absolute pixel
-                          // offset coexist without one overriding the
-                          // other.
-                          top: 'calc(68.20% + 50px)',
+                          left: `${baseLeftPercent}%`,
+                          top: `${adjustedTopPercent}%`,
                           width: `${sidePx}px`,
                           height: `${sidePx}px`,
                           backgroundColor: 'white',
