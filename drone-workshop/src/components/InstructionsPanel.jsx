@@ -9775,7 +9775,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       cover box B) and disappears once it has been selected
                       itself. On click, hides white cover box C and activates
                       the bottom-nav Next button via page14Box5Selected. */}
-                  {currentPage === 13 && !editorMode && page14Box1Selected && !page14Box5Selected && (
+                  {currentPage === 13 && !editorMode && page14Box1Selected && (
                     <div
                       onClick={(e) => {
                         e.stopPropagation()
@@ -9792,17 +9792,34 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                         width: '3.55%',
                         height: '2.47%',
                         backgroundColor: 'white',
-                        border: '2px solid #0d6efd',
+                        border: page14Box5Selected ? '2px solid #3bbf6b' : '2px solid #0d6efd',
                         borderRadius: `${4 * stageRelativeScale}px`,
                         zIndex: 101,
-                        cursor: 'pointer',
+                        cursor: page14Box5Selected ? 'default' : 'pointer',
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         boxSizing: 'border-box',
-                        pointerEvents: 'auto'
+                        pointerEvents: page14Box5Selected ? 'none' : 'auto'
                       }}
-                    />
+                    >
+                      {page14Box5Selected && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          style={{
+                            width: '120%',
+                            height: '120%',
+                            fill: 'none',
+                            stroke: '#3bbf6b',
+                            strokeWidth: 4,
+                            strokeLinecap: 'round',
+                            strokeLinejoin: 'round'
+                          }}
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      )}
+                    </div>
                   )}
                   {/* Page 14 - White cover box C (bottom region, full width).
                       Hidden once the small square check box has been
