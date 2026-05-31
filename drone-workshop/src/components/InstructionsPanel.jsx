@@ -34,7 +34,6 @@ import page22 from '../assets/images/pages/22.svg'
 import page23 from '../assets/images/pages/23.svg'
 import page24 from '../assets/images/pages/24.svg'
 import page24_1 from '../assets/images/pages/24.1.svg'
-import page24_2 from '../assets/images/pages/24.2.svg'
 import page25 from '../assets/images/pages/25.svg'
 import page26 from '../assets/images/pages/26.svg'
 import page27 from '../assets/images/pages/27.svg'
@@ -159,7 +158,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page26Selection1Selected, setPage26Selection1Selected] = useState(false)
   const [page26CheckboxSelected, setPage26CheckboxSelected] = useState(false)
   // Page 24 — 24.2.svg (intro) → Show Labels → 24.1.svg ↔ 24.svg via nav (same cycle as page 10 / 15)
-  const [page24ShowLabelsClicked, setPage24ShowLabelsClicked] = useState(false)
+  // "Show Labels" button on page 24 was removed; the page now starts directly in the wiring-shown state
+  const [page24ShowLabelsClicked, setPage24ShowLabelsClicked] = useState(true)
   const [page24WiringShown, setPage24WiringShown] = useState(true)
   // Track page 6 box state (single no-pointer box)
   const [page6Box1Selected, setPage6Box1Selected] = useState(false)
@@ -754,7 +754,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (typeof p.page23Selection2Selected === 'boolean') setPage23Selection2Selected(p.page23Selection2Selected)
       if (typeof p.page26Selection1Selected === 'boolean') setPage26Selection1Selected(p.page26Selection1Selected)
       if (typeof p.page26CheckboxSelected === 'boolean') setPage26CheckboxSelected(p.page26CheckboxSelected)
-      if (typeof p.page24ShowLabelsClicked === 'boolean') setPage24ShowLabelsClicked(p.page24ShowLabelsClicked)
+      // "Show Labels" button on page 24 was removed; always start past the intro state
+      setPage24ShowLabelsClicked(true)
       if (typeof p.page24WiringShown === 'boolean') setPage24WiringShown(p.page24WiringShown)
 
       if (typeof p.page27Box1Selected === 'boolean') setPage27Box1Selected(p.page27Box1Selected)
@@ -1024,7 +1025,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       if (currentPage === 22) {
         setPage23Selection1Selected(false)
         setPage23Selection2Selected(false)
-        setPage24ShowLabelsClicked(false)
+        setPage24ShowLabelsClicked(true)
         setPage24WiringShown(true)
       }
       if (currentPage === 25) {
@@ -1482,8 +1483,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage23Selection1Selected(false)
       setPage23Selection2Selected(false)
     } else if (currentPage === 23) {
-      // Page 24 — reset to intro (24.2.svg) and nav tab cycle
-      setPage24ShowLabelsClicked(false)
+      // Page 24 — "Show Labels" intro removed; reset to wiring-shown state
+      setPage24ShowLabelsClicked(true)
       setPage24WiringShown(true)
     } else if (currentPage === 25) {
       // Page 26 — selection + Dot 3 checkbox
@@ -1626,7 +1627,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       // Regular page selection
       setCurrentPage(pageIndex)
       if (pageIndex === 23) {
-        setPage24ShowLabelsClicked(false)
+        setPage24ShowLabelsClicked(true)
         setPage24WiringShown(true)
       }
       // Reset box position for the new page
@@ -1913,12 +1914,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   }
 
   const handlePage24NavTab = () => {
-    if (!page24ShowLabelsClicked) {
-      setPage24ShowLabelsClicked(true)
-      setPage24WiringShown(true)
-    } else {
-      setPage24WiringShown(prev => !prev)
-    }
+    // "Show Labels" state removed; this is now a simple Show/Hide Wiring Diagram toggle
+    setPage24WiringShown(prev => !prev)
   }
 
   // Handler for page 10 "Show Labels" / "Show Wiring Diagram" / "Hide Wiring Diagram" button
@@ -3398,7 +3395,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           return page18_1
                         }
                         if (currentPage === 23) {
-                          if (!page24ShowLabelsClicked) return page24_2
+                          // "Show Labels" intro (24.2.svg) removed; toggle between wiring diagram on/off
                           if (page24WiringShown) return page24_1
                           return page24
                         }
@@ -31890,20 +31887,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </button>
           )
         })()}
-        {/* Page 24 — 24.2.svg (intro) then same three-state tab as page 10 / 15 (24.1.svg ↔ 24.svg) */}
+        {/* Page 24 — Show/Hide Wiring Diagram toggle (24.1.svg ↔ 24.svg); "Show Labels" intro state removed */}
         {currentPage === 23 && (() => {
-          let label
-          let aria
-          if (!page24ShowLabelsClicked) {
-            label = 'Show Labels'
-            aria = 'Show labels'
-          } else if (page24WiringShown) {
-            label = 'Hide Wiring Diagram'
-            aria = 'Hide wiring diagram'
-          } else {
-            label = 'Show Wiring Diagram'
-            aria = 'Show wiring diagram'
-          }
+          const label = page24WiringShown ? 'Hide Wiring Diagram' : 'Show Wiring Diagram'
+          const aria = page24WiringShown ? 'Hide wiring diagram' : 'Show wiring diagram'
           return (
             <button
               type="button"
