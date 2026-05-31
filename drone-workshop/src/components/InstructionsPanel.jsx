@@ -145,6 +145,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page5GreenDotSelected, setPage5GreenDotSelected] = useState(false)
   // Track page 5 wrong dot selection error
   const [page5WrongDotError, setPage5WrongDotError] = useState(false)
+  // Track which page 5 "wrong" (dummy) dots have been clicked - they stay hidden until reset
+  const [page5HiddenWrongDots, setPage5HiddenWrongDots] = useState([])
   // Track if page 5 should temporarily show 5.1.png (when "Need Help?" is clicked)
   const [page5ShowHelpImage, setPage5ShowHelpImage] = useState(false)
   const [page21ShowHelpImage, setPage21ShowHelpImage] = useState(false)
@@ -1316,6 +1318,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
       setPage5BlueDotSelected(false)
       setPage5GreenDotSelected(false)
       setPage5WrongDotError(false)
+      setPage5HiddenWrongDots([])
     } else if (currentPage === 5) {
       // Page 6 - reset box state
       setPage6Box1Selected(false)
@@ -1710,18 +1713,25 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage5Button2Clicked(true)
   }
 
-  // Handler for page 5 blue edge dot
+  // Handler for page 5 blue edge dot (the "red selected" dot). Selecting it now
+  // also reveals the green dot + dots (formerly gated behind removed Box 2) and
+  // hides the white box.
   const handlePage5BlueDot = () => {
     setPage5BlueDotSelected(true)
+    setPage5Button2Clicked(true)
   }
 
   const handlePage5GreenDot = () => {
     setPage5GreenDotSelected(true)
   }
 
-  // Handler for page 5 wrong dot selection
-  const handlePage5WrongDot = () => {
+  // Handler for page 5 wrong dot selection. When a specific dummy dot index is
+  // passed, that dot is hidden until the user clicks the reset button.
+  const handlePage5WrongDot = (dotIndex) => {
     setPage5WrongDotError(true)
+    if (typeof dotIndex === 'number') {
+      setPage5HiddenWrongDots(prev => (prev.includes(dotIndex) ? prev : [...prev, dotIndex]))
+    }
     // Hide the error after 2 seconds
     setTimeout(() => {
       setPage5WrongDotError(false)
@@ -29949,8 +29959,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Second speech bubble button on page 5 (5.png) */}
-                  {currentPage === 4 && !editorMode && (() => {
+                  {/* Second speech bubble button on page 5 (5.png) - Box 2 with pointer - REMOVED */}
+                  {false && currentPage === 4 && !editorMode && (() => {
                     // Button 2: Left: 32.64%, Top: 84.81%, Width: 35.84%, Height: 5.87%
                     const button2Left = 32.64
                     const button2Top = 84.81
@@ -30179,12 +30189,34 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Vertical red line on page 5 - only shown once the red selectable dot (#2) is selected (displaying red); top at #2, bottom at the red dot (#1) */}
+                  {currentPage === 4 && !editorMode && page5Button1Clicked && page5BlueDotSelected && (() => {
+                    const lineX = 24.45
+                    const lineTopY = 61.91   // red selected dot (#2) center
+                    const lineBottomY = 66.98 // red dot (#1) center
+                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
+                    const lineWidthPx = Math.max(2, Math.min(4, minStagePx * 0.006)) + 1
+                    const lineWidthPercent = stageWidthPx > 0 ? (lineWidthPx / stageWidthPx) * 100 : 0
+                    const lineLeft = lineX - (lineWidthPercent / 2)
+                    const lineHeight = lineBottomY - lineTopY
+                    const lineStyle = getButtonStyle(lineLeft, lineTopY, lineWidthPercent, lineHeight)
+                    return (
+                      <div
+                        style={{
+                          ...lineStyle,
+                          backgroundColor: '#dd1712',
+                          pointerEvents: 'none',
+                          zIndex: 11
+                        }}
+                      />
+                    )
+                  })()}
                   {/* Red edge red infill dot on page 5 (5.png) - appears when button 1 is selected, not active */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
-                    const dotX = 18.55
-                    const dotY = 66.89
+                    const dotX = 24.32
+                    const dotY = 66.98
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
+                    const dotSizePx = Math.max(7, Math.min(16, minStagePx * 0.022))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     
@@ -30209,10 +30241,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Red active dot: white/blue edge on page 5 (5.png) - hidden until button is selected. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (() => {
-                    const dotX = 18.55
-                    const dotY = 63.62
+                    const dotX = 24.32
+                    const dotY = 61.91
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
+                    const dotSizePx = Math.max(7, Math.min(16, minStagePx * 0.022))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -30238,7 +30270,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             width: '66.67%',
                             height: '66.67%',
                             backgroundColor: page5BlueDotSelected ? '#dd1712' : 'white',
-                            border: page5BlueDotSelected ? '1px solid #dd1712' : '1px solid #0d6efd',
+                            border: page5BlueDotSelected ? '1px solid #dd1712' : '2px solid #0d6efd',
                             borderRadius: '50%',
                             boxSizing: 'border-box',
                             flexShrink: 0
@@ -30249,10 +30281,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Green active dot on page 5 (5.png) - hidden until box 2 is selected; when box 2 selected displays green edge green infill. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button2Clicked && (() => {
-                    const dotX = 15.88
-                    const dotY = 78.44
+                    const dotX = 24.84
+                    const dotY = 84.01
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
+                    const dotSizePx = Math.max(7, Math.min(16, minStagePx * 0.022))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -30287,10 +30319,10 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* Blue edge white infill dot that connects to green dot on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. On box 1 (selecting red), clicking shows error. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
-                    const dotX = 44.46
-                    const dotY = 78.39
+                    const dotX = 52.07
+                    const dotY = 83.92
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
+                    const dotSizePx = Math.max(7, Math.min(16, minStagePx * 0.022))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -30320,7 +30352,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                             width: '66.67%',
                             height: '66.67%',
                             backgroundColor: page5GreenDotSelected ? '#3bbf6b' : 'white',
-                            border: page5GreenDotSelected ? '1px solid #3bbf6b' : '1px solid #0d6efd',
+                            border: page5GreenDotSelected ? '1px solid #3bbf6b' : '2px solid #0d6efd',
                             borderRadius: '50%',
                             boxSizing: 'border-box',
                             flexShrink: 0
@@ -30332,19 +30364,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   {/* Dummy blue edge white infill dots on page 5 (5.png) - hidden when red dot selected until box 2 selected, then blue edge white. Hit area 50% larger than displayed dot. */}
                   {currentPage === 4 && !editorMode && page5Button1Clicked && (!page5BlueDotSelected || page5Button2Clicked) && (() => {
                     const dots = [
-                      { x: 24.09, y: 68.11 },
-                      { x: 32.43, y: 64.80 },
-                      { x: 78.39, y: 63.75 },
-                      { x: 12.15, y: 59.58 },
-                      { x: 22.96, y: 60.45 },
-                      { x: 84.02, y: 59.58 },
-                      { x: 54.06, y: 79.42 },
-                      { x: 18.59, y: 73.22 },
-                      { x: 11.90, y: 72.18 },
-                      { x: 89.30, y: 73.22 }
+                      { x: 31.22, y: 68.11 },
+                      { x: 40.04, y: 63.76 },
+                      { x: 78.03, y: 63.75 },
+                      { x: 20.86, y: 53.43 },
+                      { x: 31.80, y: 55.14 },
+                      { x: 67.12, y: 59.95 },
+                      { x: 53.58, y: 79.23 },
+                      { x: 33.30, y: 75.48 },
+                      { x: 22.45, y: 73.88 },
+                      { x: 47.90, y: 85.71 }
                     ]
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const dotSizePx = Math.max(5, Math.min(12, minStagePx * 0.017))
+                    const dotSizePx = Math.max(7, Math.min(16, minStagePx * 0.022))
                     const dotSizeWidthPercent = stageWidthPx > 0 ? (dotSizePx / stageWidthPx) * 100 : 0
                     const dotSizeHeightPercent = stageHeightPx > 0 ? (dotSizePx / stageHeightPx) * 100 : 0
                     const hitAreaWidthPercent = dotSizeWidthPercent * 1.5
@@ -30353,6 +30385,8 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                     const moveUp6pxPercent = stageHeightPx > 0 ? (6 / stageHeightPx) * 100 : 0
                     
                     return dots.map((dot, index) => {
+                      // Once a wrong dot is clicked it stays hidden until the user clicks reset
+                      if (page5HiddenWrongDots.includes(index)) return null
                       const adjustedY = index === 0 ? dot.y - moveUp6pxPercent : dot.y
                       const hitAreaLeft = dot.x - (hitAreaWidthPercent / 2)
                       const hitAreaTop = adjustedY - (hitAreaHeightPercent / 2)
@@ -30360,7 +30394,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       return (
                         <div
                           key={`dummy-dot-${index}`}
-                          onClick={handlePage5WrongDot}
+                          onClick={() => handlePage5WrongDot(index)}
                           style={{
                             ...hitAreaStyle,
                             display: 'flex',
@@ -30376,7 +30410,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                               width: '66.67%',
                               height: '66.67%',
                               backgroundColor: 'white',
-                              border: '1px solid #0d6efd',
+                              border: '2px solid #0d6efd',
                               borderRadius: '50%',
                               boxSizing: 'border-box',
                               flexShrink: 0
@@ -30505,42 +30539,19 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
-                  {/* Red line connecting top red dot (63.62%) to bottom red dot (66.89%) on page 5 - pixel width like dots so zoom transform-origin stays aligned */}
-                  {currentPage === 4 && !editorMode && page5BlueDotSelected && (() => {
-                    // Use same dot positions as the two red dots
-                    const dotCenterX = 18.55
-                    const topDotCenterY = 63.62
-                    const bottomDotCenterY = 66.89
-                    // Use pixel-based width like dots so transformOrigin is consistent at all zoom levels
-                    const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const lineWidthPx = Math.max(2, Math.min(4, minStagePx * 0.005))
-                    const lineWidthPercent = stageWidthPx > 0 ? (lineWidthPx / stageWidthPx) * 100 : 0.5
-                    const lineHeightPercent = bottomDotCenterY - topDotCenterY
-                    const boxLeft = dotCenterX - (lineWidthPercent / 2)
-                    const boxTop = topDotCenterY
-                    return (
-                      <div
-                        style={{
-                          ...getButtonStyle(boxLeft, boxTop, lineWidthPercent, lineHeightPercent),
-                          backgroundColor: '#dd1712',
-                          border: 'none',
-                          pointerEvents: 'none',
-                          zIndex: 12
-                        }}
-                      />
-                    )
-                  })()}
+                  {/* Original red line at old dot position (x=18.55) - REMOVED (replaced by the repositioned red line at x=24.45 above) */}
                   {/* Green line connecting left green dot (15.88%, 78.44%) to right green dot (44.46%, 78.39%) on page 5 - pixel height like dots so zoom transform-origin stays aligned */}
                   {currentPage === 4 && !editorMode && page5GreenDotSelected && (() => {
-                    const leftDotCenterX = 15.88
-                    const rightDotCenterX = 44.46
-                    const leftDotCenterY = 78.44
-                    const rightDotCenterY = 78.39
+                    const leftDotCenterX = 25.81
+                    const rightDotCenterX = 52.07
+                    const leftDotCenterY = 83.92
+                    const rightDotCenterY = 83.92
                     // Average Y of the two dots for the line center
                     const lineCenterY = (leftDotCenterY + rightDotCenterY) / 2
                     // Use pixel-based height like dots so transformOrigin is consistent at all zoom levels
                     const minStagePx = Math.min(stageWidthPx, stageHeightPx)
-                    const lineHeightPx = Math.max(2, Math.min(4, minStagePx * 0.005))
+                    // Match the red vertical line's thickness
+                    const lineHeightPx = Math.max(2, Math.min(4, minStagePx * 0.006)) + 1
                     const lineHeightPercent = stageHeightPx > 0 ? (lineHeightPx / stageHeightPx) * 100 : 0.5
                     const boxLeft = leftDotCenterX
                     const boxTop = lineCenterY - (lineHeightPercent / 2)
@@ -30559,15 +30570,15 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                   })()}
                   {/* White box on page 5 (5.png) - visible when user first lands on page, hides when red active button is selected */}
                   {currentPage === 4 && !editorMode && !page5BlueDotSelected && (() => {
-                    const whiteBoxStyle = getButtonStyle(27.73, 81.71, 45.65, 14.83)
+                    const whiteBoxStyle = getButtonStyle(27.73, 88.68, 45.65, 11.04)
                     return (
                       <div
                         style={{
                           ...whiteBoxStyle,
                           left: '27.73%',
-                          top: '81.71%',
+                          top: '88.68%',
                           width: '45.65%',
-                          height: '14.83%',
+                          height: '11.04%',
                           backgroundColor: 'white',
                           pointerEvents: 'none',
                           border: 'none',
