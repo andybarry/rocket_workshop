@@ -117,7 +117,7 @@ function runConfetti(canvas, originX = 0.5, originY = 0.5, count = 60) {
   }
 }
 
-function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, onSerialConnectAttempt, onUploadAttempt, isConnected = false, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, yellowButtonConnectedIsTrue = false, slideConnectedIsTrue = false, blueButtonConnectedIsTrue = false }) {
+function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageSelect, onResetInstructionsReady, onPageJumpSlotReady, onResetAll, onSerialConnectAttempt, onUploadAttempt, onPreferredWidth, isConnected = false, showZoomControls = true, showZoomButtons = true, showCenterNavControls = false, yellowButtonConnectedIsTrue = false, slideConnectedIsTrue = false, blueButtonConnectedIsTrue = false }) {
   const [currentPage, setCurrentPage] = useState(0)
   // Track completed pages (pages where user clicked Next to proceed)
   const [completedPages, setCompletedPages] = useState([])
@@ -2371,6 +2371,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     }
   }, [currentPage])
 
+  // Report the panel width at which the current page fits top-to-bottom with no
+  // vertical scrollbar, so the parent can open the left panel at that width on
+  // refresh/Reset. Runs once per mount (after the first valid measurement and
+  // image load) — that covers refresh and Reset (Reset reloads) while leaving a
+  // user-dragged width untouched during navigation.
+  const fitWidthReportedRef = useRef(false)
+  useEffect(() => {
+    if (typeof onPreferredWidth !== 'function' || fitWidthReportedRef.current) return
+    const el = pageContainerRef.current
+    if (!el || !el.clientHeight || !imageNaturalSize.height) return
+    const aspect = imageNaturalSize.width / imageNaturalSize.height
+    // Reserved scrollbar gutter (scrollbar-gutter: stable) — constant regardless
+    // of panel width, so the computed fit width is stable under width changes.
+    const gutter = el.offsetWidth - el.clientWidth
+    // Absorbs the nav bar's height shifting slightly with panel width (it scales
+    // via cqw container queries), guaranteeing the image stays a hair shorter
+    // than the panel rather than overflowing into a scrollbar.
+    const SAFETY = 12
+    const availH = Math.max(el.clientHeight - STAGE_FRAME_PADDING - SAFETY, 0)
+    const fitPaneW = Math.floor(availH * aspect + STAGE_FRAME_PADDING + gutter)
+    if (fitPaneW > 0) {
+      fitWidthReportedRef.current = true
+      onPreferredWidth(`${fitPaneW}px`)
+    }
+  }, [containerSize.height, imageNaturalSize.width, imageNaturalSize.height, onPreferredWidth])
+
   // When navigating to a new page (Next/Previous/page-jump/etc.), reset the
   // page-container scroll back to the top so the user always sees the new
   // page from the top — no matter how far they had scrolled on the previous
@@ -3224,6 +3250,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     (currentPage === 29 && !page30Box1Selected)
 
   const bottomNextNavBlueActive =
+    (currentPage === 0 && visitedPages.has(0)) ||
     (currentPage === 1 && visitedPages.has(1)) ||
     (currentPage === 2 && visitedPages.has(2)) ||
     (currentPage === 3 && (((page4Checkbox1 ? 1 : 0) + (page4Checkbox2 ? 1 : 0) + (page4Checkbox3 ? 1 : 0)) >= 2)) ||
@@ -31503,6 +31530,11 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
           </div>
         </div>
       </div>
+      {/* The nav bar is always rendered (including the initial page 1) so its
+          height stays identical across pages. On page 1 the Back button is
+          omitted and the Next button is shown disabled/gray until the Start
+          button is selected, keeping the image area — and the page-fit width —
+          consistent whether or not Start has been pressed. */}
       <div className="page-navigation"
         onMouseEnter={() => setNavBarHovered(true)}
         onMouseLeave={() => setNavBarHovered(false)}
@@ -31915,7 +31947,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
             </div>
           )}
         </div>
-        {currentPage !== pages.length - 1 && currentPage !== 0 && (
+        {currentPage !== pages.length - 1 && (
           <div className="nav-button-right">
             <button 
               onClick={handleNext}

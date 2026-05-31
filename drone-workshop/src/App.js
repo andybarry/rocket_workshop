@@ -326,6 +326,13 @@ function App() {
   const [resetInstructionsPressedOnce, setResetInstructionsPressedOnce] = useState(false);
   const handleResetInstructionsReady = useCallback((fn) => setResetInstructionsFunc(() => fn), []);
   const handlePageJumpSlotReady = useCallback((api) => setPageJumpApi(api), []);
+  // Left panel width: defaults to 32vw for first paint, then InstructionsPanel
+  // reports the width at which page 1 fits with no vertical scrollbar. Because
+  // the splitter only honours initialPrimarySize while the user hasn't dragged,
+  // this auto-fit applies on refresh/Reset (and divider double-click) while a
+  // user-dragged width is preserved across navigation.
+  const [leftPanelSize, setLeftPanelSize] = useState('32vw');
+  const handlePreferredWidth = useCallback((px) => setLeftPanelSize(px), []);
 
   const LOCAL_STORAGE_VERSION = "1.0"
 
@@ -931,7 +938,7 @@ function App() {
       401 */}
 
       <div style={{ flex: '1 1 auto', minHeight: 0, position: 'relative' }}>
-      <Split initialPrimarySize={"32vw"} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick splitterSize="3px" renderSplitter={renderSplitterHandle}>
+      <Split initialPrimarySize={leftPanelSize} minPrimarySize={"300px"} minSecondarySize={"10vw"} resetOnDoubleClick splitterSize="3px" renderSplitter={renderSplitterHandle}>
         <div style={{
           height: '100%',
           overflow: 'hidden',
@@ -941,6 +948,7 @@ function App() {
           <InstructionsPanel 
             editorMode={editorMode} 
             showZoomButtons={false}
+            onPreferredWidth={handlePreferredWidth}
             onResetInstructionsReady={handleResetInstructionsReady}
             onPageJumpSlotReady={handlePageJumpSlotReady}
             onResetAll={resetAllAndInstructions}
