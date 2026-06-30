@@ -89,6 +89,7 @@ function FeedbackData() {
   const [importData, setImportData] = useState({})
   const [isImporting, setIsImporting] = useState(false)
   const [selectedRows, setSelectedRows] = useState([])
+  const [checkedRowIds, setCheckedRowIds] = useState(new Set())
 
   // Authentication functions
   const checkAuthStatus = async () => {
@@ -956,6 +957,9 @@ function FeedbackData() {
     if (isAuthenticated && !isCheckingAuth) {
       fetchFeedbackData()
     }
+
+    // Reset the "Show feedback" checkbox selection when switching workshops
+    setCheckedRowIds(new Set())
     
     // Adjust column widths based on workshop type
     if (selectedWorkshop === 'Instructor') {
@@ -974,6 +978,17 @@ function FeedbackData() {
       setOriginalColumnWidths([...widths]) // Store original widths
     }
   }, [isAuthenticated, isCheckingAuth, selectedWorkshop])
+
+  // Send the checked responses to the /feedback dashboard for graphing
+  const handleShowSelectedFeedback = () => {
+    const responses = sortedFeedbackData.filter(r => checkedRowIds.has(r.id))
+    if (responses.length === 0) return
+    localStorage.setItem('feedbackGraphSelection', JSON.stringify({
+      workshop: selectedWorkshop,
+      responses
+    }))
+    window.location.href = '/'
+  }
 
   // Format date only (without timestamp)
   const formatDateOnly = (date) => {
@@ -2355,6 +2370,25 @@ function FeedbackData() {
               {selectedRows.length} row{selectedRows.length > 1 ? 's' : ''} selected
             </span>
           )}
+          {checkedRowIds.size > 0 && selectedWorkshop !== 'Instructor' && (
+            <button
+              className="show-feedback-btn"
+              onClick={handleShowSelectedFeedback}
+              style={{
+                padding: '4px 10px',
+                backgroundColor: '#f05f40',
+                color: 'white',
+                border: 'none',
+                borderRadius: '3px',
+                cursor: 'pointer',
+                fontSize: '12px',
+                fontWeight: '500',
+                marginLeft: '10px'
+              }}
+            >
+              Show feedback ({checkedRowIds.size})
+            </button>
+          )}
         </div>
         
         {/* Zoom Controls - Right Justified */}
@@ -2440,6 +2474,20 @@ function FeedbackData() {
         <div className="spreadsheet">
           <div className="spreadsheet-content" style={{ zoom: `${zoomLevel / 100}` }}>
             <div className="spreadsheet-header">
+            <div className="checkbox-header">
+              <input
+                type="checkbox"
+                title="Select all"
+                checked={sortedFeedbackData.length > 0 && checkedRowIds.size === sortedFeedbackData.length}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setCheckedRowIds(new Set(sortedFeedbackData.map(r => r.id)))
+                  } else {
+                    setCheckedRowIds(new Set())
+                  }
+                }}
+              />
+            </div>
             <div className="row-header">
               {deletedRows[selectedWorkshop].length > 0 && (
                 <button
@@ -2617,6 +2665,25 @@ function FeedbackData() {
                   cursor: rowIndex < sortedFeedbackData.length ? 'pointer' : 'default'
                 }}
               >
+                <div className="checkbox-cell" onClick={(e) => e.stopPropagation()}>
+                  <input
+                    type="checkbox"
+                    checked={checkedRowIds.has(sortedFeedbackData[rowIndex]?.id)}
+                    onChange={() => {
+                      const id = sortedFeedbackData[rowIndex]?.id
+                      if (id === undefined) return
+                      setCheckedRowIds(prev => {
+                        const next = new Set(prev)
+                        if (next.has(id)) {
+                          next.delete(id)
+                        } else {
+                          next.add(id)
+                        }
+                        return next
+                      })
+                    }}
+                  />
+                </div>
                 <div 
                   className="row-number" 
                   onDoubleClick={() => handleRowNumberDoubleClick(rowIndex)}

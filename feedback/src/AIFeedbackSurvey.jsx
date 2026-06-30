@@ -47,7 +47,7 @@ function AIFeedbackSurvey() {
       // Add current date to the form data
       const submissionData = {
         ...formData,
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })
       }
       
       console.log('Submitting data:', submissionData)

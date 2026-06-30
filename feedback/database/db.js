@@ -76,6 +76,94 @@ class FeedbackDB {
     `);
   }
 
+  // Convert any device/locale date string into the standard MM/DD/YYYY format.
+  // Users submit on devices with different regional settings, so the stored date
+  // arrives as '5/14/2026', '2026.5.14', '2026-06-10', '14/05/2026', etc. These
+  // all encode the same day, just reordered, so we detect the year position and
+  // re-order to MM/DD/YYYY. The ISO timestamp is used to disambiguate ambiguous
+  // slash dates and as a fallback when the string can't be parsed.
+  normalizeDate(dateStr, timestamp) {
+    const pad = (n) => String(n).padStart(2, '0');
+
+    // Format the server timestamp (UTC ISO) as MM/DD/YYYY in US Eastern time.
+    const fromTimestamp = () => {
+      if (!timestamp) return dateStr || '';
+      const d = new Date(timestamp);
+      if (isNaN(d.getTime())) return dateStr || '';
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).formatToParts(d);
+      const get = (type) => parts.find((p) => p.type === type)?.value;
+      return `${get('month')}/${get('day')}/${get('year')}`;
+    };
+
+    const build = (month, day, year) => {
+      if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900) return null;
+      return `${pad(month)}/${pad(day)}/${year}`;
+    };
+
+    if (!dateStr || typeof dateStr !== 'string') return fromTimestamp();
+
+    const nums = dateStr.trim().split(/[\/.\-\s]+/).map((p) => parseInt(p, 10));
+    if (nums.length !== 3 || nums.some((n) => isNaN(n))) return fromTimestamp();
+
+    const [a, b, c] = nums;
+    let result = null;
+
+    if (a >= 1000) {
+      // Year first: YYYY M D
+      result = build(b, c, a);
+    } else if (c >= 1000) {
+      // Year last: a/b/YYYY -> month/day or day/month
+      if (a > 12 && b <= 12) {
+        result = build(b, a, c); // a is day (D/M)
+      } else if (b > 12 && a <= 12) {
+        result = build(a, b, c); // a is month (M/D)
+      } else {
+        // Ambiguous (both <= 12): disambiguate using the timestamp's ET day.
+        const tsDate = fromTimestamp();
+        const tsParts = tsDate.split('/').map((p) => parseInt(p, 10));
+        if (tsParts.length === 3 && tsParts[0] === b && tsParts[1] === a) {
+          result = build(b, a, c); // timestamp matches day/month reading
+        } else {
+          result = build(a, b, c); // default to US month/day
+        }
+      }
+    }
+
+    return result || fromTimestamp();
+  }
+
+  // Normalize legacy field names so older submissions display consistently.
+  // The Mechanical survey previously stored some answers under non-standard keys
+  // ('recommend-next-year', 'something-to-design'); every table/graph reads the
+  // standard keys ('recommend-workshop', 'next-design'), so map the old keys forward.
+  // Also standardizes the date field to MM/DD/YYYY regardless of device locale.
+  normalizeFormData(formData, timestamp) {
+    const legacyKeyMap = {
+      'recommend-next-year': 'recommend-workshop',
+      'something-to-design': 'next-design',
+    };
+
+    for (const [legacyKey, standardKey] of Object.entries(legacyKeyMap)) {
+      if (
+        formData[legacyKey] !== undefined &&
+        (formData[standardKey] === undefined || formData[standardKey] === '')
+      ) {
+        formData[standardKey] = formData[legacyKey];
+      }
+    }
+
+    if (formData.date) {
+      formData.date = this.normalizeDate(formData.date, timestamp);
+    }
+
+    return formData;
+  }
+
   // Methods for CRUD operations
   insertFeedback(workshopType, formData) {
     const timestamp = new Date().toISOString();
@@ -88,7 +176,7 @@ class FeedbackDB {
     return rows.map(row => ({
       id: row.id,
       timestamp: row.timestamp,
-      ...JSON.parse(row.form_data)
+      ...this.normalizeFormData(JSON.parse(row.form_data), row.timestamp)
     }));
   }
 
@@ -103,7 +191,7 @@ class FeedbackDB {
       grouped[row.workshop_type].push({
         id: row.id,
         timestamp: row.timestamp,
-        ...JSON.parse(row.form_data)
+        ...this.normalizeFormData(JSON.parse(row.form_data), row.timestamp)
       });
     });
     

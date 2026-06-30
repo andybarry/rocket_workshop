@@ -318,6 +318,37 @@ function App() {
   const [specificWorkshopData, setSpecificWorkshopData] = useState([])
   const [showSpecificFeedback, setShowSpecificFeedback] = useState(false)
 
+  // Consume a row selection handed off from the feedback-data page and render
+  // its graphs directly (aggregated across all selected locations).
+  useEffect(() => {
+    const raw = localStorage.getItem('feedbackGraphSelection')
+    if (!raw) return
+    localStorage.removeItem('feedbackGraphSelection') // consume once
+    try {
+      const { workshop, responses } = JSON.parse(raw)
+      if (!responses || responses.length === 0) return
+      const map = { AI: 'ai-workshop', Robotics: 'robotics-workshop', Mechanical: 'mechanical-workshop' }
+      const wk = map[workshop]
+      if (!wk) return
+      const locations = [...new Set(responses.map(r => r['workshop-location']).filter(Boolean))]
+      const dates = [...new Set(responses.map(r => r.date).filter(Boolean))]
+      setSpecificWorkshop(wk)
+      setSpecificLocation(locations.length === 1 ? locations[0] : locations.join(', '))
+      // selection-driven view: never label graphs as "Lifetime".
+      // If every selected response shares one date, surface that date in the label.
+      if (dates.length === 1) {
+        setSpecificDate(dates[0])
+        setSpecificRange('date')
+      } else {
+        setSpecificRange('')
+      }
+      setSpecificWorkshopData(responses)
+      setShowSpecificFeedback(true)
+    } catch {
+      // ignore malformed handoff
+    }
+  }, [])
+
 
 
   // Handle specific workshop selection
@@ -713,19 +744,19 @@ function App() {
   const getFilterDisplayText = () => {
     if (specificRange === 'lifetime') {
       if (specificLocation && specificLocation !== 'all-locations') {
-        return `${specificLocation} - Lifetime`
+        return `${specificLocation}\nLifetime`
       } else {
         return 'Lifetime'
       }
     } else if (specificRange === 'year' && specificDate) {
       if (specificLocation && specificLocation !== 'all-locations') {
-        return `${specificLocation} - ${specificDate}`
+        return `${specificLocation}\n${specificDate}`
       } else {
         return specificDate
       }
     } else if (specificRange === 'date' && specificDate) {
       if (specificLocation && specificLocation !== 'all-locations') {
-        return `${specificLocation} - ${specificDate}`
+        return `${specificLocation}\n${specificDate}`
       } else {
         return specificDate
       }
@@ -1009,13 +1040,18 @@ function App() {
                         specificWorkshop === 'robotics-workshop' ? 'Robotics Workshop' :
                         specificWorkshop === 'mechanical-workshop' ? 'Mechanical Engineering Workshop' : 'Workshop'
 
-    const filterDisplayText = getFilterDisplayText()
+    const locationText = (specificLocation && specificLocation !== 'all-locations') ? specificLocation : ''
+    const dateText = specificRange === 'lifetime'
+      ? 'Lifetime'
+      : ((specificRange === 'date' || specificRange === 'year') && specificDate) ? specificDate : ''
+
+    const subtitleText = [locationText, dateText].filter(Boolean).join(' - ')
 
     const renderChartWindow = (data, index) => (
       <div key={index} className="chart-window">
         <div className="chart-header">
           <div className="ai-workshop-text">{workshopName}</div>
-          {filterDisplayText && <div className="chart-filter-info">{filterDisplayText}</div>}
+          {subtitleText && <div className="chart-filter-info">{subtitleText}</div>}
         </div>
         <div className="chart-title">{data.question}</div>
         <div className="chart-surveyed-count">surveyed: {data.total}</div>
@@ -1165,7 +1201,14 @@ function App() {
                 }}
                 title="Feedback Data"
               >
-                ⚙️
+                <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <rect x="1.5" y="2.5" width="15" height="13" rx="1.5" fill="#ffffff" stroke="#217346" strokeWidth="1.3"/>
+                  <rect x="1.5" y="2.5" width="15" height="3.3" fill="#217346"/>
+                  <line x1="6.5" y1="2.5" x2="6.5" y2="15.5" stroke="#217346" strokeWidth="1"/>
+                  <line x1="11.5" y1="2.5" x2="11.5" y2="15.5" stroke="#217346" strokeWidth="1"/>
+                  <line x1="1.5" y1="9" x2="16.5" y2="9" stroke="#217346" strokeWidth="1"/>
+                  <line x1="1.5" y1="12.3" x2="16.5" y2="12.3" stroke="#217346" strokeWidth="1"/>
+                </svg>
               </button>
               <button 
                 className="settings-btn"

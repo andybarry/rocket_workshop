@@ -149,6 +149,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  box-sizing: border-box;
 }
 
 .logout-btn:hover {
@@ -250,12 +255,18 @@
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 0;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 10px;
   margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  box-sizing: border-box;
 }
 
 .settings-btn:hover {
@@ -421,6 +432,9 @@ html, body {
   color: white;
   font-family: 'Roboto', sans-serif;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .header-left strong {
@@ -443,6 +457,11 @@ html, body {
   transition: all 0.3s ease;
   margin-right: 10px;
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  box-sizing: border-box;
 }
 
 .instructor-feedback-btn:hover {
@@ -495,11 +514,17 @@ html, body {
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 0;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  box-sizing: border-box;
 }
 
 .gear-icon-btn:hover {
@@ -2067,26 +2092,30 @@ html, body {
 
 .ai-workshop-text {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   color: #f05f40;
   text-align: left;
-  margin-bottom: 0.1rem;
-  font-weight: bold;
+  margin-bottom: 0.05rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .chart-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .chart-filter-info {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.65rem;
-  color: #f05f40;
-  text-align: right;
-  font-weight: bold;
+  font-size: 0.62rem;
+  color: #666;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 /* Spreadsheet Styles */
@@ -2339,6 +2368,44 @@ html, body {
   font-size: 11px;
   color: #000;
   font-weight: 500;
+}
+
+.checkbox-header {
+  width: 36px;
+  min-width: 36px;
+  flex-shrink: 0;
+  min-height: 24px;
+  border-right: 1px solid #dadce0;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 998;
+  position: sticky !important;
+  top: 0 !important;
+}
+
+.checkbox-cell {
+  width: 36px;
+  min-width: 36px;
+  flex-shrink: 0;
+  min-height: 24px;
+  border-right: 1px solid #dadce0;
+  border-bottom: 1px solid #dadce0;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.checkbox-cell input[type="checkbox"],
+.checkbox-header input[type="checkbox"] {
+  cursor: pointer;
+  margin: 0;
 }
 
 .spreadsheet-cell {
@@ -3858,6 +3925,7 @@ html, body {
     color: #666;
     line-height: 1.15;
     margin-top: 1pt;
+    white-space: pre-line;
   }
 
   .print-only-footer {
@@ -3942,9 +4010,14 @@ html, body {
 
   /* Match bar fill (#f05f40); print/PDF often drops text color without this */
   .chart-window .stage-one-text,
-  .chart-window .ai-workshop-text,
-  .chart-window .chart-filter-info {
+  .chart-window .ai-workshop-text {
     color: #f05f40 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .chart-window .chart-filter-info {
+    color: #666 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

@@ -9,9 +9,9 @@ function MechanicalEngineeringFeedbackSurvey() {
     'favorite-part': '',
     'knowledgeable-3d-design': '',
     'can-design-cad': '',
-    'something-to-design': '',
+    'next-design': '',
     'well-paced': '',
-    'recommend-next-year': '',
+    'recommend-workshop': '',
     'instructor': '',
     'instructor-prepared': '',
     'instructor-knowledgeable': '',
@@ -47,7 +47,7 @@ function MechanicalEngineeringFeedbackSurvey() {
       // Add current date to the form data
       const submissionData = {
         ...formData,
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })
       }
       
       console.log('Submitting data:', submissionData)
@@ -248,9 +248,9 @@ function MechanicalEngineeringFeedbackSurvey() {
             <label>Something I'd like to try designing next is</label>
             <input 
               type="text" 
-              name="something-to-design" 
+              name="next-design" 
               placeholder="Your answer"
-              value={formData['something-to-design']}
+              value={formData['next-design']}
               onChange={handleInputChange}
             />
           </div>
@@ -284,9 +284,9 @@ function MechanicalEngineeringFeedbackSurvey() {
                   <input 
                     type="radio" 
                     id={`recommend-${index}`} 
-                    name="recommend-next-year" 
+                    name="recommend-workshop" 
                     value={option} 
-                    checked={formData['recommend-next-year'] === option}
+                    checked={formData['recommend-workshop'] === option}
                     onChange={handleInputChange}
                   />
                   <label htmlFor={`recommend-${index}`}>{option}</label>

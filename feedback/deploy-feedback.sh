@@ -31,8 +31,15 @@ cp -r database deploy-package/
 cp -r $SERVICE_FILES deploy-package/
 
 # Sync to remote server
+# IMPORTANT: never overwrite or delete the live SQLite database. The --exclude
+# rules protect the remote feedback.db* files from both being replaced by the
+# local copy and from being removed by --delete.
 echo "Syncing to remote server..."
-rsync -avz --delete deploy-package/ "$REMOTE_SERVER:$REMOTE_REPO_DIR/" || error_exit "Rsync failed."
+rsync -avz --delete \
+  --exclude 'database/feedback.db' \
+  --exclude 'database/feedback.db-shm' \
+  --exclude 'database/feedback.db-wal' \
+  deploy-package/ "$REMOTE_SERVER:$REMOTE_REPO_DIR/" || error_exit "Rsync failed."
 
 # Clean up local deployment package
 rm -rf deploy-package
