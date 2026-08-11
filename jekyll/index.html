@@ -86,11 +86,6 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 1;
-    transition: opacity 2s ease-in-out;
-  }
-  .home-room-hero__image--next {
-    opacity: 0;
   }
   .home-room-hero__fade {
     position: absolute;
@@ -113,8 +108,10 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     width: 40%;
     z-index: 2;
     display: flex;
-    align-items: center;
-    padding: 40px 48px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 48px;
     box-sizing: border-box;
   }
   .home-room-hero__title {
@@ -122,27 +119,171 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     color: #f05f40;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
     line-height: 1.15;
     letter-spacing: -0.02em;
   }
+  .home-room-hero__actions {
+    margin-top: 18px;
+  }
+  .home-room-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f05f40;
+    background-color: #fff;
+    border: 2px solid #f05f40;
+    border-radius: 50px;
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: all .35s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .home-room-hero__cta .fa {
+    margin-right: 9px;
+    font-size: 15px;
+  }
+  .home-room-hero__cta:hover,
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    color: #fff;
+    background-color: #f05f40;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28);
+  }
+  /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    outline: none;
+  }
+  .home-room-hero__cta:focus-visible {
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
+  }
+  .home-room-hero__quotes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 42%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 28px 14px 12px;
+    box-sizing: border-box;
+  }
+  .home-room-hero__quote-slot {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+  }
+  .home-room-hero__quote-slot--bottom {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .home-room-hero__quote {
+    position: relative;
+    width: min(340px, 100%);
+    max-height: 100%;
+    padding: 12px 16px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    color: #464444;
+    font-family: 'Roboto', sans-serif;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .home-room-hero__quote.is-visible {
+    opacity: 1;
+  }
+  .home-room-hero__quote.is-leaving {
+    opacity: 0;
+  }
+  .home-room-hero__quote-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .home-room-hero__quote-meta {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #f05f40;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .home-room-hero__content {
+      width: 48%;
+      padding: 28px 32px;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 48%, transparent 78%);
+      mask-image: linear-gradient(to right, #000 0%, #000 48%, transparent 78%);
+    }
+    .home-room-hero__quotes {
+      left: 50%;
+      padding: 12px 18px 12px 10px;
+    }
+    .home-room-hero__quote {
+      width: min(280px, 100%);
+      padding: 10px 14px;
+    }
+    .home-room-hero__quote-text {
+      font-size: 12px;
+      -webkit-line-clamp: 3;
+    }
+  }
   @media (max-width: 767px) {
     .home-room-hero {
-      height: 240px;
+      height: 320px;
       width: calc(100% + 30px);
       margin-left: -15px;
       margin-right: -15px;
     }
     .home-room-hero__content {
-      width: 55%;
-      padding: 24px 20px;
+      width: 70%;
+      padding: 20px;
     }
     .home-room-hero__title {
-      font-size: 1.6rem;
+      font-size: 1.15rem;
+    }
+    .home-room-hero__actions {
+      margin-top: 14px;
+    }
+    .home-room-hero__cta {
+      font-size: 12px;
+      padding: 8px 18px;
+    }
+    .home-room-hero__cta .fa {
+      margin-right: 7px;
+      font-size: 13px;
     }
     .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 45%, transparent 80%);
-      mask-image: linear-gradient(to right, #000 0%, #000 45%, transparent 80%);
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 66%, transparent 92%);
+      mask-image: linear-gradient(to right, #000 0%, #000 66%, transparent 92%);
+    }
+    .home-room-hero__quotes {
+      display: none;
     }
   }
 </style>
@@ -158,21 +299,8 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         'img/poster7.jpg',
     ];
 
-    let roomHeroImages = [
-        'img/room1.png',
-        'img/room2.png',
-        'img/room3.png',
-        'img/room4.png',
-        'img/room5.png',
-        'img/room7.png',
-    ];
-
     // Preload the images
     posters.forEach(function (src) {
-        let img = new Image();
-        img.src = src;
-    });
-    roomHeroImages.forEach(function (src) {
         let img = new Image();
         img.src = src;
     });
@@ -194,26 +322,70 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
             }, 1000); // 1s delay matches the transition duration in the CSS
         }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
 
-        let $roomHeroCurrent = $("#cyclingRoomHeroCurrent");
-        let $roomHeroNext = $("#cyclingRoomHeroNext");
-        let roomHeroNextIndex = 1 % roomHeroImages.length;
+        // Floating feedback quote bubbles over the hero image
+        var heroQuotes = [
+            { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
+            { text: "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.", meta: "New Haven, CT • 2026" },
+            { text: "This was easily the best so far", meta: "Ann Arbor, MI • 2026" },
+            { text: "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience", meta: "New Haven, CT • 2026" },
+            { text: "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)", meta: "Los Angeles, CA • 2026" },
+            { text: "That was so much fun and I really enjoyed the freedom but also learning", meta: "Houston, TX • 2026" },
+            { text: "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI", meta: "Houston, TX • 2026" },
+            { text: "I think it was really well planned and the activities were very enjoyable and fun.", meta: "Orlando, FL • 2026" },
+            { text: "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future", meta: "Ann Arbor, MI • 2026" },
+            { text: "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.", meta: "Atlanta, GA • 2026" },
+            { text: "I learned much about the intricacies of AI generation", meta: "Atlanta, GA • 2026" },
+            { text: "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.", meta: "Ann Arbor, MI • 2026" },
+            { text: "I really loved the events you made. I also loved how much knowledge you had.", meta: "Atlanta, GA • 2026" },
+            { text: "Loved this instructor, she is very interactive and a good listener and provides great insight", meta: "New Haven, CT • 2026" },
+            { text: "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.", meta: "Atlanta, GA • 2026" },
+            { text: "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.", meta: "Ann Arbor, MI • 2026" },
+            { text: "This was the best workshop because it was super interactive and very hands on", meta: "Houston, TX • 2026" },
+            { text: "This was super fun and it should definitely be taught next time.", meta: "New Haven, CT • 2026" },
+            { text: "I’ve done three of these workshops and each one is better than the next. Wonderful program!", meta: "Berkeley, CA • 2026" },
+            { text: "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D", meta: "Atlanta, GA • 2026" }
+        ];
 
-        setInterval(function () {
-            $roomHeroNext.attr("src", roomHeroImages[roomHeroNextIndex]);
+        var $quotesLayer = $(".home-room-hero__quotes");
+        if ($quotesLayer.length) {
+            var quoteIndex = 0;
+            var $slots = [
+                $quotesLayer.find(".home-room-hero__quote-slot--top"),
+                $quotesLayer.find(".home-room-hero__quote-slot--bottom")
+            ];
 
-            $roomHeroCurrent.css("opacity", "0");
-            $roomHeroNext.css("opacity", "1");
+            function nextQuote() {
+                var quote = heroQuotes[quoteIndex];
+                quoteIndex = (quoteIndex + 1) % heroQuotes.length;
+                return quote;
+            }
 
+            function spawnBubble($slot) {
+                var quote = nextQuote();
+                var $bubble = $("<div class='home-room-hero__quote'></div>");
+                $bubble.append($("<p class='home-room-hero__quote-text'></p>").text(quote.text));
+                $bubble.append($("<span class='home-room-hero__quote-meta'></span>").text(quote.meta));
+                $slot.empty().append($bubble);
+
+                // Force layout so the fade-in transition runs
+                $bubble[0].offsetWidth;
+                $bubble.addClass("is-visible");
+
+                var lifetime = 10000;
+                setTimeout(function () {
+                    $bubble.removeClass("is-visible").addClass("is-leaving");
+                    setTimeout(function () {
+                        spawnBubble($slot);
+                    }, 1200);
+                }, lifetime);
+            }
+
+            // Always two quotes in separate slots; staggered fade timing
+            spawnBubble($slots[0]);
             setTimeout(function () {
-                let temp = $roomHeroCurrent;
-                $roomHeroCurrent = $roomHeroNext;
-                $roomHeroNext = temp;
-
-                roomHeroNextIndex = (roomHeroNextIndex + 1) % roomHeroImages.length;
-
-                $roomHeroNext.css("opacity", "0");
-            }, 2000); // Match the CSS opacity transition duration
-        }, 8000);
+                spawnBubble($slots[1]);
+            }, 5000);
+        }
     });
 </script>
 
@@ -224,11 +396,19 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     {% include navigation.html %}
 
 <section class="home-room-hero" aria-label="Engineering workshops across the United States">
-    <img id="cyclingRoomHeroCurrent" class="home-room-hero__image" src="img/room1.png" alt="Workshop classroom">
-    <img id="cyclingRoomHeroNext" class="home-room-hero__image home-room-hero__image--next" src="img/room2.png" alt="" aria-hidden="true">
+    <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom">
     <div class="home-room-hero__fade" aria-hidden="true"></div>
+    <div class="home-room-hero__quotes" aria-hidden="true">
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--top"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--bottom"></div>
+    </div>
     <div class="home-room-hero__content">
         <h1 class="home-room-hero__title">Engineering workshops Around the United States...</h1>
+        <div class="home-room-hero__actions">
+            <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>View Workshop Guide
+            </a>
+        </div>
     </div>
 </section>
             
