@@ -69,6 +69,82 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       max-width: 100%;
     }
   }
+
+  /* Full-bleed room image header (below nav, above Our workshops) */
+  .home-room-hero {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: 300px;
+    overflow: hidden;
+    background-color: #fafafa;
+  }
+  .home-room-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+  }
+  .home-room-hero__image--next {
+    opacity: 0;
+  }
+  .home-room-hero__fade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 40%, transparent 70%);
+    mask-image: linear-gradient(to right, #000 0%, #000 40%, transparent 70%);
+  }
+  .home-room-hero__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 40px 48px;
+    box-sizing: border-box;
+  }
+  .home-room-hero__title {
+    margin: 0;
+    color: #f05f40;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 767px) {
+    .home-room-hero {
+      height: 240px;
+      width: calc(100% + 30px);
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+    .home-room-hero__content {
+      width: 55%;
+      padding: 24px 20px;
+    }
+    .home-room-hero__title {
+      font-size: 1.6rem;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 45%, transparent 80%);
+      mask-image: linear-gradient(to right, #000 0%, #000 45%, transparent 80%);
+    }
+  }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -82,8 +158,21 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         'img/poster7.jpg',
     ];
 
+    let roomHeroImages = [
+        'img/room1.png',
+        'img/room2.png',
+        'img/room3.png',
+        'img/room4.png',
+        'img/room5.png',
+        'img/room7.png',
+    ];
+
     // Preload the images
     posters.forEach(function (src) {
+        let img = new Image();
+        img.src = src;
+    });
+    roomHeroImages.forEach(function (src) {
         let img = new Image();
         img.src = src;
     });
@@ -104,14 +193,44 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
                 $("#cyclingPoster").css("opacity", "1");
             }, 1000); // 1s delay matches the transition duration in the CSS
         }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
+
+        let $roomHeroCurrent = $("#cyclingRoomHeroCurrent");
+        let $roomHeroNext = $("#cyclingRoomHeroNext");
+        let roomHeroNextIndex = 1 % roomHeroImages.length;
+
+        setInterval(function () {
+            $roomHeroNext.attr("src", roomHeroImages[roomHeroNextIndex]);
+
+            $roomHeroCurrent.css("opacity", "0");
+            $roomHeroNext.css("opacity", "1");
+
+            setTimeout(function () {
+                let temp = $roomHeroCurrent;
+                $roomHeroCurrent = $roomHeroNext;
+                $roomHeroNext = temp;
+
+                roomHeroNextIndex = (roomHeroNextIndex + 1) % roomHeroImages.length;
+
+                $roomHeroNext.css("opacity", "0");
+            }, 2000); // Match the CSS opacity transition duration
+        }, 8000);
     });
 </script>
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<body id="page-top" class="cursor-glow-page" style="margin-top: 70px">
+<body id="page-top" class="cursor-glow-page" style="margin-top: 56px">
 
     {% include navigation.html %}
+
+<section class="home-room-hero" aria-label="Engineering workshops across the United States">
+    <img id="cyclingRoomHeroCurrent" class="home-room-hero__image" src="img/room1.png" alt="Workshop classroom">
+    <img id="cyclingRoomHeroNext" class="home-room-hero__image home-room-hero__image--next" src="img/room2.png" alt="" aria-hidden="true">
+    <div class="home-room-hero__fade" aria-hidden="true"></div>
+    <div class="home-room-hero__content">
+        <h1 class="home-room-hero__title">Engineering workshops Around the United States...</h1>
+    </div>
+</section>
             
 <section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
     <div class="container" id="ai">
