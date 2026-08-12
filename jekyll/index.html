@@ -75,7 +75,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     position: relative;
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    height: 300px;
+    height: 380px;
     overflow: hidden;
     background-color: #fafafa;
   }
@@ -97,40 +97,102 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
       linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 40%, transparent 70%);
-    mask-image: linear-gradient(to right, #000 0%, #000 40%, transparent 70%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 46%, transparent 74%);
+    mask-image: linear-gradient(to right, #000 0%, #000 46%, transparent 74%);
   }
   .home-room-hero__content {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 40%;
+    width: 46%;
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 32px 48px;
+    padding: 28px 36px 28px 88px;
     box-sizing: border-box;
+  }
+  .home-room-hero__workshops {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0 0 14px;
+  }
+  .home-room-hero__workshop-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #434343;
+    text-decoration: none;
+    padding: 0 14px;
+    border: none;
+    background: none;
+    transition: color .25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .home-room-hero__workshop-link:first-child {
+    padding-left: 0;
+  }
+  .home-room-hero__workshop-link + .home-room-hero__workshop-link {
+    border-left: 1px solid rgba(67, 67, 67, 0.28);
+  }
+  .home-room-hero__workshop-link:hover,
+  .home-room-hero__workshop-link:focus {
+    color: #f05f40;
+    text-decoration: none;
+    outline: none;
   }
   .home-room-hero__title {
     margin: 0;
-    color: #f05f40;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-    line-height: 1.15;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.2;
     letter-spacing: -0.02em;
+  }
+  .home-room-hero__title-line {
+    display: block;
+    white-space: nowrap;
+  }
+  .home-room-hero__title-line--orange {
+    color: #f05f40;
+  }
+  .home-room-hero__title-line--gray {
+    color: #434343;
+  }
+  .home-room-hero__body {
+    margin-top: 14px;
+    max-width: 520px;
+  }
+  .home-room-hero__body p {
+    margin: 0 0 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+    line-height: 1.45;
+    font-weight: 400;
+    color: #434343;
+    text-wrap: pretty;
+  }
+  .home-room-hero__body p:last-child {
+    margin-bottom: 0;
   }
   .home-room-hero__actions {
     margin-top: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
   }
   .home-room-hero__cta {
     display: inline-flex;
     align-items: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -138,14 +200,14 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     background-color: #fff;
     border: 2px solid #f05f40;
     border-radius: 50px;
-    padding: 10px 24px;
+    padding: 8px 18px;
     text-decoration: none;
     transition: all .35s;
     -webkit-tap-highlight-color: transparent;
   }
   .home-room-hero__cta .fa {
-    margin-right: 9px;
-    font-size: 15px;
+    margin-right: 8px;
+    font-size: 13px;
   }
   .home-room-hero__cta:hover,
   .home-room-hero__cta:focus,
@@ -154,6 +216,20 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     background-color: #f05f40;
     text-decoration: none;
     box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28);
+  }
+  /* Solid primary style for Plan Your Workshop */
+  .home-room-hero__cta--solid {
+    color: #fff;
+    background-color: #f05f40;
+    border-color: #f05f40;
+  }
+  .home-room-hero__cta--solid:hover,
+  .home-room-hero__cta--solid:focus,
+  .home-room-hero__cta--solid:active {
+    color: #f05f40;
+    background-color: #fff;
+    border-color: #f05f40;
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.22);
   }
   /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
   .home-room-hero__cta:focus,
@@ -168,7 +244,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     top: 0;
     right: 0;
     bottom: 0;
-    left: 42%;
+    left: 48%;
     z-index: 2;
     pointer-events: none;
     overflow: hidden;
@@ -176,24 +252,20 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     flex-direction: column;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 28px 14px 12px;
+    padding: 28px 28px 14px 12px;
     box-sizing: border-box;
   }
   .home-room-hero__quote-slot {
+    position: relative;
     flex: 1 1 0;
     min-height: 0;
-    display: flex;
-    align-items: flex-start;
-  }
-  .home-room-hero__quote-slot--bottom {
-    align-items: flex-end;
-    justify-content: flex-end;
   }
   .home-room-hero__quote {
-    position: relative;
-    width: min(340px, 100%);
-    max-height: 100%;
-    padding: 12px 16px;
+    position: absolute;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    padding: 14px 18px;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.88);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
@@ -202,7 +274,38 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     opacity: 0;
     transition: opacity 1.2s ease;
     box-sizing: border-box;
-    overflow: hidden;
+  }
+  /* Short one-line quotes — box grows to fit the text */
+  .home-room-hero__quote--oneline {
+    width: max-content;
+    max-width: 100%;
+  }
+  .home-room-hero__quote--oneline .home-room-hero__quote-text {
+    white-space: nowrap;
+  }
+  /* Narrow + tall — best for short quotes */
+  .home-room-hero__quote--narrow {
+    width: min(190px, 100%);
+  }
+  /* Medium */
+  .home-room-hero__quote--medium {
+    width: min(260px, 100%);
+  }
+  /* Long + wide — best for longer quotes */
+  .home-room-hero__quote--wide {
+    width: min(380px, 100%);
+  }
+  .home-room-hero__quote-slot--tl .home-room-hero__quote {
+    top: 0;
+    left: 48px;
+  }
+  .home-room-hero__quote-slot--br .home-room-hero__quote {
+    right: 0;
+    bottom: 0;
+  }
+  /* Alternate placement within a section so successive quotes don't look identical */
+  .home-room-hero__quote--shift {
+    transform: translate(-5px, -10px);
   }
   .home-room-hero__quote.is-visible {
     opacity: 1;
@@ -213,74 +316,95 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
   .home-room-hero__quote-text {
     margin: 0;
     font-size: 13px;
-    line-height: 1.35;
+    line-height: 1.4;
     font-weight: 400;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .home-room-hero__quote-meta {
     display: block;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 11px;
     font-weight: 500;
     color: #f05f40;
     letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   @media (min-width: 768px) and (max-width: 991px) {
+    .home-room-hero {
+      height: 400px;
+    }
     .home-room-hero__content {
-      width: 48%;
-      padding: 28px 32px;
+      width: 52%;
+      padding: 28px 28px 28px 64px;
+    }
+    .home-room-hero__title {
+      font-size: 1.2rem;
+    }
+    .home-room-hero__body p {
+      font-size: 1.05rem;
     }
     .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 48%, transparent 78%);
-      mask-image: linear-gradient(to right, #000 0%, #000 48%, transparent 78%);
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 52%, transparent 80%);
+      mask-image: linear-gradient(to right, #000 0%, #000 52%, transparent 80%);
     }
     .home-room-hero__quotes {
-      left: 50%;
-      padding: 12px 18px 12px 10px;
+      left: 54%;
+      padding: 24px 18px 12px 10px;
     }
     .home-room-hero__quote {
+      padding: 12px 14px;
+    }
+    .home-room-hero__quote--narrow {
+      width: min(160px, 100%);
+    }
+    .home-room-hero__quote--medium {
+      width: min(220px, 100%);
+    }
+    .home-room-hero__quote--wide {
       width: min(280px, 100%);
-      padding: 10px 14px;
     }
     .home-room-hero__quote-text {
       font-size: 12px;
-      -webkit-line-clamp: 3;
     }
   }
   @media (max-width: 767px) {
     .home-room-hero {
-      height: 320px;
+      height: 480px;
       width: calc(100% + 30px);
       margin-left: -15px;
       margin-right: -15px;
     }
     .home-room-hero__content {
-      width: 70%;
-      padding: 20px;
+      width: 88%;
+      padding: 24px 20px 24px 36px;
     }
     .home-room-hero__title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
+    }
+    .home-room-hero__body {
+      margin-top: 12px;
+    }
+    .home-room-hero__body p {
+      font-size: 0.98rem;
+      margin-bottom: 10px;
     }
     .home-room-hero__actions {
       margin-top: 14px;
+      gap: 8px;
     }
     .home-room-hero__cta {
-      font-size: 12px;
-      padding: 8px 18px;
+      font-size: 11px;
+      padding: 7px 16px;
     }
     .home-room-hero__cta .fa {
       margin-right: 7px;
-      font-size: 13px;
+      font-size: 12px;
     }
     .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 66%, transparent 92%);
-      mask-image: linear-gradient(to right, #000 0%, #000 66%, transparent 92%);
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 78%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 0%, #000 78%, transparent 100%);
     }
     .home-room-hero__quotes {
       display: none;
@@ -350,9 +474,12 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         if ($quotesLayer.length) {
             var quoteIndex = 0;
             var $slots = [
-                $quotesLayer.find(".home-room-hero__quote-slot--top"),
-                $quotesLayer.find(".home-room-hero__quote-slot--bottom")
+                $quotesLayer.find(".home-room-hero__quote-slot--tl"),
+                $quotesLayer.find(".home-room-hero__quote-slot--br")
             ];
+            var slotShiftNext = [false, false];
+            var fadeMs = 1200;
+            var displayMs = 10000;
 
             function nextQuote() {
                 var quote = heroQuotes[quoteIndex];
@@ -360,31 +487,115 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
                 return quote;
             }
 
-            function spawnBubble($slot) {
-                var quote = nextQuote();
-                var $bubble = $("<div class='home-room-hero__quote'></div>");
-                $bubble.append($("<p class='home-room-hero__quote-text'></p>").text(quote.text));
-                $bubble.append($("<span class='home-room-hero__quote-meta'></span>").text(quote.meta));
-                $slot.empty().append($bubble);
-
-                // Force layout so the fade-in transition runs
-                $bubble[0].offsetWidth;
-                $bubble.addClass("is-visible");
-
-                var lifetime = 10000;
-                setTimeout(function () {
-                    $bubble.removeClass("is-visible").addClass("is-leaving");
-                    setTimeout(function () {
-                        spawnBubble($slot);
-                    }, 1200);
-                }, lifetime);
+            // Pick a shape that fits the quote so text/location aren't cut off
+            function sizeForQuote(quote) {
+                var len = (quote.text || "").length;
+                if (len <= 40) return "oneline";
+                if (len < 90) return "narrow";
+                if (len < 160) return "medium";
+                return "wide";
             }
 
-            // Always two quotes in separate slots; staggered fade timing
-            spawnBubble($slots[0]);
-            setTimeout(function () {
-                spawnBubble($slots[1]);
-            }, 5000);
+            function createBubble(quote, useShift) {
+                var $bubble = $("<div class='home-room-hero__quote'></div>");
+                $bubble.addClass("home-room-hero__quote--" + sizeForQuote(quote));
+                if (useShift) {
+                    $bubble.addClass("home-room-hero__quote--shift");
+                }
+                $bubble.append($("<p class='home-room-hero__quote-text'></p>").text(quote.text));
+                $bubble.append($("<span class='home-room-hero__quote-meta'></span>").text(quote.meta));
+                return $bubble;
+            }
+
+            // Count words on the last visual line of the quote text
+            function lastLineWordCount(textEl) {
+                var original = textEl.textContent;
+                var words = original.trim().split(/\s+/).filter(Boolean);
+                if (words.length <= 2) return words.length;
+
+                textEl.innerHTML = words.map(function (word) {
+                    return "<span class='home-room-hero__quote-word'>" + $("<div>").text(word).html() + "</span>";
+                }).join(" ");
+
+                var spans = textEl.querySelectorAll(".home-room-hero__quote-word");
+                if (!spans.length) {
+                    textEl.textContent = original;
+                    return words.length;
+                }
+
+                var lastTop = spans[spans.length - 1].offsetTop;
+                var count = 0;
+                for (var i = spans.length - 1; i >= 0; i--) {
+                    if (Math.abs(spans[i].offsetTop - lastTop) <= 2) {
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+
+                textEl.textContent = original;
+                return count;
+            }
+
+            // Widen the box until the last line has 3+ words (no 1–2 word orphans)
+            function expandToAvoidOrphans($bubble) {
+                var bubble = $bubble[0];
+                var textEl = $bubble.find(".home-room-hero__quote-text")[0];
+                if (!bubble || !textEl || $bubble.hasClass("home-room-hero__quote--oneline")) return;
+
+                var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
+                if (!parentWidth) return;
+
+                var width = Math.ceil(bubble.getBoundingClientRect().width);
+                var step = 12;
+                var guard = 40;
+
+                while (guard-- > 0) {
+                    var orphanCount = lastLineWordCount(textEl);
+                    if (orphanCount === 0 || orphanCount >= 3) break;
+                    if (width >= parentWidth) break;
+
+                    width = Math.min(parentWidth, width + step);
+                    bubble.style.width = width + "px";
+                    bubble.style.maxWidth = "100%";
+                }
+            }
+
+            function showBubble($slot, $bubble) {
+                $slot.append($bubble);
+                $bubble[0].offsetWidth;
+                expandToAvoidOrphans($bubble);
+                $bubble.addClass("is-visible");
+            }
+
+            function swapBubble(slotIndex) {
+                var $slot = $slots[slotIndex];
+                var $old = $slot.find(".home-room-hero__quote.is-visible").first();
+                var useShift = slotShiftNext[slotIndex];
+                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
+                var $next = createBubble(nextQuote(), useShift);
+                showBubble($slot, $next);
+                if ($old.length) {
+                    $old.removeClass("is-visible").addClass("is-leaving");
+                    setTimeout(function () {
+                        $old.remove();
+                    }, fadeMs);
+                }
+            }
+
+            function startSlot(slotIndex, firstSwapDelay) {
+                var useShift = slotShiftNext[slotIndex];
+                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
+                showBubble($slots[slotIndex], createBubble(nextQuote(), useShift));
+                setTimeout(function cycle() {
+                    swapBubble(slotIndex);
+                    setTimeout(cycle, displayMs);
+                }, firstSwapDelay);
+            }
+
+            // Always two quotes: top-left and bottom-right, staggered fades
+            startSlot(0, displayMs);
+            startSlot(1, displayMs + displayMs / 2);
         }
     });
 </script>
@@ -395,18 +606,33 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
     {% include navigation.html %}
 
-<section class="home-room-hero" aria-label="Engineering workshops across the United States">
+<section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA">
     <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom">
     <div class="home-room-hero__fade" aria-hidden="true"></div>
     <div class="home-room-hero__quotes" aria-hidden="true">
-        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--top"></div>
-        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--bottom"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
     </div>
     <div class="home-room-hero__content">
-        <h1 class="home-room-hero__title">Engineering workshops Around the United States...</h1>
+        <nav class="home-room-hero__workshops" aria-label="Workshop types">
+            <a class="home-room-hero__workshop-link" href="ai-workshop.html">AI</a>
+            <a class="home-room-hero__workshop-link" href="robotics-workshop.html">Robotics</a>
+            <a class="home-room-hero__workshop-link" href="rocket-workshop.html">Mechanical</a>
+        </nav>
+        <h1 class="home-room-hero__title">
+            <span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering Workshops</span>
+            <span class="home-room-hero__title-line home-room-hero__title-line--gray">Delivered to Groups Across the USA</span>
+        </h1>
+        <div class="home-room-hero__body">
+            <p>Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.</p>
+            <p>We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.</p>
+        </div>
         <div class="home-room-hero__actions">
             <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>View Workshop Guide
+            </a>
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-calendar" aria-hidden="true"></i>Plan Your Workshop
             </a>
         </div>
     </div>
