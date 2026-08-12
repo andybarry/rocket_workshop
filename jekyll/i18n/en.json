@@ -1,0 +1,318 @@
+{
+  "_readme": "Source of truth for every translatable string on the nine public marketing pages. The site never fetches this file at runtime: English is whatever the HTML already contains, and switching back to English restores the original markup. This file exists so the translated dictionaries have one authoritative English reference to work from. Keys ending in a value that contains HTML tags are applied with innerHTML, so the tags must be preserved in every translation.",
+
+  "nav": {
+    "toggle": "Toggle navigation",
+    "menu": "Menu",
+    "workshops": "Workshops <span class=\"caret\"></span>",
+    "ai": "Artificial Intelligence",
+    "robotics": "Robotics Drone",
+    "mechanical": "Mechanical Engineering",
+    "home": "Home",
+    "locations": "Locations",
+    "instructors": "Instructors",
+    "feedback": "Feedback",
+    "contact": "Contact",
+    "about": "About",
+    "requestDemo": "Request a demo"
+  },
+
+  "common": {
+    "letsChat": "Let's chat",
+    "contact": "Contact",
+    "feedbackSurvey": "Feedback Survey",
+    "overview": "Overview",
+    "testimonials": "Testimonials",
+    "timeline": "Timeline",
+    "workshopSubdata": "3-3.5 Hours | All Ages | No Experience Needed"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "Hands-on engineering workshops delivered across the USA",
+      "imageAlt": "Workshop classroom",
+      "navLabel": "Workshop types",
+      "linkAi": "AI",
+      "linkRobotics": "Robotics",
+      "linkMechanical": "Mechanical",
+      "title1": "Hands-On Engineering Workshops",
+      "title2": "Delivered to Groups Across the USA",
+      "body1": "Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.",
+      "body2": "We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.",
+      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>View Workshop Guide",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan Your Workshop"
+    },
+    "workshopsHeading": "Our workshops",
+    "cardAi": {
+      "title": "Artificial Intelligence",
+      "posterAlt": "Student-created AI movie posters",
+      "line1": "Discover AI Neural Networks",
+      "line2": "Use the latest AI models: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>text, image, and music</em></li> </ul>",
+      "line3": "AI ethics discussion"
+    },
+    "cardRobotics": {
+      "title": "Robotics<br>Drone",
+      "imageAlt": "Drone Circuit",
+      "line1": "Fly mini drones",
+      "line2": "Build a circuit for drone control",
+      "line3": "Program for autonomous flight"
+    },
+    "cardMechanical": {
+      "title": "Mechanical Engineering",
+      "line1": "Use professional CAD software",
+      "line2": "Design a multi-part model rocket",
+      "line3": "Explore 3D printing"
+    },
+    "aboutHeading": "About",
+    "about": {
+      "handsOn": {
+        "title": "hands-on",
+        "body": "Do engineering in the first minute, no prior experience needed, for all ages and skill levels."
+      },
+      "turnKey": {
+        "title": "turn-key",
+        "body": "All Inclusive engineering workshop packages that seamlessly integrate and scale into any program."
+      },
+      "curriculum": {
+        "title": "curriculum",
+        "body1": "Designed and instructed by PhDs, engineers, and educators.",
+        "body2": "Continuously updated, no year is the same."
+      },
+      "experienced": {
+        "title": "experienced",
+        "body": "Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States."
+      },
+      "safe": {
+        "title": "safe",
+        "body": "Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided."
+      }
+    },
+    "feedbackHeading": "Feedback",
+    "moreFeedback": "More Feedback",
+    "contactHeading": "Contact",
+    "heroQuotes": [
+      "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.",
+      "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.",
+      "This was easily the best so far",
+      "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience",
+      "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)",
+      "That was so much fun and I really enjoyed the freedom but also learning",
+      "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI",
+      "I think it was really well planned and the activities were very enjoyable and fun.",
+      "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future",
+      "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.",
+      "I learned much about the intricacies of AI generation",
+      "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.",
+      "I really loved the events you made. I also loved how much knowledge you had.",
+      "Loved this instructor, she is very interactive and a good listener and provides great insight",
+      "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.",
+      "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.",
+      "This was the best workshop because it was super interactive and very hands on",
+      "This was super fun and it should definitely be taught next time.",
+      "I’ve done three of these workshops and each one is better than the next. Wonderful program!",
+      "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D"
+    ]
+  },
+
+  "ai": {
+    "title": "Artificial Intelligence Workshop",
+    "heroNeuralNetwork": "Human Neural Network",
+    "posterCaption": "participant-created movie posters",
+    "overview": {
+      "nn": {
+        "heading": "<strong>Human Neural Network: A Hands-On Activity</strong>",
+        "item1": "Join an interactive game of complex telephone where each participant becomes a node in a neural network.",
+        "item2": "Gain an intuitive grasp of neural networks and their learning processes—all without the math!"
+      },
+      "film": {
+        "heading": "<strong>AI Film Studio: Creative Activity</strong>",
+        "item1": "Explore cutting-edge AI tools for text, image, music, and voice generation.",
+        "item2": "Participants will craft all production elements for a unique short film, from scripts to marketing materials.",
+        "item3": "Conclude with a film review session, showcasing AI's creative prowess."
+      },
+      "ethics": {
+        "heading": "<strong>AI Ethics: Decision-Making Activity</strong>",
+        "item1": "Delve into the pressing ethical questions AI engineers grapple with.",
+        "item2": "Engage in lively dialogues that promote critical thinking about AI's responsible usage."
+      }
+    },
+    "quotes": {
+      "q1": "“It was really great. I first thought that I would not understand it but you did such a good thing instruction for us. <strong>I would never forget this experience!!!</strong> Thank you so much😍”<br><span class=\"quote-attribution\"><em>— Student, Boston, MA 2025</em></span>",
+      "q2": "“You guys did well explaining everything and having <strong>everyone engage</strong> with the lesson, and you helped make it <strong>fun to learn</strong>.”<br><span class=\"quote-attribution\"><em>— Student, Berkeley, CA 2023</em></span>",
+      "q3": "“Thank you for answering our questions! This has been the first place that <strong>I've been able to fully understand neural networks :)</strong>”<br><span class=\"quote-attribution\"><em>— Student, Berkeley, CA 2025</em></span>",
+      "q4": "“One of the <strong>best AI workshops</strong> I've ever done. I love how simple the AI tools were.”<br><span class=\"quote-attribution\"><em>— Student, Houston, TX 2024</em></span>",
+      "q5": "“I was truly moved by this workshop, and I think it will be <strong>the most memorable activity of my school trip</strong>. I could really feel the difference in the quality of education compared to my home country. If I ever get the chance, I would love to participate again.”<br><span class=\"quote-attribution\"><em>— Student, Boston, MA 2025</em></span>",
+      "q6": "“Liked the <strong>social activity</strong> and instructors <strong>simpleness</strong><br><strong>yet effective</strong> in explaining information”<br><span class=\"quote-attribution\"><em>— Student, Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "Robotics Drone Workshop",
+    "overview": {
+      "intro": "In the Robotics Workshop, students get a drone, but <strong>no controller!</strong><br> Learn engineering by building your own RC controller for a quadrotor:",
+      "item1": "Wire a complete circuit, including a <strong>dual-core microcontroller</strong> with WiFi, 6-axis accelerometer, lights, potentiometers, and buttons.",
+      "item2": "With your team, learn how to <strong>read and translate circuit diagrams</strong> into real, working circuits",
+      "item3": "<strong>Program, upload, and execute</strong> your own autonomous flights",
+      "item4": "Participate in the autonomous airshow to showcase your custom flight"
+    },
+    "quotes": {
+      "q1": "“This was <strong>extremely well done</strong>. The instructors were very nice and approachable. I am extremely grateful for this as it has opened my eyes to a new area of electronics I never would've thought I would do.”<br><span class=\"quote-attribution\"><em>— Student, San Francisco, CA 2025</em></span>",
+      "q2": "“This was <strong>by far the best workshop</strong> and it interested me the most. I liked the coding portion and the electronics hardware”<br><span class=\"quote-attribution\"><em>— Student, Berkeley, CA 2023</em></span>",
+      "q3": "“You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more engineering and coding!”<br><span class=\"quote-attribution\"><em>— Student, Boston, MA 2023</em></span>",
+      "q4": "“It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use some of this knowledge</strong> for other projects I may do.”<br><span class=\"quote-attribution\"><em>— Student, Houston, TX 2022</em></span>",
+      "q5": "“This was the best workshop in the whole program”<br><span class=\"quote-attribution\"><em>— Student, Boston, MA 2024</em></span>",
+      "q6": "“Yeehaw-tastic”<br><span class=\"quote-attribution\"><em>— Student, Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "Mechanical Engineering Workshop",
+    "heroStart": "Start",
+    "overview": {
+      "intro": "In the Mechanical Engineering Workshop, participants <strong>become rocket designers!</strong>",
+      "item1": "Design and engineer your own three-part rocket using <strong>industry-standard Computer Aided Design (CAD)</strong> software.",
+      "item2": "Guided by <strong>GIF‑style micro‑videos</strong> and concise text, no prior experience is required.",
+      "item3": "Master core CAD skills: sketching, parametric modeling, assemblies.",
+      "item4": "Live 3D‑printing demo.",
+      "item5": "Learn from open‑forum Q&amp;A where you can ask our <strong>real engineers</strong> anything about your design, CAD techniques, and careers in engineering."
+    },
+    "quotes": {
+      "q1": "“<strong>I loved it</strong> - instructions were clear and super laid out. I liked the animations along with the instructions for visual learners. Overall, I feel inspired to continue learning CAD and designing new things, <strong>I was hesitant on if being an engineer was truly for me, but after this I feel a lot more confident</strong> and excited to explore this field more” <em>— Student, Houston, TX 2023</em>",
+      "q2": "“<strong>Challenging but well paced</strong> at the same time. Piqued my interest in virtual 3D rendering. I now <strong>feel like I could work on this on my own</strong> and I have the ambition to push my knowledge to its limits.” <em>— Student, Atlanta, GA 2021</em>",
+      "q3": "“<strong>I loved this workshop.</strong> I’ve never used any CAD program before and I was able to learn how and <strong>finish the entire rocket within the allotted time.</strong> I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)” <em>— Student, Los Angeles, CA 2025</em>",
+      "q4": "“This workshop was <strong>my favorite workshop by far</strong>. As I want to be a civil engineer it was very nice to see a potential software I would be using when I do become a civil engineer” <em>— Student, Berkeley, CA 2021</em>",
+      "q5": "“The guidance coupled with creative freedom of the workshop was perfect!” <em>— Student, Berkeley, CA 2025</em>",
+      "q6": "“Great workshop, <strong>I had an awesome time</strong> while learning valuable skills that will be <strong>essential for my success</strong> later in engineering and beyond.” <em>— Student, Atlanta, GA 2025</em>"
+    }
+  },
+
+  "locations": {
+    "heading": "Locations",
+    "note": "Other locations available upon request",
+    "mapAlt": "Map"
+  },
+
+  "instructors": {
+    "heading": "Instructors",
+    "mission": "Mission: Inspiring learners through hands-on engineering workshops",
+    "body": "At Stage One Education, we offer workshops that capture the expertise and practices of top researchers and engineering professionals. Our workshops are led by a nationwide network of experienced instructors who guide participants through immersive, hands-on, project-based learning reflecting the latest engineering fields. This dynamic approach provides an experience powered by the insights and passion of real-world engineers.",
+    "join": "Want to join our team?",
+    "requirements": "Requirements: Team Leadership - Excellent Presentation Skills - Strong Portfolio of Engineering Experience",
+    "authorization": "Authorized to work in the U.S. as a 1099 independent contractor"
+  },
+
+  "feedback": {
+    "heading": "Feedback",
+    "updated": "updated: 2/5/2026",
+    "formLink": "Feedback Form"
+  },
+
+  "contact": {
+    "heading": "Contact Us",
+    "lede": "<b>Have a question or want to learn more? Contact us.</b>",
+    "body": "Our hands-on workshops in <strong>Artificial Intelligence</strong>, <strong>Robotics</strong>, and <strong>Mechanical Engineering</strong> are led by real engineers. In just three hours, participants gain essential skills and tools that ignite their passion for STEM.<br><br>No prior experience needed. <br><br> <strong>Let us bring the excitement and education to your group—reach out now to get started!</strong>"
+  },
+
+  "about": {
+    "heading": "About Us",
+    "intro": {
+      "headline": "We're dedicated to sharing our love of engineering",
+      "lede": "Our workshops answer questions like,",
+      "question1": "<strong>can I do engineering?</strong>",
+      "question2": "<strong>what do engineers really do?</strong>",
+      "body1": "through hands-on activities—from building real circuits to working with professional-grade CAD tools and the latest AI models—participants gain a true sense of what engineering is all about.",
+      "body2": "After engaging with real-world projects, engineering tools, and talking to experienced professionals, participants walk away more confident, inspired, and excited about their potential future in engineering."
+    },
+    "leadershipHeading": "Leadership Team",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry, MIT Ph.D.",
+        "role": "Founder",
+        "bio": "Andy fell in love with autonomous drones by <a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">flying them</a> for his Ph.D. at MIT. Andy has brought electronics and software workshops to over 10,000 students, from small helicopters to <a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">sophisticated quadrupeds</a>."
+      },
+      "pete": {
+        "name": "Pete Florence, MIT Ph.D.",
+        "role": "Co-Founder",
+        "bio": "Pete flew drones of all sorts during his Ph.D. work at MIT. His planning and control work in the <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> pushed the horizons for faster, more agile, and more reliable drones. His award-winning <a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">robot manipulation</a> research is giving robots new abilities every day."
+      },
+      "robbie": {
+        "name": "Robbie Kipp, Engineer",
+        "role": "Director of Operations",
+        "bio": "Robbie's engineering designs set the course for the future of dive systems and maritime vessels during his time as an ocean engineer and naval architect. Now, as the Director of Operations at Stage One Education, he pioneers innovative approaches to inspire the next generation of engineers. Robbie is an avid diver, climber, and aviation enthusiast."
+      }
+    },
+    "instructorsCallout": "<strong>Stage One Education Instructors</strong><br> Nationwide network of passionate engineering professionals",
+    "workshopsHeading": "Hands-on Engineering Workshops",
+    "buttons": {
+      "ai": "Artificial <br>Intelligence",
+      "robotics": "Robotics <br>Drone",
+      "mechanical": "Mechanical <br>Engineering"
+    },
+    "turnKey": {
+      "heading": "Turn-key",
+      "body": "We offer complete workshops with instructors, materials, and curriculum all included. Students walk out with newfound confidence, having learned professional-grade tools with our continuously-optimized instructions, methods, and pedagogy."
+    },
+    "details": {
+      "heading": "Workshop Details",
+      "offered": "<strong>Workshops Offered:</strong> Robotics, AI, Mechanical Engineering",
+      "length": "<strong>Length:</strong> 3 hours",
+      "participants": "<strong>Participants:</strong> Up to ~60 per workshop (venue size determines capacity)",
+      "location": "<strong>Location:</strong> We can accommodate any location",
+      "venue": "<strong>Venue:</strong> Must include Wi-Fi, power outlets, tables, and chairs. larger spaces preferred",
+      "materials": "<strong>Materials:</strong> Included with all workshops",
+      "instructors": "<strong>Instructors:</strong> Experienced engineering professionals who are passionate about sharing their expertise.",
+      "schedule": "<strong>Schedule:</strong> We can work around your itentrary and have the capacity to host multiple or simultaneous sessions as needed"
+    },
+    "pricing": {
+      "heading": "Pricing",
+      "body": "The per participant cost is determined by factors such as the group size, the scheduling of consecutive workshop days, asset management, and the instructors provided. For a tailored quote that meets your specific needs, please get in touch with our team today. We’re here to help create the perfect engineering experience for you."
+    },
+    "presentations": {
+      "heading": "Presentation Events",
+      "lede": "We offer 1-hour interactive lecture-style presentations by industry experts.",
+      "topics": "Deep dives into: <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>Virtual Reality</li> <li>Artificial Intelligence</li> <li>Robotics and more</li> </ul>",
+      "body": "These sessions will spark innovation and expand your participants' understanding of the latest technological breakthroughs."
+    },
+    "contactBlurb": "Explore our engineering workshops and presentation events <br> schedule a virtual workshop demo today",
+    "letsChat": "Let's Chat"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | Hands-on Engineering Workshops",
+      "description": "Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
+    },
+    "ai": {
+      "title": "AI Workshop | STAGE ONE EDUCATION",
+      "description": "Explore hands-on learning in artificial intelligence with Stage One Education. Engage in interactive activities like building neural networks, creating AI-generated films, and discussing AI ethics. No prior experience needed—ideal for all ages and led by real engineers."
+    },
+    "robotics": {
+      "title": "Robotics Workshop | STAGE ONE EDUCATION",
+      "description": "Master drone flight control with Arduino & ESP32 at Stage One Education’s Robotics Drone Workshop. Enjoy hands-on electronics and coding—no experience needed!"
+    },
+    "mechanical": {
+      "title": "Mechanical Engineering Workshop | STAGE ONE EDUCATION",
+      "description": "Experience mechanical engineering fundamentals in this CAD & Rocket Workshop—build virtual rockets, explore 3D printing, and master design. No experience needed!"
+    },
+    "locations": {
+      "title": "Locations | STAGE ONE EDUCATION",
+      "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    },
+    "instructors": {
+      "title": "Instructors | STAGE ONE EDUCATION",
+      "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    },
+    "feedback": {
+      "title": "Feedback | STAGE ONE EDUCATION",
+      "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    },
+    "contact": {
+      "title": "Contact | STAGE ONE EDUCATION",
+      "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    },
+    "about": {
+      "title": "About | STAGE ONE EDUCATION",
+      "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    }
+  }
+}

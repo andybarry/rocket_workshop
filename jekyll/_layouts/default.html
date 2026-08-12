@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"{% if page.i18n %} data-i18n-page="{{ page.i18n_key }}"{% endif %}>
 
 <head>
 
@@ -39,7 +39,12 @@
     <link rel="stylesheet" href="css/animate.min.css" type="text/css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <link rel="stylesheet" href="css/creative.css" type="text/css">{% if page.i18n %}
+
+    <!-- Language switcher. Loads before paint so a stored non-English choice is
+         applied without a flash of English. Inert when English is active. -->
+    <link rel="stylesheet" href="css/i18n.css" type="text/css">
+    <script src="js/i18n.js"></script>{% endif %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

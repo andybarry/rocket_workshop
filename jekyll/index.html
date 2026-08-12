@@ -2,6 +2,8 @@
 layout: default
 title: "STAGE ONE EDUCATION | Hands-on Engineering Workshops"
 description: "Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
+i18n: true
+i18n_key: home
 ---
 <!-- Cursor-following 3D glow on light gray background (home only) -->
 <style>
@@ -483,6 +485,12 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
             function nextQuote() {
                 var quote = heroQuotes[quoteIndex];
+                // Translated quote text, when a non-English language is active.
+                // City and year in `meta` stay as authored.
+                var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+                if (translated && typeof translated[quoteIndex] === "string") {
+                    quote = { text: translated[quoteIndex], meta: quote.meta };
+                }
                 quoteIndex = (quoteIndex + 1) % heroQuotes.length;
                 return quote;
             }
@@ -543,6 +551,12 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
                 var textEl = $bubble.find(".home-room-hero__quote-text")[0];
                 if (!bubble || !textEl || $bubble.hasClass("home-room-hero__quote--oneline")) return;
 
+                // Chinese, Japanese and Korean are written without spaces, so the
+                // orphan check below sees a single "word" and widens every bubble
+                // to the full slot, past the edge of the visible area.
+                if (document.documentElement.lang !== "en" &&
+                    textEl.textContent.trim().split(/\s+/).filter(Boolean).length < 3) return;
+
                 var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
                 if (!parentWidth) return;
 
@@ -593,9 +607,19 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
                 }, firstSwapDelay);
             }
 
-            // Always two quotes: top-left and bottom-right, staggered fades
-            startSlot(0, displayMs);
-            startSlot(1, displayMs + displayMs / 2);
+            // Always two quotes: top-left and bottom-right, staggered fades.
+            // Held until the translation pass finishes so the first bubbles are
+            // already in the visitor's language.
+            function startQuoteBubbles() {
+                startSlot(0, displayMs);
+                startSlot(1, displayMs + displayMs / 2);
+            }
+
+            if (window.SOI18n) {
+                window.SOI18n.ready(startQuoteBubbles);
+            } else {
+                startQuoteBubbles();
+            }
         }
     });
 </script>
@@ -606,32 +630,32 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
     {% include navigation.html %}
 
-<section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA">
-    <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom">
+<section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
+    <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom" data-i18n-alt="home.hero.imageAlt">
     <div class="home-room-hero__fade" aria-hidden="true"></div>
     <div class="home-room-hero__quotes" aria-hidden="true">
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
     </div>
     <div class="home-room-hero__content">
-        <nav class="home-room-hero__workshops" aria-label="Workshop types">
-            <a class="home-room-hero__workshop-link" href="ai-workshop.html">AI</a>
-            <a class="home-room-hero__workshop-link" href="robotics-workshop.html">Robotics</a>
-            <a class="home-room-hero__workshop-link" href="rocket-workshop.html">Mechanical</a>
+        <nav class="home-room-hero__workshops" aria-label="Workshop types" data-i18n-aria-label="home.hero.navLabel">
+            <a class="home-room-hero__workshop-link" href="ai-workshop.html" data-i18n="home.hero.linkAi">AI</a>
+            <a class="home-room-hero__workshop-link" href="robotics-workshop.html" data-i18n="home.hero.linkRobotics">Robotics</a>
+            <a class="home-room-hero__workshop-link" href="rocket-workshop.html" data-i18n="home.hero.linkMechanical">Mechanical</a>
         </nav>
         <h1 class="home-room-hero__title">
-            <span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering Workshops</span>
-            <span class="home-room-hero__title-line home-room-hero__title-line--gray">Delivered to Groups Across the USA</span>
+            <span class="home-room-hero__title-line home-room-hero__title-line--orange" data-i18n="home.hero.title1">Hands-On Engineering Workshops</span>
+            <span class="home-room-hero__title-line home-room-hero__title-line--gray" data-i18n="home.hero.title2">Delivered to Groups Across the USA</span>
         </h1>
         <div class="home-room-hero__body">
-            <p>Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.</p>
-            <p>We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.</p>
+            <p data-i18n-html="home.hero.body1">Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.</p>
+            <p data-i18n-html="home.hero.body2">We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer" data-i18n-html="home.hero.ctaGuide">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>View Workshop Guide
             </a>
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer">
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer" data-i18n-html="home.hero.ctaPlan">
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan Your Workshop
             </a>
         </div>
@@ -642,7 +666,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     <div class="container" id="ai">
 
 <div class="our-workshops-header">
-    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100); font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;">Our workshops</h2>
+    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100); font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.workshopsHeading">Our workshops</h2>
     <div class="our-workshops-line"></div>
 </div>
 
@@ -652,13 +676,13 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         <a href="ai-workshop.html" class="workshop-main-button">
 
             <!-- Title Section -->
-            <h2 class="main-button-title-text">Artificial Intelligence</h2>
+            <h2 class="main-button-title-text" data-i18n="home.cardAi.title">Artificial Intelligence</h2>
             <br/>
 
             <!-- Image Section -->
             <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
                 <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
-                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
                 </div>
 
                 <!-- Container to hold both the cloud and the image -->
@@ -686,11 +710,11 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
             <!-- Text Section with h3 Title added -->
             <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Discover AI Neural Networks</h3>
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Use the latest AI models:
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n-html="home.cardAi.line2">Use the latest AI models:
                     <ul style="list-style: none; padding-left: 0; margin: 0;">
                         <li style="margin-bottom: 10px;"><em>text, image, and music</em></li>                    </ul></h3>
-                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 10px;">AI ethics discussion</h3>    
+                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 10px;" data-i18n="home.cardAi.line3">AI ethics discussion</h3>    
 
                 </ul>
             </div>
@@ -780,13 +804,13 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 95px; bottom: 145px; background: white; border-radius: 8px; z-index: 0;"></div>
 
         <!-- Title Section -->
-        <h2 class="main-button-title-text">Robotics<br>Drone</h2>
+        <h2 class="main-button-title-text" data-i18n-html="home.cardRobotics.title">Robotics<br>Drone</h2>
         <br/>
 
         <!-- Image Section -->
         <div style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
             <img src="img/drone-circuit.png"
-                 alt="Drone Circuit"
+                 alt="Drone Circuit" data-i18n-alt="home.cardRobotics.imageAlt"
                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
         </div>
 
@@ -800,9 +824,9 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <!-- Text Section with h3 Title added -->
 <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Fly mini drones</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Build a circuit for drone control</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Program for autonomous flight</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;" data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
 </div>
 
     </a>
@@ -816,7 +840,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
     <a href="rocket-workshop.html" class="workshop-main-button">
 
         <!-- Title Section -->
-        <h2 class="main-button-title-text">Mechanical Engineering</h2>
+        <h2 class="main-button-title-text" data-i18n="home.cardMechanical.title">Mechanical Engineering</h2>
         <br/>
 
              <!-- Video Section -->
@@ -843,9 +867,9 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 <!-- Text Section with h3 Title added -->
 <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Use professional CAD software</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Design a multi-part model rocket</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Explore 3D printing</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;" data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
 </div>
 
         
@@ -860,7 +884,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 
 <hr class="main-page-hr" style="margin-top: 8px;"/>
-<span class="workshop-title" style="cursor: default;">About</span>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.aboutHeading">About</span>
 <hr class="main-page-hr" />
 
 <style>
@@ -951,41 +975,41 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
         <!-- Hands-on Box -->
         <div class="about-box"> 
             <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
-            <h3 class="about-title-text">hands-on</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
+            <h3 class="about-title-text" data-i18n="home.about.handsOn.title">hands-on</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.handsOn.body">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
         </div>
         
         
         <!-- Turn-key Box -->
         <div class="about-box">
             <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
-            <h3 class="about-title-text">turn-key</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
+            <h3 class="about-title-text" data-i18n="home.about.turnKey.title">turn-key</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.turnKey.body">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
         </div>
 
         <!-- Curriculum Box -->
         <div class="about-box">
             <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text">curriculum</h3>
+            <h3 class="about-title-text" data-i18n="home.about.curriculum.title">curriculum</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
-                <li class="about-body-text">Designed and instructed by PhDs, engineers, and educators.</li>
-                <li class="about-body-text">Continuously updated, no year is the same.</li>
+                <li class="about-body-text" data-i18n="home.about.curriculum.body1">Designed and instructed by PhDs, engineers, and educators.</li>
+                <li class="about-body-text" data-i18n="home.about.curriculum.body2">Continuously updated, no year is the same.</li>
             </ul>
         </div>
 
         <!-- Experienced Box -->
         <div class="about-box">
             <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text">experienced</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;">Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States.</h4>
+            <h3 class="about-title-text" data-i18n="home.about.experienced.title">experienced</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.experienced.body">Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States.</h4>
         </div>
 
         <!-- Safe & Exciting Box -->
         <div class="about-box">
             <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text">safe</h3>
+            <h3 class="about-title-text" data-i18n="home.about.safe.title">safe</h3>
             <ul style="padding: 0; list-style: none; text-align: center;">
-                <li class="about-body-text">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
+                <li class="about-body-text" data-i18n="home.about.safe.body">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
             </ul>
         </div>
 
@@ -993,7 +1017,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 
 <hr class="main-page-hr" style="margin-top: 20px;"/>
-<span class="workshop-title" style="cursor: default;">Feedback</span>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.feedbackHeading">Feedback</span>
 <hr class="main-page-hr" />
 
 <!-- New Image Section with Continuous Scroll for Feedback -->
@@ -1145,7 +1169,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 <div style="display: flex; justify-content: center; padding: 0px; margin-top: 20px;">
     <ul style="list-style: none; padding: 0; margin: 0;">
         <li>
-            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight">
+            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight" data-i18n="home.moreFeedback">
                More Feedback
             </a>
         </li>
@@ -1154,7 +1178,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
 
 <hr class="main-page-hr" style="margin-top: 50px"/>
-<span class="workshop-title" style="cursor: default;">Contact</span>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.contactHeading">Contact</span>
 <hr class="main-page-hr" />
 
 <section id="contact" class="less-padding" style="padding-top: 20px;">
@@ -1198,7 +1222,7 @@ description: "Hands-on engineering workshops nationwide since 2013, featuring AI
 
   <!-- Let's chat Button -->
   <style>.lets-chat-btn.nav-button-stageone:hover::after { display: none !important; }</style>
-  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn">
+  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn" data-i18n="common.letsChat">
   Let's chat
 </a>
 </section>

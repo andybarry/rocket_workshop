@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-page="home">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>STAGE ONE EDUCATION | Hands-on Engineering Workshops</title>
+
+    <meta 
+    name= "description" 
+    content="Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <!-- Language switcher. Loads before paint so a stored non-English choice is
+         applied without a flash of English. Inert when English is active. -->
+    <link rel="stylesheet" href="css/i18n.css" type="text/css">
+    <script src="js/i18n.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<!-- Cursor-following 3D glow on light gray background (home only) -->
+<style>
+  /* Grid on light gray (home only) */
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* All content max 80% screen width */
+  body.cursor-glow-page #tab-section .container,
+  body.cursor-glow-page .about-section,
+  body.cursor-glow-page .feedback-scroll-wrapper,
+  body.cursor-glow-page #contact .container,
+  body.cursor-glow-page .main-page-hr {
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+  }
+  body.cursor-glow-page .feedback-scroll-wrapper {
+    width: 80vw !important;
+  }
+  /* Mobile: content width with side margins (match workshop pages) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page #tab-section,
+    body.cursor-glow-page #tab-section .container,
+    body.cursor-glow-page .tab-section,
+    body.cursor-glow-page .about-section,
+    body.cursor-glow-page #contact,
+    body.cursor-glow-page #contact .container {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .workshop-main-button {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .workshop-main-button video {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .feedback-scroll-wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .about-section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    body.cursor-glow-page .main-page-hr {
+      max-width: 100%;
+    }
+  }
+
+  /* Full-bleed room image header (below nav, above Our workshops) */
+  .home-room-hero {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: 380px;
+    overflow: hidden;
+    background-color: #fafafa;
+  }
+  .home-room-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .home-room-hero__fade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 46%, transparent 74%);
+    mask-image: linear-gradient(to right, #000 0%, #000 46%, transparent 74%);
+  }
+  .home-room-hero__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 46%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 28px 36px 28px 88px;
+    box-sizing: border-box;
+  }
+  .home-room-hero__workshops {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0 0 14px;
+  }
+  .home-room-hero__workshop-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #434343;
+    text-decoration: none;
+    padding: 0 14px;
+    border: none;
+    background: none;
+    transition: color .25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .home-room-hero__workshop-link:first-child {
+    padding-left: 0;
+  }
+  .home-room-hero__workshop-link + .home-room-hero__workshop-link {
+    border-left: 1px solid rgba(67, 67, 67, 0.28);
+  }
+  .home-room-hero__workshop-link:hover,
+  .home-room-hero__workshop-link:focus {
+    color: #f05f40;
+    text-decoration: none;
+    outline: none;
+  }
+  .home-room-hero__title {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .home-room-hero__title-line {
+    display: block;
+    white-space: nowrap;
+  }
+  .home-room-hero__title-line--orange {
+    color: #f05f40;
+  }
+  .home-room-hero__title-line--gray {
+    color: #434343;
+  }
+  .home-room-hero__body {
+    margin-top: 14px;
+    max-width: 520px;
+  }
+  .home-room-hero__body p {
+    margin: 0 0 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+    line-height: 1.45;
+    font-weight: 400;
+    color: #434343;
+    text-wrap: pretty;
+  }
+  .home-room-hero__body p:last-child {
+    margin-bottom: 0;
+  }
+  .home-room-hero__actions {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-room-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f05f40;
+    background-color: #fff;
+    border: 2px solid #f05f40;
+    border-radius: 50px;
+    padding: 8px 18px;
+    text-decoration: none;
+    transition: all .35s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .home-room-hero__cta .fa {
+    margin-right: 8px;
+    font-size: 13px;
+  }
+  .home-room-hero__cta:hover,
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    color: #fff;
+    background-color: #f05f40;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28);
+  }
+  /* Solid primary style for Plan Your Workshop */
+  .home-room-hero__cta--solid {
+    color: #fff;
+    background-color: #f05f40;
+    border-color: #f05f40;
+  }
+  .home-room-hero__cta--solid:hover,
+  .home-room-hero__cta--solid:focus,
+  .home-room-hero__cta--solid:active {
+    color: #f05f40;
+    background-color: #fff;
+    border-color: #f05f40;
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.22);
+  }
+  /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    outline: none;
+  }
+  .home-room-hero__cta:focus-visible {
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
+  }
+  .home-room-hero__quotes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 48%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 28px 28px 14px 12px;
+    box-sizing: border-box;
+  }
+  .home-room-hero__quote-slot {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+  }
+  .home-room-hero__quote {
+    position: absolute;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    padding: 14px 18px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    color: #464444;
+    font-family: 'Roboto', sans-serif;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    box-sizing: border-box;
+  }
+  /* Short one-line quotes — box grows to fit the text */
+  .home-room-hero__quote--oneline {
+    width: max-content;
+    max-width: 100%;
+  }
+  .home-room-hero__quote--oneline .home-room-hero__quote-text {
+    white-space: nowrap;
+  }
+  /* Narrow + tall — best for short quotes */
+  .home-room-hero__quote--narrow {
+    width: min(190px, 100%);
+  }
+  /* Medium */
+  .home-room-hero__quote--medium {
+    width: min(260px, 100%);
+  }
+  /* Long + wide — best for longer quotes */
+  .home-room-hero__quote--wide {
+    width: min(380px, 100%);
+  }
+  .home-room-hero__quote-slot--tl .home-room-hero__quote {
+    top: 0;
+    left: 48px;
+  }
+  .home-room-hero__quote-slot--br .home-room-hero__quote {
+    right: 0;
+    bottom: 0;
+  }
+  /* Alternate placement within a section so successive quotes don't look identical */
+  .home-room-hero__quote--shift {
+    transform: translate(-5px, -10px);
+  }
+  .home-room-hero__quote.is-visible {
+    opacity: 1;
+  }
+  .home-room-hero__quote.is-leaving {
+    opacity: 0;
+  }
+  .home-room-hero__quote-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .home-room-hero__quote-meta {
+    display: block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #f05f40;
+    letter-spacing: 0.02em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .home-room-hero {
+      height: 400px;
+    }
+    .home-room-hero__content {
+      width: 52%;
+      padding: 28px 28px 28px 64px;
+    }
+    .home-room-hero__title {
+      font-size: 1.2rem;
+    }
+    .home-room-hero__body p {
+      font-size: 1.05rem;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 52%, transparent 80%);
+      mask-image: linear-gradient(to right, #000 0%, #000 52%, transparent 80%);
+    }
+    .home-room-hero__quotes {
+      left: 54%;
+      padding: 24px 18px 12px 10px;
+    }
+    .home-room-hero__quote {
+      padding: 12px 14px;
+    }
+    .home-room-hero__quote--narrow {
+      width: min(160px, 100%);
+    }
+    .home-room-hero__quote--medium {
+      width: min(220px, 100%);
+    }
+    .home-room-hero__quote--wide {
+      width: min(280px, 100%);
+    }
+    .home-room-hero__quote-text {
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 767px) {
+    .home-room-hero {
+      height: 480px;
+      width: calc(100% + 30px);
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+    .home-room-hero__content {
+      width: 88%;
+      padding: 24px 20px 24px 36px;
+    }
+    .home-room-hero__title {
+      font-size: 1.1rem;
+    }
+    .home-room-hero__body {
+      margin-top: 12px;
+    }
+    .home-room-hero__body p {
+      font-size: 0.98rem;
+      margin-bottom: 10px;
+    }
+    .home-room-hero__actions {
+      margin-top: 14px;
+      gap: 8px;
+    }
+    .home-room-hero__cta {
+      font-size: 11px;
+      padding: 7px 16px;
+    }
+    .home-room-hero__cta .fa {
+      margin-right: 7px;
+      font-size: 12px;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 78%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 0%, #000 78%, transparent 100%);
+    }
+    .home-room-hero__quotes {
+      display: none;
+    }
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let posters = [
+        'img/poster1.jpg',
+        'img/poster2.jpg',
+        'img/poster3.jpg',
+        'img/poster4.jpg',
+        'img/poster5.jpg',
+        'img/poster6.jpg',
+        'img/poster7.jpg',
+    ];
+
+    // Preload the images
+    posters.forEach(function (src) {
+        let img = new Image();
+        img.src = src;
+    });
+
+    $(document).ready(function () {
+        let currentIndex = 0;
+
+        setInterval(function () {
+            // Fade out the current image
+            $("#cyclingPoster").css("opacity", "0");
+
+            setTimeout(function () {
+                // Switch to the next image
+                currentIndex = (currentIndex + 1) % posters.length;
+                $("#cyclingPoster").attr("src", posters[currentIndex]);
+
+                // Fade in the new image
+                $("#cyclingPoster").css("opacity", "1");
+            }, 1000); // 1s delay matches the transition duration in the CSS
+        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
+
+        // Floating feedback quote bubbles over the hero image
+        var heroQuotes = [
+            { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
+            { text: "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.", meta: "New Haven, CT • 2026" },
+            { text: "This was easily the best so far", meta: "Ann Arbor, MI • 2026" },
+            { text: "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience", meta: "New Haven, CT • 2026" },
+            { text: "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)", meta: "Los Angeles, CA • 2026" },
+            { text: "That was so much fun and I really enjoyed the freedom but also learning", meta: "Houston, TX • 2026" },
+            { text: "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI", meta: "Houston, TX • 2026" },
+            { text: "I think it was really well planned and the activities were very enjoyable and fun.", meta: "Orlando, FL • 2026" },
+            { text: "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future", meta: "Ann Arbor, MI • 2026" },
+            { text: "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.", meta: "Atlanta, GA • 2026" },
+            { text: "I learned much about the intricacies of AI generation", meta: "Atlanta, GA • 2026" },
+            { text: "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.", meta: "Ann Arbor, MI • 2026" },
+            { text: "I really loved the events you made. I also loved how much knowledge you had.", meta: "Atlanta, GA • 2026" },
+            { text: "Loved this instructor, she is very interactive and a good listener and provides great insight", meta: "New Haven, CT • 2026" },
+            { text: "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.", meta: "Atlanta, GA • 2026" },
+            { text: "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.", meta: "Ann Arbor, MI • 2026" },
+            { text: "This was the best workshop because it was super interactive and very hands on", meta: "Houston, TX • 2026" },
+            { text: "This was super fun and it should definitely be taught next time.", meta: "New Haven, CT • 2026" },
+            { text: "I’ve done three of these workshops and each one is better than the next. Wonderful program!", meta: "Berkeley, CA • 2026" },
+            { text: "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D", meta: "Atlanta, GA • 2026" }
+        ];
+
+        var $quotesLayer = $(".home-room-hero__quotes");
+        if ($quotesLayer.length) {
+            var quoteIndex = 0;
+            var $slots = [
+                $quotesLayer.find(".home-room-hero__quote-slot--tl"),
+                $quotesLayer.find(".home-room-hero__quote-slot--br")
+            ];
+            var slotShiftNext = [false, false];
+            var fadeMs = 1200;
+            var displayMs = 10000;
+
+            function nextQuote() {
+                var quote = heroQuotes[quoteIndex];
+                quoteIndex = (quoteIndex + 1) % heroQuotes.length;
+                return quote;
+            }
+
+            // Pick a shape that fits the quote so text/location aren't cut off
+            function sizeForQuote(quote) {
+                var len = (quote.text || "").length;
+                if (len <= 40) return "oneline";
+                if (len < 90) return "narrow";
+                if (len < 160) return "medium";
+                return "wide";
+            }
+
+            function createBubble(quote, useShift) {
+                var $bubble = $("<div class='home-room-hero__quote'></div>");
+                $bubble.addClass("home-room-hero__quote--" + sizeForQuote(quote));
+                if (useShift) {
+                    $bubble.addClass("home-room-hero__quote--shift");
+                }
+                $bubble.append($("<p class='home-room-hero__quote-text'></p>").text(quote.text));
+                $bubble.append($("<span class='home-room-hero__quote-meta'></span>").text(quote.meta));
+                return $bubble;
+            }
+
+            // Count words on the last visual line of the quote text
+            function lastLineWordCount(textEl) {
+                var original = textEl.textContent;
+                var words = original.trim().split(/\s+/).filter(Boolean);
+                if (words.length <= 2) return words.length;
+
+                textEl.innerHTML = words.map(function (word) {
+                    return "<span class='home-room-hero__quote-word'>" + $("<div>").text(word).html() + "</span>";
+                }).join(" ");
+
+                var spans = textEl.querySelectorAll(".home-room-hero__quote-word");
+                if (!spans.length) {
+                    textEl.textContent = original;
+                    return words.length;
+                }
+
+                var lastTop = spans[spans.length - 1].offsetTop;
+                var count = 0;
+                for (var i = spans.length - 1; i >= 0; i--) {
+                    if (Math.abs(spans[i].offsetTop - lastTop) <= 2) {
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+
+                textEl.textContent = original;
+                return count;
+            }
+
+            // Widen the box until the last line has 3+ words (no 1–2 word orphans)
+            function expandToAvoidOrphans($bubble) {
+                var bubble = $bubble[0];
+                var textEl = $bubble.find(".home-room-hero__quote-text")[0];
+                if (!bubble || !textEl || $bubble.hasClass("home-room-hero__quote--oneline")) return;
+
+                var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
+                if (!parentWidth) return;
+
+                var width = Math.ceil(bubble.getBoundingClientRect().width);
+                var step = 12;
+                var guard = 40;
+
+                while (guard-- > 0) {
+                    var orphanCount = lastLineWordCount(textEl);
+                    if (orphanCount === 0 || orphanCount >= 3) break;
+                    if (width >= parentWidth) break;
+
+                    width = Math.min(parentWidth, width + step);
+                    bubble.style.width = width + "px";
+                    bubble.style.maxWidth = "100%";
+                }
+            }
+
+            function showBubble($slot, $bubble) {
+                $slot.append($bubble);
+                $bubble[0].offsetWidth;
+                expandToAvoidOrphans($bubble);
+                $bubble.addClass("is-visible");
+            }
+
+            function swapBubble(slotIndex) {
+                var $slot = $slots[slotIndex];
+                var $old = $slot.find(".home-room-hero__quote.is-visible").first();
+                var useShift = slotShiftNext[slotIndex];
+                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
+                var $next = createBubble(nextQuote(), useShift);
+                showBubble($slot, $next);
+                if ($old.length) {
+                    $old.removeClass("is-visible").addClass("is-leaving");
+                    setTimeout(function () {
+                        $old.remove();
+                    }, fadeMs);
+                }
+            }
+
+            function startSlot(slotIndex, firstSwapDelay) {
+                var useShift = slotShiftNext[slotIndex];
+                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
+                showBubble($slots[slotIndex], createBubble(nextQuote(), useShift));
+                setTimeout(function cycle() {
+                    swapBubble(slotIndex);
+                    setTimeout(cycle, displayMs);
+                }, firstSwapDelay);
+            }
+
+            // Always two quotes: top-left and bottom-right, staggered fades
+            startSlot(0, displayMs);
+            startSlot(1, displayMs + displayMs / 2);
+        }
+    });
+</script>
+
+<script src="cad-tutorial/video_play_at_scroll.js"></script>
+
+<body id="page-top" class="cursor-glow-page" style="margin-top: 56px">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #f05f40; min-height: 2px;">
+    <div class="container-fluid">
+        <!-- Navbar Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
+            </button>
+            <a href="index.html">
+                <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
+                    style="width: 170px; height: auto; margin-top: 5px; margin-left: 73px; margin-right: 20px; margin-bottom: 5px; opacity: 1;">
+            </a>
+        </div>
+
+        <!-- Navigation Links and Inline Logo -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                
+                
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
+                        Workshops <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                    </ul>
+                </li>
+                <!-- Mobile: three workshop links in main list (no nested dropdown) -->
+                <li class="nav-mobile-workshop-item">
+                    <a href="ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                </li>
+                
+                <li>
+                    <a href="locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="instructors.html" class="nav-button-stageone" data-i18n="nav.instructors">
+                        Instructors
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" class="nav-button-stageone" data-i18n="nav.contact">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                        About
+                    </a>
+                </li>
+                <!-- "Request a demo" button -->
+                <li class="nav-request-demo">
+                    <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" class="nav-button-stageone-highlight" data-i18n="nav.requestDemo">
+                        Request a demo
+                    </a>
+                </li>
+                <!-- Language switcher. The option list is built at runtime by js/i18n.js from
+     its LANGUAGES array, so the language set lives in exactly one place. -->
+<li class="nav-language dropdown">
+    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA">
+    <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom">
+    <div class="home-room-hero__fade" aria-hidden="true"></div>
+    <div class="home-room-hero__quotes" aria-hidden="true">
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
+    </div>
+    <div class="home-room-hero__content">
+        <nav class="home-room-hero__workshops" aria-label="Workshop types">
+            <a class="home-room-hero__workshop-link" href="ai-workshop.html">AI</a>
+            <a class="home-room-hero__workshop-link" href="robotics-workshop.html">Robotics</a>
+            <a class="home-room-hero__workshop-link" href="rocket-workshop.html">Mechanical</a>
+        </nav>
+        <h1 class="home-room-hero__title">
+            <span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering Workshops</span>
+            <span class="home-room-hero__title-line home-room-hero__title-line--gray">Delivered to Groups Across the USA</span>
+        </h1>
+        <div class="home-room-hero__body">
+            <p>Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.</p>
+            <p>We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.</p>
+        </div>
+        <div class="home-room-hero__actions">
+            <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>View Workshop Guide
+            </a>
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href=""https://calendly.com/stageoneeducation/stage-one-education-workshop-demo"" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-calendar" aria-hidden="true"></i>Plan Your Workshop
+            </a>
+        </div>
+    </div>
+</section>
+            
+<section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
+    <div class="container" id="ai">
+
+<div class="our-workshops-header">
+    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100); font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;">Our workshops</h2>
+    <div class="our-workshops-line"></div>
+</div>
+
+<!-- First Workshop Box -->  
+<div class="row align-items-stretch">
+    <div class="col-sm-4 text-center">
+        <a href="ai-workshop.html" class="workshop-main-button">
+
+            <!-- Title Section -->
+            <h2 class="main-button-title-text">Artificial Intelligence</h2>
+            <br/>
+
+            <!-- Image Section -->
+            <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+
+                <!-- Container to hold both the cloud and the image -->
+                <div
+                  style="
+                    position: absolute;
+                    top: 28%;
+                    left: 40%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                  "
+                >
+                  <!-- 'Cloud' element: a white circle at 50% opacity, with some blur to soften edges -->
+                  <div
+                    style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+
+                  <!-- Rocket image on top of the cloud -->
+                  <img
+                    src="img/nn-nobg.png"
+                    alt="Rocket Image"
+                    style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;"
+                  />
+                </div>
+            </div>
+
+            <!-- Text Section with h3 Title added -->
+            <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Discover AI Neural Networks</h3>
+                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Use the latest AI models:
+                    <ul style="list-style: none; padding-left: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;"><em>text, image, and music</em></li>                    </ul></h3>
+                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 10px;">AI ethics discussion</h3>    
+
+                </ul>
+            </div>
+
+        </a>
+    </div>
+
+
+
+<!-- Second Workshop Box -->
+<style>
+    @keyframes droneCodeScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .drone-code-scroll-box {
+        overflow: hidden;
+    }
+    .drone-code-scroll-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('img/drone-code.png');
+        background-size: 200px auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: droneCodeScrollDown 50s linear infinite;
+        opacity: 0.5;
+        z-index: 0;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    /* Drone flight animations - 4 set paths */
+    @keyframes dronePath1 {
+        0% { transform: translate(-400%, 400%); }
+        100% { transform: translate(400%, -400%); }
+    }
+    @keyframes dronePath2 {
+        0% { transform: translate(-400%, -400%); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath3 {
+        0% { transform: translate(-400%, 0); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath4 {
+        0% { transform: translate(0, -600%); }
+        100% { transform: translate(-400%, 400%); }
+    }
+    @keyframes droneContainerFadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .drone-flight-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 95px;
+        bottom: 145px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        animation: droneContainerFadeIn 0.3s ease-out 2.5s forwards;
+    }
+    .drone-flight-container img {
+        position: absolute;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+    }
+    .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
+    .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
+    .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
+    .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
+</style>
+<div class="col-sm-4 text-center">
+    <a href="robotics-workshop.html" class="workshop-main-button" style="position: relative;">
+
+        <!-- White square behind image (lowest z) with scrolling drone-code.png -->
+        <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 95px; bottom: 145px; background: white; border-radius: 8px; z-index: 0;"></div>
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text">Robotics<br>Drone</h2>
+        <br/>
+
+        <!-- Image Section -->
+        <div style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
+            <img src="img/drone-circuit.png"
+                 alt="Drone Circuit"
+                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
+        </div>
+
+        <!-- Drone flights across the box -->
+        <div class="drone-flight-container">
+            <img src="img/drone.png" alt="" class="drone-path1">
+            <img src="img/drone.png" alt="" class="drone-path2">
+            <img src="img/drone.png" alt="" class="drone-path3">
+            <img src="img/drone.png" alt="" class="drone-path4">
+        </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Fly mini drones</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Build a circuit for drone control</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Program for autonomous flight</h3>
+</div>
+
+    </a>
+</div>
+
+
+
+
+<!-- Third Workshop Box -->
+<div class="col-sm-4 text-center">
+    <a href="rocket-workshop.html" class="workshop-main-button">
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text">Mechanical Engineering</h2>
+        <br/>
+
+             <!-- Video Section -->
+             <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <video autoplay loop muted playsinline style="width: 250px; height: 200px; object-fit: cover; border-radius: 10px;">
+                    <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                </video>
+
+                <img src="img/rocket-assem-iso.png"
+            alt="Rocket Image"
+            style="
+               position: absolute;
+               top: calc(50% - 7px);
+               left: 75%;
+               transform: translate(-50%, -50%);
+               pointer-events: none;
+               width: 200px;
+               height: auto;
+               object-fit: contain;
+            ">
+                
+            </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;">Use professional CAD software</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Design a multi-part model rocket</h3>
+    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;">Explore 3D printing</h3>
+</div>
+
+        
+    </a>
+</div>
+</div>
+
+    </div>
+
+
+</section>
+
+
+<hr class="main-page-hr" style="margin-top: 8px;"/>
+<span class="workshop-title" style="cursor: default;">About</span>
+<hr class="main-page-hr" />
+
+<style>
+  .about-box {
+    cursor: default;
+    flex: 1 1 calc(20% - 20px);
+    max-width: 250px;
+    padding: 24px 16px;
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+  .about-box:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  .about-box:hover i.fa {
+    transform: scale(1.12);
+    transition: transform 0.2s ease;
+  }
+  .about-box i.fa {
+    transition: transform 0.2s ease;
+  }
+  /* Desktop: 5 boxes always on one line */
+  @media (min-width: 768px) {
+    .about-section {
+      padding-left: 60px;
+      padding-right: 60px;
+      box-sizing: border-box;
+      flex-wrap: nowrap !important;
+    }
+    .about-box {
+      flex: 0 0 calc(20% - 16px) !important;
+      min-width: 0;
+    }
+  }
+  /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
+  @media (max-width: 767px) {
+    .about-section {
+      max-width: 100%;
+      width: 100%;
+      padding-left: 40px;
+      padding-right: 40px;
+      gap: 10px !important; /* override inline gap so 2 boxes fit per row */
+      box-sizing: border-box;
+    }
+    .about-box {
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+    .about-box:first-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 0;
+      padding: 20px 12px;
+    }
+    .about-box:not(:first-child) {
+      flex: 0 0 calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      min-width: 0;
+      padding: 20px 12px;
+    }
+    .about-box .about-title-text {
+      font-size: 16px;
+    }
+    .about-box .about-body-text,
+    .about-box h4,
+    .about-box li {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .about-box .fa-4x {
+      font-size: 2em;
+    }
+    .about-box i.fa {
+      visibility: visible !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+    <div class="container about-section" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px; position: relative; z-index: 1;">
+        
+        <!-- Hands-on Box -->
+        <div class="about-box"> 
+            <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
+            <h3 class="about-title-text">hands-on</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
+        </div>
+        
+        
+        <!-- Turn-key Box -->
+        <div class="about-box">
+            <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
+            <h3 class="about-title-text">turn-key</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
+        </div>
+
+        <!-- Curriculum Box -->
+        <div class="about-box">
+            <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text">curriculum</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li class="about-body-text">Designed and instructed by PhDs, engineers, and educators.</li>
+                <li class="about-body-text">Continuously updated, no year is the same.</li>
+            </ul>
+        </div>
+
+        <!-- Experienced Box -->
+        <div class="about-box">
+            <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text">experienced</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;">Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States.</h4>
+        </div>
+
+        <!-- Safe & Exciting Box -->
+        <div class="about-box">
+            <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text">safe</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li class="about-body-text">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+<hr class="main-page-hr" style="margin-top: 20px;"/>
+<span class="workshop-title" style="cursor: default;">Feedback</span>
+<hr class="main-page-hr" />
+
+<!-- New Image Section with Continuous Scroll for Feedback -->
+<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; white-space: nowrap; position: relative;">
+    <div class="scroll-container">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
+
+        <!-- Duplicate images for smooth continuous scroll effect -->
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
+    </div>
+</div>
+
+<!-- Keyframes for continuous scroll without fade effect -->
+<style>
+    .feedback-scroll-wrapper {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        width: 80vw;
+        max-width: 80vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        box-sizing: border-box;
+    }
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    /* Container for smooth scroll */
+    .scroll-container {
+        display: inline-block;
+        animation: scroll 45s linear infinite;
+        white-space: nowrap;
+        cursor: grab; /* Change cursor to indicate draggable area */
+        overflow: hidden; /* Hide scrollbar */
+    }
+    
+    /* Apply size and spacing to each image */
+    .scroll-image {
+        display: inline-block;
+        width: 400px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 40px;
+        transition: box-shadow 0.2s ease;
+    }
+    .scroll-image:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+    }
+    
+    /* Cursor changes when dragging */
+    .scroll-container.dragging {
+        cursor: grabbing !important;
+    }
+    .scroll-container.dragging .scroll-image {
+        cursor: grabbing !important;
+    }
+    
+    /* Hide scrollbar */
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+</style>
+
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        // Pause animation and capture current translated position
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        // Calculate where in the animation cycle we are and resume from there
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 45;
+        var offset = fraction * duration;
+        // Restart animation from the current position
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight; // force reflow
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
+
+
+
+
+<!-- Centering the Feedback box below the images -->
+<div style="display: flex; justify-content: center; padding: 0px; margin-top: 20px;">
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        <li>
+            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight">
+               More Feedback
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<hr class="main-page-hr" style="margin-top: 50px"/>
+<span class="workshop-title" style="cursor: default;">Contact</span>
+<hr class="main-page-hr" />
+
+<section id="contact" class="less-padding" style="padding-top: 20px;">
+    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+       
+        <style>
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+    
+                50% {
+                    transform: scale(1.2);
+                }
+    
+                100% {
+                    transform: scale(1);
+                }
+            }
+        </style>
+        
+        
+        <!-- Email Section with Pulsing Heartbeat Effect -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+
+
+                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40; cursor: default;">
+                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
+                            style="color: #f05f40; animation: pulse 2.5s infinite; cursor: default;"></i>
+                    </a>
+                </div>
+
+        <!-- Email Link on its own line -->
+        <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
+            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none; cursor: default;">
+                workshops@stageoneducation.com
+            </a>
+        </p>
+
+    <br>
+
+  <!-- Let's chat Button -->
+  <style>.lets-chat-btn.nav-button-stageone:hover::after { display: none !important; }</style>
+  <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn">
+  Let's chat
+</a>
+</section>
+
+<!-- _includes/copyright.html -->
+<footer style="text-align: center; margin-top: 30px;">
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+
+<span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+{
+  "_readme": "Spanish (neutral Latin American). Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI/IA, CAD, MIT, Wi-Fi, STEM) follow the glossary. HTML tags inside values must be preserved exactly. Nav and button strings are kept short so they do not wrap or clip.",
+
+  "nav": {
+    "toggle": "Abrir navegación",
+    "menu": "Menú",
+    "workshops": "Talleres <span class=\"caret\"></span>",
+    "ai": "Inteligencia Artificial",
+    "robotics": "Robótica y Drones",
+    "mechanical": "Ingeniería Mecánica",
+    "home": "Inicio",
+    "locations": "Sedes",
+    "instructors": "Instructores",
+    "feedback": "Opiniones",
+    "contact": "Contacto",
+    "about": "Nosotros",
+    "requestDemo": "Solicitar demo"
+  },
+
+  "common": {
+    "letsChat": "Hablemos",
+    "contact": "Contacto",
+    "feedbackSurvey": "Encuesta de opinión",
+    "overview": "Descripción",
+    "testimonials": "Opiniones",
+    "timeline": "Programa",
+    "workshopSubdata": "3 a 3.5 horas | Todas las edades | Sin experiencia previa"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "Talleres prácticos de ingeniería en todo Estados Unidos",
+      "imageAlt": "Aula del taller",
+      "navLabel": "Tipos de taller",
+      "linkAi": "IA",
+      "linkRobotics": "Robótica",
+      "linkMechanical": "Mecánica",
+      "title1": "Talleres Prácticos de Ingeniería",
+      "title2": "Para Grupos en Todo Estados Unidos",
+      "body1": "Dirigidos por ingenieros, nuestros talleres de tres horas ponen a los estudiantes a <strong>construir, programar, diseñar y probar</strong> con experiencias prácticas para todos&nbsp;los&nbsp;niveles.",
+      "body2": "Nosotros llevamos los <strong>instructores, el plan de estudios, el equipo, los materiales y todo el montaje</strong> a escuelas, hoteles, campus y sedes de todo el país, para que la ingeniería práctica sea <strong>fácil de sumar a cualquier programa&nbsp;o&nbsp;itinerario</strong>.",
+      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Ver guía de talleres",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organiza tu taller"
+    },
+    "workshopsHeading": "Nuestros talleres",
+    "cardAi": {
+      "title": "Inteligencia Artificial",
+      "posterAlt": "Carteles de cine creados por estudiantes con IA",
+      "line1": "Descubre las redes neuronales",
+      "line2": "Usa los últimos modelos de IA: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>texto, imagen y música</em></li> </ul>",
+      "line3": "Debate sobre ética de la IA"
+    },
+    "cardRobotics": {
+      "title": "Robótica<br>y Drones",
+      "imageAlt": "Circuito del dron",
+      "line1": "Vuela minidrones",
+      "line2": "Arma un circuito para controlar el dron",
+      "line3": "Programa vuelos autónomos"
+    },
+    "cardMechanical": {
+      "title": "Ingeniería Mecánica",
+      "line1": "Usa software CAD profesional",
+      "line2": "Diseña un cohete de varias piezas",
+      "line3": "Descubre la impresión 3D"
+    },
+    "aboutHeading": "Nosotros",
+    "about": {
+      "handsOn": {
+        "title": "práctico",
+        "body": "Haz ingeniería desde el primer minuto, sin experiencia previa, para todas las edades y niveles."
+      },
+      "turnKey": {
+        "title": "llave en mano",
+        "body": "Talleres de ingeniería todo incluido que se integran y escalan sin fricción en cualquier programa."
+      },
+      "curriculum": {
+        "title": "programa",
+        "body1": "Diseñado e impartido por doctores, ingenieros y educadores.",
+        "body2": "Se actualiza siempre: ningún año es igual."
+      },
+      "experienced": {
+        "title": "experiencia",
+        "body": "Desde 2013, Stage One Education ha llevado sus talleres a decenas de miles de participantes en todo Estados Unidos."
+      },
+      "safe": {
+        "title": "seguro",
+        "body": "Los cohetes son siempre virtuales, toda la electrónica es de bajo voltaje y entregamos gafas de seguridad."
+      }
+    },
+    "feedbackHeading": "Opiniones",
+    "moreFeedback": "Más opiniones",
+    "contactHeading": "Contacto",
+    "heroQuotes": [
+      "Es, de lejos, lo más que he aprendido en una clase de esta duración. La forma en que está estructurada es muy educativa y realmente te hace aprender.",
+      "¡Este taller fue muy divertido! Las instrucciones eran fáciles de entender, algo muy útil para alguien que nunca había usado un programa CAD como este.",
+      "Sin duda, el mejor hasta ahora",
+      "Fue de lejos el mejor taller hasta ahora, y el instructor fue súper cercano, sabía muchísimo, etc. En general, una gran experiencia",
+      "Me encantó este taller. Nunca había usado un programa CAD y pude aprender y terminar el cohete completo dentro del tiempo asignado. Me alegra saber usar programas así y me gustaría probar con un poco menos de guía la próxima vez. :)",
+      "Fue muy divertido y disfruté mucho la libertad, pero también aprender",
+      "Me gustó mucho aprender sobre ingeniería de prompts y redes neuronales, y hablar de temas polémicos sobre la IA. Me hizo ver cuánto falta por pensar sobre los pros y los contras de la IA",
+      "Creo que estuvo muy bien planeado y las actividades fueron muy entretenidas y divertidas.",
+      "Me encantó este taller y fue lo que más me gustó de todo lo que hemos hecho. Recomiendo mucho hacer más de esto en el futuro",
+      "El entrenamiento de la red neuronal fue una de las mejores clases de inteligencia artificial que he tenido. Estuvo genial poder usar después distintos programas de IA.",
+      "Aprendí muchísimo sobre los detalles de la generación con IA",
+      "Me encantó el reto conceptual de la actividad, sobre todo poder analizar una pregunta difícil junto a personas que saben mucho.",
+      "Me encantaron las actividades que prepararon. También me impresionó todo lo que saben.",
+      "Me encantó esta instructora: es muy participativa, sabe escuchar y aporta ideas muy valiosas",
+      "El comienzo, cuando nos enseñaron. Si existiera un curso universitario completo dictado por ustedes dos, viajaría feliz a cada clase.",
+      "Me gustó debatir. Estuvo muy bien moderado y, aunque los ánimos se encendían, las conversaciones seguían siendo lógicas.",
+      "Este fue el mejor taller porque era súper interactivo y muy práctico",
+      "Fue súper divertido y sin duda deberían enseñarlo la próxima vez.",
+      "He hecho tres de estos talleres y cada uno es mejor que el anterior. ¡Un programa maravilloso!",
+      "Fue muy divertido y, con lo baja que tenía la confianza después de programar en CAD, esto me hizo sentir mucho más capaz en la ingeniería. ¡Excelente taller y mejor instructor todavía: muy paciente, explica bien y se nota que ama lo que hace. :D"
+    ]
+  },
+
+  "ai": {
+    "title": "Taller de Inteligencia Artificial",
+    "heroNeuralNetwork": "Red Neuronal Humana",
+    "posterCaption": "carteles de cine creados por los participantes",
+    "overview": {
+      "nn": {
+        "heading": "<strong>Red Neuronal Humana: actividad práctica</strong>",
+        "item1": "Participa en un juego interactivo de teléfono descompuesto en el que cada persona se convierte en un nodo de una red neuronal.",
+        "item2": "Entiende de forma intuitiva las redes neuronales y cómo aprenden, ¡y todo sin matemáticas!"
+      },
+      "film": {
+        "heading": "<strong>Estudio de Cine con IA: actividad creativa</strong>",
+        "item1": "Explora herramientas de IA de última generación para generar texto, imagen, música y voz.",
+        "item2": "Los participantes crean todos los elementos de producción de un cortometraje único, desde el guion hasta el material de promoción.",
+        "item3": "Cerramos con una sesión de proyección y comentarios que muestra la capacidad creativa de la IA."
+      },
+      "ethics": {
+        "heading": "<strong>Ética de la IA: actividad de toma de decisiones</strong>",
+        "item1": "Profundiza en los dilemas éticos que los ingenieros de IA enfrentan hoy.",
+        "item2": "Participa en debates dinámicos que invitan a pensar críticamente sobre el uso responsable de la IA."
+      }
+    },
+    "quotes": {
+      "q1": "“Estuvo increíble. Al principio pensé que no iba a entender, pero explicaron todo muy bien. <strong>¡¡¡Nunca voy a olvidar esta experiencia!!!</strong> Muchísimas gracias😍”<br><span class=\"quote-attribution\"><em>— Estudiante, Boston, MA 2025</em></span>",
+      "q2": "“Explicaron todo muy bien y lograron que <strong>todos participáramos</strong> en la clase; hicieron que <strong>aprender fuera divertido</strong>.”<br><span class=\"quote-attribution\"><em>— Estudiante, Berkeley, CA 2023</em></span>",
+      "q3": "“¡Gracias por responder nuestras preguntas! Este ha sido el primer lugar donde <strong>logré entender del todo las redes neuronales :)</strong>”<br><span class=\"quote-attribution\"><em>— Estudiante, Berkeley, CA 2025</em></span>",
+      "q4": "“Uno de los <strong>mejores talleres de IA</strong> que he hecho. Me encantó lo simples que eran las herramientas de IA.”<br><span class=\"quote-attribution\"><em>— Estudiante, Houston, TX 2024</em></span>",
+      "q5": "“Este taller me conmovió de verdad y creo que será <strong>la actividad más memorable de mi viaje de estudios</strong>. Pude sentir la diferencia en la calidad de la educación respecto a mi país. Si tengo la oportunidad, me encantaría participar otra vez.”<br><span class=\"quote-attribution\"><em>— Estudiante, Boston, MA 2025</em></span>",
+      "q6": "“Me gustó la <strong>actividad en grupo</strong> y la <strong>sencillez</strong><br><strong>y eficacia</strong> de los instructores al explicar”<br><span class=\"quote-attribution\"><em>— Estudiante, Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "Taller de Robótica y Drones",
+    "overview": {
+      "intro": "En el Taller de Robótica, los estudiantes reciben un dron, ¡pero <strong>sin control!</strong><br> Aprende ingeniería construyendo tu propio control remoto para un cuadricóptero:",
+      "item1": "Arma un circuito completo con un <strong>microcontrolador de doble núcleo</strong> con WiFi, acelerómetro de 6 ejes, luces, potenciómetros y botones.",
+      "item2": "Junto a tu equipo, aprende a <strong>leer diagramas de circuitos y convertirlos</strong> en circuitos reales que funcionan",
+      "item3": "<strong>Programa, carga y ejecuta</strong> tus propios vuelos autónomos",
+      "item4": "Participa en la exhibición aérea autónoma para mostrar tu vuelo personalizado"
+    },
+    "quotes": {
+      "q1": "“Estuvo <strong>excelentemente hecho</strong>. Los instructores fueron muy amables y cercanos. Estoy muy agradecido porque me abrió los ojos a un área de la electrónica que nunca pensé que exploraría.”<br><span class=\"quote-attribution\"><em>— Estudiante, San Francisco, CA 2025</em></span>",
+      "q2": "“Fue <strong>de lejos el mejor taller</strong> y el que más me interesó. Me gustó la parte de programación y el hardware electrónico”<br><span class=\"quote-attribution\"><em>— Estudiante, Berkeley, CA 2023</em></span>",
+      "q3": "“Son <strong>increíbles y me divertí muchísimo</strong>. ¡Me muero por hacer más ingeniería y programación!”<br><span class=\"quote-attribution\"><em>— Estudiante, Boston, MA 2023</em></span>",
+      "q4": "“Fue muy divertido y <strong>aprendí muchísimo</strong>. <strong>Podría usar de verdad parte de este conocimiento</strong> en otros proyectos que haga.”<br><span class=\"quote-attribution\"><em>— Estudiante, Houston, TX 2022</em></span>",
+      "q5": "“Este fue el mejor taller de todo el programa”<br><span class=\"quote-attribution\"><em>— Estudiante, Boston, MA 2024</em></span>",
+      "q6": "“Espectacular”<br><span class=\"quote-attribution\"><em>— Estudiante, Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "Taller de Ingeniería Mecánica",
+    "heroStart": "Inicio",
+    "overview": {
+      "intro": "En el Taller de Ingeniería Mecánica, ¡los participantes <strong>se convierten en diseñadores de cohetes!</strong>",
+      "item1": "Diseña y construye tu propio cohete de tres partes con software de <strong>diseño asistido por computadora (CAD) estándar de la industria</strong>.",
+      "item2": "Con <strong>microvideos tipo GIF</strong> y textos breves como guía, no se necesita experiencia previa.",
+      "item3": "Domina las bases del CAD: bocetos, modelado paramétrico y ensamblajes.",
+      "item4": "Demostración de impresión 3D en vivo.",
+      "item5": "Aprende en una sesión abierta de preguntas donde puedes consultarle a nuestros <strong>ingenieros de verdad</strong> lo que quieras sobre tu diseño, técnicas de CAD y carreras en ingeniería."
+    },
+    "quotes": {
+      "q1": "“<strong>Me encantó</strong>: las instrucciones eran claras y súper ordenadas. Me gustaron las animaciones junto con las instrucciones para quienes aprendemos de forma visual. En general, me siento inspirado a seguir aprendiendo CAD y diseñando cosas nuevas. <strong>Dudaba si ser ingeniero era realmente lo mío, pero después de esto me siento mucho más seguro</strong> y con ganas de explorar más este campo” <em>— Estudiante, Houston, TX 2023</em>",
+      "q2": "“<strong>Desafiante, pero con muy buen ritmo</strong> al mismo tiempo. Despertó mi interés por el modelado 3D virtual. Ahora <strong>siento que podría trabajar en esto por mi cuenta</strong> y tengo la ambición de llevar mis conocimientos al límite.” <em>— Estudiante, Atlanta, GA 2021</em>",
+      "q3": "“<strong>Me encantó este taller.</strong> Nunca había usado un programa CAD y pude aprender y <strong>terminar el cohete completo dentro del tiempo asignado.</strong> Me alegra saber usar programas así y me gustaría probar con un poco menos de guía la próxima vez. :)” <em>— Estudiante, Los Angeles, CA 2025</em>",
+      "q4": "“Este taller fue <strong>de lejos mi favorito</strong>. Como quiero ser ingeniero civil, fue genial conocer un software que podría estar usando cuando lo sea” <em>— Estudiante, Berkeley, CA 2021</em>",
+      "q5": "“¡La guía junto con la libertad creativa del taller fue perfecta!” <em>— Estudiante, Berkeley, CA 2025</em>",
+      "q6": "“Gran taller, <strong>la pasé increíble</strong> mientras aprendía habilidades valiosas que serán <strong>esenciales para mi éxito</strong> más adelante en la ingeniería y en todo lo demás.” <em>— Estudiante, Atlanta, GA 2025</em>"
+    }
+  },
+
+  "locations": {
+    "heading": "Sedes",
+    "note": "Otras ciudades disponibles a pedido",
+    "mapAlt": "Mapa"
+  },
+
+  "instructors": {
+    "heading": "Instructores",
+    "mission": "Misión: inspirar a quienes aprenden con talleres prácticos de ingeniería",
+    "body": "En Stage One Education ofrecemos talleres que recogen la experiencia y las prácticas de investigadores de primer nivel y profesionales de la ingeniería. Nuestros talleres están a cargo de una red nacional de instructores con amplia trayectoria, que guían a los participantes en un aprendizaje inmersivo, práctico y basado en proyectos que refleja los campos más actuales de la ingeniería. Este enfoque dinámico ofrece una experiencia impulsada por la visión y la pasión de ingenieros del mundo real.",
+    "join": "¿Quieres sumarte a nuestro equipo?",
+    "requirements": "Requisitos: liderazgo de equipos - excelentes habilidades de presentación - sólido portafolio de experiencia en ingeniería",
+    "authorization": "Con autorización para trabajar en EE. UU. como contratista independiente 1099"
+  },
+
+  "feedback": {
+    "heading": "Opiniones",
+    "updated": "actualizado: 5/2/2026",
+    "formLink": "Formulario de opinión"
+  },
+
+  "contact": {
+    "heading": "Contáctanos",
+    "lede": "<b>¿Tienes una pregunta o quieres saber más? Contáctanos.</b>",
+    "body": "Nuestros talleres prácticos de <strong>Inteligencia Artificial</strong>, <strong>Robótica</strong> e <strong>Ingeniería Mecánica</strong> están a cargo de ingenieros de verdad. En solo tres horas, los participantes adquieren herramientas y habilidades clave que encienden su pasión por las áreas STEM.<br><br>No se necesita experiencia previa. <br><br> <strong>Llevemos el entusiasmo y el aprendizaje a tu grupo: ¡escríbenos y comencemos!</strong>"
+  },
+
+  "about": {
+    "heading": "Sobre nosotros",
+    "intro": {
+      "headline": "Nos dedicamos a compartir nuestro amor por la ingeniería",
+      "lede": "Nuestros talleres responden preguntas como:",
+      "question1": "<strong>¿puedo dedicarme a la ingeniería?</strong>",
+      "question2": "<strong>¿qué hacen realmente los ingenieros?</strong>",
+      "body1": "con actividades prácticas —desde armar circuitos reales hasta usar herramientas CAD de nivel profesional y los últimos modelos de IA—, los participantes descubren de verdad de qué se trata la ingeniería.",
+      "body2": "Después de trabajar en proyectos reales, usar herramientas de ingeniería y conversar con profesionales con experiencia, los participantes se van con más confianza, inspiración y entusiasmo por su posible futuro en la ingeniería."
+    },
+    "leadershipHeading": "Equipo directivo",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry, Ph.D. del MIT",
+        "role": "Fundador",
+        "bio": "Andy se enamoró de los drones autónomos <a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">volándolos</a> durante su doctorado en el MIT. Ha llevado talleres de electrónica y software a más de 10,000 estudiantes, desde pequeños helicópteros hasta <a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">sofisticados robots cuadrúpedos</a>."
+      },
+      "pete": {
+        "name": "Pete Florence, Ph.D. del MIT",
+        "role": "Cofundador",
+        "bio": "Pete voló drones de todo tipo durante su doctorado en el MIT. Su trabajo de planificación y control en el <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> amplió los límites de los drones: más rápidos, más ágiles y más confiables. Su premiada investigación en <a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">manipulación robótica</a> les da nuevas capacidades a los robots cada día."
+      },
+      "robbie": {
+        "name": "Robbie Kipp, Ingeniero",
+        "role": "Director de Operaciones",
+        "bio": "Los diseños de Robbie marcaron el rumbo de los sistemas de buceo y las embarcaciones durante su etapa como ingeniero oceánico y arquitecto naval. Hoy, como Director de Operaciones de Stage One Education, crea formas innovadoras de inspirar a la próxima generación de ingenieros. Robbie es un apasionado del buceo, la escalada y la aviación."
+      }
+    },
+    "instructorsCallout": "<strong>Instructores de Stage One Education</strong><br> Red nacional de profesionales de la ingeniería apasionados",
+    "workshopsHeading": "Talleres prácticos de ingeniería",
+    "buttons": {
+      "ai": "Inteligencia <br>Artificial",
+      "robotics": "Robótica <br>y Drones",
+      "mechanical": "Ingeniería <br>Mecánica"
+    },
+    "turnKey": {
+      "heading": "Llave en mano",
+      "body": "Ofrecemos talleres completos con instructores, materiales y plan de estudios incluidos. Los estudiantes se van con una confianza nueva, después de aprender herramientas de nivel profesional con nuestras instrucciones, métodos y pedagogía en constante mejora."
+    },
+    "details": {
+      "heading": "Detalles del taller",
+      "offered": "<strong>Talleres disponibles:</strong> Robótica, IA, Ingeniería Mecánica",
+      "length": "<strong>Duración:</strong> 3 horas",
+      "participants": "<strong>Participantes:</strong> hasta ~60 por taller (la capacidad depende del tamaño del lugar)",
+      "location": "<strong>Lugar:</strong> podemos adaptarnos a cualquier ubicación",
+      "venue": "<strong>Sede:</strong> debe tener Wi-Fi, tomas de corriente, mesas y sillas; se prefieren espacios amplios",
+      "materials": "<strong>Materiales:</strong> incluidos en todos los talleres",
+      "instructors": "<strong>Instructores:</strong> profesionales de la ingeniería con experiencia y con pasión por compartir lo que saben.",
+      "schedule": "<strong>Horarios:</strong> nos adaptamos a tu itinerario y podemos realizar varias sesiones seguidas o simultáneas según se necesite"
+    },
+    "pricing": {
+      "heading": "Precios",
+      "body": "El costo por participante depende de factores como el tamaño del grupo, la programación de días consecutivos de taller, la logística de los equipos y los instructores asignados. Para una cotización a la medida de tus necesidades, contáctanos hoy mismo. Estamos aquí para crear la experiencia de ingeniería perfecta para ti."
+    },
+    "presentations": {
+      "heading": "Charlas y presentaciones",
+      "lede": "Ofrecemos presentaciones interactivas de 1 hora, tipo conferencia, a cargo de expertos de la industria.",
+      "topics": "Exploramos a fondo: <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>Realidad virtual</li> <li>Inteligencia artificial</li> <li>Robótica y más</li> </ul>",
+      "body": "Estas sesiones despiertan la innovación y amplían la comprensión de tus participantes sobre los últimos avances tecnológicos."
+    },
+    "contactBlurb": "Conoce nuestros talleres de ingeniería y nuestras presentaciones <br> agenda hoy una demo virtual",
+    "letsChat": "Hablemos"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | Talleres prácticos de ingeniería",
+      "description": "Talleres prácticos de ingeniería en todo Estados Unidos desde 2013, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Despierta la innovación!"
+    },
+    "ai": {
+      "title": "Taller de IA | STAGE ONE EDUCATION",
+      "description": "Descubre la inteligencia artificial de forma práctica con Stage One Education: construye redes neuronales, crea cortometrajes con IA y debate su ética. Sin experiencia previa, para todas las edades y con ingenieros reales."
+    },
+    "robotics": {
+      "title": "Taller de Robótica | STAGE ONE EDUCATION",
+      "description": "Domina el control de vuelo de drones con Arduino y ESP32 en el Taller de Robótica y Drones de Stage One Education. Electrónica y programación prácticas, ¡sin experiencia previa!"
+    },
+    "mechanical": {
+      "title": "Taller de Ingeniería Mecánica | STAGE ONE EDUCATION",
+      "description": "Vive los fundamentos de la ingeniería mecánica en este taller de CAD y cohetes: construye cohetes virtuales, descubre la impresión 3D y domina el diseño. ¡Sin experiencia previa!"
+    },
+    "locations": {
+      "title": "Sedes | STAGE ONE EDUCATION",
+      "description": "Talleres prácticos de ingeniería en todo el país, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Conoce más y despierta la innovación!"
+    },
+    "instructors": {
+      "title": "Instructores | STAGE ONE EDUCATION",
+      "description": "Talleres prácticos de ingeniería en todo el país, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Conoce más y despierta la innovación!"
+    },
+    "feedback": {
+      "title": "Opiniones | STAGE ONE EDUCATION",
+      "description": "Talleres prácticos de ingeniería en todo el país, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Conoce más y despierta la innovación!"
+    },
+    "contact": {
+      "title": "Contacto | STAGE ONE EDUCATION",
+      "description": "Talleres prácticos de ingeniería en todo el país, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Conoce más y despierta la innovación!"
+    },
+    "about": {
+      "title": "Nosotros | STAGE ONE EDUCATION",
+      "description": "Talleres prácticos de ingeniería en todo el país, con IA, robótica e ingeniería mecánica a cargo de ingenieros reales. ¡Conoce más y despierta la innovación!"
+    }
+  }
+}

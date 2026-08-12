@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+
+  <title>Fins + Booster (page 3) | Onshape CAD Tutorial | Stage One Education</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
+
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
+
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
+
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
+        toggleSwitch.checked = savedState === "true";
+        toggleAdvancedMode2(toggleSwitch.checked);
+      }
+
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
+        localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
+    });
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
+
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
+
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
+          
+        </a>
+      </div>
+
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
+
+        <!-- Only show links when NOT on portal.html -->
+        
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
+
+          <!-- Optional “team” icon when on a team page -->
+          
+
+          <!-- Getting Started -->
+          
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-single.html">
+                Getting Started
+              </a>
+            </li>
+          
+
+          <!-- Fuselage -->
+          
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-single2.html">
+                Fuselage
+              </a>
+            </li>
+          
+
+          <!-- Fins + Booster -->
+          
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-single1.html">
+                Fins+Booster
+              </a>
+            </li>
+          
+
+          <!-- Nosecone -->
+          
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-single1.html">
+                Nosecone
+              </a>
+            </li>
+          
+
+          <!-- Assembly -->
+          
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-single1.html">
+                Assembly
+              </a>
+            </li>
+          
+
+          <!-- Challenges -->
+          
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-single.html">
+                Challenges
+              </a>
+            </li>
+          
+
+        </ul>
+        
+
+      </div>
+    </div>
+  </nav>
+
+  
+        
+<header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">FINS + BOOSTER</h2>
+          <p style="margin-right:0;">
+            <em>Construct the launch lug, to guide the rocket off the launch platform</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+        <img 
+            src="img/tutorial/lower-body-iso.png" 
+            alt="fuselage-iso" 
+            style="width:150px; height:auto;"
+        >
+      </div>
+    </div>
+  </header>
+    
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="top">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fins + Booster Tutorial </strong><br>
+    
+        
+            <a href="lower-body-single2.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="lower-body-single1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="lower-body-single2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>3</strong>
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="lower-body-single4.html">4</a>
+            
+        
+        
+        
+            |
+        
+    
+    
+        <a href="lower-body-single4.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    
+</p>
+<br/>
+<!--Page nav-->
+
+                    
+        <div id="advanced-learning-toggle" style="position: fixed; bottom: 0; right: 0; z-index: 9999; background: rgb(216, 216, 216); border: solid rgb(216, 216, 216) 8px; border-left: solid rgb(216, 216, 216) 12px; border-top-left-radius: 10px;">
+    <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
+        Advanced mode
+    </label>
+    <label class="switch">
+        <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode2(this.checked)" />
+        <span class="slider round"></span>
+    </label>
+</div>
+
+
+
+                   
+                   
+                    <h3 class="section-heading">
+18.
+ Create a sketch on the bottom face</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_1">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_1">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(1)"
+    onmouseout="this.play(); updatePlayPauseIcon(1)"
+    id="video-1"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(1)"
+    >
+    <source src="videos/lower-body/create_sketch_on_bottom.webm" type="video/webm">
+    <source src="videos/lower-body/create_sketch_on_bottom.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-1" onclick="togglePlayPause(1)">▶</div>
+    <div class="pause-icon" id="pause-button-1" onclick="togglePlayPause(1)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_2">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_2">
+                    <ul>
+                        <li>Now we'll add the launch lug to so we can put the rocket on the pad</li>
+                        <ul><li><img src="img/tutorial/launch_lug.jpg" class="tutorial-video" /></li></ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click on bottom of the cylinder</li>
+                        <li>Notice how a new sketch plane is now on the bottom of the rocket</li>
+                        <li>Align your view with the sketch by clicking the <strong>Bottom</strong> of the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_bottom.png" /></li></ul>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+19.
+ Draw the launch lug's inner circle</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_3">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_3">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(3)"
+    onmouseout="this.play(); updatePlayPauseIcon(3)"
+    id="video-3"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(3)"
+    >
+    <source src="videos/lower-body/draw_launch_lug_circle.webm" type="video/webm">
+    <source src="videos/lower-body/draw_launch_lug_circle.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-3" onclick="togglePlayPause(3)">▶</div>
+    <div class="pause-icon" id="pause-button-3" onclick="togglePlayPause(3)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_4">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_4">
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a circle outside the rocket.  Be sure to snap the <strong>circle's center</strong> to the <strong>centerline</strong>.
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the circle and set its diameter to <strong>0.165</strong></li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+20.
+ Dimension the circle's distance</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_5">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_5">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(5)"
+    onmouseout="this.play(); updatePlayPauseIcon(5)"
+    id="video-5"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(5)"
+    >
+    <source src="videos/lower-body/launch_lug2.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-5" onclick="togglePlayPause(5)">▶</div>
+    <div class="pause-icon" id="pause-button-5" onclick="togglePlayPause(5)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_6">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_6">
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the circle, then click the edge of the rocket</li>
+                        <li>Move your mouse so that the dimension is along the vertical</li>
+                        <li>Set the dimension to <strong>0.06</strong></li>
+                        <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how the circle turned black? &raquo;</a></li>
+                        <ul class="collapse" id="fully-defined">
+                            <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                            <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                        </ul>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+21.
+ Draw the outer section of the launch lug</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_7">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_7">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(7)"
+    onmouseout="this.play(); updatePlayPauseIcon(7)"
+    id="video-7"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(7)"
+    >
+    <source src="videos/lower-body/launch_lug3.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug3.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-7" onclick="togglePlayPause(7)">▶</div>
+    <div class="pause-icon" id="pause-button-7" onclick="togglePlayPause(7)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_8">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_8">
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Draw a larger circle <strong>centered on the existing circle</strong></li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> to set its diameter to <strong>0.216</strong></li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+22.
+ Draw the launch lug connectors</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_9">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_9">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(9)"
+    onmouseout="this.play(); updatePlayPauseIcon(9)"
+    id="video-9"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(9)"
+    >
+    <source src="videos/lower-body/launch_lug4.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug4.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-9" onclick="togglePlayPause(9)">▶</div>
+    <div class="pause-icon" id="pause-button-9" onclick="togglePlayPause(9)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_10">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_10">
+                    <ul>
+                        <li>Select the 3-point arc tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <ul>
+                            <li>Set the first point on the circle</li>
+                            <li>Set the second point on the rocket body</li>
+                            <li>Set the third point so that the arc bends inwards.</li>
+                        </ul>
+                        <li>Repeat for the other side</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+23.
+ Constrain the launch lug connectors</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_11">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_11">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(11)"
+    onmouseout="this.play(); updatePlayPauseIcon(11)"
+    id="video-11"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(11)"
+    >
+    <source src="videos/lower-body/launch_lug5.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug5.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-11" onclick="togglePlayPause(11)">▶</div>
+    <div class="pause-icon" id="pause-button-11" onclick="togglePlayPause(11)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_12">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_12">
+                    <ul>
+                        <li>First select:</li>
+                        <ul>
+                            <li>Top two points on your arcs</li>
+                            <li>The circles' center.</li>
+                        </ul>
+                        <li>Then select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                        <li>You should see all three points line up</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+24.
+ Add the rocket's side to your sketch</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_13">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_13">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(13)"
+    onmouseout="this.play(); updatePlayPauseIcon(13)"
+    id="video-13"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(13)"
+    >
+    <source src="videos/lower-body/launch_lug8_1.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug8_1.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-13" onclick="togglePlayPause(13)">▶</div>
+    <div class="pause-icon" id="pause-button-13" onclick="togglePlayPause(13)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_14">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_14">
+                    <ul>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Select the arc on the edge of the rocket</li>
+                        <li>You should see that arc bold as it becomes part of your sketch</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+25.
+ Connect the launch lug to the rocket</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_15">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_15">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(15)"
+    onmouseout="this.play(); updatePlayPauseIcon(15)"
+    id="video-15"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(15)"
+    >
+    <source src="videos/lower-body/launch_lug8_2.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug8_2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-15" onclick="togglePlayPause(15)">▶</div>
+    <div class="pause-icon" id="pause-button-15" onclick="togglePlayPause(15)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_16">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_16">
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/coincident_tool_menu.png" /></li>
+                        <li>Select the point on the bottom of one of your arcs and the edge of the arc on the rocket</li>
+                        <li>Repeat the coincident step for the second arc</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+26.
+ Constrain the launch lug sides</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_17">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_17">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(17)"
+    onmouseout="this.play(); updatePlayPauseIcon(17)"
+    id="video-17"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(17)"
+    >
+    <source src="videos/lower-body/launch_lug6_2.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug6_2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-17" onclick="togglePlayPause(17)">▶</div>
+    <div class="pause-icon" id="pause-button-17" onclick="togglePlayPause(17)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_18">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_18">
+                    <ul>
+                        <li>Select the left arc and the outer circle</li>
+                        <li>Select the "Tangent" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/tangent_tool_menu.png" /></li>
+                        <ul><li>You should see the arc jump to become tangent and turn black as becomes fully constrained</li></ul>
+                        <li>Repeat for the right-side arc</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+27.
+ Finish the launch lug sketch</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_19">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_19">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(19)"
+    onmouseout="this.play(); updatePlayPauseIcon(19)"
+    id="video-19"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(19)"
+    >
+    <source src="videos/lower-body/launch_lug7_1.webm" type="video/webm">
+    <source src="videos/lower-body/launch_lug7_1.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-19" onclick="togglePlayPause(19)">▶</div>
+    <div class="pause-icon" id="pause-button-19" onclick="togglePlayPause(19)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_20">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_20">
+                    <ul>
+                        <li>Select the trim tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Trim the bottom of the outer circle</li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+28.
+ Extrude the launch lug</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-4.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_21">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_21">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(21)"
+    onmouseout="this.play(); updatePlayPauseIcon(21)"
+    id="video-21"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(21)"
+    >
+    <source src="videos/lower-body/extrude_launch_lug.webm" type="video/webm">
+    <source src="videos/lower-body/extrude_launch_lug.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-21" onclick="togglePlayPause(21)">▶</div>
+    <div class="pause-icon" id="pause-button-21" onclick="togglePlayPause(21)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_22">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_22">
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>Click the <strong>Add</strong> <img src="img/tutorial/extrude_add.png" /> option</li>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the launch lug extrude along your rocket</li>
+                        <li>Set the "Depth" to <strong>1.2</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+29.
+ Fillet the launch lug</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-5.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_23">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_23">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(23)"
+    onmouseout="this.play(); updatePlayPauseIcon(23)"
+    id="video-23"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(23)"
+    >
+    <source src="videos/lower-body/fillet_launch_lug.webm" type="video/webm">
+    <source src="videos/lower-body/fillet_launch_lug.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-23" onclick="togglePlayPause(23)">▶</div>
+    <div class="pause-icon" id="pause-button-23" onclick="togglePlayPause(23)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_24">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_24">
+                    <ul>
+                        <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Click the arc on the inside arc of launch lug</li>
+                        <li>Set the "Radius" to <strong>0.2</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                    <h3 class="section-heading">
+30.
+ Fillet the launch lug (2)</h3>
+                    <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fins-booster-drawing-5.png
+    >
+</div>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_25">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_25">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(25)"
+    onmouseout="this.play(); updatePlayPauseIcon(25)"
+    id="video-25"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(25)"
+    >
+    <source src="videos/lower-body/fillet_launch_lug2.webm" type="video/webm">
+    <source src="videos/lower-body/fillet_launch_lug2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-25" onclick="togglePlayPause(25)">▶</div>
+    <div class="pause-icon" id="pause-button-25" onclick="togglePlayPause(25)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_26">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_26">
+                    <ul>
+                        <li>Select the "Fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                        <li>Left and right edges of the launch lug, near the body</li>
+                        <li>Set the "Radius" to <strong>0.1</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+                   
+                    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fins + Booster Tutorial </strong><br>
+    
+        
+            <a href="lower-body-single2.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="lower-body-single1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="lower-body-single2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>3</strong>
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="lower-body-single4.html">4</a>
+            
+        
+        
+        
+            |
+        
+    
+    
+        <a href="lower-body-single4.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    
+</p>
+<br/>
+<!--Page nav-->
+
+
+
+<!-- _includes/copyright.html -->
+<footer style="text-align: center; margin-top: 30px;">
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
+
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
+      }
+
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
+    }
+
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
+
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
+    }
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+/*
+ * Stage One Education - language switcher and translated-layout support.
+ *
+ * Loaded only on pages whose front matter sets "i18n: true". Nothing in
+ * creative.css is edited. Every layout rule below is scoped to
+ * html:not([lang="en"]) or to a specific non-English lang, so with English
+ * active none of these selectors match and the page computes exactly the
+ * styles it does today.
+ */
+
+/* ------------------------------------------------------------------
+   1. Pre-paint hold
+   The engine adds .i18n-pending to <html> before first paint when a
+   non-English language is stored, so the visitor never sees English text
+   flash and swap. A 1.5s failsafe in i18n.js always clears it.
+   ------------------------------------------------------------------ */
+html.i18n-pending body {
+    visibility: hidden;
+}
+
+/* ------------------------------------------------------------------
+   2. Language switcher in the orange nav
+   Deliberately matches .nav-button-stageone (the plain nav links) rather
+   than .nav-button-stageone-highlight, so "Request a demo" stays the only
+   highlighted call to action.
+   ------------------------------------------------------------------ */
+.nav-language {
+    position: relative;
+}
+
+.nav-lang-toggle,
+.nav-lang-toggle:link,
+.nav-lang-toggle:visited {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: white !important;
+    text-align: center;
+    background-color: #f05f40 !important;
+    border-radius: 50px;
+    font-weight: 400 !important;
+    margin: 0 8px;
+    padding: 2px 10px !important;
+    border: none;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: none;
+}
+
+.nav-lang-toggle:hover,
+.nav-lang-toggle:focus,
+.nav-lang-toggle:active {
+    color: white !important;
+    background-color: #f05f40 !important;
+    text-decoration: none;
+    outline: none;
+    text-shadow: 0.25px 0 0 white, -0.25px 0 0 white, 0 0.25px 0 white, 0 -0.25px 0 white;
+}
+
+.nav-lang-toggle .fa-globe {
+    font-size: 14px;
+    line-height: 1;
+    vertical-align: -1px;
+}
+
+.nav-lang-code {
+    margin-left: 6px;
+    letter-spacing: 0.02em;
+}
+
+.nav-lang-toggle .caret {
+    border-top-color: white;
+    border-bottom-color: white;
+    margin-left: 5px;
+}
+
+/* Menu mirrors .nav-dropdown-menu / .nav-dropdown-link exactly */
+.nav-lang-menu {
+    min-width: 190px;
+    border: 1px solid #f2c9be;
+    border-radius: 6px;
+    padding: 5px 0;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.nav-lang-menu > li > a.nav-lang-link {
+    font-family: 'Roboto', sans-serif;
+    color: #f05f40 !important;
+    padding: 7px 18px;
+    display: block;
+    white-space: nowrap;
+    text-transform: none;
+    font-size: 14px;
+}
+
+.nav-lang-menu > li > a.nav-lang-link:hover,
+.nav-lang-menu > li > a.nav-lang-link:focus {
+    background-color: #fde7df !important;
+    color: #f05f40 !important;
+    text-decoration: none;
+}
+
+.nav-lang-menu > li.is-active > a.nav-lang-link {
+    background-color: #fde7df !important;
+    font-weight: 700;
+}
+
+.nav-lang-option-code {
+    display: inline-block;
+    min-width: 30px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: #c08575;
+}
+
+.nav-lang-option-label {
+    display: inline-block;
+}
+
+/* Collapsed mobile menu: Bootstrap renders the dropdown inline, so keep it
+   flush with the other stacked links. */
+@media (max-width: 767px) {
+    .nav-language {
+        display: block;
+        text-align: center;
+    }
+
+    .nav-lang-toggle {
+        margin: 0;
+    }
+
+    #mainNav .navbar-collapse .nav-lang-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin: 4px auto 0 auto;
+        background-color: #fff;
+        box-shadow: none;
+        display: inline-block;
+        text-align: left;
+    }
+
+    #mainNav .navbar-collapse .nav-lang-menu > li > a.nav-lang-link {
+        color: #f05f40 !important;
+    }
+}
+
+/* ------------------------------------------------------------------
+   3. CJK typefaces
+   Roboto and Open Sans contain no Chinese, Japanese, or Korean glyphs.
+   Many elements carry an inline font-family, which a normal rule cannot
+   beat, so these use !important. Font Awesome is re-asserted afterwards at
+   higher specificity so the icons keep rendering.
+   ------------------------------------------------------------------ */
+html[lang="zh-Hans"] body,
+html[lang="zh-Hans"] body * {
+    font-family: 'Noto Sans SC', 'Roboto', 'Open Sans', sans-serif !important;
+}
+
+html[lang="zh-Hant"] body,
+html[lang="zh-Hant"] body * {
+    font-family: 'Noto Sans TC', 'Roboto', 'Open Sans', sans-serif !important;
+}
+
+html[lang="ja"] body,
+html[lang="ja"] body * {
+    font-family: 'Noto Sans JP', 'Roboto', 'Open Sans', sans-serif !important;
+}
+
+html[lang="ko"] body,
+html[lang="ko"] body * {
+    font-family: 'Noto Sans KR', 'Roboto', 'Open Sans', sans-serif !important;
+}
+
+html[lang="zh-Hans"] body .fa,
+html[lang="zh-Hans"] body .fa::before,
+html[lang="zh-Hant"] body .fa,
+html[lang="zh-Hant"] body .fa::before,
+html[lang="ja"] body .fa,
+html[lang="ja"] body .fa::before,
+html[lang="ko"] body .fa,
+html[lang="ko"] body .fa::before {
+    font-family: FontAwesome !important;
+}
+
+/* CJK reads poorly when letter-spaced or uppercased for emphasis. */
+html[lang="zh-Hans"] body,
+html[lang="zh-Hant"] body,
+html[lang="ja"] body,
+html[lang="ko"] body {
+    letter-spacing: normal;
+}
+
+/* ------------------------------------------------------------------
+   4. Overflow releases for translated text
+   Each rule below removes a constraint that would clip a longer string.
+   All are scoped away from English.
+   ------------------------------------------------------------------ */
+
+/* Uppercasing is meaningless for CJK and hurts legibility in German and
+   French, where translated labels are also the longest. */
+html:not([lang="en"]) .nav-button-stageone,
+html:not([lang="en"]) .nav-button-stageone-highlight,
+html:not([lang="en"]) .nav-button-stageone-inverted,
+html:not([lang="en"]) .nav-button-stageone-highlight-inverted,
+html:not([lang="en"]) .workshop-main-button > .main-button-title-text,
+html:not([lang="en"]) .workshop-main-button-sm > .main-button-title-text-sm,
+html:not([lang="en"]) .home-room-hero__workshop-link,
+html:not([lang="en"]) .home-room-hero__cta {
+    text-transform: none;
+}
+
+/* Nav labels are clipped at 200px and the desktop row refuses to wrap. */
+html:not([lang="en"]) .nav-button-stageone,
+html:not([lang="en"]) .nav-button-stageone-highlight {
+    max-width: none;
+}
+
+@media (min-width: 768px) {
+    html:not([lang="en"]) .nav-main-links {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        row-gap: 2px;
+    }
+}
+
+/* Home hero: the headline and the rotating quote bubbles are pinned to a
+   single line, and the section height is fixed. */
+html:not([lang="en"]) .home-room-hero__title-line {
+    white-space: normal;
+}
+
+html:not([lang="en"]) .home-room-hero__quote--oneline .home-room-hero__quote-text {
+    white-space: normal;
+}
+
+html:not([lang="en"]) .home-room-hero {
+    height: 440px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html:not([lang="en"]) .home-room-hero {
+        height: 470px;
+    }
+}
+
+@media (max-width: 767px) {
+    html:not([lang="en"]) .home-room-hero {
+        height: 540px;
+    }
+}
+
+/* Home workshop cards are a fixed 300x475; longer bullet text must be able
+   to push the card taller instead of spilling past its border. */
+html:not([lang="en"]) .workshop-main-button {
+    height: auto;
+    min-height: 475px;
+}
+
+/* Workshop hero buttons ("Start", "Feedback Survey") are pinned to one line. */
+html:not([lang="en"]) .glow-button,
+html:not([lang="en"]) .glow-text {
+    white-space: normal;
+}
+
+/* The three round buttons on About are a fixed 250px circle. */
+html:not([lang="en"]) .workshop-main-button-sm > .main-button-title-text-sm {
+    padding: 20px 12px;
+    line-height: 1.25;
+}

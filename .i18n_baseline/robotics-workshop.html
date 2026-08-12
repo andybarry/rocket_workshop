@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-page="robotics">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>Robotics Workshop | STAGE ONE EDUCATION</title>
+
+    <meta 
+    name= "description" 
+    content="Master drone flight control with Arduino &amp; ESP32 at Stage One Education’s Robotics Drone Workshop. Enjoy hands-on electronics and coding—no experience needed!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <!-- Language switcher. Loads before paint so a stored non-English choice is
+         applied without a flash of English. Inert when English is active. -->
+    <link rel="stylesheet" href="css/i18n.css" type="text/css">
+    <script src="js/i18n.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<!-- Grid and cursor-following glow (same as home and AI pages) -->
+<body id="page-top" class="cursor-glow-page">
+
+<style>
+  body.cursor-glow-page .navbar { cursor: default !important; }
+  body.cursor-glow-page .navbar a,
+  body.cursor-glow-page .navbar button,
+  body.cursor-glow-page .navbar img { cursor: pointer !important; }
+  .overview-text-box,
+  .overview-text-box *,
+  .quote-container,
+  .quote-container * { cursor: default !important; }
+  .quote-container .quote-text {
+    border-radius: 12px;
+    transition: box-shadow 0.2s ease;
+  }
+  .quote-container:hover .quote-text {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* Mobile: content width with side margins (match index and rocket workshop) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .overview-text-box,
+    body.cursor-glow-page .quote-container,
+    body.cursor-glow-page .feedback-scroll-wrapper,
+    body.cursor-glow-page .robotics-timeline-section {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .quote-container {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .row .col-lg-6 {
+      max-width: 100%;
+    }
+  }
+</style>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #f05f40; min-height: 2px;">
+    <div class="container-fluid">
+        <!-- Navbar Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
+            </button>
+            <a href="index.html">
+                <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
+                    style="width: 170px; height: auto; margin-top: 5px; margin-left: 73px; margin-right: 20px; margin-bottom: 5px; opacity: 1;">
+            </a>
+        </div>
+
+        <!-- Navigation Links and Inline Logo -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                
+                
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
+                        Workshops <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                    </ul>
+                </li>
+                <!-- Mobile: three workshop links in main list (no nested dropdown) -->
+                <li class="nav-mobile-workshop-item">
+                    <a href="ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                </li>
+                
+                <li>
+                    <a href="locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="instructors.html" class="nav-button-stageone" data-i18n="nav.instructors">
+                        Instructors
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" class="nav-button-stageone" data-i18n="nav.contact">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                        About
+                    </a>
+                </li>
+                <!-- "Request a demo" button -->
+                <li class="nav-request-demo">
+                    <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" class="nav-button-stageone-highlight" data-i18n="nav.requestDemo">
+                        Request a demo
+                    </a>
+                </li>
+                <!-- Language switcher. The option list is built at runtime by js/i18n.js from
+     its LANGUAGES array, so the language set lives in exactly one place. -->
+<li class="nav-language dropdown">
+    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+    <div style="height: 50px;"></div> <!-- Adjust height to match your navbar's height -->
+
+    <!-- Title Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="margin: 0 auto; text-align: center;">
+                    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; cursor: default;">
+                        Robotics Drone Workshop
+                    </h2>
+    
+    
+                </div>
+            </div>
+        </div>
+    
+        <!-- Section with Background Image -->
+        <style>
+            /* Define animations for the drones entering from the edges - values sized so drones travel fully off the box before reset */
+            @keyframes moveDroneHorizontalLeftToRight {
+                0% {
+                    transform: translateX(-150px);
+                }
+
+                100% {
+                    transform: translateX(1500px);
+                }
+            }
+
+            @keyframes moveDroneHorizontalRightToLeft {
+                0% {
+                    transform: translateX(1500px);
+                }
+
+                100% {
+                    transform: translateX(-1500px);
+                }
+            }
+
+            @keyframes moveDroneVerticalUp {
+                0% {
+                    transform: translateY(150px);
+                }
+
+                100% {
+                    transform: translateY(-350px);
+                }
+            }
+
+            @keyframes moveDroneVerticalDown {
+                0% {
+                    transform: translateY(-150px);
+                }
+
+                100% {
+                    transform: translateY(350px);
+                }
+            }
+
+            @keyframes moveDroneDiagonalUpRight {
+                0% {
+                    transform: translate(0px, 150px);
+                }
+
+                100% {
+                    transform: translate(1500px, -350px);
+                }
+            }
+
+            @keyframes moveDroneDiagonalDownRight {
+                0% {
+                    transform: translate(0px, -150px);
+                }
+
+                100% {
+                    transform: translate(1500px, 350px);
+                }
+            }
+
+            @keyframes pulseGlow {
+                0% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+
+                50% {
+                    box-shadow: 0 0 30px #f05f40;
+                }
+
+                100% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+            }
+
+            /* Align buttons in a column with vertical spacing */
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 1000px;
+                margin: 20px auto;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* No underline on robotics buttons in any state */
+            .button-container .glow-button,
+            .button-container .glow-button:hover,
+            .button-container .glow-button:focus,
+            .button-container .glow-button:active,
+            .button-container .glow-button:visited {
+                text-decoration: none !important;
+            }
+
+            /* Drone images */
+            .drone {
+                position: absolute;
+                width: auto;
+                height: 50px;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            /* Define horizontal animations for drones */
+            .drone-horizontal-left-to-right1 {
+                animation: moveDroneHorizontalLeftToRight 8s linear infinite;
+            }
+
+            .drone-horizontal-left-to-right2 {
+                animation: moveDroneHorizontalLeftToRight 6s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left1 {
+                animation: moveDroneHorizontalRightToLeft 8s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left2 {
+                animation: moveDroneHorizontalRightToLeft 6s linear infinite;
+            }
+
+            /* Define vertical animations for drones moving up and down on the left side */
+            .drone-vertical-up1 {
+                animation: moveDroneVerticalUp 5s linear infinite;
+                left: 5%;
+            }
+
+            .drone-vertical-up2 {
+                animation: moveDroneVerticalUp 7s linear infinite;
+                left: 10%;
+            }
+
+            /* Define vertical-down animations for the right side */
+            .drone-vertical-down1 {
+                animation: moveDroneVerticalDown 4s linear infinite;
+                left: 60%;
+            }
+
+            .drone-vertical-down2 {
+                animation: moveDroneVerticalDown 3s linear infinite;
+                left: 90%;
+            }
+
+            /* Define diagonal animations */
+            .drone-diagonal-up-right {
+                animation: moveDroneDiagonalUpRight 10s linear infinite;
+            }
+
+            .drone-diagonal-down-right {
+                animation: moveDroneDiagonalDownRight 12s linear infinite;
+            }
+
+            /* Overlay style */
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.05);
+                /* Reduced opacity */
+                z-index: 1;
+            }
+        </style>
+
+        <div class="row">
+            <div class="col-12" style="padding-left: 0; padding-right: 0;">
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+                <div class="robotics-drone-moving-area" style="position: relative; height: 280px; background-color: white; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                <!-- Add Horizontal Moving Drone Images from left to right -->
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
+                    style="top: 10%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right2"
+                    style="top: 40%; left: -150px;" />
+
+                <!-- Add Horizontal Moving Drone Images from right to left -->
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left1"
+                    style="top: 60%; left: 1250px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left2"
+                    style="top: 80%; left: 1250px;" />
+
+                <!-- Add Vertical Moving Drone Images on the left side -->
+                <img src="img/drone.png" class="drone drone-vertical-up1" style="top: 100%; left: 5%;" />
+                <img src="img/drone.png" class="drone drone-vertical-up2" style="top: 100%; left: 10%;" />
+
+                <!-- Add Vertical Moving Drone Images on the right side -->
+                <img src="img/drone.png" class="drone drone-vertical-down1" style="top: 0px; left: 60%;" />
+                <img src="img/drone.png" class="drone drone-vertical-down2" style="top: 0px; left: 90%;" />
+
+                <!-- Add Diagonal Moving Drone Images -->
+                <img src="img/drone.png" class="drone drone-diagonal-up-right" style="top: 80%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-diagonal-down-right" style="top: 10%; left: -150px;" />
+
+                <!-- Title Section with Buttons -->
+                <div class="button-container">
+                    <!-- First Button: Drone Workshop Link -->
+                    <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer"
+                        class="glow-button">
+                        stageoneeducation.com/drone
+                    </a>
+
+                    <!-- Feedback Survey -->
+                    <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" 
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        class="glow-button">
+                        Feedback Survey
+                    </a>
+
+
+                </div>
+
+                <!-- Overlay Div -->
+                <div class="overlay"></div>
+                </div>
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
+            </div>
+        </div>
+        </div>
+        <div class="container">
+
+
+     
+
+        <div style="max-width: 100%; margin: 5px auto; margin-top: 15px;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
+                Overview
+            </span>
+        </div>
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            @keyframes droneCodeScrollDown {
+                0% { background-position: center top; }
+                100% { background-position: center bottom; }
+            }
+            .robotics-overview-drone-code-scroll-box {
+                overflow: hidden;
+            }
+            .robotics-overview-drone-code-scroll-box::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url('img/drone-code.png');
+                background-size: 280px auto;
+                background-position: center top;
+                background-repeat: no-repeat;
+                animation: droneCodeScrollDown 50s linear infinite;
+                opacity: 0.3;
+                z-index: 0;
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+            }
+            .overview-text-box {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 24px 20px 29px 20px;
+                border: 1px solid #e8e8e8;
+            }
+        </style>
+        <section class="less-padding">
+            <div class="overview-text-box">
+            <div class="row">
+                <!-- Text Section (wider column so text can extend right) -->
+                <div class="col-lg-8 col-md-6 col-sm-6">
+                    <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
+                        <div class="workshop-subdata"
+                            style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
+                            3-3.5 Hours | All Ages | No Experience Needed
+                        </div>
+
+                        <div class="tab-content tab-active"
+                        style="text-align: left; max-width: calc(70vw + 140px); font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 1.65;">
+                     <p style="margin: 0 0 0.75em 0; font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.65;">
+                       In the Robotics Workshop, students get a drone, but <strong>no controller!</strong><br>
+                       Learn engineering by building your own RC controller for a quadrotor:
+                     </p>
+                     <ul style="list-style-type: disc; padding-left: 20px; margin: 0 0 0 0;">
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Wire a complete circuit, including a <strong>dual-core microcontroller</strong> with WiFi, 6-axis accelerometer, lights, potentiometers, and buttons.
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           With your team, learn how to <strong>read and translate circuit diagrams</strong> into real, working circuits
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           <strong>Program, upload, and execute</strong> your own autonomous flights
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;">
+                           Participate in the autonomous airshow to showcase your custom flight
+                         </h3>
+                       </li>
+                     </ul>
+                   </div>
+                   
+
+
+
+                    </div>
+                </div>
+                <!-- Image Section: scrolling code (back), drone-circuit over it, drone on top -->
+                <div class="col-lg-4 col-md-6 col-sm-6" style="display: flex; justify-content: center;">
+                    <div style="position: relative; width: 310px; height: 280px;">
+                        <!-- Scrolling code box (back, 280px height) -->
+                        <div class="robotics-overview-drone-code-scroll-box" style="position: absolute; left: 0; top: 0; width: 310px; height: 280px; background: white; border-radius: 8px; z-index: 0;"></div>
+                        <!-- Drone-circuit over the scrolling code -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1;">
+                            <img src="img/drone-circuit.png" alt="Drone Circuit" style="width: 280px; height: 280px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <!-- Drone on top of drone-circuit -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;">
+                            <img src="img/drone.png" alt="Drone" style="width: 170px; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
+                    Testimonials
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+
+            <!-- New Image Section with Continuous Scroll for Feedback -->
+            <div class="feedback-scroll-wrapper"
+                style="overflow: hidden; margin-top: 50px; margin: 20px auto; white-space: nowrap; position: relative;">
+                <div class="scroll-container">
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image"
+                        style="margin-right: 40px;">
+
+                    <!-- Duplicate images for smooth continuous scroll effect -->
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image">
+                </div>
+            </div>
+
+            <!-- Keyframes for continuous scroll with left/right fade (same as home and AI) -->
+            <style>
+                .feedback-scroll-wrapper {
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                }
+                @keyframes scroll {
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+
+                /* Container for smooth scroll */
+                .scroll-container {
+                    display: inline-block;
+                    animation: scroll 60s linear infinite;
+                    white-space: nowrap;
+                    padding-bottom: 20px;
+                    animation-play-state: running;
+                    /* Ensure animation runs by default */
+                }
+
+                /* Apply size and spacing to each image */
+                .scroll-image {
+                    display: inline-block;
+                    width: 400px;
+                    /* Increased width */
+                    height: auto;
+                    /* Adjusted height to maintain aspect ratio */
+                    object-fit: cover;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    /* Adjust margin between images */
+                    margin-right: 40px;
+                    transition: box-shadow 0.2s ease;
+                }
+                .scroll-image:hover {
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+                }
+
+                /* Cursor for drag */
+                .scroll-container {
+                    cursor: grab;
+                }
+                .scroll-container.dragging {
+                    cursor: grabbing !important;
+                }
+                .scroll-container.dragging .scroll-image {
+                    cursor: grabbing !important;
+                }
+            </style>
+
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 60;
+        var offset = fraction * duration;
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight;
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
+
+
+
+
+        </div>
+        <style>
+            .quote-attribution { display: block; text-align: right; }
+        </style>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="quote-container quote-five" style="margin-bottom: 10px; max-width: 100%;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was <strong>extremely well done</strong>. The instructors were very nice and approachable. I am extremely grateful for this as it has opened my eyes to a new area of electronics I never would've thought I would do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, San Francisco, CA 2025</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-one" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I liked the coding portion and the electronics hardware&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Berkeley, CA 2023</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-two" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more engineering and coding!&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston, MA 2023</em></span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="quote-container quote-three" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use some of this knowledge</strong> for other projects I may do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston, TX 2022</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-four" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;This was the best workshop in the whole program&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston, MA 2024</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-seven" style="margin-bottom: 10px; max-width: 320px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                        &ldquo;Yeehaw-tastic&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston, TX 2025</em></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Vertical space -->
+        <div style="height: 30px;"></div>
+
+        <!-- Timeline -->
+        <div class="row robotics-timeline-section">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;">
+                    Timeline
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+            <div class="text-center" style="margin-top: 40px;">
+                <img src="img/robotics-timeline-drone.png" alt="Timeline" class="horizontal-image" style="border: 1px solid #d0d0d0; border-radius: 24px;">
+                <img src="img/vertical-robotics-timeline.svg" alt="Timeline" class="vertical-image" style="border: 1px solid #d0d0d0; border-radius: 24px;">
+            </div>
+        </div>
+
+
+
+        <!-- Footer Section -->
+        <!-- _includes/copyright.html -->
+<footer style="text-align: center; margin-top: 30px;">
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+    </div>
+
+</body>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>

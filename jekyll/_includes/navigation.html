@@ -4,11 +4,11 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                 data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
                 <span class="icon-bar" style="background-color: white;"></span>
                 <span class="icon-bar" style="background-color: white;"></span>
                 <span class="icon-bar" style="background-color: white;"></span>
-                <span class="navbar-toggle-menu-text" aria-hidden="true">Menu</span>
+                <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
             </button>
             <a href="index.html">
                 <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
@@ -24,61 +24,62 @@
                 <!-- Desktop: Workshops dropdown -->
                 <li class="dropdown nav-dropdown nav-desktop-workshop">
                     <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-haspopup="true" aria-expanded="false">
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
                         Workshops <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu nav-dropdown-menu">
-                        <li><a class="nav-dropdown-link" href="ai-workshop.html">Artificial Intelligence</a></li>
-                        <li><a class="nav-dropdown-link" href="robotics-workshop.html">Robotics Drone</a></li>
-                        <li><a class="nav-dropdown-link" href="rocket-workshop.html">Mechanical Engineering</a></li>
+                        <li><a class="nav-dropdown-link" href="ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
                     </ul>
                 </li>
                 <!-- Mobile: three workshop links in main list (no nested dropdown) -->
                 <li class="nav-mobile-workshop-item">
-                    <a href="ai-workshop.html" class="nav-button-stageone">Artificial Intelligence</a>
+                    <a href="ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
                 </li>
                 <li class="nav-mobile-workshop-item">
-                    <a href="robotics-workshop.html" class="nav-button-stageone">Robotics Drone</a>
+                    <a href="robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
                 </li>
                 <li class="nav-mobile-workshop-item">
-                    <a href="rocket-workshop.html" class="nav-button-stageone">Mechanical Engineering</a>
+                    <a href="rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
                 </li>
                 {% else %}
                 <li>
-                    <a href="index.html" class="nav-button-stageone">Home</a>
+                    <a href="index.html" class="nav-button-stageone" data-i18n="nav.home">Home</a>
                 </li>
                 {% endif %}
                 <li>
-                    <a href="locations.html" class="nav-button-stageone">
+                    <a href="locations.html" class="nav-button-stageone" data-i18n="nav.locations">
                         Locations
                     </a>
                 </li>
                 <li>
-                    <a href="instructors.html" class="nav-button-stageone">
+                    <a href="instructors.html" class="nav-button-stageone" data-i18n="nav.instructors">
                         Instructors
                     </a>
                 </li>
                 <li>
-                    <a href="feedback.html" class="nav-button-stageone">
+                    <a href="feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
                         Feedback
                     </a>
                 </li>
                 <li>
-                    <a href="contact.html" class="nav-button-stageone">
+                    <a href="contact.html" class="nav-button-stageone" data-i18n="nav.contact">
                         Contact
                     </a>
                 </li>
                 <li>
-                    <a href="about-us.html" class="nav-button-stageone">
+                    <a href="about-us.html" class="nav-button-stageone" data-i18n="nav.about">
                         About
                     </a>
                 </li>
                 <!-- "Request a demo" button -->
                 <li class="nav-request-demo">
-                    <a href={% include demo_link.html %} target="_blank" class="nav-button-stageone-highlight">
+                    <a href={% include demo_link.html %} target="_blank" class="nav-button-stageone-highlight" data-i18n="nav.requestDemo">
                         Request a demo
                     </a>
-                </li>
+                </li>{% if page.i18n %}
+                {% include language-switcher.html %}{% endif %}
             </ul>
         </div>
     </div>
