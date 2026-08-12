@@ -8,6 +8,7 @@
     "ai": "人工智能",
     "robotics": "机器人无人机",
     "mechanical": "机械工程",
+    "aiWebsite": "网页开发",
     "home": "首页",
     "locations": "服务城市",
     "instructors": "讲师",
@@ -35,14 +36,24 @@
       "linkAi": "AI",
       "linkRobotics": "机器人",
       "linkMechanical": "机械",
+      "linkWebsite": "网页",
       "title1": "亲手实践的工程工作坊",
       "title2": "为全美各地的团体上门授课",
       "body1": "由工程师带领的三小时工作坊，让学生亲自<strong>动手制作、编程、设计并测试</strong>，适合&nbsp;各个&nbsp;年龄和水平的参加者。",
       "body2": "<strong>讲师、课程、设备、材料和现场布置</strong>全部由我们准备。我们可在全美的学校、酒店、校园和活动场地开展，<strong>轻松融入任何课程&nbsp;或&nbsp;行程安排</strong>。",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>查看工作坊手册",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>预约开课咨询"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>预约开课咨询",
+      "highlightDuration": "3小时<br>工作坊",
+      "highlightDelivery": "全美<br>上门授课",
+      "highlightIncluded": "含工程师与设备",
+      "highlightTrusted": "安全<br>一站式"
     },
     "workshopsHeading": "我们的工作坊",
+    "participantsHeading": "学员怎么说",
+    "planWorkshop": {
+      "title": "规划工作坊",
+      "subtitle": "告诉我们您的计划，我们会发送可用档期与报价。"
+    },
     "cardAi": {
       "title": "人工智能",
       "posterAlt": "学生创作的 AI 电影海报",
@@ -62,6 +73,13 @@
       "line1": "使用专业 CAD 软件",
       "line2": "设计多部件模型火箭",
       "line3": "体验 3D 打印"
+    },
+    "cardWebsite": {
+      "title": "网页开发",
+      "imageAlt": "工作坊中制作的网站",
+      "line1": "构建一个真实的网站",
+      "line2": "使用 AI 助手编写代码",
+      "line3": "发布到互联网上"
     },
     "aboutHeading": "关于我们",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "网页开发工作坊",
+    "comingSoon": "工作坊详情即将公布。"
+  },
+
   "locations": {
     "heading": "服务城市",
     "note": "其他城市可应要求安排",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "机械工程工作坊 | STAGE ONE EDUCATION",
       "description": "在 CAD 与火箭工作坊中体验机械工程基础：搭建虚拟火箭、了解 3D 打印、掌握设计方法。无需任何基础！"
+    },
+    "aiWebsite": {
+      "title": "网页开发工作坊 | STAGE ONE EDUCATION",
+      "description": "在 Stage One Education 的实践工作坊中，借助 AI 编程工具构建并发布一个真实的网站，由真正的工程师带领。无需任何经验。"
     },
     "locations": {
       "title": "服务城市 | STAGE ONE EDUCATION",

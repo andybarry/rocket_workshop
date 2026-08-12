@@ -8,6 +8,7 @@
     "ai": "Artificial Intelligence",
     "robotics": "Robotics Drone",
     "mechanical": "Mechanical Engineering",
+    "aiWebsite": "Web Development",
     "home": "Home",
     "locations": "Locations",
     "instructors": "Instructors",
@@ -35,14 +36,24 @@
       "linkAi": "AI",
       "linkRobotics": "Robotics",
       "linkMechanical": "Mechanical",
+      "linkWebsite": "Website",
       "title1": "Hands-On Engineering Workshops",
       "title2": "Delivered to Groups Across the USA",
       "body1": "Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.",
       "body2": "We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>View Workshop Guide",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan Your Workshop"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan Your Workshop",
+      "highlightDuration": "3-Hour<br>Workshops",
+      "highlightDelivery": "Delivered<br>Nationwide",
+      "highlightIncluded": "Engineers & Equipment<br>Included",
+      "highlightTrusted": "Safe<br>& Turnkey"
     },
     "workshopsHeading": "Our workshops",
+    "participantsHeading": "What Participants Say",
+    "planWorkshop": {
+      "title": "Plan a Workshop",
+      "subtitle": "Tell us about your plans and we'll send availability and pricing."
+    },
     "cardAi": {
       "title": "Artificial Intelligence",
       "posterAlt": "Student-created AI movie posters",
@@ -62,6 +73,13 @@
       "line1": "Use professional CAD software",
       "line2": "Design a multi-part model rocket",
       "line3": "Explore 3D printing"
+    },
+    "cardWebsite": {
+      "title": "Web<br>Development",
+      "imageAlt": "Website built during the workshop",
+      "line1": "Build a real website",
+      "line2": "Code with an AI assistant",
+      "line3": "Publish it live on the web"
     },
     "aboutHeading": "About",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "Web Development Workshop",
+    "comingSoon": "Workshop details coming soon."
+  },
+
   "locations": {
     "heading": "Locations",
     "note": "Other locations available upon request",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "Mechanical Engineering Workshop | STAGE ONE EDUCATION",
       "description": "Experience mechanical engineering fundamentals in this CAD & Rocket Workshop—build virtual rockets, explore 3D printing, and master design. No experience needed!"
+    },
+    "aiWebsite": {
+      "title": "Web Development Workshop | STAGE ONE EDUCATION",
+      "description": "Build and publish a real website with the help of AI coding tools in this hands-on Stage One Education workshop, led by real engineers. No experience needed."
     },
     "locations": {
       "title": "Locations | STAGE ONE EDUCATION",

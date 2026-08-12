@@ -8,6 +8,7 @@
     "ai": "인공지능",
     "robotics": "로보틱스 드론",
     "mechanical": "기계공학",
+    "aiWebsite": "웹 개발",
     "home": "홈",
     "locations": "진행 지역",
     "instructors": "강사진",
@@ -35,14 +36,24 @@
       "linkAi": "AI",
       "linkRobotics": "로보틱스",
       "linkMechanical": "기계공학",
+      "linkWebsite": "웹",
       "title1": "직접 만들어 보는 엔지니어링 워크숍",
       "title2": "미국 전역의 단체를 찾아갑니다",
       "body1": "현직 엔지니어가 진행하는 3시간 워크숍에서 학생들은 직접 <strong>만들고, 프로그래밍하고, 설계하고, 테스트합니다</strong>. 모든&nbsp;연령과&nbsp;수준의 참가자가 함께할 수 있습니다.",
       "body2": "<strong>강사, 커리큘럼, 장비, 재료, 현장 설치까지 모두</strong> 저희가 준비합니다. 전국의 학교, 호텔, 대학, 행사장에서 진행하므로 <strong>어떤 프로그램이나&nbsp;일정에도&nbsp;쉽게 넣을 수 있습니다</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>워크숍 안내서 보기",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>워크숍 일정 잡기"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>워크숍 일정 잡기",
+      "highlightDuration": "3시간<br>워크숍",
+      "highlightDelivery": "미국 전역<br>출장 진행",
+      "highlightIncluded": "엔지니어와 장비<br>포함",
+      "highlightTrusted": "안전하고<br>바로 진행"
     },
     "workshopsHeading": "워크숍 소개",
+    "participantsHeading": "참가자들의 이야기",
+    "planWorkshop": {
+      "title": "워크숍 계획하기",
+      "subtitle": "계획을 알려주시면 가능한 일정과 비용을 보내드립니다."
+    },
     "cardAi": {
       "title": "인공지능",
       "posterAlt": "학생들이 만든 AI 영화 포스터",
@@ -62,6 +73,13 @@
       "line1": "전문가용 CAD 소프트웨어 사용",
       "line2": "여러 부품으로 된 모형 로켓 설계",
       "line3": "3D 프린팅 체험"
+    },
+    "cardWebsite": {
+      "title": "웹 개발",
+      "imageAlt": "워크숍에서 만든 웹사이트",
+      "line1": "실제 웹사이트 만들기",
+      "line2": "AI 어시스턴트와 코딩하기",
+      "line3": "웹에 공개하기"
     },
     "aboutHeading": "소개",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "웹 개발 워크숍",
+    "comingSoon": "워크숍 상세 내용은 곧 공개됩니다."
+  },
+
   "locations": {
     "heading": "진행 지역",
     "note": "요청하시면 다른 지역에서도 진행할 수 있습니다",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "기계공학 워크숍 | STAGE ONE EDUCATION",
       "description": "CAD와 로켓 워크숍에서 기계공학의 기본을 경험해 보세요. 가상 로켓을 만들고 3D 프린팅을 살펴보며 설계를 익힙니다. 사전 경험은 필요 없습니다!"
+    },
+    "aiWebsite": {
+      "title": "웹 개발 워크숍 | STAGE ONE EDUCATION",
+      "description": "Stage One Education의 실습 워크숍에서 AI 코딩 도구를 활용해 실제 웹사이트를 만들고 공개해 보세요. 현직 엔지니어가 지도하며 사전 경험은 필요하지 않습니다."
     },
     "locations": {
       "title": "진행 지역 | STAGE ONE EDUCATION",

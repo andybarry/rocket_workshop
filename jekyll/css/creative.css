@@ -1119,7 +1119,9 @@ inline-quote-container {
         justify-content: flex-end;
         position: relative;
         margin: 0;
-        margin-right: 100px;
+        /* Mirror #logo's left inset, then nudge the whole link group
+           slightly farther toward the right edge. */
+        margin-right: 12px;
     }
 
     .nav-main-links > li {
@@ -1133,6 +1135,12 @@ inline-quote-container {
 
     .nav-request-demo {
         margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* Drop the trailing margin on the far-right language control so the
+       73px ul inset is the full right gap (plus container padding). */
+    .nav-main-links > li.nav-language > .nav-lang-toggle {
         margin-right: 0;
     }
 }
@@ -1269,7 +1277,7 @@ inline-quote-container {
     font-size: 13px;
     text-transform: uppercase;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 9999px;
     margin: 0 18px;
     padding: 2px 10px !important;
     font-weight: 400;
@@ -1330,12 +1338,126 @@ inline-quote-container {
 
 
 .our-workshops-header {
-    margin-top: -15px;
-    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: min(96%, 1180px);
+    margin: 24px auto 24px;
 }
 
 .our-workshops-header .workshop-title {
-    margin-bottom: 6px;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 1;
+    padding: 0;
+}
+
+.our-workshops-title {
+    text-transform: uppercase;
+}
+
+/* Each rule keeps full strength where it meets the heading and fades only
+   outward, away from the text. Vertically centered on the title midline. */
+.our-workshops-rule {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 2px;
+    align-self: center;
+}
+
+.our-workshops-rule--left {
+    background: linear-gradient(to right, transparent, #434343);
+}
+
+.our-workshops-rule--right {
+    background: linear-gradient(to left, transparent, #434343);
+}
+
+.participants-plan-row {
+    display: flex;
+    align-items: stretch;
+    gap: 28px;
+    width: min(96%, 1180px);
+    margin: 40px auto 24px;
+    box-sizing: border-box;
+}
+
+.participants-plan-row__say {
+    flex: 2 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+
+.participants-plan-row__say .our-workshops-header {
+    width: 100%;
+    margin: 0;
+}
+
+.participants-plan-cta {
+    flex: 1 1 0;
+    max-width: 33%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 22px 24px;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    background-color: #faf8f6;
+    border: 2px solid #f05f40;
+    border-radius: 24px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.participants-plan-cta:hover,
+.participants-plan-cta:focus {
+    text-decoration: none;
+    color: inherit;
+    background-color: #fff;
+    box-shadow: 0 6px 18px rgba(240, 95, 64, 0.18);
+    outline: none;
+}
+
+.participants-plan-cta__title {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f05f40;
+    line-height: 1.2;
+}
+
+.participants-plan-cta__subtitle {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+    font-weight: 400;
+    line-height: 1.4;
+    color: #434343;
+    text-wrap: pretty;
+}
+
+@media (max-width: 767px) {
+    .participants-plan-row {
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 28px;
+    }
+
+    .participants-plan-cta {
+        max-width: none;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
 }
 
 .our-workshops-line {
@@ -1346,29 +1468,107 @@ inline-quote-container {
 }
 
 .workshop-main-button {
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin: auto;
     margin-bottom: 20px;
     width: 300px;
-    height: 475px;
-    border: 1px solid #f05f40;
+    height: 430px;
+    border: 2px solid #f05f40;
     border-radius: 50px;
-    background-color: white;
+    background-color: #faf8f6;
     color: rgb(100, 100, 100);
+    box-shadow: 0 4px 14px rgba(67, 67, 67, 0.12);
+    transition: box-shadow 0.2s ease, background-color 0.2s ease, border-width 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.workshop-card-media {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    min-height: 0;
+}
+
+.workshop-card-rocket-overlay {
+    position: absolute;
+    top: 50%;
+    left: 82.5%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    width: min(200px, 68%);
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
 }
 
 .workshop-main-button > .main-button-title-text {
-    padding: 0px 0;
+    margin: 0;
+    padding: 18px 16px 4px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
     color: #f05f40;
     text-transform: uppercase;
 }
 
-.workshop-main-button:hover > .main-button-title-text {
+.workshop-main-button > .main-button-title-text + br {
+    display: none;
+}
+
+.workshop-main-button .workshop-card-copy {
+    width: 100%;
+    margin: auto 0 0;
+    padding: 6px 20px 18px;
+    text-align: center;
+    color: #434343;
+}
+
+.workshop-main-button .workshop-card-copy h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    color: #434343;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.workshop-main-button .workshop-card-copy ul {
+    list-style: none;
+    padding: 0;
+    margin: 2px 0 0;
+}
+
+.workshop-main-button .workshop-card-copy li,
+.workshop-main-button .workshop-card-copy em {
+    margin: 0;
+    font-style: italic;
+    color: #434343;
+}
+
+.workshop-main-button:hover > .main-button-title-text,
+.workshop-main-button.is-hero-hover > .main-button-title-text {
     color: white;
+}
+
+.workshop-main-button:hover .workshop-card-copy h3,
+.workshop-main-button.is-hero-hover .workshop-card-copy h3 {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.workshop-main-button:hover .workshop-card-copy li,
+.workshop-main-button.is-hero-hover .workshop-card-copy li {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .location-item {
@@ -1382,12 +1582,14 @@ inline-quote-container {
     border: 0.5px solid #f05f40;
 }
 
-.workshop-main-button:hover {
+.workshop-main-button:hover,
+.workshop-main-button.is-hero-hover {
     border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: #f05f40;
     color: white;
     text-decoration: none;
+    box-shadow: 0 6px 18px rgba(67, 67, 67, 0.16);
 }
 
 

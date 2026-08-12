@@ -314,38 +314,28 @@
         if (!title) return;
 
         var lines = title.querySelectorAll('.home-room-hero__title-line');
-        /* The headline is a flex item aligned to the start, so it shrinks to
-           its own text. The room it actually has is the column's content box. */
+        var hero = document.querySelector('.home-room-hero');
         var column = title.parentNode;
-        if (!lines.length || !column || !column.clientWidth) return;
+        if (!lines.length || !column || !hero) return;
 
-        /* creative.js runs the FitText plugin over every h1, which writes an
-           inline size and rewrites it on every resize. That size is what
-           English renders at and what the translations scale down from, so an
-           inline value this function did not write is a fresh one from
-           FitText. Never clear it: that would shrink the English headline. */
-        var inline = parseFloat(title.style.fontSize);
-        if (!inline) {
-            heroTitleBase = parseFloat(window.getComputedStyle(title).fontSize) || null;
-        } else if (heroTitleApplied === null || Math.abs(inline - heroTitleApplied) > 0.5) {
-            heroTitleBase = inline;
-        }
+        /* Clear any prior inline size so CSS clamp (cqi) can set the base. */
+        title.style.fontSize = '';
+        heroTitleApplied = null;
+        heroTitleBase = parseFloat(window.getComputedStyle(title).fontSize) || null;
         if (!heroTitleBase) return;
 
         var size = heroTitleBase;
-        title.style.fontSize = size + 'px';
-        heroTitleApplied = size;
-        if (current === DEFAULT_LANG) {
-            /* Re-taken with the real web fonts in place. */
-            measureHeroTitle();
-            return;
-        }
-
         var columnStyle = window.getComputedStyle(column);
-        var available = column.clientWidth -
+        var columnInner = column.clientWidth -
             (parseFloat(columnStyle.paddingLeft) || 0) -
             (parseFloat(columnStyle.paddingRight) || 0);
-        if (heroTitleEnglishEm) {
+        /* May spill into the photo fade, but must stay clear of the quote zone
+           (~48%+). On mobile quotes are hidden, so the column is the limit. */
+        var available = columnInner;
+        if (window.matchMedia && window.matchMedia('(min-width: 768px)').matches) {
+            available = Math.max(columnInner, hero.clientWidth * 0.70);
+        }
+        if (current !== DEFAULT_LANG && heroTitleEnglishEm) {
             available = Math.max(available, heroTitleEnglishEm * size);
         }
         if (available <= 0) return;
@@ -359,24 +349,25 @@
         };
 
         var overflow = widest();
-        if (overflow <= available) return;
-
-        /* Scaling by the overflow ratio lands within a pixel or two; the loop
-           absorbs the rounding that sub-pixel text metrics leave behind. */
-        size = Math.max(HERO_TITLE_MIN_PX, Math.floor(size * available / overflow));
-        title.style.fontSize = size + 'px';
-        heroTitleApplied = size;
-        while (size > HERO_TITLE_MIN_PX && widest() > available) {
-            size -= 1;
+        if (overflow > available) {
+            size = Math.max(HERO_TITLE_MIN_PX, Math.floor(size * available / overflow));
             title.style.fontSize = size + 'px';
             heroTitleApplied = size;
+            while (size > HERO_TITLE_MIN_PX && widest() > available) {
+                size -= 1;
+                title.style.fontSize = size + 'px';
+                heroTitleApplied = size;
+            }
+        }
+
+        if (current === DEFAULT_LANG) {
+            measureHeroTitle();
         }
     }
 
     /* This engine loads in <head>, so its DOMContentLoaded handler runs before
-       the ones registered by the scripts at the end of the page - FitText
-       among them. The headline has to be measured again after they have had
-       their turn. */
+       scripts at the end of the page. Re-measure after load so fonts and
+       layout are settled. */
     function refitAfterLoad() {
         var pass = function () {
             fitHeroTitle();
@@ -413,12 +404,12 @@
         var content = hero.querySelector('.home-room-hero__content');
         if (!content) return;
 
+        /* Content is in normal flow and grows the hero; clear any stale
+           inline height from older layouts / translated overflow passes. */
         hero.style.height = '';
         if (current === DEFAULT_LANG) return;
 
         var natural = hero.offsetHeight;
-        /* Centred content overflows equally above and below, and scrollHeight
-           only sees the overflow below. Pin it to the top while measuring. */
         var previousJustify = content.style.justifyContent;
         content.style.justifyContent = 'flex-start';
         var needed = content.scrollHeight;

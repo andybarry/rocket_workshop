@@ -208,7 +208,10 @@ html:not([lang="en"]) .nav-button-stageone-highlight-inverted,
 html:not([lang="en"]) .workshop-main-button > .main-button-title-text,
 html:not([lang="en"]) .workshop-main-button-sm > .main-button-title-text-sm,
 html:not([lang="en"]) .home-room-hero__workshop-link,
-html:not([lang="en"]) .home-room-hero__cta {
+html:not([lang="en"]) .home-room-hero__cta,
+html:not([lang="en"]) .home-room-hero__highlight,
+html:not([lang="en"]) .our-workshops-title,
+html:not([lang="en"]) .participants-plan-cta__title {
     text-transform: none;
 }
 

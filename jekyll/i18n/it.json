@@ -8,6 +8,7 @@
     "ai": "Intelligenza Artificiale",
     "robotics": "Robotica e Droni",
     "mechanical": "Ingegneria Meccanica",
+    "aiWebsite": "Sviluppo Web",
     "home": "Home",
     "locations": "Sedi",
     "instructors": "Docenti",
@@ -35,14 +36,24 @@
       "linkAi": "IA",
       "linkRobotics": "Robotica",
       "linkMechanical": "Meccanica",
+      "linkWebsite": "Sito Web",
       "title1": "Workshop pratici di ingegneria",
       "title2": "Per gruppi in tutti gli Stati Uniti",
       "body1": "Guidati da ingegneri, i nostri workshop di tre ore portano gli studenti a <strong>costruire, programmare, progettare e collaudare</strong> con esperienze pratiche adatte a tutti&nbsp;i&nbsp;livelli.",
       "body2": "Portiamo noi <strong>docenti, programma, attrezzature, materiali e l'allestimento completo</strong> in scuole, hotel, campus e sedi in tutto il Paese: così l'ingegneria pratica <strong>si inserisce facilmente in qualsiasi programma&nbsp;o&nbsp;itinerario</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Guarda la guida ai workshop",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organizza il tuo workshop"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organizza il tuo workshop",
+      "highlightDuration": "Workshop di<br>3 ore",
+      "highlightDelivery": "In tutta<br>la nazione",
+      "highlightIncluded": "Ingegneri e attrezzature<br>inclusi",
+      "highlightTrusted": "Sicuro<br>e chiavi in mano"
     },
     "workshopsHeading": "I nostri workshop",
+    "participantsHeading": "Cosa dicono i partecipanti",
+    "planWorkshop": {
+      "title": "Pianifica un workshop",
+      "subtitle": "Raccontaci i tuoi piani e ti invieremo disponibilità e prezzi."
+    },
     "cardAi": {
       "title": "Intelligenza Artificiale",
       "posterAlt": "Locandine create dagli studenti con l'IA",
@@ -62,6 +73,13 @@
       "line1": "Usa software CAD professionale",
       "line2": "Progetta un razzo in più parti",
       "line3": "Scopri la stampa 3D"
+    },
+    "cardWebsite": {
+      "title": "Sviluppo <br>Web",
+      "imageAlt": "Sito web creato durante il workshop",
+      "line1": "Crea un sito web reale",
+      "line2": "Programma con un assistente IA",
+      "line3": "Pubblicalo online"
     },
     "aboutHeading": "Chi siamo",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "Workshop Sviluppo Web",
+    "comingSoon": "I dettagli del workshop saranno disponibili a breve."
+  },
+
   "locations": {
     "heading": "Sedi",
     "note": "Altre città disponibili su richiesta",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "Workshop di Ingegneria Meccanica | STAGE ONE EDUCATION",
       "description": "Vivi le basi dell'ingegneria meccanica in questo workshop su CAD e razzi: costruisci razzi virtuali, scopri la stampa 3D e impara a progettare. Nessuna esperienza richiesta!"
+    },
+    "aiWebsite": {
+      "title": "Workshop Sviluppo Web | STAGE ONE EDUCATION",
+      "description": "Crea e pubblica un sito web reale con l'aiuto di strumenti di programmazione IA in questo workshop pratico di Stage One Education, guidato da veri ingegneri. Nessuna esperienza richiesta."
     },
     "locations": {
       "title": "Sedi | STAGE ONE EDUCATION",

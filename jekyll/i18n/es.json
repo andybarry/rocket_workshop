@@ -8,6 +8,7 @@
     "ai": "Inteligencia Artificial",
     "robotics": "Robótica y Drones",
     "mechanical": "Ingeniería Mecánica",
+    "aiWebsite": "Desarrollo Web",
     "home": "Inicio",
     "locations": "Sedes",
     "instructors": "Instructores",
@@ -35,14 +36,24 @@
       "linkAi": "IA",
       "linkRobotics": "Robótica",
       "linkMechanical": "Mecánica",
+      "linkWebsite": "Sitio Web",
       "title1": "Talleres Prácticos de Ingeniería",
       "title2": "Para Grupos en Todo Estados Unidos",
       "body1": "Dirigidos por ingenieros, nuestros talleres de tres horas ponen a los estudiantes a <strong>construir, programar, diseñar y probar</strong> con experiencias prácticas para todos&nbsp;los&nbsp;niveles.",
       "body2": "Nosotros llevamos los <strong>instructores, el plan de estudios, el equipo, los materiales y todo el montaje</strong> a escuelas, hoteles, campus y sedes de todo el país, para que la ingeniería práctica sea <strong>fácil de sumar a cualquier programa&nbsp;o&nbsp;itinerario</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Ver guía de talleres",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organiza tu taller"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organiza tu taller",
+      "highlightDuration": "Talleres de<br>3 horas",
+      "highlightDelivery": "Impartidos<br>en todo el país",
+      "highlightIncluded": "Ingenieros y equipo<br>incluidos",
+      "highlightTrusted": "Seguro<br>y llave en mano"
     },
     "workshopsHeading": "Nuestros talleres",
+    "participantsHeading": "Lo que dicen los participantes",
+    "planWorkshop": {
+      "title": "Planifica un taller",
+      "subtitle": "Cuéntanos tus planes y te enviaremos disponibilidad y precios."
+    },
     "cardAi": {
       "title": "Inteligencia Artificial",
       "posterAlt": "Carteles de cine creados por estudiantes con IA",
@@ -62,6 +73,13 @@
       "line1": "Usa software CAD profesional",
       "line2": "Diseña un cohete de varias piezas",
       "line3": "Descubre la impresión 3D"
+    },
+    "cardWebsite": {
+      "title": "Desarrollo <br>Web",
+      "imageAlt": "Sitio web creado durante el taller",
+      "line1": "Crea un sitio web real",
+      "line2": "Programa con un asistente de IA",
+      "line3": "Publícalo en línea"
     },
     "aboutHeading": "Nosotros",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "Taller de Desarrollo Web",
+    "comingSoon": "Los detalles del taller estarán disponibles pronto."
+  },
+
   "locations": {
     "heading": "Sedes",
     "note": "Otras ciudades disponibles a pedido",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "Taller de Ingeniería Mecánica | STAGE ONE EDUCATION",
       "description": "Vive los fundamentos de la ingeniería mecánica en este taller de CAD y cohetes: construye cohetes virtuales, descubre la impresión 3D y domina el diseño. ¡Sin experiencia previa!"
+    },
+    "aiWebsite": {
+      "title": "Taller de Desarrollo Web | STAGE ONE EDUCATION",
+      "description": "Crea y publica un sitio web real con ayuda de herramientas de programación con IA en este taller práctico de Stage One Education, guiado por ingenieros de verdad. Sin experiencia previa."
     },
     "locations": {
       "title": "Sedes | STAGE ONE EDUCATION",

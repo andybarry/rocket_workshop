@@ -8,6 +8,7 @@
     "ai": "Intelligence artificielle",
     "robotics": "Robotique et drones",
     "mechanical": "Génie mécanique",
+    "aiWebsite": "Développement web",
     "home": "Accueil",
     "locations": "Villes",
     "instructors": "Intervenants",
@@ -35,14 +36,24 @@
       "linkAi": "IA",
       "linkRobotics": "Robotique",
       "linkMechanical": "Mécanique",
+      "linkWebsite": "Site web",
       "title1": "Des ateliers d'ingénierie pratiques",
       "title2": "Pour les groupes partout aux États-Unis",
       "body1": "Animés par des ingénieurs, nos ateliers de trois heures amènent les élèves à <strong>construire, programmer, concevoir et tester</strong> grâce à des expériences concrètes adaptées à tous&nbsp;les&nbsp;niveaux.",
       "body2": "Nous fournissons <strong>les intervenants, le programme, le matériel, les fournitures et toute l'installation</strong> dans les écoles, hôtels, campus et lieux d'accueil du pays entier : l'ingénierie pratique devient <strong>facile à intégrer à n'importe quel programme&nbsp;ou&nbsp;séjour</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Voir le guide des ateliers",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organisez votre atelier"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organisez votre atelier",
+      "highlightDuration": "Ateliers de<br>3 heures",
+      "highlightDelivery": "Dispensés<br>partout aux États-Unis",
+      "highlightIncluded": "Ingénieurs et matériel<br>inclus",
+      "highlightTrusted": "Sûr<br>et clé en main"
     },
     "workshopsHeading": "Nos ateliers",
+    "participantsHeading": "Ce que disent les participants",
+    "planWorkshop": {
+      "title": "Planifier un atelier",
+      "subtitle": "Parlez-nous de vos projets et nous vous enverrons disponibilités et tarifs."
+    },
     "cardAi": {
       "title": "Intelligence artificielle",
       "posterAlt": "Affiches de films créées par des élèves avec l'IA",
@@ -62,6 +73,13 @@
       "line1": "Utilisez un logiciel de CAO professionnel",
       "line2": "Concevez une fusée en plusieurs pièces",
       "line3": "Découvrez l'impression 3D"
+    },
+    "cardWebsite": {
+      "title": "Développement <br>web",
+      "imageAlt": "Site web créé pendant l'atelier",
+      "line1": "Créez un vrai site web",
+      "line2": "Codez avec un assistant IA",
+      "line3": "Publiez-le en ligne"
     },
     "aboutHeading": "À propos",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "Atelier Développement web",
+    "comingSoon": "Les détails de l'atelier seront bientôt disponibles."
+  },
+
   "locations": {
     "heading": "Villes",
     "note": "Autres villes possibles sur demande",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "Atelier Génie mécanique | STAGE ONE EDUCATION",
       "description": "Découvrez les bases du génie mécanique dans cet atelier CAO et fusées : construisez des fusées virtuelles, explorez l'impression 3D et maîtrisez la conception. Aucun prérequis !"
+    },
+    "aiWebsite": {
+      "title": "Atelier Développement web | STAGE ONE EDUCATION",
+      "description": "Créez et publiez un vrai site web à l'aide d'outils de codage IA lors de cet atelier pratique de Stage One Education, animé par de vrais ingénieurs. Aucune expérience requise."
     },
     "locations": {
       "title": "Villes | STAGE ONE EDUCATION",

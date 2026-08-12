@@ -8,6 +8,7 @@
     "ai": "Künstliche Intelligenz",
     "robotics": "Robotik & Drohnen",
     "mechanical": "Maschinenbau",
+    "aiWebsite": "Webentwicklung",
     "home": "Start",
     "locations": "Standorte",
     "instructors": "Dozenten",
@@ -35,14 +36,24 @@
       "linkAi": "KI",
       "linkRobotics": "Robotik",
       "linkMechanical": "Maschinenbau",
+      "linkWebsite": "Webseite",
       "title1": "Technik-Workshops zum Anfassen",
       "title2": "Für Gruppen in den ganzen USA",
       "body1": "Unsere dreistündigen Workshops werden von Ingenieurinnen und Ingenieuren geleitet. Die Teilnehmenden <strong>bauen, programmieren, konstruieren und testen</strong> – praxisnah und für alle&nbsp;Erfahrungsstufen&nbsp;geeignet.",
       "body2": "Wir bringen <strong>Dozenten, Lehrplan, Ausrüstung, Material und den kompletten Aufbau</strong> an Schulen, Hotels, Campus und Veranstaltungsorte im ganzen Land. So lässt sich Technik zum Anfassen <strong>ganz einfach in jedes Programm&nbsp;oder&nbsp;jede Reise einbauen</strong>.",
       "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Workshop-Broschüre ansehen",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Workshop planen"
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Workshop planen",
+      "highlightDuration": "3-Stunden-<br>Workshops",
+      "highlightDelivery": "Bundesweit<br>vor Ort",
+      "highlightIncluded": "Ingenieure und Ausrüstung<br>inklusive",
+      "highlightTrusted": "Sicher<br>und schlüsselfertig"
     },
     "workshopsHeading": "Unsere Workshops",
+    "participantsHeading": "Was Teilnehmende sagen",
+    "planWorkshop": {
+      "title": "Workshop planen",
+      "subtitle": "Erzählen Sie uns von Ihren Plänen – wir senden Ihnen Verfügbarkeit und Preise."
+    },
     "cardAi": {
       "title": "Künstliche Intelligenz",
       "posterAlt": "Von Schülern mit KI erstellte Filmplakate",
@@ -62,6 +73,13 @@
       "line1": "Professionelle CAD-Software nutzen",
       "line2": "Eine mehrteilige Modellrakete konstruieren",
       "line3": "3D-Druck kennenlernen"
+    },
+    "cardWebsite": {
+      "title": "Web-<br>entwicklung",
+      "imageAlt": "Website, die im Workshop entsteht",
+      "line1": "Eine echte Website erstellen",
+      "line2": "Mit einem KI-Assistenten programmieren",
+      "line3": "Sie live im Web veröffentlichen"
     },
     "aboutHeading": "Über uns",
     "about": {
@@ -186,6 +204,11 @@
     }
   },
 
+  "aiWebsite": {
+    "title": "Webentwicklung-Workshop",
+    "comingSoon": "Details zum Workshop folgen in Kürze."
+  },
+
   "locations": {
     "heading": "Standorte",
     "note": "Weitere Städte auf Anfrage",
@@ -293,6 +316,10 @@
     "mechanical": {
       "title": "Maschinenbau-Workshop | STAGE ONE EDUCATION",
       "description": "Grundlagen des Maschinenbaus erleben – im CAD- und Raketen-Workshop: virtuelle Raketen bauen, 3D-Druck entdecken und Konstruktion lernen. Ohne Vorkenntnisse!"
+    },
+    "aiWebsite": {
+      "title": "Webentwicklung-Workshop | STAGE ONE EDUCATION",
+      "description": "Mit KI-Programmierwerkzeugen eine echte Website bauen und veröffentlichen – im praxisnahen Workshop von Stage One Education, geleitet von echten Ingenieuren. Ohne Vorkenntnisse!"
     },
     "locations": {
       "title": "Standorte | STAGE ONE EDUCATION",

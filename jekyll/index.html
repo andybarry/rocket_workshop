@@ -78,6 +78,7 @@ i18n_key: home
     width: 100vw;
     margin-left: calc(50% - 50vw);
     height: 380px;
+    min-height: 380px;
     overflow: hidden;
     background-color: #fafafa;
   }
@@ -113,24 +114,29 @@ i18n_key: home
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 28px 36px 28px 88px;
+    padding: 22px 28px 22px clamp(36px, 5.5vw, 88px);
     box-sizing: border-box;
+    /* Fluid type/icons track the copy column, not the full viewport */
+    container-type: inline-size;
+    container-name: hero-copy;
   }
   .home-room-hero__workshops {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0;
-    margin: 0 0 14px;
+    margin: 0 0 12px;
+    max-width: 100%;
   }
   .home-room-hero__workshop-link {
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: clamp(12px, 3.2cqi, 15px);
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #434343;
     text-decoration: none;
-    padding: 0 14px;
+    padding: 0 clamp(10px, 2.8cqi, 16px);
     border: none;
     background: none;
     transition: color .25s ease;
@@ -150,10 +156,12 @@ i18n_key: home
   }
   .home-room-hero__title {
     margin: 0;
+    max-width: 100%;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(1.25rem, 2vw, 1.75rem);
-    line-height: 1.2;
+    font-size: clamp(1.55rem, 4.8vw + 0.35rem, 3.5rem);
+    font-size: clamp(1.55rem, 8cqi, 3.5rem);
+    line-height: 1.15;
     letter-spacing: -0.02em;
   }
   .home-room-hero__title-line {
@@ -168,12 +176,12 @@ i18n_key: home
   }
   .home-room-hero__body {
     margin-top: 14px;
-    max-width: 520px;
+    max-width: min(540px, 100%);
   }
   .home-room-hero__body p {
     margin: 0 0 10px;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+    font-size: clamp(0.95rem, 2.5cqi, 1.08rem);
     line-height: 1.45;
     font-weight: 400;
     color: #434343;
@@ -183,12 +191,13 @@ i18n_key: home
     margin-bottom: 0;
   }
   .home-room-hero__actions {
-    margin-top: 18px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
+    max-width: 100%;
   }
   .home-room-hero__cta {
     display: inline-flex;
@@ -204,7 +213,7 @@ i18n_key: home
     border-radius: 50px;
     padding: 8px 18px;
     text-decoration: none;
-    transition: all .35s;
+    transition: color .35s, background-color .35s, box-shadow .35s, border-color .35s;
     -webkit-tap-highlight-color: transparent;
   }
   .home-room-hero__cta .fa {
@@ -233,6 +242,50 @@ i18n_key: home
     border-color: #f05f40;
     box-shadow: 0 6px 16px rgba(240, 95, 64, 0.22);
   }
+  .home-room-hero__highlights {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0 16px;
+    max-width: 100%;
+    width: max-content;
+  }
+  .home-room-hero__highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(9px, 2.2cqi, 11px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.25;
+    color: #434343;
+    white-space: normal;
+    flex: 0 0 auto;
+  }
+  .home-room-hero__highlight span {
+    display: block;
+    line-height: 1.25;
+    white-space: normal;
+  }
+  .home-room-hero__highlight .fa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(240, 95, 64, 0.1);
+    color: #f05f40;
+    font-size: 12px;
+    line-height: 1;
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(240, 95, 64, 0.18);
+  }
   /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
   .home-room-hero__cta:focus,
   .home-room-hero__cta:active {
@@ -254,7 +307,7 @@ i18n_key: home
     flex-direction: column;
     justify-content: space-between;
     gap: 12px;
-    padding: 28px 28px 14px 12px;
+    padding: 18px 24px 12px 12px;
     box-sizing: border-box;
   }
   .home-room-hero__quote-slot {
@@ -267,8 +320,8 @@ i18n_key: home
     width: auto;
     max-width: 100%;
     height: auto;
-    padding: 14px 18px;
-    border-radius: 22px;
+    padding: 12px 14px;
+    border-radius: 18px;
     background: rgba(255, 255, 255, 0.88);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
     color: #464444;
@@ -298,12 +351,12 @@ i18n_key: home
     width: min(380px, 100%);
   }
   .home-room-hero__quote-slot--tl .home-room-hero__quote {
-    top: 0;
+    top: 24px;
     left: 48px;
   }
   .home-room-hero__quote-slot--br .home-room-hero__quote {
     right: 0;
-    bottom: 0;
+    bottom: 24px;
   }
   /* Alternate placement within a section so successive quotes don't look identical */
   .home-room-hero__quote--shift {
@@ -317,16 +370,16 @@ i18n_key: home
   }
   .home-room-hero__quote-text {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 12px;
+    line-height: 1.35;
     font-weight: 400;
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
   .home-room-hero__quote-meta {
     display: block;
-    margin-top: 10px;
-    font-size: 11px;
+    margin-top: 8px;
+    font-size: 10px;
     font-weight: 500;
     color: #f05f40;
     letter-spacing: 0.02em;
@@ -335,17 +388,11 @@ i18n_key: home
   }
   @media (min-width: 768px) and (max-width: 991px) {
     .home-room-hero {
-      height: 400px;
+      height: 350px;
+      min-height: 350px;
     }
     .home-room-hero__content {
       width: 52%;
-      padding: 28px 28px 28px 64px;
-    }
-    .home-room-hero__title {
-      font-size: 1.2rem;
-    }
-    .home-room-hero__body p {
-      font-size: 1.05rem;
     }
     .home-room-hero__fade {
       -webkit-mask-image: linear-gradient(to right, #000 0%, #000 52%, transparent 80%);
@@ -353,10 +400,7 @@ i18n_key: home
     }
     .home-room-hero__quotes {
       left: 54%;
-      padding: 24px 18px 12px 10px;
-    }
-    .home-room-hero__quote {
-      padding: 12px 14px;
+      padding: 16px 16px 10px 8px;
     }
     .home-room-hero__quote--narrow {
       width: min(160px, 100%);
@@ -367,42 +411,38 @@ i18n_key: home
     .home-room-hero__quote--wide {
       width: min(280px, 100%);
     }
-    .home-room-hero__quote-text {
-      font-size: 12px;
-    }
   }
   @media (max-width: 767px) {
     .home-room-hero {
-      height: 480px;
+      height: auto;
+      min-height: 0;
       width: calc(100% + 30px);
       margin-left: -15px;
       margin-right: -15px;
     }
     .home-room-hero__content {
-      width: 88%;
-      padding: 24px 20px 24px 36px;
+      position: relative;
+      width: 92%;
+      padding: 20px 18px 22px 24px;
     }
-    .home-room-hero__title {
-      font-size: 1.1rem;
+    .home-room-hero__title-line {
+      white-space: normal;
+      overflow-wrap: break-word;
     }
-    .home-room-hero__body {
-      margin-top: 12px;
+    .home-room-hero__highlights {
+      gap: 0 10px;
+      width: max-content;
+      max-width: 100%;
     }
-    .home-room-hero__body p {
-      font-size: 0.98rem;
-      margin-bottom: 10px;
+    .home-room-hero__highlight {
+      font-size: 9px;
+      letter-spacing: 0.04em;
+      gap: 5px;
     }
-    .home-room-hero__actions {
-      margin-top: 14px;
-      gap: 8px;
-    }
-    .home-room-hero__cta {
-      font-size: 11px;
-      padding: 7px 16px;
-    }
-    .home-room-hero__cta .fa {
-      margin-right: 7px;
-      font-size: 12px;
+    .home-room-hero__highlight .fa {
+      width: 20px;
+      height: 20px;
+      font-size: 10px;
     }
     .home-room-hero__fade {
       -webkit-mask-image: linear-gradient(to right, #000 0%, #000 78%, transparent 100%);
@@ -410,6 +450,43 @@ i18n_key: home
     }
     .home-room-hero__quotes {
       display: none;
+    }
+  }
+
+  /* Four workshop cards on one line. The cards keep their authored 300px
+     width, so the row takes its own centered track a little wider than the
+     1170px container and the space between cards absorbs the difference. */
+  .workshop-card-col {
+    position: relative;
+  }
+  @media (min-width: 768px) {
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: min(97vw, 640px);
+      margin-left: calc(50% - min(48.5vw, 320px));
+      margin-right: 0;
+    }
+    /* Bootstrap's .row clearfix pseudo-elements become flex items and would
+       take a share of the space between the cards. */
+    body.cursor-glow-page #tab-section .workshop-cards-row::before,
+    body.cursor-glow-page #tab-section .workshop-cards-row::after {
+      display: none;
+    }
+    .workshop-card-col {
+      flex: 0 0 300px;
+      width: 300px;
+    }
+  }
+  @media (min-width: 1280px) {
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 0;
+      width: min(97vw, 1300px);
+      margin-left: calc(50% - min(48.5vw, 650px));
     }
   }
 </style>
@@ -448,6 +525,19 @@ i18n_key: home
             }, 1000); // 1s delay matches the transition duration in the CSS
         }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
 
+        // Hero quick-links (AI / Robotics / Mechanical / Website) mirror
+        // the orange hover state onto the matching workshop card below.
+        $(".home-room-hero__workshop-link").on("mouseenter focus", function () {
+            var href = $(this).attr("href");
+            if (!href) return;
+            $(".workshop-main-button").removeClass("is-hero-hover");
+            $('.workshop-main-button[href="' + href + '"]').addClass("is-hero-hover");
+        }).on("mouseleave blur", function () {
+            var href = $(this).attr("href");
+            if (!href) return;
+            $('.workshop-main-button[href="' + href + '"]').removeClass("is-hero-hover");
+        });
+
         // Floating feedback quote bubbles over the hero image
         var heroQuotes = [
             { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
@@ -481,6 +571,7 @@ i18n_key: home
             ];
             var slotShiftNext = [false, false];
             var fadeMs = 1200;
+            var gapMs = 500;
             var displayMs = 10000;
 
             function nextQuote() {
@@ -587,13 +678,22 @@ i18n_key: home
                 var $old = $slot.find(".home-room-hero__quote.is-visible").first();
                 var useShift = slotShiftNext[slotIndex];
                 slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
-                var $next = createBubble(nextQuote(), useShift);
-                showBubble($slot, $next);
+                var quote = nextQuote();
+
+                function revealNext() {
+                    showBubble($slot, createBubble(quote, useShift));
+                }
+
+                // Fade the old quote fully out, hold empty for gapMs, then fade
+                // the replacement in — no crossfade between the two.
                 if ($old.length) {
                     $old.removeClass("is-visible").addClass("is-leaving");
                     setTimeout(function () {
                         $old.remove();
+                        setTimeout(revealNext, gapMs);
                     }, fadeMs);
+                } else {
+                    revealNext();
                 }
             }
 
@@ -642,6 +742,7 @@ i18n_key: home
             <a class="home-room-hero__workshop-link" href="ai-workshop.html" data-i18n="home.hero.linkAi">AI</a>
             <a class="home-room-hero__workshop-link" href="robotics-workshop.html" data-i18n="home.hero.linkRobotics">Robotics</a>
             <a class="home-room-hero__workshop-link" href="rocket-workshop.html" data-i18n="home.hero.linkMechanical">Mechanical</a>
+            <a class="home-room-hero__workshop-link" href="ai-website-workshop.html" data-i18n="home.hero.linkWebsite">Website</a>
         </nav>
         <h1 class="home-room-hero__title">
             <span class="home-room-hero__title-line home-room-hero__title-line--orange" data-i18n="home.hero.title1">Hands-On Engineering Workshops</span>
@@ -659,6 +760,24 @@ i18n_key: home
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan Your Workshop
             </a>
         </div>
+        <ul class="home-room-hero__highlights" aria-label="Workshop highlights">
+            <li class="home-room-hero__highlight">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span data-i18n-html="home.hero.highlightDuration">3-Hour<br>Workshops</span>
+            </li>
+            <li class="home-room-hero__highlight">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span data-i18n-html="home.hero.highlightDelivery">Delivered<br>Nationwide</span>
+            </li>
+            <li class="home-room-hero__highlight">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span data-i18n-html="home.hero.highlightIncluded">Engineers &amp; Equipment<br>Included</span>
+            </li>
+            <li class="home-room-hero__highlight">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <span data-i18n-html="home.hero.highlightTrusted">Safe<br>&amp; Turnkey</span>
+            </li>
+        </ul>
     </div>
 </section>
             
@@ -666,13 +785,14 @@ i18n_key: home
     <div class="container" id="ai">
 
 <div class="our-workshops-header">
-    <h2 class="workshop-title" style="text-align: center; margin-bottom: 6px; color: rgb(100, 100, 100); font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.workshopsHeading">Our workshops</h2>
-    <div class="our-workshops-line"></div>
+    <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
+    <h2 class="workshop-title our-workshops-title" style="text-align: center; margin-bottom: 0; color: #434343; font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.workshopsHeading">Our workshops</h2>
+    <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
 </div>
 
 <!-- First Workshop Box -->  
-<div class="row align-items-stretch">
-    <div class="col-sm-4 text-center">
+<div class="row align-items-stretch workshop-cards-row">
+    <div class="workshop-card-col text-center">
         <a href="ai-workshop.html" class="workshop-main-button">
 
             <!-- Title Section -->
@@ -690,7 +810,7 @@ i18n_key: home
                   style="
                     position: absolute;
                     top: 28%;
-                    left: 40%;
+                    left: 37%;
                     transform: translate(-50%, -50%);
                     pointer-events: none;
                   "
@@ -709,14 +829,13 @@ i18n_key: home
             </div>
 
             <!-- Text Section with h3 Title added -->
-            <div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
-                <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n-html="home.cardAi.line2">Use the latest AI models:
-                    <ul style="list-style: none; padding-left: 0; margin: 0;">
-                        <li style="margin-bottom: 10px;"><em>text, image, and music</em></li>                    </ul></h3>
-                    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 10px;" data-i18n="home.cardAi.line3">AI ethics discussion</h3>    
-
-                </ul>
+            <div class="workshop-card-copy">
+                <h3 data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
+                <h3 data-i18n-html="home.cardAi.line2">Use the latest AI models:
+                    <ul>
+                        <li><em>text, image, and music</em></li>
+                    </ul></h3>
+                <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
             </div>
 
         </a>
@@ -775,8 +894,8 @@ i18n_key: home
         position: absolute;
         left: 0;
         right: 0;
-        top: 95px;
-        bottom: 145px;
+        top: 85px;
+        bottom: 120px;
         overflow: hidden;
         pointer-events: none;
         z-index: 5;
@@ -797,11 +916,11 @@ i18n_key: home
     .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
     .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
 </style>
-<div class="col-sm-4 text-center">
+<div class="workshop-card-col text-center">
     <a href="robotics-workshop.html" class="workshop-main-button" style="position: relative;">
 
         <!-- White square behind image (lowest z) with scrolling drone-code.png -->
-        <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 95px; bottom: 145px; background: white; border-radius: 8px; z-index: 0;"></div>
+        <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 85px; bottom: 120px; background: white; border-radius: 8px; z-index: 0;"></div>
 
         <!-- Title Section -->
         <h2 class="main-button-title-text" data-i18n-html="home.cardRobotics.title">Robotics<br>Drone</h2>
@@ -823,10 +942,10 @@ i18n_key: home
         </div>
 
 <!-- Text Section with h3 Title added -->
-<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;" data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
+    <h3 data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
+    <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
 </div>
 
     </a>
@@ -836,7 +955,7 @@ i18n_key: home
 
 
 <!-- Third Workshop Box -->
-<div class="col-sm-4 text-center">
+<div class="workshop-card-col text-center">
     <a href="rocket-workshop.html" class="workshop-main-button">
 
         <!-- Title Section -->
@@ -844,37 +963,70 @@ i18n_key: home
         <br/>
 
              <!-- Video Section -->
-             <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <video autoplay loop muted playsinline style="width: 250px; height: 200px; object-fit: cover; border-radius: 10px;">
+             <div class="workshop-card-media">
+                <video autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
                     <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
                 </video>
 
                 <img src="img/rocket-assem-iso.png"
             alt="Rocket Image"
-            style="
-               position: absolute;
-               top: calc(50% - 7px);
-               left: 75%;
-               transform: translate(-50%, -50%);
-               pointer-events: none;
-               width: 200px;
-               height: auto;
-               object-fit: contain;
-            ">
+            class="workshop-card-rocket-overlay">
                 
             </div>
 
 <!-- Text Section with h3 Title added -->
-<div class="text-left" style="flex-grow: 1; padding: 20px; width: 100%; text-align: center;">
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px; padding-top: 15px;" data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
-    <h3 style="font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; margin: 0; padding-bottom: 15px;" data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
+    <h3 data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
+    <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
 </div>
 
         
     </a>
 </div>
+
+
+
+
+<!-- Fourth Workshop Box -->
+<div class="workshop-card-col text-center">
+    <a href="ai-website-workshop.html" class="workshop-main-button">
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text" data-i18n-html="home.cardWebsite.title">Web<br>Development</h2>
+        <br/>
+
+        <!-- Image Section -->
+        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+            <img src="img/ai-website-mockup.svg"
+                 alt="Website built during the workshop" data-i18n-alt="home.cardWebsite.imageAlt"
+                 style="width: 200px; height: 200px; object-fit: contain;">
+        </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardWebsite.line1">Build a real website</h3>
+    <h3 data-i18n="home.cardWebsite.line2">Code with an AI assistant</h3>
+    <h3 data-i18n="home.cardWebsite.line3">Publish it live on the web</h3>
+</div>
+
+    </a>
+</div>
+</div>
+
+<div class="participants-plan-row">
+    <div class="participants-plan-row__say">
+        <div class="our-workshops-header">
+            <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
+            <h2 class="workshop-title our-workshops-title" style="text-align: center; margin-bottom: 0; color: #434343; font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.participantsHeading">What Participants Say</h2>
+            <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
+        </div>
+    </div>
+    <a class="participants-plan-cta" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer">
+        <h3 class="participants-plan-cta__title" data-i18n="home.planWorkshop.title">Plan a Workshop</h3>
+        <p class="participants-plan-cta__subtitle" data-i18n="home.planWorkshop.subtitle">Tell us about your plans and we'll send availability and pricing.</p>
+    </a>
 </div>
 
     </div>
