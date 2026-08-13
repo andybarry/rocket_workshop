@@ -550,8 +550,11 @@
            later language change. */
         ready: function (callback) {
             if (typeof callback !== 'function') return;
+            if (isReady) {
+                callback(current);
+                return;
+            }
             readyCallbacks.push(callback);
-            if (isReady) callback(current);
         }
     };
 

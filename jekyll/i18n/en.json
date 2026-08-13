@@ -51,8 +51,22 @@
     "workshopsHeading": "Our workshops",
     "participantsHeading": "What Participants Say",
     "planWorkshop": {
-      "title": "Plan a Workshop",
-      "subtitle": "Tell us about your plans and we'll send availability and pricing."
+      "title": "Plan Your Workshop",
+      "subtitle": "Quick form — we'll help plan your workshop.",
+      "location": "Location",
+      "locationPlaceholder": "Select a location",
+      "workshops": "Workshop",
+      "workshopAi": "AI",
+      "workshopRobotics": "Robotics",
+      "workshopMechanical": "Mechanical",
+      "workshopWebsite": "Web",
+      "organization": "Organization",
+      "groupSize": "Group size",
+      "timing": "Date",
+      "email": "Email",
+      "submit": "Submit",
+      "hint": "This will be directed to workshops@stageoneeducation.com",
+      "thanks": "Thank you! We will be in contact with you soon."
     },
     "cardAi": {
       "title": "Artificial Intelligence",

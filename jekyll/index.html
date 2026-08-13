@@ -508,6 +508,32 @@ i18n_key: home
         img.src = src;
     });
 
+    // Participant quotes, shared by the hero bubbles and the Feedback panel
+    // further down the page. Translations come from home.heroQuotes, matched by
+    // position; the city and year in `meta` stay as authored.
+    window.SOParticipantQuotes = [
+        { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
+        { text: "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.", meta: "New Haven, CT • 2026" },
+        { text: "This was easily the best so far", meta: "Ann Arbor, MI • 2026" },
+        { text: "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience", meta: "New Haven, CT • 2026" },
+        { text: "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)", meta: "Los Angeles, CA • 2026" },
+        { text: "That was so much fun and I really enjoyed the freedom but also learning", meta: "Houston, TX • 2026" },
+        { text: "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI", meta: "Houston, TX • 2026" },
+        { text: "I think it was really well planned and the activities were very enjoyable and fun.", meta: "Orlando, FL • 2026" },
+        { text: "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future", meta: "Ann Arbor, MI • 2026" },
+        { text: "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.", meta: "Atlanta, GA • 2026" },
+        { text: "I learned much about the intricacies of AI generation", meta: "Atlanta, GA • 2026" },
+        { text: "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.", meta: "Ann Arbor, MI • 2026" },
+        { text: "I really loved the events you made. I also loved how much knowledge you had.", meta: "Atlanta, GA • 2026" },
+        { text: "Loved this instructor, she is very interactive and a good listener and provides great insight", meta: "New Haven, CT • 2026" },
+        { text: "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.", meta: "Atlanta, GA • 2026" },
+        { text: "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.", meta: "Ann Arbor, MI • 2026" },
+        { text: "This was the best workshop because it was super interactive and very hands on", meta: "Houston, TX • 2026" },
+        { text: "This was super fun and it should definitely be taught next time.", meta: "New Haven, CT • 2026" },
+        { text: "I’ve done three of these workshops and each one is better than the next. Wonderful program!", meta: "Berkeley, CA • 2026" },
+        { text: "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D", meta: "Atlanta, GA • 2026" }
+    ];
+
     $(document).ready(function () {
         let currentIndex = 0;
 
@@ -539,28 +565,7 @@ i18n_key: home
         });
 
         // Floating feedback quote bubbles over the hero image
-        var heroQuotes = [
-            { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
-            { text: "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.", meta: "New Haven, CT • 2026" },
-            { text: "This was easily the best so far", meta: "Ann Arbor, MI • 2026" },
-            { text: "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience", meta: "New Haven, CT • 2026" },
-            { text: "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)", meta: "Los Angeles, CA • 2026" },
-            { text: "That was so much fun and I really enjoyed the freedom but also learning", meta: "Houston, TX • 2026" },
-            { text: "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI", meta: "Houston, TX • 2026" },
-            { text: "I think it was really well planned and the activities were very enjoyable and fun.", meta: "Orlando, FL • 2026" },
-            { text: "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future", meta: "Ann Arbor, MI • 2026" },
-            { text: "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.", meta: "Atlanta, GA • 2026" },
-            { text: "I learned much about the intricacies of AI generation", meta: "Atlanta, GA • 2026" },
-            { text: "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.", meta: "Ann Arbor, MI • 2026" },
-            { text: "I really loved the events you made. I also loved how much knowledge you had.", meta: "Atlanta, GA • 2026" },
-            { text: "Loved this instructor, she is very interactive and a good listener and provides great insight", meta: "New Haven, CT • 2026" },
-            { text: "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.", meta: "Atlanta, GA • 2026" },
-            { text: "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.", meta: "Ann Arbor, MI • 2026" },
-            { text: "This was the best workshop because it was super interactive and very hands on", meta: "Houston, TX • 2026" },
-            { text: "This was super fun and it should definitely be taught next time.", meta: "New Haven, CT • 2026" },
-            { text: "I’ve done three of these workshops and each one is better than the next. Wonderful program!", meta: "Berkeley, CA • 2026" },
-            { text: "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D", meta: "Atlanta, GA • 2026" }
-        ];
+        var heroQuotes = window.SOParticipantQuotes;
 
         var $quotesLayer = $(".home-room-hero__quotes");
         if ($quotesLayer.length) {
@@ -570,6 +575,8 @@ i18n_key: home
                 $quotesLayer.find(".home-room-hero__quote-slot--br")
             ];
             var slotShiftNext = [false, false];
+            var slotTimers = [null, null];
+            var bubblesStarted = false;
             var fadeMs = 1200;
             var gapMs = 500;
             var displayMs = 10000;
@@ -667,52 +674,84 @@ i18n_key: home
             }
 
             function showBubble($slot, $bubble) {
+                // Bubbles are absolutely positioned in the same corner, so a
+                // leftover from an interrupted cycle would sit under the new one.
+                $slot.children().remove();
                 $slot.append($bubble);
                 $bubble[0].offsetWidth;
                 expandToAvoidOrphans($bubble);
                 $bubble.addClass("is-visible");
             }
 
-            function swapBubble(slotIndex) {
-                var $slot = $slots[slotIndex];
-                var $old = $slot.find(".home-room-hero__quote.is-visible").first();
-                var useShift = slotShiftNext[slotIndex];
-                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
-                var quote = nextQuote();
-
-                function revealNext() {
-                    showBubble($slot, createBubble(quote, useShift));
-                }
-
-                // Fade the old quote fully out, hold empty for gapMs, then fade
-                // the replacement in — no crossfade between the two.
-                if ($old.length) {
-                    $old.removeClass("is-visible").addClass("is-leaving");
-                    setTimeout(function () {
-                        $old.remove();
-                        setTimeout(revealNext, gapMs);
-                    }, fadeMs);
-                } else {
-                    revealNext();
+            function clearSlotTimer(slotIndex) {
+                if (slotTimers[slotIndex]) {
+                    clearTimeout(slotTimers[slotIndex]);
+                    slotTimers[slotIndex] = null;
                 }
             }
 
-            function startSlot(slotIndex, firstSwapDelay) {
+            // Fade the current quote fully out, hold the slot empty for gapMs,
+            // then fade the replacement in — no crossfade between the two.
+            function retireBubble(slotIndex) {
+                var $slot = $slots[slotIndex];
+                var $old = $slot.children();
+                $old.removeClass("is-visible").addClass("is-leaving");
+                slotTimers[slotIndex] = setTimeout(function () {
+                    $old.remove();
+                    slotTimers[slotIndex] = setTimeout(function () {
+                        showNextBubble(slotIndex, displayMs);
+                    }, gapMs);
+                }, fadeMs);
+            }
+
+            function holdSlot(slotIndex, holdMs) {
+                clearSlotTimer(slotIndex);
+                slotTimers[slotIndex] = setTimeout(function () {
+                    retireBubble(slotIndex);
+                }, holdMs);
+            }
+
+            // Each step schedules the next only once it has finished, so a slot
+            // never has two bubbles in flight even when the browser throttles
+            // timers (hidden tabs are clamped to roughly one wake per minute).
+            function showNextBubble(slotIndex, holdMs) {
                 var useShift = slotShiftNext[slotIndex];
                 slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
                 showBubble($slots[slotIndex], createBubble(nextQuote(), useShift));
-                setTimeout(function cycle() {
-                    swapBubble(slotIndex);
-                    setTimeout(cycle, displayMs);
-                }, firstSwapDelay);
+                holdSlot(slotIndex, holdMs);
+            }
+
+            // Keep the quote already on screen if there is one, so returning to
+            // the tab doesn't blank the slot.
+            function resumeSlot(slotIndex, holdMs) {
+                var $slot = $slots[slotIndex];
+                $slot.children().not(".is-visible").remove();
+                if ($slot.children().length) {
+                    holdSlot(slotIndex, holdMs);
+                } else {
+                    showNextBubble(slotIndex, holdMs);
+                }
+            }
+
+            function handleVisibilityChange() {
+                if (document.hidden) {
+                    clearSlotTimer(0);
+                    clearSlotTimer(1);
+                } else {
+                    resumeSlot(0, displayMs);
+                    resumeSlot(1, displayMs + displayMs / 2);
+                }
             }
 
             // Always two quotes: top-left and bottom-right, staggered fades.
             // Held until the translation pass finishes so the first bubbles are
             // already in the visitor's language.
             function startQuoteBubbles() {
-                startSlot(0, displayMs);
-                startSlot(1, displayMs + displayMs / 2);
+                if (bubblesStarted) return;
+                bubblesStarted = true;
+                showNextBubble(0, displayMs);
+                showNextBubble(1, displayMs + displayMs / 2);
+                document.addEventListener("visibilitychange", handleVisibilityChange);
             }
 
             if (window.SOI18n) {
@@ -756,7 +795,7 @@ i18n_key: home
             <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer" data-i18n-html="home.hero.ctaGuide">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>View Workshop Guide
             </a>
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer" data-i18n-html="home.hero.ctaPlan">
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="#plan-workshop-form" data-i18n-html="home.hero.ctaPlan">
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan Your Workshop
             </a>
         </div>
@@ -1016,18 +1055,443 @@ i18n_key: home
 </div>
 
 <div class="participants-plan-row">
-    <div class="participants-plan-row__say">
-        <div class="our-workshops-header">
-            <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
-            <h2 class="workshop-title our-workshops-title" style="text-align: center; margin-bottom: 0; color: #434343; font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.participantsHeading">What Participants Say</h2>
-            <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
+    <section class="participants-feedback" aria-label="Participant feedback">
+        <div class="participants-feedback__head">
+            <h3 class="participants-feedback__title" data-i18n="home.feedbackHeading">Feedback</h3>
+            <span class="participants-feedback__eyebrow" data-i18n="home.participantsHeading">What Participants Say</span>
         </div>
-    </div>
-    <a class="participants-plan-cta" href="{% include demo_link.html %}" target="_blank" rel="noopener noreferrer">
-        <h3 class="participants-plan-cta__title" data-i18n="home.planWorkshop.title">Plan a Workshop</h3>
-        <p class="participants-plan-cta__subtitle" data-i18n="home.planWorkshop.subtitle">Tell us about your plans and we'll send availability and pricing.</p>
-    </a>
+        <div class="participants-feedback__stage"></div>
+        <div class="participants-feedback__progress" aria-hidden="true">
+            <span class="participants-feedback__progress-bar"></span>
+        </div>
+    </section>
+    <span class="participants-plan-divider" aria-hidden="true"></span>
+    <form class="participants-plan-cta" id="plan-workshop-form" action="mailto:workshops@stageoneeducation.com" method="get" novalidate>
+        <h3 class="participants-plan-cta__title" data-i18n="home.planWorkshop.title">Plan Your Workshop</h3>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.location">Location</span>
+            <select name="location" class="participants-plan-field__control participants-plan-field__control--select">
+                <option value="" data-i18n="home.planWorkshop.locationPlaceholder">Select a location</option>
+                <option value="Ann Arbor, MI">Ann Arbor, MI</option>
+                <option value="Atlanta, GA">Atlanta, GA</option>
+                <option value="Berkeley, CA">Berkeley, CA</option>
+                <option value="Boston, MA">Boston, MA</option>
+                <option value="Denver, CO">Denver, CO</option>
+                <option value="Houston, TX">Houston, TX</option>
+                <option value="Los Angeles, CA">Los Angeles, CA</option>
+                <option value="New Haven, CT">New Haven, CT</option>
+                <option value="Orlando, FL">Orlando, FL</option>
+                <option value="San Francisco, CA">San Francisco, CA</option>
+                <option value="Washington, DC">Washington, DC</option>
+            </select>
+        </label>
+
+        <fieldset class="participants-plan-field participants-plan-field--workshops">
+            <legend class="participants-plan-field__label" data-i18n="home.planWorkshop.workshops">Workshop</legend>
+            <div class="participants-plan-workshops">
+                <label class="participants-plan-check">
+                    <input type="checkbox" name="workshop" value="Artificial Intelligence">
+                    <span data-i18n="home.planWorkshop.workshopAi">AI</span>
+                </label>
+                <label class="participants-plan-check">
+                    <input type="checkbox" name="workshop" value="Robotics Drone">
+                    <span data-i18n="home.planWorkshop.workshopRobotics">Robotics</span>
+                </label>
+                <label class="participants-plan-check">
+                    <input type="checkbox" name="workshop" value="Mechanical Engineering">
+                    <span data-i18n="home.planWorkshop.workshopMechanical">Mechanical</span>
+                </label>
+                <label class="participants-plan-check">
+                    <input type="checkbox" name="workshop" value="Web Development">
+                    <span data-i18n="home.planWorkshop.workshopWebsite">Web</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.groupSize">Group size</span>
+            <input type="number" name="groupSize" class="participants-plan-field__control" min="1" inputmode="numeric">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.timing">Date</span>
+            <input type="date" name="timing" class="participants-plan-field__control participants-plan-field__control--date">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.organization">Organization</span>
+            <input type="text" name="organization" class="participants-plan-field__control" autocomplete="organization">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label">
+                <span data-i18n="home.planWorkshop.email">Email</span>
+                <span class="participants-plan-field__required" aria-hidden="true">*</span>
+            </span>
+            <input type="email" name="email" class="participants-plan-field__control" required autocomplete="email" inputmode="email">
+        </label>
+
+        <button type="submit" class="participants-plan-submit" data-i18n="home.planWorkshop.submit">Submit</button>
+        <p class="participants-plan-hint" data-i18n="home.planWorkshop.hint">This will be directed to workshops@stageoneeducation.com</p>
+        <p class="participants-plan-thanks" data-i18n="home.planWorkshop.thanks" hidden>Thank you! We will be in contact with you soon.</p>
+    </form>
 </div>
+
+<script>
+(function () {
+    var form = document.getElementById("plan-workshop-form");
+    if (!form) return;
+
+    function scrollPlanFormIntoView() {
+        form.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        form.classList.add("is-pulse-glow");
+    }
+
+    document.querySelectorAll('a[href="#plan-workshop-form"]').forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            scrollPlanFormIntoView();
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, "", "#plan-workshop-form");
+            }
+        });
+    });
+
+    // Hash on load can still scroll into place, but do not start the glow
+    // unless the visitor just clicked Plan Your Workshop.
+    if (window.location.hash === "#plan-workshop-form") {
+        window.setTimeout(function () {
+            form.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        }, 0);
+    }
+
+    function fieldValue(name) {
+        var el = form.elements.namedItem(name);
+        if (!el) return "";
+        return (el.value || "").trim();
+    }
+
+    function selectedWorkshops() {
+        var boxes = form.querySelectorAll('input[name="workshop"]:checked');
+        var values = [];
+        for (var i = 0; i < boxes.length; i++) values.push(boxes[i].value);
+        return values;
+    }
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var emailInput = form.elements.namedItem("email");
+        if (!emailInput || !emailInput.value.trim()) {
+            if (emailInput && emailInput.focus) emailInput.focus();
+            return;
+        }
+        if (typeof emailInput.checkValidity === "function" && !emailInput.checkValidity()) {
+            emailInput.reportValidity();
+            return;
+        }
+
+        var email = emailInput.value.trim();
+        var workshops = selectedWorkshops();
+
+        var lines = [
+            "New workshop inquiry from the website:",
+            "",
+            "Email: " + email,
+            "Location: " + (fieldValue("location") || "—"),
+            "Organization: " + (fieldValue("organization") || "—"),
+            "Group size: " + (fieldValue("groupSize") || "—"),
+            "Approximate time of year: " + (fieldValue("timing") || "—"),
+            "Workshop(s): " + (workshops.length ? workshops.join(", ") : "—")
+        ];
+
+        var mailto = "mailto:workshops@stageoneeducation.com"
+            + "?subject=" + encodeURIComponent("Workshop inquiry")
+            + "&body=" + encodeURIComponent(lines.join("\n"));
+
+        window.location.href = mailto;
+        form.classList.add("is-submitted");
+        var thanks = form.querySelector(".participants-plan-thanks");
+        if (thanks) {
+            thanks.hidden = false;
+        }
+    });
+})();
+</script>
+
+<script>
+// Feedback panel: cycles participant quotes and the survey charts through a
+// single stage, with a progress line showing how long the current one stays.
+(function () {
+    var panel = document.querySelector(".participants-feedback");
+    var stage = panel ? panel.querySelector(".participants-feedback__stage") : null;
+    var bar = panel ? panel.querySelector(".participants-feedback__progress-bar") : null;
+    var title = panel ? panel.querySelector(".participants-feedback__title") : null;
+    var eyebrow = panel ? panel.querySelector(".participants-feedback__eyebrow") : null;
+    var quotes = window.SOParticipantQuotes || [];
+    if (!panel || !stage || !quotes.length) return;
+
+    var CHARTS = ["img/feedback1.png", "img/feedback2.png", "img/feedback3.png", "img/feedback4.png"];
+    var QUOTES_PER_CHART = 4;
+    // Matches the .is-leaving fade in the stylesheet: the slide on screen is
+    // gone before the next one starts arriving.
+    var FADE_OUT_MS = 380;
+    var CHART_MS = 7000;
+    var QUOTE_MIN_MS = 5000;
+    var QUOTE_MAX_MS = 12000;
+    var MS_PER_CHARACTER = 34;
+    var MIN_QUOTE_PX = 13;
+
+    var playlist = [];
+    var chartIndex = 0;
+    for (var i = 0; i < quotes.length; i++) {
+        playlist.push({ type: "quote", index: i });
+        if ((i + 1) % QUOTES_PER_CHART === 0 && chartIndex < CHARTS.length) {
+            playlist.push({ type: "chart", src: CHARTS[chartIndex++] });
+        }
+    }
+    while (chartIndex < CHARTS.length) {
+        playlist.push({ type: "chart", src: CHARTS[chartIndex++] });
+    }
+
+    // A chart fading in before it has downloaded would show an empty stage.
+    for (var c = 0; c < CHARTS.length; c++) {
+        var preload = new Image();
+        preload.src = CHARTS[c];
+    }
+
+    // Starting part way in keeps the panel off the quote the hero is showing.
+    var cursor = Math.floor(Math.random() * playlist.length);
+    var currentItem = null;
+    var currentSlide = null;
+    var duration = CHART_MS;
+    var elapsed = 0;
+    var lastFrame = 0;
+    var paused = false;
+    var started = false;
+    var swapping = false;
+    var slideLang = null;
+    var headLang = null;
+
+    function activeLang() {
+        return window.SOI18n ? window.SOI18n.lang : null;
+    }
+
+    // Japanese translates both headings to the same phrase, and printing it
+    // twice side by side reads like a mistake. Clearing the inline value hands
+    // the decision back to the stylesheet, which hides it on small screens.
+    function syncEyebrow() {
+        headLang = activeLang();
+        if (!title || !eyebrow) return;
+        var same = eyebrow.textContent.trim() === title.textContent.trim();
+        eyebrow.style.display = same ? "none" : "";
+    }
+
+    function quoteAt(index) {
+        var quote = quotes[index];
+        var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+        if (translated && typeof translated[index] === "string") {
+            return { text: translated[index], meta: quote.meta };
+        }
+        return quote;
+    }
+
+    // Short quotes carry a larger type size; long ones step down so they still
+    // fit the stage without scrolling.
+    function sizeClass(text) {
+        var length = (text || "").length;
+        if (length <= 70) return "feedback-slide--short";
+        if (length <= 170) return "feedback-slide--medium";
+        return "feedback-slide--long";
+    }
+
+    function buildQuoteSlide(item) {
+        var quote = quoteAt(item.index);
+        var slide = document.createElement("figure");
+        slide.className = "feedback-slide feedback-slide--quote " + sizeClass(quote.text);
+
+        var mark = document.createElement("i");
+        mark.className = "fa fa-quote-left feedback-slide__mark";
+        mark.setAttribute("aria-hidden", "true");
+
+        var block = document.createElement("blockquote");
+        block.className = "feedback-slide__quote";
+        var text = document.createElement("p");
+        text.className = "feedback-slide__text";
+        text.textContent = quote.text;
+        block.appendChild(text);
+
+        var meta = document.createElement("figcaption");
+        meta.className = "feedback-slide__meta";
+        meta.textContent = quote.meta;
+
+        slide.appendChild(mark);
+        slide.appendChild(block);
+        slide.appendChild(meta);
+        return slide;
+    }
+
+    function buildChartSlide(item) {
+        var slide = document.createElement("figure");
+        slide.className = "feedback-slide feedback-slide--chart";
+        var image = document.createElement("img");
+        image.className = "feedback-slide__chart";
+        image.src = item.src;
+        image.alt = "";
+        slide.appendChild(image);
+        return slide;
+    }
+
+    function setProgress(fraction) {
+        if (bar) bar.style.transform = "scaleX(" + fraction + ")";
+    }
+
+    // Slides are positioned, so a quote too tall for the stage would spill out
+    // of the panel instead of growing it. Height is measured from the parts
+    // rather than the slide itself, which is stretched to the stage.
+    function slideHeight(slide) {
+        var gap = parseFloat(window.getComputedStyle(slide).rowGap) || 0;
+        var total = gap * Math.max(0, slide.children.length - 1);
+        for (var i = 0; i < slide.children.length; i++) {
+            total += slide.children[i].getBoundingClientRect().height;
+        }
+        return total;
+    }
+
+    // The authored sizes suit the English wording. Translations run longer, and
+    // Chinese, Japanese and Korean fit far more text into the same character
+    // count, so the type steps down until the quote clears the stage.
+    function fitQuote(slide) {
+        var text = slide.querySelector(".feedback-slide__text");
+        var available = stage.clientHeight;
+        if (!text || !available) return;
+
+        var size = parseFloat(window.getComputedStyle(text).fontSize);
+        var guard = 30;
+        while (guard-- > 0 && size > MIN_QUOTE_PX && slideHeight(slide) > available) {
+            size -= 1;
+            text.style.fontSize = size + "px";
+        }
+    }
+
+    function mount(item) {
+        var slide = item.type === "chart" ? buildChartSlide(item) : buildQuoteSlide(item);
+        stage.appendChild(slide);
+        if (item.type === "quote") fitQuote(slide);
+        // Read back the hidden state so the browser animates into it.
+        void slide.offsetWidth;
+        slide.classList.add("is-visible");
+
+        currentItem = item;
+        currentSlide = slide;
+        slideLang = activeLang();
+
+        if (item.type === "chart") {
+            duration = CHART_MS;
+        } else {
+            var body = slide.querySelector(".feedback-slide__text");
+            var length = body ? body.textContent.length : 0;
+            duration = Math.min(QUOTE_MAX_MS, Math.max(QUOTE_MIN_MS, 2600 + length * MS_PER_CHARACTER));
+        }
+        elapsed = 0;
+        swapping = false;
+        setProgress(0);
+    }
+
+    function show(item) {
+        var outgoing = currentSlide;
+        if (!outgoing) {
+            mount(item);
+            return;
+        }
+
+        // Nothing is timed while the swap runs, so the incoming slide gets its
+        // full reading time.
+        swapping = true;
+        setProgress(0);
+        outgoing.classList.remove("is-visible");
+        outgoing.classList.add("is-leaving");
+        currentSlide = null;
+        window.setTimeout(function () {
+            if (outgoing.parentNode) outgoing.parentNode.removeChild(outgoing);
+            mount(item);
+        }, FADE_OUT_MS);
+    }
+
+    function showNext() {
+        var item = playlist[cursor];
+        cursor = (cursor + 1) % playlist.length;
+        show(item);
+    }
+
+    // One animation frame loop drives both the progress line and the hand-off,
+    // so the two cannot drift apart, and a hidden tab freezes both.
+    function frame(now) {
+        var delta = lastFrame ? now - lastFrame : 0;
+        lastFrame = now;
+
+        if (activeLang() !== headLang) syncEyebrow();
+
+        if (!swapping) {
+            if (currentItem && currentItem.type === "quote" && activeLang() !== slideLang) {
+                // The visitor switched language, so the quote on screen is
+                // reprinted instead of waiting its turn out in the old one.
+                show(currentItem);
+            } else if (!paused && delta > 0 && delta < 1000) {
+                // A tab that was in the background hands back one huge delta.
+                elapsed += delta;
+                setProgress(Math.min(1, elapsed / duration));
+                if (elapsed >= duration) showNext();
+            }
+        }
+
+        window.requestAnimationFrame(frame);
+    }
+
+    function setPaused(state) {
+        paused = state;
+        if (state) {
+            panel.classList.add("is-paused");
+        } else {
+            panel.classList.remove("is-paused");
+        }
+    }
+
+    // Hovering holds the current quote so a long one can be finished.
+    panel.addEventListener("mouseenter", function () { setPaused(true); });
+    panel.addEventListener("mouseleave", function () { setPaused(false); });
+
+    // The stage changes shape with the window, so the quote on screen is
+    // measured again from its authored size rather than its fitted one.
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+        if (resizeTimer) window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(function () {
+            if (!currentSlide || !currentItem || currentItem.type !== "quote") return;
+            var text = currentSlide.querySelector(".feedback-slide__text");
+            if (text) text.style.fontSize = "";
+            fitQuote(currentSlide);
+        }, 150);
+    });
+
+    // Held until the first translation pass finishes so the opening quote is
+    // already in the visitor's language.
+    function start() {
+        if (started) return;
+        started = true;
+        syncEyebrow();
+        showNext();
+        window.requestAnimationFrame(frame);
+    }
+
+    if (window.SOI18n) {
+        window.SOI18n.ready(start);
+    } else {
+        start();
+    }
+})();
+</script>
 
     </div>
 
