@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+
+  <title>Fuselage (page 1) | Onshape CAD Tutorial | Stage One Education</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
+
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
+
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
+
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
+        toggleSwitch.checked = savedState === "true";
+        toggleAdvancedMode2(toggleSwitch.checked);
+      }
+
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
+        localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
+    });
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
+
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
+
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
+          
+        </a>
+      </div>
+
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
+
+        <!-- Only show links when NOT on portal.html -->
+        
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
+
+          <!-- Optional “team” icon when on a team page -->
+          
+
+          <!-- Getting Started -->
+          
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-single.html">
+                Getting Started
+              </a>
+            </li>
+          
+
+          <!-- Fuselage -->
+          
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-single2.html">
+                Fuselage
+              </a>
+            </li>
+          
+
+          <!-- Fins + Booster -->
+          
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-single1.html">
+                Fins+Booster
+              </a>
+            </li>
+          
+
+          <!-- Nosecone -->
+          
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-single1.html">
+                Nosecone
+              </a>
+            </li>
+          
+
+          <!-- Assembly -->
+          
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-single1.html">
+                Assembly
+              </a>
+            </li>
+          
+
+          <!-- Challenges -->
+          
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-single.html">
+                Challenges
+              </a>
+            </li>
+          
+
+        </ul>
+        
+
+      </div>
+    </div>
+  </nav>
+
+      
+
+
+
+<meta name="Description" content="Learn CAD / Onshape by building a fully-functional model rocket with a GIF at each step.">
+<header class="video-background">
+    <div class="header-content header-content-top">
+        <div class="header-content-inner">
+            <h1>explore Computer-Aided Design (CAD)<br/>as you create a virtual rocket</h1>
+            <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+            <h2>zero to rockets in 4 hours</h2>
+            <div style="width:80%; margin: 0 auto; text-align:center;">
+                <img 
+                    src="img/tutorial/rocket-assem-exploded-view.png" 
+                    alt="Intro Placeholder" 
+                    style="width:30%; display:inline-block; vertical-align:middle;"
+                >
+                <a href="#getting_started" class="btn btn-primary btn-xl page-scroll" 
+                style="display:inline-block; vertical-align:center;">
+                Get started <i class="fa fa-arrow-down"></i>
+             </a>
+                <img 
+                    src="img/tutorial/rocket-assem-iso.png" 
+                    style="width:30%; display:inline-block; vertical-align:middle;"
+                >
+            </div>
+<!--
+            <ol style="font-size: 17px">
+                <li>Learn professional-grade CAD</li>
+                <li>Design a fully-functional model rocket</li>
+                <li>3D print your rocket</li>
+                <li>Go flying</li>
+            </ol>
+-->
+        </div>
+    </div>
+    <div align="center" class="video-background autosize">
+        <video autoplay loop muted playsinline class="video-background ">
+            <source src="videos/intro-video3.webm" type="video/webm">
+            <source src="videos/intro-video3.mp4" type="video/mp4">
+        </video>
+    </div>
+</header>
+
+ 
+
+
+    
+
+
+
+
+
+<section id="getting_started">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2>Getting started</h2>
+                <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+                <p style="margin: 0; border:0;">A complete introduction to Onshape CAD by designing a fully-functional
+                    model rocket.</p><br />
+
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <p>We recommend a split-screen layout:</p>
+                <h3 class="section-heading">
+1.
+ Set up windows in split view</h3>
+                <ul>
+                    <p><img src="img/tutorial/split_screen_sketch.png" style="max-width: 100%;" /></p>
+                    <li>Use <strong>Windows key + Left Arrow</strong> to move one browser to the left</li>
+                    <li>Use <strong>Windows key + Right Arrow</strong> to move the other browser to the right</li>
+                    <li>Consider making the tutorial thinner than the CAD window so more of the controls are fully
+                        visible in the view.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h3 class="section-heading">
+2.
+ Create a <strong>Hobbyist</strong>
+                    onshape account</h3>
+                <ul>
+                    <li>Head to the <a
+                            href="https://cad.onshape.com/signup2?basicdataid=113b147e-2347-49b0-8c52-32e785704419&extendeddataid=4175c8b5-4f16-4b3a-b61a-19646bb51c0b&enable_cookie=check&approveUser=yes&locale=en_US&hsCtaTracking=c3153aac-7793-4d1f-9f64-5f9a78544b2c%7Cba6f18c9-5891-4db3-946d-91fb5aa60ad9"
+                            target="_blank"><strong>create free account</strong></a> page at Onshape</li>
+                    <br/>
+                       <li>Input your:</li>
+                    
+                     <ul>
+                        <li><strong>First Name</strong></li>
+                        <li><strong>Last Name</strong></li>
+                        <li><strong>Email Addres</strong>s</li>
+                   
+                    <li>Press <strong>Next </strong><img style="width: 80px; height: auto;" src="img/tutorial/next-button.png" /></li>
+                     </ul> 
+                     <br/>
+                    <li>On page 2: What do you want to use Onshape for</li>
+                        <ul><li>Select <strong>Fun</strong><br /><img
+                                style="max-width: 70%;" src="img/tutorial/onshape-fun-icon.png" /></li>
+                            <li>Press <strong>Next </strong><img style="width: 80px; height: auto;" src="img/tutorial/next-button.png" /></li>
+                        </ul>
+                    <br/>
+
+                    <li>On page 3: What best describes you?</li>
+                   
+                   <ul><li>Select <strong>Hobbyist</strong><br /><img
+                                style="max-width: 70%;" src="img/tutorial/hobbyist-button.png" /></li>
+                            <li>Press <strong>Next </strong><img style="width: 80px; height: auto;" src="img/tutorial/next-button.png" /></li>
+                        </ul>
+                        <br/>
+
+                        <li>On page 4: Confirm your Plan</li>
+                   <ul>
+                        <li>Press <strong>Next </strong><img style="width: 80px; height: auto;" src="img/tutorial/next-button.png" /></li>
+                        </ul>
+                        <br/>
+                  
+                  <li>On page 5: Add your details</li>
+                        <ul>
+                         <li>Phone number:<strong> Your mobile phone number</strong></li>
+                         <li>What CAD system are you most familiar with:<strong> Onshape</strong></li>
+                         <li>Where are you in your CAD evaluation process:<strong> Browsing / General Interest</strong></li>
+                        <li>Press <strong>Next </strong><img style="width: 80px; height: auto;" src="img/tutorial/next-button.png" /></li>
+                        </ul>
+
+                         <br/>
+
+                 <li>On page 6: Complete your signup</li>
+                        <ul>
+                         <li>Do you use CAD at work:<strong> No</strong></li>
+                         <li>How did you hear about us:<strong> Stage One Education</strong></li>
+                         <li>Check acknowledgements <img style="width: 20px; height: auto;" src="img/tutorial/blue-check.png" /></li>
+                        <li>Press <strong>Complete Sign Up </strong><img style="width: 90px; height: auto;" src="img/tutorial/complete-sign-up.png" /></li>
+                        </ul>
+                 
+                        <br/>
+
+                 <li>Open your email and click the link we sent to activate your account</li>
+                 <ul>
+                   <li>Press <strong>Activate Your Account </strong><img style="width: 150px; height: auto;" src="img/tutorial/activate-account.png" /></li>
+                    <li>create a password</li>
+                        </ul>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+3.
+ Sign-in to Onshape</h3>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_1">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_1">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(1)"
+    onmouseout="this.play(); updatePlayPauseIcon(1)"
+    id="video-1"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(1)"
+    >
+    <source src="videos/getting-started/login.webm" type="video/webm">
+    <source src="videos/getting-started/login.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-1" onclick="togglePlayPause(1)">▶</div>
+    <div class="pause-icon" id="pause-button-1" onclick="togglePlayPause(1)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <ul>
+                        <li><a href="https://cad.onshape.com/signin">Sign-in</a> to Onshape</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+4.
+ Accept default units</h3>
+                    <ul>
+                        <li>The default options are correct:</li>
+                        <ul>
+                            <li><strong>Length</strong>: <code>Inches</code></li>
+                            <li><strong>Angle units</strong>: <code>Degrees</code></li>
+                            <li><strong>Mass units</strong>: <code>Pound</code></li>
+                        </ul>
+                        <li>Press <strong>Next</strong><img src="img/tutorial/next.png" /></li>
+                        <li>Accept the default mouse controls</li>
+                        <ul>
+                            <li>Onshape (default) <img src="img/tutorial/onshape_default.png" /></li>
+                            <li>Press <strong>Next</strong> <img src="img/tutorial/next.png" /></li>
+                        </ul>
+                        <li>Accept the default nickname</li>
+                        <ul>
+                            <li>Press <strong>Next</strong> <img src="img/tutorial/next.png" /></li>
+                        </ul>
+                        <li>Select Done after the browser check <img src="img/tutorial/done.png" /></li>
+                    </ul>
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+5.
+ Create a new document</h3>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_2">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_2">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(2)"
+    onmouseout="this.play(); updatePlayPauseIcon(2)"
+    id="video-2"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(2)"
+    >
+    <source src="videos/getting-started/create_document2.webm" type="video/webm">
+    <source src="videos/getting-started/create_document2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-2" onclick="togglePlayPause(2)">▶</div>
+    <div class="pause-icon" id="pause-button-2" onclick="togglePlayPause(2)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <ul>
+                        <li>Click the <strong>Create</strong> button <img src="img/tutorial/create_button.png" /></li>
+                        <li>Select <strong>Document</strong></li>
+                        <ul><li><img src="img/tutorial/create_document.png" /></li></ul>
+                        <li>Name your document <em>Rocket by [yourname]</em></li>
+                        <li>Select <strong>Create public document</strong> <img src="img/tutorial/create2.png" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+6.
+ Moving your view in 3D</h3>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_3">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_3">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(3)"
+    onmouseout="this.play(); updatePlayPauseIcon(3)"
+    id="video-3"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(3)"
+    >
+    <source src="videos/getting-started/camera_controls.webm" type="video/webm">
+    <source src="videos/getting-started/camera_controls.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-3" onclick="togglePlayPause(3)">▶</div>
+    <div class="pause-icon" id="pause-button-3" onclick="togglePlayPause(3)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    <ul>
+                        <li>Turn your view: <strong>right-click + drag</strong></li>
+                        <li>Pan/slide: <strong>Middle-button + drag</strong> to pan/slide your view</li>
+                        <ul><li>If you don't have a middle button, you can use Ctrl + right click + drag to pan/slide your view</li></ul>
+                        <li>Zoom: <strong>scroll wheel</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+7.
+ Set up windows in split view</h3>
+                    <ul>
+                        <p><img src="img/tutorial/split_screen_sketch.png" style="max-width: 100%;" /></p>
+                        <li>Use <strong>Windows key + Left Arrow</strong> to move one browser to the left</li>
+                        <li>Use <strong>Windows key + Right Arrow</strong> to move the other browser to the right</li>
+                        <li>Consider making the tutorial thinner than the CAD window so more of the controls are fully visible in the view.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong> </strong><br>
+    
+    Page:
+    
+    
+    
+        
+            <strong>1</strong>
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-single2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-single3.html">3</a>
+            
+        
+        
+        
+            |
+        
+    
+    
+        <a href="fuselage-single2.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    
+</p>
+<!--Page nav-->
+
+    <!-- _includes/copyright.html -->
+<footer style="text-align: center; margin-top: 30px;">
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!--
+    <section>
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </section>
+-->
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
+
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
+      }
+
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
+    }
+
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
+
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
+    }
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>

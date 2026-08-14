@@ -1059,10 +1059,22 @@ i18n_key: home
         <div class="participants-feedback__head">
             <h3 class="participants-feedback__title" data-i18n="home.feedbackHeading">Feedback</h3>
             <span class="participants-feedback__eyebrow" data-i18n="home.participantsHeading">What Participants Say</span>
+            <a class="participants-feedback__more" href="feedback.html">
+                <span data-i18n="home.moreFeedback">More Feedback</span>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
         </div>
-        <div class="participants-feedback__stage"></div>
-        <div class="participants-feedback__progress" aria-hidden="true">
-            <span class="participants-feedback__progress-bar"></span>
+        <div class="participants-feedback__stage">
+            <div class="feedback-quotes feedback-quotes--top">
+                <div class="feedback-stack feedback-stack--mid" data-feedback-band="1"></div>
+                <div class="feedback-stack feedback-stack--narrow" data-feedback-band="0"></div>
+            </div>
+            <div class="feedback-rail feedback-rail--charts">
+                <div class="feedback-rail__track" data-feedback-track="chart"></div>
+            </div>
+            <div class="feedback-quotes feedback-quotes--bottom">
+                <div class="feedback-stack feedback-stack--wide" data-feedback-band="2"></div>
+            </div>
         </div>
     </section>
     <span class="participants-plan-divider" aria-hidden="true"></span>
@@ -1221,68 +1233,59 @@ i18n_key: home
 </script>
 
 <script>
-// Feedback panel: cycles participant quotes and the survey charts through a
-// single stage, with a progress line showing how long the current one stays.
+// Feedback panel: the survey charts drift along a rail through the middle, with
+// quotes above and below it. A quote box holds one quote at a time and dissolves
+// into the next on a clock of its own, counted out by the line along its foot, so
+// the boxes never turn over together. Pointing at anything holds it, the charts can
+// be dragged along by hand, and a chart opens at full size.
 (function () {
     var panel = document.querySelector(".participants-feedback");
-    var stage = panel ? panel.querySelector(".participants-feedback__stage") : null;
-    var bar = panel ? panel.querySelector(".participants-feedback__progress-bar") : null;
     var title = panel ? panel.querySelector(".participants-feedback__title") : null;
     var eyebrow = panel ? panel.querySelector(".participants-feedback__eyebrow") : null;
+    var chartRail = panel ? panel.querySelector(".feedback-rail--charts") : null;
+    var stacks = panel ? panel.querySelectorAll("[data-feedback-band]") : [];
     var quotes = window.SOParticipantQuotes || [];
-    if (!panel || !stage || !quotes.length) return;
+    if (!panel || !chartRail || !stacks.length || !quotes.length) return;
+
+    var chartTrack = chartRail.querySelector(".feedback-rail__track");
 
     var CHARTS = ["img/feedback1.png", "img/feedback2.png", "img/feedback3.png", "img/feedback4.png"];
-    var QUOTES_PER_CHART = 4;
-    // Matches the .is-leaving fade in the stylesheet: the slide on screen is
-    // gone before the next one starts arriving.
-    var FADE_OUT_MS = 380;
-    var CHART_MS = 7000;
-    var QUOTE_MIN_MS = 5000;
-    var QUOTE_MAX_MS = 12000;
-    var MS_PER_CHARACTER = 34;
-    var MIN_QUOTE_PX = 13;
+    // Pixels a second, measured rather than timed, so the charts travel at the
+    // same pace whatever is on the rail. Slow enough to read on the way past.
+    var CHART_SPEED = 22;
+    // A pointer that travelled further than this was dragging the rail rather
+    // than clicking the chart underneath it.
+    var DRAG_SLOP = 6;
+    // How long a quote stays up. Every box is given a pace of its own, a step
+    // slower than the box before it, and draws a fresh figure within that pace each
+    // time it turns over: the boxes are never in step, and none of them keeps time
+    // for long enough to be predictable. The box holding the longest quotes comes
+    // out slowest, which is also the one that takes longest to read.
+    var HOLD_MIN_MS = 6500;
+    var HOLD_STEP_MS = 5200;
+    var HOLD_SPAN_MS = 3200;
+    // The quote on show clears out before its replacement arrives: two quotes
+    // fading through each other read as one unreadable paragraph. The slower boxes
+    // take longer over it, so they change at a different speed as well as on a
+    // different clock. The stylesheet holds the figure for the first box.
+    var FADE_MIN_MS = 700;
+    var FADE_STEP_MS = 250;
 
-    var playlist = [];
-    var chartIndex = 0;
-    for (var i = 0; i < quotes.length; i++) {
-        playlist.push({ type: "quote", index: i });
-        if ((i + 1) % QUOTES_PER_CHART === 0 && chartIndex < CHARTS.length) {
-            playlist.push({ type: "chart", src: CHARTS[chartIndex++] });
-        }
-    }
-    while (chartIndex < CHARTS.length) {
-        playlist.push({ type: "chart", src: CHARTS[chartIndex++] });
-    }
-
-    // A chart fading in before it has downloaded would show an empty stage.
-    for (var c = 0; c < CHARTS.length; c++) {
-        var preload = new Image();
-        preload.src = CHARTS[c];
-    }
-
-    // Starting part way in keeps the panel off the quote the hero is showing.
-    var cursor = Math.floor(Math.random() * playlist.length);
-    var currentItem = null;
-    var currentSlide = null;
-    var duration = CHART_MS;
-    var elapsed = 0;
-    var lastFrame = 0;
-    var paused = false;
     var started = false;
-    var swapping = false;
-    var slideLang = null;
-    var headLang = null;
+    var lastFrame = 0;
+    var reduceMotion = !!(window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    function activeLang() {
-        return window.SOI18n ? window.SOI18n.lang : null;
+    // Dictionaries return null for English and for anything they are missing.
+    function phrase(key, fallback) {
+        var value = window.SOI18n ? window.SOI18n.t(key) : null;
+        return value || fallback;
     }
 
     // Japanese translates both headings to the same phrase, and printing it
     // twice side by side reads like a mistake. Clearing the inline value hands
     // the decision back to the stylesheet, which hides it on small screens.
     function syncEyebrow() {
-        headLang = activeLang();
         if (!title || !eyebrow) return;
         var same = eyebrow.textContent.trim() === title.textContent.trim();
         eyebrow.style.display = same ? "none" : "";
@@ -1297,191 +1300,461 @@ i18n_key: home
         return quote;
     }
 
-    // Short quotes carry a larger type size; long ones step down so they still
-    // fit the stage without scrolling.
-    function sizeClass(text) {
-        var length = (text || "").length;
-        if (length <= 70) return "feedback-slide--short";
-        if (length <= 170) return "feedback-slide--medium";
-        return "feedback-slide--long";
-    }
-
-    function buildQuoteSlide(item) {
-        var quote = quoteAt(item.index);
-        var slide = document.createElement("figure");
-        slide.className = "feedback-slide feedback-slide--quote " + sizeClass(quote.text);
-
-        var mark = document.createElement("i");
-        mark.className = "fa fa-quote-left feedback-slide__mark";
-        mark.setAttribute("aria-hidden", "true");
+    // Every quote is set at the same size, and its box is only as big as its own
+    // words need, the way the quotes over the hero image are.
+    function buildQuote(index) {
+        var quote = quoteAt(index);
+        var card = document.createElement("figure");
+        card.className = "feedback-card feedback-card--quote";
 
         var block = document.createElement("blockquote");
-        block.className = "feedback-slide__quote";
+        block.className = "feedback-quote";
         var text = document.createElement("p");
-        text.className = "feedback-slide__text";
+        text.className = "feedback-quote__text";
         text.textContent = quote.text;
         block.appendChild(text);
 
         var meta = document.createElement("figcaption");
-        meta.className = "feedback-slide__meta";
+        meta.className = "feedback-quote__meta";
         meta.textContent = quote.meta;
 
-        slide.appendChild(mark);
-        slide.appendChild(block);
-        slide.appendChild(meta);
-        return slide;
+        // Its own countdown along the foot of the box.
+        var timer = document.createElement("span");
+        timer.className = "feedback-quote__timer";
+        var fill = document.createElement("span");
+        fill.className = "feedback-quote__timer-fill";
+        timer.appendChild(fill);
+
+        card.appendChild(block);
+        card.appendChild(meta);
+        card.appendChild(timer);
+        return card;
     }
 
-    function buildChartSlide(item) {
-        var slide = document.createElement("figure");
-        slide.className = "feedback-slide feedback-slide--chart";
+    // Charts are 817px wide at source and around half that on the rail, so the
+    // card is a button: it opens the chart at full size where the numbers along
+    // the axis can actually be read.
+    function buildChart(index) {
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "feedback-card feedback-card--chart";
+        card.setAttribute("aria-label", phrase("home.feedbackNav.expand", "View full size"));
+
         var image = document.createElement("img");
-        image.className = "feedback-slide__chart";
-        image.src = item.src;
+        image.className = "feedback-chart__image";
+        image.src = CHARTS[index];
         image.alt = "";
-        slide.appendChild(image);
-        return slide;
+
+        card.appendChild(image);
+        card.addEventListener("click", function () {
+            openViewer(index, card);
+        });
+        return card;
     }
 
-    function setProgress(fraction) {
-        if (bar) bar.style.transform = "scaleX(" + fraction + ")";
+    // The boxes are of different widths, so the library is split into as many
+    // bands by length: the longest quotes go to the widest box and the shortest to
+    // the narrowest, which is what lets every box hold its quotes at the one type
+    // size without growing. Length is taken from the English wording, so a quote
+    // keeps its box in whichever language it is read.
+    var byLength = [];
+    for (var n = 0; n < quotes.length; n++) byLength.push(n);
+    byLength.sort(function (a, b) {
+        return quotes[a].text.length - quotes[b].text.length;
+    });
+
+    function band(index, count) {
+        var size = Math.ceil(byLength.length / count);
+        return byLength.slice(index * size, (index + 1) * size);
     }
 
-    // Slides are positioned, so a quote too tall for the stage would spill out
-    // of the panel instead of growing it. Height is measured from the parts
-    // rather than the slide itself, which is stretched to the stage.
-    function slideHeight(slide) {
-        var gap = parseFloat(window.getComputedStyle(slide).rowGap) || 0;
-        var total = gap * Math.max(0, slide.children.length - 1);
-        for (var i = 0; i < slide.children.length; i++) {
-            total += slide.children[i].getBoundingClientRect().height;
+    function nextWait(box) {
+        return HOLD_MIN_MS + box.pace * HOLD_STEP_MS + Math.random() * HOLD_SPAN_MS;
+    }
+
+    var boxes = [];
+    for (var b = 0; b < stacks.length; b++) {
+        // The bands run from the shortest quotes to the longest, so the band a box
+        // was given is also how slowly it should read.
+        var pace = parseInt(stacks[b].getAttribute("data-feedback-band"), 10) || 0;
+        var pool = band(pace, stacks.length);
+        var box = {
+            el: stacks[b],
+            pool: pool,
+            pace: pace,
+            fadeMs: FADE_MIN_MS + pace * FADE_STEP_MS,
+            cards: [],
+            fills: [],
+            // Opens somewhere at random, so the panel does not always start on
+            // the same three quotes.
+            at: Math.floor(Math.random() * pool.length),
+            // Part way through its first wait already, so the boxes do not all
+            // change for the first time within a second of each other.
+            elapsed: b * 2800,
+            wait: 0,
+            fade: null
+        };
+        box.wait = nextWait(box);
+        boxes.push(box);
+    }
+
+    // Every quote of the band is printed and left where it is, one on show and the
+    // rest transparent. Stacked in the one grid cell they give the box the height
+    // of its longest quote, so the box holds still as it turns over while each
+    // quote inside it still takes only the room its own words need.
+    function fillStack(box) {
+        while (box.el.firstChild) box.el.removeChild(box.el.firstChild);
+        box.cards = [];
+        box.fills = [];
+        for (var i = 0; i < box.pool.length; i++) {
+            var card = buildQuote(box.pool[i]);
+            // Left to the stylesheet for anyone who asked for less motion, which
+            // takes every box down to the one short fade.
+            if (!reduceMotion) card.style.transitionDuration = box.fadeMs + "ms";
+            if (i === box.at) card.classList.add("is-visible");
+            else card.setAttribute("aria-hidden", "true");
+            box.el.appendChild(card);
+            box.cards.push(card);
+            box.fills.push(card.querySelector(".feedback-quote__timer-fill"));
         }
-        return total;
     }
 
-    // The authored sizes suit the English wording. Translations run longer, and
-    // Chinese, Japanese and Korean fit far more text into the same character
-    // count, so the type steps down until the quote clears the stage.
-    function fitQuote(slide) {
-        var text = slide.querySelector(".feedback-slide__text");
-        var available = stage.clientHeight;
-        if (!text || !available) return;
+    function dissolve(box) {
+        box.elapsed = 0;
+        box.wait = nextWait(box);
+        if (box.cards.length < 2) return;
 
-        var size = parseFloat(window.getComputedStyle(text).fontSize);
-        var guard = 30;
-        while (guard-- > 0 && size > MIN_QUOTE_PX && slideHeight(slide) > available) {
-            size -= 1;
-            text.style.fontSize = size + "px";
-        }
+        var leaving = box.cards[box.at];
+        box.at = (box.at + 1) % box.cards.length;
+        var arriving = box.cards[box.at];
+        leaving.classList.remove("is-visible");
+        leaving.setAttribute("aria-hidden", "true");
+
+        if (box.fade) window.clearTimeout(box.fade);
+        box.fade = window.setTimeout(function () {
+            box.fade = null;
+            arriving.classList.add("is-visible");
+            arriving.removeAttribute("aria-hidden");
+        }, box.fadeMs);
     }
 
-    function mount(item) {
-        var slide = item.type === "chart" ? buildChartSlide(item) : buildQuoteSlide(item);
-        stage.appendChild(slide);
-        if (item.type === "quote") fitQuote(slide);
-        // Read back the hidden state so the browser animates into it.
-        void slide.offsetWidth;
-        slide.classList.add("is-visible");
-
-        currentItem = item;
-        currentSlide = slide;
-        slideLang = activeLang();
-
-        if (item.type === "chart") {
-            duration = CHART_MS;
-        } else {
-            var body = slide.querySelector(".feedback-slide__text");
-            var length = body ? body.textContent.length : 0;
-            duration = Math.min(QUOTE_MAX_MS, Math.max(QUOTE_MIN_MS, 2600 + length * MS_PER_CHARACTER));
-        }
-        elapsed = 0;
-        swapping = false;
-        setProgress(0);
+    // The line along the foot of the quote on show, filled to the part of the wait
+    // that has gone.
+    function drawTimer(box) {
+        var fill = box.fills ? box.fills[box.at] : null;
+        if (!fill) return;
+        var part = box.wait > 0 ? Math.min(1, box.elapsed / box.wait) : 0;
+        fill.style.transform = "scaleX(" + part + ")";
     }
 
-    function show(item) {
-        var outgoing = currentSlide;
-        if (!outgoing) {
-            mount(item);
-            return;
-        }
-
-        // Nothing is timed while the swap runs, so the incoming slide gets its
-        // full reading time.
-        swapping = true;
-        setProgress(0);
-        outgoing.classList.remove("is-visible");
-        outgoing.classList.add("is-leaving");
-        currentSlide = null;
-        window.setTimeout(function () {
-            if (outgoing.parentNode) outgoing.parentNode.removeChild(outgoing);
-            mount(item);
-        }, FADE_OUT_MS);
-    }
-
-    function showNext() {
-        var item = playlist[cursor];
-        cursor = (cursor + 1) % playlist.length;
-        show(item);
-    }
-
-    // One animation frame loop drives both the progress line and the hand-off,
-    // so the two cannot drift apart, and a hidden tab freezes both.
+    // One frame loop runs all three boxes, so a tab left in the background stops
+    // them together rather than letting them run on out of sight.
     function frame(now) {
         var delta = lastFrame ? now - lastFrame : 0;
         lastFrame = now;
+        // A tab that was in the background hands back one huge delta.
+        var running = !panel.classList.contains("is-offscreen") && !viewerOpen() &&
+            delta > 0 && delta < 1000;
 
-        if (activeLang() !== headLang) syncEyebrow();
-
-        if (!swapping) {
-            if (currentItem && currentItem.type === "quote" && activeLang() !== slideLang) {
-                // The visitor switched language, so the quote on screen is
-                // reprinted instead of waiting its turn out in the old one.
-                show(currentItem);
-            } else if (!paused && delta > 0 && delta < 1000) {
-                // A tab that was in the background hands back one huge delta.
-                elapsed += delta;
-                setProgress(Math.min(1, elapsed / duration));
-                if (elapsed >= duration) showNext();
+        for (var i = 0; i < boxes.length; i++) {
+            var box = boxes[i];
+            // A box being read is left alone until the pointer moves off it.
+            var held = !running || box.el.matches(":hover");
+            box.el.classList.toggle("is-held", held);
+            if (!held) {
+                box.elapsed += delta;
+                if (box.elapsed >= box.wait) dissolve(box);
             }
+            drawTimer(box);
         }
 
         window.requestAnimationFrame(frame);
     }
 
-    function setPaused(state) {
-        paused = state;
-        if (state) {
-            panel.classList.add("is-paused");
-        } else {
-            panel.classList.remove("is-paused");
+    // The rail carries the charts twice over. The drift runs the track along by
+    // half its width, which lands exactly on the start of the second copy, so the
+    // join never shows. That copy is kept away from screen readers and the tab
+    // order, which would otherwise meet every chart twice.
+    function fillTrack(track, count, build) {
+        while (track.firstChild) track.removeChild(track.firstChild);
+        for (var copy = 0; copy < 2; copy++) {
+            var run = document.createElement("div");
+            run.className = "feedback-rail__run";
+            for (var i = 0; i < count; i++) run.appendChild(build(i));
+            if (copy) {
+                run.setAttribute("aria-hidden", "true");
+                var buttons = run.querySelectorAll("button");
+                for (var b = 0; b < buttons.length; b++) buttons[b].tabIndex = -1;
+            }
+            track.appendChild(run);
         }
     }
 
-    // Hovering holds the current quote so a long one can be finished.
-    panel.addEventListener("mouseenter", function () { setPaused(true); });
-    panel.addEventListener("mouseleave", function () { setPaused(false); });
+    // The drift is written as a fraction of the track, so its duration has to be
+    // worked out from the width the content actually came to.
+    function timeTrack(track, speed) {
+        var half = track.getBoundingClientRect().width / 2;
+        if (!half) return;
+        track.style.animationDuration = (half / speed) + "s";
+    }
 
-    // The stage changes shape with the window, so the quote on screen is
-    // measured again from its authored size rather than its fitted one.
-    var resizeTimer = null;
-    window.addEventListener("resize", function () {
-        if (resizeTimer) window.clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(function () {
-            if (!currentSlide || !currentItem || currentItem.type !== "quote") return;
-            var text = currentSlide.querySelector(".feedback-slide__text");
-            if (text) text.style.fontSize = "";
-            fitQuote(currentSlide);
-        }, 150);
-    });
+    function trackOffset(track) {
+        var matrix = window.getComputedStyle(track).transform;
+        if (!matrix || matrix === "none") return 0;
+        var values = matrix.match(/matrix.*\((.+)\)/);
+        return values ? parseFloat(values[1].split(",")[4]) || 0 : 0;
+    }
 
-    // Held until the first translation pass finishes so the opening quote is
+    // Dragging a rail: the drift is taken off so the track can be moved by hand,
+    // then handed back with the delay it would have had if it had run to this
+    // position on its own. The same handling covers a swipe, since the stylesheet
+    // leaves vertical panning to the page.
+    function makeDraggable(rail, track, speed) {
+        var startX = 0;
+        var origin = 0;
+        var half = 0;
+        var travelled = 0;
+        var dragging = false;
+
+        rail.addEventListener("pointerdown", function (event) {
+            if (event.button) return;
+            // Nothing to take over from if the drift is not running, which is how
+            // the rail is left for anyone who asks for less motion.
+            if (window.getComputedStyle(track).animationName === "none") return;
+            dragging = true;
+            travelled = 0;
+            startX = event.clientX;
+            origin = trackOffset(track);
+            half = track.getBoundingClientRect().width / 2;
+            track.style.animation = "none";
+            track.style.transform = "translateX(" + origin + "px)";
+            rail.classList.add("is-dragging");
+            if (rail.setPointerCapture) rail.setPointerCapture(event.pointerId);
+        });
+
+        rail.addEventListener("pointermove", function (event) {
+            if (!dragging) return;
+            var moved = event.clientX - startX;
+            travelled = Math.max(travelled, Math.abs(moved));
+            var at = origin + moved;
+            // Kept within one copy of the list so the loop still joins up.
+            while (at > 0) at -= half;
+            while (at < -half) at += half;
+            track.style.transform = "translateX(" + at + "px)";
+        });
+
+        function release() {
+            if (!dragging) return;
+            dragging = false;
+            rail.classList.remove("is-dragging");
+            var at = trackOffset(track);
+            track.style.transform = "";
+            track.style.animation = "";
+            timeTrack(track, speed);
+            var duration = parseFloat(window.getComputedStyle(track).animationDuration) || 0;
+            if (duration && half) {
+                track.style.animationDelay = -(Math.abs(at) / half) * duration + "s";
+            }
+        }
+
+        rail.addEventListener("pointerup", release);
+        rail.addEventListener("pointercancel", release);
+
+        // A drag that happens to finish over a chart must not also open it.
+        rail.addEventListener("click", function (event) {
+            if (travelled <= DRAG_SLOP) return;
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+    }
+
+    // The panel prints the surveys at a little over half their source width,
+    // which is enough to take in the shape of the answers and no use for reading
+    // the figures, so a chart opens into this at full size.
+    var viewer = null;
+    var viewerDialog = null;
+    var viewerImage = null;
+    var viewerClose = null;
+    var viewerIndex = 0;
+    var viewerOpener = null;
+    var viewerHideTimer = null;
+
+    function viewerOpen() {
+        return !!viewer && !viewer.hidden;
+    }
+
+    function buildViewer() {
+        viewer = document.createElement("div");
+        viewer.className = "feedback-viewer";
+        viewer.hidden = true;
+        viewer.innerHTML =
+            '<div class="feedback-viewer__backdrop"></div>' +
+            '<div class="feedback-viewer__panel" role="dialog" aria-modal="true">' +
+                '<img class="feedback-viewer__image" src="" alt="">' +
+                '<div class="feedback-viewer__bar">' +
+                    '<span class="feedback-viewer__nav">' +
+                        '<button type="button" class="feedback-viewer__step" data-viewer-step="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></button>' +
+                        '<button type="button" class="feedback-viewer__step" data-viewer-step="1"><i class="fa fa-angle-right" aria-hidden="true"></i></button>' +
+                    '</span>' +
+                    '<a class="feedback-viewer__more" href="feedback.html"></a>' +
+                '</div>' +
+                '<button type="button" class="feedback-viewer__close"><i class="fa fa-times" aria-hidden="true"></i></button>' +
+            '</div>';
+        // Hung off the body so no later section of the page can stack over it.
+        document.body.appendChild(viewer);
+
+        viewerDialog = viewer.querySelector(".feedback-viewer__panel");
+        viewerImage = viewer.querySelector(".feedback-viewer__image");
+        viewerClose = viewer.querySelector(".feedback-viewer__close");
+
+        viewerClose.addEventListener("click", closeViewer);
+        viewer.querySelector(".feedback-viewer__backdrop").addEventListener("click", closeViewer);
+
+        var steps = viewer.querySelectorAll("[data-viewer-step]");
+        for (var i = 0; i < steps.length; i++) {
+            steps[i].addEventListener("click", function () {
+                showChart(viewerIndex + (parseInt(this.getAttribute("data-viewer-step"), 10) || 1));
+            });
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (!viewerOpen()) return;
+            var key = event.key;
+            if (key === "Escape" || key === "Esc") closeViewer();
+            else if (key === "ArrowRight") showChart(viewerIndex + 1);
+            else if (key === "ArrowLeft") showChart(viewerIndex - 1);
+            else if (key === "Tab") return trapFocus(event);
+            else return;
+            event.preventDefault();
+        });
+
+        syncViewerLabels();
+    }
+
+    // Tab stays inside the dialog while it is open.
+    function trapFocus(event) {
+        var stops = viewer.querySelectorAll("button, a[href]");
+        if (!stops.length) return;
+        var edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
+        var wrap = event.shiftKey ? stops[stops.length - 1] : stops[0];
+        if (document.activeElement === edge || !viewer.contains(document.activeElement)) {
+            wrap.focus();
+            event.preventDefault();
+        }
+    }
+
+    function showChart(index) {
+        viewerIndex = (index + CHARTS.length) % CHARTS.length;
+        viewerImage.src = CHARTS[viewerIndex];
+    }
+
+    function openViewer(index, opener) {
+        if (!viewer) buildViewer();
+        if (viewerHideTimer) window.clearTimeout(viewerHideTimer);
+        viewerOpener = opener || null;
+        showChart(index);
+        viewer.hidden = false;
+        // Held on the root element rather than the body, which would take the
+        // page back to the top on the way in.
+        document.documentElement.classList.add("has-feedback-viewer");
+        // Read back the closed state so the browser animates out of it.
+        void viewer.offsetWidth;
+        viewer.classList.add("is-open");
+        viewerClose.focus();
+    }
+
+    function closeViewer() {
+        if (!viewerOpen()) return;
+        viewer.classList.remove("is-open");
+        document.documentElement.classList.remove("has-feedback-viewer");
+        viewerHideTimer = window.setTimeout(function () {
+            viewerHideTimer = null;
+            viewer.hidden = true;
+        }, 300);
+        // The tile that opened the dialog may have turned over while it was up.
+        if (viewerOpener && document.body.contains(viewerOpener)) viewerOpener.focus();
+        viewerOpener = null;
+    }
+
+    function syncViewerLabels() {
+        if (!viewer) return;
+        viewerDialog.setAttribute("aria-label", phrase("home.feedbackHeading", "Feedback"));
+        viewerClose.setAttribute("aria-label", phrase("home.feedbackNav.close", "Close"));
+        viewer.querySelector('[data-viewer-step="-1"]')
+            .setAttribute("aria-label", phrase("home.feedbackNav.previous", "Previous"));
+        viewer.querySelector('[data-viewer-step="1"]')
+            .setAttribute("aria-label", phrase("home.feedbackNav.next", "Next"));
+        viewer.querySelector(".feedback-viewer__more").textContent =
+            phrase("home.moreFeedback", "More Feedback");
+    }
+
+    function syncChartLabels() {
+        var charts = panel.querySelectorAll(".feedback-card--chart");
+        var label = phrase("home.feedbackNav.expand", "View full size");
+        for (var i = 0; i < charts.length; i++) charts[i].setAttribute("aria-label", label);
+    }
+
+    // Quotes are printed once, so a language change reprints them. Each box keeps
+    // its place in its band, and finds its own height again for the new wording.
+    function relabel() {
+        syncEyebrow();
+        syncChartLabels();
+        syncViewerLabels();
+        for (var i = 0; i < boxes.length; i++) fillStack(boxes[i]);
+    }
+
+    // jQuery carries the language change, and it loads after this script does.
+    function watchLanguage(handler) {
+        function attach() {
+            if (window.jQuery) window.jQuery(document).on("so:languagechange", handler);
+        }
+        if (window.jQuery) attach();
+        else window.addEventListener("load", attach);
+    }
+
+    // Nothing moves while the panel is off screen, so the rail picks up from where
+    // it was left rather than several charts further on, and a quote that was
+    // never read is not counted as read.
+    function watchVisibility() {
+        if (!window.IntersectionObserver) return;
+        new window.IntersectionObserver(function (entries) {
+            var showing = entries[entries.length - 1].isIntersecting;
+            if (showing) panel.classList.remove("is-offscreen");
+            else panel.classList.add("is-offscreen");
+        }, { threshold: 0.15 }).observe(panel);
+    }
+
+    // A narrower window shortens the charts, which changes how far the rail has to
+    // travel to bring the next one round.
+    function watchWidth() {
+        var timer = null;
+        window.addEventListener("resize", function () {
+            if (timer) window.clearTimeout(timer);
+            timer = window.setTimeout(function () {
+                timeTrack(chartTrack, CHART_SPEED);
+            }, 200);
+        });
+    }
+
+    // Held until the first translation pass finishes so the opening quotes are
     // already in the visitor's language.
     function start() {
         if (started) return;
         started = true;
         syncEyebrow();
-        showNext();
+        fillTrack(chartTrack, CHARTS.length, buildChart);
+        timeTrack(chartTrack, CHART_SPEED);
+        // Web fonts land after the first measurement and move the text about.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () {
+                timeTrack(chartTrack, CHART_SPEED);
+            });
+        }
+        for (var i = 0; i < boxes.length; i++) fillStack(boxes[i]);
+        if (!reduceMotion) makeDraggable(chartRail, chartTrack, CHART_SPEED);
+        watchLanguage(relabel);
+        watchVisibility();
+        watchWidth();
         window.requestAnimationFrame(frame);
     }
 

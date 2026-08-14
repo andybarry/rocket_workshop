@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>CAD / Rocket Workshop | Stage One Education, LLC</title>
+
+    <meta 
+    name= "description" 
+    content="Hands-on engineering workshops nationwide, 
+    featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="cad-tutorial/video_play_at_scroll.js"></script>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: #f05f40; min-height: 2px;">
+    <div class="container-fluid">
+        <!-- Navbar Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="icon-bar" style="background-color: white;"></span>
+                <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
+            </button>
+            <a href="index.html">
+                <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Logo"
+                    style="width: 170px; height: auto; margin-top: 5px; margin-left: 52px; margin-right: 20px; margin-bottom: 5px; opacity: 1;">
+            </a>
+        </div>
+
+        <!-- Navigation Links and Inline Logo -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                
+                
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
+                        Workshops <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                        <li><a class="nav-dropdown-link" href="ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
+                    </ul>
+                </li>
+                <!-- Mobile: three workshop links in main list (no nested dropdown) -->
+                <li class="nav-mobile-workshop-item">
+                    <a href="ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
+                </li>
+                
+                <li>
+                    <a href="locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="instructors.html" class="nav-button-stageone" data-i18n="nav.instructors">
+                        Instructors
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" class="nav-button-stageone" data-i18n="nav.contact">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                        About
+                    </a>
+                </li>
+                <!-- "Request a demo" button -->
+                <li class="nav-request-demo">
+                    <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" class="nav-button-stageone-highlight" data-i18n="nav.requestDemo">
+                        Request a demo
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+    <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
+
+    <!-- Title Section -->
+    <div style="max-width: 100%; margin: 0 auto; text-align: center;">
+        <span class="workshop-title"
+            style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 60px; font-weight: bold;">
+            Mechanical Engineering Workshop
+        </span>
+    </div>
+
+
+    <div class="container">
+
+
+        <span class="workshop-title"
+            style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color:rgb(100, 100, 100); font-size: 20px;">Computer-Aided
+            Design (CAD) & 3D Printing</span>
+        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <!-- Section with Background Video Loop -->
+        <div style="position: relative; margin: 0 auto; height: 200px; background-color: white; overflow: hidden;">
+            <div align="center" class="video-background autosize" style="height: 100%; width: 100%;">
+                <video autoplay loop muted playsinline style="width: 100%; height: auto;">
+                    <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Title Section with Button -->
+            <div class="button-container"
+                style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
+                <!-- First Button: Drone Workshop Link -->
+                <a href="https://stageoneeducation.com/cad-tutorial/index.html" target="_blank"
+                    rel="noopener noreferrer" class="glow-button">
+                   Start Single Workshop
+                </a>
+            </div>
+
+            <div class="button-container"
+            style="position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%); z-index: 5">
+            <!-- Second Button: Drone Workshop Link -->
+            <a href="http://127.0.0.1:4000/group.html" target="_blank"
+                rel="noopener noreferrer" class="glow-button">
+                Start Group Workshop
+            </a>
+        </div>
+
+            <!-- Overlay Div -->
+            <div class="overlay"></div>
+        </div>
+
+        <!-- Styles for Glow Button -->
+        <style>
+            @keyframes pulseGlow {
+                0% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+
+                50% {
+                    box-shadow: 0 0 30px #f05f40;
+                }
+
+                100% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+            }
+
+            /* Style for the glow-button */
+            .glow-button {
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+                font-weight: 100;
+                color: #f05f40;
+                text-align: center;
+                background-color: white;
+                padding: 10px 20px;
+                border-radius: 50px;
+                margin: 20px 5px;
+                border: 3px solid #f05f40;
+                text-decoration: none;
+                display: inline-block;
+                animation: pulseGlow 2s infinite;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Hover effect */
+            .glow-button:hover {
+                color: white;
+                background-color: #f05f40;
+                border: 3px solid #f05f40;
+                text-decoration: none;
+            }
+
+            /* Overlay style */
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.05);
+                z-index: 1;
+            }
+        </style>
+
+
+        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+        <div style="max-width: 100%; margin: 5px auto;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                Overview
+            </span>
+        </div>
+
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+        <section class="less-padding">
+            <div class="row">
+                <!-- Text Section -->
+                <div class="col-sm-6">
+                    <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
+                        <div class="workshop-subdata"
+                            style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;">
+                            3-3.5 Hours | All Ages | No Experience Needed
+                        </div>
+                        <div class="tab-content tab-active"
+                            style="text-align: left; max-width: 70vw; font-family: 'Roboto', sans-serif; font-size: 15px;">
+                            <ul>
+                                <li>Explore the world of engineering and discover CAD (computer aided design)</li>
+                                <li>Build a three-part (virtual) rocket using a professional CAD platform</li>
+                                <li>With our comprehensive online tutorial, master CAD in just a few hours!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image Section -->
+                <div class="col-sm-6">
+                    <img src="img/me_placeholder.jpg" alt="Robotics Placeholder"
+                        style="width: 400px; height: auto; object-fit: cover;">
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <div style="max-width: 100%; margin: 5px auto;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                Testimonials
+            </span>
+        </div>
+
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+        <!-- Continuous Scroll for Feedback -->
+        <div
+            style="overflow: hidden; margin-top: 40px; margin: 20px auto; white-space: nowrap; position: relative;">
+            <div class="scroll-container">
+               
+                <img src="img/me_feedback_1.png" alt="Feedback 1111" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.png" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.png" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.png" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.png" alt="Feedback 5" class="scroll-image">
+
+                <!-- Duplicate images for smooth continuous scroll effect -->
+                <img src="img/me_feedback_1.png" alt="Feedback 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_2.png" alt="Feedback 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_3.png" alt="Feedback 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_4.png" alt="Feedback 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="img/me_feedback_5.png" alt="Feedback 5" class="scroll-image">
+            </div>
+        </div>
+
+
+        <!-- Keyframes for continuous scroll without fade effect -->
+        <style>
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            /* Container for smooth scroll */
+            .scroll-container {
+                display: inline-block;
+                animation: scroll 40s linear infinite;
+                white-space: nowrap;
+                padding-bottom: 20px;
+            }
+
+            /* Apply size and spacing to each image */
+            .scroll-image {
+                display: inline-block;
+                width: 400px;
+                height: auto;
+                object-fit: cover;
+                border-radius: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-right: 40px;
+            }
+
+
+            /* Pause animation when hovered over the scroll container */
+            .scroll-container:hover {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        </head>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="quote-container quote-one">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;<strong>I loved it</strong> - instructions were clear and super laid out. I liked the
+                            animations along with the instructions for visual learners. Overall, I feel inspired to
+                            continue
+                            learning CAD and designing new things, <strong>I was hesitant on if being an engineer was
+                                truly
+                                for me, but after this I feel a lot more confident</strong> and excited to explore this
+                            field more&rdquo;
+                            <em>&mdash; Student, Houston 2023</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="quote-container quote-two">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;This workshop was <strong>my favorite workshop by far</strong>. As I want to be a
+                            civil
+                            engineer it was very nice to see a potential software I would be using when I do become a
+                            civil
+                            engineer&rdquo; <em>&mdash; Student, Berkeley 2021</em>
+                        </p>
+                    </div>
+                    <div class="quote-container">
+                        <p class="quote-text" style="font-family: 'Roboto', sans-serif;">
+                            &ldquo;<strong>Challenging but well paced</strong> at the same time. Piqued my interest in
+                            virtual 3D rendering. I now <strong>feel like I could work on this on my own</strong> and I
+                            have
+                            the ambition to push my knowledge to its limits.&rdquo;
+                            <em>&mdash; Student, Atlanta 2021</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span class="workshop-title" style="display: block; height: 30px; background-color: white;"></span>
+
+        <!-- Timeline -->
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px;">
+                    Timeline
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+            <span class="workshop-title" style="display: block; height: 60px; background-color: white;"></span>
+
+            <div class="text-center">
+                <img src="img/me_timeline.jpg" alt="Rocket Timeline" class="horizontal-image">
+                <img src="img/rocket-timeline-vertical.svg" alt="Rocket Timeline" class="vertical-image">
+            </div>
+        </div>
+
+
+        <div style="text-align: right; margin-top: 30px;">
+            <span class="workshop-title"
+                style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
+                &copy; 2024 Stage One Education, LLC
+            </span>
+        </div>
+    </div>
+</body>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>
