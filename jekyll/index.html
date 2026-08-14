@@ -237,54 +237,82 @@ i18n_key: home
     border-color: #f05f40;
     box-shadow: 0 8px 20px rgba(240, 95, 64, 0.32);
   }
-  .home-room-hero__highlights {
-    list-style: none;
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    align-items: center;
+  .workshop-benefits-section {
     width: 100vw;
-    margin: -1px 0 0 calc(50% - 50vw);
-    padding: 17px clamp(24px, 6vw, 96px);
-    box-sizing: border-box;
-    background: linear-gradient(180deg, #fff 0%, #fffaf8 100%);
-    border-top: 1px solid rgba(240, 95, 64, 0.12);
-    border-bottom: 1px solid rgba(240, 95, 64, 0.1);
+    margin-left: calc(50% - 50vw);
+    padding: 6px 0;
+    background: #fff;
+    border-bottom: 1px solid rgba(67, 67, 67, 0.1);
   }
-  .home-room-hero__highlight {
-    display: inline-flex;
+  .workshop-benefits {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+  }
+  .workshop-benefit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
     min-width: 0;
-    padding: 0 clamp(12px, 2vw, 30px);
+    padding: 0 clamp(18px, 2vw, 30px);
+    text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(12px, 1.05vw, 14px);
-    font-weight: 700;
-    letter-spacing: 0.015em;
-    line-height: 1.3;
-    color: #434343;
-    white-space: normal;
   }
-  .home-room-hero__highlight span {
-    display: block;
-    line-height: 1.25;
-    white-space: normal;
+  .workshop-benefit:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 0;
+    bottom: 8px;
+    width: 1px;
+    background: rgba(67, 67, 67, 0.14);
   }
-  .home-room-hero__highlight .fa {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #fff3ef;
+  .workshop-benefit .fa {
+    margin-bottom: 3px;
     color: #f05f40;
-    font-size: 13px;
+    font-size: 20px;
     line-height: 1;
-    flex-shrink: 0;
-    box-shadow: inset 0 0 0 1px rgba(240, 95, 64, 0.14);
+  }
+  .workshop-benefit h3 {
+    margin: 0 0 2px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #434343;
+  }
+  .workshop-benefit p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #6f6f6f;
+    text-wrap: pretty;
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .workshop-benefits {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px 18px;
+    }
+    .workshop-benefit {
+      grid-column: span 2;
+      padding: 0 16px;
+    }
+    .workshop-benefit:nth-child(4) {
+      grid-column: 2 / span 2;
+    }
+    .workshop-benefit:nth-child(5) {
+      grid-column: 4 / span 2;
+    }
+    .workshop-benefit:not(:last-child)::after {
+      display: none;
+    }
   }
   /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
   .home-room-hero__cta:focus,
@@ -429,22 +457,25 @@ i18n_key: home
       white-space: normal;
       overflow-wrap: break-word;
     }
-    .home-room-hero__highlights {
+    .workshop-benefits-section {
+      padding: 8px 0;
+    }
+    .workshop-benefits {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      row-gap: 14px;
-      padding: 16px 14px;
+      gap: 8px 14px;
     }
-    .home-room-hero__highlight {
-      justify-content: flex-start;
-      padding: 0 12px;
-      font-size: 11px;
-      letter-spacing: 0.01em;
-      gap: 7px;
+    .workshop-benefit {
+      padding: 0 8px;
     }
-    .home-room-hero__highlight .fa {
-      width: 20px;
-      height: 20px;
-      font-size: 10px;
+    .workshop-benefit:nth-child(5) {
+      grid-column: 1 / -1;
+      width: min(100%, 420px);
+      margin: 0 auto;
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+    .workshop-benefit:not(:last-child)::after {
+      display: none;
     }
     .home-room-hero__fade {
       -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
@@ -452,6 +483,18 @@ i18n_key: home
     }
     .home-room-hero__quotes {
       display: none;
+    }
+  }
+  @media (max-width: 350px) {
+    .workshop-benefits {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .workshop-benefit:nth-child(5) {
+      grid-column: auto;
+      width: auto;
+      padding-right: 8px;
+      padding-left: 8px;
     }
   }
 
@@ -774,33 +817,49 @@ i18n_key: home
             <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta" href="img/Stage_One_Education_Workshop_Guide.pdf" target="_blank" rel="noopener noreferrer" data-i18n-html="home.hero.ctaGuide">
-                <i class="fa fa-book" aria-hidden="true"></i>View Workshop Guide
+            <a class="home-room-hero__cta" href="#workshop-finder" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
+                <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
             </a>
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="#plan-workshop-form" data-i18n-html="home.hero.ctaPlan">
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="?mode=plan&amp;source=hero#workshop-finder"
+                data-explorer-entry data-explorer-mode="plan" data-source="hero" data-i18n-html="home.hero.ctaPlan">
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
             </a>
         </div>
     </div>
 </section>
-<ul class="home-room-hero__highlights" aria-label="Workshop highlights">
-    <li class="home-room-hero__highlight">
-        <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <span data-i18n-html="home.hero.highlightDuration">3-Hour<br>Workshops</span>
-    </li>
-    <li class="home-room-hero__highlight">
-        <i class="fa fa-map-marker" aria-hidden="true"></i>
-        <span data-i18n-html="home.hero.highlightDelivery">Delivered<br>Nationwide</span>
-    </li>
-    <li class="home-room-hero__highlight">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        <span data-i18n-html="home.hero.highlightIncluded">Engineers &amp; Equipment<br>Included</span>
-    </li>
-    <li class="home-room-hero__highlight">
-        <i class="fa fa-cog" aria-hidden="true"></i>
-        <span data-i18n-html="home.hero.highlightTrusted">Safe<br>&amp; Turnkey</span>
-    </li>
-</ul>
+<section class="workshop-benefits-section" aria-label="Workshop benefits" data-i18n-aria-label="home.hero.benefitsLabel">
+    <div class="container">
+        <ul class="workshop-benefits">
+            <li class="workshop-benefit">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <h3 data-i18n="home.hero.benefitDurationTitle">3-Hour Workshops</h3>
+                <p data-i18n="home.hero.benefitDurationText">Flexible morning, afternoon, or evening scheduling</p>
+            </li>
+            <li class="workshop-benefit">
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <h3 data-i18n="home.hero.benefitExperienceTitle">No Experience Required</h3>
+                <p data-i18n="home.hero.benefitExperienceText">Designed for a wide range of ages and skill levels</p>
+            </li>
+            <li class="workshop-benefit">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <h3 data-i18n="home.hero.benefitGroupsTitle">Flexible Group Sizes</h3>
+                <p data-i18n="home.hero.benefitGroupsText">From private groups to large student programs</p>
+            </li>
+            <li class="workshop-benefit">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <h3 data-i18n="home.hero.benefitDeliveryTitle">Delivered Across the USA</h3>
+                <p data-i18n="home.hero.benefitDeliveryText">At your hotel, school, campus, or group venue</p>
+            </li>
+            <li class="workshop-benefit">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <h3 data-i18n="home.hero.benefitIncludedTitle">Engineers &amp; Equipment Included</h3>
+                <p data-i18n="home.hero.benefitIncludedText">Led by real engineers, with materials, curriculum, setup, and cleanup provided</p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+{% include workshop-explorer.html %}
             
 <section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
     <div class="container" id="ai">
@@ -1061,61 +1120,57 @@ i18n_key: home
     </section>
     <span class="participants-plan-divider" aria-hidden="true"></span>
     <form class="participants-plan-cta" id="plan-workshop-form" action="mailto:workshops@stageoneeducation.com" method="get" novalidate>
-        <h3 class="participants-plan-cta__title" data-i18n="home.planWorkshop.title">Plan Your Workshop</h3>
+        <h3 class="participants-plan-cta__title" data-i18n="home.planWorkshop.title">Complete Your Workshop Request</h3>
+        <p class="participants-plan-cta__subtitle" data-i18n="home.planWorkshop.subtitle">Share the remaining details below. A Stage One team member will review your request and follow up about availability and next steps.</p>
+
+        <input type="hidden" name="explorerDestination">
+        <input type="hidden" name="explorerCustomDestination">
+        <input type="hidden" name="explorerParticipants">
+        <input type="hidden" name="explorerGroupType">
+        <input type="hidden" name="explorerInternational">
+        <input type="hidden" name="explorerWorkshop" value="Not sure yet">
 
         <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.location">Location</span>
-            <select name="location" class="participants-plan-field__control participants-plan-field__control--select">
-                <option value="" data-i18n="home.planWorkshop.locationPlaceholder">Select a location</option>
-                <option value="Ann Arbor, MI">Ann Arbor, MI</option>
-                <option value="Atlanta, GA">Atlanta, GA</option>
-                <option value="Berkeley, CA">Berkeley, CA</option>
-                <option value="Boston, MA">Boston, MA</option>
-                <option value="Denver, CO">Denver, CO</option>
-                <option value="Houston, TX">Houston, TX</option>
-                <option value="Los Angeles, CA">Los Angeles, CA</option>
-                <option value="New Haven, CT">New Haven, CT</option>
-                <option value="Orlando, FL">Orlando, FL</option>
-                <option value="San Francisco, CA">San Francisco, CA</option>
-                <option value="Washington, DC">Washington, DC</option>
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.preferredDate">Preferred workshop date</span>
+            <input type="date" name="preferredDate" class="participants-plan-field__control participants-plan-field__control--date">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.alternateDate">Alternative date</span>
+            <input type="date" name="alternateDate" class="participants-plan-field__control participants-plan-field__control--date">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.preferredTime">Preferred time</span>
+            <select name="preferredTime" class="participants-plan-field__control participants-plan-field__control--select">
+                <option value="" data-i18n="home.planWorkshop.selectTime">Select a time</option>
+                <option value="Morning" data-i18n="home.planWorkshop.morning">Morning</option>
+                <option value="Afternoon" data-i18n="home.planWorkshop.afternoon">Afternoon</option>
+                <option value="Evening" data-i18n="home.planWorkshop.evening">Evening</option>
             </select>
         </label>
 
-        <fieldset class="participants-plan-field participants-plan-field--workshops">
-            <legend class="participants-plan-field__label" data-i18n="home.planWorkshop.workshops">Workshop</legend>
-            <div class="participants-plan-workshops">
-                <label class="participants-plan-check">
-                    <input type="checkbox" name="workshop" value="Artificial Intelligence">
-                    <span data-i18n="home.planWorkshop.workshopAi">AI</span>
-                </label>
-                <label class="participants-plan-check">
-                    <input type="checkbox" name="workshop" value="Robotics Drone">
-                    <span data-i18n="home.planWorkshop.workshopRobotics">Robotics</span>
-                </label>
-                <label class="participants-plan-check">
-                    <input type="checkbox" name="workshop" value="Mechanical Engineering">
-                    <span data-i18n="home.planWorkshop.workshopMechanical">Mechanical</span>
-                </label>
-                <label class="participants-plan-check">
-                    <input type="checkbox" name="workshop" value="Web Development">
-                    <span data-i18n="home.planWorkshop.workshopWebsite">Web</span>
-                </label>
-            </div>
-        </fieldset>
-
         <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.groupSize">Group size</span>
-            <input type="number" name="groupSize" class="participants-plan-field__control" min="1" inputmode="numeric">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.participantCount">Estimated participant count</span>
+            <input type="number" name="participantCount" class="participants-plan-field__control" min="1" inputmode="numeric">
         </label>
 
         <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.timing">Date</span>
-            <input type="date" name="timing" class="participants-plan-field__control participants-plan-field__control--date">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.venue">Venue or hotel information</span>
+            <input type="text" name="venue" class="participants-plan-field__control">
         </label>
 
         <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.organization">Organization</span>
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.organization">Organization or school name</span>
             <input type="text" name="organization" class="participants-plan-field__control" autocomplete="organization">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label">
+                <span data-i18n="home.planWorkshop.contactName">Contact name</span>
+                <span class="participants-plan-field__required" aria-hidden="true">*</span>
+            </span>
+            <input type="text" name="contactName" class="participants-plan-field__control" required autocomplete="name">
         </label>
 
         <label class="participants-plan-field">
@@ -1126,9 +1181,19 @@ i18n_key: home
             <input type="email" name="email" class="participants-plan-field__control" required autocomplete="email" inputmode="email">
         </label>
 
-        <button type="submit" class="participants-plan-submit" data-i18n="home.planWorkshop.submit">Submit</button>
-        <p class="participants-plan-hint" data-i18n="home.planWorkshop.hint">This will be directed to workshops@stageoneeducation.com</p>
-        <p class="participants-plan-thanks" data-i18n="home.planWorkshop.thanks" hidden>Thank you! We will be in contact with you soon.</p>
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.phone">Phone</span>
+            <input type="tel" name="phone" class="participants-plan-field__control" autocomplete="tel" inputmode="tel">
+        </label>
+
+        <label class="participants-plan-field">
+            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.notes">Additional notes</span>
+            <textarea name="notes" class="participants-plan-field__control" rows="4"></textarea>
+        </label>
+
+        <button type="submit" class="participants-plan-submit" data-i18n="home.planWorkshop.submit">SUBMIT WORKSHOP REQUEST</button>
+        <p class="participants-plan-hint" data-i18n="home.planWorkshop.hint">Submitting this form requests availability and does not confirm a booking.</p>
+        <p class="participants-plan-thanks" data-i18n="home.planWorkshop.thanks" hidden>Thank you. A Stage One team member will follow up about availability and next steps.</p>
     </form>
 </div>
 
@@ -1166,17 +1231,15 @@ i18n_key: home
         return (el.value || "").trim();
     }
 
-    function selectedWorkshops() {
-        var boxes = form.querySelectorAll('input[name="workshop"]:checked');
-        var values = [];
-        for (var i = 0; i < boxes.length; i++) values.push(boxes[i].value);
-        return values;
-    }
-
     form.addEventListener("submit", function (event) {
         event.preventDefault();
 
         var emailInput = form.elements.namedItem("email");
+        var contactInput = form.elements.namedItem("contactName");
+        if (!contactInput || !contactInput.value.trim()) {
+            if (contactInput && contactInput.focus) contactInput.focus();
+            return;
+        }
         if (!emailInput || !emailInput.value.trim()) {
             if (emailInput && emailInput.focus) emailInput.focus();
             return;
@@ -1186,24 +1249,40 @@ i18n_key: home
             return;
         }
 
-        var email = emailInput.value.trim();
-        var workshops = selectedWorkshops();
-
         var lines = [
-            "New workshop inquiry from the website:",
+            "New workshop availability request from the website:",
             "",
-            "Email: " + email,
-            "Location: " + (fieldValue("location") || "—"),
-            "Organization: " + (fieldValue("organization") || "—"),
-            "Group size: " + (fieldValue("groupSize") || "—"),
-            "Approximate time of year: " + (fieldValue("timing") || "—"),
-            "Workshop(s): " + (workshops.length ? workshops.join(", ") : "—")
+            "Explorer selections",
+            "Destination: " + (fieldValue("explorerDestination") || "Not selected yet"),
+            "Custom destination: " + (fieldValue("explorerCustomDestination") || "Not selected yet"),
+            "Participant level: " + (fieldValue("explorerParticipants") || "Not selected yet"),
+            "Group type: " + (fieldValue("explorerGroupType") || "Not selected yet"),
+            "International group: " + (fieldValue("explorerInternational") || "Not selected yet"),
+            "Workshop: " + (fieldValue("explorerWorkshop") || "Not sure yet"),
+            "",
+            "Remaining request details",
+            "Preferred date: " + (fieldValue("preferredDate") || "Not provided"),
+            "Alternative date: " + (fieldValue("alternateDate") || "Not provided"),
+            "Preferred time: " + (fieldValue("preferredTime") || "Not provided"),
+            "Estimated participant count: " + (fieldValue("participantCount") || "Not provided"),
+            "Venue or hotel: " + (fieldValue("venue") || "Not provided"),
+            "Organization or school: " + (fieldValue("organization") || "Not provided"),
+            "Contact name: " + fieldValue("contactName"),
+            "Email: " + fieldValue("email"),
+            "Phone: " + (fieldValue("phone") || "Not provided"),
+            "Additional notes: " + (fieldValue("notes") || "None")
         ];
 
         var mailto = "mailto:workshops@stageoneeducation.com"
-            + "?subject=" + encodeURIComponent("Workshop inquiry")
+            + "?subject=" + encodeURIComponent("Workshop availability request")
             + "&body=" + encodeURIComponent(lines.join("\n"));
 
+        if (typeof window.gtag === "function") {
+            window.gtag("event", "workshop_request_submitted", {
+                workshop: fieldValue("explorerWorkshop") || "not_sure_yet",
+                destination: fieldValue("explorerDestination") || "not_selected"
+            });
+        }
         window.location.href = mailto;
         form.classList.add("is-submitted");
         var thanks = form.querySelector(".participants-plan-thanks");
