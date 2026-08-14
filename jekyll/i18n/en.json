@@ -4,7 +4,7 @@
   "nav": {
     "toggle": "Toggle navigation",
     "menu": "Menu",
-    "workshops": "Workshops <span class=\"caret\"></span>",
+    "workshops": "Explore Workshops <span class=\"caret\"></span>",
     "ai": "Artificial Intelligence",
     "robotics": "Robotics Drone",
     "mechanical": "Mechanical Engineering",
@@ -15,7 +15,9 @@
     "feedback": "Feedback",
     "contact": "Contact",
     "about": "About",
-    "requestDemo": "Request a demo"
+    "requestDemo": "Request a demo",
+    "planWorkshop": "Plan A Workshop",
+    "workshopAccess": "Workshop Access"
   },
 
   "common": {
@@ -32,17 +34,17 @@
     "hero": {
       "sectionLabel": "Hands-on engineering workshops delivered across the USA",
       "imageAlt": "Workshop classroom",
+      "audience": "For Schools, Tour Operators & Groups",
       "navLabel": "Workshop types",
       "linkAi": "AI",
       "linkRobotics": "Robotics",
       "linkMechanical": "Mechanical",
       "linkWebsite": "Website",
-      "title1": "Hands-On Engineering Workshops",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">We Bring</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">Hands-On Engineering</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">to You</span>",
       "title2": "Delivered to Groups Across the USA",
-      "body1": "Led by engineers, our three-hour workshops get students <strong>building, programming, designing, and testing</strong> through engaging, hands-on experiences for all&nbsp;skill&nbsp;levels.",
-      "body2": "We provide the <strong>instructors, curriculum, equipment, materials, and complete setup</strong> at schools, hotels, campuses, and venues nationwide, making hands-on engineering <strong>easy to add to any program&nbsp;or&nbsp;itinerary</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>View Workshop Guide",
-      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan Your Workshop",
+      "body1": "Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>View Workshop Guide",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan A Workshop",
       "highlightDuration": "3-Hour<br>Workshops",
       "highlightDelivery": "Delivered<br>Nationwide",
       "highlightIncluded": "Engineers & Equipment<br>Included",

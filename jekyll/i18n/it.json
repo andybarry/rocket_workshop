@@ -15,7 +15,9 @@
     "feedback": "Recensioni",
     "contact": "Contatti",
     "about": "Chi siamo",
-    "requestDemo": "Richiedi una demo"
+    "requestDemo": "Richiedi una demo",
+    "planWorkshop": "Pianifica un workshop",
+    "workshopAccess": "Accesso ai workshop"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "Workshop pratici di ingegneria in tutti gli Stati Uniti",
       "imageAlt": "Aula del workshop",
+      "audience": "Per scuole, tour operator e gruppi",
       "navLabel": "Tipi di workshop",
       "linkAi": "IA",
       "linkRobotics": "Robotica",
       "linkMechanical": "Meccanica",
       "linkWebsite": "Sito Web",
-      "title1": "Workshop pratici di ingegneria",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Portiamo</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">l’ingegneria pratica</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">da te</span>",
       "title2": "Per gruppi in tutti gli Stati Uniti",
-      "body1": "Guidati da ingegneri, i nostri workshop di tre ore portano gli studenti a <strong>costruire, programmare, progettare e collaudare</strong> con esperienze pratiche adatte a tutti&nbsp;i&nbsp;livelli.",
-      "body2": "Portiamo noi <strong>docenti, programma, attrezzature, materiali e l'allestimento completo</strong> in scuole, hotel, campus e sedi in tutto il Paese: così l'ingegneria pratica <strong>si inserisce facilmente in qualsiasi programma&nbsp;o&nbsp;itinerario</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Guarda la guida ai workshop",
+      "body1": "Workshop completi di tre ore su IA, robotica, ingegneria meccanica e sviluppo web, organizzati presso il tuo hotel, la tua scuola, il tuo campus o la tua sede in tutti gli Stati Uniti. Portiamo docenti, attrezzature, materiali e programma e ci occupiamo dell’allestimento e del riordino.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Guarda la guida ai workshop",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organizza il tuo workshop",
       "highlightDuration": "Workshop di<br>3 ore",
       "highlightDelivery": "In tutta<br>la nazione",

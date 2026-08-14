@@ -15,7 +15,9 @@
     "feedback": "Avis",
     "contact": "Contact",
     "about": "À propos",
-    "requestDemo": "Demander une démo"
+    "requestDemo": "Demander une démo",
+    "planWorkshop": "Planifier un atelier",
+    "workshopAccess": "Accès aux ateliers"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "Ateliers d'ingénierie pratiques partout aux États-Unis",
       "imageAlt": "Salle d'atelier",
+      "audience": "Pour les écoles, voyagistes et groupes",
       "navLabel": "Types d'ateliers",
       "linkAi": "IA",
       "linkRobotics": "Robotique",
       "linkMechanical": "Mécanique",
       "linkWebsite": "Site web",
-      "title1": "Des ateliers d'ingénierie pratiques",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Nous apportons</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">l’ingénierie pratique</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">chez vous</span>",
       "title2": "Pour les groupes partout aux États-Unis",
-      "body1": "Animés par des ingénieurs, nos ateliers de trois heures amènent les élèves à <strong>construire, programmer, concevoir et tester</strong> grâce à des expériences concrètes adaptées à tous&nbsp;les&nbsp;niveaux.",
-      "body2": "Nous fournissons <strong>les intervenants, le programme, le matériel, les fournitures et toute l'installation</strong> dans les écoles, hôtels, campus et lieux d'accueil du pays entier : l'ingénierie pratique devient <strong>facile à intégrer à n'importe quel programme&nbsp;ou&nbsp;séjour</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Voir le guide des ateliers",
+      "body1": "Des ateliers complets de trois heures sur l’IA, la robotique, le génie mécanique et le développement web, organisés dans votre hôtel, école, campus ou lieu d’accueil partout aux États-Unis. Nous fournissons les intervenants, l’équipement, le matériel et le programme, et prenons en charge l’installation et le rangement.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Voir le guide des ateliers",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organisez votre atelier",
       "highlightDuration": "Ateliers de<br>3 heures",
       "highlightDelivery": "Dispensés<br>partout aux États-Unis",

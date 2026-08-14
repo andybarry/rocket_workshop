@@ -15,7 +15,9 @@
     "feedback": "学员评价",
     "contact": "联系我们",
     "about": "关于我们",
-    "requestDemo": "预约演示"
+    "requestDemo": "预约演示",
+    "planWorkshop": "规划工作坊",
+    "workshopAccess": "进入工作坊"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "面向全美各地团体的动手工程工作坊",
       "imageAlt": "工作坊教室",
+      "audience": "面向学校、旅游运营商和团体",
       "navLabel": "工作坊类型",
       "linkAi": "AI",
       "linkRobotics": "机器人",
       "linkMechanical": "机械",
       "linkWebsite": "网页",
-      "title1": "亲手实践的工程工作坊",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">我们把</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">动手工程体验</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">带到您身边</span>",
       "title2": "为全美各地的团体上门授课",
-      "body1": "由工程师带领的三小时工作坊，让学生亲自<strong>动手制作、编程、设计并测试</strong>，适合&nbsp;各个&nbsp;年龄和水平的参加者。",
-      "body2": "<strong>讲师、课程、设备、材料和现场布置</strong>全部由我们准备。我们可在全美的学校、酒店、校园和活动场地开展，<strong>轻松融入任何课程&nbsp;或&nbsp;行程安排</strong>。",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>查看工作坊手册",
+      "body1": "完整的三小时人工智能、机器人、机械工程和网页开发工作坊，可送达全美各地的酒店、学校、校园或活动场地。我们提供讲师、设备、材料和课程，并负责现场布置和清理。",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>查看工作坊手册",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>预约开课咨询",
       "highlightDuration": "3小时<br>工作坊",
       "highlightDelivery": "全美<br>上门授课",

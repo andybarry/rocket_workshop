@@ -4,7 +4,7 @@
   "nav": {
     "toggle": "Toggle navigation",
     "menu": "Menu",
-    "workshops": "Workshops <span class=\"caret\"></span>",
+    "workshops": "Explore Workshops <span class=\"caret\"></span>",
     "ai": "Artificial Intelligence",
     "robotics": "Robotics Drone",
     "mechanical": "Mechanical Engineering",

@@ -15,7 +15,9 @@
     "feedback": "참가자 평가",
     "contact": "문의",
     "about": "소개",
-    "requestDemo": "데모 신청"
+    "requestDemo": "데모 신청",
+    "planWorkshop": "워크숍 계획하기",
+    "workshopAccess": "워크숍 이용"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "미국 전역에서 진행하는 체험형 엔지니어링 워크숍",
       "imageAlt": "워크숍 교실",
+      "audience": "학교, 여행사 및 단체용",
       "navLabel": "워크숍 종류",
       "linkAi": "AI",
       "linkRobotics": "로보틱스",
       "linkMechanical": "기계공학",
       "linkWebsite": "웹",
-      "title1": "직접 만들어 보는 엔지니어링 워크숍",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">저희가</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">체험형 엔지니어링을</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">직접 찾아가 제공합니다</span>",
       "title2": "미국 전역의 단체를 찾아갑니다",
-      "body1": "현직 엔지니어가 진행하는 3시간 워크숍에서 학생들은 직접 <strong>만들고, 프로그래밍하고, 설계하고, 테스트합니다</strong>. 모든&nbsp;연령과&nbsp;수준의 참가자가 함께할 수 있습니다.",
-      "body2": "<strong>강사, 커리큘럼, 장비, 재료, 현장 설치까지 모두</strong> 저희가 준비합니다. 전국의 학교, 호텔, 대학, 행사장에서 진행하므로 <strong>어떤 프로그램이나&nbsp;일정에도&nbsp;쉽게 넣을 수 있습니다</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>워크숍 안내서 보기",
+      "body1": "AI, 로보틱스, 기계공학 및 웹 개발을 주제로 한 완전한 3시간 워크숍을 미국 전역의 호텔, 학교, 캠퍼스 또는 행사장에서 제공합니다. 강사, 장비, 재료와 커리큘럼을 준비하고 설치부터 정리까지 모두 담당합니다.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>워크숍 안내서 보기",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>워크숍 일정 잡기",
       "highlightDuration": "3시간<br>워크숍",
       "highlightDelivery": "미국 전역<br>출장 진행",

@@ -15,7 +15,9 @@
     "feedback": "Opiniones",
     "contact": "Contacto",
     "about": "Nosotros",
-    "requestDemo": "Solicitar demo"
+    "requestDemo": "Solicitar demo",
+    "planWorkshop": "Planificar un taller",
+    "workshopAccess": "Acceso a talleres"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "Talleres prácticos de ingeniería en todo Estados Unidos",
       "imageAlt": "Aula del taller",
+      "audience": "Para escuelas, operadores turísticos y grupos",
       "navLabel": "Tipos de taller",
       "linkAi": "IA",
       "linkRobotics": "Robótica",
       "linkMechanical": "Mecánica",
       "linkWebsite": "Sitio Web",
-      "title1": "Talleres Prácticos de Ingeniería",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Llevamos</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">la ingeniería práctica</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">hasta ti</span>",
       "title2": "Para Grupos en Todo Estados Unidos",
-      "body1": "Dirigidos por ingenieros, nuestros talleres de tres horas ponen a los estudiantes a <strong>construir, programar, diseñar y probar</strong> con experiencias prácticas para todos&nbsp;los&nbsp;niveles.",
-      "body2": "Nosotros llevamos los <strong>instructores, el plan de estudios, el equipo, los materiales y todo el montaje</strong> a escuelas, hoteles, campus y sedes de todo el país, para que la ingeniería práctica sea <strong>fácil de sumar a cualquier programa&nbsp;o&nbsp;itinerario</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Ver guía de talleres",
+      "body1": "Talleres completos de tres horas sobre IA, robótica, ingeniería mecánica y desarrollo web, impartidos en tu hotel, escuela, campus o sede en cualquier lugar de Estados Unidos. Llevamos instructores, equipo, materiales y plan de estudios, y nos encargamos del montaje y la limpieza.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Ver guía de talleres",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organiza tu taller",
       "highlightDuration": "Talleres de<br>3 horas",
       "highlightDelivery": "Impartidos<br>en todo el país",

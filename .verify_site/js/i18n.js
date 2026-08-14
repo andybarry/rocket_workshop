@@ -431,18 +431,20 @@
     }
 
     function updateSwitcher(lang) {
-        var badge = document.querySelector('.nav-lang-code');
         var active = null;
         for (var i = 0; i < LANGUAGES.length; i++) {
             if (LANGUAGES[i].id === lang) active = LANGUAGES[i];
         }
-        if (badge && active) badge.textContent = active.code;
+        each(document.querySelectorAll('.nav-lang-code'), function (badge) {
+            if (active) badge.textContent = active.code;
+        });
 
-        var toggle = document.querySelector('.nav-lang-toggle');
-        if (toggle && active) {
-            toggle.setAttribute('title', active.label);
-            toggle.setAttribute('aria-label', 'Change language, current language ' + active.label);
-        }
+        each(document.querySelectorAll('.nav-lang-toggle'), function (toggle) {
+            if (active) {
+                toggle.setAttribute('title', active.label);
+                toggle.setAttribute('aria-label', 'Change language, current language ' + active.label);
+            }
+        });
         each(document.querySelectorAll('.nav-lang-menu [data-lang]'), function (link) {
             var on = link.getAttribute('data-lang') === lang;
             link.parentNode.className = on ? 'nav-lang-option is-active' : 'nav-lang-option';
@@ -451,8 +453,6 @@
     }
 
     function buildSwitcher() {
-        var menu = document.querySelector('.nav-lang-menu');
-        if (!menu || menu.getAttribute('data-built') === 'true') return;
         var markup = '';
         each(LANGUAGES, function (language) {
             markup += '<li class="nav-lang-option">' +
@@ -461,17 +461,20 @@
                 '<span class="nav-lang-option-label">' + language.label + '</span>' +
                 '</a></li>';
         });
-        menu.innerHTML = markup;
-        menu.setAttribute('data-built', 'true');
-        menu.onclick = function (event) {
-            var node = event.target;
-            while (node && node !== menu && !node.getAttribute) node = node.parentNode;
-            while (node && node !== menu && !node.getAttribute('data-lang')) node = node.parentNode;
-            if (!node || node === menu) return;
-            if (event.preventDefault) event.preventDefault();
-            setLanguage(node.getAttribute('data-lang'));
-            return false;
-        };
+        each(document.querySelectorAll('.nav-lang-menu'), function (menu) {
+            if (menu.getAttribute('data-built') === 'true') return;
+            menu.innerHTML = markup;
+            menu.setAttribute('data-built', 'true');
+            menu.onclick = function (event) {
+                var node = event.target;
+                while (node && node !== menu && !node.getAttribute) node = node.parentNode;
+                while (node && node !== menu && !node.getAttribute('data-lang')) node = node.parentNode;
+                if (!node || node === menu) return;
+                if (event.preventDefault) event.preventDefault();
+                setLanguage(node.getAttribute('data-lang'));
+                return false;
+            };
+        });
     }
 
     function markReady() {

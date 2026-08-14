@@ -15,7 +15,9 @@
     "feedback": "参加者の声",
     "contact": "お問い合わせ",
     "about": "会社概要",
-    "requestDemo": "デモを申し込む"
+    "requestDemo": "デモを申し込む",
+    "planWorkshop": "ワークショップを計画",
+    "workshopAccess": "ワークショップ入口"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "全米各地で実施する体験型エンジニアリング・ワークショップ",
       "imageAlt": "ワークショップの教室",
+      "audience": "学校・旅行会社・団体向け",
       "navLabel": "ワークショップの種類",
       "linkAi": "AI",
       "linkRobotics": "ロボティクス",
       "linkMechanical": "機械工学",
       "linkWebsite": "ウェブ",
-      "title1": "手を動かして学ぶエンジニアリング体験",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">私たちが</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">体験型エンジニアリングを</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">皆さまのもとへ</span>",
       "title2": "全米各地の団体さまのもとへお伺いします",
-      "body1": "現役エンジニアが進行する3時間のワークショップで、生徒は実際に<strong>つくり、プログラミングし、設計し、テストします</strong>。あらゆる&nbsp;年齢と&nbsp;レベルの方が参加できます。",
-      "body2": "<strong>講師、カリキュラム、機材、材料、会場設営まですべて</strong>こちらでご用意します。全米の学校、ホテル、大学、イベント会場で実施できるため、<strong>どんなプログラムや&nbsp;行程にも&nbsp;無理なく組み込めます</strong>。",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>ワークショップ資料を見る",
+      "body1": "AI、ロボティクス、機械工学、ウェブ開発の充実した3時間ワークショップを、全米のホテル、学校、大学、イベント会場へお届けします。講師、機材、材料、カリキュラムをすべて用意し、設営から撤収まで対応します。",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>ワークショップ資料を見る",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>開催を相談する",
       "highlightDuration": "3時間<br>ワークショップ",
       "highlightDelivery": "全米どこでも<br>開催",

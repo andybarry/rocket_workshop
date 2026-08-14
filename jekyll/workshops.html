@@ -1,70 +1,374 @@
 ---
 layout: default
-title: Stage One Education, LLC
+title: "Workshops | Stage One Education"
+description: "Explore Stage One Education's hands-on artificial intelligence, robotics, mechanical engineering, and web development workshops."
 ---
 
+<style>
+    body.workshops-page {
+        margin: 56px 0 0;
+        min-height: 100vh;
+        background-color: #fafafa;
+        background-image:
+            linear-gradient(to right, rgba(67, 67, 67, 0.035) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(67, 67, 67, 0.035) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: #434343;
+    }
 
+    .workshops-page-main {
+        padding: 24px 24px 56px;
+    }
+
+    .workshops-page .our-workshops-header {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 0;
+        margin-bottom: 28px;
+    }
+
+    .workshops-page .our-workshops-rule {
+        display: none;
+    }
+
+    .workshops-page .our-workshops-title {
+        position: relative;
+        color: #434343;
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(24px, 3vw, 36px);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+
+    .workshops-page .our-workshops-title::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 3px;
+        margin: 10px auto 0;
+        border-radius: 99px;
+        background: #f05f40;
+    }
+
+    .workshops-page-intro {
+        margin: 0;
+        color: #969696;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .workshops-card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 300px));
+        justify-content: center;
+        gap: 24px;
+        max-width: 1272px;
+        margin: 0 auto;
+    }
+
+    .workshops-page .workshop-main-button {
+        width: 100%;
+        height: 430px;
+        margin: 0;
+    }
+
+    .workshops-card-visual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 210px;
+        height: 190px;
+        margin: 8px auto 4px;
+        overflow: hidden;
+        border-radius: 10px;
+        background: transparent;
+    }
+
+    .workshops-card-visual img {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        object-fit: contain;
+        transition: opacity 1s ease, transform 0.25s ease;
+    }
+
+    .workshops-card-visual--photo img {
+        padding: 0;
+        object-fit: cover;
+    }
+
+    .workshops-ai-overlay {
+        position: absolute;
+        top: 155px;
+        left: 50%;
+        z-index: 3;
+        width: 190px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    .workshops-ai-overlay::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+        width: 190px;
+        height: 76px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        filter: blur(10px);
+        transform: translate(-50%, -50%);
+    }
+
+    .workshops-ai-overlay img {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        object-fit: contain;
+    }
+
+    @keyframes workshopDroneCodeScroll {
+        from { background-position: center top; }
+        to { background-position: center bottom; }
+    }
+
+    .workshops-drone-code {
+        position: absolute;
+        top: 85px;
+        bottom: 120px;
+        left: 50%;
+        z-index: 0;
+        width: 220px;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #fff;
+        transform: translateX(-50%);
+    }
+
+    .workshops-drone-code::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("img/drone-code.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 200px auto;
+        opacity: 0.5;
+        animation: workshopDroneCodeScroll 50s linear infinite;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    }
+
+    .workshops-drone-visual {
+        z-index: 1;
+    }
+
+    @keyframes workshopDronePathOne {
+        from { transform: translate(-400%, 400%); }
+        to { transform: translate(400%, -400%); }
+    }
+
+    @keyframes workshopDronePathTwo {
+        from { transform: translate(-400%, -400%); }
+        to { transform: translate(400%, 400%); }
+    }
+
+    @keyframes workshopDronePathThree {
+        from { transform: translate(-400%, 0); }
+        to { transform: translate(400%, 400%); }
+    }
+
+    @keyframes workshopDronePathFour {
+        from { transform: translate(0, -600%); }
+        to { transform: translate(-400%, 400%); }
+    }
+
+    .workshops-drone-flight {
+        position: absolute;
+        top: 85px;
+        right: 0;
+        bottom: 120px;
+        left: 0;
+        z-index: 5;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .workshops-drone-flight img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: auto;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .workshops-drone-flight img:nth-child(1) {
+        width: 40px;
+        margin: -20px 0 0 -20px;
+        animation: workshopDronePathOne 10s linear infinite;
+    }
+
+    .workshops-drone-flight img:nth-child(2) {
+        width: 55px;
+        margin: -27.5px 0 0 -27.5px;
+        animation: workshopDronePathTwo 14s linear 3s infinite;
+    }
+
+    .workshops-drone-flight img:nth-child(3) {
+        width: 90px;
+        margin: -45px 0 0 -45px;
+        animation: workshopDronePathThree 8s linear 6s infinite;
+    }
+
+    .workshops-drone-flight img:nth-child(4) {
+        width: 120px;
+        margin: -60px 0 0 -60px;
+        animation: workshopDronePathFour 16s linear 2s infinite;
+    }
+
+    .workshop-main-button:hover .workshops-card-visual img,
+    .workshop-main-button:focus .workshops-card-visual img {
+        transform: scale(1.04);
+    }
+
+    @media (max-width: 1279px) {
+        .workshops-card-grid {
+            grid-template-columns: repeat(2, minmax(0, 300px));
+        }
+    }
+
+    @media (max-width: 680px) {
+        .workshops-page-main {
+            padding: 20px 18px 40px;
+        }
+
+        .workshops-page .our-workshops-header {
+            gap: 10px;
+        }
+
+        .workshops-card-grid {
+            grid-template-columns: minmax(0, 300px);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .workshops-drone-code::before,
+        .workshops-drone-flight img {
+            animation: none;
+        }
+    }
+</style>
+
+<body id="page-top" class="workshops-page">
     {% include navigation.html %}
-    <body id="page-top" style="margin-top: 140px;">
 
-        <span class="workshop-title" style="display: block; text-align: center; font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 20px;">Select:</span>
-        <hr style="border: none; height: 1px; width: 1000px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-        <section style="padding-top: 30px;" id="tab-section" class="tab-section less-padding">
-            <div class="container" id="ai" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-        
-                <!-- First Workshop Box --> 
-                <div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
-                    <a href="ai-workshop.html" 
-                       style="display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
-                       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white';" 
-                       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40';">
-        
-                        <!-- Title Section -->
-                        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
-                            ARTIFICIAL<br>INTELLIGENCE<br>WORKSHOP
-                        </div>
-                    </a>
-                </div>
-        
-                <!-- Second Workshop Box -->
-                <div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
-                    <a href="robotics-workshop.html" 
-                       style="display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
-                       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white';" 
-                       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40';">
-        
-                        <!-- Title Section -->
-                        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
-                            ROBOTICS<br>WORKSHOP
-                        </div>
-                    </a>
-                </div>
-        
-                <!-- Third Workshop Box -->
-                <div class="col-sm-4 text-center" style="max-width: 300px; padding: 0; margin: 0 4px;">
-                    <a href="rocket-workshop.html" 
-                       style="display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;" 
-                       onmouseover="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid white; border-radius: 50px; background-color: #f05f40; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = 'white';" 
-                       onmouseout="this.style.cssText='display: flex; flex-direction: column; justify-content: center; width: 300px; height: 150px; text-decoration: none; border: 3px solid #f05f40; border-radius: 50px; background-color: white; transition: background-color 0.3s, color 0.3s, border-color 0.3s;'; this.querySelector('.title-text').style.color = '#f05f40';">
-        
-                        <!-- Title Section -->
-                        <div class="title-text" style="width: 100%; padding: 20px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 25px; font-weight: bold; color: #f05f40; transition: color 0.3s;">
-                            MECHANICAL ENGINEERING<br>WORKSHOP
-                        </div>
-                    </a>
-                </div>
-        
-            </div>
-        </section>
-        
-        <span class="workshop-title" style="display: block; height: 500px; background-color: white;"></span>
-
-           
-        <div style="text-align: right; margin-top: 10px;">
-            <!-- Copyright Text -->
-            <span class="workshop-title" style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8; margin-right: 10px;">
-                &copy; 2024 Stage One Education, LLC
-            </span>
+    <main class="workshops-page-main">
+        <div class="our-workshops-header">
+            <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
+            <h1 class="workshop-title our-workshops-title">Our Workshops</h1>
+            <p class="workshops-page-intro">Choose a workshop to get started.</p>
+            <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
         </div>
-        
+
+        <section class="workshops-card-grid" aria-label="Available workshops">
+            <a href="ai-workshop.html" class="workshop-main-button">
+                <h2 class="main-button-title-text">Artificial Intelligence</h2>
+                <div class="workshops-card-visual workshops-card-visual--photo">
+                    <img id="workshopsCyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
+                </div>
+                <div class="workshops-ai-overlay" aria-hidden="true">
+                    <img src="img/nn-nobg.png" alt="">
+                </div>
+                <div class="workshop-card-copy">
+                    <h3>Discover AI Neural Networks</h3>
+                    <h3>Use the latest AI models: <em>text, image, and music</em></h3>
+                    <h3>AI ethics discussion</h3>
+                </div>
+            </a>
+
+            <a href="robotics-workshop.html" class="workshop-main-button">
+                <div class="workshops-drone-code" aria-hidden="true"></div>
+                <h2 class="main-button-title-text">Robotics<br>Drone</h2>
+                <div class="workshops-card-visual workshops-drone-visual">
+                    <img src="img/drone-circuit.png" alt="Programmable drone control circuit">
+                </div>
+                <div class="workshops-drone-flight" aria-hidden="true">
+                    <img src="img/drone.png" alt="">
+                    <img src="img/drone.png" alt="">
+                    <img src="img/drone.png" alt="">
+                    <img src="img/drone.png" alt="">
+                </div>
+                <div class="workshop-card-copy">
+                    <h3>Fly mini drones</h3>
+                    <h3>Build a circuit for drone control</h3>
+                    <h3>Program for autonomous flight</h3>
+                </div>
+            </a>
+
+            <a href="rocket-workshop.html" class="workshop-main-button">
+                <h2 class="main-button-title-text">Mechanical Engineering</h2>
+                <div class="workshop-card-media">
+                    <video autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
+                        <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                        <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                    </video>
+                    <img src="img/rocket-assem-iso.png" alt="Multi-part model rocket design" class="workshop-card-rocket-overlay">
+                </div>
+                <div class="workshop-card-copy">
+                    <h3>Use professional CAD software</h3>
+                    <h3>Design a multi-part model rocket</h3>
+                    <h3>Explore 3D printing</h3>
+                </div>
+            </a>
+
+            <a href="ai-website-workshop.html" class="workshop-main-button">
+                <h2 class="main-button-title-text">Web<br>Development</h2>
+                <div class="workshops-card-visual">
+                    <img src="img/ai-website-mockup.svg" alt="Website created during the web development workshop">
+                </div>
+                <div class="workshop-card-copy">
+                    <h3>Build a real website</h3>
+                    <h3>Code with an AI assistant</h3>
+                    <h3>Publish it live on the web</h3>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var posters = [
+                "img/poster1.jpg",
+                "img/poster2.jpg",
+                "img/poster3.jpg",
+                "img/poster4.jpg",
+                "img/poster5.jpg",
+                "img/poster6.jpg",
+                "img/poster7.jpg"
+            ];
+            var poster = document.getElementById("workshopsCyclingPoster");
+            var current = 0;
+
+            if (!poster) return;
+
+            posters.forEach(function (src) {
+                var image = new Image();
+                image.src = src;
+            });
+
+            window.setInterval(function () {
+                poster.style.opacity = "0";
+                window.setTimeout(function () {
+                    current = (current + 1) % posters.length;
+                    poster.src = posters[current];
+                    poster.style.opacity = "1";
+                }, 1000);
+            }, 6000);
+        })();
+    </script>
+
+    {% include copyright.html %}

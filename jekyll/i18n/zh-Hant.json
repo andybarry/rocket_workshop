@@ -15,7 +15,9 @@
     "feedback": "學員回饋",
     "contact": "聯絡我們",
     "about": "關於我們",
-    "requestDemo": "預約導覽"
+    "requestDemo": "預約導覽",
+    "planWorkshop": "規劃工作坊",
+    "workshopAccess": "進入工作坊"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "為全美各地團體舉辦的動手做工程工作坊",
       "imageAlt": "工作坊教室",
+      "audience": "適合學校、旅遊業者與團體",
       "navLabel": "工作坊類型",
       "linkAi": "AI",
       "linkRobotics": "機器人",
       "linkMechanical": "機械",
       "linkWebsite": "網頁",
-      "title1": "動手實作的工程工作坊",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">我們把</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">動手工程體驗</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">帶到您身邊</span>",
       "title2": "為全美各地的團體到場授課",
-      "body1": "由工程師帶領的三小時工作坊，讓學生親自<strong>製作、程式設計、設計並測試</strong>，適合&nbsp;各種&nbsp;年齡與程度的參加者。",
-      "body2": "<strong>講師、課程、設備、材料與現場布置</strong>全部由我們準備。我們可在全美的學校、飯店、校園與活動場地開課，<strong>輕鬆融入任何課程&nbsp;或&nbsp;行程</strong>。",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>查看工作坊手冊",
+      "body1": "完整的三小時人工智慧、機器人、機械工程與網頁開發工作坊，可送達全美各地的飯店、學校、校園或活動場地。我們提供講師、設備、材料與課程，並負責現場布置與清理。",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>查看工作坊手冊",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>預約開課諮詢",
       "highlightDuration": "3小時<br>工作坊",
       "highlightDelivery": "全美<br>到府授課",

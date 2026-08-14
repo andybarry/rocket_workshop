@@ -15,7 +15,9 @@
     "feedback": "Stimmen",
     "contact": "Kontakt",
     "about": "Über uns",
-    "requestDemo": "Demo anfragen"
+    "requestDemo": "Demo anfragen",
+    "planWorkshop": "Workshop planen",
+    "workshopAccess": "Workshop-Zugang"
   },
 
   "common": {
@@ -32,16 +34,16 @@
     "hero": {
       "sectionLabel": "Praxisnahe Technik-Workshops in den ganzen USA",
       "imageAlt": "Workshop-Raum",
+      "audience": "Für Schulen, Reiseveranstalter & Gruppen",
       "navLabel": "Workshop-Arten",
       "linkAi": "KI",
       "linkRobotics": "Robotik",
       "linkMechanical": "Maschinenbau",
       "linkWebsite": "Webseite",
-      "title1": "Technik-Workshops zum Anfassen",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Wir bringen</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">praxisnahe Technik</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">zu Ihnen</span>",
       "title2": "Für Gruppen in den ganzen USA",
-      "body1": "Unsere dreistündigen Workshops werden von Ingenieurinnen und Ingenieuren geleitet. Die Teilnehmenden <strong>bauen, programmieren, konstruieren und testen</strong> – praxisnah und für alle&nbsp;Erfahrungsstufen&nbsp;geeignet.",
-      "body2": "Wir bringen <strong>Dozenten, Lehrplan, Ausrüstung, Material und den kompletten Aufbau</strong> an Schulen, Hotels, Campus und Veranstaltungsorte im ganzen Land. So lässt sich Technik zum Anfassen <strong>ganz einfach in jedes Programm&nbsp;oder&nbsp;jede Reise einbauen</strong>.",
-      "ctaGuide": "<i class=\"fa fa-file-pdf-o\" aria-hidden=\"true\"></i>Workshop-Broschüre ansehen",
+      "body1": "Komplette dreistündige Workshops zu KI, Robotik, Maschinenbau und Webentwicklung, die wir in den ganzen USA an Ihr Hotel, Ihre Schule, Ihren Campus oder Veranstaltungsort bringen. Wir stellen Dozenten, Ausrüstung, Materialien und Lehrplan bereit und übernehmen Auf- und Abbau.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Workshop-Broschüre ansehen",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Workshop planen",
       "highlightDuration": "3-Stunden-<br>Workshops",
       "highlightDelivery": "Bundesweit<br>vor Ort",
