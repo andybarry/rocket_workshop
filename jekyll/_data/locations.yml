@@ -1,0 +1,87 @@
+- slug: ann-arbor-mi
+  name: Ann Arbor
+  display_name: Ann Arbor, Michigan
+  region: midwest-south-central
+  eyebrow: ANN ARBOR, MICHIGAN
+  title: Engineering Workshops in Ann Arbor
+  description: Add a hands-on engineering experience to your Ann Arbor itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: atlanta-ga
+  name: Atlanta
+  display_name: Atlanta, Georgia
+  region: southeast
+  eyebrow: ATLANTA, GEORGIA
+  title: Engineering Workshops in Atlanta
+  description: Add a hands-on engineering experience to your Atlanta itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: berkeley-ca
+  name: Berkeley
+  display_name: Berkeley, California
+  region: west-coast
+  eyebrow: BERKELEY, CALIFORNIA
+  title: Engineering Workshops in Berkeley
+  description: Add a hands-on engineering experience to your Berkeley itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: boston-ma
+  name: Boston
+  display_name: Boston, Massachusetts
+  region: northeast-mid-atlantic
+  eyebrow: BOSTON, MASSACHUSETTS
+  title: Engineering Workshops in Boston
+  description: Add a hands-on engineering experience to your Boston itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: denver-co
+  name: Denver
+  display_name: Denver, Colorado
+  region: mountain-west
+  eyebrow: DENVER, COLORADO
+  title: Engineering Workshops in Denver
+  description: Add a hands-on engineering experience to your Denver itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: houston-tx
+  name: Houston
+  display_name: Houston, Texas
+  region: midwest-south-central
+  eyebrow: HOUSTON, TEXAS
+  title: Engineering Workshops in Houston
+  description: Add a hands-on engineering experience to your Houston itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: los-angeles-ca
+  name: Los Angeles
+  display_name: Los Angeles, California
+  region: west-coast
+  eyebrow: LOS ANGELES, CALIFORNIA
+  title: Engineering Workshops in Los Angeles
+  description: Add a hands-on engineering experience to your Los Angeles itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: new-haven-ct
+  name: New Haven
+  display_name: New Haven, Connecticut
+  region: northeast-mid-atlantic
+  eyebrow: NEW HAVEN, CONNECTICUT
+  title: Engineering Workshops in New Haven
+  description: Add a hands-on engineering experience to your New Haven itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: orlando-fl
+  name: Orlando
+  display_name: Orlando, Florida
+  region: southeast
+  eyebrow: ORLANDO, FLORIDA
+  title: Engineering Workshops in Orlando
+  description: Add a hands-on engineering experience to your Orlando itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: san-francisco-ca
+  name: San Francisco
+  display_name: San Francisco, California
+  region: west-coast
+  eyebrow: SAN FRANCISCO, CALIFORNIA
+  title: Engineering Workshops in San Francisco
+  description: Add a hands-on engineering experience to your San Francisco itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.
+
+- slug: washington-dc
+  name: Washington, D.C.
+  display_name: Washington, D.C.
+  region: northeast-mid-atlantic
+  eyebrow: WASHINGTON, D.C.
+  title: Engineering Workshops in Washington, D.C.
+  description: Add a hands-on engineering experience to your Washington, D.C. itinerary. Stage One delivers three-hour AI, robotics, mechanical engineering, and web development workshops directly to hotels, schools, campuses, and group venues throughout the area.

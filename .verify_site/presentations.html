@@ -137,15 +137,16 @@
                 </li>
                 <!-- Plan a Workshop button -->
                 <li class="nav-plan-workshop">
-                    <a href="index.html#plan-workshop-form" class="nav-plan-workshop-button">
+                    <a href="index.html?mode=plan&amp;source=header#workshop-finder" class="nav-plan-workshop-button"
+                        data-workshop-plan-link data-source="header">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        Plan A Workshop
+                        <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
                 <li class="nav-workshops-access">
                     <a href="workshops.html" class="nav-workshops-access-button">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                        <span>Workshop Access</span>
+                        <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>
             </ul>
@@ -242,6 +243,13 @@
 
                 <!-- _includes/copyright.html -->
 <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="index.html?mode=plan&amp;source=footer#workshop-finder"
+      data-workshop-plan-link data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
   <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
     &copy; 2026 Stage One Education, LLC
   </span>
@@ -268,6 +276,8 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+    <script src="js/homepage-workshop-explorer.js"></script>
+    <script src="js/workshop-explorer.js"></script>
 
 </body>
 

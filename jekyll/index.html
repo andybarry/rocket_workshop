@@ -817,7 +817,7 @@ i18n_key: home
             <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta" href="#workshop-finder" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
+            <a class="home-room-hero__cta" href="#workshop-explorer" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
                 <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
             </a>
             <a class="home-room-hero__cta home-room-hero__cta--solid" href="?mode=plan&amp;source=hero#workshop-finder"
@@ -860,6 +860,7 @@ i18n_key: home
 </section>
 
 {% include workshop-explorer.html %}
+{% include workshop-planner.html %}
             
 <section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
     <div class="container" id="ai">
@@ -1126,6 +1127,7 @@ i18n_key: home
         <input type="hidden" name="explorerDestination">
         <input type="hidden" name="explorerCustomDestination">
         <input type="hidden" name="explorerParticipants">
+        <input type="hidden" name="explorerRegion">
         <input type="hidden" name="explorerGroupType">
         <input type="hidden" name="explorerInternational">
         <input type="hidden" name="explorerWorkshop" value="Not sure yet">
@@ -1256,6 +1258,7 @@ i18n_key: home
             "Destination: " + (fieldValue("explorerDestination") || "Not selected yet"),
             "Custom destination: " + (fieldValue("explorerCustomDestination") || "Not selected yet"),
             "Participant level: " + (fieldValue("explorerParticipants") || "Not selected yet"),
+            "Region: " + (fieldValue("explorerRegion") || "Not selected yet"),
             "Group type: " + (fieldValue("explorerGroupType") || "Not selected yet"),
             "International group: " + (fieldValue("explorerInternational") || "Not selected yet"),
             "Workshop: " + (fieldValue("explorerWorkshop") || "Not sure yet"),

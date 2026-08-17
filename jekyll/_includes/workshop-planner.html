@@ -1,0 +1,124 @@
+<section id="workshop-finder" class="workshop-explorer" data-mode="explore" aria-labelledby="workshop-explorer-heading" hidden>
+  <div class="container">
+    <header class="workshop-explorer__header">
+      <span class="workshop-explorer__eyebrow" data-explore-copy data-i18n="home.explorer.exploreEyebrow">EXPLORE WORKSHOPS</span>
+      <span class="workshop-explorer__eyebrow" data-plan-copy data-i18n="home.explorer.planEyebrow" hidden>PLAN A WORKSHOP</span>
+      <h2 id="workshop-explorer-heading" class="workshop-explorer__heading" tabindex="-1">
+        <span data-explore-copy data-i18n="home.explorer.exploreHeading">Find the Right Workshop for Your Group</span>
+        <span data-plan-copy data-i18n="home.explorer.planHeading" hidden>Start Planning Your Group’s Workshop</span>
+      </h2>
+      <p class="workshop-explorer__support">
+        <span data-explore-copy data-i18n="home.explorer.exploreSupport">Start with what you know. Explore all four workshops or narrow the options by U.S. destination, participant level, group type, and workshop interest.</span>
+        <span data-plan-copy data-i18n="home.explorer.planSupport" hidden>Tell us what you know about your group and U.S. destination. You can confirm the date, participant count, and final details before submitting your request.</span>
+      </p>
+      <p class="workshop-explorer__helper">
+        <span data-explore-copy data-i18n="home.explorer.exploreHelper">All selections are optional. Change them at any time.</span>
+        <span data-plan-copy data-i18n="home.explorer.planHelper" hidden>Not sure about every detail yet? Make the selections you know and continue when ready.</span>
+      </p>
+    </header>
+
+    <button type="button" class="workshop-explorer__refine" aria-expanded="false" aria-controls="workshop-explorer-controls">
+      <i class="fa fa-sliders" aria-hidden="true"></i>
+      <span data-i18n="home.explorer.refine">REFINE WORKSHOPS</span>
+    </button>
+
+    <div id="workshop-explorer-controls" class="workshop-explorer__controls">
+      <label class="workshop-explorer__field" data-field="destination">
+        <span data-i18n="home.explorer.destination">U.S. Destination</span>
+        <select name="explorerDestination">
+          <option value="" data-i18n="home.explorer.optional">Optional</option>
+          {% for location in site.data.locations %}
+          <option value="{{ location.slug }}">{{ location.display_name }}</option>
+          {% endfor %}
+          <option value="other" data-i18n="home.explorer.otherDestination">Other U.S. destination</option>
+        </select>
+        <input class="workshop-explorer__custom-destination" name="explorerCustomDestination" type="text"
+          data-i18n-placeholder="home.explorer.customDestination" placeholder="Enter destination" hidden>
+      </label>
+
+      <label class="workshop-explorer__field" data-field="participants">
+        <span data-i18n="home.explorer.participants">Participants</span>
+        <select name="explorerParticipants">
+          <option value="" data-i18n="home.explorer.optional">Optional</option>
+          <option value="elementary-school" data-i18n="home.explorer.participantElementary">Elementary School</option>
+          <option value="middle-school" data-i18n="home.explorer.participantMiddle">Middle School</option>
+          <option value="high-school" data-i18n="home.explorer.participantHigh">High School</option>
+          <option value="college-university" data-i18n="home.explorer.participantCollege">College or University</option>
+          <option value="adult-professional" data-i18n="home.explorer.participantAdult">Adult or Professional</option>
+          <option value="private-other">Private &amp; Other Groups</option>
+          <option value="mixed-age" data-i18n="home.explorer.participantMixed">Mixed-Age Group</option>
+        </select>
+      </label>
+
+      <label class="workshop-explorer__field" data-field="groupType">
+        <span data-i18n="home.explorer.groupType">Group Type</span>
+        <select name="explorerGroupType">
+          <option value="" data-i18n="home.explorer.optional">Optional</option>
+          <option value="school-classroom" data-i18n="home.explorer.groupSchool">School or Classroom</option>
+          <option value="educational-tour" data-i18n="home.explorer.groupTour">Educational Tour or Travel Group</option>
+          <option value="youth-program" data-i18n="home.explorer.groupYouth">Summer or Youth Program</option>
+          <option value="college-program" data-i18n="home.explorer.groupCollege">College or University Program</option>
+          <option value="corporate" data-i18n="home.explorer.groupCorporate">Corporate or Professional Group</option>
+          <option value="private-community" data-i18n="home.explorer.groupPrivate">Private or Community Group</option>
+        </select>
+        <span class="workshop-explorer__international">
+          <span data-i18n="home.explorer.international">International Group</span>
+          <select name="explorerInternational" aria-label="International Group" data-i18n-aria-label="home.explorer.international">
+            <option value="" data-i18n="home.explorer.optional">Optional</option>
+            <option value="yes" data-i18n="common.yes">Yes</option>
+            <option value="no" data-i18n="common.no">No</option>
+          </select>
+        </span>
+      </label>
+
+      <label class="workshop-explorer__field" data-field="workshop">
+        <span data-i18n="home.explorer.interest">Workshop Interest</span>
+        <select name="explorerWorkshop">
+          <option value="" data-i18n="home.explorer.optional">Optional</option>
+          {% for workshop in site.data.workshops %}
+          <option value="{{ workshop.slug }}">{{ workshop.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+
+    <div class="workshop-explorer__chips" aria-live="polite"></div>
+
+    <div class="workshop-explorer__results" aria-live="polite">
+      {% for workshop in site.data.workshops %}
+      <article class="workshop-explorer-card" data-workshop="{{ workshop.slug }}" data-details="{{ workshop.detail_path }}">
+        <i class="fa {{ workshop.icon }} workshop-explorer-card__icon" aria-hidden="true"></i>
+        <h3>{{ workshop.name }}</h3>
+        <p>{{ workshop.description }}</p>
+        <div class="workshop-explorer-card__actions">
+          <a class="workshop-explorer-card__details" href="{{ workshop.detail_path }}" data-i18n="home.explorer.exploreWorkshop">EXPLORE WORKSHOP</a>
+          <button type="button" class="workshop-explorer-card__plan" data-workshop-select="{{ workshop.slug }}" data-i18n="home.explorer.planThis">PLAN THIS WORKSHOP</button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="workshop-explorer__plan" hidden>
+      <section class="workshop-plan-summary" aria-labelledby="workshop-plan-summary-heading">
+        <h3 id="workshop-plan-summary-heading" data-i18n="home.explorer.summaryHeading">Your Workshop Plan</h3>
+        <dl>
+          <div><dt data-i18n="home.explorer.destination">Destination</dt><dd><button type="button" data-summary-edit="destination"></button></dd></div>
+          <div><dt data-i18n="home.explorer.participants">Participants</dt><dd><button type="button" data-summary-edit="participants"></button></dd></div>
+          <div><dt>Region</dt><dd><span data-plan-region>Not selected yet</span></dd></div>
+          <div><dt data-i18n="home.explorer.groupType">Group Type</dt><dd><button type="button" data-summary-edit="groupType"></button></dd></div>
+          <div><dt data-i18n="home.explorer.interest">Workshop</dt><dd><button type="button" data-summary-edit="workshop"></button></dd></div>
+          <div><dt data-i18n="home.explorer.international">International Group</dt><dd><button type="button" data-summary-edit="international"></button></dd></div>
+        </dl>
+      </section>
+      <div class="workshop-explorer__continue">
+        <p data-i18n="home.explorer.continueSupport">Next, tell us your preferred date, estimated participant count, venue details, and contact information.</p>
+        <button type="button" class="workshop-explorer__continue-button" data-continue-planning data-i18n="home.explorer.continue">CONTINUE PLANNING</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="workshop-explorer__mobile-action" hidden>
+    <span data-mobile-plan-label>Workshop: Not sure yet</span>
+    <button type="button" data-continue-planning data-i18n="home.explorer.continue">CONTINUE PLANNING</button>
+  </div>
+</section>

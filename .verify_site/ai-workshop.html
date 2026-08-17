@@ -181,15 +181,16 @@
                 </li>
                 <!-- Plan a Workshop button -->
                 <li class="nav-plan-workshop">
-                    <a href="index.html#plan-workshop-form" class="nav-plan-workshop-button">
+                    <a href="index.html?mode=plan&amp;source=header#workshop-finder" class="nav-plan-workshop-button"
+                        data-workshop-plan-link data-source="header">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        Plan A Workshop
+                        <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
                 <li class="nav-workshops-access">
                     <a href="workshops.html" class="nav-workshops-access-button">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                        <span>Workshop Access</span>
+                        <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>
                 <!-- Language switcher. The option list is built at runtime by js/i18n.js from
@@ -224,6 +225,14 @@
     
 </div>
     <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+    <div class="workshop-page-plan-entry">
+  <a class="workshop-page-plan-entry__button" href="index.html?mode=plan&amp;workshop=artificial-intelligence#workshop-finder"
+    data-workshop-plan-link data-workshop-slug="artificial-intelligence" data-source="workshop_page">
+    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+    <span data-i18n="common.planThisWorkshop">PLAN THIS WORKSHOP</span>
+  </a>
+</div>
+
     
 
 <!-- Section with Background Image -->
@@ -831,6 +840,13 @@ Feedback Survey
            <!-- Footer Section -->
            <!-- _includes/copyright.html -->
 <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="index.html?mode=plan&amp;source=footer#workshop-finder"
+      data-workshop-plan-link data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
   <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
     &copy; 2026 Stage One Education, LLC
   </span>
@@ -852,6 +868,8 @@ Feedback Survey
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+    <script src="js/homepage-workshop-explorer.js"></script>
+    <script src="js/workshop-explorer.js"></script>
 
 </body>
 

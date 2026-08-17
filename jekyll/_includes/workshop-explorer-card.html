@@ -1,0 +1,42 @@
+{% assign workshop = include.workshop %}
+{% if include.variant == "homepage" %}
+<article class="buyer-workshop-card buyer-workshop-card--homepage">
+  <a class="buyer-workshop-card__selection" href="/explore/workshop/{{ workshop.slug }}/"
+    data-explorer-option data-category="workshop" data-slug="{{ workshop.slug }}" data-label="{{ workshop.name }}">
+    <span class="buyer-workshop-card__media">
+      <img src="/{{ workshop.image }}" width="{{ workshop.image_width }}" height="{{ workshop.image_height }}"
+        loading="lazy" alt="{{ workshop.image_alt | escape }}">
+    </span>
+    <span class="buyer-workshop-card__content">
+      <span class="buyer-workshop-card__title">{{ workshop.name }}</span>
+      <span class="buyer-workshop-card__description">{{ workshop.description }}</span>
+      <span class="buyer-workshop-card__direction">Explore Workshops <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+    </span>
+  </a>
+</article>
+{% else %}
+<article class="buyer-workshop-card{% if include.selected %} is-selected{% endif %}" data-workshop-card="{{ workshop.slug }}">
+  {% if include.selected %}
+  <span class="buyer-workshop-card__badge"><i class="fa fa-check" aria-hidden="true"></i> Selected Workshop</span>
+  {% endif %}
+  <div class="buyer-workshop-card__media">
+    <img src="/{{ workshop.image }}" width="{{ workshop.image_width }}" height="{{ workshop.image_height }}"
+      loading="lazy" alt="{{ workshop.image_alt | escape }}">
+  </div>
+  <div class="buyer-workshop-card__content">
+    <h3 class="buyer-workshop-card__title">{{ workshop.name }}</h3>
+    <p class="buyer-workshop-card__description">{{ workshop.description }}</p>
+    <ul class="buyer-workshop-card__facts" aria-label="Workshop facts">
+      <li><i class="fa fa-clock-o" aria-hidden="true"></i> Approximately 3 Hours</li>
+      <li><i class="fa fa-star-o" aria-hidden="true"></i> No Experience Required</li>
+      <li><i class="fa fa-briefcase" aria-hidden="true"></i> Engineers &amp; Equipment Included</li>
+    </ul>
+    <div class="buyer-workshop-card__actions">
+      <a class="buyer-workshop-card__view" href="{{ workshop.detail_path }}{% if include.context_query %}?{{ include.context_query }}{% endif %}"
+        data-workshop-view data-workshop="{{ workshop.slug }}">VIEW WORKSHOP</a>
+      <a class="buyer-workshop-card__plan" href="/index.html?mode=plan&amp;{% unless include.plan_query == empty %}{{ include.plan_query }}&amp;{% endunless %}workshop={{ workshop.slug }}&amp;source=contextual_card#workshop-finder"
+        data-plan-workshop data-workshop="{{ workshop.slug }}">PLAN THIS WORKSHOP</a>
+    </div>
+  </div>
+</article>
+{% endif %}

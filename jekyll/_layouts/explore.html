@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Stage One Education, LLC">
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ page.description | truncate: 160 | escape }}">
+  <link rel="canonical" href="https://stageoneeducation.com{{ page.url }}">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <base href="/">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Merriweather:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/creative.css" type="text/css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+</head>
+{% assign explorer = page.explorer %}
+{% capture context_query %}{% for param in explorer.plan_params %}{% unless forloop.first %}&amp;{% endunless %}{{ param[0] }}={{ param[1] }}{% endfor %}{% endcapture %}
+{% capture card_plan_query %}{% for param in explorer.plan_params %}{% unless param[0] == "workshop" %}{% unless forloop.first %}&amp;{% endunless %}{{ param[0] }}={{ param[1] }}{% endunless %}{% endfor %}{% endcapture %}
+<body class="explore-page" data-context-category="{{ explorer.category }}" data-context-slug="{{ explorer.slug }}">
+  {% include navigation.html %}
+
+  <nav class="explore-page__breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ol>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/index.html#workshop-explorer">Explore Workshops</a></li>
+        <li aria-current="page">{{ explorer.selected_value }}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <section class="explore-page__intro-wrap" aria-labelledby="contextual-explorer-title">
+      <div class="container explore-page__intro-grid">
+        <div class="explore-page__intro">
+          <span class="explore-page__eyebrow">{{ explorer.eyebrow }}</span>
+          <h1 id="contextual-explorer-title">{{ explorer.title }}</h1>
+          <p>{{ explorer.description }}</p>
+        </div>
+        <aside class="explore-page__context-card" aria-label="Current selection">
+          <span class="explore-page__context-label">{{ explorer.selected_label }}</span>
+          <strong class="explore-page__context-value">{{ explorer.selected_value }}</strong>
+          <a class="explore-page__plan-button" href="/index.html?mode=plan&amp;{{ context_query | strip }}&amp;source=contextual_intro#workshop-finder"
+            data-plan-general data-plan-source="contextual_intro">PLAN A WORKSHOP</a>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container">
+      <ul class="explore-page__quick-facts" aria-label="Workshop quick facts">
+        <li><i class="fa fa-clock-o" aria-hidden="true"></i><span>Approximately 3 Hours</span></li>
+        <li><i class="fa fa-star-o" aria-hidden="true"></i><span>No Experience Required</span></li>
+        <li><i class="fa fa-map-marker" aria-hidden="true"></i><span>Delivered Across the USA</span></li>
+        <li><i class="fa fa-briefcase" aria-hidden="true"></i><span>Engineers &amp; Equipment Included</span></li>
+      </ul>
+
+      {% if explorer.category == "region" %}
+      <section class="explore-page__cities" aria-labelledby="region-cities-title">
+        <h2 id="region-cities-title">Explore Destinations in {{ explorer.name }}</h2>
+        <div class="explore-page__city-links">
+          {% for location in site.data.locations %}
+          {% if location.region == explorer.slug %}
+          <a href="/explore/location/{{ location.slug }}/">{{ location.display_name }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </div>
+
+    <section class="explore-page__workshops" aria-labelledby="choose-workshop-title">
+      <div class="container">
+        {% if explorer.category == "workshop" %}
+        <div class="explore-page__workshop-group">
+          <h2 id="choose-workshop-title">Selected Workshop</h2>
+          <div class="explore-page__workshop-grid explore-page__workshop-grid--selected">
+            {% for workshop in site.data.workshops %}
+            {% if workshop.slug == explorer.featured_workshop_id %}
+              {% include workshop-explorer-card.html workshop=workshop selected=true context_query=context_query plan_query=card_plan_query %}
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="explore-page__workshop-group">
+          <h2>Explore Other Workshops</h2>
+          <div class="explore-page__workshop-grid">
+            {% for workshop in site.data.workshops %}
+            {% unless workshop.slug == explorer.featured_workshop_id %}
+              {% include workshop-explorer-card.html workshop=workshop context_query=context_query plan_query=card_plan_query %}
+            {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <header class="explore-page__workshops-header">
+          <h2 id="choose-workshop-title" class="explore-page__section-heading">Choose Your Workshop</h2>
+          <p class="explore-page__section-support">Every Stage One workshop is hands-on, engineer-led, and delivered with the equipment, materials, curriculum, setup, and support your group needs.</p>
+        </header>
+        <div class="explore-page__workshop-grid">
+          {% for workshop in site.data.workshops %}
+            {% include workshop-explorer-card.html workshop=workshop context_query=context_query plan_query=card_plan_query %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="explore-page__closing" aria-labelledby="contextual-closing-title">
+      <div class="container">
+        <h2 id="contextual-closing-title">Not Sure Which Workshop Is the Best Fit?</h2>
+        <p>Share your group details and we’ll help recommend the strongest option for your participants, destination, and schedule.</p>
+        <a class="explore-page__plan-button" href="/index.html?mode=plan&amp;{{ context_query | strip }}&amp;source=contextual_footer#workshop-finder"
+          data-plan-general data-plan-source="contextual_footer">PLAN A WORKSHOP</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="explore-page__mobile-plan is-hidden" data-contextual-mobile-plan>
+    <a class="explore-page__plan-button" href="/index.html?mode=plan&amp;{{ context_query | strip }}&amp;source=contextual_intro#workshop-finder"
+      data-plan-general data-plan-source="contextual_intro">PLAN A WORKSHOP</a>
+  </div>
+
+  {% include copyright.html %}
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/creative.js"></script>
+  <script src="/js/workshop-explorer.js"></script>
+  <script src="/js/contextual-workshop-explorer.js"></script>
+</body>
+</html>

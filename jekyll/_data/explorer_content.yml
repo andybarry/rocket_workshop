@@ -1,0 +1,182 @@
+groups:
+  - category: group
+    slug: middle-school
+    icon: fa-book
+    card_title: Middle School
+    card_description: Guided, hands-on projects that keep students building, testing, and engaged.
+    eyebrow: MIDDLE SCHOOL GROUPS
+    title: Middle School Engineering Workshops
+    description: Give middle school students a hands-on introduction to engineering through guided projects they can build, program, design, and test. No prior experience is required, and Stage One brings the engineer-led instruction, equipment, materials, and curriculum directly to your venue.
+    selected_label: Group
+    selected_value: Middle School
+    plan_params:
+      participantGroup: middle-school
+
+  - category: group
+    slug: high-school
+    icon: fa-graduation-cap
+    card_title: High School
+    card_description: Real engineering tools, technology, and challenges that bring STEM to life.
+    eyebrow: HIGH SCHOOL GROUPS
+    title: High School Engineering Workshops
+    description: Give high school students the opportunity to work with real engineering tools, coding, design software, and emerging technology. Every workshop is hands-on, engineer-led, and delivered directly to your hotel, school, campus, or group venue.
+    selected_label: Group
+    selected_value: High School
+    plan_params:
+      participantGroup: high-school
+
+  - category: group
+    slug: college-university
+    icon: fa-university
+    card_title: College & University
+    card_description: Applied, collaborative experiences built around real-world engineering.
+    eyebrow: COLLEGE & UNIVERSITY GROUPS
+    title: College and University Engineering Workshops
+    description: Bring applied engineering, teamwork, and technical problem-solving into your college or university program. Participants work with real tools and technology in a structured, engineer-led experience delivered directly to your campus, hotel, or event venue.
+    selected_label: Group
+    selected_value: College & University
+    plan_params:
+      participantGroup: college-university
+
+  - category: group
+    slug: adult-professional
+    icon: fa-briefcase
+    card_title: Adult & Professional
+    card_description: Interactive technical workshops for teams and adult learners.
+    eyebrow: ADULT & PROFESSIONAL GROUPS
+    title: Engineering Workshops for Adult and Professional Groups
+    description: Give teams and adult learners a practical engineering experience that encourages creativity, communication, and collaborative problem-solving. Stage One provides the instruction, equipment, materials, and setup for an easy addition to your program, conference, or event.
+    selected_label: Group
+    selected_value: Adult & Professional
+    plan_params:
+      participantGroup: adult-professional
+
+  - category: group
+    slug: private-other
+    icon: fa-users
+    card_title: Private & Other Groups
+    card_description: Flexible workshops for private, community, family, and mixed-age groups.
+    eyebrow: PRIVATE, COMMUNITY & MIXED GROUPS
+    title: Engineering Workshops for Your Group
+    description: Create a memorable hands-on engineering experience for private, community, family, or mixed-age groups. Stage One adapts the delivery to your participants and provides the instruction, equipment, materials, and support needed for a successful workshop.
+    selected_label: Group
+    selected_value: Private & Other Groups
+    plan_params:
+      participantGroup: private-other
+
+regions:
+  - category: region
+    slug: northeast-mid-atlantic
+    name: Northeast & Mid-Atlantic
+    descriptor: History, technology, research, and leading universities.
+    eyebrow: NORTHEAST & MID-ATLANTIC
+    title: Engineering Workshops in the Northeast & Mid-Atlantic
+    description: Add hands-on engineering to itineraries built around history, technology, research, and leading universities. Stage One delivers workshops to hotels, campuses, schools, and group venues throughout the region.
+    selected_label: Region
+    selected_value: Northeast & Mid-Atlantic
+    plan_params:
+      region: northeast-mid-atlantic
+
+  - category: region
+    slug: southeast
+    name: Southeast
+    descriptor: Space, innovation, universities, attractions, and major student destinations.
+    eyebrow: SOUTHEAST
+    title: Engineering Workshops in the Southeast
+    description: Complement trips centered on space, innovation, universities, attractions, and student travel with a hands-on engineering workshop delivered directly to your group’s venue.
+    selected_label: Region
+    selected_value: Southeast
+    plan_params:
+      region: southeast
+
+  - category: region
+    slug: midwest-south-central
+    name: Midwest & South Central
+    descriptor: Engineering, aerospace, research, and major university centers.
+    eyebrow: MIDWEST & SOUTH CENTRAL
+    title: Engineering Workshops in the Midwest and South Central USA
+    description: Bring applied engineering to programs visiting major research, aerospace, technology, and university centers. Stage One delivers complete workshops throughout the region.
+    selected_label: Region
+    selected_value: Midwest & South Central
+    plan_params:
+      region: midwest-south-central
+
+  - category: region
+    slug: mountain-west
+    name: Mountain West
+    descriptor: Aerospace, research, outdoor innovation, and growing technology centers.
+    eyebrow: MOUNTAIN WEST
+    title: Engineering Workshops in the Mountain West
+    description: Add applied engineering to programs visiting the Mountain West’s aerospace, research, university, and technology centers. Stage One delivers complete workshops directly to your group’s venue.
+    selected_label: Region
+    selected_value: Mountain West
+    plan_params:
+      region: mountain-west
+
+  - category: region
+    slug: west-coast
+    name: West Coast
+    descriptor: Technology, design, media, aerospace, and innovation.
+    eyebrow: WEST COAST
+    title: Engineering Workshops on the West Coast
+    description: Add a hands-on engineering experience to itineraries shaped by technology, design, media, aerospace, and innovation. Stage One delivers complete workshops directly to your group’s venue.
+    selected_label: Region
+    selected_value: West Coast
+    plan_params:
+      region: west-coast
+
+workshop_pages:
+  - category: workshop
+    slug: artificial-intelligence
+    eyebrow: ARTIFICIAL INTELLIGENCE
+    title: Artificial Intelligence Workshops
+    description: Explore how AI learns, creates, and makes decisions through collaborative, hands-on projects. Participants use modern tools, examine how AI systems work, and consider the decisions and responsibilities behind the technology.
+    selected_label: Workshop
+    selected_value: Artificial Intelligence
+    featured_workshop_id: artificial-intelligence
+    plan_params:
+      workshop: artificial-intelligence
+
+  - category: workshop
+    slug: robotics-drone
+    eyebrow: ROBOTICS DRONE
+    title: Robotics Drone Workshops
+    description: Give your group the opportunity to build, program, test, and fly a working drone system. The workshop combines electronics, coding, troubleshooting, and teamwork through structured, engineer-led challenges.
+    selected_label: Workshop
+    selected_value: Robotics Drone
+    featured_workshop_id: robotics-drone
+    plan_params:
+      workshop: robotics-drone
+
+  - category: workshop
+    slug: mechanical-engineering
+    eyebrow: MECHANICAL ENGINEERING
+    title: Mechanical Engineering Workshops
+    description: Participants use professional CAD software to design a rocket, explore engineering tradeoffs, and connect digital design with rapid prototyping. No prior CAD or engineering experience is required.
+    selected_label: Workshop
+    selected_value: Mechanical Engineering
+    featured_workshop_id: mechanical-engineering
+    plan_params:
+      workshop: mechanical-engineering
+
+  - category: workshop
+    slug: web-development
+    eyebrow: WEB DEVELOPMENT
+    title: Web Development Workshops
+    description: Participants turn an idea into a live website while learning the foundations of layout, content, design, and front-end development. By the end of the workshop, they have created a real digital project they can publish and share.
+    selected_label: Workshop
+    selected_value: Web Development
+    featured_workshop_id: web-development
+    plan_params:
+      workshop: web-development
+
+special_locations:
+  - category: location
+    slug: other-us-destination
+    eyebrow: NATIONWIDE WORKSHOP DELIVERY
+    title: Engineering Workshops in Your U.S. Destination
+    description: Traveling somewhere beyond our featured cities? Stage One can often bring a complete workshop to your hotel, school, campus, or group venue. Share your destination and program details, and we’ll confirm availability.
+    selected_label: Destination
+    selected_value: Other U.S. Destination
+    plan_params:
+      destination: other

@@ -1,0 +1,39 @@
+- slug: artificial-intelligence
+  name: Artificial Intelligence
+  description: Explore how AI learns, creates, and makes decisions through hands-on projects.
+  image: img/poster1.jpg
+  image_alt: Student-created artificial intelligence movie poster
+  image_width: 200
+  image_height: 200
+  detail_path: /ai-workshop.html
+  icon: fa-lightbulb-o
+
+- slug: robotics-drone
+  name: Robotics Drone
+  description: Build, program, test, and fly a working drone system.
+  image: img/drone-circuit.png
+  image_alt: Drone circuit used in the Robotics Drone workshop
+  image_width: 200
+  image_height: 200
+  detail_path: /robotics-workshop.html
+  icon: fa-paper-plane-o
+
+- slug: mechanical-engineering
+  name: Mechanical Engineering
+  description: Design a rocket using professional CAD software and explore rapid prototyping.
+  image: img/rocket-assem-iso.png
+  image_alt: Exploded view of a model rocket assembly
+  image_width: 200
+  image_height: 200
+  detail_path: /rocket-workshop.html
+  icon: fa-cogs
+
+- slug: web-development
+  name: Web Development
+  description: Design, build, and publish a live website.
+  image: img/ai-website-mockup.svg
+  image_alt: Website interface created during the Web Development workshop
+  image_width: 200
+  image_height: 200
+  detail_path: /ai-website-workshop.html
+  icon: fa-code
