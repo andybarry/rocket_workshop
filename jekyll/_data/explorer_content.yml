@@ -64,11 +64,26 @@ groups:
     plan_params:
       participantGroup: private-other
 
+  - category: group
+    slug: educational-travel
+    icon: fa-bus
+    card_title: Educational Travel
+    card_description: Easy-to-schedule STEM experiences for student tours and multi-stop itineraries.
+    eyebrow: EDUCATIONAL TRAVEL GROUPS
+    title: Engineering Workshops for Educational Travel
+    description: Add a complete hands-on STEM experience to your educational tour without adding logistical complexity. Stage One brings the engineers, equipment, materials, and curriculum directly to your hotel, campus, school, or group venue.
+    selected_label: Group Type
+    selected_value: Educational Travel
+    plan_params:
+      groupType: educational-tour
+
 regions:
   - category: region
     slug: northeast-mid-atlantic
     name: Northeast & Mid-Atlantic
+    map_bounds: [[37.0, -82.0], [47.7, -66.5]]
     descriptor: History, technology, research, and leading universities.
+    homepage_story: Pair hands-on engineering with landmark universities, research centers, and history-rich student itineraries.
     eyebrow: NORTHEAST & MID-ATLANTIC
     title: Engineering Workshops in the Northeast & Mid-Atlantic
     description: Add hands-on engineering to itineraries built around history, technology, research, and leading universities. Stage One delivers workshops to hotels, campuses, schools, and group venues throughout the region.
@@ -80,7 +95,9 @@ regions:
   - category: region
     slug: southeast
     name: Southeast
+    map_bounds: [[24.4, -92.0], [39.5, -74.5]]
     descriptor: Space, innovation, universities, attractions, and major student destinations.
+    homepage_story: Add practical STEM to trips built around space exploration, innovation, major universities, and iconic attractions.
     eyebrow: SOUTHEAST
     title: Engineering Workshops in the Southeast
     description: Complement trips centered on space, innovation, universities, attractions, and student travel with a hands-on engineering workshop delivered directly to your group’s venue.
@@ -92,7 +109,9 @@ regions:
   - category: region
     slug: midwest-south-central
     name: Midwest & South Central
+    map_bounds: [[25.5, -106.7], [49.5, -80.3]]
     descriptor: Engineering, aerospace, research, and major university centers.
+    homepage_story: Connect aerospace, manufacturing, engineering, and university visits with a workshop students can build and test.
     eyebrow: MIDWEST & SOUTH CENTRAL
     title: Engineering Workshops in the Midwest and South Central USA
     description: Bring applied engineering to programs visiting major research, aerospace, technology, and university centers. Stage One delivers complete workshops throughout the region.
@@ -104,7 +123,9 @@ regions:
   - category: region
     slug: mountain-west
     name: Mountain West
+    map_bounds: [[31.0, -116.0], [49.2, -102.0]]
     descriptor: Aerospace, research, outdoor innovation, and growing technology centers.
+    homepage_story: Bring applied engineering into itineraries shaped by aerospace, research, outdoor innovation, and growing technology hubs.
     eyebrow: MOUNTAIN WEST
     title: Engineering Workshops in the Mountain West
     description: Add applied engineering to programs visiting the Mountain West’s aerospace, research, university, and technology centers. Stage One delivers complete workshops directly to your group’s venue.
@@ -116,7 +137,9 @@ regions:
   - category: region
     slug: west-coast
     name: West Coast
+    map_bounds: [[32.2, -124.8], [49.2, -114.0]]
     descriptor: Technology, design, media, aerospace, and innovation.
+    homepage_story: Turn visits to leading technology, design, media, and aerospace destinations into a hands-on engineering experience.
     eyebrow: WEST COAST
     title: Engineering Workshops on the West Coast
     description: Add a hands-on engineering experience to itineraries shaped by technology, design, media, aerospace, and innovation. Stage One delivers complete workshops directly to your group’s venue.
@@ -180,3 +203,12 @@ special_locations:
     selected_value: Other U.S. Destination
     plan_params:
       destination: other
+  - category: location
+    slug: international
+    eyebrow: INTERNATIONAL GROUP WORKSHOPS
+    title: Engineering Workshops for International Groups
+    description: Bring a complete hands-on engineering workshop into your U.S. educational travel program. Stage One provides the instructors, equipment, materials, setup, and cleanup at your hotel, school, campus, or group venue.
+    selected_label: Destination
+    selected_value: International Group
+    plan_params:
+      international: "yes"

@@ -67,6 +67,12 @@ module StageOne
         fail_build!("Workshop context pages must match the workshop catalog")
       end
 
+      workshops.each do |workshop|
+        %w[name description icon homepage_focus].each { |field| workshop.fetch(field) }
+        topics = workshop.fetch("homepage_topics")
+        fail_build!("Workshop #{workshop.fetch('slug')} must have homepage topics") unless topics.is_a?(Array) && !topics.empty?
+      end
+
       locations.each do |location|
         unless region_slugs.include?(location.fetch("region"))
           fail_build!("Location #{location.fetch('slug')} has an unknown region")
@@ -83,7 +89,11 @@ module StageOne
       locations.each do |location|
         key = "location/#{location.fetch('slug')}"
         fail_build!("Duplicate explorer route #{key}") unless all_route_keys.add?(key)
-        %w[eyebrow title description display_name].each { |field| location.fetch(field) }
+        %w[eyebrow title description display_name latitude longitude].each { |field| location.fetch(field) }
+      end
+
+      regions.each do |region|
+        %w[map_bounds homepage_story].each { |field| region.fetch(field) }
       end
     rescue KeyError => error
       fail_build!("Explorer data is missing #{error.key}")

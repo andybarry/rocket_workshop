@@ -4,7 +4,7 @@
   "nav": {
     "toggle": "Toggle navigation",
     "menu": "Menu",
-    "workshops": "Explore Workshops <span class=\"caret\"></span>",
+    "workshops": "Workshops <span class=\"caret\"></span>",
     "ai": "Artificial Intelligence",
     "robotics": "Robotics Drone",
     "mechanical": "Mechanical Engineering",
@@ -62,7 +62,7 @@
       "benefitIncludedText": "Led by real engineers, with materials, curriculum, setup, and cleanup provided"
     },
     "explorer": {
-      "exploreEyebrow": "EXPLORE WORKSHOPS",
+      "exploreEyebrow": "WORKSHOPS",
       "exploreHeading": "Find the Right Workshop for Your Group",
       "exploreSupport": "Start with what you know. Explore all four workshops or narrow the options by U.S. destination, participant level, group type, and workshop interest.",
       "exploreHelper": "All selections are optional. Change them at any time.",
@@ -91,7 +91,7 @@
       "groupPrivate": "Private or Community Group",
       "international": "International Group",
       "interest": "Workshop Interest",
-      "exploreWorkshop": "EXPLORE WORKSHOP",
+      "exploreWorkshop": "VIEW WORKSHOP",
       "planThis": "PLAN THIS WORKSHOP",
       "viewDetails": "VIEW DETAILS",
       "selectWorkshop": "SELECT WORKSHOP",

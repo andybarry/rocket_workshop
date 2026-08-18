@@ -16,6 +16,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="/css/creative.css" type="text/css">
+  {% if page.explorer.category == "region" %}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  {% endif %}
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
   <script>
@@ -69,11 +72,20 @@
 
       {% if explorer.category == "region" %}
       <section class="explore-page__cities" aria-labelledby="region-cities-title">
-        <h2 id="region-cities-title">Explore Destinations in {{ explorer.name }}</h2>
+        <h2 id="region-cities-title">Current Locations in {{ explorer.name }}</h2>
+        <p class="explore-page__cities-intro">Select a map pin or destination below to explore workshops in that city.</p>
+        <div class="explore-page__region-map-wrap">
+          <div id="region-location-map" class="explore-page__region-map"
+            data-region-map data-region-name="{{ explorer.name | escape }}"
+            data-region-bounds="{{ explorer.map_bounds | jsonify | escape }}"
+            role="region" aria-label="Map of current Stage One locations in {{ explorer.name | escape }}"></div>
+        </div>
         <div class="explore-page__city-links">
           {% for location in site.data.locations %}
           {% if location.region == explorer.slug %}
-          <a href="/explore/location/{{ location.slug }}/">{{ location.display_name }}</a>
+          <a href="/explore/location/{{ location.slug }}/" data-region-map-location
+            data-latitude="{{ location.latitude }}" data-longitude="{{ location.longitude }}"
+            data-location-name="{{ location.display_name | escape }}">{{ location.display_name }}</a>
           {% endif %}
           {% endfor %}
         </div>
@@ -140,5 +152,9 @@
   <script src="/js/creative.js"></script>
   <script src="/js/workshop-explorer.js"></script>
   <script src="/js/contextual-workshop-explorer.js"></script>
+  {% if explorer.category == "region" %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/region-location-map.js"></script>
+  {% endif %}
 </body>
 </html>

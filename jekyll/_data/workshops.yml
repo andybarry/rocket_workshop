@@ -7,6 +7,13 @@
   image_height: 200
   detail_path: /ai-workshop.html
   icon: fa-lightbulb-o
+  homepage_short_name: AI
+  homepage_short_focus: Neural Networks · Ethics
+  homepage_focus: Neural Networks · Creative AI · Ethics
+  homepage_topics:
+    - Neural networks and how AI learns
+    - Creative model behavior and decision-making
+    - Responsible AI, bias, and ethics
 
 - slug: robotics-drone
   name: Robotics Drone
@@ -17,6 +24,13 @@
   image_height: 200
   detail_path: /robotics-workshop.html
   icon: fa-paper-plane-o
+  homepage_short_name: Robotics
+  homepage_short_focus: Drones · Electronics · Coding
+  homepage_focus: Electronics · Coding · Autonomous Flight
+  homepage_topics:
+    - Electronics, circuits, and microcontrollers
+    - Coding and troubleshooting a working system
+    - Programming autonomous drone flight
 
 - slug: mechanical-engineering
   name: Mechanical Engineering
@@ -27,6 +41,13 @@
   image_height: 200
   detail_path: /rocket-workshop.html
   icon: fa-cogs
+  homepage_short_name: Mechanical
+  homepage_short_focus: CAD · Design · 3D Printing
+  homepage_focus: CAD · Engineering Design · 3D Printing
+  homepage_topics:
+    - Engineering design and professional CAD
+    - Multi-part models and assemblies
+    - Rapid prototyping and 3D printing
 
 - slug: web-development
   name: Web Development
@@ -37,3 +58,10 @@
   image_height: 200
   detail_path: /ai-website-workshop.html
   icon: fa-code
+  homepage_short_name: Web
+  homepage_short_focus: HTML · AI Coding · Publish
+  homepage_focus: HTML & CSS · AI Coding · Publishing
+  homepage_topics:
+    - Website layout and front-end development
+    - HTML, CSS, and AI-assisted coding
+    - Publishing a live website

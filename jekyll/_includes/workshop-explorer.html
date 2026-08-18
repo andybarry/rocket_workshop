@@ -1,116 +1,115 @@
-<section id="workshop-explorer" class="homepage-workshop-explorer" aria-labelledby="homepage-explorer-heading">
+<section id="workshop-explorer" class="homepage-workshop-explorer" aria-label="Workshop selector">
   <div class="container">
-    <header class="homepage-workshop-explorer__header">
-      <span class="homepage-workshop-explorer__eyebrow">EXPLORE WORKSHOPS</span>
-      <h2 id="homepage-explorer-heading">Find the Right Workshop for Your Group</h2>
-      <p>Choose your group, U.S. destination, or workshop interest to see the experiences that fit your program.</p>
-    </header>
-
-    <div class="homepage-workshop-explorer__tabs" role="tablist" aria-label="Explore workshops by">
-      <button id="explorer-tab-group" type="button" role="tab" aria-selected="true"
-        aria-controls="explorer-panel-group" tabindex="0" data-explorer-tab="group">
-        <span class="homepage-workshop-explorer__tab-long">BY GROUP</span>
-        <span class="homepage-workshop-explorer__tab-short">GROUP</span>
-      </button>
-      <button id="explorer-tab-destination" type="button" role="tab" aria-selected="false"
-        aria-controls="explorer-panel-destination" tabindex="-1" data-explorer-tab="destination">
-        <span class="homepage-workshop-explorer__tab-long">BY DESTINATION</span>
-        <span class="homepage-workshop-explorer__tab-short">DESTINATION</span>
-      </button>
-      <button id="explorer-tab-workshop" type="button" role="tab" aria-selected="false"
-        aria-controls="explorer-panel-workshop" tabindex="-1" data-explorer-tab="workshop">
-        <span class="homepage-workshop-explorer__tab-long">BY WORKSHOP</span>
-        <span class="homepage-workshop-explorer__tab-short">WORKSHOP</span>
-      </button>
-    </div>
-
-    <section id="explorer-panel-group" class="homepage-workshop-explorer__panel" role="tabpanel"
-      aria-labelledby="explorer-tab-group" tabindex="0" data-explorer-panel="group">
-      <header class="homepage-workshop-explorer__panel-header">
-        <h3>Who Will Be Participating?</h3>
-        <p>Choose the group that best describes your participants.</p>
-      </header>
-      <div class="homepage-workshop-explorer__group-grid">
-        {% for group in site.data.explorer_content.groups %}
-        <a class="explorer-option-card" href="/explore/group/{{ group.slug }}/"
-          data-explorer-option data-category="group" data-slug="{{ group.slug }}" data-label="{{ group.card_title }}">
-          <i class="fa {{ group.icon }} explorer-option-card__icon" aria-hidden="true"></i>
-          <h4>{{ group.card_title }}</h4>
-          <p>{{ group.card_description }}</p>
-          <span>Explore Workshops <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
-        </a>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section id="explorer-panel-destination" class="homepage-workshop-explorer__panel" role="tabpanel"
-      aria-labelledby="explorer-tab-destination" tabindex="0" data-explorer-panel="destination" hidden>
-      <header class="homepage-workshop-explorer__panel-header">
-        <h3>Where Is Your Group Traveling?</h3>
-        <p>Choose a region or U.S. destination. Additional locations are available across the country.</p>
-      </header>
-      <figure class="explorer-region-map" aria-labelledby="explorer-region-map-title explorer-region-map-description">
+    <section id="explorer-panel-destination" class="homepage-workshop-explorer__panel homepage-workshop-explorer__panel--destination"
+      aria-label="Workshop choices">
+      {% assign initial_region = site.data.explorer_content.regions | where: "slug", "west-coast" | first %}
+      {% assign international_location = site.data.explorer_content.special_locations | where: "slug", "international" | first %}
+      <div class="homepage-workshop-explorer__chooser">
+        <div class="homepage-workshop-explorer__sidebar-title">
+          <span>Workshop Finder</span>
+          <h2>Find Your Workshop</h2>
+        </div>
+        <aside class="explorer-region-map__callout" data-region-map-callout aria-label="Workshop selection highlight">
+          <div class="explorer-region-map__callout-body">
+            <div class="explorer-region-map__callout-copy">
+              <span class="explorer-region-map__callout-categories" data-region-callout-category>Region</span>
+              <h4 data-region-callout-name>{{ initial_region.name }}</h4>
+              <p data-region-callout-story>{{ initial_region.homepage_story }}</p>
+            </div>
+            <a href="#workshop-explorer" data-region-callout-link
+              data-explorer-option data-category="region" data-slug="{{ initial_region.slug }}" data-label="{{ initial_region.name }}">
+              <span data-region-callout-action>Select this region</span> <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </aside>
+        <div hidden data-group-story-sources>
+          {% for group in site.data.explorer_content.groups %}
+          <div data-group-story data-group-slug="{{ group.slug }}" data-group-name="{{ group.card_title | escape }}"
+            data-group-href="#workshop-explorer">
+            <span data-group-story-text>{{ group.card_description }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <div hidden data-workshop-story-sources>
+          {% for workshop in site.data.workshops %}
+          <div data-workshop-story data-workshop-slug="{{ workshop.slug }}"
+            data-workshop-name="{{ workshop.name | escape }}"
+            data-workshop-href="#workshop-explorer">
+            <span data-workshop-story-text>{{ workshop.description }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <div hidden data-location-story data-location-slug="{{ international_location.slug }}"
+          data-location-name="International" data-location-href="#workshop-explorer">
+          <span data-location-story-text>{{ international_location.description }}</span>
+        </div>
+        <aside class="homepage-workshop-explorer__group-chooser" aria-label="Workshop filters">
+          <section class="homepage-workshop-explorer__choice-section" aria-labelledby="explorer-group-heading">
+            <h4 id="explorer-group-heading">Age or Group</h4>
+            <div class="homepage-workshop-explorer__choice-grid">
+              {% for group in site.data.explorer_content.groups %}
+              <a class="homepage-workshop-explorer__choice-option" href="#workshop-explorer"
+                data-explorer-option data-category="group" data-slug="{{ group.slug }}" data-label="{{ group.card_title }}">
+                {{ group.card_title }}
+              </a>
+              {% endfor %}
+            </div>
+          </section>
+          <section class="homepage-workshop-explorer__region-chooser" aria-labelledby="explorer-region-buttons-heading">
+            <h4 id="explorer-region-buttons-heading">Region</h4>
+            <div class="homepage-workshop-explorer__choice-grid homepage-workshop-explorer__region-buttons">
+              {% for region in site.data.explorer_content.regions %}
+              <a class="homepage-workshop-explorer__choice-option" href="#workshop-explorer" data-explorer-option data-category="region"
+                data-slug="{{ region.slug }}" data-label="{{ region.name }}">{{ region.name }}</a>
+              {% endfor %}
+              <a class="homepage-workshop-explorer__choice-option" href="#workshop-explorer"
+                data-explorer-option data-category="location" data-slug="{{ international_location.slug }}"
+                data-label="International">International</a>
+            </div>
+          </section>
+          <section class="homepage-workshop-explorer__workshop-chooser" aria-labelledby="explorer-workshop-heading">
+            <h4 id="explorer-workshop-heading">Workshop Type</h4>
+            <div class="homepage-workshop-explorer__choice-grid homepage-workshop-explorer__topic-grid">
+              {% for workshop in site.data.workshops %}
+              <a class="homepage-workshop-explorer__choice-option homepage-workshop-topic" href="#workshop-explorer"
+                data-explorer-option data-category="workshop" data-slug="{{ workshop.slug }}" data-label="{{ workshop.name }}">
+                {{ workshop.homepage_short_name }}
+              </a>
+              {% endfor %}
+            </div>
+          </section>
+        </aside>
+        <div class="homepage-workshop-explorer__map-column">
+          <figure class="explorer-region-map" aria-labelledby="explorer-region-map-title explorer-region-map-description">
         <figcaption>
           <strong id="explorer-region-map-title">Select a U.S. Region</strong>
-          <span id="explorer-region-map-description">Choose a region on the map, or browse the city links below.</span>
+          <span id="explorer-region-map-description">See why Stage One fits educational travel across every U.S. region.</span>
         </figcaption>
         <div class="explorer-region-map__canvas">
           {% include usa-region-map.svg %}
         </div>
-      </figure>
-      <div class="homepage-workshop-explorer__regions">
-        {% for region in site.data.explorer_content.regions %}
-        <section class="explorer-region-card" aria-labelledby="homepage-region-{{ region.slug }}">
-          <div class="explorer-region-card__header">
-            <div>
-              <h4 id="homepage-region-{{ region.slug }}">{{ region.name }}</h4>
-              <p>{{ region.descriptor }}</p>
-            </div>
-            <a href="/explore/region/{{ region.slug }}/" data-explorer-option data-category="region"
-              data-slug="{{ region.slug }}" data-label="{{ region.name }}">Explore Region <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        <div hidden data-region-story-sources>
+          {% for region in site.data.explorer_content.regions %}
+          {% assign region_locations = site.data.locations | where: "region", region.slug %}
+          <div data-region-story data-region-slug="{{ region.slug }}" data-region-name="{{ region.name | escape }}"
+            data-region-href="#workshop-explorer">
+            <span data-region-story-text>{{ region.homepage_story }}</span>
+            <span data-region-story-cities>{% for location in region_locations %}{% unless forloop.first %} · {% endunless %}{{ location.display_name }}{% endfor %}</span>
           </div>
-          <ul class="explorer-region-card__cities">
-            {% for location in site.data.locations %}
-            {% if location.region == region.slug %}
-            <li><a href="/explore/location/{{ location.slug }}/" data-explorer-option data-category="location"
-              data-slug="{{ location.slug }}" data-label="{{ location.display_name }}">{{ location.display_name }}</a></li>
-            {% endif %}
-            {% endfor %}
-          </ul>
-        </section>
-        {% endfor %}
-        <a class="explorer-other-destination" href="/explore/location/other-us-destination/"
-          data-explorer-option data-category="location" data-slug="other-us-destination" data-label="Other U.S. Destination">
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          <span>
-            <strong>Other U.S. Destination</strong>
-            <span>Traveling somewhere else? Stage One can often bring a workshop to additional cities across the United States.</span>
-            <b>CHECK YOUR DESTINATION <i class="fa fa-arrow-right" aria-hidden="true"></i></b>
-          </span>
-        </a>
-      </div>
-    </section>
-
-    <section id="explorer-panel-workshop" class="homepage-workshop-explorer__panel" role="tabpanel"
-      aria-labelledby="explorer-tab-workshop" tabindex="0" data-explorer-panel="workshop" hidden>
-      <header class="homepage-workshop-explorer__panel-header">
-        <h3>Which Workshop Interests Your Group?</h3>
-        <p>Explore four hands-on engineering experiences led by real engineers.</p>
-      </header>
-      <div class="homepage-workshop-explorer__workshop-grid">
-        {% for workshop in site.data.workshops %}
-          {% include workshop-explorer-card.html workshop=workshop variant="homepage" %}
-        {% endfor %}
+          {% endfor %}
+        </div>
+          </figure>
+        </div>
       </div>
     </section>
 
     <aside class="homepage-workshop-explorer__planning" aria-labelledby="homepage-explorer-planning-title">
       <div>
-        <h3 id="homepage-explorer-planning-title">Already Have Your Program Details?</h3>
-        <p>Share your group, destination, and timing, and we’ll help shape the right workshop experience.</p>
+        <h3 id="homepage-explorer-planning-title">Interested in a Workshop for Your Group?</h3>
+        <p>Share your destination, group size, and email. We’ll help you choose the best fit.</p>
       </div>
       <a href="/index.html?mode=plan&amp;source=homepage_explorer#workshop-finder"
-        data-workshop-plan-link data-source="homepage_explorer" data-plan-general>PLAN A WORKSHOP</a>
+        data-workshop-plan-link data-source="homepage_explorer" data-plan-general>PLAN A WORKSHOP <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
     </aside>
   </div>
 </section>
