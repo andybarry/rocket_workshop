@@ -1698,9 +1698,9 @@ html.has-workshop-plan-modal #tab-section {
     padding: 10px 16px 9px;
     border-top: 0;
     border-right: 0;
-    border-bottom: 1px solid #343434;
-    background: linear-gradient(135deg, #303030 0%, #454545 100%);
-    box-shadow: 0 6px 14px rgba(67, 67, 67, 0.16);
+    border-bottom: 1px solid #d84d30;
+    background: linear-gradient(135deg, #f05f40 0%, #d84d30 100%);
+    box-shadow: 0 6px 14px rgba(240, 95, 64, 0.2);
     z-index: 2;
 }
 .homepage-workshop-explorer__sidebar-title::after {
@@ -1711,11 +1711,11 @@ html.has-workshop-plan-modal #tab-section {
     bottom: 14px;
     width: 3px;
     border-radius: 3px 0 0 3px;
-    background: #f05f40;
+    background: rgba(255, 255, 255, 0.72);
 }
 .homepage-workshop-explorer__sidebar-title > span {
     margin-bottom: 3px;
-    color: #f05f40;
+    color: rgba(255, 255, 255, 0.8);
     font-family: 'Roboto', sans-serif;
     font-size: 9px;
     font-weight: 800;
@@ -2101,10 +2101,10 @@ html.has-workshop-plan-modal #tab-section {
     height: 82px;
     padding: 8px 14px 8px 16px;
     border-top: 0;
-    border-bottom: 1px solid #343434;
-    border-left: 4px solid #f05f40;
-    background: linear-gradient(115deg, #454545 0%, #383838 100%);
-    box-shadow: 0 6px 14px rgba(42, 42, 42, 0.2);
+    border-bottom: 1px solid #dedede;
+    border-left: 4px solid #d84d30;
+    background: linear-gradient(115deg, #fff8f5 0%, #f2f2f2 100%);
+    box-shadow: 0 6px 14px rgba(67, 67, 67, 0.11);
     text-align: left;
     z-index: 2;
 }
@@ -2150,7 +2150,7 @@ html.has-workshop-plan-modal #tab-section {
 }
 .explorer-region-map__callout h4 {
     margin: 0;
-    color: #fff;
+    color: #434343;
     font-size: 19px;
     font-weight: 800;
     letter-spacing: -0.01em;
@@ -2159,7 +2159,7 @@ html.has-workshop-plan-modal #tab-section {
 .explorer-region-map__callout p {
     max-width: 700px;
     margin: 4px 0 0;
-    color: #dedede;
+    color: #666;
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     line-height: 1.35;
