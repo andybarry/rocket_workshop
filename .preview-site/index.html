@@ -1,0 +1,2778 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-page="home">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>STAGE ONE EDUCATION | Hands-on Engineering Workshops</title>
+
+    <meta 
+    name= "description" 
+    content="Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
+    
+    <link rel="canonical" href="https://stageoneeducation.com/">
+    <meta property="og:title" content="STAGE ONE EDUCATION | Hands-on Engineering Workshops">
+    <meta property="og:description" content="Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!">
+    
+    
+    <meta property="og:image" content="https://stageoneeducation.com/img/stageone-logo-orange-small.png">
+    <meta property="og:type" content="website">
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/creative.css" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">
+
+    <!-- Language switcher. Loads before paint so a stored non-English choice is
+         applied without a flash of English. Inert when English is active. -->
+    <link rel="stylesheet" href="/css/i18n.css" type="text/css">
+    <script src="/js/i18n.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<!-- Cursor-following 3D glow on light gray background (home only) -->
+<style>
+  /* Grid on light gray (home only) */
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* All content max 80% screen width */
+  body.cursor-glow-page #tab-section .container,
+  body.cursor-glow-page .about-section,
+  body.cursor-glow-page .feedback-scroll-wrapper,
+  body.cursor-glow-page #contact .container,
+  body.cursor-glow-page .main-page-hr {
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+  }
+  body.cursor-glow-page .feedback-scroll-wrapper {
+    width: 80vw !important;
+  }
+  /* Mobile: content width with side margins (match workshop pages) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page #tab-section,
+    body.cursor-glow-page #tab-section .container,
+    body.cursor-glow-page .tab-section,
+    body.cursor-glow-page .about-section,
+    body.cursor-glow-page #contact,
+    body.cursor-glow-page #contact .container {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .workshop-main-button {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .workshop-main-button video {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .feedback-scroll-wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .about-section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    body.cursor-glow-page .main-page-hr {
+      max-width: 100%;
+    }
+  }
+
+  /* Full-bleed room image header (below nav, above Our workshops) */
+  .home-room-hero {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: 340px;
+    min-height: 340px;
+    overflow: hidden;
+    background-color: #fafafa;
+  }
+  .home-room-hero::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 72px;
+    pointer-events: none;
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 78%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 78%);
+  }
+  .home-room-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .home-room-hero__fade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 68%);
+    mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 68%);
+  }
+  .home-room-hero__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 46%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 28px 10px clamp(36px, 5.5vw, 88px);
+    box-sizing: border-box;
+    /* Fluid type/icons track the copy column, not the full viewport */
+    container-type: inline-size;
+    container-name: hero-copy;
+  }
+  .home-room-hero__audience {
+    margin: 0 0 8px;
+    max-width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(14px, 3.3cqi, 17px);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #969696;
+  }
+  .home-room-hero__title {
+    margin: 0;
+    max-width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.25rem, 10cqi, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .home-room-hero__title-line {
+    display: block;
+    white-space: nowrap;
+  }
+  .home-room-hero__title > span > .home-room-hero__title-line:first-child,
+  .home-room-hero__title > span > .home-room-hero__title-line:last-child {
+    font-size: 0.64em;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .home-room-hero__title > span > .home-room-hero__title-line:nth-child(2) {
+    margin: 0.04em 0 0.07em;
+  }
+  .home-room-hero__title-line--orange {
+    color: #f05f40;
+  }
+  .home-room-hero__title-line--gray {
+    color: #434343;
+  }
+  .home-room-hero__body {
+    margin-top: 10px;
+    max-width: min(510px, 100%);
+    padding-left: 14px;
+    border-left: 2px solid rgba(240, 95, 64, 0.45);
+  }
+  .home-room-hero__body p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1.12rem, 3.2cqi, 1.32rem);
+    line-height: 1.5;
+    font-weight: 500;
+    color: #555;
+    text-wrap: pretty;
+  }
+  .home-room-hero__body p:last-child {
+    margin-bottom: 0;
+  }
+  .home-room-hero__actions {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    max-width: 100%;
+  }
+  .home-room-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(13px, 2.7cqi, 15px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: #434343;
+    background-color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(67, 67, 67, 0.24);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.08);
+    transition: color .25s ease, background-color .25s ease, box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .home-room-hero__cta .fa {
+    margin-right: 7px;
+    font-size: 14px;
+    color: #f05f40;
+  }
+  .home-room-hero__cta:hover,
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    color: #434343;
+    background-color: #fff3ef;
+    border-color: rgba(240, 95, 64, 0.72);
+    text-decoration: none;
+    box-shadow: 0 7px 18px rgba(67, 67, 67, 0.13);
+    transform: translateY(-1px);
+  }
+  /* Solid primary style for Plan Your Workshop */
+  .home-room-hero__cta--solid {
+    color: #fff;
+    background-color: #f05f40;
+    border-color: #f05f40;
+    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.24);
+  }
+  .home-room-hero__cta--solid .fa {
+    color: #fff;
+  }
+  .home-room-hero__cta--solid:hover,
+  .home-room-hero__cta--solid:focus,
+  .home-room-hero__cta--solid:active {
+    color: #fff;
+    background-color: #f05f40;
+    border-color: #f05f40;
+    box-shadow: 0 8px 20px rgba(240, 95, 64, 0.32);
+  }
+  .workshop-benefits-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 6px 0;
+    background: #fff;
+    border-bottom: 1px solid rgba(67, 67, 67, 0.1);
+  }
+  .workshop-benefits {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+  }
+  .workshop-benefit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 0 clamp(18px, 2vw, 30px);
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  .workshop-benefit:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 0;
+    bottom: 8px;
+    width: 1px;
+    background: rgba(67, 67, 67, 0.14);
+  }
+  .workshop-benefit .fa {
+    margin-bottom: 3px;
+    color: #f05f40;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .workshop-benefit h3 {
+    margin: 0 0 2px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #434343;
+  }
+  .workshop-benefit p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #6f6f6f;
+    text-wrap: pretty;
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .workshop-benefits {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px 18px;
+    }
+    .workshop-benefit {
+      grid-column: span 2;
+      padding: 0 16px;
+    }
+    .workshop-benefit:nth-child(4) {
+      grid-column: 2 / span 2;
+    }
+    .workshop-benefit:nth-child(5) {
+      grid-column: 4 / span 2;
+    }
+    .workshop-benefit:not(:last-child)::after {
+      display: none;
+    }
+  }
+  /* Bootstrap sets a dotted outline on a:focus; replace it with an orange ring for keyboard users only */
+  .home-room-hero__cta:focus,
+  .home-room-hero__cta:active {
+    outline: none;
+  }
+  .home-room-hero__cta:focus-visible {
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
+  }
+  .home-room-hero__quotes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 48%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 24px 12px 12px;
+    box-sizing: border-box;
+  }
+  .home-room-hero__quote-slot {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+  }
+  .home-room-hero__quote {
+    position: absolute;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    padding: 12px 14px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    color: #464444;
+    font-family: 'Roboto', sans-serif;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    box-sizing: border-box;
+  }
+  /* Short one-line quotes — box grows to fit the text */
+  .home-room-hero__quote--oneline {
+    width: max-content;
+    max-width: 100%;
+  }
+  .home-room-hero__quote--oneline .home-room-hero__quote-text {
+    white-space: nowrap;
+  }
+  /* Narrow + tall — best for short quotes */
+  .home-room-hero__quote--narrow {
+    width: min(190px, 100%);
+  }
+  /* Medium */
+  .home-room-hero__quote--medium {
+    width: min(260px, 100%);
+  }
+  /* Long + wide — best for longer quotes */
+  .home-room-hero__quote--wide {
+    width: min(380px, 100%);
+  }
+  .home-room-hero__quote-slot--tl .home-room-hero__quote {
+    top: 24px;
+    left: 48px;
+  }
+  .home-room-hero__quote-slot--br .home-room-hero__quote {
+    right: 0;
+    bottom: 24px;
+  }
+  /* Alternate placement within a section so successive quotes don't look identical */
+  .home-room-hero__quote--shift {
+    transform: translate(-5px, -10px);
+  }
+  .home-room-hero__quote.is-visible {
+    opacity: 1;
+  }
+  .home-room-hero__quote.is-leaving {
+    opacity: 0;
+  }
+  .home-room-hero__quote-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .home-room-hero__quote-meta {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #f05f40;
+    letter-spacing: 0.02em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .home-room-hero {
+      height: 340px;
+      min-height: 340px;
+    }
+    .home-room-hero__content {
+      width: 52%;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
+      mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
+    }
+    .home-room-hero__quotes {
+      left: 54%;
+      padding: 16px 16px 10px 8px;
+    }
+    .home-room-hero__quote--narrow {
+      width: min(160px, 100%);
+    }
+    .home-room-hero__quote--medium {
+      width: min(220px, 100%);
+    }
+    .home-room-hero__quote--wide {
+      width: min(280px, 100%);
+    }
+  }
+  @media (max-width: 767px) {
+    .home-room-hero {
+      height: auto;
+      min-height: 0;
+      width: calc(100% + 30px);
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+    .home-room-hero__content {
+      position: relative;
+      width: 92%;
+      padding: 20px 18px 22px 24px;
+    }
+    .home-room-hero__title-line {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .workshop-benefits-section {
+      padding: 8px 0;
+    }
+    .workshop-benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 14px;
+    }
+    .workshop-benefit {
+      padding: 0 8px;
+    }
+    .workshop-benefit:nth-child(5) {
+      grid-column: 1 / -1;
+      width: min(100%, 420px);
+      margin: 0 auto;
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+    .workshop-benefit:not(:last-child)::after {
+      display: none;
+    }
+    .home-room-hero__fade {
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+    }
+    .home-room-hero__quotes {
+      display: none;
+    }
+  }
+  @media (max-width: 350px) {
+    .workshop-benefits {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .workshop-benefit:nth-child(5) {
+      grid-column: auto;
+      width: auto;
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+  }
+
+  /* Four workshop cards on one line. The cards keep their authored 300px
+     width, so the row takes its own centered track a little wider than the
+     1170px container and the space between cards absorbs the difference. */
+  .workshop-card-col {
+    position: relative;
+  }
+  @media (min-width: 768px) {
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: min(97vw, 640px);
+      margin-left: calc(50% - min(48.5vw, 320px));
+      margin-right: 0;
+    }
+    /* Bootstrap's .row clearfix pseudo-elements become flex items and would
+       take a share of the space between the cards. */
+    body.cursor-glow-page #tab-section .workshop-cards-row::before,
+    body.cursor-glow-page #tab-section .workshop-cards-row::after {
+      display: none;
+    }
+    .workshop-card-col {
+      flex: 0 0 300px;
+      width: 300px;
+    }
+  }
+  @media (min-width: 1280px) {
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 0;
+      width: min(97vw, 1300px);
+      margin-left: calc(50% - min(48.5vw, 650px));
+    }
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let posters = [
+        'img/poster1.jpg',
+        'img/poster2.jpg',
+        'img/poster3.jpg',
+        'img/poster4.jpg',
+        'img/poster5.jpg',
+        'img/poster6.jpg',
+        'img/poster7.jpg',
+    ];
+
+    // Preload the images
+    posters.forEach(function (src) {
+        let img = new Image();
+        img.src = src;
+    });
+
+    // Participant quotes, shared by the hero bubbles and the Feedback panel
+    // further down the page. Translations come from home.heroQuotes, matched by
+    // position; the city and year in `meta` stay as authored.
+    window.SOParticipantQuotes = [
+        { text: "This is by far the most I’ve learned during a lesson of this duration. The way the lesson is structured is very educational and conducive to real learning.", meta: "Berkeley, CA • 2026" },
+        { text: "This workshop was really fun! It was easy to understand the instructions which were very helpful for someone who has never used a CAD program like this.", meta: "New Haven, CT • 2026" },
+        { text: "This was easily the best so far", meta: "Ann Arbor, MI • 2026" },
+        { text: "This was by far the best workshop yet, and the instructor was extremely welcoming, knowledgeable, etc. Overall a great experience", meta: "New Haven, CT • 2026" },
+        { text: "I loved this workshop. I’ve never used any CAD program before and I was able to learn how and finish the entire rocket within the allotted time. I’m glad I know how to use programs like this and would like to try with a little less guidance next time. :)", meta: "Los Angeles, CA • 2026" },
+        { text: "That was so much fun and I really enjoyed the freedom but also learning", meta: "Houston, TX • 2026" },
+        { text: "I really liked learning about prompt engineering, neural networks and talking about controversial topics about AI. It made me realize how much is till need to think about the pros and cons of AI", meta: "Houston, TX • 2026" },
+        { text: "I think it was really well planned and the activities were very enjoyable and fun.", meta: "Orlando, FL • 2026" },
+        { text: "I loved this workshop and it was my favorite thing that we’ve done so far. I strongly recommend doing more of this in the future", meta: "Ann Arbor, MI • 2026" },
+        { text: "Neural network training was one of the best artificial intelligence lessons I had. It was nice to use various types of AI programs after that.", meta: "Atlanta, GA • 2026" },
+        { text: "I learned much about the intricacies of AI generation", meta: "Atlanta, GA • 2026" },
+        { text: "I loved the conceptual challenge the activity provided. I think talking through a tough question with other highly knowledgeable people.", meta: "Ann Arbor, MI • 2026" },
+        { text: "I really loved the events you made. I also loved how much knowledge you had.", meta: "Atlanta, GA • 2026" },
+        { text: "Loved this instructor, she is very interactive and a good listener and provides great insight", meta: "New Haven, CT • 2026" },
+        { text: "The beginning when you taught us. If there was an entire college course where the two of you taught, I would happily commute to every lesson.", meta: "Atlanta, GA • 2026" },
+        { text: "I liked debating. It was very well mediated and even if people’s emotions were high there were still logical talks.", meta: "Ann Arbor, MI • 2026" },
+        { text: "This was the best workshop because it was super interactive and very hands on", meta: "Houston, TX • 2026" },
+        { text: "This was super fun and it should definitely be taught next time.", meta: "New Haven, CT • 2026" },
+        { text: "I’ve done three of these workshops and each one is better than the next. Wonderful program!", meta: "Berkeley, CA • 2026" },
+        { text: "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D", meta: "Atlanta, GA • 2026" }
+    ];
+
+    $(document).ready(function () {
+        let currentIndex = 0;
+
+        setInterval(function () {
+            // Fade out the current image
+            $("#cyclingPoster").css("opacity", "0");
+
+            setTimeout(function () {
+                // Switch to the next image
+                currentIndex = (currentIndex + 1) % posters.length;
+                $("#cyclingPoster").attr("src", posters[currentIndex]);
+
+                // Fade in the new image
+                $("#cyclingPoster").css("opacity", "1");
+            }, 1000); // 1s delay matches the transition duration in the CSS
+        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
+
+        // Floating feedback quote bubbles over the hero image
+        var heroQuotes = window.SOParticipantQuotes;
+
+        var $quotesLayer = $(".home-room-hero__quotes");
+        if ($quotesLayer.length) {
+            var quoteIndex = 0;
+            var $slots = [
+                $quotesLayer.find(".home-room-hero__quote-slot--tl"),
+                $quotesLayer.find(".home-room-hero__quote-slot--br")
+            ];
+            var slotShiftNext = [false, false];
+            var slotTimers = [null, null];
+            var bubblesStarted = false;
+            var fadeMs = 1200;
+            var gapMs = 500;
+            var displayMs = 10000;
+
+            function nextQuote() {
+                var quote = heroQuotes[quoteIndex];
+                // Translated quote text, when a non-English language is active.
+                // City and year in `meta` stay as authored.
+                var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+                if (translated && typeof translated[quoteIndex] === "string") {
+                    quote = { text: translated[quoteIndex], meta: quote.meta };
+                }
+                quoteIndex = (quoteIndex + 1) % heroQuotes.length;
+                return quote;
+            }
+
+            // Pick a shape that fits the quote so text/location aren't cut off
+            function sizeForQuote(quote) {
+                var len = (quote.text || "").length;
+                if (len <= 40) return "oneline";
+                if (len < 90) return "narrow";
+                if (len < 160) return "medium";
+                return "wide";
+            }
+
+            function createBubble(quote, useShift) {
+                var $bubble = $("<div class='home-room-hero__quote'></div>");
+                $bubble.addClass("home-room-hero__quote--" + sizeForQuote(quote));
+                if (useShift) {
+                    $bubble.addClass("home-room-hero__quote--shift");
+                }
+                $bubble.append($("<p class='home-room-hero__quote-text'></p>").text(quote.text));
+                $bubble.append($("<span class='home-room-hero__quote-meta'></span>").text(quote.meta));
+                return $bubble;
+            }
+
+            // Count words on the last visual line of the quote text
+            function lastLineWordCount(textEl) {
+                var original = textEl.textContent;
+                var words = original.trim().split(/\s+/).filter(Boolean);
+                if (words.length <= 2) return words.length;
+
+                textEl.innerHTML = words.map(function (word) {
+                    return "<span class='home-room-hero__quote-word'>" + $("<div>").text(word).html() + "</span>";
+                }).join(" ");
+
+                var spans = textEl.querySelectorAll(".home-room-hero__quote-word");
+                if (!spans.length) {
+                    textEl.textContent = original;
+                    return words.length;
+                }
+
+                var lastTop = spans[spans.length - 1].offsetTop;
+                var count = 0;
+                for (var i = spans.length - 1; i >= 0; i--) {
+                    if (Math.abs(spans[i].offsetTop - lastTop) <= 2) {
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+
+                textEl.textContent = original;
+                return count;
+            }
+
+            // Widen the box until the last line has 3+ words (no 1–2 word orphans)
+            function expandToAvoidOrphans($bubble) {
+                var bubble = $bubble[0];
+                var textEl = $bubble.find(".home-room-hero__quote-text")[0];
+                if (!bubble || !textEl || $bubble.hasClass("home-room-hero__quote--oneline")) return;
+
+                // Chinese, Japanese and Korean are written without spaces, so the
+                // orphan check below sees a single "word" and widens every bubble
+                // to the full slot, past the edge of the visible area.
+                if (document.documentElement.lang !== "en" &&
+                    textEl.textContent.trim().split(/\s+/).filter(Boolean).length < 3) return;
+
+                var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
+                if (!parentWidth) return;
+
+                var width = Math.ceil(bubble.getBoundingClientRect().width);
+                var step = 12;
+                var guard = 40;
+
+                while (guard-- > 0) {
+                    var orphanCount = lastLineWordCount(textEl);
+                    if (orphanCount === 0 || orphanCount >= 3) break;
+                    if (width >= parentWidth) break;
+
+                    width = Math.min(parentWidth, width + step);
+                    bubble.style.width = width + "px";
+                    bubble.style.maxWidth = "100%";
+                }
+            }
+
+            function showBubble($slot, $bubble) {
+                // Bubbles are absolutely positioned in the same corner, so a
+                // leftover from an interrupted cycle would sit under the new one.
+                $slot.children().remove();
+                $slot.append($bubble);
+                $bubble[0].offsetWidth;
+                expandToAvoidOrphans($bubble);
+                $bubble.addClass("is-visible");
+            }
+
+            function clearSlotTimer(slotIndex) {
+                if (slotTimers[slotIndex]) {
+                    clearTimeout(slotTimers[slotIndex]);
+                    slotTimers[slotIndex] = null;
+                }
+            }
+
+            // Fade the current quote fully out, hold the slot empty for gapMs,
+            // then fade the replacement in — no crossfade between the two.
+            function retireBubble(slotIndex) {
+                var $slot = $slots[slotIndex];
+                var $old = $slot.children();
+                $old.removeClass("is-visible").addClass("is-leaving");
+                slotTimers[slotIndex] = setTimeout(function () {
+                    $old.remove();
+                    slotTimers[slotIndex] = setTimeout(function () {
+                        showNextBubble(slotIndex, displayMs);
+                    }, gapMs);
+                }, fadeMs);
+            }
+
+            function holdSlot(slotIndex, holdMs) {
+                clearSlotTimer(slotIndex);
+                slotTimers[slotIndex] = setTimeout(function () {
+                    retireBubble(slotIndex);
+                }, holdMs);
+            }
+
+            // Each step schedules the next only once it has finished, so a slot
+            // never has two bubbles in flight even when the browser throttles
+            // timers (hidden tabs are clamped to roughly one wake per minute).
+            function showNextBubble(slotIndex, holdMs) {
+                var useShift = slotShiftNext[slotIndex];
+                slotShiftNext[slotIndex] = !slotShiftNext[slotIndex];
+                showBubble($slots[slotIndex], createBubble(nextQuote(), useShift));
+                holdSlot(slotIndex, holdMs);
+            }
+
+            // Keep the quote already on screen if there is one, so returning to
+            // the tab doesn't blank the slot.
+            function resumeSlot(slotIndex, holdMs) {
+                var $slot = $slots[slotIndex];
+                $slot.children().not(".is-visible").remove();
+                if ($slot.children().length) {
+                    holdSlot(slotIndex, holdMs);
+                } else {
+                    showNextBubble(slotIndex, holdMs);
+                }
+            }
+
+            function handleVisibilityChange() {
+                if (document.hidden) {
+                    clearSlotTimer(0);
+                    clearSlotTimer(1);
+                } else {
+                    resumeSlot(0, displayMs);
+                    resumeSlot(1, displayMs + displayMs / 2);
+                }
+            }
+
+            // Always two quotes: top-left and bottom-right, staggered fades.
+            // Held until the translation pass finishes so the first bubbles are
+            // already in the visitor's language.
+            function startQuoteBubbles() {
+                if (bubblesStarted) return;
+                bubblesStarted = true;
+                showNextBubble(0, displayMs);
+                showNextBubble(1, displayMs + displayMs / 2);
+                document.addEventListener("visibilitychange", handleVisibilityChange);
+            }
+
+            if (window.SOI18n) {
+                window.SOI18n.ready(startQuoteBubbles);
+            } else {
+                startQuoteBubbles();
+            }
+        }
+    });
+</script>
+
+<script src="cad-tutorial/video_play_at_scroll.js"></script>
+
+<body id="page-top" class="cursor-glow-page" style="margin-top: 56px">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation">
+    <div class="container-fluid">
+        <!-- Navbar Header -->
+        <div class="navbar-header">
+            <a href="/" class="nav-logo-link" aria-label="Stage One Education home">
+                <img id="logo" src="/img/stageone-logo-orange-small.png" alt="Stage One Education">
+            </a>
+            <div class="nav-mobile-actions">
+                
+                <div class="nav-mobile-language dropdown">
+                    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+                        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+                </div>
+                
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Links and Inline Logo -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                
+                
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
+                        Workshops <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="/robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                        <li><a class="nav-dropdown-link" href="/ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Mobile: a clearly labeled workshop group, available on every page -->
+                <li class="nav-mobile-workshop-heading"><span>Workshops</span></li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                </li>
+                <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
+                    <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
+                </li>
+                <li>
+                    <a href="/group.html" class="nav-button-stageone">
+                        Explore
+                    </a>
+                </li>
+                <li>
+                    <a href="/locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="/feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="/about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                        About
+                    </a>
+                </li>
+                <!-- Plan a Workshop button -->
+                <li class="nav-plan-workshop">
+                    <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
+                        data-source="header">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+                    </a>
+                </li>
+                <li class="nav-workshops-access">
+                    <a href="/workshops.html" class="nav-workshops-access-button">
+                        <span data-i18n="nav.workshopAccess">Workshop Access</span>
+                    </a>
+                </li>
+                <!-- Language switcher. The option list is built at runtime by js/i18n.js from
+     its LANGUAGES array, so the language set lives in exactly one place. -->
+<li class="nav-language dropdown">
+    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
+    <img class="home-room-hero__image" src="img/background_stock.png" alt="Workshop classroom" data-i18n-alt="home.hero.imageAlt">
+    <div class="home-room-hero__fade" aria-hidden="true"></div>
+    <div class="home-room-hero__quotes" aria-hidden="true">
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
+    </div>
+    <div class="home-room-hero__content">
+        <p class="home-room-hero__audience" data-i18n="home.hero.audience">For Schools, Tour Operators &amp; Groups</p>
+        <h1 class="home-room-hero__title">
+            <span data-i18n-html="home.hero.title1"><span class="home-room-hero__title-line home-room-hero__title-line--gray">We Bring</span><span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering</span><span class="home-room-hero__title-line home-room-hero__title-line--gray">to You</span></span>
+        </h1>
+        <div class="home-room-hero__body">
+            <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
+        </div>
+        <div class="home-room-hero__actions">
+            <a class="home-room-hero__cta" href="#find-your-workshop" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
+                <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
+            </a>
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="/plan-a-workshop/"
+                data-source="hero" data-i18n-html="home.hero.ctaPlan">
+                <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
+            </a>
+        </div>
+    </div>
+</section>
+<section class="homepage-workshop-benefits" aria-label="Workshop benefits" data-i18n-aria-label="home.hero.benefitsLabel">
+  <div class="homepage-workshop-explorer__benefit-bar">
+    <ul class="homepage-workshop-explorer__benefits">
+      <li>
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <span><strong data-i18n="home.hero.benefitDurationTitle">3-Hour Workshops</strong><small data-i18n="home.hero.benefitDurationText">Flexible morning, afternoon, or evening scheduling</small></span>
+      </li>
+      <li>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <span><strong data-i18n="home.hero.benefitExperienceTitle">No Experience Required</strong><small data-i18n="home.hero.benefitExperienceText">Designed for a wide range of ages and skill levels</small></span>
+      </li>
+      <li>
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span><strong data-i18n="home.hero.benefitGroupsTitle">Flexible Group Sizes</strong><small data-i18n="home.hero.benefitGroupsText">From private groups to large student programs</small></span>
+      </li>
+      <li>
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span><strong data-i18n="home.hero.benefitDeliveryTitle">Delivered Across the USA</strong><small data-i18n="home.hero.benefitDeliveryText">At your hotel, school, campus, or group venue</small></span>
+      </li>
+      <li>
+        <i class="fa fa-briefcase" aria-hidden="true"></i>
+        <span><strong data-i18n="home.hero.benefitIncludedTitle">Engineers &amp; Equipment Included</strong><small data-i18n="home.hero.benefitIncludedText">Led by real engineers, with materials, curriculum, setup, and cleanup provided</small></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="find-your-workshop" class="workshop-explorer" aria-labelledby="find-your-workshop-heading">
+  <span id="workshop-explorer" class="workshop-explorer__legacy-anchor" aria-hidden="true"></span>
+  <div class="workshop-explorer__shell">
+    <header class="workshop-explorer__header">
+      <div class="workshop-explorer__heading-block">
+        <div>
+          <span class="workshop-explorer__eyebrow">Explore</span>
+          <h2 id="find-your-workshop-heading">Find Your Workshop</h2>
+        </div>
+      </div>
+      <button type="button" class="workshop-explorer__clear" data-explorer-clear>
+        Clear selections
+      </button>
+    </header>
+
+    <div class="workshop-explorer__grid">
+      <aside class="workshop-explorer__rail" aria-label="Current workshop selections">
+        <div class="workshop-explorer__rail-heading">
+          <span>Choose your options</span>
+          <small>Select a region</small>
+        </div>
+
+        <div class="workshop-explorer__rail-options workshop-explorer__mobile-regions">
+          <span class="workshop-explorer__rail-label">Region</span>
+          <div class="workshop-explorer__rail-option-grid workshop-explorer__mobile-region-grid"
+            role="group" aria-label="Choose a region">
+            
+            
+            <button type="button" data-explorer-option data-category="region" data-slug="northeast-mid-atlantic"
+              aria-pressed="false">Northeast & Mid-Atlantic</button>
+            
+            
+            
+            <button type="button" data-explorer-option data-category="region" data-slug="southeast"
+              aria-pressed="false">Southeast</button>
+            
+            
+            
+            <button type="button" data-explorer-option data-category="region" data-slug="midwest-south-central"
+              aria-pressed="false">Midwest & South Central</button>
+            
+            
+            
+            <button type="button" data-explorer-option data-category="region" data-slug="mountain-west"
+              aria-pressed="false">Mountain West</button>
+            
+            
+            
+            <button type="button" data-explorer-option data-category="region" data-slug="west-coast"
+              aria-pressed="false">West Coast</button>
+            
+            
+            
+            
+            
+            
+            <button type="button" class="workshop-explorer__rail-option--wide"
+              data-explorer-option data-category="region" data-slug="international"
+              aria-pressed="false">International</button>
+            <button type="button" class="workshop-explorer__rail-option--wide"
+              data-explorer-option data-category="region" data-slug="other"
+              aria-pressed="false">Other</button>
+          </div>
+        </div>
+
+        <div class="workshop-explorer__rail-options workshop-explorer__desktop-refinements">
+          <span class="workshop-explorer__rail-label">Audience <small>Optional</small></span>
+          <div class="workshop-explorer__rail-option-grid" role="group" aria-label="Choose an audience">
+            
+            <button type="button" data-explorer-option data-category="audience"
+              data-slug="middle-school" aria-pressed="false">Middle School</button>
+            
+            <button type="button" data-explorer-option data-category="audience"
+              data-slug="high-school" aria-pressed="false">High School</button>
+            
+            <button type="button" data-explorer-option data-category="audience"
+              data-slug="college-university" aria-pressed="false">College & University</button>
+            
+            <button type="button" data-explorer-option data-category="audience"
+              data-slug="adult-professional" aria-pressed="false">Adult & Professional</button>
+            
+            <button type="button" data-explorer-option data-category="audience"
+              data-slug="mixed-age" aria-pressed="false">Mixed-Age Group</button>
+            
+          </div>
+        </div>
+
+        <div class="workshop-explorer__rail-options workshop-explorer__desktop-refinements">
+          <span class="workshop-explorer__rail-label">Workshop <small>Optional</small></span>
+          <div class="workshop-explorer__rail-option-grid" role="group" aria-label="Choose a workshop">
+            <button type="button" class="workshop-explorer__rail-option--wide"
+              data-explorer-option data-category="workshop" data-slug="all"
+              aria-pressed="true">All Workshops</button>
+            
+            <button type="button" data-explorer-option data-category="workshop"
+              data-slug="artificial-intelligence" aria-pressed="false">Artificial Intelligence</button>
+            
+            <button type="button" data-explorer-option data-category="workshop"
+              data-slug="robotics-drone" aria-pressed="false">Robotics</button>
+            
+            <button type="button" data-explorer-option data-category="workshop"
+              data-slug="mechanical-engineering" aria-pressed="false">Mechanical Engineering</button>
+            
+            <button type="button" data-explorer-option data-category="workshop"
+              data-slug="web-development" aria-pressed="false">Web Engineering</button>
+            
+          </div>
+        </div>
+
+        <details class="workshop-explorer__context">
+          <summary>Planning context <span>Optional</span></summary>
+          <div role="group" aria-label="Planning context">
+            
+            <button type="button" data-explorer-option data-category="group" data-slug="educational-travel"
+              aria-pressed="false">Educational Travel</button>
+            
+            <button type="button" data-explorer-option data-category="group" data-slug="school-campus"
+              aria-pressed="false">School or Campus</button>
+            
+            <button type="button" data-explorer-option data-category="group" data-slug="private-other"
+              aria-pressed="false">Private or Other Group</button>
+            
+          </div>
+        </details>
+      </aside>
+
+      <div class="workshop-explorer__visual">
+        <div class="workshop-explorer__visual-heading">
+          <div>
+            <span data-explorer-map-title>Choose a Region</span>
+          </div>
+        </div>
+
+        <div class="workshop-explorer__map-stage">
+          <details class="workshop-explorer__map-panel">
+            <summary class="workshop-explorer__map-toggle">View Region Map</summary>
+            <figure class="workshop-explorer__map" aria-labelledby="explorer-region-map-title">
+              <figcaption id="explorer-region-map-title">Select a United States region</figcaption>
+              <div class="workshop-explorer__map-canvas">
+                <svg class="explorer-region-map__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 959 593" role="group" aria-labelledby="explorer-region-map-svg-title explorer-region-map-svg-description">
+  <title id="explorer-region-map-svg-title">Explore five United States workshop regions</title>
+<desc id="explorer-region-map-svg-description">Select the West Coast, Mountain West, Midwest and South Central, Northeast and Mid-Atlantic, or Southeast to open its regional workshop page.</desc>
+<!-- Accurate Albers-projection state geometry derived from Wikimedia Commons Blank US Map (states only), CC0. -->
+<g class="explorer-region-map__states">
+<a class="explorer-region-map__link explorer-region-map__link--west" href="#find-your-workshop" role="button" aria-pressed="false" tabindex="0" aria-label="Select West Coast region" data-explorer-option data-category="region" data-slug="west-coast" data-label="West Coast">
+<path class="ak" d="m 15.8,572 h 2.4 l .7,.7 -1,1.2 -1.9,.2 -2.5,1.3 -3.7,-.1 2.2,-.9 .3,-1.1 2.5,-.3 z m 8.3,-1.7 1.3,.5 h .9 l .5,1.2 .3,-.6 .9,.2 1.1,1.5 0,.5 -4.2,1.9 -2.4,-.1 -1,-.5 -1.1,.7 -2,0 -1.1,-1.4 4.7,-.5 z m 5.4,-.1 1,.1 .7,.7 v 1 l -1.3,.1 -.9,-1.1 z m 2.5,.3 1.3,-.1 -.1,1 -1.1,.6 z m .3,2.2 3.4,-.1 .2,1.1 -1.3,.1 -.3,-.5 -.8,.6 -.4,-.6 -.9,-.2 z m 166.3,7.6 2.1,.1 -1,1.9 -1.1,-.1 -.4,-.8 .5,-1.3 m -1.1,-2.9 .6,-1.3 -.2,-2.3 2.4,-.5 4.5,4.4 1.3,3.4 1.9,1.6 .3,5.1 -1.4,0 -1.3,-2.3 -3.1,-2.4 h -.6 l 1.1,2.8 1.7,.2 .2,2.1 -.9,.1 -4.1,-4.4 -.1,-.9 1.9,-1 0,-1 -.5,-.8 -1.6,-.6 -1.7,-1.3 1.4,.1 .5,-.4 -.6,-.9 -.6,.5 z m -3.6,-9.1 1.3,.1 2.4,2.5 -.2,.8 -.8,-.1 -.1,1.8 .5,.5 0,1.5 -.8,.3 -.4,1.2 -.8,-.4 -.4,-2.2 1.1,-1.4 -2.1,-2.2 .1,-1.2 z m 1.5,-1.5 1.9,.2 2.5,.1 3.4,3.2 -.2,.5 -1.1,.6 -1.1,-.2 -.1,-.7 -1.2,-1.6 -.3,.7 1,1.3 -.2,1.2 -.8,-.1 -1.3,.2 -.1,-1.7 -2.6,-2.8 z m -12.7,-8.9 .9,-.4 h 1.6 l .7,-.5 4.1,2.2 .1,1.5 -.5,.5 h -.8 l -1.4,-.7 1.1,1.3 1.8,0 .5,2 -.9,0 -2.2,-1.5 -1.1,-.2 .6,1.3 .1,.9 .8,-.6 1.7,1.2 1.3,-.1 -.2,.8 1.9,4.3 0,3.4 .4,2.1 -.8,.3 -1.2,-2 -.5,-1.5 -1.6,-1.6 -.2,-2.7 -.6,-1.7 h -.7 l .3,1.1 0,.5 -1.4,1 .1,-3.3 -1.6,-1.6 -1.3,-2.3 -1.2,-1.2 z m 7.2,-2.3 1.1,1.8 2.4,-.1 1,2.1 -.6,.6 2,3.2 v 1.3 l -1.2,.8 v .7 l -2,1.9 -.5,-1.4 -.1,-1.3 .6,-.7 v -1.1 l -1.5,-1.9 -.5,-3.7 -.9,-1.5 z m -56.7,-18.3 -4,4.1 v 1.6 l 2.1,-.8 .8,-1.9 2.2,-2.4 z m -31.6,16.6 0,.6 1.8,1.2 .2,-1.4 .6,.9 3.5,.1 .7,-.6 .2,-1.8 -.5,-.7 -1.4,0 0,-.8 .4,-.6 v -.4 l -1.5,-.3 -3.3,3.6 z m -8.1,6.2 1.5,5.8 h 2.1 l 2.4,-2.5 .3,1.2 6.3,-4 .7,-1 -1,-1.1 v -.7 l .5,-1.3 -.9,-.1 -2,1 0,-1.2 -2.7,-.6 -2.4,.3 -.2,3.4 -.8,-2 -1.5,-.1 -1,.6 z m -2.2,8.2 .1,-.7 2.1,-1.3 .6,.3 1.3,.2 1.3,1.2 -2.2,-.2 -.4,-.6 -1,.6 z m -5.2,3.3 -1.1,.8 1.5,1.4 .8,-.7 -.1,-1.3 z m -6.3,-7.9 1.4,.1 .4,.6 -1.8,.1 z m -13.9,11.9 v .5 l .7,.1 -.1,-.6 z m -.4,-3.2 -1,1 v .5 l .7,1.1 1,-1 -.7,-.1 z m -2,-.8 -.3,1 -1.3,.1 -.4,.2 0,1.3 -.5,.9 .6,0 .7,-.9 .8,-.1 .9,-1 .2,-1.3 z m -4.4,-2 -.2,1.8 1.4,.8 1.2,-.6 0,-1 1.7,-.3 -.1,-.6 -.9,-.2 -.7,.6 -.9,-.5 z m -4.9,-.1 1,.7 -.3,1.2 -1.4,-1.1 z m -4.2,1.3 1.4,.1 -.7,.8 z m -3.5,3 1.8,1.1 -1.7,.1 z m -25.4,-31.2 1.2,.6 -.8,.6 z m -.7,-6.3 .4,1.2 .8,-1.2 z m 24.3,-19.3 1.5,-.1 .9,.4 1.1,-.5 1.3,-.1 1.6,.8 .8,1.9 -.1,.9 -1.2,2 -2.4,-.2 -2.1,-1.8 -1,-.4 -1.1,-2 z m -21.1,-14.4 .1,1.9 2,2 v .5 l -.8,-.2 -1.7,-.8 -.3,-1.1 -.3,-1.6 z m 18.3,-23.3 v 1.2 l 1.9,1.8 h 2.3 l .6,1.1 v 1.6 l 2.1,1.9 1.8,1.2 -.1,.7 -.7,1.1 -1.4,-1.2 -2.1,.1 -.8,-.8 -.9,-2.1 -1.5,-2.2 -2.6,-.1 -1,-.7 1,-2.1 z m 16.8,-4.5 1,0 .1,1.1 h -1 z m 16.2,19.7 .9,.1 0,1.2 -1.7,-.5 z m 127.8,77.7 -1.2,.4 -.1,1.1 h 1.2 z m -157.6,-4.5 -1.3,-.4 -4.1,.6 -2.8,1.4 -.1,1.9 1.9,.7 1.5,-.9 1.7,-.1 4.7,1.4 .1,-1.3 -1.6,-1.1 z m 2.1,2.3 -.4,-1.4 1.2,.2 .1,1.4 1.8,0 .4,-2.5 .3,2.4 2.5,-.1 3.2,-3.3 .8,.1 -.7,1.3 1.4,.9 4.2,-.2 2.6,-1.2 1.4,-.1 .3,1.5 .6,-.5 .4,-1.4 5.9,.2 1.9,-1.6 -1.3,-1.1 .6,-1.2 2.6,.2 -.2,-1.2 2.5,.2 .7,-1.1 1.1,.2 4.6,-1.9 .2,-1.7 5.6,-2.4 2,-1.9 1.2,-.6 1.3,.8 2.3,-.9 1.1,-1.9 .5,-1.3 1.7,-.9 1.5,-.7 .4,-1.4 -1.1,-1.7 -2.2,-.2 -.2,-1.3 .8,-1.6 1.4,-.2 1.3,-1.5 1.9,-.1 3.4,-3.2 .4,-1.4 1.5,-2.3 3.8,-4.1 2.5,-.9 1.9,-.9 2.1,.8 1.4,2.6 -1.5,0 -1.4,-1.5 -3,2 -1.7,.1 -.2,3.1 -3.1,4.9 .6,2 2.3,0 -.6,1 -1.4,.1 -2.4,1.8 0,.9 1.9,1 3.4,-.6 1.4,-1.7 1.4,.1 3,-1.7 .5,-2.3 1.6,-.1 6.3,.8 1,-1.1 1,-4.5 -1.6,1.1 .6,-2.2 -1.6,-1.4 .8,-1.5 .1,1.5 3.4,0 .7,-1 1.6,-.1 -.3,1.7 1.9,.1 -1.9,1.3 4.1,1.1 -3.5,.4 -1.3,1.2 .9,1.4 4.6,-1.7 2.3,1.7 .7,-.9 .6,1.4 4,2.3 h 2.9 l 3.9,-.5 4.3,1.1 2,1.9 4.5,.4 1.8,-1.5 .8,2.4 -1.8,.7 1.2,1.2 7.4,3.8 1.4,2.5 5.4,4.1 3.3,-2 -.6,-2.2 -3.5,-2 3.1,1.2 .5,-.7 .9,1.3 0,2.7 2.1,-.6 2.1,1.8 -2.5,-9.8 1.2,1.3 1.4,6 2.2,2.5 2.4,-.4 1.8,3.5 h .9 l .6,5.6 3.4,.5 1.6,2.2 1.8,1.1 .4,2.8 -1.8,2.6 2.9,1.6 1.2,-2.4 -.2,3.1 -.8,.9 1.4,1.7 .7,-2.4 -.2,-1.2 .8,.2 .6,2.3 -1,1.4 .6,2.6 .5,.4 .3,-1.6 .7,.6 -.3,2 1.2,.2 -.4,.9 1.7,-.1 0,-1 h -1 l .1,-1.7 -.8,-.6 1.7,-.3 .5,-.8 0,-1.6 .5,1.3 -.6,1.8 1.2,3.9 1.8,.1 2.2,-4.2 .1,-1.9 -1.3,-4 -.1,-1.2 .5,-1.2 -.7,-.7 -1.7,.1 -2.5,-2 -1.7,0 -2,-1.4 -1.5,0 -.5,-1.6 -1.4,-.3 -.2,-1.5 -1,-.5 .1,-1.7 -5.1,-7.4 -1.8,-1.5 v -1.2 l -4.3,-3.5 -.7,-1.1 -1.6,-2 -1.9,-.6 0,-2.2 -1.2,-1.3 -1.7,-.7 -2.1,1.3 -1.6,2.1 -.4,2.4 -1.5,.1 -2.5,2.7 -.8,-.3 v -2.5 l -2.4,-2.2 -2.3,-2 -.5,-2 -2.5,-1.3 .2,-2.2 -2.8,-.1 -.7,1.1 -1.2,0 -.7,-.7 -1.2,.8 -1.8,-1.2 0,-85.8 -6.9,-4.1 -1.8,-.5 -2.2,1.1 -2.2,.1 -2.3,-1.6 -4.3,-.6 -5.8,-3.6 -5.7,-.4 -2,.5 -.2,-1.8 -1.8,-.7 1.1,-1 -.2,-.9 -3.2,-1.1 h -2.4 l -.4,.4 -.9,-.6 .1,-2.6 -.8,-.9 -2.5,2.9 -.8,-.1 v -.8 l 1.7,-.8 v -.8 l -1.9,-2.4 -1.1,-.1 -4.5,3.1 h -3.9 l .4,-.9 -1.8,-.1 -5.2,3.4 -1.8,0 -.6,-.8 -2.7,1.5 -3.6,3.7 -2.8,2.7 -1.5,1.2  -2.6,.1 -2.2,-.4 -2.3,-1.3 v 0 l -2.8,3.9 -.1,2.4 2.6,2.4 2.1,4.5 .2,5.3 2.9,2 3.4,.4 .7,.8 -1.5,2.3 .7,2.7 -1.7,-2.6 v -2.4 l -1.5,-.3 .1,1.2 .7,2.1 2.9,3.7 h -1.4 l -2.2,1.1 -6.2,-2.5 -.1,-2 1.4,-1.3 0,-1.4 -2.1,-.5 -2.3,.2 -4.8,.2 1.5,2.3 -1.9,-1.8 -8.4,1.2 -.8,1.5 4.9,4.7 -.8,1.4 -.3,2 -.7,.8 -.1,1.9 4.4,3.6 4.1,.2 4.6,1.9 h 2 l .8,-.6 3.8,.1 .1,-.8 1.2,1.1 .1,2 -2.5,-.1 .1,3.3 .5,3.2 -2.9,2.7 -1.9,-.1 -2,-.8 -1,.1 -3.1,2.1 -1.7,.2 -1.4,-2.8 -3.1,0 -2.2,2 -.5,1.8 -3.3,1.8 -5.3,4.3 -.3,3.1 .7,2.2 1,1.2 1,-.4 .9,1 -.8,.6 -1.5,.9 1.1,1.5 -2.6,1.1 .8,2.2 1.7,2.3 .8,4.1 4,1.5 2.6,-.8 1.7,-1.1 .5,2.1 .3,4.4 -1.9,1.4 0,4.4 -.6,.9 h -1.7 l 1.7,1.2 2.1,-.1 .4,-1 4.6,-.6 2,2.6 1.3,-.7 1.3,5.1 1,.5 1,-.7 .1,-2.4 .9,-1 .7,1.1 .2,1.6 1.6,.4 4.7,-1.2 .2,1.2 -2,1.1 -1.6,1.7 -2.8,7 -4.3,2 -1.4,1.5 -.3,1.4 -1,-.6 -9.3,3.3 -1.8,4.1 -1.3,-.4 .5,-1.1 -1.5,-1.4 -3.5,-.2 -5.3,3.2 -2.2,1.3 -2.3,0 -.5,2.4 z">
+<title>Alaska</title></path>
+<path class="ca" d="m 69.4,365.6 3.4,5.2 -1.4,.1 -1.8,-1.9 z m 1.9,-9.8 1.8,4.1 2.6,1 .7,-.6 -1.3,-2.5 -2.6,-2.4 z m -19.9,-19 v 2.4 l 2,1.2 4.4,-.2 1,-1 -3.1,-.2 z m -5.9,.1 3.3,.5 1.4,2.2 h -3.8 z m 47.9,45.5 -1,-3 .2,-3 -.4,-7.9 -1.8,-4.8 -1.2,-1.4 -.6,-1.5 -7,-8.6 -3.6,.1 -2,-1.9 1.1,-1.8 -.7,-3.7 -2.2,-1.2 -3.9,-.6 -2.8,-1.3 -1.5,-1.9 -4.5,-6.6 -2.7,-2.2 -3.7,-.5 -3.1,-2.3 -4.7,-1.5 -2.8,-.3 -2.5,-2.5 .2,-2.8 .8,-4.8 1.8,-5.1 -1.4,-1.6 -4,-9.4 -2.7,-3.7 -.4,-3 -1.6,-2.3 .2,-2.5 -2,-5 -2.9,-2.7 .6,-7.1 2.4,-.8 1.8,-3.1 -.4,-3.2 -1,-.9 h -2.5 l -2.5,-3.3 -1.5,-3.5 v -7.5 l 1.2,-4.2 .2,-2.1 2.5,.2 -.1,1.6 -.8,.7 v 2.5 l 3.7,3.2 v -4.7 l -1.4,-3.4 .5,-1.1 -1,-1.7 2.8,-1.5 -1.9,-3 -1.4,.5 -1.5,3.8 .5,1.3 -.8,1 -.9,-.1 -5.4,-6.1 .7,-5.6 -1.1,-3.9 -6.5,-12.8 .8,-10.7 2.3,-3.6 .2,-6.4 -5.5,-11.1 .3,-5.2 6.9,-7.5 1.7,-2.4 -.1,-1.4 4,-9.2 .1,-8.4 .9,-2.5 66.1,18.6 -16.4,63.1 1.1,3.5 70.4,105 -.9,2.1 1.3,3.4 1.4,1.8 1.2,5.8 2.3,2.5 .4,1.9 -1.3,1.3 -4.8,1.7 -2.4,3.6 -1.6,7 -2.4,3.2 -1.6,.3 -1.1,6.9 1.1,1.6 1.8,.2 1,1.6 -.8,2.4 -3,2.2 -2.2,-.1 z">
+<title>California</title></path>
+<path class="hi" d="m 317,553.7 -.2,3.2 1.7,1.9 .1,1.2 -4.8,4.5 -.1,1.2 1.9,3.2 1.7,4.2 v 2.6 l -.5,1.2 .1,3.4 4.1,2.1 1.1,1.1 1.2,-1.1 2.1,-3.6 4.5,-2.9 3.3,-.5 2.5,-1 1.7,-1.2 3.2,-3.5 -2.8,-1.1 -1.4,-1.4 .1,-1.7 -.5,-.6 h -2 l .2,-2.5 -.7,-1.2 -2.6,-2.3 -4.5,-1.9 -2.8,-.2 -3.3,-2.7 -1.2,-.6 z m -15.3,-17 -1.1,1.5 -.1,1.7 2.7,2.4 1.9,.5 .6,1 .4,3 3.6,.2 5.3,-2.6 -.1,-2.5 -1.4,-.5 -3.5,-2.6 -1.8,-.3 -2.9,1.3 -1.5,-2.7 z m -1.5,11.5 .9,-1.4 2.5,-.3 .6,1.8 z m -7,-8.7 1.7,4 3.1,-.6 .3,-2 -1.4,-1.5 z m -4.1,-6.7 -1.1,2.4 h 5 l 4.8,1.6 2.5,-1.6 .2,-1.5 -4.8,.2 z m -16,-10.6 -1.9,2.1 -2.9,.6 .8,2.2 2.2,2.8 .1,1 2.1,-.3 2.3,.1 1.7,1.2 3.5,-.8 v -.7 l -1,-.8 -.5,-2.1 -.8,-.3 -.5,1 -1.2,-1.3 .2,-1.4 -1.8,-3.3 -1.1,-.7 z m -31.8,-12.4 -4.2,2.9 .2,2.3 2.4,1.2 1.9,1.3 2.7,.4 2.6,-2.2 -.2,-1.9 .8,-1.7 v -1.4 l -1,-.9 z m -10.8,4.8 -.3,1.2 -1.9,.9 -.6,1.8 1,.8 1.1,-1.5 1.9,-.6 .4,-2.6 z">
+<title>Hawaii</title></path>
+<path class="or" d="m 93.9,166.5 47,11.2 8.5,-37.3 2.9,-5.8 .4,-2.1 .8,-.9 -.9,-2 -2.9,-1.2 .2,-4.2 4,-5.8 2.5,-.8 1.6,-2.3 -.1,-1.6 1.8,-1.6 3.2,-5.5 4.2,-4.8 -.5,-3.2 -3.5,-3.1 -1.6,-3.6 -30.3,-7.3 -2.8,1 -5.4,-.9 -1.8,-.9 -1.5,1.2 -3.3,-.4 -4.5,.5 -.9,.7 -4.2,-.4 -.8,-1.6 -1.2,-.2 -4.4,1.3 -1.6,-1.1 -2.2,.8 -.2,-1.8 -2.3,-1.2 -1.5,-.2 -1,-1.1 -3,.3 -1.2,-.8 h -1.2 l -1.2,.9 -5.5,.7 -6.6,-4.2 1.1,-5.6 -.4,-4.1 -3.2,-3.7 -3.7,.1 -.4,-1.1 .4,-1.2 -.7,-.8 -1,.1 -1.1,1.3 -1.5,-.2 -.5,-1.1 -1,-.1 -.7,.6 -2,-1.9 v 4.3 l -1.3,1.3 -1.1,3.5 -.1,2.3 -4.5,12.3 -13.2,31.3 -3.2,4.6 -1.6,-.1 .1,2.1 -5.2,7.1 -.3,3.3 1,1.3 .1,2.4 -1.2,1.1 -1.2,3 .1,5.7 1.2,2.9 z">
+<title>Oregon</title></path>
+<path class="wa" d="m 161.9,83.6 .7,4 -1.1,4.3 -30.3,-7.3 -2.8,1 -5.4,-.9 -1.8,-.9 -1.5,1.2 -3.3,-.4 -4.5,.5 -.9,.7 -4.2,-.4 -.8,-1.6 -1.2,-.2 -4.4,1.3 -1.6,-1.1 -2.2,.8 -.2,-1.8 -2.3,-1.2 -1.5,-.2 -1,-1.1 -3,.3 -1.2,-.8 h -1.2 l -1.2,.9 -5.5,.7 -6.6,-4.2 1.1,-5.6 -.4,-4.1 -3.2,-3.7 -3.7,.1 -.4,-1.1 .4,-1.2 -.7,-.8 -1,.1 -2.1,-1.5 -1.2,.4 -2,-.1 -.7,-1.5 -1.6,-.3 2.5,-7.5 -.7,6 .5,.5 v -2 l .8,-.2 1.1,2.3 -.5,-2.2 1.2,-4.2 1.8,.4 -1.1,-2 -1,.3 -1.5,-.4 .2,-4.2 .2,1.5 .9,.5 .6,-1.6 h 3.2 l -2.2,-1.2 -1.7,-1.9 -1.4,1.6 1.2,-3.1 -.3,-4.6 -.2,-3.6 .9,-6.1 -.5,-2 -1.4,-2.1 .1,-4 .4,-2.7 2,-2.3 -.7,-1.4 .2,-.6 .9,.1 7.8,7.6 4.7,1.9 5.1,2.5 3.2,-.1 .2,3 1,-1.6 h .7 l .6,2.7 .5,-2.6 1.4,-.2 .5,.7 -1.1,.6 .1,1.6 .7,-1.5 h 1.1 l -.4,2.6 -1.1,-.8 .4,1.4 -.1,1.5 -.8,.7 -2.5,2.9 1.2,-3.4 -1.6,.4 -.4,2.1 -3.8,2.8 -.4,1 -2.1,2.2 -.1,1 h 2.2 l 2.4,-.2 .5,-.9 -3.9,.5 v -.6 l 2.6,-2.8 1.8,-.8 1.9,-.2 1,-1.6 3,-2.3 v -1.4 h 1.1 l .1,4 h -1.5 l -.6,.8 -1.1,-.9 .3,1.1 v 1.7 l -.7,.7 -.3,-1.6 -.8,.8 .7,.6 -.9,1.1 h 1.3 l .7,-.5 .1,2 -1,1.9 -.9,1 -.1,1.8 -1,-.2 -.2,-1.4 .9,-1.1 -.8,-.5 -.8,.7 -.7,2.2 -.8,.9 -.1,-2 .8,-1.1 -.2,-1.1 -1.2,1.2 .1,2.2 -.6,.4 -2.1,-.4 -1.3,1.2 2.2,-.6 -.2,2.2 1,-1.8 .4,1.4 .5,-1 .7,1.8 h .7 l .7,-.8 .6,-.1 2,-1.9 .2,-1.2 .8,.6 .3,.9 .7,-.3 .1,-1.2 h 1.3 l .2,-2.9 -.1,-2.7 .9,.3 -.7,-2.1 1.4,-.8 .2,-2.4 2.3,-2.2 1,.1 .3,-1.4 -1.2,-1.4 -.1,-3.5 -.8,.9 .7,2.9 -.6,.1 -.6,-1.9 -.6,-.5 .3,-2.3 1.8,-.1 .3,.7 .3,-1.6 -1.6,-1.7 -.6,-1.6 -.2,2 .9,1.1 -.7,.4 -1,-.8 -1.8,1.3 1.5,.5 .2,2.4 -.3,1.8 .9,-1.3 1.4,2.3 -.4,1.9 h -1.5 v -1.2 l -1.5,-1.2 .5,-3 -1.9,-2.6 2.7,-3 .6,-4.1 h .9 l 1.4,3.2 v -2.6 l 1.2,.3 v -3.3 l -.9,-.8 -1.2,2.5 -1,-3 1.3,-.1 -1.5,-4.9 1.9,-.6 25.4,7.5 31.7,8 23.6,5.5 z m -78.7,-39.4 h .5 l .1,.8 -.5,.3 .1,.6 -.7,.4 -.2,-.9 .5,-.4 z m 5,-4.3 -1.2,1.9 -.1,.8 .4,.2 .5,-.6 1.1,.1 z m -.4,-21.6 .5,.6 1.3,-.3 .2,-1 1.2,-1.8 -1,-.4 -.7,1.6 -.1,-1.6 -1.1,.2 -.7,1.4 z m 3.2,-5.5 .7,1.5 -.9,.2 -.8,.4 -.2,-2.4 z m -2.7,-1.6 -1.1,-.2 .5,1.4 z m -1,2.5 .8,.4 -.4,1.1 1.7,-.5 -.2,-2.2 -.9,-.2 z m -2.7,-.4 .3,2.7 1.6,1.3 .6,-1.9 -1.1,-2.2 z m 1.9,-1.1 -1.1,-1 -.9,.1 1.8,1.5 z m 3.2,-7 h -1.2 v .8 l 1.2,.6 z m -.9,32.5 .4,-2.7 h -1.1 l -.2,1.9 z">
+<title>Washington</title></path>
+<g class="explorer-region-map__label" transform="translate(83 252)"><rect width="110" height="34" rx="17"/><text x="55" y="22">West Coast</text></g>
+</a>
+<a class="explorer-region-map__link explorer-region-map__link--mountain" href="#find-your-workshop" role="button" aria-pressed="false" tabindex="0" aria-label="Select Mountain West region" data-explorer-option data-category="region" data-slug="mountain-west" data-label="Mountain West">
+<path class="az" d="m 139.6,387.6 3,-2.2 .8,-2.4 -1,-1.6 -1.8,-.2 -1.1,-1.6 1.1,-6.9 1.6,-.3 2.4,-3.2 1.6,-7 2.4,-3.6 4.8,-1.7 1.3,-1.3 -.4,-1.9 -2.3,-2.5 -1.2,-5.8 -1.4,-1.8 -1.3,-3.4 .9,-2.1 1.4,-3 .5,-2.9 -.5,-4.9 1,-13.6 3.5,-.6 3.7,1.4 1.2,2.7 h 2 l 2.4,-2.9 3.4,-17.5 46.2,8.2 40,6 -17.4,124.1 -37.3,-5.4 -64.2,-37.5 .5,-2.9 2,-1.8 z">
+<title>Arizona</title></path>
+<path class="co" d="m 374.6,323.3 -16.5,-1 -51.7,-4.8 -52.6,-6.5 11.5,-88.3 44.9,5.7 37.5,3.4 33.1,2.4 -1.4,22.1 z">
+<title>Colorado</title></path>
+<path class="id" d="m 165.3,183.1 -24.4,-5.4 8.5,-37.3 2.9,-5.8 .4,-2.1 .8,-.9 -.9,-2 -2.9,-1.2 .2,-4.2 4,-5.8 2.5,-.8 1.6,-2.3 -.1,-1.6 1.8,-1.6 3.2,-5.5 4.2,-4.8 -.5,-3.2 -3.5,-3.1 -1.6,-3.6 1.1,-4.3 -.7,-4 12.7,-56.1 14.2,3 -4.8,22 3.7,7.4 -1.6,4.8 3.6,4.8 1.9,.7 3.9,8.3 v 2.1 l 2.3,3 h .9 l 1.4,2.1 h 3.2 v 1.6 l -7.1,17 -.5,4.1 1.4,.5 1.6,2.6 2.8,-1.4 3.6,-2.4 1.9,1.9 .5,2.5 -.5,3.2 2.5,9.7 2.6,3.5 2.3,1.4 .4,3 v 4.1 l 2.3,2.3 1.6,-2.3 6.9,1.6 2.1,-1.2 9,1.7 2.8,-3.3 1.8,-.6 1.2,1.8 1.6,4.1 .9,.1 -8.5,54.8 -47.9,-8.2 z">
+<title>Idaho</title></path>
+<path class="mt" d="m 247,130.5 57.3,7.9 51,5.3 2,-20.7 5.2,-66.7 -53.5,-5.6 -54.3,-7.7 -65.9,-12.5 -4.8,22 3.7,7.4 -1.6,4.8 3.6,4.8 1.9,.7 3.9,8.3 v 2.1 l 2.3,3 h .9 l 1.4,2.1 h 3.2 v 1.6 l -7.1,17 -.5,4.1 1.4,.5 1.6,2.6 2.8,-1.4 3.6,-2.4 1.9,1.9 .5,2.5 -.5,3.2 2.5,9.7 2.6,3.5 2.3,1.4 .4,3 v 4.1 l 2.3,2.3 1.6,-2.3 6.9,1.6 2.1,-1.2 9,1.7 2.8,-3.3 1.8,-.6 1.2,1.8 1.6,4.1 .9,.1 z">
+<title>Montana</title></path>
+<path class="nm" d="m 357.5,332.9 h -.8 l -7.9,99.3 -31.8,-2.6 -34.4,-3.6 -.3,3 2,2.2 -30.8,-4.1 -1.4,10.2 -15.7,-2.2 17.4,-124.1 52.6,6.5 51.7,4.8 z">
+<title>New Mexico</title></path>
+<path class="nv" d="m 167.6,296.8 -3.4,17.5 -2.4,2.9 h -2 l -1.2,-2.7 -3.7,-1.4 -3.5,.6 -1,13.6 .5,4.9 -.5,2.9 -1.4,3 -70.4,-105 -1.1,-3.5 16.4,-63.1 47,11.2 24.4,5.4 23.3,4.7 z">
+<title>Nevada</title></path>
+<path class="ut" d="m 233.2,217.9 3.3,-21.9 -47.9,-8.2 -21,109 46.2,8.2 40,6 11.5,-88.3 z">
+<title>Utah</title></path>
+<path class="wy" d="m 355.3,143.7 -51,-5.3 -57.3,-7.9 -2,10.7 -8.5,54.8 -3.3,21.9 32.1,4.8 44.9,5.7 37.5,3.4 3.7,-44.2 z">
+<title>Wyoming</title></path>
+<g class="explorer-region-map__label" transform="translate(225 248)"><rect width="140" height="34" rx="17"/><text x="70" y="22">Mountain West</text></g>
+</a>
+<a class="explorer-region-map__link explorer-region-map__link--central" href="#find-your-workshop" role="button" aria-pressed="false" tabindex="0" aria-label="Select Midwest and South Central region" data-explorer-option data-category="region" data-slug="midwest-south-central" data-label="Midwest & South Central">
+<path class="ar" d="m 584.2,367 .9,-2.2 1.2,.5 .7,-1 -.8,-.7 .3,-1.5 -1.1,-.9 .6,-1 -.1,-1.5 -1.1,-.1 .8,-.8 1.3,.8 .3,-1.4 -.4,-1.1 .1,-.7 2,.6 -.4,-1.5 1.6,-1.3 -.5,-.9 -1.1,.1 -.6,-.9 .9,-.9 1.6,-.2 .5,-.8 1.4,-.2 -.1,-.8 -.9,-.9 v -.5 h 1.5 l .4,-.7 -1.4,-1 -.1,-.6 -11.2,.8 2.8,-5.1 1.7,-1.5 v -2.2 l -1.6,-2.5 -39.8,2 -39.1,.7 4.1,24.4 -.7,39 2.6,2.3 2.8,-1.3 3.2,.8 .2,11.9 52.3,-1.3 1.2,-1.5 .5,-3 -1.5,-2.3 -.5,-2.2 .9,-.7 v -.8 l -1.7,-1.1 -.1,-.7 1.6,-.9 -1.2,-1.1 1.7,-7.1 3.4,-1.6 v -.8 l -1.1,-1.4 2.9,-5.4 h 1.9 l 1.5,-1.2 -.3,-5.2 3.1,-4.5 1.8,-.6 -.5,-3.1 z">
+<title>Arkansas</title></path>
+<path class="ia" d="m 556.9,183 2.1,1.6 .6,1.1 -1.6,3.3 -.1,2.5 2,5.5 2.7,1.5 3.3,.7 1.3,2.8 -.5,.6 2.5,1.3 1.7,1.7 -.2,1.6 .9,1.1 h 1.2 l 2.8,3.5 .1,2.6 -1.3,3.2 -1.1,1.3 -.1,2.4 -1.7,2.2 -4.2,1.8 h -2.4 l -3,.8 -1,4 1.1,1.6 1,.3 .9,1.4 -.1,3.5 -.5,.5 -1.7,2.4 v 2.4 l -1,1.2 -.9,.3 -1.8,.6 -1,1.5 .7,.9 -.1,2.3 -.7,.7 -1.5,-.8 -1.1,-1.1 -.6,-1.6 -1.7,-1.3 -14.3,.8 -27.2,1.2 -25.9,-.1 -1.8,-4.4 .7,-2.2 -.8,-3.3 .2,-2.9 -1.3,-.7 -.4,-6.1 -2.8,-5 -.2,-3.7 -2.2,-4.3 -1.3,-3.7 v -1.4 l -.6,-1.7 v -2.3 l -.5,-.9 -.7,-1.7 -.3,-1.3 -1.3,-1.2 1,-4.3 1.7,-5.1 -.7,-2 -1.3,-.4 -.4,-1.6 1,-.5 .1,-1.1 -1.3,-1.5 .1,-1.6 2.2,.1 h 28.2 l 36.3,-.9 18.6,-.7 z">
+<title>Iowa</title></path>
+<path class="il" d="m 623.5,265.9 -1,5.2 v 2 l 2.4,3.5 v .7 l -.3,.9 .9,1.9 -.3,2.4 -1.6,1.8 -1.3,4.2 -3.8,5.3 -.1,7 h -1 l .9,1.9 v .9 l -2.2,2.7 .1,1.1 1.5,2.2 -.1,.9 -3.7,.6 -.6,1.2 -1.2,-.6 -1,.5 -.4,3.3 1.7,1.8 -.4,2.4 -1.5,.3 -6.9,-3 -4,3.7 .3,1.8 h -2.8 l -1.4,-1.5 -1.8,-3.8 v -1.9 l .8,-.6 .1,-1.3 -1.7,-1.9 -.9,-2.5 -2.7,-4.1 -4.8,-1.3 -7.4,-7.1 -.4,-2.4 2.8,-7.6 -.4,-1.9 1.2,-1.1 v -1.3 l -2.8,-1.5 -3,-.7 -3.4,1.2 -1.3,-2.3 .6,-1.9 -.7,-2.4 -8.6,-8.4 -2.2,-1.5 -2.5,-5.9 -1.2,-5.4 1.4,-3.7 .7,-.7 .1,-2.3 -.7,-.9 1,-1.5 1.8,-.6 .9,-.3 1,-1.2 v -2.4 l 1.7,-2.4 .5,-.5 .1,-3.5 -.9,-1.4 -1,-.3 -1.1,-1.6 1,-4 3,-.8 h 2.4 l 4.2,-1.8 1.7,-2.2 .1,-2.4 1.1,-1.3 1.3,-3.2 -.1,-2.6 -2.8,-3.5 h -1.2 l -.9,-1.1 .2,-1.6 -1.7,-1.7 -2.5,-1.3 .5,-.6 45.9,-2.8 .1,4.6 3.4,4.6 1.2,4.1 1.6,3.2 z">
+<title>Illinois</title></path>
+<path class="in" d="m 629.2,214.8 -5.1,2.3 -4.7,-1.4 4.1,50.2 -1,5.2 v 2 l 2.4,3.5 v .7 l -.3,.9 .9,1.9 -.3,2.4 -1.6,1.8 -1.3,4.2 -3.8,5.3 -.1,7 h -1 l .9,1.9 1.1,.8 .6,-1 -.7,-1.7 4.6,-.5 .2,1.2 1.1,.2 .4,-.9 -.6,-1.3 .3,-.8 1.3,.8 1.7,-.4 1.7,.6 3.4,2.1 1.8,-2.8 3.5,-2.2 3,3.3 1.6,-2.1 .3,-2.7 3.8,-2.3 .2,1.3 1.9,1.2 3,-.2 1.2,-.7 .1,-3.4 2.5,-3.7 4.6,-4.4 -.1,-1.7 1.2,-3.8 2.2,1 6.7,-4.5 -.4,-1.7 -1.5,-2.1 1,-1.9 -6.6,-57.2 -.1,-1.4 -32.4,3.4 z">
+<title>Indiana</title></path>
+<path class="ks" d="m 459.1,259.5 -43.7,-1.2 -36,-2 -4.8,67 67.7,2.9 62,.1 -.5,-48.1 -3.2,-.7 -2.6,-4.7 -2.5,-2.5 .5,-2.3 2.7,-2.6 .1,-1.2 -1.5,-2.1 -.9,1 -2,-.6 -2.9,-3 z">
+<title>Kansas</title></path>
+<path class="la" d="m 602.5,472.8 -1.2,-1.8 .3,-1.3 -4.8,-6.8 .9,-4.6 1,-1.4 .1,-1.4 -36,2 1.7,-11.9 2.4,-4.8 6,-8.4 -1.8,-2.5 h 2 v -3.3 l -2.4,-2.5 .5,-1.7 -1.2,-1 -1.6,-7.1 .6,-1.4 -52.3,1.3 .5,19.9 .7,3.4 2.6,2.8 .7,5.4 3.8,4.6 .8,4.3 h 1 l -.1,7.3 -3.3,6.4 1.3,2.3 -1.3,1.5 .7,3 -.1,4.3 -2.2,3.5 -.1,.8 -1.7,1.2 1,1.8 1.2,1.1 1.6,-1.3 5.3,-.9 6.1,-.1 9.6,3.8 8,1 1.5,-1.4 1.8,-.2 4.8,2.2 1.6,-.4 1.1,-1.5 -4.2,-1.8 -2.2,1 -1.1,-.2 -1.4,-2 3.3,-2.2 1.6,-.1 v 1.7 l 1.5,-.1 3.4,-.3 .4,2.3 1.1,.4 .6,1.9 4.8,1 1.7,1.6 v .7 h -1.2 l -1.5,1.7 1.7,1.2 5.4,1 2.7,2.8 4.4,-1 -3.7,.2 -.1,-.6 2.8,-.7 .2,-1.8 1.2,-.3 v -1.4 l 1.1,.1 v 1.6 l 2.5,.1 .8,-1.9 .9,.3 .2,2.5 1.2,.2 -1.8,2 2.6,-.9 2,-1.1 2.9,-3.3 h -.7 l -1.3,1.2 -.4,-.1 -.5,-.8 .9,-1.2 v -2.3 l 1.1,-.8 .7,.7 1,-.8 1,-.1 .6,1.3 -.6,1.9 h 2.4 l 5.1,1.7 .5,1.3 1.6,1.4 2.8,.1 1.3,.7 1.8,-1 .9,-1.7 v -1.7 h -1.4 l -1.2,-1.4 -1.1,-1.1 -3.2,-.9 -2.6,.2 -4.2,-2.4 v -2.3 l 1.3,-1 2.4,.6 -3.1,-1.6 .2,-.8 h 3.6 l 2.6,-3.5 -2.6,-1.8 .8,-1.5 -1.2,-.8 h -.8 l -2,2.1 v 2.1 l -.6,.7 -1.1,-.1 -1.6,-1.4 h -1.3 v -1.5 l .6,-.7 .8,.7 1.7,-1.6 .7,-1.6 .8,-.3 z m -10.3,-2.7 1.9,1 .8,1.1 2.5,.1 1.5,.8 .2,1.4 -.4,.6 -.9,-1.5 -1.4,1.2 -.9,1.4 -2.8,.8 -1.6,.1 -3.7,-1 .1,-1.7 2,-2 1.1,-2.4 z m -4.7,1.2 v 1.1 l -1.8,2 h -1.2 v -2.2 l 1.6,-1.5 z">
+<title>Louisiana</title></path>
+<path class="mi" d="m 663.3,209.8 .1,1.4 21.4,-3.5 .5,-1.2 3.9,-5.9 v -4.3 l .8,-2.1 2.2,-.8 2,-7.8 1,-.5 1,.6 -.2,.6 -1.1,.8 .3,.9 .8,.4 1.9,-1.4 .4,-9.8 -1.6,-2.3 -1.2,-3.7 v -2.5 l -2.3,-4.4 v -1.8 l -1.2,-3.3 -2.3,-3 -2.9,-1 -4.8,3 -2.5,4.6 -.2,.9 -3,3.5 -1.5,-.2 -2.9,-2.8 -.1,-3.4 1.5,-1.9 2,-.2 1.2,-1.7 .2,-4 .8,-.8 1.1,-.1 .9,-1.7 -.2,-9.6 -.3,-1.3 -1.2,-1.2 -1.7,-1 -.1,-1.8 .7,-.6 1.8,.8 -.3,-1.7 -1.9,-2.7 -.7,-1.6 -1.1,-1.1 h -2.2 l -8.1,-2.9 -1.4,-1.7 -3.1,-.3 -1.2,.3 -4.4,-2.3 h -1.4 l .5,1 -2.7,-.1 .1,.6 .6,.6 -2.5,2.1 .1,1.8 1.5,2.3 1.5,.2 v .6 l -1.5,.5 -2.1,-.1 -2.8,2.5 .1,2.5 .4,5.8 -2.2,3.4 .8,-4.5 -.8,-.6 -.9,5.3 -1,-2.3 .5,-2.3 -.5,-1 .6,-1.3 -.6,-1.1 1,-1 v -1.2 l -1.3,.6 -1.3,3.1 -.7,.7 -1.3,2.4 -1.7,-.2 -.1,1.2 h -1.6 l .2,1.5 .2,2 -3,1.2 .1,1.3 1,1.7 -.1,5.2 -1.3,4.4 -1.7,2.5 1.2,1.4 .8,3.5 -1,2.5 -.2,2.1 1.7,3.4 2.5,4.9 1.2,1.9 1.6,6.9 -.1,8.8 -.9,3.9 -2,3.2 -.9,3.7 -2,3 -1.2,1 z m -95.8,-96.8 3,3.8 17,3.8 1.4,1 4,.8 .7,.5 2.8,-.2 4.9,.8 1.4,1.5 -1,1 .8,.8 3.8,.7 1.2,1.2 .1,4.4 -1.3,2.8 2,.1 1,-.8 .9,.8 -1.1,3.1 1,1.6 1.2,.3 .8,-1.8 2.9,-4.6 1.6,-6 2.3,-2 -.5,-1.6 .5,-.9 1,1.6 -.3,2.2 2.9,-2.2 .2,-2.3 2.1,.6 .8,-1.6 .7,.6 -.7,1.5 -1,.5 -1,2 1.4,1.8 1.1,-.5 -.5,-.7 1,-1.5 1.9,-1.7 h .8 l .2,-2.6 2,-1.8 7.9,-.5 1.9,-3.1 3.8,-.3 3.8,1.2 4.2,2.7 .7,-.2 -.2,-3.5 .7,-.2 4.5,1.1 1.5,-.2 2.9,-.7 1.7,.4 1.8,.1 v -1.1 l -.7,-.9 -1.5,-.2 -1.1,-.8 .5,-1.4 -.8,-.3 -2.6,.1 -.1,-1 1.1,-.8 .6,.8 .5,-1.8 -.7,-.7 .7,-.2 -1.4,-1.3 .3,-1.3 .1,-1.9 h -1.3 l -1.5,1 -1.9,.1 -.5,1.8 -1.9,.2 -.3,-1.2 -2.2,.1 -1,1.2 -.7,-.1 -.2,-.8 -2.6,.4 -.1,-4.8 1,-2 -.7,-.1 -1.8,1.1 h -2.2 l -3.8,2.7 -6.2,.3 -4.1,.8 -1.9,1.5 -1.4,1.3 -2.5,1.7 -.3,.8 -.6,-1.7 -1.3,-.6 v .6 l .7,.7 v 1.3 l -1.5,-.6 h -.6 l -.3,1.2 -2,-1.9 -1.3,-.2 -1.3,1.5 -3.2,-.1 -.5,-1.4 -2,-1.9 -1.3,-1.6 v -.7 l -1.1,-1.4 -2.6,-1.2 -3.3,-.1 -1.1,-.9 h -1.4 l -.7,.4 -2.2,2.2 -.7,1.1 -1,-.7 .2,-1 .8,-2.1 3.2,-5 .8,-.2 1.7,-1.9 .7,-1.6 3,-.6 .8,-.6 -.1,-1 -.5,-.5 -4.5,.2 -2,.5 -2.6,1.2 -1.2,1.2 -1.7,2.2 -1.8,1 -3.3,3.4 -.4,1.6 -7.4,4.6 -4,.5 -1.8,.4 -2.3,3 -1.8,.7 -4.4,2.3 z m 100.7,3.8 3.8,.1 .6,-.5 -.2,-2 -1.7,-1.8 -1.9,.1 -.1,.5 1.1,.4 -1.6,.8 -.3,1 -.6,-.6 -.4,.8 z m -75.1,-41.9 -2.3,.2 -2.7,1.9 -7.1,5.3 .8,1 1.8,.3 2.8,-2 -1.1,-.5 2.3,-1.6 h 1 l 3,-1.9 -.1,-.9 z m 41.1,62.8 v 1 l 2.1,1.6 -.2,-2.4 z m -.7,2.8 1.1,.1 v .9 h -1 z m 21.4,-21.3 v .9 l .8,-.2 v -.5 z m 4.7,3.1 -.1,-1.1 -1.6,-.2 -.6,-.4 h -.9 l -.4,.3 .9,.4 1.1,1.1 z m -18,1.2 -.1,1.1 -.3,.7 .2,2.2 .4,.3 .7,.1 .5,-.9 .1,-1.6 -.3,-.6 -.1,-1.1 z">
+<title>Michigan</title></path>
+<path class="mn" d="m 464.7,68.6 -1.1,2.8 .8,1.4 -.3,5.1 -.5,1.1 2.7,9.1 1.3,2.5 .7,14 1,2.7 -.4,5.8 2.9,7.4 .3,5.8 -.1,2.1 -.1,2.2 -.9,2 -3.1,1.9 -.3,1.2 1.7,2.5 .4,1.8 2.6,.6 1.5,1.9 -.2,39.5 h 28.2 l 36.3,-.9 18.6,-.7 -1.1,-4.5 -.2,-3 -2.2,-3 -2.8,-.7 -5.2,-3.6 -.6,-3.3 -6.3,-3.1 -.2,-1.3 h -3.3 l -2.2,-2.6 -2,-1.3 .7,-5.1 -.9,-1.6 .5,-5.4 1,-1.8 -.3,-2.7 -1.2,-1.3 -1.8,-.3 v -1.7 l 2.8,-5.8 5.9,-3.9 -.4,-13 .9,.4 .6,-.5 .1,-1.1 .9,-.6 1.4,1.2 .7,-.1 v 0 l -1.2,-2.2 4.3,-3.1 3.1,-3.7 1.6,-.8 4.7,-5.9 6.3,-5.8 3.9,-2.1 6.3,-2.7 7.6,-4.5 -.6,-.4 -3.7,.7 -2.8,.1 -1,-1.6 -1.4,-.9 -9.8,1.2 -1,-2.8 -1.6,-.1 -1.7,.8 -3.7,3.1 h -4.1 l -2.1,-1 -.3,-1.7 -3.9,-.8 -.6,-1.6 -.7,-1.3 -1,.9 -2.6,.1 -9.9,-5.5 h -2.9 l -.8,-.7 -3.1,1.3 -.8,1.3 -3.3,.8 -1.3,-.2 v -1.7 l -.7,-.9 h -5.9 l -.4,-1.4 h -2.6 l -1.1,.4 -2.4,-1.7 .3,-1.4 -.6,-2.4 -.7,-1.1 -.2,-3 -1,-3.1 -2.1,-1.6 h -2.9 l .1,8 -30.9,-.4 z">
+<title>Minnesota</title></path>
+<path class="mo" d="m 555.3,248.9 -1.1,-1.1 -.6,-1.6 -1.7,-1.3 -14.3,.8 -27.2,1.2 -25.9,-.1 1.3,1.3 -.3,1.4 2.1,3.7 3.9,6.3 2.9,3 2,.6 .9,-1 1.5,2.1 -.1,1.2 -2.7,2.6 -.5,2.3 2.5,2.5 2.6,4.7 3.2,.7 .5,48.1 .2,10.8 39.1,-.7 39.8,-2 1.6,2.5 v 2.2 l -1.7,1.5 -2.8,5.1 11.2,-.8 1,-2 1.2,-.5 v -.7 l -1.2,-1.1 -.6,-1 1.7,.2 .8,-.7 -1.4,-1.5 1.4,-.5 .1,-1 -.6,-1 v -1.3 l -.7,-.7 .2,-1 h 1.1 l .7,.7 -.3,1 .8,.7 .8,-1 1,-2.7 1.4,.9 .7,-.4 1.2,-4.1 -1,-1 1,-2 .2,-.9 -1.3,-.8 h -2.8 l -1.4,-1.5 -1.8,-3.8 v -1.9 l .8,-.6 .1,-1.3 -1.7,-1.9 -.9,-2.5 -2.7,-4.1 -4.8,-1.3 -7.4,-7.1 -.4,-2.4 2.8,-7.6 -.4,-1.9 1.2,-1.1 v -1.3 l -2.8,-1.5 -3,-.7 -3.4,1.2 -1.3,-2.3 .6,-1.9 -.7,-2.4 -8.6,-8.4 -2.2,-1.5 -2.5,-5.9 -1.2,-5.4 1.4,-3.7 z">
+<title>Missouri</title></path>
+<path class="nd" d="m 464.7,68.6 -1.1,2.8 .8,1.4 -.3,5.1 -.5,1.1 2.7,9.1 1.3,2.5 .7,14 1,2.7 -.4,5.8 2.9,7.4 .3,5.8 -.1,2.1 -29.5,-.4 -46,-2.1 -39.2,-2.9 5.2,-66.7 44.5,3.4 55.3,1.6 z">
+<title>North Dakota</title></path>
+<path class="ne" d="m 402.5,191.1 38,1.6 3.4,3.2 1.7,.2 2.1,2 1.8,-.1 1.8,-2 1.5,.6 1,-.7 .7,.5 .9,-.4 .7,.4 .9,-.4 1,.5 1.4,-.6 2,.6 .6,1.1 6.1,2.2 1.2,1.3 .9,2.6 1.8,.7 1.5,-.2 .5,.9 v 2.3 l .6,1.7 v 1.4 l 1.3,3.7 2.2,4.3 .2,3.7 2.8,5 .4,6.1 1.3,.7 -.2,2.9 .8,3.3 -.7,2.2 1.8,4.4 1.3,1.3 -.3,1.4 2.1,3.7 3.9,6.3 h -32.4 l -43.7,-1.2 -36,-2 1.4,-22.1 -33.1,-2.4 3.7,-44.2 z">
+<title>Nebraska</title></path>
+<path class="oh" d="m 685.7,208.8 1.9,-.4 3,1.3 2.1,.6 .7,.9 h 1 l 1,-1.5 1.3,.8 h 1.5 l -.1,1 -3.1,.5 -2,1.1 1.9,.8 1.6,-1.5 2.4,-.4 2.2,1.5 1.5,-.1 2.5,-1.7 3.6,-2.1 5.2,-.3 4.9,-5.9 3.8,-3.1 9.3,-5.1 4.9,29.9 -2.2,1.2 1.4,2.1 -.1,2.2 .6,2 -1.1,3.4 -.1,5.4 -1,3.6 .5,1.1 -.4,2.2 -1.1,.5 -2,3.3 -1.8,2 h -.6 l -1.8,1.7 -1.3,-1.2 -1.5,1.8 -.3,1.2 h -1.3 l -1.3,2.2 .1,2.1 -1,.5 1.4,1.1 v 1.9 l -1,.2 -.7,.8 -1,.5 -.6,-2.1 -1.6,-.5 -1,2.3 -.3,2.2 -1.1,1.3 1.3,3.6 -1.5,.8 -.4,3.5 h -1.5 l -3.2,1.4 -1.2,-2.1 -3.5,-1.4 -.8,-2.9 -.5,-.8 -3.4,1.8 -.6,1.7 h -.9 l -1.3,.7 -1.2,-.8 -3,-.8 -1.9,.8 v 1 l -2.2,-.2 -1.9,-2.1 -2.3,.2 -4.1,-.7 v -1 l -2.2,-3.4 -2.9,-1.2 -1.9,.8 -2.2,-.1 -1.3,-.5 -6.6,-57.2 21.4,-3.5 z">
+<title>Ohio</title></path>
+<path class="ok" d="m 501.5,398.6 -4.6,-3.8 -2.2,-.9 -.5,1.6 -5.1,.3 -.6,-1.5 -5,2.5 -1.6,-.7 -3.7,.3 -.6,1.7 -3.6,.9 -1.3,-1.2 -1.2,.1 -2,-1.8 -2.1,.7 -2,-.5 -1.8,-2 -2.5,4.2 -1.2,.8 -1,-1.8 .3,-2 -1.2,-.7 -2.3,2.5 -1.7,-1.2 -.1,-1.5 -1.3,.5 -2.6,-1.7 -3,2.6 -2.3,-1.1 .7,-2.1 -2.3,.1 -1.9,-3 -3.5,-1.1 -2,2.3 -2.3,-2.2 -1.4,.4 -2,.1 -3.5,-1.9 -2.3,.1 -1.2,-.7 -.5,-2.9 -2.3,-1.7 -1.1,1.5 -1.4,-1 -1.2,-.4 -1.1,1 -1.5,-.3 -2.5,-3 -2.7,-1.3 1.4,-42.7 -52.6,-3.2 .6,-10.6 16.5,1 67.7,2.9 62,.1 .2,10.8 4.1,24.4 -.7,39 z">
+<title>Oklahoma</title></path>
+<path class="sd" d="m 396.5,125.9 46,2.1 29.5,.4 -.1,2.2 -.9,2 -3.1,1.9 -.3,1.2 1.7,2.5 .4,1.8 2.6,.6 1.5,1.9 -.2,39.5 -2.2,-.1 -.1,1.6 1.3,1.5 -.1,1.1 -1,.5 .4,1.6 1.3,.4 .7,2 -1.7,5.1 -1,4.3 1.3,1.2 .3,1.3 .7,1.7 -1.5,.2 -1.8,-.7 -.9,-2.6 -1.2,-1.3 -6.1,-2.2 -.6,-1.1 -2,-.6 -1.4,.6 -1,-.5 -.9,.4 -.7,-.4 -.9,.4 -.7,-.5 -1,.7 -1.5,-.6 -1.8,2 -1.8,.1 -2.1,-2 -1.7,-.2 -3.4,-3.2 -38,-1.6 -51.1,-3.5 3.9,-43.9 2,-20.7 z">
+<title>South Dakota</title></path>
+<path class="tx" d="m 282.3,429 .3,-3 34.4,3.6 31.8,2.6 7.9,-99.3 .8,0 52.6,3.2 -1.4,42.7 2.7,1.3 2.5,3 1.5,.3 1.1,-1 1.2,.4 1.4,1 1.1,-1.5 2.3,1.7 .5,2.9 1.2,.7 2.3,-.1 3.5,1.9 2,-.1 1.4,-.4 2.3,2.2 2,-2.3 3.5,1.1 1.9,3 2.3,-.1 -.7,2.1 2.3,1.1 3,-2.6 2.6,1.7 1.3,-.5 .1,1.5 1.7,1.2 2.3,-2.5 1.2,.7 -.3,2 1,1.8 1.2,-.8 2.5,-4.2 1.8,2 2,.5 2.1,-.7 2,1.8 1.2,-.1 1.3,1.2 3.6,-.9 .6,-1.7 3.7,-.3 1.6,.7 5,-2.5 .6,1.5 5.1,-.3 .5,-1.6 2.2,.9 4.6,3.8 6.4,1.9 2.6,2.3 2.8,-1.3 3.2,.8 .2,11.9 .5,19.9 .7,3.4 2.6,2.8 .7,5.4 3.8,4.6 .8,4.3 h 1 l -.1,7.3 -3.3,6.4 1.3,2.3 -1.3,1.5 .7,3 -.1,4.3 -2.2,3.5 -.1,.8 -1.7,1.2 1,1.8 1.2,1.1 -3.5,.3 -8.4,3.9 -3.5,1.4 -1.8,1.8 -.7,-.5 2.1,-2.3 1.8,-.7 .5,-.9 -2.9,-.1 -.7,-.8 .8,-2 -.9,-1.8 h -.6 l -2.4,1.3 -1.9,2.6 .3,1.7 3.3,3.4 1.3,.3 v .8 l -2.3,1.6 -4.9,4 -4,3.9 -3.2,1.4 -5,3 -3.7,2 -4.5,1.9 -4.1,2.5 3.2,-3 v -1.1 l .6,-.8 -.2,-1.8 -1.5,-.1 -1.1,1.5 -2.6,1.3 -1.8,-1.2 -.3,-1.7 h -1.5 l .8,2.2 1.4,.7 1.2,.9 1.8,1.6 -.7,.8 -3.9,1.7 -1.7,.1 -1.2,-1.2 -.5,2.1 .5,1.1 -2.7,2 -1.5,.2 -.8,.7 -.4,1.7 -1.8,3.3 -1.6,.7 -1.6,-.6 -1.8,1.1 .3,1.4 1.3,.8 1,.8 -1.8,3.5 -.3,2.8 -1,1.7 -1.4,1 -2.9,.4 1.8,.6 1.9,-.6 -.4,3.2 -1.1,-.1 .2,1.2 .3,1.4 -1.3,.9 v 3.1 l 1.6,1.4 .6,3.1 -.4,2.2 -1,.4 .4,1.5 1.1,.4 .8,1.7 v 2.6 l 1.1,2.1 2.2,2.6 -.1,.7 -2.2,-.2 -1.6,1.4 .2,1.4 -.9,-.3 -1.4,-.2 -3.4,-3.7 -2.3,-.6 h -7.1 l -2.8,-.8 -3.6,-3 -1.7,-1 -2.1,.1 -3.2,-2.6 -5.4,-1.6 v -1.3 l -1.4,-1.8 -.9,-4.7 -1.1,-1.7 -1.7,-1.4 v -1.6 l -1.4,-.6 .6,-2.6 -.3,-2.2 -1.3,-1.4 .7,-3 -.8,-3.2 -1.7,-1.4 h -1.1 l -4,-3.5 .1,-1.9 -.8,-1.7 -.8,-.2 -.9,-2.4 -2,-1.6 -2.9,-2.5 -.2,-2.1 -1,-.7 .2,-1.6 .5,-.7 -1.4,-1.5 .1,-.7 -2,-2.2 .1,-2.1 -2.7,-4.9 -.1,-1.7 -1.8,-3.1 -5.1,-4.8 v -1.1 l -3.3,-1.7 -.1,-1.8 -1.2,-.4 v -.7 l -.8,-.2 -2.1,-2.8 h -.8 l -.7,-.6 -1.3,1.1 h -2.2 l -2.6,-1.1 h -4.6 l -4.2,-2.1 -1.3,1.9 -2.2,-.6 -3.3,1.2 -1.7,2.8 -2,3.2 -1.1,4.4 -1.4,1.2 -1.1,.1 -.9,1.6 -1.3,.6 -.1,1.8 -2.9,.1 -1.8,-1.5 h -1 l -2,-2.9 -3.6,-.5 -1.7,-2.3 -1.3,-.2 -2.1,-.8 -3.4,-3.4 .2,-.8 -1.6,-1.2 -1,-.1 -3.4,-3.1 -.1,-2 -2.3,-4 .2,-1.6 -.7,-1.3 .8,-1.5 -.1,-2.4 -2.6,-4.1 -.6,-4.2 -1.6,-1.6 v -1 l -1.2,-.2 -.7,-1.1 -2.4,-1.7 -.9,-.1 -1.9,-1.6 v -1.1 l -2.9,-1.8 -.6,-2.1 -2.6,-2.3 -3.2,-4.4 -3,-1.3 -2.1,-1.8 .2,-1.2 -1.3,-1.4 -1.7,-3.7 -2.4,-1 z m 174.9,138.3 .8,.1 -.6,-4.8 -3.5,-12.3 -.2,-8.1 4.9,-10.5 6.1,-8.2 7.2,-5.1 v -.7 h -.8 l -2.6,1 -3.6,2.3 -.7,1.5 -8.2,11.6 -2.8,7.9 v 8.8 l 3.6,12 z">
+<title>Texas</title></path>
+<path class="wi" d="m 611,144 -2.9,.8 .2,2.3 -2.4,3.4 -.2,3.1 .6,.7 .8,-.7 .5,-1.6 2,-1.1 1.6,-4.2 3.5,-1.1 .8,-3.3 .7,-.9 .4,-2.1 1.8,-1.1 v -1.5 l 1,-.9 1.4,.1 v 2 l -1,.1 .5,1.2 -.7,2.2 -.6,.1 -1.2,4.5 -.7,.5 -2.8,7.2 -.3,4.2 .6,2 .1,1.3 -2.4,1.9 .3,1.9 -.9,3.1 .3,1.6 .4,3.7 -1.1,4.1 -1.5,5 1,1.5 -.3,.3 .8,1.7 -.5,1.1 1.1,.9 v 2.7 l 1.3,1.5 -.4,3 .3,4 -45.9,2.8 -1.3,-2.8 -3.3,-.7 -2.7,-1.5 -2,-5.5 .1,-2.5 1.6,-3.3 -.6,-1.1 -2.1,-1.6 -.2,-2.6 -1.1,-4.5 -.2,-3 -2.2,-3 -2.8,-.7 -5.2,-3.6 -.6,-3.3 -6.3,-3.1 -.2,-1.3 h -3.3 l -2.2,-2.6 -2,-1.3 .7,-5.1 -.9,-1.6 .5,-5.4 1,-1.8 -.3,-2.7 -1.2,-1.3 -1.8,-.3 v -1.7 l 2.8,-5.8 5.9,-3.9 -.4,-13 .9,.4 .6,-.5 .1,-1.1 .9,-.6 1.4,1.2 .7,-.1 h 2.6 l 6.8,-2.6 .3,-1 h 1.2 l .7,-1.2 .4,.8 1.8,-.9 1.8,-1.7 .3,.5 1,-1 2.2,1.6 -.8,1.6 -1.2,1.4 .5,1.5 -1.4,1.6 .4,.9 2.3,-1.1 v -1.4 l 3.3,1.9 1.9,.7 1.9,.7 3,3.8 17,3.8 1.4,1 4,.8 .7,.5 2.8,-.2 4.9,.8 1.4,1.5 -1,1 .8,.8 3.8,.7 1.2,1.2 .1,4.4 -1.3,2.8 2,.1 1,-.8 .9,.8 -1.1,3.1 1,1.6 1.2,.3 z m -49.5,-37.3 -.5,.1 -1.5,1.6 .2,.5 1.5,-.6 v -.6 l .9,-.3 z m 1.6,-1.1 -1,.3 -.2,.7 .9,-.1 z m -1.3,-1.6 -.2,.9 h 1.7 l .6,-.4 .1,-1 z m 2.8,-3 -.3,1.9 1.2,-.5 .1,-1.4 z m 58.3,31.9 -2,.3 -.4,1.3 1.3,1.7 z">
+<title>Wisconsin</title></path>
+<g class="explorer-region-map__label" transform="translate(448 327)"><rect width="170" height="50" rx="18"/><text x="85" y="20"><tspan x="85">Midwest &amp;</tspan><tspan x="85" dy="18">South Central</tspan></text></g>
+</a>
+<a class="explorer-region-map__link explorer-region-map__link--northeast" href="#find-your-workshop" role="button" aria-pressed="false" tabindex="0" aria-label="Select Northeast and Mid-Atlantic region" data-explorer-option data-category="region" data-slug="northeast-mid-atlantic" data-label="Northeast & Mid-Atlantic">
+<path class="ct" d="m 873.5,178.9 .4,-1.1 -3.2,-12.3 -.1,-.3 -14.9,3.4 v .7 l -.9,.3 -.5,-.7 -10.5,2.4 2.8,16.3 1.8,1.5 -3.5,3.4 1.7,2.2 5.4,-4.5 1.7,-1.3 h .8 l 2.4,-3.1 1.4,.1 2.9,-1.1 h 2.1 l 5.3,-2.7 2.8,-.9 1,-1 1.5,.5 z">
+<title>Connecticut</title></path>
+<path class="dc" d="m 803.5,252 -2.6,-1.8 -1,1.7 .5,.4 .4,.1 .6,.5 .3,.7 -.1,.5 .2,.5 z">
+<title>District of Columbia</title></path>
+<path class="de" d="m 822.2,226.6 -1.6,.3 -1.5,1.1 -1.2,2.1 7.6,27.1 10.9,-2.3 -2.2,-7.6 -1.1,.5 -3.3,-2.6 -.5,-1.7 -1.8,-1 -.2,-3.7 -2.1,-2.2 -1.1,-.8 -1.2,-1.1 -.4,-3.2 .3,-2.1 1,-2.2 z">
+<title>Delaware</title></path>
+<path class="ma" d="m 899.9,174.2 h 3.4 l .9,-.6 .1,-1.3 -1.9,-1.8 .4,1 -1.5,1.5 h -2.3 l .1,.8 z m -9,1.8 -1.2,-.6 1,-.8 .6,-2.1 1.2,-1 .8,-.2 .6,.9 1.1,.2 .6,-.6 .5,1.9 -1.3,.3 -2.8,.7 z m -34.9,-23.4 18.4,-3.8 1,-1.5 .3,-1.7 1.9,-.6 .5,-1.1 1.7,-1.1 1.3,.3 1.7,3.3 1,.4 1.1,-1.3 .8,1.3 v 1.1 l -3,2.4 .2,.8 -.9,1 .4,.8 -1.3,.3 .9,1.2 -.8,.7 .6,1 .9,-.2 .3,-.8 1.1,.6 h 1.8 l 2.5,2.6 .2,2.6 1.8,.1 .8,1.1 .6,2 1,.7 h 1.9 l 1.9,-.1 .8,-.9 1.6,-1.2 1.1,-.3 -1.2,-2.1 -.3,.9 -1.5,-3.6 h -.8 l -.4,.9 -1.2,-1 1.3,-1.1 1.8,.4 2.3,2.1 1.3,2.7 1.2,3.3 -1,2.8 v -1.8 l -.7,-1 -3.5,2.3 -.9,-.3 -1.6,1 -.1,1.2 -2.2,1.2 -2,2.1 -2,1.9 h -1.2 l 3.3,-3.3 .5,-1.9 -.5,-.6 -.3,-1.3 -.9,-.1 -.1,1.3 -1,1.2 h -1.2 l -.3,1.1 .4,1.2 -1.2,1.1 -1.1,-.2 -.4,1 -1.4,-3 -1.3,-1.1 -2.6,-1.3 -.6,-2.2 h -.8 l -.7,-2.6 -6.5,2 -.1,-.3 -14.9,3.4 v .7 l -.9,.3 -.5,-.7 -10.5,2.4 -.7,-1 .5,-15 z">
+<title>Massachusetts</title></path>
+<path class="md" d="m 822.9,269.3 0,-1.7 h -.8 l 0,1.8 z m 11.8,-3.9 1.2,-2.2 .1,-2.5 -.6,-.6 -.7,.9 -.2,2.1 -.8,1.4 -.3,1.1 -4.6,1.6 -.7,.8 -1.3,.2 -.4,.9 -1.3,.6 -.3,-2.5 .4,-.7 -.8,-.5 .2,-1.5 -1.6,1 v -2 l 1.2,-.3 -1.9,-.4 -.7,-.8 .4,-1.3 -.8,-.6 -.7,1.6 .5,.8 -.7,.6 -1.1,.5 -2,-1 -.2,-1.2 -1,-1.1 -1.4,-1.7 1.5,-.8 -1,-.6 v -.9 l .6,-1 1.7,-.3 -1.4,-.6 -.1,-.7 -1.3,-.1 -.4,1.1 -.6,.3 .1,-3.4 1,-1 .8,.7 .1,-1.6 -1,-.9 -.9,1.1 -1,1.4 -.6,-1 .2,-2.4 .9,-1 .9,.9 1.2,-.7 -.4,-1.7 -1,1 -.9,-2.1 -.2,-1.7 1.1,-2.4 1.1,-1.4 1.4,-.2 -.5,-.8 .5,-.6 -.3,-.7 .2,-2.1 -1.5,.4 -.8,1.1 1,1.3 -2.6,3.6 -.9,-.4 -.7,.9 -.6,2.2 -1.8,.5 1.3,.6 1.3,1.3 -.2,.7 .9,1.2 -1.1,1 .5,.3 -.5,1.3 v 2.1 l -.5,1.3 .9,1.1 .7,3.4 1.3,1.4 1.6,1.4 .4,2.8 1.6,2 .4,1.4 v 1 h -.7 l -1.5,-1.2 -.4,.2 -1.2,-.2 -1.7,-1.4 -1.4,-.3 -1,.5 -1.2,-.3 -.4,.2 -1.7,-.8 -1,-1 -1,-1.3 -.6,-.2 -.8,.7 -1.6,1.3 -1.1,-.8 -.4,-2.3 .8,-2.1 -.3,-.5 .3,-.4 -.7,-1 1,-.1 1,-.9 .4,-1.8 1.7,-2.6 -2.6,-1.8 -1,1.7 -.6,-.6 h -1 l -.6,-.1 -.4,-.4 .1,-.5 -1.7,-.6 -.8,.3 -1.2,-.1 -.7,-.7 -.5,-.2 -.2,-.7 .6,-.8 v -.9 l -1.2,-.2 -1,-.9 -.9,.1 -1.6,-.3 -.9,-.4 .2,-1.6 -1,-.5 -.2,-.7 h -.7 l -.8,-1.2 .2,-1 -2.6,.4 -2.2,-1.6 -1.4,.3 -.9,1.4 h -1.3 l -1.7,2.9 -3.3,.4 -1.9,-1 -2.6,3.8 -2.2,-.3 -3.1,3.9 -.9,1.6 -1.8,1.6 -1.7,-11.4 60.5,-11.8 7.6,27.1 10.9,-2.3 0,5.3 -.1,3.1 -1,1.8 z m -13.4,-1.8 -1.3,.9 .8,1.8 1.7,.8 -.4,-1.6 z">
+<title>Maryland</title></path>
+<path class="me" d="m 875,128.7 .6,4 3.2,2 .8,2.2 2.3,1.4 1.4,-.3 1,-3 -.8,-2.9 1.6,-.9 .5,-2.8 -.6,-1.3 3.3,-1.9 -2.2,-2.3 .9,-2.4 1.4,-2.2 .5,3.2 1.6,-2 1.3,.9 1.2,-.8 v -1.7 l 3.2,-1.3 .3,-2.9 2.5,-.2 2.7,-3.7 v -.7 l -.9,-.5 -.1,-3.3 .6,-1.1 .2,1.6 1,-.5 -.2,-3.2 -.9,.3 -.1,1.2 -1.2,-1.4 .9,-1.4 .6,.1 1.1,-.4 .5,2.8 2,-.3 2.9,.7 v -1 l -1.1,-1.2 1.3,.1 .1,-2.3 .6,.8 .3,1.9 2.1,1.5 .2,-1 .9,-.2 -.3,-.8 .8,-.6 -.1,-1.6 -1.6,-.2 -2,.7 1.4,-1.6 .7,-.8 1.3,-.2 .4,1.3 1.7,1.6 .4,-2.1 2.3,-1.2 -.9,-1.3 .1,-1.7 1.1,.5 h .7 l 1.7,-1.4 .4,-2.3 2.2,.3 .1,-.7 .2,-1.6 .5,1.4 1.5,-1 2.3,-4.1 -.1,-2.2 -1.4,-2 -3,-3.2 h -1.9 l -.8,2.2 -2.9,-3 .3,-.8 v -1.5 l -1.6,-4.5 -.8,-.2 -.7,.4 h -4.8 l -.3,-3.6 -8.1,-26 -7.3,-3.7 -2.9,-.1 -6.7,6.6 -2.7,-1 -1,-3.9 h -2.7 l -6.9,19.5 .7,6.2 -1.7,2.4 -.4,4.6 1.3,3.7 .8,.2 v 1.6 l -1.6,4.5 -1.5,1.4 -1.3,2.2 -.4,7.8 -2.4,-1 -1.5,.4 z m 34.6,-24.7 -1,.8 v 1.3 l .7,-.8 .9,.8 .4,-.5 1.1,.2 -1,-.8 .4,-.8 z m -1.7,2.6 -1,1.1 .5,.4 -.1,1 h 1.1 v -1.8 z m -3,-1.6 .9,1.3 1,.5 .3,-1 v -1.8 l -1.3,-.7 -.4,1.2 z m -1,5 -1.7,-1.7 1.6,-2.4 .8,.3 .2,1.1 1,.8 v 1.1 l -1,1 z">
+<title>Maine</title></path>
+<path class="nh" d="m 862.6,93.6 -1.3,.1 -1,-1.1 -1.9,1.4 -.5,6.1 1.2,2.3 -1.1,3.5 2.1,2.8 -.4,1.7 .1,1.3 -1.1,2.1 -1.4,.4 -.6,1.3 -2.1,1 -.7,1.5 1.4,3.4 -.5,2.5 .5,1.5 -1,1.9 .4,1.9 -1.3,1.9 .2,2.2 -.7,1.1 .7,4.5 .7,1.5 -.5,2.6 .9,1.8 -.2,2.5 -.5,1.3 -.1,1.4 2.1,2.6 18.4,-3.8 1,-1.5 .3,-1.7 1.9,-.6 .5,-1.1 1.7,-1.1 1.3,.3 .8,-4.8 -2.3,-1.4 -.8,-2.2 -3.2,-2 -.6,-4 -11.9,-36.8 z">
+<title>New Hampshire</title></path>
+<path class="nj" d="m 842.5,195.4 -14.6,-4.9 -1.8,2.5 .1,2.2 -3,5.4 1.5,1.8 -.7,2 -1,1 .5,3.6 2.7,.9 1,2.8 2.1,1.1 4.2,3.2 -3.3,2.6 -1.6,2.3 -1.8,3 -1.6,.6 -1.4,1.7 -1,2.2 -.3,2.1 .8,.9 .4,2.3 1.2,.6 2.4,1.5 1.8,.8 1.6,.8 .1,1.1 .8,.1 1.1,-1.2 .8,.4 2.1,.2 -.2,2.9 .2,2.5 1.8,-.7 1.5,-3.9 1.6,-4.8 2.9,-2.8 .6,-3.5 -.6,-1.2 1.7,-2.9 v -1.2 l -.7,-1.1 1.2,-2.7 -.3,-3.6 -.6,-8.2 -1.2,-1.4 v 1.4 l .5,.6 h -1.1 l -.6,-.4 -1.3,-.2 -.9,.6 -1.2,-1.6 .7,-1.7 v -1 l 1.7,-.7 .8,-2.1 z">
+<title>New Jersey</title></path>
+<path class="ny" d="m 872.9,181.6 -1.3,.1 -.5,1 z m -30.6,22.7 .7,.6 1.3,-.3 1.1,.3 .9,-1.3 h 1.9 l 2.4,-.9 5.1,-2.1 -.5,-.5 -1.9,.8 -2,.9 .2,-.8 2.6,-1.1 .8,-1 1.2,.1 4.1,-2.3 v .7 l -4.2,3 4.5,-2.8 1.7,-2.2 1.5,-.1 4.5,-3.1 3.2,-3.1 3,-2.3 1,-1.2 -1.7,-.1 -1,1.2 -.2,.7 -.9,.7 -.8,-1.1 -1.7,1 -.1,.9 -.9,-.2 .5,-.9 -1.2,-.7 -.6,.9 .9,.3 .2,.5 -.3,.5 -1.4,2.6 h -1.9 l .9,-1.8 .9,-.6 .3,-1.7 1.4,-1.6 .9,-.8 1.5,-.7 -1.2,-.2 -.7,.9 h -.7 l -1.1,.8 -.2,1 -2.2,2.1 -.4,.9 -1.4,.9 -7.7,1.9 .2,.9 -.9,.7 -2,.3 -1,-.6 -.2,1.1 -1.1,-.4 .1,1 -1.2,-.1 -1.2,.5 -.2,1.1 h -1 l .2,1 h -.7 l .2,1 -1.8,.4 -1.5,2.3 z m -.8,-.4 -1.6,.4 v 1 l -.7,1.6 .6,.7 2.4,-2.3 -.1,-.9 z m -10.1,-95.2 -.6,1.9 1.4,.9 -.4,1.5 .5,3.2 2.2,2.3 -.4,2.2 .6,2 -.4,1 -.3,3.8 3.1,6.7 -.8,1.8 .9,2.2 .9,-1.6 1.9,1.5 3,14.2 -.5,2 1.1,1 -.5,15 .7,1 2.8,16.3 1.8,1.5 -3.5,3.4 1.7,2.2 -1.3,3.3 -1.5,1.7 -1.5,2.3 -.2,-.7 .4,-5.9 -14.6,-4.9 -1.6,-1.1 -1.9,.3 -3,-2.2 -3,-5.8 h -2 l -.4,-1.5 -1.7,-1.1 -70.5,13.9 -.8,-6 4.3,-3.9 .6,-1.7 3.9,-2.5 .6,-2.4 2.3,-2 .8,-1.1 -1.7,-3.3 -1.7,-.5 -1.8,-3 -.2,-3.2 7.6,-3.9 8.2,-1.6 h 4.4 l 3.2,1.6 .9,-.1 1.8,-1.6 3.4,-.7 h 3 l 2.6,-1.3 2.5,-2.6 2.4,-3.1 1.9,-.4 1.1,-.5 .4,-3.2 -1.4,-2.7 -1.2,-.7 2,-1.3 -.1,-1.8 h -1.5 l -2.3,-1.4 -.1,-3.1 6.2,-6.1 .7,-2.4 3.7,-6.3 5.9,-6.4 2.1,-1.7 2.5,.1 20.6,-5.2 z">
+<title>New York</title></path>
+<path class="pa" d="m 826.3,189.4 -1.9,.3 -3,-2.2 -3,-5.8 h -2 l -.4,-1.5 -1.7,-1.1 -70.5,13.9 -.8,-6 -4.2,3.4 -.9,.1 -2.7,3 -3.3,1.7 4.9,29.9 3.2,19.7 17.4,-2.9 60.5,-11.8 1.2,-2.1 1.5,-1.1 1.6,-.3 1.6,.6 1.4,-1.7 1.6,-.6 1.8,-3 1.6,-2.3 3.3,-2.6 -4.2,-3.2 -2.1,-1.1 -1,-2.8 -2.7,-.9 -.5,-3.6 1,-1 .7,-2 -1.5,-1.8 3,-5.4 -.1,-2.2 1.8,-2.5 z">
+<title>Pennsylvania</title></path>
+<path class="ri" d="m 883.2,170.7 -1.3,-1.1 -2.6,-1.3 -.6,-2.2 h -.8 l -.7,-2.6 -6.5,2 3.2,12.3 -.4,1.1 .4,1.8 5.6,-3.6 .1,-3 -.8,-.8 .4,-.6 -.1,-1.3 -.9,-.7 1.2,-.4 -.9,-1.6 1.8,.7 .3,1.4 .7,1.2 -1.4,-.8 1.1,1.7 -.3,1.2 -.6,-1.1 v 2.5 l .6,-.9 .4,.9 1.3,-1.5 -.2,-2.5 1.4,3.1 1,-.9 z m -4.7,12.2 h .9 l .5,-.6 -.8,-1.3 -.7,.7 z">
+<title>Rhode Island</title></path>
+<path class="vt" d="m 859.1,102.4 -1.1,3.5 2.1,2.8 -.4,1.7 .1,1.3 -1.1,2.1 -1.4,.4 -.6,1.3 -2.1,1 -.7,1.5 1.4,3.4 -.5,2.5 .5,1.5 -1,1.9 .4,1.9 -1.3,1.9 .2,2.2 -.7,1.1 .7,4.5 .7,1.5 -.5,2.6 .9,1.8 -.2,2.5 -.5,1.3 -.1,1.4 2.1,2.6 -12.4,2.7 -1.1,-1 .5,-2 -3,-14.2 -1.9,-1.5 -.9,1.6 -.9,-2.2 .8,-1.8 -3.1,-6.7 .3,-3.8 .4,-1 -.6,-2 .4,-2.2 -2.2,-2.3 -.5,-3.2 .4,-1.5 -1.4,-.9 .6,-1.9 -.8,-1.7 27.3,-6.9 z">
+<title>Vermont</title></path>
+<g class="explorer-region-map__label" transform="translate(735 113)"><rect width="175" height="50" rx="18"/><text x="87.5" y="20"><tspan x="87.5">Northeast &amp;</tspan><tspan x="87.5" dy="18">Mid-Atlantic</tspan></text></g>
+</a>
+<a class="explorer-region-map__link explorer-region-map__link--southeast" href="#find-your-workshop" role="button" aria-pressed="false" tabindex="0" aria-label="Select Southeast region" data-explorer-option data-category="region" data-slug="southeast" data-label="Southeast">
+<path class="al" d="m 643,467.4 .4,-7.3 -.9,-1.2 -1.7,-.7 -2.5,-2.8 .5,-2.9 48.8,-5.1 -.7,-2.2 -1.5,-1.5 -.5,-1.4 .6,-6.3 -2.4,-5.7 .5,-2.6 .3,-3.7 2.2,-3.8 -.2,-1.1 -1.7,-1 v -3.2 l -1.8,-1.9 -2.9,-6.1 -12.9,-45.8 -45.7,4 1.3,2 -1.3,67 4.4,33.2 .9,-.5 1.3,.1 .6,.4 .8,-.1 2,-3.8 v -2.3 l 1.1,-1.1 1.4,.5 3.4,6.4 v .9 l -3.3,2.2 3.5,-.4 4.9,-1.6 z">
+<title>Alabama</title></path>
+<path class="fl" d="m 751.7,445.1 -4,-.7 -1.7,-.9 -2.2,1.4 v 2.5 l 1.4,2.1 -.5,4.3 -2.1,.6 -1,-1.1 -.6,-3.2 -50.1,3.3 -3.3,-6 -48.8,5.1 -.5,2.9 2.5,2.8 1.7,.7 .9,1.2 -.4,7.3 -1.1,.6 .5,.4 1,-.3 .7,-.8 10.5,-2.7 9.2,-.5 8.1,1.9 8.5,5 2.4,.8 2.2,2 -.1,2.7 h 2.4 l 1.9,-1 2.5,.1 2,-.8 2.9,-2 3.1,-2.9 1.1,-.4 .6,.5 h 1.4 l .5,-.8 -.5,-1.2 -.6,-.6 .2,-.8 2,-1.1 5,-.4 .8,1 1,.1 2.3,1 3,1.8 1.2,1.7 1.1,1.2 2.8,1.4 v 2.4 l 2.8,1.9 1,.1 1.6,1.4 .7,1.6 1,.2 .8,2.1 .7,.6 1,-1.1 2.9,.1 .5,1.4 1.1,.9 v 1.3 l 2.9,2.2 .2,9.6 -1.8,5.8 1,1.2 -.2,3.4 -.8,1.4 .7,1.2 2.3,2.3 .3,1.5 .8,1 -.4,-1.9 1.3,-.6 .8,-3.6 -3,-1.2 .1,-.6 2.6,-.4 .9,2.6 1.1,.6 .1,-2 1.1,.3 .6,.8 -.1,.7 -2.9,4.2 -.2,1.1 -1.7,1.9 v 1.1 l 3.7,3.8 5.3,7.9 1.8,2.1 v 1.8 l 2.8,4.6 2.3,.6 .7,-1.2 -2.1,.3 -3,-4.5 .2,-1.4 1.5,-.8 v -1.5 l -.6,-1.3 .9,-.9 .4,.9 .7,.5 v 4 l -1.2,-.6 -.8,.9 1.4,1.6 1,2.6 1.2,-.6 2.3,1.2 2.1,2.2 1.6,5.1 3.1,4.8 .8,-1.3 2.8,-.5 3.2,1.3 .3,1.7 3.3,3.8 .1,1.1 2.2,2.7 -.7,.5 v 2.7 l 2.7,1.4 h 1.5 l 2.7,-1.8 1.5,.3 1.1,.4 2.3,-1.7 .2,-.7 1.2,.3 2.4,-1.7 1.3,-2.3 -.7,-3.2 -.2,-1.3 1.1,-4 .6,-.2 .6,1.6 .8,-1.8 -.8,-7.2 -.4,-10.5 -1,-6.8 -.7,-1.7 -6.6,-11.1 -5.2,-9.1 -2.2,-3.3 -1.3,-3.6 -.2,-3.4 .9,-.3 v -.9 l -1.1,-2.2 -4,-4 -7.6,-9.7 -5.7,-10.4 -4.3,-10.7 -.6,-3.7 -1.2,-1 -.5,-3.8 z m 9.2,134.5 1.7,-.1 -.7,-1 z m 7.3,-1.1 v -.7 l 1.6,-.2 3.7,-3.3 1.5,-.6 2.4,-.9 .3,1.3 1.7,.8 -2.6,1.2 h -2.4 l -3.9,2.5 z m 17.2,-7.6 -3,1.4 -1,1.3 1.1,.1 z m 3.8,-2.9 -1.1,.3 -1.4,2 1.1,-.2 1.5,-1.6 z m 8.3,-15.7 -1.7,5.6 -.8,1 -1,2.6 -1.2,1.6 -.7,1.7 -1.9,2.2 v .9 l 2.7,-2.8 2.4,-3.5 .6,-2 2.1,-4.9 z">
+<title>Florida</title></path>
+<path class="ga" d="m 761.8,414.1 v 1.4 l -4.2,6.2 -1.2,.2 1.5,.5 v 2 l -.9,1.1 -.6,6 -2.3,6.2 .5,2 .7,5.1 -3.6,.3 -4,-.7 -1.7,-.9 -2.2,1.4 v 2.5 l 1.4,2.1 -.5,4.3 -2.1,.6 -1,-1.1 -.6,-3.2 -50.1,3.3 -3.3,-6 -.7,-2.2 -1.5,-1.5 -.5,-1.4 .6,-6.3 -2.4,-5.7 .5,-2.6 .3,-3.7 2.2,-3.8 -.2,-1.1 -1.7,-1 v -3.2 l -1.8,-1.9 -2.9,-6.1 -12.9,-45.8 22.9,-2.9 21.4,-3 -.1,1.9 -1.9,1 -1.4,3.2 .2,1.3 6.1,3.8 2.6,-.3 3.1,4 .4,1.7 4.2,5.1 2.6,1.7 1.4,.2 2.2,1.6 1.1,2.2 2,1.6 1.8,.5 2.7,2.7 .1,1.4 2.6,2.8 5,2.3 3.6,6.7 .3,2.7 3.9,2.1 2.5,4.8 .8,3.1 4.2,.4 z">
+<title>Georgia</title></path>
+<path class="ky" d="m 692.1,322.5 -20.5,1.4 -5.2,.8 -17.4,1 -2.6,.8 -22.6,2 -.7,-.6 h -3.7 l 1.2,3.2 -.6,.9 -23.3,1.5 1,-2.7 1.4,.9 .7,-.4 1.2,-4.1 -1,-1 1,-2 .2,-.9 -1.3,-.8 -.3,-1.8 4,-3.7 6.9,3 1.5,-.3 .4,-2.4 -1.7,-1.8 .4,-3.3 1,-.5 1.2,.6 .6,-1.2 3.7,-.6 .1,-.9 -1.5,-2.2 -.1,-1.1 2.2,-2.7 0,-.9 1.1,.8 .6,-1 -.7,-1.7 4.6,-.5 .2,1.2 1.1,.2 .4,-.9 -.6,-1.3 .3,-.8 1.3,.8 1.7,-.4 1.7,.6 3.4,2.1 1.8,-2.8 3.5,-2.2 3,3.3 1.6,-2.1 .3,-2.7 3.8,-2.3 .2,1.3 1.9,1.2 3,-.2 1.2,-.7 .1,-3.4 2.5,-3.7 4.6,-4.4 -.1,-1.7 1.2,-3.8 2.2,1 6.7,-4.5 -.4,-1.7 -1.5,-2.1 1,-1.9 1.3,.5 2.2,.1 1.9,-.8 2.9,1.2 2.2,3.4 v 1 l 4.1,.7 2.3,-.2 1.9,2.1 2.2,.2 v -1 l 1.9,-.8 3,.8 1.2,.8 1.3,-.7 h .9 l .6,-1.7 3.4,-1.8 .5,.8 .8,2.9 3.5,1.4 1.2,2.1 -.1,1.1 .6,1 -.6,3.6 1.9,1.6 .8,1.1 1,.6 -.1,.9 4.4,5.6 h 1.4 l 1.5,1.8 1.2,.3 1.4,-.1 -4.9,6.6 -2.9,1 -3,3 -.4,2.2 -2.1,1.3 -.1,1.7 -1.4,1.4 -1.8,.5 -.5,1.9 -1,.4 -6.9,4.2 z m -98,11.3 -.7,-.7 .2,-1 h 1.1 l .7,.7 -.3,1 z">
+<title>Kentucky</title></path>
+<path class="ms" d="m 623.8,468.6 -5,.1 -2.4,-1.5 -7.9,2.5 -.9,-.7 -.5,.2 -.1,1.6 -.6,.1 -2.6,2.7 -.7,-.1 -.6,-.7 -1.2,-1.8 .3,-1.3 -4.8,-6.8 .9,-4.6 1,-1.4 .1,-1.4 -36,2 1.7,-11.9 2.4,-4.8 6,-8.4 -1.8,-2.5 h 2 v -3.3 l -2.4,-2.5 .5,-1.7 -1.2,-1 -1.6,-7.1 .6,-1.4 1.2,-1.5 .5,-3 -1.5,-2.3 -.5,-2.2 .9,-.7 v -.8 l -1.7,-1.1 -.1,-.7 1.6,-.9 -1.2,-1.1 1.7,-7.1 3.4,-1.6 v -.8 l -1.1,-1.4 2.9,-5.4 h 1.9 l 1.5,-1.2 -.3,-5.2 3.1,-4.5 1.8,-.6 -.5,-3.1 38.3,-2.6 1.3,2 -1.3,67 4.4,33.2 z">
+<title>Mississippi</title></path>
+<path class="nc" d="m 829,300.1 -29.1,6.1 -39.4,7.3 -29.4,3.5 v 5.2 l -1.5,-.1 -1.4,1.2 -2.4,5.2 -2.6,-1.1 -3.5,2.5 -.7,2.1 -1.5,1.2 -.8,-.8 -.1,-1.5 -.8,-.2 -4,3.3 -.6,3.4 -4.7,2.4 -.5,1.2 -3.2,2.6 -3.6,.5 -4.6,3 -.8,4.1 -1.3,.9 -1.5,-.1 -1.4,1.3 -.1,4.9 21.4,-3 4.4,-1.9 1.3,-.1 7.3,-4.3 23.2,-2.2 .4,.5 -.2,1.4 .7,.3 1.2,-1.5 3.3,3 .1,2.6 19.7,-2.8 24.5,17.1 4,-2.2 3,-.7 h 1.7 l 1.1,1.1 .8,-2 .6,-5 1.7,-3.9 5.4,-6.1 4.1,-3.5 5.4,-2.3 2.5,-.4 1.3,.4 .7,1.1 3.3,-6.6 3.3,-5.3 -.7,-.3 -4.4,6.8 -.5,-.8 2,-2.2 -.4,-1.5 -2,-.5 1,1.3 -1.2,.1 -1.2,-1.8 -1.2,2 -1.6,.2 1,-2.7 .7,-1.7 -.2,-2.9 -2.2,-.1 .9,-.9 1.1,.3 2.7,.1 .8,-.5 h 2.3 l 2,-1.9 .2,-3.2 1.3,-1.4 1.2,-.2 1.3,-1 -.5,-3.7 -2.2,-3.8 -2.7,-.2 -.9,1.6 -.5,-1 -2.7,.2 -1.2,.4 -1.9,1.2 -.3,-.4 h -.9 l -1.8,1.2 -2.6,.5 v -1.3 l .8,-1 1,.7 h 1 l 1.7,-2.1 3.7,-1.7 2,-2.2 h 2.4 l .8,1.3 1.7,.8 -.5,-1.5 -.3,-1.6 -2.8,-3.1 -.3,-1.4 -.4,1 -.9,-1.3 z m 7,31 2.7,-2.5 4.6,-3.3 v -3.7 l -.4,-3.1 -1.7,-4.2 1.5,1.4 1,3.2 .4,7.6 -1.7,.4 -3.1,2.4 -3.2,3.2 z m 1.9,-19.3 -.9,-.2 v 1 l 2.5,2.2 -.2,-1.4 z m 2.9,2.1 -1.4,-2.8 -2.2,-3.4 -2.4,-3 -2.2,-4.3 -.8,-.7 2.2,4.3 .3,1.3 3.4,5.5 1.8,2.1 z">
+<title>North Carolina</title></path>
+<path class="sc" d="m 772.3,350.2 -19.7,2.8 -.1,-2.6 -3.3,-3 -1.2,1.5 -.7,-.3 .2,-1.4 -.4,-.5 -23.2,2.2 -7.3,4.3 -1.3,.1 -4.4,1.9 -.1,1.9 -1.9,1 -1.4,3.2 .2,1.3 6.1,3.8 2.6,-.3 3.1,4 .4,1.7 4.2,5.1 2.6,1.7 1.4,.2 2.2,1.6 1.1,2.2 2,1.6 1.8,.5 2.7,2.7 .1,1.4 2.6,2.8 5,2.3 3.6,6.7 .3,2.7 3.9,2.1 2.5,4.8 .8,3.1 4.2,.4 .8,-1.5 h .6 l 1.8,-1.5 .5,-2 3.2,-2.1 .3,-2.4 -1.2,-.9 .8,-.7 .8,.4 1.3,-.4 1.8,-2.1 3.8,-1.8 1.6,-2.4 .1,-.7 4.8,-4.4 -.1,-.5 -.9,-.8 1.1,-1.5 h .8 l .4,.5 .7,-.8 h 1.3 l .6,-1.5 2.3,-2.1 -.3,-5.4 .8,-2.3 3.6,-6.2 2.4,-2.2 2.2,-1.1 z">
+<title>South Carolina</title></path>
+<path class="tn" d="m 620.9,365.1 45.7,-4 22.9,-2.9 .1,-4.9 1.4,-1.3 1.5,.1 1.3,-.9 .8,-4.1 4.6,-3 3.6,-.5 3.2,-2.6 .5,-1.2 4.7,-2.4 .6,-3.4 4,-3.3 .8,.2 .1,1.5 .8,.8 1.5,-1.2 .7,-2.1 3.5,-2.5 2.6,1.1 2.4,-5.2 1.4,-1.2 1.5,.1 0,-5.2 .3,-.7 -4.6,.5 -.2,1 -28.9,3.3 -5.6,1.4 -20.5,1.4 -5.2,.8 -17.4,1 -2.6,.8 -22.6,2 -.7,-.6 h -3.7 l 1.2,3.2 -.6,.9 -23.3,1.5 -.8,1 -.8,-.7 h -1 v 1.3 l .6,1 -.1,1 -1.4,.5 1.4,1.5 -.8,.7 -1.7,-.2 .6,1 1.2,1.1 v .7 l -1.2,.5 -1,2 .1,.6 1.4,1 -.4,.7 h -1.5 v .5 l .9,.9 .1,.8 -1.4,.2 -.5,.8 -1.6,.2 -.9,.9 .6,.9 1.1,-.1 .5,.9 -1.6,1.3 .4,1.5 -2,-.6 -.1,.7 .4,1.1 -.3,1.4 -1.3,-.8 -.8,.8 1.1,.1 .1,1.5 -.6,1 1.1,.9 -.3,1.5 .8,.7 -.7,1 -1.2,-.5 -.9,2.2 -1.6,.7 z">
+<title>Tennessee</title></path>
+<path class="va" d="m 834.7,265.4 -1.1,2.8 .5,1.1 .4,-1.1 .8,-3.1 z m -34.6,-7 -.7,-1 1,-.1 1,-.9 .4,-1.8 -.2,-.5 .1,-.5 -.3,-.7 -.6,-.5 -.4,-.1 -.5,-.4 -.6,-.6 h -1 l -.6,-.1 -.4,-.4 .1,-.5 -1.7,-.6 -.8,.3 -1.2,-.1 -.7,-.7 -.5,-.2 -.2,-.7 .6,-.8 v -.9 l -1.2,-.2 -1,-.9 -.9,.1 -1.6,-.3 -.4,.7 -.4,1.6 -.5,2.3 -10,-5.2 -.2,.9 .9,1.6 -.8,2.3 .1,2.9 -1.2,.8 -.5,2.1 -.9,.8 -1.4,1.8 -.9,.8 -1,2.5 -2.4,-1.1 -2.3,8.5 -1.3,1.6 -2.8,-.5 -1.3,-1.9 -2.3,-.7 -.1,4.7 -1.4,1.7 .4,1.5 -2.1,2.2 .4,1.9 -3.7,6.3 -1,3.3 1.5,1.2 -1.5,1.9 .1,1.4 -2.3,2 -.7,-1.1 -4.3,3.1 -1.5,-1 -.6,1.4 .8,.5 -.5,.9 -5.5,2.4 -3,-1.8 -.8,1.7 -1.9,1.8 -2.3,.1 -4.4,-2.3 -.1,-1.5 -1.5,-.7 .8,-1.2 -.7,-.6 -4.9,6.6 -2.9,1 -3,3 -.4,2.2 -2.1,1.3 -.1,1.7 -1.4,1.4 -1.8,.5 -.5,1.9 -1,.4 -6.9,4.2 28.9,-3.3 .2,-1 4.6,-.5 -.3,.7 29.4,-3.5 39.4,-7.3 29.1,-6.1 -.6,-1.2 .4,-.1 .9,.9 -.1,-1.4 -.3,-1.9 1.6,1.2 .9,2.1 v -1.3 l -3.4,-5.5 v -1.2 l -.7,-.8 -1.3,.7 .5,1.4 h -.8 l -.4,-1 -.6,.9 -.9,-1.1 -2.1,-.1 -.2,.7 1.5,2.1 -1.4,-.7 -.5,-1 -.4,.8 -.8,.1 -1.5,1.7 .3,-1.6 v -1.4 l -1.5,-.7 -1.8,-.5 -.2,-1.7 -.6,-1.3 -.6,1.1 -1.7,-1 -2,.3 .2,-.9 1.5,-.2 .9,.5 1.7,-.8 .9,.4 .5,1 v .7 l 1.9,.4 .3,.9 .9,.4 .9,1.2 1.4,-1.6 h .6 l -.1,-2.1 -1.3,1 -.6,-.9 1.5,-.2 -1.2,-.9 -1.2,.6 -.1,-1.7 -1.7,.2 -2.2,-1.1 -1.8,-2.2 3.6,2.2 .9,.3 1.7,-.8 -1.7,-.9 .6,-.6 -1,-.5 .8,-.2 -.3,-.9 1.1,.9 .4,-.8 .4,1.3 1.2,.8 .6,-.5 -.5,-.6 -.1,-2.5 -1.1,-.1 -1.6,-.8 .9,-1.1 -2,-.1 -.4,-.5 -1.4,.6 -1.4,-.8 -.5,-1.2 -2.1,-1.2 -2.1,-1.8 -2.2,-1.9 3,1.3 .9,1.2 2.1,.7 2.3,2.5 .2,-1.7 .6,1.3 2.3,.5 v -4 l -.8,-1.1 1.1,.4 .1,-1.6 -3.1,-1.4 -1.6,-.2 -1.3,-.2 .3,-1.2 -1.5,-.3 -.1,-.6 h -1.8 l -.2,.8 -.7,-1 h -2.7 l -1,-.4 -.2,-1 -1.2,-.6 -.4,-1.5 -.6,-.4 -.7,1.1 -.9,.2 -.9,.7 h -1.5 l -.9,-1.3 .4,-3.1 .5,-2.4 .6,.5 z m 21.9,11.6 .9,-.1 0,-.6 -.8,.1 z m 7.5,14.2 -1,2.7 1.2,-1.3 z m -1.8,-15.3 .7,.3 -.2,1.9 -.5,-.5 -1.3,1 1,.4 -1.8,4.4 .1,8.1 1.9,3.1 .5,-1.5 .4,-2.7 -.3,-2.3 .7,-.9 -.2,-1.4 1.2,-.6 -.6,-.5 .5,-.7 .8,1.1 -.2,1.1 -.4,3.9 1.1,-2.2 .4,-3.1 .1,-3 -.3,-2 .6,-2.3 1.1,-1.8 .1,-2.2 .3,-.9 -4.6,1.6 -.7,.8 z">
+<title>Virginia</title></path>
+<path class="wv" d="m 723.4,297.5 -.8,1.2 1.5,.7 .1,1.5 4.4,2.3 2.3,-.1 1.9,-1.8 .8,-1.7 3,1.8 5.5,-2.4 .5,-.9 -.8,-.5 .6,-1.4 1.5,1 4.3,-3.1 .7,1.1 2.3,-2 -.1,-1.4 1.5,-1.9 -1.5,-1.2 1,-3.3 3.7,-6.3 -.4,-1.9 2.1,-2.2 -.4,-1.5 1.4,-1.7 .1,-4.7 2.3,.7 1.3,1.9 2.8,.5 1.3,-1.6 2.3,-8.5 2.4,1.1 1,-2.5 .9,-.8 1.4,-1.8 .9,-.8 .5,-2.1 1.2,-.8 -.1,-2.9 .8,-2.3 -.9,-1.6 .2,-.9 10,5.2 .5,-2.3 .4,-1.6 .4,-.7 -.9,-.4 .2,-1.6 -1,-.5 -.2,-.7 h -.7 l -.8,-1.2 .2,-1 -2.6,.4 -2.2,-1.6 -1.4,.3 -.9,1.4 h -1.3 l -1.7,2.9 -3.3,.4 -1.9,-1 -2.6,3.8 -2.2,-.3 -3.1,3.9 -.9,1.6 -1.8,1.6 -1.7,-11.4 -17.4,2.9 -3.2,-19.7 -2.2,1.2 1.4,2.1 -.1,2.2 .6,2 -1.1,3.4 -.1,5.4 -1,3.6 .5,1.1 -.4,2.2 -1.1,.5 -2,3.3 -1.8,2 h -.6 l -1.8,1.7 -1.3,-1.2 -1.5,1.8 -.3,1.2 h -1.3 l -1.3,2.2 .1,2.1 -1,.5 1.4,1.1 v 1.9 l -1,.2 -.7,.8 -1,.5 -.6,-2.1 -1.6,-.5 -1,2.3 -.3,2.2 -1.1,1.3 1.3,3.6 -1.5,.8 -.4,3.5 h -1.5 l -3.2,1.4 -.1,1.1 .6,1 -.6,3.6 1.9,1.6 .8,1.1 1,.6 -.1,.9 4.4,5.6 h 1.4 l 1.5,1.8 1.2,.3 1.4,-.1 z">
+<title>West Virginia</title></path>
+<g class="explorer-region-map__label" transform="translate(650 390)"><rect width="120" height="34" rx="17"/><text x="60" y="22">Southeast</text></g>
+</a>
+</g>
+
+<g class="borders" fill="none">
+<path class="al-fl" d="m 687.6,447.4 -48.8,5.1 -.5,2.9 2.5,2.8 1.7,.7 .9,1.2 -.4,7.3 -1.1,.6"/>
+<path class="al-ga" d="m 666.6,361.1 12.9,45.8 2.9,6.1 1.8,1.9 v 3.2 l 1.7,1 .2,1.1 -2.2,3.8 -.3,3.7 -.5,2.6 2.4,5.7 -.6,6.3 .5,1.4 1.5,1.5 .7,2.2"/>
+<path class="al-ms" d="m 620.9,365.1 1.3,2 -1.3,67 4.4,33.2"/>
+<path class="al-tn" d="m 620.9,365.1 45.7,-4"/>
+<path class="ar-la" d="m 516.7,414.2 52.3,-1.3"/>
+<path class="ar-mo" d="m 591.7,344.9 -11.2,.8 2.8,-5.1 1.7,-1.5 v -2.2 l -1.6,-2.5 -39.8,2 -39.1,.7"/>
+<path class="ar-ms" d="m 569,412.9 1.2,-1.5 .5,-3 -1.5,-2.3 -.5,-2.2 .9,-.7 v -.8 l -1.7,-1.1 -.1,-.7 1.6,-.9 -1.2,-1.1 1.7,-7.1 3.4,-1.6 0,-.8 -1.1,-1.4 2.9,-5.4 h 1.9 l 1.5,-1.2 -.3,-5.2 3.1,-4.5 1.8,-.6 -.5,-3.1"/>
+<path class="ar-ok" d="m 507.9,400.5 .7,-39 -4.1,-24.4"/>
+<path class="ar-tn" d="m 582.6,367.7 1.6,-.7 .9,-2.2 1.2,.5 .7,-1 -.8,-.7 .3,-1.5 -1.1,-.9 .6,-1 -.1,-1.5 -1.1,-.1 .8,-.8 1.3,.8 .3,-1.4 -.4,-1.1 .1,-.7 2,.6 -.4,-1.5 1.6,-1.3 -.5,-.9 -1.1,.1 -.6,-.9 .9,-.9 1.6,-.2 .5,-.8 1.4,-.2 -.1,-.8 -.9,-.9 0,-.5 h 1.5 l .4,-.7 -1.4,-1 -.1,-.6"/>
+<path class="ar-tx" d="m 507.9,400.5 2.6,2.3 2.8,-1.3 3.2,.8 .2,11.9"/>
+<path class="az-ca" d="m 149,338.1 -.9,2.1 1.3,3.4 1.4,1.8 1.2,5.8 2.3,2.5 .4,1.9 -1.3,1.3 -4.8,1.7 -2.4,3.6 -1.6,7 -2.4,3.2 -1.6,.3 -1.1,6.9 1.1,1.6 1.8,.2 1,1.6 -.8,2.4 -3,2.2 -2.2,-.1"/>
+<path class="az-nm" d="m 253.8,311 -17.4,124.1"/>
+<path class="az-nv" d="m 167.6,296.8 -3.4,17.5 -2.4,2.9 h -2 l -1.2,-2.7 -3.7,-1.4 -3.5,.6 -1,13.6 .5,4.9 -.5,2.9 -1.4,3"/>
+<path class="az-ut" d="m 167.6,296.8 46.2,8.2 40,6"/>
+<path class="ca-nv" d="m 93.9,166.5 -16.4,63.1 1.1,3.5 70.4,105"/>
+<path class="ca-or" d="m 27.8,147.9 66.1,18.6"/>
+<path class="co-ks" d="m 379.4,256.3 -4.8,67"/>
+<path class="co-ne" d="m 347.7,231.8 33.1,2.4 -1.4,22.1"/>
+<path class="co-nm" d="m 253.8,311 52.6,6.5 51.7,4.8"/>
+<path class="co-ok" d="m 358.1,322.3 16.5,1"/>
+<path class="co-ut" d="m 265.3,222.7 -11.5,88.3"/>
+<path class="co-wy" d="m 265.3,222.7 44.9,5.7 37.5,3.4"/>
+<path class="ct-ma" d="m 843.8,171.3 10.5,-2.4 .5,.7 .9,-.3 0,-.7 14.9,-3.4 .1,.3"/>
+<path class="ct-ny" d="m 846.6,194.7 -1.7,-2.2 3.5,-3.4 -1.8,-1.5 -2.8,-16.3"/>
+<path class="ct-ri" d="m 870.7,165.5 3.2,12.3 -.4,1.1 .4,1.8"/>
+<path class="dc-md" d="m 801.8,254.6 1.7,-2.6 -2.6,-1.8 -1,1.7"/>
+<path class="dc-va" d="m 799.9,251.9 .5,.4 .4,.1 .6,.5 .3,.7 -.1,.5 .2,.5"/>
+<path class="de-md" d="m 817.9,230.1 7.6,27.1 10.9,-2.3"/>
+<path class="de-nj" d="m 823.8,227.2 -1,2.2 -.3,2.1"/>
+<path class="de-pa" d="m 817.9,230.1 1.2,-2.1 1.5,-1.1 1.6,-.3 1.6,.6"/>
+<path class="fl-ga" d="m 687.6,447.4 3.3,6 50.1,-3.3 .6,3.2 1,1.1 2.1,-.6 .5,-4.3 -1.4,-2.1 v -2.5 l 2.2,-1.4 1.7,.9 4,.7 3.6,-.3"/>
+<path class="ga-nc" d="m 689.5,358.2 21.4,-3"/>
+<path class="ga-sc" d="m 710.9,355.2 -.1,1.9 -1.9,1 -1.4,3.2 .2,1.3 6.1,3.8 2.6,-.3 3.1,4 .4,1.7 4.2,5.1 2.6,1.7 1.4,.2 2.2,1.6 1.1,2.2 2,1.6 1.8,.5 2.7,2.7 .1,1.4 2.6,2.8 5,2.3 3.6,6.7 .3,2.7 3.9,2.1 2.5,4.8 .8,3.1 4.2,.4"/>
+<path class="ga-tn" d="m 666.6,361.1 22.9,-2.9"/>
+<path class="ia-il" d="m 556.8,249.7 .7,-.7 .1,-2.3 -.7,-.9 1,-1.5 1.8,-.6 .9,-.3 1,-1.2 0,-2.4 1.7,-2.4 .5,-.5 .1,-3.5 -.9,-1.4 -1,-.3 -1.1,-1.6 1,-4 3,-.8 h 2.4 l 4.2,-1.8 1.7,-2.2 .1,-2.4 1.1,-1.3 1.3,-3.2 -.1,-2.6 -2.8,-3.5 -1.2,0 -.9,-1.1 .2,-1.6 -1.7,-1.7 -2.5,-1.3 .5,-.6"/>
+<path class="ia-mn" d="m 473.6,182 28.2,0 36.3,-.9 18.6,-.7"/>
+<path class="ia-mo" d="m 484.5,246.8 25.9,.1 27.2,-1.2 14.3,-.8 1.7,1.3 .6,1.6 1.1,1.1 1.5,.8"/>
+<path class="ia-ne" d="m 484.5,246.8 -1.8,-4.4 .7,-2.2 -.8,-3.3 .2,-2.9 -1.3,-.7 -.4,-6.1 -2.8,-5 -.2,-3.7 -2.2,-4.3 -1.3,-3.7 v -1.4 l -.6,-1.7 v -2.3 l -.5,-.9"/>
+<path class="ia-sd" d="m 473.5,204.2 -.7,-1.7 -.3,-1.3 -1.3,-1.2 1,-4.3 1.7,-5.1 -.7,-2 -1.3,-.4 -.4,-1.6 1,-.5 .1,-1.1 -1.3,-1.5 .1,-1.6 2.2,.1"/>
+<path class="ia-wi" d="m 567.2,202 -1.3,-2.8 -3.3,-.7 -2.7,-1.5 -2,-5.5 .1,-2.5 1.6,-3.3 -.6,-1.1 -2.1,-1.6 -.2,-2.6"/>
+<path class="id-mt" d="m 188.8,30.5 -4.8,22 3.7,7.4 -1.6,4.8 3.6,4.8 1.9,.7 3.9,8.3 v 2.1 l 2.3,3 h .9 l 1.4,2.1 h 3.2 v 1.6 l -7.1,17 -.5,4.1 1.4,.5 1.6,2.6 2.8,-1.4 3.6,-2.4 1.9,1.9 .5,2.5 -.5,3.2 2.5,9.7 2.6,3.5 2.3,1.4 .4,3 v 4.1 l 2.3,2.3 1.6,-2.3 6.9,1.6 2.1,-1.2 9,1.7 2.8,-3.3 1.8,-.6 1.2,1.8 1.6,4.1 .9,.1"/>
+<path class="id-nv" d="m 140.9,177.7 24.4,5.4 23.3,4.7"/>
+<path class="id-or" d="m 140.9,177.7 8.5,-37.3 2.9,-5.8 .4,-2.1 .8,-.9 -.9,-2 -2.9,-1.2 .2,-4.2 4,-5.8 2.5,-.8 1.6,-2.3 -.1,-1.6 1.8,-1.6 3.2,-5.5 4.2,-4.8 -.5,-3.2 -3.5,-3.1 -1.6,-3.6"/>
+<path class="id-ut" d="m 236.5,196 -47.9,-8.2"/>
+<path class="id-wa" d="m 174.6,27.5 -12.7,56.1 .7,4 -1.1,4.3"/>
+<path class="id-wy" d="m 245,141.2 -8.5,54.8"/>
+<path class="il-in" d="m 619.4,215.7 4.1,50.2 -1,5.2 v 2 l 2.4,3.5 v .7 l -.3,.9 .9,1.9 -.3,2.4 -1.6,1.8 -1.3,4.2 -3.8,5.3 -.1,7 h -1 l .9,1.9"/>
+<path class="il-ky" d="m 599.9,322.5 -.3,-1.8 4,-3.7 6.9,3 1.5,-.3 .4,-2.4 -1.7,-1.8 .4,-3.3 1,-.5 1.2,.6 .6,-1.2 3.7,-.6 .1,-.9 -1.5,-2.2 -.1,-1.1 2.2,-2.7 v -.9"/>
+<path class="il-mo" d="m 599.9,322.5 -2.8,0 -1.4,-1.5 -1.8,-3.8 v -1.9 l .8,-.6 .1,-1.3 -1.7,-1.9 -.9,-2.5 -2.7,-4.1 -4.8,-1.3 -7.4,-7.1 -.4,-2.4 2.8,-7.6 -.4,-1.9 1.2,-1.1 v -1.3 l -2.8,-1.5 -3,-.7 -3.4,1.2 -1.3,-2.3 .6,-1.9 -.7,-2.4 -8.6,-8.4 -2.2,-1.5 -2.5,-5.9 -1.2,-5.4 1.4,-3.7"/>
+<path class="il-wi" d="m 567.2,202 45.9,-2.8"/>
+<path class="in-ky" d="m 618.3,302.7 1.1,.8 .6,-1 -.7,-1.7 4.6,-.5 .2,1.2 1.1,.2 .4,-.9 -.6,-1.3 .3,-.8 1.3,.8 1.7,-.4 1.7,.6 3.4,2.1 1.8,-2.8 3.5,-2.2 3,3.3 1.6,-2.1 .3,-2.7 3.8,-2.3 .2,1.3 1.9,1.2 3,-.2 1.2,-.7 .1,-3.4 2.5,-3.7 4.6,-4.4 -.1,-1.7 1.2,-3.8 2.2,1 6.7,-4.5 -.4,-1.7 -1.5,-2.1 1,-1.9"/>
+<path class="in-mi" d="m 630.9,213.2 32.4,-3.4 .1,1.4"/>
+<path class="in-oh" d="m 670,268.4 -6.6,-57.2"/>
+<path class="ks-mo" d="m 504.3,326.3 -.5,-48.1 -3.2,-.7 -2.6,-4.7 -2.5,-2.5 .5,-2.3 2.7,-2.6 .1,-1.2 -1.5,-2.1 -.9,1 -2,-.6 -2.9,-3"/>
+<path class="ks-ne" d="m 379.4,256.3 36,2 43.7,1.2 h 32.4"/>
+<path class="ks-ok" d="m 374.6,323.3 67.7,2.9 62,.1"/>
+<path class="ky-mo" d="m 596.7,333.5 1,-2.7 1.4,.9 .7,-.4 1.2,-4.1 -1,-1 1,-2 .2,-.9 -1.3,-.8 m -5.8,11.3 -.7,-.7 .2,-1 h 1.1 l .7,.7 -.3,1"/>
+<path class="ky-oh" d="m 670,268.4 1.3,.5 2.2,.1 1.9,-.8 2.9,1.2 2.2,3.4 v 1 l 4.1,.7 2.3,-.2 1.9,2.1 2.2,.2 v -1 l 1.9,-.8 3,.8 1.2,.8 1.3,-.7 h .9 l .6,-1.7 3.4,-1.8 .5,.8 .8,2.9 3.5,1.4 1.2,2.1"/>
+<path class="ky-tn" d="m 596.7,333.5 23.3,-1.5 .6,-.9 -1.2,-3.2 h 3.7 l .7,.6 22.6,-2 2.6,-.8 17.4,-1 5.2,-.8 20.5,-1.4 5.6,-1.4 m -103.6,12.7 h 1"/>
+<path class="ky-va" d="m 697.7,321.1 6.9,-4.2 1,-.4 .5,-1.9 1.8,-.5 1.4,-1.4 .1,-1.7 2.1,-1.3 .4,-2.2 3,-3 2.9,-1 4.9,-6.6"/>
+<path class="ky-wv" d="m 709.3,279.4 -.1,1.1 .6,1 -.6,3.6 1.9,1.6 .8,1.1 1,.6 -.1,.9 4.4,5.6 h 1.4 l 1.5,1.8 1.2,.3 1.4,-.1"/>
+<path class="la-ms" d="m 569,412.9 -.6,1.4 1.6,7.1 1.2,1 -.5,1.7 2.4,2.5 v 3.3 l -2,0 1.8,2.5 -6,8.4 -2.4,4.8 -1.7,11.9 36,-2 -.1,1.4 -1,1.4 -.9,4.6 4.8,6.8 -.3,1.3 1.2,1.8 .6,.7"/>
+<path class="la-tx" d="m 516.7,414.2 .5,19.9 .7,3.4 2.6,2.8 .7,5.4 3.8,4.6 .8,4.3 h 1 l -.1,7.3 -3.3,6.4 1.3,2.3 -1.3,1.5 .7,3 -.1,4.3 -2.2,3.5 -.1,.8 -1.7,1.2 1,1.8 1.2,1.1"/>
+<path class="ma-nh" d="m 856,152.6 18.4,-3.8 1,-1.5 .3,-1.7 1.9,-.6 .5,-1.1 1.7,-1.1 1.3,.3"/>
+<path class="ma-ny" d="m 843.8,171.3 -.7,-1 .5,-15"/>
+<path class="ma-ri" d="m 870.7,165.5 6.5,-2 .7,2.6 h .8 l .6,2.2 2.6,1.3 1.3,1.1 1.4,3"/>
+<path class="ma-vt" d="m 843.6,155.3 12.4,-2.7"/>
+<path class="md-pa" d="m 757.4,241.9 60.5,-11.8"/>
+<path class="md-va" d="m 822.9,269.3 -.8,.1 m 13.2,-4.3 -.6,.3 m -1.3,.2 -4.6,1.6 -.7,.8 m -28.2,-16.1 -.6,-.6 h -1 l -.6,-.1 -.4,-.4 .1,-.5 -1.7,-.6 -.8,.3 -1.2,-.1 -.7,-.7 -.5,-.2 -.2,-.7 .6,-.8 v -.9 l -1.2,-.2 -1,-.9 -.9,.1 -1.6,-.3 m 11.6,13.5 .3,-.4 -.7,-1 1,-.1 1,-.9 .4,-1.8"/>
+<path class="md-wv" d="m 757.4,241.9 1.7,11.4 1.8,-1.6 .9,-1.6 3.1,-3.9 2.2,.3 2.6,-3.8 1.9,1 3.3,-.4 1.7,-2.9 h 1.3 l .9,-1.4 1.4,-.3 2.2,1.6 2.6,-.4 -.2,1 .8,1.2 h .7 l .2,.7 1,.5 -.2,1.6 .9,.4"/>
+<path class="me-nh" d="m 881.9,138.3 -2.3,-1.4 -.8,-2.2 -3.2,-2 -.6,-4 -11.9,-36.8"/>
+<path class="mi-oh" d="m 663.4,211.2 21.4,-3.5"/>
+<path class="mi-wi" d="m 565.6,112.3 1.9,.7 3,3.8 17,3.8 1.4,1 4,.8 .7,.5 2.8,-.2 4.9,.8 1.4,1.5 -1,1 .8,.8 3.8,.7 1.2,1.2 .1,4.4 -1.3,2.8 2,.1 1,-.8 .9,.8 -1.1,3.1 1,1.6 1.2,.3"/>
+<path class="mn-nd" d="m 462.3,61.3 2.4,7.3 -1.1,2.8 .8,1.4 -.3,5.1 -.5,1.1 2.7,9.1 1.3,2.5 .7,14 1,2.7 -.4,5.8 2.9,7.4 .3,5.8 -.1,2.1"/>
+<path class="mn-sd" d="m 473.6,182 .2,-39.5 -1.5,-1.9 -2.6,-.6 -.4,-1.8 -1.7,-2.5 .3,-1.2 3.1,-1.9 .9,-2 .1,-2.2"/>
+<path class="mn-wi" d="m 556.7,180.4 -1.1,-4.5 -.2,-3 -2.2,-3 -2.8,-.7 -5.2,-3.6 -.6,-3.3 -6.3,-3.1 -.2,-1.3 -3.3,0 -2.2,-2.6 -2,-1.3 .7,-5.1 -.9,-1.6 .5,-5.4 1,-1.8 -.3,-2.7 -1.2,-1.3 -1.8,-.3 v -1.7 l 2.8,-5.8 5.9,-3.9 -.4,-13 .9,.4 .6,-.5 .1,-1.1 .9,-.6 1.4,1.2 .7,-.1"/>
+<path class="mo-ne" d="m 491.5,259.5 -3.9,-6.3 -2.1,-3.7 .3,-1.4 -1.3,-1.3"/>
+<path class="mo-ok" d="m 504.3,326.3 .2,10.8"/>
+<path class="mo-tn" d="m 591.7,344.9 1,-2 1.2,-.5 v -.7 l -1.2,-1.1 -.6,-1 1.7,.2 .8,-.7 -1.4,-1.5 1.4,-.5 .1,-1 -.6,-1 0,-1.3 m 1,0 .8,.7 .8,-1"/>
+<path class="ms-tn" d="m 582.6,367.7 38.3,-2.6"/>
+<path class="mt-nd" d="m 362.5,56.3 -5.2,66.7"/>
+<path class="mt-sd" d="m 357.3,123 -2,20.7"/>
+<path class="mt-wy" d="m 355.3,143.7 -51,-5.3 -57.3,-7.9 -2,10.7"/>
+<path class="nc-sc" d="m 710.9,355.2 4.4,-1.9 1.3,-.1 7.3,-4.3 23.2,-2.2 .4,.5 -.2,1.4 .7,.3 1.2,-1.5 3.3,3 .1,2.6 19.7,-2.8 24.5,17.1"/>
+<path class="nc-tn" d="m 731.1,317 0,5.2 -1.5,-.1 -1.4,1.2 -2.4,5.2 -2.6,-1.1 -3.5,2.5 -.7,2.1 -1.5,1.2 -.8,-.8 -.1,-1.5 -.8,-.2 -4,3.3 -.6,3.4 -4.7,2.4 -.5,1.2 -3.2,2.6 -3.6,.5 -4.6,3 -.8,4.1 -1.3,.9 -1.5,-.1 -1.4,1.3 -.1,4.9"/>
+<path class="nc-va" d="m 731.1,317 29.4,-3.5 39.4,-7.3 29.1,-6.1"/>
+<path class="nd-sd" d="m 357.3,123 39.2,2.9 46,2.1 29.5,.4"/>
+<path class="ne-sd" d="m 351.4,187.6 51.1,3.5 38,1.6 3.4,3.2 1.7,.2 2.1,2 1.8,-.1 1.8,-2 1.5,.6 1,-.7 .7,.5 .9,-.4 .7,.4 .9,-.4 1,.5 1.4,-.6 2,.6 .6,1.1 6.1,2.2 1.2,1.3 .9,2.6 1.8,.7 1.5,-.2"/>
+<path class="ne-wy" d="m 347.7,231.8 3.7,-44.2"/>
+<path class="nh-vt" d="m 857.9,100.1 1.2,2.3 -1.1,3.5 2.1,2.8 -.4,1.7 .1,1.3 -1.1,2.1 -1.4,.4 -.6,1.3 -2.1,1 -.7,1.5 1.4,3.4 -.5,2.5 .5,1.5 -1,1.9 .4,1.9 -1.3,1.9 .2,2.2 -.7,1.1 .7,4.5 .7,1.5 -.5,2.6 .9,1.8 -.2,2.5 -.5,1.3 -.1,1.4 2.1,2.6"/>
+<path class="nj-ny" d="m 827.9,190.5 14.6,4.9 -.4,5.9"/>
+<path class="nj-pa" d="m 823.8,227.2 1.4,-1.7 1.6,-.6 1.8,-3 1.6,-2.3 3.3,-2.6 -4.2,-3.2 -2.1,-1.1 -1,-2.8 -2.7,-.9 -.5,-3.6 1,-1 .7,-2 -1.5,-1.8 3,-5.4 -.1,-2.2 1.8,-2.5"/>
+<path class="nm-ok" d="m 358.1,322.3 -.6,10.6"/>
+<path class="nm-tx" d="m 284.3,431.2 -2,-2.2 .3,-3 34.4,3.6 31.8,2.6 7.9,-99.3 .8,0"/>
+<path class="nv-or" d="m 93.9,166.5 47,11.2"/>
+<path class="nv-ut" d="m 188.6,187.8 -21,109"/>
+<path class="ny-pa" d="m 827.9,190.5 -1.6,-1.1 -1.9,.3 -3,-2.2 -3,-5.8 h -2 l -.4,-1.5 -1.7,-1.1 -70.5,13.9 -.8,-6"/>
+<path class="ny-vt" d="m 843.6,155.3 -1.1,-1 .5,-2 -3,-14.2 -1.9,-1.5 -.9,1.6 -.9,-2.2 .8,-1.8 -3.1,-6.7 .3,-3.8 .4,-1 -.6,-2 .4,-2.2 -2.2,-2.3 -.5,-3.2 .4,-1.5 -1.4,-.9 .6,-1.9 -.8,-1.7"/>
+<path class="oh-pa" d="m 736.8,225.1 -4.9,-29.9"/>
+<path class="oh-wv" d="m 709.3,279.4 3.2,-1.4 h 1.5 l .4,-3.5 1.5,-.8 -1.3,-3.6 1.1,-1.3 .3,-2.2 1,-2.3 1.6,.5 .6,2.1 1,-.5 .7,-.8 1,-.2 v -1.9 l -1.4,-1.1 1,-.5 -.1,-2.1 1.3,-2.2 h 1.3 l .3,-1.2 1.5,-1.8 1.3,1.2 1.8,-1.7 h .6 l 1.8,-2 2,-3.3 1.1,-.5 .4,-2.2 -.5,-1.1 1,-3.6 .1,-5.4 1.1,-3.4 -.6,-2 .1,-2.2 -1.4,-2.1 2.2,-1.2"/>
+<path class="ok-tx" d="m 357.5,332.9 52.6,3.2 -1.4,42.7 2.7,1.3 2.5,3 1.5,.3 1.1,-1 1.2,.4 1.4,1 1.1,-1.5 2.3,1.7 .5,2.9 1.2,.7 2.3,-.1 3.5,1.9 2,-.1 1.4,-.4 2.3,2.2 2,-2.3 3.5,1.1 1.9,3 2.3,-.1 -.7,2.1 2.3,1.1 3,-2.6 2.6,1.7 1.3,-.5 .1,1.5 1.7,1.2 2.3,-2.5 1.2,.7 -.3,2 1,1.8 1.2,-.8 2.5,-4.2 1.8,2 2,.5 2.1,-.7 2,1.8 1.2,-.1 1.3,1.2 3.6,-.9 .6,-1.7 3.7,-.3 1.6,.7 5,-2.5 .6,1.5 5.1,-.3 .5,-1.6 2.2,.9 4.6,3.8 6.4,1.9"/>
+<path class="or-wa" d="m 161.5,91.9 -30.3,-7.3 -2.8,1 -5.4,-.9 -1.8,-.9 -1.5,1.2 -3.3,-.4 -4.5,.5 -.9,.7 -4.2,-.4 -.8,-1.6 -1.2,-.2 -4.4,1.3 -1.6,-1.1 -2.2,.8 -.2,-1.8 -2.3,-1.2 -1.5,-.2 -1,-1.1 -3,.3 -1.2,-.8 h -1.2 l -1.2,.9 -5.5,.7 -6.6,-4.2 1.1,-5.6 -.4,-4.1 -3.2,-3.7 -3.7,.1 -.4,-1.1 .4,-1.2 -.7,-.8 -1,.1"/>
+<path class="pa-wv" d="m 736.8,225.1 3.2,19.7 17.4,-2.9"/>
+<path class="sd-wy" d="m 351.4,187.6 3.9,-43.9"/>
+<path class="tn-va" d="m 697.7,321.1 28.9,-3.3 .2,-1 4.6,-.5 -.3,.7"/>
+<path class="ut-wy" d="m 236.5,196 -3.3,21.9 32.1,4.8"/>
+<path class="va-wv" d="m 722.7,296.9 .7,.6 -.8,1.2 1.5,.7 .1,1.5 4.4,2.3 2.3,-.1 1.9,-1.8 .8,-1.7 3,1.8 5.5,-2.4 .5,-.9 -.8,-.5 .6,-1.4 1.5,1 4.3,-3.1 .7,1.1 2.3,-2 -.1,-1.4 1.5,-1.9 -1.5,-1.2 1,-3.3 3.7,-6.3 -.4,-1.9 2.1,-2.2 -.4,-1.5 1.4,-1.7 .1,-4.7 2.3,.7 1.3,1.9 2.8,.5 1.3,-1.6 2.3,-8.5 2.4,1.1 1,-2.5 .9,-.8 1.4,-1.8 .9,-.8 .5,-2.1 1.2,-.8 -.1,-2.9 .8,-2.3 -.9,-1.6 .2,-.9 10,5.2 .5,-2.3 .4,-1.6 .4,-.7"/>
+</g>
+
+<circle class="state borders dccircle dc" cx="801.6" cy="252.1" r="5">
+<title>District of Columbia</title></circle>
+
+<path class="separator1" fill="none" d="m 215,493 v 55 l 36,45 m -251,-168 h 147 l 68,68 h 85 l 54,54 v 46"/>
+
+<g class="explorer-region-map__labels" aria-hidden="true">
+<g class="explorer-region-map__label" data-region-label="west-coast" transform="translate(83 252)"><rect width="110" height="34" rx="17"/><text x="55" y="22">West Coast</text></g>
+<g class="explorer-region-map__label" data-region-label="mountain-west" transform="translate(225 248)"><rect width="140" height="34" rx="17"/><text x="70" y="22">Mountain West</text></g>
+<g class="explorer-region-map__label" data-region-label="midwest-south-central" transform="translate(448 327)"><rect width="170" height="50" rx="18"/><text x="85" y="20"><tspan x="85">Midwest &amp;</tspan><tspan x="85" dy="18">South Central</tspan></text></g>
+<g class="explorer-region-map__label" data-region-label="northeast-mid-atlantic" transform="translate(735 113)"><rect width="175" height="50" rx="18"/><text x="87.5" y="20"><tspan x="87.5">Northeast &amp;</tspan><tspan x="87.5" dy="18">Mid-Atlantic</tspan></text></g>
+<g class="explorer-region-map__label" data-region-label="southeast" transform="translate(650 390)"><rect width="120" height="34" rx="17"/><text x="60" y="22">Southeast</text></g>
+</g>
+
+</svg>
+              </div>
+            </figure>
+          </details>
+
+          <div class="workshop-explorer__map-refiner" data-explorer-map-refiner hidden>
+            <div class="workshop-explorer__map-refiner-heading">
+              <div>
+                <strong>Refine Your Workshop</strong>
+                <span>Optional—continue anytime</span>
+              </div>
+            </div>
+            <div class="workshop-explorer__map-refiner-row">
+              <span>Audience</span>
+              <div role="group" aria-label="Choose an audience">
+                
+                <button type="button" data-explorer-option data-category="audience"
+                  data-slug="middle-school" aria-pressed="false">
+                  Middle School
+                </button>
+                
+                <button type="button" data-explorer-option data-category="audience"
+                  data-slug="high-school" aria-pressed="false">
+                  High School
+                </button>
+                
+                <button type="button" data-explorer-option data-category="audience"
+                  data-slug="college-university" aria-pressed="false">
+                  College & University
+                </button>
+                
+                <button type="button" data-explorer-option data-category="audience"
+                  data-slug="adult-professional" aria-pressed="false">
+                  Adult & Professional
+                </button>
+                
+                <button type="button" data-explorer-option data-category="audience"
+                  data-slug="mixed-age" aria-pressed="false">
+                  Mixed-Age Group
+                </button>
+                
+              </div>
+            </div>
+            <div class="workshop-explorer__map-refiner-row">
+              <span>Workshop</span>
+              <div role="group" aria-label="Choose a workshop">
+                <button type="button" data-explorer-option data-category="workshop"
+                  data-slug="all" aria-pressed="true">All Workshops</button>
+                
+                <button type="button" data-explorer-option data-category="workshop"
+                  data-slug="artificial-intelligence" aria-pressed="false">
+                  Artificial Intelligence
+                </button>
+                
+                <button type="button" data-explorer-option data-category="workshop"
+                  data-slug="robotics-drone" aria-pressed="false">
+                  Robotics
+                </button>
+                
+                <button type="button" data-explorer-option data-category="workshop"
+                  data-slug="mechanical-engineering" aria-pressed="false">
+                  Mechanical Engineering
+                </button>
+                
+                <button type="button" data-explorer-option data-category="workshop"
+                  data-slug="web-development" aria-pressed="false">
+                  Web Engineering
+                </button>
+                
+              </div>
+            </div>
+
+            <article class="workshop-explorer__result" data-explorer-result-card>
+              <div class="workshop-explorer__result-main">
+                <div class="workshop-explorer__result-copy" aria-live="polite" aria-atomic="true">
+                  <span class="workshop-explorer__result-label">Your selection</span>
+                  <h3 class="workshop-explorer__result-heading" tabindex="-1" data-explorer-result-heading>
+                    Choose a Region
+                  </h3>
+                </div>
+                <div class="workshop-explorer__chips" data-explorer-chips></div>
+              </div>
+              <a class="workshop-explorer__result-cta is-disabled" href="#find-your-workshop"
+                data-explorer-result-cta aria-disabled="true">
+                Select a Region
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+            
+<section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding">
+    <div class="container" id="ai">
+
+<div class="our-workshops-header">
+    <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
+    <h2 class="workshop-title our-workshops-title" style="text-align: center; margin-bottom: 0; color: #434343; font-family: 'Roboto', sans-serif; font-weight: 400; cursor: default;" data-i18n="home.workshopsHeading">Our workshops</h2>
+    <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
+</div>
+
+<!-- First Workshop Box -->  
+<div class="row align-items-stretch workshop-cards-row">
+    <div class="workshop-card-col text-center">
+        <a href="ai-workshop.html" class="workshop-main-button workshop-main-button--ai">
+
+            <!-- Title Section -->
+            <h2 class="main-button-title-text" data-i18n="home.cardAi.title">Artificial Intelligence</h2>
+            <br/>
+
+            <!-- Image Section -->
+            <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
+                </div>
+
+                <!-- Container to hold both the cloud and the image -->
+                <div
+                  style="
+                    position: absolute;
+                    top: 28%;
+                    left: 37%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                  "
+                >
+                  <!-- 'Cloud' element: a white circle at 50% opacity, with some blur to soften edges -->
+                  <div
+                    style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+
+                  <!-- Rocket image on top of the cloud -->
+                  <img
+                    src="img/nn-nobg.png"
+                    alt="Rocket Image"
+                    style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;"
+                  />
+                </div>
+            </div>
+
+            <!-- Text Section with h3 Title added -->
+            <div class="workshop-card-copy">
+                <h3 data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
+                <h3 data-i18n-html="home.cardAi.line2">Use the latest AI models:
+                    <ul>
+                        <li><em>text, image, and music</em></li>
+                    </ul></h3>
+                <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
+            </div>
+            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+
+        </a>
+    </div>
+
+
+
+<!-- Second Workshop Box -->
+<style>
+    @keyframes droneCodeScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .drone-code-scroll-box {
+        overflow: hidden;
+    }
+    .drone-code-scroll-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('img/drone-code.png');
+        background-size: 200px auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: droneCodeScrollDown 50s linear infinite;
+        opacity: 0.5;
+        z-index: 0;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    /* Drone flight animations - 4 set paths */
+    @keyframes dronePath1 {
+        0% { transform: translate(-400%, 400%); }
+        100% { transform: translate(400%, -400%); }
+    }
+    @keyframes dronePath2 {
+        0% { transform: translate(-400%, -400%); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath3 {
+        0% { transform: translate(-400%, 0); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath4 {
+        0% { transform: translate(0, -600%); }
+        100% { transform: translate(-400%, 400%); }
+    }
+    @keyframes droneContainerFadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .drone-flight-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 85px;
+        bottom: 120px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        animation: droneContainerFadeIn 0.3s ease-out 2.5s forwards;
+    }
+    .drone-flight-container img {
+        position: absolute;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+    }
+    .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
+    .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
+    .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
+    .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
+</style>
+<div class="workshop-card-col text-center">
+    <a href="robotics-workshop.html" class="workshop-main-button workshop-main-button--robotics" style="position: relative;">
+
+        <!-- White square behind image (lowest z) with scrolling drone-code.png -->
+        <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 85px; bottom: 120px; background: white; border-radius: 8px; z-index: 0;"></div>
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text" data-i18n-html="home.cardRobotics.title">Robotics<br>Drone</h2>
+        <br/>
+
+        <!-- Image Section -->
+        <div class="workshop-card-visual workshop-card-visual--robotics" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
+            <img src="img/drone-circuit.png"
+                 alt="Drone Circuit" data-i18n-alt="home.cardRobotics.imageAlt"
+                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
+        </div>
+
+        <!-- Drone flights across the box -->
+        <div class="drone-flight-container">
+            <img src="img/drone.png" alt="" class="drone-path1">
+            <img src="img/drone.png" alt="" class="drone-path2">
+            <img src="img/drone.png" alt="" class="drone-path3">
+            <img src="img/drone.png" alt="" class="drone-path4">
+        </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
+    <h3 data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
+    <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
+</div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+
+    </a>
+</div>
+
+
+
+
+<!-- Third Workshop Box -->
+<div class="workshop-card-col text-center">
+    <a href="rocket-workshop.html" class="workshop-main-button workshop-main-button--mechanical">
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text" data-i18n="home.cardMechanical.title">Mechanical Engineering</h2>
+        <br/>
+
+             <!-- Video Section -->
+             <div class="workshop-card-media workshop-card-visual workshop-card-visual--mechanical">
+                <video class="workshop-card-video" autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
+                    <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                </video>
+
+                <img src="img/rocket-assem-iso.png"
+            alt="Rocket Image"
+            class="workshop-card-rocket-overlay">
+                
+            </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
+    <h3 data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
+    <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
+</div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+
+        
+    </a>
+</div>
+
+
+
+
+<!-- Fourth Workshop Box -->
+<div class="workshop-card-col text-center">
+    <a href="ai-website-workshop.html" class="workshop-main-button workshop-main-button--website">
+
+        <!-- Title Section -->
+        <h2 class="main-button-title-text" data-i18n-html="home.cardWebsite.title">Web<br>Development</h2>
+        <br/>
+
+        <!-- Image Section -->
+        <div class="workshop-card-visual workshop-card-visual--website" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+            <img src="img/ai-website-mockup.svg"
+                 alt="Website built during the workshop" data-i18n-alt="home.cardWebsite.imageAlt"
+                 style="width: 200px; height: 200px; object-fit: contain;">
+        </div>
+
+<!-- Text Section with h3 Title added -->
+<div class="workshop-card-copy">
+    <h3 data-i18n="home.cardWebsite.line1">Build a real website</h3>
+    <h3 data-i18n="home.cardWebsite.line2">Code with an AI assistant</h3>
+    <h3 data-i18n="home.cardWebsite.line3">Publish it live on the web</h3>
+</div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+
+    </a>
+</div>
+</div>
+
+<div class="participants-plan-row">
+    <section class="participants-feedback" aria-label="Participant feedback">
+        <div class="participants-feedback__head">
+            <h3 class="participants-feedback__title" data-i18n="home.feedbackHeading">Feedback</h3>
+            <span class="participants-feedback__eyebrow" data-i18n="home.participantsHeading">What Participants Say</span>
+            <a class="participants-feedback__more" href="feedback.html">
+                <span data-i18n="home.moreFeedback">More Feedback</span>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="participants-feedback__stage">
+            <div class="feedback-quotes feedback-quotes--top">
+                <div class="feedback-stack feedback-stack--mid" data-feedback-band="1"></div>
+                <div class="feedback-stack feedback-stack--narrow" data-feedback-band="0"></div>
+            </div>
+            <div class="feedback-rail feedback-rail--charts">
+                <div class="feedback-rail__track" data-feedback-track="chart"></div>
+            </div>
+            <div class="feedback-quotes feedback-quotes--bottom">
+                <div class="feedback-stack feedback-stack--wide" data-feedback-band="2"></div>
+            </div>
+        </div>
+    </section>
+  </div>
+
+<script>
+(function () {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("mode") === "plan" || window.location.hash === "#plan-workshop-form" || window.location.hash === "#workshop-finder") {
+        params.delete("mode");
+        var query = params.toString();
+        window.location.replace("/plan-a-workshop/" + (query ? "?" + query : ""));
+    }
+})();
+</script>
+
+<script>
+// Feedback panel: the survey charts drift along a rail through the middle, with
+// quotes above and below it. A quote box holds one quote at a time and dissolves
+// into the next on a clock of its own, counted out by the line along its foot, so
+// the boxes never turn over together. Pointing at anything holds it, the charts can
+// be dragged along by hand, and a chart opens at full size.
+(function () {
+    var panel = document.querySelector(".participants-feedback");
+    var title = panel ? panel.querySelector(".participants-feedback__title") : null;
+    var eyebrow = panel ? panel.querySelector(".participants-feedback__eyebrow") : null;
+    var chartRail = panel ? panel.querySelector(".feedback-rail--charts") : null;
+    var stacks = panel ? panel.querySelectorAll("[data-feedback-band]") : [];
+    var quotes = window.SOParticipantQuotes || [];
+    if (!panel || !chartRail || !stacks.length || !quotes.length) return;
+
+    var chartTrack = chartRail.querySelector(".feedback-rail__track");
+
+    var CHARTS = ["img/feedback1.png", "img/feedback2.png", "img/feedback3.png", "img/feedback4.png"];
+    // Pixels a second, measured rather than timed, so the charts travel at the
+    // same pace whatever is on the rail. Slow enough to read on the way past.
+    var CHART_SPEED = 22;
+    // A pointer that travelled further than this was dragging the rail rather
+    // than clicking the chart underneath it.
+    var DRAG_SLOP = 6;
+    // How long a quote stays up. Every box is given a pace of its own, a step
+    // slower than the box before it, and draws a fresh figure within that pace each
+    // time it turns over: the boxes are never in step, and none of them keeps time
+    // for long enough to be predictable. The box holding the longest quotes comes
+    // out slowest, which is also the one that takes longest to read.
+    var HOLD_MIN_MS = 6500;
+    var HOLD_STEP_MS = 5200;
+    var HOLD_SPAN_MS = 3200;
+    // The quote on show clears out before its replacement arrives: two quotes
+    // fading through each other read as one unreadable paragraph. The slower boxes
+    // take longer over it, so they change at a different speed as well as on a
+    // different clock. The stylesheet holds the figure for the first box.
+    var FADE_MIN_MS = 700;
+    var FADE_STEP_MS = 250;
+
+    var started = false;
+    var lastFrame = 0;
+    var reduceMotion = !!(window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    // Dictionaries return null for English and for anything they are missing.
+    function phrase(key, fallback) {
+        var value = window.SOI18n ? window.SOI18n.t(key) : null;
+        return value || fallback;
+    }
+
+    // Japanese translates both headings to the same phrase, and printing it
+    // twice side by side reads like a mistake. Clearing the inline value hands
+    // the decision back to the stylesheet, which hides it on small screens.
+    function syncEyebrow() {
+        if (!title || !eyebrow) return;
+        var same = eyebrow.textContent.trim() === title.textContent.trim();
+        eyebrow.style.display = same ? "none" : "";
+    }
+
+    function quoteAt(index) {
+        var quote = quotes[index];
+        var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+        if (translated && typeof translated[index] === "string") {
+            return { text: translated[index], meta: quote.meta };
+        }
+        return quote;
+    }
+
+    // Every quote is set at the same size, and its box is only as big as its own
+    // words need, the way the quotes over the hero image are.
+    function buildQuote(index) {
+        var quote = quoteAt(index);
+        var card = document.createElement("figure");
+        card.className = "feedback-card feedback-card--quote";
+
+        var block = document.createElement("blockquote");
+        block.className = "feedback-quote";
+        var text = document.createElement("p");
+        text.className = "feedback-quote__text";
+        text.textContent = quote.text;
+        block.appendChild(text);
+
+        var meta = document.createElement("figcaption");
+        meta.className = "feedback-quote__meta";
+        meta.textContent = quote.meta;
+
+        // Its own countdown along the foot of the box.
+        var timer = document.createElement("span");
+        timer.className = "feedback-quote__timer";
+        var fill = document.createElement("span");
+        fill.className = "feedback-quote__timer-fill";
+        timer.appendChild(fill);
+
+        card.appendChild(block);
+        card.appendChild(meta);
+        card.appendChild(timer);
+        return card;
+    }
+
+    // Charts are 817px wide at source and around half that on the rail, so the
+    // card is a button: it opens the chart at full size where the numbers along
+    // the axis can actually be read.
+    function buildChart(index) {
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "feedback-card feedback-card--chart";
+        card.setAttribute("aria-label", phrase("home.feedbackNav.expand", "View full size"));
+
+        var image = document.createElement("img");
+        image.className = "feedback-chart__image";
+        image.src = CHARTS[index];
+        image.alt = "";
+
+        card.appendChild(image);
+        card.addEventListener("click", function () {
+            openViewer(index, card);
+        });
+        return card;
+    }
+
+    // The boxes are of different widths, so the library is split into as many
+    // bands by length: the longest quotes go to the widest box and the shortest to
+    // the narrowest, which is what lets every box hold its quotes at the one type
+    // size without growing. Length is taken from the English wording, so a quote
+    // keeps its box in whichever language it is read.
+    var byLength = [];
+    for (var n = 0; n < quotes.length; n++) byLength.push(n);
+    byLength.sort(function (a, b) {
+        return quotes[a].text.length - quotes[b].text.length;
+    });
+
+    function band(index, count) {
+        var size = Math.ceil(byLength.length / count);
+        return byLength.slice(index * size, (index + 1) * size);
+    }
+
+    function nextWait(box) {
+        return HOLD_MIN_MS + box.pace * HOLD_STEP_MS + Math.random() * HOLD_SPAN_MS;
+    }
+
+    var boxes = [];
+    for (var b = 0; b < stacks.length; b++) {
+        // The bands run from the shortest quotes to the longest, so the band a box
+        // was given is also how slowly it should read.
+        var pace = parseInt(stacks[b].getAttribute("data-feedback-band"), 10) || 0;
+        var pool = band(pace, stacks.length);
+        var box = {
+            el: stacks[b],
+            pool: pool,
+            pace: pace,
+            fadeMs: FADE_MIN_MS + pace * FADE_STEP_MS,
+            cards: [],
+            fills: [],
+            // Opens somewhere at random, so the panel does not always start on
+            // the same three quotes.
+            at: Math.floor(Math.random() * pool.length),
+            // Part way through its first wait already, so the boxes do not all
+            // change for the first time within a second of each other.
+            elapsed: b * 2800,
+            wait: 0,
+            fade: null
+        };
+        box.wait = nextWait(box);
+        boxes.push(box);
+    }
+
+    // Every quote of the band is printed and left where it is, one on show and the
+    // rest transparent. Stacked in the one grid cell they give the box the height
+    // of its longest quote, so the box holds still as it turns over while each
+    // quote inside it still takes only the room its own words need.
+    function fillStack(box) {
+        while (box.el.firstChild) box.el.removeChild(box.el.firstChild);
+        box.cards = [];
+        box.fills = [];
+        for (var i = 0; i < box.pool.length; i++) {
+            var card = buildQuote(box.pool[i]);
+            // Left to the stylesheet for anyone who asked for less motion, which
+            // takes every box down to the one short fade.
+            if (!reduceMotion) card.style.transitionDuration = box.fadeMs + "ms";
+            if (i === box.at) card.classList.add("is-visible");
+            else card.setAttribute("aria-hidden", "true");
+            box.el.appendChild(card);
+            box.cards.push(card);
+            box.fills.push(card.querySelector(".feedback-quote__timer-fill"));
+        }
+    }
+
+    function dissolve(box) {
+        box.elapsed = 0;
+        box.wait = nextWait(box);
+        if (box.cards.length < 2) return;
+
+        var leaving = box.cards[box.at];
+        box.at = (box.at + 1) % box.cards.length;
+        var arriving = box.cards[box.at];
+        leaving.classList.remove("is-visible");
+        leaving.setAttribute("aria-hidden", "true");
+
+        if (box.fade) window.clearTimeout(box.fade);
+        box.fade = window.setTimeout(function () {
+            box.fade = null;
+            arriving.classList.add("is-visible");
+            arriving.removeAttribute("aria-hidden");
+        }, box.fadeMs);
+    }
+
+    // The line along the foot of the quote on show, filled to the part of the wait
+    // that has gone.
+    function drawTimer(box) {
+        var fill = box.fills ? box.fills[box.at] : null;
+        if (!fill) return;
+        var part = box.wait > 0 ? Math.min(1, box.elapsed / box.wait) : 0;
+        fill.style.transform = "scaleX(" + part + ")";
+    }
+
+    // One frame loop runs all three boxes, so a tab left in the background stops
+    // them together rather than letting them run on out of sight.
+    function frame(now) {
+        var delta = lastFrame ? now - lastFrame : 0;
+        lastFrame = now;
+        // A tab that was in the background hands back one huge delta.
+        var running = !panel.classList.contains("is-offscreen") && !viewerOpen() &&
+            delta > 0 && delta < 1000;
+
+        for (var i = 0; i < boxes.length; i++) {
+            var box = boxes[i];
+            // A box being read is left alone until the pointer moves off it.
+            var held = !running || box.el.matches(":hover");
+            box.el.classList.toggle("is-held", held);
+            if (!held) {
+                box.elapsed += delta;
+                if (box.elapsed >= box.wait) dissolve(box);
+            }
+            drawTimer(box);
+        }
+
+        window.requestAnimationFrame(frame);
+    }
+
+    // The rail carries the charts twice over. The drift runs the track along by
+    // half its width, which lands exactly on the start of the second copy, so the
+    // join never shows. That copy is kept away from screen readers and the tab
+    // order, which would otherwise meet every chart twice.
+    function fillTrack(track, count, build) {
+        while (track.firstChild) track.removeChild(track.firstChild);
+        for (var copy = 0; copy < 2; copy++) {
+            var run = document.createElement("div");
+            run.className = "feedback-rail__run";
+            for (var i = 0; i < count; i++) run.appendChild(build(i));
+            if (copy) {
+                run.setAttribute("aria-hidden", "true");
+                var buttons = run.querySelectorAll("button");
+                for (var b = 0; b < buttons.length; b++) buttons[b].tabIndex = -1;
+            }
+            track.appendChild(run);
+        }
+    }
+
+    // The drift is written as a fraction of the track, so its duration has to be
+    // worked out from the width the content actually came to.
+    function timeTrack(track, speed) {
+        var half = track.getBoundingClientRect().width / 2;
+        if (!half) return;
+        track.style.animationDuration = (half / speed) + "s";
+    }
+
+    function trackOffset(track) {
+        var matrix = window.getComputedStyle(track).transform;
+        if (!matrix || matrix === "none") return 0;
+        var values = matrix.match(/matrix.*\((.+)\)/);
+        return values ? parseFloat(values[1].split(",")[4]) || 0 : 0;
+    }
+
+    // Dragging a rail: the drift is taken off so the track can be moved by hand,
+    // then handed back with the delay it would have had if it had run to this
+    // position on its own. The same handling covers a swipe, since the stylesheet
+    // leaves vertical panning to the page.
+    function makeDraggable(rail, track, speed) {
+        var startX = 0;
+        var origin = 0;
+        var half = 0;
+        var travelled = 0;
+        var dragging = false;
+
+        rail.addEventListener("pointerdown", function (event) {
+            if (event.button) return;
+            // Nothing to take over from if the drift is not running, which is how
+            // the rail is left for anyone who asks for less motion.
+            if (window.getComputedStyle(track).animationName === "none") return;
+            dragging = true;
+            travelled = 0;
+            startX = event.clientX;
+            origin = trackOffset(track);
+            half = track.getBoundingClientRect().width / 2;
+            track.style.animation = "none";
+            track.style.transform = "translateX(" + origin + "px)";
+            rail.classList.add("is-dragging");
+            if (rail.setPointerCapture) rail.setPointerCapture(event.pointerId);
+        });
+
+        rail.addEventListener("pointermove", function (event) {
+            if (!dragging) return;
+            var moved = event.clientX - startX;
+            travelled = Math.max(travelled, Math.abs(moved));
+            var at = origin + moved;
+            // Kept within one copy of the list so the loop still joins up.
+            while (at > 0) at -= half;
+            while (at < -half) at += half;
+            track.style.transform = "translateX(" + at + "px)";
+        });
+
+        function release() {
+            if (!dragging) return;
+            dragging = false;
+            rail.classList.remove("is-dragging");
+            var at = trackOffset(track);
+            track.style.transform = "";
+            track.style.animation = "";
+            timeTrack(track, speed);
+            var duration = parseFloat(window.getComputedStyle(track).animationDuration) || 0;
+            if (duration && half) {
+                track.style.animationDelay = -(Math.abs(at) / half) * duration + "s";
+            }
+        }
+
+        rail.addEventListener("pointerup", release);
+        rail.addEventListener("pointercancel", release);
+
+        // A drag that happens to finish over a chart must not also open it.
+        rail.addEventListener("click", function (event) {
+            if (travelled <= DRAG_SLOP) return;
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+    }
+
+    // The panel prints the surveys at a little over half their source width,
+    // which is enough to take in the shape of the answers and no use for reading
+    // the figures, so a chart opens into this at full size.
+    var viewer = null;
+    var viewerDialog = null;
+    var viewerImage = null;
+    var viewerClose = null;
+    var viewerIndex = 0;
+    var viewerOpener = null;
+    var viewerHideTimer = null;
+
+    function viewerOpen() {
+        return !!viewer && !viewer.hidden;
+    }
+
+    function buildViewer() {
+        viewer = document.createElement("div");
+        viewer.className = "feedback-viewer";
+        viewer.hidden = true;
+        viewer.innerHTML =
+            '<div class="feedback-viewer__backdrop"></div>' +
+            '<div class="feedback-viewer__panel" role="dialog" aria-modal="true">' +
+                '<img class="feedback-viewer__image" src="" alt="">' +
+                '<div class="feedback-viewer__bar">' +
+                    '<span class="feedback-viewer__nav">' +
+                        '<button type="button" class="feedback-viewer__step" data-viewer-step="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></button>' +
+                        '<button type="button" class="feedback-viewer__step" data-viewer-step="1"><i class="fa fa-angle-right" aria-hidden="true"></i></button>' +
+                    '</span>' +
+                    '<a class="feedback-viewer__more" href="feedback.html"></a>' +
+                '</div>' +
+                '<button type="button" class="feedback-viewer__close"><i class="fa fa-times" aria-hidden="true"></i></button>' +
+            '</div>';
+        // Hung off the body so no later section of the page can stack over it.
+        document.body.appendChild(viewer);
+
+        viewerDialog = viewer.querySelector(".feedback-viewer__panel");
+        viewerImage = viewer.querySelector(".feedback-viewer__image");
+        viewerClose = viewer.querySelector(".feedback-viewer__close");
+
+        viewerClose.addEventListener("click", closeViewer);
+        viewer.querySelector(".feedback-viewer__backdrop").addEventListener("click", closeViewer);
+
+        var steps = viewer.querySelectorAll("[data-viewer-step]");
+        for (var i = 0; i < steps.length; i++) {
+            steps[i].addEventListener("click", function () {
+                showChart(viewerIndex + (parseInt(this.getAttribute("data-viewer-step"), 10) || 1));
+            });
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (!viewerOpen()) return;
+            var key = event.key;
+            if (key === "Escape" || key === "Esc") closeViewer();
+            else if (key === "ArrowRight") showChart(viewerIndex + 1);
+            else if (key === "ArrowLeft") showChart(viewerIndex - 1);
+            else if (key === "Tab") return trapFocus(event);
+            else return;
+            event.preventDefault();
+        });
+
+        syncViewerLabels();
+    }
+
+    // Tab stays inside the dialog while it is open.
+    function trapFocus(event) {
+        var stops = viewer.querySelectorAll("button, a[href]");
+        if (!stops.length) return;
+        var edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
+        var wrap = event.shiftKey ? stops[stops.length - 1] : stops[0];
+        if (document.activeElement === edge || !viewer.contains(document.activeElement)) {
+            wrap.focus();
+            event.preventDefault();
+        }
+    }
+
+    function showChart(index) {
+        viewerIndex = (index + CHARTS.length) % CHARTS.length;
+        viewerImage.src = CHARTS[viewerIndex];
+    }
+
+    function openViewer(index, opener) {
+        if (!viewer) buildViewer();
+        if (viewerHideTimer) window.clearTimeout(viewerHideTimer);
+        viewerOpener = opener || null;
+        showChart(index);
+        viewer.hidden = false;
+        // Held on the root element rather than the body, which would take the
+        // page back to the top on the way in.
+        document.documentElement.classList.add("has-feedback-viewer");
+        // Read back the closed state so the browser animates out of it.
+        void viewer.offsetWidth;
+        viewer.classList.add("is-open");
+        viewerClose.focus();
+    }
+
+    function closeViewer() {
+        if (!viewerOpen()) return;
+        viewer.classList.remove("is-open");
+        document.documentElement.classList.remove("has-feedback-viewer");
+        viewerHideTimer = window.setTimeout(function () {
+            viewerHideTimer = null;
+            viewer.hidden = true;
+        }, 300);
+        // The tile that opened the dialog may have turned over while it was up.
+        if (viewerOpener && document.body.contains(viewerOpener)) viewerOpener.focus();
+        viewerOpener = null;
+    }
+
+    function syncViewerLabels() {
+        if (!viewer) return;
+        viewerDialog.setAttribute("aria-label", phrase("home.feedbackHeading", "Feedback"));
+        viewerClose.setAttribute("aria-label", phrase("home.feedbackNav.close", "Close"));
+        viewer.querySelector('[data-viewer-step="-1"]')
+            .setAttribute("aria-label", phrase("home.feedbackNav.previous", "Previous"));
+        viewer.querySelector('[data-viewer-step="1"]')
+            .setAttribute("aria-label", phrase("home.feedbackNav.next", "Next"));
+        viewer.querySelector(".feedback-viewer__more").textContent =
+            phrase("home.moreFeedback", "More Feedback");
+    }
+
+    function syncChartLabels() {
+        var charts = panel.querySelectorAll(".feedback-card--chart");
+        var label = phrase("home.feedbackNav.expand", "View full size");
+        for (var i = 0; i < charts.length; i++) charts[i].setAttribute("aria-label", label);
+    }
+
+    // Quotes are printed once, so a language change reprints them. Each box keeps
+    // its place in its band, and finds its own height again for the new wording.
+    function relabel() {
+        syncEyebrow();
+        syncChartLabels();
+        syncViewerLabels();
+        for (var i = 0; i < boxes.length; i++) fillStack(boxes[i]);
+    }
+
+    // jQuery carries the language change, and it loads after this script does.
+    function watchLanguage(handler) {
+        function attach() {
+            if (window.jQuery) window.jQuery(document).on("so:languagechange", handler);
+        }
+        if (window.jQuery) attach();
+        else window.addEventListener("load", attach);
+    }
+
+    // Nothing moves while the panel is off screen, so the rail picks up from where
+    // it was left rather than several charts further on, and a quote that was
+    // never read is not counted as read.
+    function watchVisibility() {
+        if (!window.IntersectionObserver) return;
+        new window.IntersectionObserver(function (entries) {
+            var showing = entries[entries.length - 1].isIntersecting;
+            if (showing) panel.classList.remove("is-offscreen");
+            else panel.classList.add("is-offscreen");
+        }, { threshold: 0.15 }).observe(panel);
+    }
+
+    // A narrower window shortens the charts, which changes how far the rail has to
+    // travel to bring the next one round.
+    function watchWidth() {
+        var timer = null;
+        window.addEventListener("resize", function () {
+            if (timer) window.clearTimeout(timer);
+            timer = window.setTimeout(function () {
+                timeTrack(chartTrack, CHART_SPEED);
+            }, 200);
+        });
+    }
+
+    // Held until the first translation pass finishes so the opening quotes are
+    // already in the visitor's language.
+    function start() {
+        if (started) return;
+        started = true;
+        syncEyebrow();
+        fillTrack(chartTrack, CHARTS.length, buildChart);
+        timeTrack(chartTrack, CHART_SPEED);
+        // Web fonts land after the first measurement and move the text about.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () {
+                timeTrack(chartTrack, CHART_SPEED);
+            });
+        }
+        for (var i = 0; i < boxes.length; i++) fillStack(boxes[i]);
+        if (!reduceMotion) makeDraggable(chartRail, chartTrack, CHART_SPEED);
+        watchLanguage(relabel);
+        watchVisibility();
+        watchWidth();
+        window.requestAnimationFrame(frame);
+    }
+
+    if (window.SOI18n) {
+        window.SOI18n.ready(start);
+    } else {
+        start();
+    }
+})();
+</script>
+
+    </div>
+
+
+</section>
+
+
+<hr class="main-page-hr" style="margin-top: 8px;"/>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.aboutHeading">About</span>
+<hr class="main-page-hr" />
+
+<style>
+  .about-box {
+    cursor: default;
+    flex: 1 1 calc(20% - 20px);
+    max-width: 250px;
+    padding: 24px 16px;
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+  .about-box:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  .about-box:hover i.fa {
+    transform: scale(1.12);
+    transition: transform 0.2s ease;
+  }
+  .about-box i.fa {
+    transition: transform 0.2s ease;
+  }
+  /* Desktop: 5 boxes always on one line */
+  @media (min-width: 768px) {
+    .about-section {
+      padding-left: 60px;
+      padding-right: 60px;
+      box-sizing: border-box;
+      flex-wrap: nowrap !important;
+    }
+    .about-box {
+      flex: 0 0 calc(20% - 16px) !important;
+      min-width: 0;
+    }
+  }
+  /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
+  @media (max-width: 767px) {
+    .about-section {
+      max-width: 100%;
+      width: 100%;
+      padding-left: 40px;
+      padding-right: 40px;
+      gap: 10px !important; /* override inline gap so 2 boxes fit per row */
+      box-sizing: border-box;
+    }
+    .about-box {
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+    .about-box:first-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 0;
+      padding: 20px 12px;
+    }
+    .about-box:not(:first-child) {
+      flex: 0 0 calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      min-width: 0;
+      padding: 20px 12px;
+    }
+    .about-box .about-title-text {
+      font-size: 16px;
+    }
+    .about-box .about-body-text,
+    .about-box h4,
+    .about-box li {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .about-box .fa-4x {
+      font-size: 2em;
+    }
+    .about-box i.fa {
+      visibility: visible !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+    <div class="container about-section" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px; position: relative; z-index: 1;">
+        
+        <!-- Hands-on Box -->
+        <div class="about-box"> 
+            <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
+            <h3 class="about-title-text" data-i18n="home.about.handsOn.title">hands-on</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.handsOn.body">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
+        </div>
+        
+        
+        <!-- Turn-key Box -->
+        <div class="about-box">
+            <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
+            <h3 class="about-title-text" data-i18n="home.about.turnKey.title">turn-key</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.turnKey.body">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
+        </div>
+
+        <!-- Curriculum Box -->
+        <div class="about-box">
+            <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text" data-i18n="home.about.curriculum.title">curriculum</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li class="about-body-text" data-i18n="home.about.curriculum.body1">Designed and instructed by PhDs, engineers, and educators.</li>
+                <li class="about-body-text" data-i18n="home.about.curriculum.body2">Continuously updated, no year is the same.</li>
+            </ul>
+        </div>
+
+        <!-- Experienced Box -->
+        <div class="about-box">
+            <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text" data-i18n="home.about.experienced.title">experienced</h3>
+            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.experienced.body">Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States.</h4>
+        </div>
+
+        <!-- Safe & Exciting Box -->
+        <div class="about-box">
+            <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
+            <h3 class="about-title-text" data-i18n="home.about.safe.title">safe</h3>
+            <ul style="padding: 0; list-style: none; text-align: center;">
+                <li class="about-body-text" data-i18n="home.about.safe.body">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+<hr class="main-page-hr" style="margin-top: 20px;"/>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.feedbackHeading">Feedback</span>
+<hr class="main-page-hr" />
+
+<!-- New Image Section with Continuous Scroll for Feedback -->
+<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; white-space: nowrap; position: relative;">
+    <div class="scroll-container">
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
+
+        <!-- Duplicate images for smooth continuous scroll effect -->
+        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
+        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
+        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
+        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
+    </div>
+</div>
+
+<!-- Keyframes for continuous scroll without fade effect -->
+<style>
+    .feedback-scroll-wrapper {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        width: 80vw;
+        max-width: 80vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        box-sizing: border-box;
+    }
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    /* Container for smooth scroll */
+    .scroll-container {
+        display: inline-block;
+        animation: scroll 45s linear infinite;
+        white-space: nowrap;
+        cursor: grab; /* Change cursor to indicate draggable area */
+        overflow: hidden; /* Hide scrollbar */
+    }
+    
+    /* Apply size and spacing to each image */
+    .scroll-image {
+        display: inline-block;
+        width: 400px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 40px;
+        transition: box-shadow 0.2s ease;
+    }
+    .scroll-image:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+    }
+    
+    /* Cursor changes when dragging */
+    .scroll-container.dragging {
+        cursor: grabbing !important;
+    }
+    .scroll-container.dragging .scroll-image {
+        cursor: grabbing !important;
+    }
+    
+    /* Hide scrollbar */
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+</style>
+
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        // Pause animation and capture current translated position
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        // Calculate where in the animation cycle we are and resume from there
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 45;
+        var offset = fraction * duration;
+        // Restart animation from the current position
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight; // force reflow
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
+
+
+
+
+<!-- Centering the Feedback box below the images -->
+<div style="display: flex; justify-content: center; padding: 0px; margin-top: 20px;">
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        <li>
+            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight" data-i18n="home.moreFeedback">
+               More Feedback
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<hr class="main-page-hr" style="margin-top: 50px"/>
+<span class="workshop-title" style="cursor: default;" data-i18n="home.contactHeading">Contact</span>
+<hr class="main-page-hr" />
+
+<section id="contact" class="less-padding" style="padding-top: 20px;">
+    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+       
+        <style>
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+    
+                50% {
+                    transform: scale(1.2);
+                }
+    
+                100% {
+                    transform: scale(1);
+                }
+            }
+        </style>
+        
+        
+        <!-- Email Section with Pulsing Heartbeat Effect -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+
+
+                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40; cursor: default;">
+                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
+                            style="color: #f05f40; animation: pulse 2.5s infinite; cursor: default;"></i>
+                    </a>
+                </div>
+
+        <!-- Email Link on its own line -->
+        <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
+            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none; cursor: default;">
+                workshops@stageoneducation.com
+            </a>
+        </p>
+
+    <br>
+
+  <!-- Let's chat Button -->
+  <style>.lets-chat-btn.nav-button-stageone:hover::after { display: none !important; }</style>
+  <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn" data-i18n="common.letsChat">
+  Let's chat
+</a>
+</section>
+
+<footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
+  <nav class="site-footer-regions" aria-label="Workshop regions">
+    
+      
+        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
+      
+    
+      
+        <a href="/regions/southeast/">Southeast</a>
+      
+    
+      
+        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
+      
+    
+      
+        <a href="/regions/mountain-west/">Mountain West</a>
+      
+    
+      
+        <a href="/regions/west-coast/">West Coast</a>
+      
+    
+      
+    
+      
+    
+    <a href="/international-groups/">International Groups</a>
+  </nav>
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+
+<span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <script src="/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/creative.js"></script>
+    <script>
+window.StageOneExplorerData = {
+  regions: [{"id":"northeast-mid-atlantic","slug":"northeast-mid-atlantic","kind":"us","label":"Northeast & Mid-Atlantic","short_label":"Northeast & Mid-Atlantic","location_phrase":"in the Northeast & Mid-Atlantic","venue_phrase":"throughout the Northeast & Mid-Atlantic","cta_label":"Explore Northeast & Mid-Atlantic Workshops","hero_label":"NORTHEAST & MID-ATLANTIC","hero_title":"Hands-On Engineering Workshops in the Northeast & Mid-Atlantic","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Northeast and Mid-Atlantic. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Northeast and Mid-Atlantic support itineraries shaped by historic cities, universities, museums, government and civic institutions, science, and technology. A Stage One workshop gives students time to move from observing ideas to applying engineering themselves. It can serve as a focused morning or afternoon program, an evening hotel experience, or a hands-on complement to the educational destinations already included in the trip.","themes":["Historic Cities","Universities","Museums","Government & Civic Learning","Science & Technology","Innovation"],"map_states":["ME","NH","VT","MA","RI","CT","NY","NJ","PA","DE","MD","DC","VA","WV"],"map_viewbox":"535 18 424 430","image_src":"/img/regions/northeast-mid-atlantic.webp","image_alt":"Editorial collage of Northeast and Mid-Atlantic architecture, campuses, harbors, and a regional map silhouette","seo_title":"Engineering Workshops in the Northeast & Mid-Atlantic | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Northeast and Mid-Atlantic."},{"id":"southeast","slug":"southeast","kind":"us","label":"Southeast","short_label":"Southeast","location_phrase":"in the Southeast","venue_phrase":"throughout the Southeast","cta_label":"Explore Southeast Workshops","hero_label":"SOUTHEAST","hero_title":"Hands-On Engineering Workshops in the Southeast","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Southeast. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Southeast supports itineraries built around space exploration, theme parks, universities, science centers, coastal destinations, and outdoor learning. A Stage One workshop gives students an opportunity to stop observing and start engineering. It can become a focused program block, an evening hotel activity, or a hands-on complement to the attractions, institutions, and experiences already included in the trip.","themes":["Space & Aerospace","Theme Parks & Design","Universities","Science Centers","Coastal Destinations","Outdoor Learning"],"map_states":["NC","SC","GA","FL","AL","MS","TN","KY"],"map_viewbox":"455 185 455 390","image_src":"/img/regions/southeast.webp","image_alt":"Editorial collage of Southeast space, coastal, campus, and engineering motifs with a regional map outline","seo_title":"Engineering Workshops in the Southeast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Southeast."},{"id":"midwest-south-central","slug":"midwest-south-central","kind":"us","label":"Midwest & South Central","short_label":"Midwest & South Central","location_phrase":"across the Midwest & South Central","venue_phrase":"across the Midwest and South Central United States","cta_label":"Explore Midwest & South Central Workshops","hero_label":"MIDWEST & SOUTH CENTRAL","hero_title":"Hands-On Engineering Workshops Across the Midwest & South Central","hero_intro":"Bring a complete, instructor-led engineering experience to student groups traveling across the Midwest and South Central United States. Stage One delivers the equipment, materials, curriculum, and instructor directly to your group’s venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The region brings together manufacturing, aerospace, energy, universities, science museums, engineering centers, and major city destinations. A Stage One workshop gives students an active experience that connects naturally with these wider themes. Groups can build the workshop into a campus visit, educational travel program, conference schedule, or hotel-based itinerary without needing a dedicated laboratory or permanent classroom.","themes":["Engineering & Manufacturing","Aerospace","Energy","Universities","Science Museums","Major Cities"],"map_states":["OH","MI","IN","IL","WI","MN","IA","MO","ND","SD","NE","KS","OK","TX","AR","LA"],"map_viewbox":"300 45 510 520","image_src":"/img/regions/midwest-south-central.webp","image_alt":"Editorial collage of Midwest and South Central manufacturing, aerospace, campus, and city forms with a regional map silhouette","seo_title":"Engineering Workshops Across the Midwest & South Central | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues across the Midwest and South Central United States."},{"id":"mountain-west","slug":"mountain-west","kind":"us","label":"Mountain West","short_label":"Mountain West","location_phrase":"in the Mountain West","venue_phrase":"throughout the Mountain West","cta_label":"Explore Mountain West Workshops","hero_label":"MOUNTAIN WEST","hero_title":"Hands-On Engineering Workshops in the Mountain West","hero_intro":"Add a practical engineering experience to student programs throughout the Mountain West. Stage One brings the complete three-hour workshop directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Mountain West supports itineraries centered on aerospace, research, geology, technology, universities, and extraordinary natural landscapes. A Stage One workshop adds a collaborative indoor experience that can be scheduled alongside campus visits, science programs, outdoor learning, and regional exploration. Students work directly with engineering ideas while Stage One manages the equipment, materials, instruction, and setup.","themes":["Aerospace","Research & Technology","Geology","Universities","Natural Landscapes","Outdoor Learning"],"map_states":["MT","ID","WY","CO","NM","AZ","UT","NV"],"map_viewbox":"105 25 455 510","image_src":"/img/regions/mountain-west.webp","image_alt":"Editorial collage of Mountain West landscapes, aerospace motifs, and research forms with a regional map silhouette","seo_title":"Engineering Workshops in the Mountain West | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Mountain West."},{"id":"west-coast","slug":"west-coast","kind":"us","label":"West Coast","short_label":"West Coast","location_phrase":"on the West Coast","venue_phrase":"on the West Coast","cta_label":"Explore West Coast Workshops","hero_label":"WEST COAST","hero_title":"Hands-On Engineering Workshops on the West Coast","hero_intro":"Build a complete engineering experience into student travel on the West Coast. Stage One brings the instructor, equipment, materials, and curriculum directly to hotels, schools, campuses, and group venues.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The West Coast brings together technology, aerospace, universities, science, design, entertainment, media, and coastal destinations. A Stage One workshop gives students an active way to engage with the ideas surrounding the wider trip. The experience can complement campus visits, technology-focused programs, science attractions, creative destinations, or educational travel itineraries while remaining easy to schedule at the group’s own venue.","themes":["Technology","Aerospace","Universities","Science & Design","Entertainment & Media","Pacific Coast"],"map_states":["WA","OR","CA","AK","HI"],"map_viewbox":"0 20 455 573","image_src":"/img/regions/west-coast.webp","image_alt":"Editorial collage of West Coast technology, aerospace, campus, and coastal forms with a regional map silhouette","seo_title":"Engineering Workshops on the West Coast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues on the West Coast."},{"id":"international","slug":"international","kind":"international","label":"International","short_label":"International Groups","location_phrase":"for International Groups Visiting the USA","venue_phrase":"during your group’s United States itinerary","cta_label":"Explore Workshops for International Groups","hero_label":"INTERNATIONAL GROUPS","hero_title":"Hands-On Engineering Workshops for International Groups Visiting the USA","hero_intro":"Add a complete, instructor-led engineering experience to your group’s United States itinerary. Stage One coordinates with tour providers, schools, and group leaders and brings the equipment, materials, curriculum, and instructor directly to the group’s hotel, campus, school, or venue.","itinerary_heading":"Easy to Build Into a U.S. Educational Itinerary","itinerary_copy":"Stage One workshops give international students an opportunity to take part in a practical engineering experience while traveling in the United States. The complete three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and the workshop can be adapted for middle school, high school, college, adult, or mixed-age participants.","themes":[],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of an educational itinerary in the United States with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel.","support_cards":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options can be coordinated around the itinerary."},{"title":"Complete Workshop Delivery","text":"Instructor, equipment, materials, curriculum, and setup are included."},{"title":"Clear, Accessible Experience","text":"No prior experience is required, and instruction can be adjusted for the group."}]},{"id":"other","slug":"other","kind":"other","label":"Other","short_label":"Other","location_phrase":"for another location","venue_phrase":"at your group’s destination","cta_label":"Explore Other Workshop Options","hero_label":"OTHER LOCATIONS","hero_title":"Hands-On Engineering Workshops for Other Locations","hero_intro":"Tell Stage One where your group will be. We can help determine workshop delivery options and coordinate the instructor, equipment, materials, and curriculum around your destination and venue.","itinerary_heading":"Build a Workshop Around Your Destination","itinerary_copy":"If your location is not represented by one of the listed regions, Stage One can review your destination, schedule, venue, and group needs. Workshops can be coordinated for hotels, schools, campuses, conference rooms, and other suitable group venues.","themes":["Flexible Destinations","Hotels & Venues","Schools & Campuses","Group Programs"],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of a flexible educational workshop itinerary with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for Other Locations | Stage One Education","seo_description":"Ask about instructor-led engineering workshop delivery for destinations outside Stage One’s listed United States regions."}],
+  audiences: [{"id":"middle-school","label":"Middle School","heading_label":"Middle School","summary":"Structured guidance and regular hands-on milestones help middle school students stay actively involved.","detail":"Structured guidance, clear explanations, collaborative challenges, and regular hands-on milestones help middle school students stay actively involved throughout the experience. Technical concepts are introduced in accessible language, and no prior experience is required.","availability":"Artificial Intelligence, Robotics, Mechanical Engineering, and Web Engineering remain available for this audience."},{"id":"high-school","label":"High School","heading_label":"High School","summary":"Team-based challenges, technical discussion, and hands-on problem-solving for high school groups.","detail":"High school groups can explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the amount of guidance based on the group’s experience, and no previous engineering background is required.","availability":"Every Stage One workshop remains available for this audience."},{"id":"college-university","label":"College & University","heading_label":"College & University","summary":"A faster pace with greater emphasis on applied engineering and technical decision-making.","detail":"College and university groups can move through the experience at a faster pace with greater emphasis on applied engineering, collaboration, technical decision-making, and discussion. The workshop can complement academic travel, campus programs, leadership experiences, or group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"adult-professional","label":"Adult & Professional","heading_label":"Adult & Professional","summary":"A practical, collaborative engineering experience for teams and adult learners.","detail":"Adult and professional groups can take part in a practical, collaborative engineering experience designed for active participation. The format can support professional programs, team experiences, lifelong learning, or customized group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"mixed-age","label":"Mixed-Age Group","heading_label":"Mixed-Age","summary":"Pacing, team structure, and guidance can be adjusted so different experience levels can contribute together.","detail":"Stage One instructors can adjust pacing, team structure, explanations, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","availability":"Every Stage One workshop remains available for mixed-age groups."}],
+  groupTypes: [{"id":"educational-travel","label":"Educational Travel","paragraph_phrase":"designed to fit educational travel itineraries"},{"id":"school-campus","label":"School or Campus","paragraph_phrase":"designed to fit school and campus programs"},{"id":"private-other","label":"Private or Other Group","paragraph_phrase":"designed to fit private and other group programs"}],
+  workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"]},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"]},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"]},{"slug":"web-development","name":"Web Engineering","heading_label":"Web Engineering","explorer_label":"Web Engineering","explorer_summary":"Design, build, and publish a live website while learning layout, content, and front-end development.","duration":"3-Hour Workshop","description":"Design, build, and publish a live website.","image":"img/ai-website-mockup.svg","image_alt":"Website interface created during the Web Development workshop","image_width":200,"image_height":200,"detail_path":"/ai-website-workshop.html","icon":"fa-code","homepage_short_name":"Web","homepage_short_focus":"HTML · AI Coding · Publish","homepage_focus":"HTML & CSS · AI Coding · Publishing","homepage_topics":["Website layout and front-end development","HTML, CSS, and AI-assisted coding","Publishing a live website"]}],
+  copy: {"section_heading":"Find Your Workshop","section_intro":"Choose a region, then optionally refine the audience and workshop.","reassurance":"Every Stage One workshop can be adapted for every audience shown. Choose based on what your group is interested in exploring.","clear_selections":"Clear selections","region_step_heading":"1. Where will your group be?","region_step_support":"Choose a region on the map or use the region buttons on mobile.","audience_step_heading":"2. Who are you planning for?","group_type_subheading":"Planning context — optional","workshop_step_heading":"3. What would your group like to explore?","workshop_step_support":"Every workshop can be adapted for every audience. Choose based on your group's interests.","all_workshops_label":"All Workshops","international_label":"International","default_heading":"Choose a Region","default_paragraph":"Select a region on the map or use the region buttons to explore available Stage One workshops.","default_button":"Select a Region","workshop_cards_heading":"Explore Our Workshops","workshop_cards_support":"Every Stage One workshop can be adapted for every audience shown below. Choose the experience that most interests your group.","selected_interest":"Selected Interest","audience_cards_heading":"Designed Around Your Group","audience_cards_support":"Select an audience to see how the pacing, guidance, and technical depth can be adjusted. Every workshop remains available for every audience.","audience_general_intro":"Every Stage One workshop can be adapted for middle school, high school, college, adult, and mixed-age groups. Select an audience to see how the experience can be adjusted.","clear_audience":"Clear Audience Selection","planning_heading":"Ready to Bring a Workshop to Your Group?","planning_body":"Share your destination, anticipated date, group size, and workshop interests. Stage One will help coordinate the experience around your group’s itinerary, schedule, and venue.","planning_prompt":"Tell us which workshop interests your group.","planning_button":"Start Planning","change_selections":"Change Selections","explore_other_regions":"Explore Other Regions","your_selections":"Your Selections","no_experience":"No Experience Required","delivery_facts":[{"title":"3-Hour Workshops","text":"Flexible morning, afternoon, or evening scheduling.","icon":"fa-clock-o"},{"title":"No Experience Required","text":"Accessible to a wide range of experience levels.","icon":"fa-star-o"},{"title":"Instructors and Equipment Included","text":"Stage One brings the instructor, equipment, materials, and curriculum.","icon":"fa-briefcase"},{"title":"Delivered to Your Venue","text":"At a hotel, school, campus, conference room, or group venue.","icon":"fa-map-marker"}]}
+};
+</script>
+<script src="/js/query-validation.js"></script>
+<script src="/js/selection-urls.js"></script>
+<script src="/js/explorer-copy.js"></script>
+<script src="/js/explorer-state.js"></script>
+
+    <script src="/js/homepage-workshop-explorer.js"></script>
+    <script src="/js/region-page.js"></script>
+    <script src="/js/workshop-page-context.js"></script>
+    <script src="/js/plan-workshop-form.js"></script>
+
+</body>
+
+</html>

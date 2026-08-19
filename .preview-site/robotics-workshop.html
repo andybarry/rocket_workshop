@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-page="robotics">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>Robotics Workshop | STAGE ONE EDUCATION</title>
+
+    <meta 
+    name= "description" 
+    content="Master drone flight control with Arduino &amp; ESP32 at Stage One Education’s Robotics Drone Workshop. Enjoy hands-on electronics and coding—no experience needed!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
+    
+    <link rel="canonical" href="https://stageoneeducation.com/robotics-workshop.html">
+    <meta property="og:title" content="Robotics Workshop | STAGE ONE EDUCATION">
+    <meta property="og:description" content="Master drone flight control with Arduino &amp; ESP32 at Stage One Education’s Robotics Drone Workshop. Enjoy hands-on electronics and coding—no experience needed!">
+    
+    
+    <meta property="og:image" content="https://stageoneeducation.com/img/stageone-logo-orange-small.png">
+    <meta property="og:type" content="website">
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/creative.css" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">
+
+    <!-- Language switcher. Loads before paint so a stored non-English choice is
+         applied without a flash of English. Inert when English is active. -->
+    <link rel="stylesheet" href="/css/i18n.css" type="text/css">
+    <script src="/js/i18n.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<!-- Grid and cursor-following glow (same as home and AI pages) -->
+<body id="page-top" class="cursor-glow-page">
+
+<style>
+  body.cursor-glow-page .navbar { cursor: default !important; }
+  body.cursor-glow-page .navbar a,
+  body.cursor-glow-page .navbar button,
+  body.cursor-glow-page .navbar img { cursor: pointer !important; }
+  .overview-text-box,
+  .overview-text-box *,
+  .quote-container,
+  .quote-container * { cursor: default !important; }
+  .quote-container .quote-text {
+    border-radius: 12px;
+    transition: box-shadow 0.2s ease;
+  }
+  .quote-container:hover .quote-text {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+  }
+  body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* Mobile: content width with side margins (match index and rocket workshop) */
+  @media (max-width: 767px) {
+    body.cursor-glow-page {
+      overflow-x: hidden;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+    body.cursor-glow-page .container,
+    body.cursor-glow-page .overview-text-box,
+    body.cursor-glow-page .quote-container,
+    body.cursor-glow-page .feedback-scroll-wrapper,
+    body.cursor-glow-page .robotics-timeline-section {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body.cursor-glow-page .quote-container {
+      max-width: 100%;
+    }
+    body.cursor-glow-page .row .col-lg-6 {
+      max-width: 100%;
+    }
+  }
+</style>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation">
+    <div class="container-fluid">
+        <!-- Navbar Header -->
+        <div class="navbar-header">
+            <a href="/" class="nav-logo-link" aria-label="Stage One Education home">
+                <img id="logo" src="/img/stageone-logo-orange-small.png" alt="Stage One Education">
+            </a>
+            <div class="nav-mobile-actions">
+                
+                <div class="nav-mobile-language dropdown">
+                    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+                        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+                </div>
+                
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only" data-i18n="nav.toggle">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="navbar-toggle-menu-text" aria-hidden="true" data-i18n="nav.menu">Menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Links and Inline Logo -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav nav-main-links">
+                
+                
+                <!-- Desktop: Workshops dropdown -->
+                <li class="dropdown nav-dropdown nav-desktop-workshop">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false" data-i18n-html="nav.workshops">
+                        Workshops <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu nav-dropdown-menu">
+                        <li><a class="nav-dropdown-link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="/robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                        <li><a class="nav-dropdown-link" href="/ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Mobile: a clearly labeled workshop group, available on every page -->
+                <li class="nav-mobile-workshop-heading"><span>Workshops</span></li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                </li>
+                <li class="nav-mobile-workshop-item">
+                    <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                </li>
+                <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
+                    <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
+                </li>
+                <li>
+                    <a href="/group.html" class="nav-button-stageone">
+                        Explore
+                    </a>
+                </li>
+                <li>
+                    <a href="/locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="/feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="/about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                        About
+                    </a>
+                </li>
+                <!-- Plan a Workshop button -->
+                <li class="nav-plan-workshop">
+                    <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
+                        data-source="header">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+                    </a>
+                </li>
+                <li class="nav-workshops-access">
+                    <a href="/workshops.html" class="nav-workshops-access-button">
+                        <span data-i18n="nav.workshopAccess">Workshop Access</span>
+                    </a>
+                </li>
+                <!-- Language switcher. The option list is built at runtime by js/i18n.js from
+     its LANGUAGES array, so the language set lives in exactly one place. -->
+<li class="nav-language dropdown">
+    <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
+        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+        <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+    <div style="height: 50px;"></div> <!-- Adjust height to match your navbar's height -->
+
+    <!-- Title Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="margin: 0 auto; text-align: center;">
+                    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; cursor: default;" data-i18n="robotics.title">
+                        Robotics Drone Workshop
+                    </h2>
+    
+    
+                </div>
+            </div>
+        </div>
+    
+
+<aside class="workshop-context-strip" data-workshop-context data-workshop-slug="robotics-drone" hidden>
+  <p data-workshop-context-line></p>
+  <div>
+    <a data-workshop-region-link href="/#find-your-workshop">Explore Workshops</a>
+    <a data-workshop-change-link href="/#find-your-workshop">Change Selections</a>
+  </div>
+</aside>
+<aside class="workshop-audience-note" data-workshop-audience-note hidden>
+  <h3 data-workshop-audience-heading></h3>
+  <p data-workshop-audience-detail></p>
+  <p>Robotics Drone is also available for high school, college, adult, and mixed-age groups.</p>
+</aside>
+
+<div class="workshop-page-plan-entry">
+  <a class="workshop-page-plan-entry__button" href="/plan-a-workshop/?workshop=robotics-drone"
+    data-workshop-plan-cta data-workshop-slug="robotics-drone" data-source="workshop_page">
+    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+    <span data-i18n="common.planThisWorkshop">PLAN THIS WORKSHOP</span>
+  </a>
+</div>
+
+    
+        <!-- Section with Background Image -->
+        <style>
+            /* Define animations for the drones entering from the edges - values sized so drones travel fully off the box before reset */
+            @keyframes moveDroneHorizontalLeftToRight {
+                0% {
+                    transform: translateX(-150px);
+                }
+
+                100% {
+                    transform: translateX(1500px);
+                }
+            }
+
+            @keyframes moveDroneHorizontalRightToLeft {
+                0% {
+                    transform: translateX(1500px);
+                }
+
+                100% {
+                    transform: translateX(-1500px);
+                }
+            }
+
+            @keyframes moveDroneVerticalUp {
+                0% {
+                    transform: translateY(150px);
+                }
+
+                100% {
+                    transform: translateY(-350px);
+                }
+            }
+
+            @keyframes moveDroneVerticalDown {
+                0% {
+                    transform: translateY(-150px);
+                }
+
+                100% {
+                    transform: translateY(350px);
+                }
+            }
+
+            @keyframes moveDroneDiagonalUpRight {
+                0% {
+                    transform: translate(0px, 150px);
+                }
+
+                100% {
+                    transform: translate(1500px, -350px);
+                }
+            }
+
+            @keyframes moveDroneDiagonalDownRight {
+                0% {
+                    transform: translate(0px, -150px);
+                }
+
+                100% {
+                    transform: translate(1500px, 350px);
+                }
+            }
+
+            @keyframes pulseGlow {
+                0% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+
+                50% {
+                    box-shadow: 0 0 30px #f05f40;
+                }
+
+                100% {
+                    box-shadow: 0 0 5px #f05f40;
+                }
+            }
+
+            /* Align buttons in a column with vertical spacing */
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 1000px;
+                margin: 20px auto;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* No underline on robotics buttons in any state */
+            .button-container .glow-button,
+            .button-container .glow-button:hover,
+            .button-container .glow-button:focus,
+            .button-container .glow-button:active,
+            .button-container .glow-button:visited {
+                text-decoration: none !important;
+            }
+
+            /* Drone images */
+            .drone {
+                position: absolute;
+                width: auto;
+                height: 50px;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            /* Define horizontal animations for drones */
+            .drone-horizontal-left-to-right1 {
+                animation: moveDroneHorizontalLeftToRight 8s linear infinite;
+            }
+
+            .drone-horizontal-left-to-right2 {
+                animation: moveDroneHorizontalLeftToRight 6s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left1 {
+                animation: moveDroneHorizontalRightToLeft 8s linear infinite;
+            }
+
+            .drone-horizontal-right-to-left2 {
+                animation: moveDroneHorizontalRightToLeft 6s linear infinite;
+            }
+
+            /* Define vertical animations for drones moving up and down on the left side */
+            .drone-vertical-up1 {
+                animation: moveDroneVerticalUp 5s linear infinite;
+                left: 5%;
+            }
+
+            .drone-vertical-up2 {
+                animation: moveDroneVerticalUp 7s linear infinite;
+                left: 10%;
+            }
+
+            /* Define vertical-down animations for the right side */
+            .drone-vertical-down1 {
+                animation: moveDroneVerticalDown 4s linear infinite;
+                left: 60%;
+            }
+
+            .drone-vertical-down2 {
+                animation: moveDroneVerticalDown 3s linear infinite;
+                left: 90%;
+            }
+
+            /* Define diagonal animations */
+            .drone-diagonal-up-right {
+                animation: moveDroneDiagonalUpRight 10s linear infinite;
+            }
+
+            .drone-diagonal-down-right {
+                animation: moveDroneDiagonalDownRight 12s linear infinite;
+            }
+
+            /* Overlay style */
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.05);
+                /* Reduced opacity */
+                z-index: 1;
+            }
+        </style>
+
+        <div class="row">
+            <div class="col-12" style="padding-left: 0; padding-right: 0;">
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+                <div class="robotics-drone-moving-area" style="position: relative; height: 280px; background-color: white; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                <!-- Add Horizontal Moving Drone Images from left to right -->
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right1"
+                    style="top: 10%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-left-to-right2"
+                    style="top: 40%; left: -150px;" />
+
+                <!-- Add Horizontal Moving Drone Images from right to left -->
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left1"
+                    style="top: 60%; left: 1250px;" />
+                <img src="img/drone.png" class="drone drone-horizontal-right-to-left2"
+                    style="top: 80%; left: 1250px;" />
+
+                <!-- Add Vertical Moving Drone Images on the left side -->
+                <img src="img/drone.png" class="drone drone-vertical-up1" style="top: 100%; left: 5%;" />
+                <img src="img/drone.png" class="drone drone-vertical-up2" style="top: 100%; left: 10%;" />
+
+                <!-- Add Vertical Moving Drone Images on the right side -->
+                <img src="img/drone.png" class="drone drone-vertical-down1" style="top: 0px; left: 60%;" />
+                <img src="img/drone.png" class="drone drone-vertical-down2" style="top: 0px; left: 90%;" />
+
+                <!-- Add Diagonal Moving Drone Images -->
+                <img src="img/drone.png" class="drone drone-diagonal-up-right" style="top: 80%; left: -150px;" />
+                <img src="img/drone.png" class="drone drone-diagonal-down-right" style="top: 10%; left: -150px;" />
+
+                <!-- Title Section with Buttons -->
+                <div class="button-container">
+                    <!-- First Button: Drone Workshop Link -->
+                    <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer"
+                        class="glow-button">
+                        stageoneeducation.com/drone
+                    </a>
+
+                    <!-- Feedback Survey -->
+                    <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" 
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        class="glow-button"
+                        data-i18n="common.feedbackSurvey">
+                        Feedback Survey
+                    </a>
+
+
+                </div>
+
+                <!-- Overlay Div -->
+                <div class="overlay"></div>
+                </div>
+                <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto 0 auto;" />
+            </div>
+        </div>
+        </div>
+        <div class="container">
+
+
+     
+
+        <div style="max-width: 100%; margin: 5px auto; margin-top: 15px;">
+            <span
+                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.overview">
+                Overview
+            </span>
+        </div>
+        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            @keyframes droneCodeScrollDown {
+                0% { background-position: center top; }
+                100% { background-position: center bottom; }
+            }
+            .robotics-overview-drone-code-scroll-box {
+                overflow: hidden;
+            }
+            .robotics-overview-drone-code-scroll-box::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url('img/drone-code.png');
+                background-size: 280px auto;
+                background-position: center top;
+                background-repeat: no-repeat;
+                animation: droneCodeScrollDown 50s linear infinite;
+                opacity: 0.3;
+                z-index: 0;
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+            }
+            .overview-text-box {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 24px 20px 29px 20px;
+                border: 1px solid #e8e8e8;
+            }
+        </style>
+        <section class="less-padding">
+            <div class="overview-text-box">
+            <div class="row">
+                <!-- Text Section (wider column so text can extend right) -->
+                <div class="col-lg-8 col-md-6 col-sm-6">
+                    <div class="workshop-container" style="font-family: 'Roboto', sans-serif; margin-top: 0;">
+                        <div class="workshop-subdata"
+                            style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 20px; margin-top: 0; color: #f05f40;" data-i18n="common.workshopSubdata">
+                            3-3.5 Hours | All Ages | No Experience Needed
+                        </div>
+
+                        <div class="tab-content tab-active"
+                        style="text-align: left; max-width: calc(70vw + 140px); font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 1.65;">
+                     <p style="margin: 0 0 0.75em 0; font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.65;" data-i18n-html="robotics.overview.intro">
+                       In the Robotics Workshop, students get a drone, but <strong>no controller!</strong><br>
+                       Learn engineering by building your own RC controller for a quadrotor:
+                     </p>
+                     <ul style="list-style-type: disc; padding-left: 20px; margin: 0 0 0 0;">
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;" data-i18n-html="robotics.overview.item1">
+                           Wire a complete circuit, including a <strong>dual-core microcontroller</strong> with WiFi, 6-axis accelerometer, lights, potentiometers, and buttons.
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;" data-i18n-html="robotics.overview.item2">
+                           With your team, learn how to <strong>read and translate circuit diagrams</strong> into real, working circuits
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0.5em;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;" data-i18n-html="robotics.overview.item3">
+                           <strong>Program, upload, and execute</strong> your own autonomous flights
+                         </h3>
+                       </li>
+                       <li style="margin-bottom: 0;">
+                         <h3 style="margin: 0; font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: normal; line-height: 1.65;" data-i18n="robotics.overview.item4">
+                           Participate in the autonomous airshow to showcase your custom flight
+                         </h3>
+                       </li>
+                     </ul>
+                   </div>
+                   
+
+
+
+                    </div>
+                </div>
+                <!-- Image Section: scrolling code (back), drone-circuit over it, drone on top -->
+                <div class="col-lg-4 col-md-6 col-sm-6" style="display: flex; justify-content: center;">
+                    <div style="position: relative; width: 310px; height: 280px;">
+                        <!-- Scrolling code box (back, 280px height) -->
+                        <div class="robotics-overview-drone-code-scroll-box" style="position: absolute; left: 0; top: 0; width: 310px; height: 280px; background: white; border-radius: 8px; z-index: 0;"></div>
+                        <!-- Drone-circuit over the scrolling code -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1;">
+                            <img src="img/drone-circuit.png" alt="Drone Circuit" style="width: 280px; height: 280px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <!-- Drone on top of drone-circuit -->
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;">
+                            <img src="img/drone.png" alt="Drone" style="width: 170px; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+
+        <div class="row">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.testimonials">
+                    Testimonials
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+
+
+            <!-- New Image Section with Continuous Scroll for Feedback -->
+            <div class="feedback-scroll-wrapper"
+                style="overflow: hidden; margin-top: 50px; margin: 20px auto; white-space: nowrap; position: relative;">
+                <div class="scroll-container">
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image"
+                        style="margin-right: 40px;">
+
+                    <!-- Duplicate images for smooth continuous scroll effect -->
+                    <img src="img/robotics_feedback_1.png" alt="Feedback 1" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_2.png" alt="Feedback 2" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_3.png" alt="Feedback 3" class="scroll-image"
+                        style="margin-right: 40px;">
+                    <img src="img/robotics_feedback_4.png" alt="Feedback 4" class="scroll-image">
+                </div>
+            </div>
+
+            <!-- Keyframes for continuous scroll with left/right fade (same as home and AI) -->
+            <style>
+                .feedback-scroll-wrapper {
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+                }
+                @keyframes scroll {
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+
+                /* Container for smooth scroll */
+                .scroll-container {
+                    display: inline-block;
+                    animation: scroll 60s linear infinite;
+                    white-space: nowrap;
+                    padding-bottom: 20px;
+                    animation-play-state: running;
+                    /* Ensure animation runs by default */
+                }
+
+                /* Apply size and spacing to each image */
+                .scroll-image {
+                    display: inline-block;
+                    width: 400px;
+                    /* Increased width */
+                    height: auto;
+                    /* Adjusted height to maintain aspect ratio */
+                    object-fit: cover;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    /* Adjust margin between images */
+                    margin-right: 40px;
+                    transition: box-shadow 0.2s ease;
+                }
+                .scroll-image:hover {
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
+                }
+
+                /* Cursor for drag */
+                .scroll-container {
+                    cursor: grab;
+                }
+                .scroll-container.dragging {
+                    cursor: grabbing !important;
+                }
+                .scroll-container.dragging .scroll-image {
+                    cursor: grabbing !important;
+                }
+            </style>
+
+<script>
+(function() {
+    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
+    if (!container) return;
+
+    var isDragging = false;
+    var startX = 0;
+    var currentTranslateX = 0;
+    var dragTranslateX = 0;
+
+    function getTranslateX(el) {
+        var style = window.getComputedStyle(el);
+        var matrix = style.transform || style.webkitTransform;
+        if (matrix && matrix !== 'none') {
+            var values = matrix.match(/matrix.*\((.+)\)/);
+            if (values) {
+                var parts = values[1].split(',');
+                return parseFloat(parts[4]) || 0;
+            }
+        }
+        return 0;
+    }
+
+    container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        container.classList.add('dragging');
+        currentTranslateX = getTranslateX(container);
+        dragTranslateX = currentTranslateX;
+        container.style.animation = 'none';
+        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
+        startX = e.pageX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var deltaX = e.pageX - startX;
+        dragTranslateX = currentTranslateX + deltaX;
+        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
+    });
+
+    function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        var totalWidth = container.scrollWidth / 2;
+        var pos = dragTranslateX % totalWidth;
+        if (pos > 0) pos -= totalWidth;
+        var fraction = Math.abs(pos) / totalWidth;
+        var duration = 60;
+        var offset = fraction * duration;
+        container.style.transform = '';
+        container.style.animation = 'none';
+        void container.offsetHeight;
+        container.style.animation = 'scroll ' + duration + 's linear infinite';
+        container.style.animationDelay = '-' + offset + 's';
+    }
+
+    document.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+})();
+</script>
+
+
+
+
+        </div>
+        <style>
+            .quote-attribution { display: block; text-align: right; }
+        </style>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="quote-container quote-five" style="margin-bottom: 10px; max-width: 100%;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q1">
+                        &ldquo;This was <strong>extremely well done</strong>. The instructors were very nice and approachable. I am extremely grateful for this as it has opened my eyes to a new area of electronics I never would've thought I would do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, San Francisco, CA 2025</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-one" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q2">
+                        &ldquo;This was <strong>by far the best workshop</strong> and it interested me the most. I liked the coding portion and the electronics hardware&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Berkeley, CA 2023</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-two" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q3">
+                        &ldquo;You guys are <strong>amazing and I had so much fun</strong>. Can't wait to do more engineering and coding!&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston, MA 2023</em></span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="quote-container quote-three" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q4">
+                        &ldquo;It was really fun and <strong>I learned a lot</strong>. I could <strong>actually use some of this knowledge</strong> for other projects I may do.&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston, TX 2022</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-four" style="margin-bottom: 10px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q5">
+                        &ldquo;This was the best workshop in the whole program&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Boston, MA 2024</em></span>
+                    </p>
+                </div>
+                <div class="quote-container quote-seven" style="margin-bottom: 10px; max-width: 320px;">
+                    <p class="quote-text" style="font-family: 'Roboto', sans-serif;" data-i18n-html="robotics.quotes.q6">
+                        &ldquo;Yeehaw-tastic&rdquo;<br><span class="quote-attribution"><em>&mdash; Student, Houston, TX 2025</em></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Vertical space -->
+        <div style="height: 30px;"></div>
+
+        <!-- Timeline -->
+        <div class="row robotics-timeline-section">
+            <div style="max-width: 100%; margin: 5px auto;">
+                <span
+                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.timeline">
+                    Timeline
+                </span>
+            </div>
+
+            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+
+            <div class="text-center" style="margin-top: 40px;">
+                <img src="img/robotics-timeline-drone.png" alt="Timeline" class="horizontal-image" style="border: 1px solid #d0d0d0; border-radius: 24px;">
+                <img src="img/vertical-robotics-timeline.svg" alt="Timeline" class="vertical-image" style="border: 1px solid #d0d0d0; border-radius: 24px;">
+            </div>
+        </div>
+
+
+
+        
+
+<section class="workshop-planning-cta" data-workshop-planning data-workshop-slug="robotics-drone" aria-labelledby="workshop-planning-heading-robotics-drone">
+  <h2 id="workshop-planning-heading-robotics-drone">Ready to Bring Robotics to Your Group?</h2>
+  <p>Share your destination, anticipated date, group size, and program details.</p>
+  <a class="workshop-planning-cta__button" data-workshop-plan-cta href="/plan-a-workshop/?workshop=robotics-drone">
+    Start Planning This Workshop →
+  </a>
+</section>
+
+        <!-- Footer Section -->
+        <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
+  <nav class="site-footer-regions" aria-label="Workshop regions">
+    
+      
+        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
+      
+    
+      
+        <a href="/regions/southeast/">Southeast</a>
+      
+    
+      
+        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
+      
+    
+      
+        <a href="/regions/mountain-west/">Mountain West</a>
+      
+    
+      
+        <a href="/regions/west-coast/">West Coast</a>
+      
+    
+      
+    
+      
+    
+    <a href="/international-groups/">International Groups</a>
+  </nav>
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+    </div>
+
+</body>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <script src="/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/creative.js"></script>
+    <script>
+window.StageOneExplorerData = {
+  regions: [{"id":"northeast-mid-atlantic","slug":"northeast-mid-atlantic","kind":"us","label":"Northeast & Mid-Atlantic","short_label":"Northeast & Mid-Atlantic","location_phrase":"in the Northeast & Mid-Atlantic","venue_phrase":"throughout the Northeast & Mid-Atlantic","cta_label":"Explore Northeast & Mid-Atlantic Workshops","hero_label":"NORTHEAST & MID-ATLANTIC","hero_title":"Hands-On Engineering Workshops in the Northeast & Mid-Atlantic","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Northeast and Mid-Atlantic. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Northeast and Mid-Atlantic support itineraries shaped by historic cities, universities, museums, government and civic institutions, science, and technology. A Stage One workshop gives students time to move from observing ideas to applying engineering themselves. It can serve as a focused morning or afternoon program, an evening hotel experience, or a hands-on complement to the educational destinations already included in the trip.","themes":["Historic Cities","Universities","Museums","Government & Civic Learning","Science & Technology","Innovation"],"map_states":["ME","NH","VT","MA","RI","CT","NY","NJ","PA","DE","MD","DC","VA","WV"],"map_viewbox":"535 18 424 430","image_src":"/img/regions/northeast-mid-atlantic.webp","image_alt":"Editorial collage of Northeast and Mid-Atlantic architecture, campuses, harbors, and a regional map silhouette","seo_title":"Engineering Workshops in the Northeast & Mid-Atlantic | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Northeast and Mid-Atlantic."},{"id":"southeast","slug":"southeast","kind":"us","label":"Southeast","short_label":"Southeast","location_phrase":"in the Southeast","venue_phrase":"throughout the Southeast","cta_label":"Explore Southeast Workshops","hero_label":"SOUTHEAST","hero_title":"Hands-On Engineering Workshops in the Southeast","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Southeast. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Southeast supports itineraries built around space exploration, theme parks, universities, science centers, coastal destinations, and outdoor learning. A Stage One workshop gives students an opportunity to stop observing and start engineering. It can become a focused program block, an evening hotel activity, or a hands-on complement to the attractions, institutions, and experiences already included in the trip.","themes":["Space & Aerospace","Theme Parks & Design","Universities","Science Centers","Coastal Destinations","Outdoor Learning"],"map_states":["NC","SC","GA","FL","AL","MS","TN","KY"],"map_viewbox":"455 185 455 390","image_src":"/img/regions/southeast.webp","image_alt":"Editorial collage of Southeast space, coastal, campus, and engineering motifs with a regional map outline","seo_title":"Engineering Workshops in the Southeast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Southeast."},{"id":"midwest-south-central","slug":"midwest-south-central","kind":"us","label":"Midwest & South Central","short_label":"Midwest & South Central","location_phrase":"across the Midwest & South Central","venue_phrase":"across the Midwest and South Central United States","cta_label":"Explore Midwest & South Central Workshops","hero_label":"MIDWEST & SOUTH CENTRAL","hero_title":"Hands-On Engineering Workshops Across the Midwest & South Central","hero_intro":"Bring a complete, instructor-led engineering experience to student groups traveling across the Midwest and South Central United States. Stage One delivers the equipment, materials, curriculum, and instructor directly to your group’s venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The region brings together manufacturing, aerospace, energy, universities, science museums, engineering centers, and major city destinations. A Stage One workshop gives students an active experience that connects naturally with these wider themes. Groups can build the workshop into a campus visit, educational travel program, conference schedule, or hotel-based itinerary without needing a dedicated laboratory or permanent classroom.","themes":["Engineering & Manufacturing","Aerospace","Energy","Universities","Science Museums","Major Cities"],"map_states":["OH","MI","IN","IL","WI","MN","IA","MO","ND","SD","NE","KS","OK","TX","AR","LA"],"map_viewbox":"300 45 510 520","image_src":"/img/regions/midwest-south-central.webp","image_alt":"Editorial collage of Midwest and South Central manufacturing, aerospace, campus, and city forms with a regional map silhouette","seo_title":"Engineering Workshops Across the Midwest & South Central | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues across the Midwest and South Central United States."},{"id":"mountain-west","slug":"mountain-west","kind":"us","label":"Mountain West","short_label":"Mountain West","location_phrase":"in the Mountain West","venue_phrase":"throughout the Mountain West","cta_label":"Explore Mountain West Workshops","hero_label":"MOUNTAIN WEST","hero_title":"Hands-On Engineering Workshops in the Mountain West","hero_intro":"Add a practical engineering experience to student programs throughout the Mountain West. Stage One brings the complete three-hour workshop directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Mountain West supports itineraries centered on aerospace, research, geology, technology, universities, and extraordinary natural landscapes. A Stage One workshop adds a collaborative indoor experience that can be scheduled alongside campus visits, science programs, outdoor learning, and regional exploration. Students work directly with engineering ideas while Stage One manages the equipment, materials, instruction, and setup.","themes":["Aerospace","Research & Technology","Geology","Universities","Natural Landscapes","Outdoor Learning"],"map_states":["MT","ID","WY","CO","NM","AZ","UT","NV"],"map_viewbox":"105 25 455 510","image_src":"/img/regions/mountain-west.webp","image_alt":"Editorial collage of Mountain West landscapes, aerospace motifs, and research forms with a regional map silhouette","seo_title":"Engineering Workshops in the Mountain West | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Mountain West."},{"id":"west-coast","slug":"west-coast","kind":"us","label":"West Coast","short_label":"West Coast","location_phrase":"on the West Coast","venue_phrase":"on the West Coast","cta_label":"Explore West Coast Workshops","hero_label":"WEST COAST","hero_title":"Hands-On Engineering Workshops on the West Coast","hero_intro":"Build a complete engineering experience into student travel on the West Coast. Stage One brings the instructor, equipment, materials, and curriculum directly to hotels, schools, campuses, and group venues.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The West Coast brings together technology, aerospace, universities, science, design, entertainment, media, and coastal destinations. A Stage One workshop gives students an active way to engage with the ideas surrounding the wider trip. The experience can complement campus visits, technology-focused programs, science attractions, creative destinations, or educational travel itineraries while remaining easy to schedule at the group’s own venue.","themes":["Technology","Aerospace","Universities","Science & Design","Entertainment & Media","Pacific Coast"],"map_states":["WA","OR","CA","AK","HI"],"map_viewbox":"0 20 455 573","image_src":"/img/regions/west-coast.webp","image_alt":"Editorial collage of West Coast technology, aerospace, campus, and coastal forms with a regional map silhouette","seo_title":"Engineering Workshops on the West Coast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues on the West Coast."},{"id":"international","slug":"international","kind":"international","label":"International","short_label":"International Groups","location_phrase":"for International Groups Visiting the USA","venue_phrase":"during your group’s United States itinerary","cta_label":"Explore Workshops for International Groups","hero_label":"INTERNATIONAL GROUPS","hero_title":"Hands-On Engineering Workshops for International Groups Visiting the USA","hero_intro":"Add a complete, instructor-led engineering experience to your group’s United States itinerary. Stage One coordinates with tour providers, schools, and group leaders and brings the equipment, materials, curriculum, and instructor directly to the group’s hotel, campus, school, or venue.","itinerary_heading":"Easy to Build Into a U.S. Educational Itinerary","itinerary_copy":"Stage One workshops give international students an opportunity to take part in a practical engineering experience while traveling in the United States. The complete three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and the workshop can be adapted for middle school, high school, college, adult, or mixed-age participants.","themes":[],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of an educational itinerary in the United States with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel.","support_cards":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options can be coordinated around the itinerary."},{"title":"Complete Workshop Delivery","text":"Instructor, equipment, materials, curriculum, and setup are included."},{"title":"Clear, Accessible Experience","text":"No prior experience is required, and instruction can be adjusted for the group."}]},{"id":"other","slug":"other","kind":"other","label":"Other","short_label":"Other","location_phrase":"for another location","venue_phrase":"at your group’s destination","cta_label":"Explore Other Workshop Options","hero_label":"OTHER LOCATIONS","hero_title":"Hands-On Engineering Workshops for Other Locations","hero_intro":"Tell Stage One where your group will be. We can help determine workshop delivery options and coordinate the instructor, equipment, materials, and curriculum around your destination and venue.","itinerary_heading":"Build a Workshop Around Your Destination","itinerary_copy":"If your location is not represented by one of the listed regions, Stage One can review your destination, schedule, venue, and group needs. Workshops can be coordinated for hotels, schools, campuses, conference rooms, and other suitable group venues.","themes":["Flexible Destinations","Hotels & Venues","Schools & Campuses","Group Programs"],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of a flexible educational workshop itinerary with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for Other Locations | Stage One Education","seo_description":"Ask about instructor-led engineering workshop delivery for destinations outside Stage One’s listed United States regions."}],
+  audiences: [{"id":"middle-school","label":"Middle School","heading_label":"Middle School","summary":"Structured guidance and regular hands-on milestones help middle school students stay actively involved.","detail":"Structured guidance, clear explanations, collaborative challenges, and regular hands-on milestones help middle school students stay actively involved throughout the experience. Technical concepts are introduced in accessible language, and no prior experience is required.","availability":"Artificial Intelligence, Robotics, Mechanical Engineering, and Web Engineering remain available for this audience."},{"id":"high-school","label":"High School","heading_label":"High School","summary":"Team-based challenges, technical discussion, and hands-on problem-solving for high school groups.","detail":"High school groups can explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the amount of guidance based on the group’s experience, and no previous engineering background is required.","availability":"Every Stage One workshop remains available for this audience."},{"id":"college-university","label":"College & University","heading_label":"College & University","summary":"A faster pace with greater emphasis on applied engineering and technical decision-making.","detail":"College and university groups can move through the experience at a faster pace with greater emphasis on applied engineering, collaboration, technical decision-making, and discussion. The workshop can complement academic travel, campus programs, leadership experiences, or group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"adult-professional","label":"Adult & Professional","heading_label":"Adult & Professional","summary":"A practical, collaborative engineering experience for teams and adult learners.","detail":"Adult and professional groups can take part in a practical, collaborative engineering experience designed for active participation. The format can support professional programs, team experiences, lifelong learning, or customized group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"mixed-age","label":"Mixed-Age Group","heading_label":"Mixed-Age","summary":"Pacing, team structure, and guidance can be adjusted so different experience levels can contribute together.","detail":"Stage One instructors can adjust pacing, team structure, explanations, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","availability":"Every Stage One workshop remains available for mixed-age groups."}],
+  groupTypes: [{"id":"educational-travel","label":"Educational Travel","paragraph_phrase":"designed to fit educational travel itineraries"},{"id":"school-campus","label":"School or Campus","paragraph_phrase":"designed to fit school and campus programs"},{"id":"private-other","label":"Private or Other Group","paragraph_phrase":"designed to fit private and other group programs"}],
+  workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"]},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"]},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"]},{"slug":"web-development","name":"Web Engineering","heading_label":"Web Engineering","explorer_label":"Web Engineering","explorer_summary":"Design, build, and publish a live website while learning layout, content, and front-end development.","duration":"3-Hour Workshop","description":"Design, build, and publish a live website.","image":"img/ai-website-mockup.svg","image_alt":"Website interface created during the Web Development workshop","image_width":200,"image_height":200,"detail_path":"/ai-website-workshop.html","icon":"fa-code","homepage_short_name":"Web","homepage_short_focus":"HTML · AI Coding · Publish","homepage_focus":"HTML & CSS · AI Coding · Publishing","homepage_topics":["Website layout and front-end development","HTML, CSS, and AI-assisted coding","Publishing a live website"]}],
+  copy: {"section_heading":"Find Your Workshop","section_intro":"Choose a region, then optionally refine the audience and workshop.","reassurance":"Every Stage One workshop can be adapted for every audience shown. Choose based on what your group is interested in exploring.","clear_selections":"Clear selections","region_step_heading":"1. Where will your group be?","region_step_support":"Choose a region on the map or use the region buttons on mobile.","audience_step_heading":"2. Who are you planning for?","group_type_subheading":"Planning context — optional","workshop_step_heading":"3. What would your group like to explore?","workshop_step_support":"Every workshop can be adapted for every audience. Choose based on your group's interests.","all_workshops_label":"All Workshops","international_label":"International","default_heading":"Choose a Region","default_paragraph":"Select a region on the map or use the region buttons to explore available Stage One workshops.","default_button":"Select a Region","workshop_cards_heading":"Explore Our Workshops","workshop_cards_support":"Every Stage One workshop can be adapted for every audience shown below. Choose the experience that most interests your group.","selected_interest":"Selected Interest","audience_cards_heading":"Designed Around Your Group","audience_cards_support":"Select an audience to see how the pacing, guidance, and technical depth can be adjusted. Every workshop remains available for every audience.","audience_general_intro":"Every Stage One workshop can be adapted for middle school, high school, college, adult, and mixed-age groups. Select an audience to see how the experience can be adjusted.","clear_audience":"Clear Audience Selection","planning_heading":"Ready to Bring a Workshop to Your Group?","planning_body":"Share your destination, anticipated date, group size, and workshop interests. Stage One will help coordinate the experience around your group’s itinerary, schedule, and venue.","planning_prompt":"Tell us which workshop interests your group.","planning_button":"Start Planning","change_selections":"Change Selections","explore_other_regions":"Explore Other Regions","your_selections":"Your Selections","no_experience":"No Experience Required","delivery_facts":[{"title":"3-Hour Workshops","text":"Flexible morning, afternoon, or evening scheduling.","icon":"fa-clock-o"},{"title":"No Experience Required","text":"Accessible to a wide range of experience levels.","icon":"fa-star-o"},{"title":"Instructors and Equipment Included","text":"Stage One brings the instructor, equipment, materials, and curriculum.","icon":"fa-briefcase"},{"title":"Delivered to Your Venue","text":"At a hotel, school, campus, conference room, or group venue.","icon":"fa-map-marker"}]}
+};
+</script>
+<script src="/js/query-validation.js"></script>
+<script src="/js/selection-urls.js"></script>
+<script src="/js/explorer-copy.js"></script>
+<script src="/js/explorer-state.js"></script>
+
+    <script src="/js/homepage-workshop-explorer.js"></script>
+    <script src="/js/region-page.js"></script>
+    <script src="/js/workshop-page-context.js"></script>
+    <script src="/js/plan-workshop-form.js"></script>
+
+</body>
+
+</html>

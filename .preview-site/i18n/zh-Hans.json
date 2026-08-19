@@ -1,0 +1,424 @@
+{
+  "_readme": "Simplified Chinese. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI, CAD, MIT, Wi-Fi) are intentionally left in the original. HTML tags inside values must be preserved exactly.",
+
+  "nav": {
+    "toggle": "打开导航",
+    "menu": "菜单",
+    "workshops": "工作坊 <span class=\"caret\"></span>",
+    "ai": "人工智能",
+    "robotics": "机器人无人机",
+    "mechanical": "机械工程",
+    "aiWebsite": "网页开发",
+    "home": "首页",
+    "locations": "服务城市",
+    "instructors": "讲师",
+    "feedback": "学员评价",
+    "contact": "联系我们",
+    "about": "关于我们",
+    "requestDemo": "预约演示",
+    "planWorkshop": "规划工作坊",
+    "workshopAccess": "进入工作坊"
+  },
+
+  "common": {
+    "letsChat": "联系我们",
+    "contact": "联系我们",
+    "feedbackSurvey": "反馈问卷",
+    "overview": "课程概览",
+    "testimonials": "学员评价",
+    "timeline": "活动流程",
+    "workshopSubdata": "3-3.5 小时 | 不限年龄 | 零基础可参加",
+    "yes": "是",
+    "no": "否",
+    "planThisWorkshop": "规划此工作坊"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "面向全美各地团体的动手工程工作坊",
+      "imageAlt": "工作坊教室",
+      "audience": "面向学校、旅游运营商和团体",
+      "navLabel": "工作坊类型",
+      "linkAi": "AI",
+      "linkRobotics": "机器人",
+      "linkMechanical": "机械",
+      "linkWebsite": "网页",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">我们把</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">动手工程体验</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">带到您身边</span>",
+      "title2": "为全美各地的团体上门授课",
+      "body1": "完整的三小时人工智能、机器人、机械工程和网页开发工作坊，可送达全美各地的酒店、学校、校园或活动场地。我们提供讲师、设备、材料和课程，并负责现场布置和清理。",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>查看工作坊手册",
+      "ctaFind": "<i class=\"fa fa-search\" aria-hidden=\"true\"></i>寻找适合的工作坊",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>预约开课咨询",
+      "benefitsLabel": "工作坊优势",
+      "benefitDurationTitle": "3小时工作坊",
+      "benefitDurationText": "可灵活安排在上午、下午或晚上",
+      "benefitExperienceTitle": "无需经验",
+      "benefitExperienceText": "适合广泛的年龄段和技能水平",
+      "benefitGroupsTitle": "灵活的团体规模",
+      "benefitGroupsText": "从私人团体到大型学生项目",
+      "benefitDeliveryTitle": "覆盖全美",
+      "benefitDeliveryText": "可在酒店、学校、校园或团体场地开展",
+      "benefitIncludedTitle": "包含工程师和设备",
+      "benefitIncludedText": "由真正的工程师带领，并提供材料、课程、场地布置和清理"
+    },
+    "explorer": {
+      "exploreEyebrow": "探索工作坊",
+      "exploreHeading": "为您的团体找到合适的工作坊",
+      "exploreSupport": "浏览全部四个工作坊，或按美国目的地、参加者、团体类型和兴趣筛选。",
+      "exploreHelper": "所有选择均为可选，并可随时更改。",
+      "planEyebrow": "规划工作坊",
+      "planHeading": "开始规划团体工作坊",
+      "planSupport": "请提供您已知的团体和美国目的地信息。提交前可确认其余细节。",
+      "planHelper": "选择您已知的信息，准备好后继续。",
+      "refine": "筛选工作坊",
+      "destination": "美国目的地",
+      "optional": "可选",
+      "otherDestination": "其他美国目的地",
+      "customDestination": "输入目的地",
+      "participants": "参加者",
+      "participantElementary": "小学",
+      "participantMiddle": "初中",
+      "participantHigh": "高中",
+      "participantCollege": "学院或大学",
+      "participantAdult": "成人或专业人士",
+      "participantMixed": "混合年龄团体",
+      "groupType": "团体类型",
+      "groupSchool": "学校或班级",
+      "groupTour": "教育旅行或旅游团体",
+      "groupYouth": "暑期或青少年项目",
+      "groupCollege": "大学项目",
+      "groupCorporate": "企业或专业团体",
+      "groupPrivate": "私人或社区团体",
+      "international": "国际团体",
+      "interest": "感兴趣的工作坊",
+      "exploreWorkshop": "探索工作坊",
+      "planThis": "规划此工作坊",
+      "viewDetails": "查看详情",
+      "selectWorkshop": "选择工作坊",
+      "selected": "已选择",
+      "summaryHeading": "您的工作坊计划",
+      "notSelected": "尚未选择",
+      "clearSelection": "清除选择",
+      "continueSupport": "接下来请提供首选日期、预计人数、场地和联系信息。",
+      "continue": "继续规划",
+      "mobileSelected": "已选工作坊：",
+      "mobileNotSure": "工作坊：尚未确定"
+    },
+    "workshopsHeading": "我们的工作坊",
+    "participantsHeading": "学员怎么说",
+    "planWorkshop": {
+      "title": "完成工作坊申请",
+      "subtitle": "请提供其余细节。Stage One 团队成员将审核申请并跟进档期与后续步骤。",
+      "preferredDate": "首选日期",
+      "alternateDate": "备选日期",
+      "preferredTime": "首选时间",
+      "selectTime": "选择时间",
+      "morning": "上午",
+      "afternoon": "下午",
+      "evening": "晚上",
+      "participantCount": "预计参加人数",
+      "venue": "场地或酒店信息",
+      "organization": "机构或学校名称",
+      "contactName": "联系人姓名",
+      "email": "电子邮箱",
+      "phone": "电话",
+      "notes": "补充说明",
+      "submit": "提交工作坊申请",
+      "hint": "提交申请不代表预订已确认。",
+      "thanks": "谢谢。团队成员将联系您说明后续步骤。"
+    },
+    "cardAi": {
+      "title": "人工智能",
+      "posterAlt": "学生创作的 AI 电影海报",
+      "line1": "认识 AI 神经网络",
+      "line2": "使用最新 AI 模型： <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>文本、图像与音乐</em></li> </ul>",
+      "line3": "AI 伦理讨论"
+    },
+    "cardRobotics": {
+      "title": "机器人无人机",
+      "imageAlt": "无人机电路",
+      "line1": "操控迷你无人机",
+      "line2": "搭建无人机控制电路",
+      "line3": "编写自主飞行程序"
+    },
+    "cardMechanical": {
+      "title": "机械工程",
+      "line1": "使用专业 CAD 软件",
+      "line2": "设计多部件模型火箭",
+      "line3": "体验 3D 打印"
+    },
+    "cardWebsite": {
+      "title": "网页开发",
+      "imageAlt": "工作坊中制作的网站",
+      "line1": "构建一个真实的网站",
+      "line2": "使用 AI 助手编写代码",
+      "line3": "发布到互联网上"
+    },
+    "aboutHeading": "关于我们",
+    "about": {
+      "handsOn": {
+        "title": "亲手实践",
+        "body": "从第一分钟就开始动手，无需任何基础，适合各个年龄和水平的参加者。"
+      },
+      "turnKey": {
+        "title": "一站式方案",
+        "body": "讲师、器材、课程全部包含的一站式方案，可无缝融入任何项目并按规模灵活调整。"
+      },
+      "curriculum": {
+        "title": "课程设计",
+        "body1": "由博士、工程师和教育专家共同设计并亲自授课。",
+        "body2": "内容持续更新，每一年都不重样。"
+      },
+      "experienced": {
+        "title": "丰富经验",
+        "body": "自 2013 年以来，Stage One Education 已在全美为数万名参加者提供工作坊。"
+      },
+      "safe": {
+        "title": "安全保障",
+        "body": "模型火箭全程在虚拟环境中完成，所有电子元件均为低压，并提供护目镜。"
+      }
+    },
+    "feedbackHeading": "学员评价",
+    "feedbackNav": {
+      "previous": "上一组",
+      "next": "下一组",
+      "expand": "查看大图",
+      "close": "关闭"
+    },
+    "moreFeedback": "查看更多评价",
+    "contactHeading": "联系我们",
+    "heroQuotes": [
+      "同样时长的课程里，这堂课让我学到的东西是最多的。课程结构非常有教育意义，能让人真正学进去。",
+      "这个工作坊太有意思了！说明讲得很清楚，对第一次用这类 CAD 软件的人帮助很大。",
+      "到目前为止最棒的一次",
+      "这是我上过最好的工作坊，讲师非常亲切，知识也很渊博。整体来说是很棒的体验",
+      "我很喜欢这个工作坊。我从没用过任何 CAD 软件，但学会之后在规定时间内把整枚火箭做完了。能掌握这类软件我很开心，下次想在少一点指导的情况下自己试试。:)",
+      "非常有趣，既能自由发挥，又确实学到了东西",
+      "我特别喜欢学习提示词工程和神经网络，也很喜欢讨论关于 AI 的争议话题。这让我意识到，AI 的利与弊还需要继续深入思考",
+      "课程安排得非常用心，各个环节都很有趣、很好玩。",
+      "我很喜欢这个工作坊，是我们到目前为止做过最喜欢的一项。强烈建议以后多安排这样的课",
+      "神经网络训练是我上过最好的人工智能课程之一。之后还能亲自使用各种 AI 工具，这一点也很棒。",
+      "我对 AI 生成背后的细节有了很多了解",
+      "我很喜欢这个活动带来的思维挑战，尤其是和一群有见识的人一起讨论难题的过程。",
+      "你们准备的活动我都很喜欢，也很佩服你们的知识面。",
+      "我很喜欢这位讲师，她很善于互动，也很会倾听，还能给出很好的见解",
+      "最开始你们讲解的那部分很棒。如果有一门由你们两位授课的大学课程，我愿意每堂课都去。",
+      "我喜欢辩论环节。主持得非常好，即使大家情绪激动，讨论也一直保持理性。",
+      "这是最棒的工作坊，因为互动性很强，而且真的是在动手做",
+      "非常有趣，下次一定要继续开这门课。",
+      "这类工作坊我参加过三次，一次比一次好。非常棒的项目！",
+      "真的很有意思。做完 CAD 编程后我一度很没信心，这次让我对自己的工程能力有了更多底气！工作坊很棒，讲师更棒；很有耐心，讲得清楚，而且看得出他真心热爱这份工作。:D"
+    ]
+  },
+
+  "ai": {
+    "title": "人工智能工作坊",
+    "heroNeuralNetwork": "人体神经网络",
+    "posterCaption": "参加者创作的电影海报",
+    "overview": {
+      "nn": {
+        "heading": "<strong>人体神经网络：动手活动</strong>",
+        "item1": "每位参加者化身神经网络中的一个节点，在互动式的“复杂传话”游戏中亲身体验。",
+        "item2": "不用任何数学，就能直观理解神经网络及其学习过程！"
+      },
+      "film": {
+        "heading": "<strong>AI 电影工作室：创作活动</strong>",
+        "item1": "亲手使用最前沿的 AI 工具，生成文本、图像、音乐和语音。",
+        "item2": "从剧本到宣传物料，参加者将完成一部短片所需的全部制作内容。",
+        "item3": "最后举办观影环节，一起见证 AI 的创作实力。"
+      },
+      "ethics": {
+        "heading": "<strong>AI 伦理：决策活动</strong>",
+        "item1": "深入探讨 AI 工程师在现实中面临的棘手伦理问题。",
+        "item2": "在热烈的讨论中，批判性地思考如何负责任地使用 AI。"
+      }
+    },
+    "quotes": {
+      "q1": "“真的非常棒。我一开始以为自己听不懂，但你们讲解得特别好。<strong>这次经历我永远不会忘记！！！</strong>太感谢了😍”<br><span class=\"quote-attribution\"><em>— 学员，Boston, MA 2025</em></span>",
+      "q2": "“你们把每个部分都讲得很清楚，还让<strong>所有人都参与进来</strong>，让学习变得<strong>很有乐趣</strong>。”<br><span class=\"quote-attribution\"><em>— 学员，Berkeley, CA 2023</em></span>",
+      "q3": "“谢谢你们回答我们的问题！<strong>这是我第一次真正把神经网络弄明白 :)</strong>”<br><span class=\"quote-attribution\"><em>— 学员，Berkeley, CA 2025</em></span>",
+      "q4": "“这是我参加过<strong>最好的 AI 工作坊</strong>之一。没想到这些 AI 工具用起来这么简单。”<br><span class=\"quote-attribution\"><em>— 学员，Houston, TX 2024</em></span>",
+      "q5": "“这个工作坊让我很受触动，我想它会成为<strong>这次游学中最难忘的活动</strong>。我真切感受到和我的国家在教育质量上的差别。如果有机会，我一定还想再参加一次。”<br><span class=\"quote-attribution\"><em>— 学员，Boston, MA 2025</em></span>",
+      "q6": "“喜欢这种<strong>大家一起参与</strong>的活动，讲师讲解得<strong>简单</strong><br><strong>却很到位</strong>”<br><span class=\"quote-attribution\"><em>— 学员，Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "机器人无人机工作坊",
+    "overview": {
+      "intro": "在机器人工作坊里，学生会拿到一架无人机，但<strong>没有遥控器！</strong><br> 通过亲手制作四旋翼的遥控器来学习工程：",
+      "item1": "从零开始接出一整套电路，包含带 Wi-Fi 的<strong>双核微控制器</strong>、六轴加速度计、灯光、电位器和按键。",
+      "item2": "和队友一起学习<strong>读懂电路图并把它变成真正能运行的电路</strong>",
+      "item3": "亲自<strong>编写、上传并运行</strong>属于自己的自主飞行程序",
+      "item4": "参加自主飞行表演，展示自己编写的飞行方案"
+    },
+    "quotes": {
+      "q1": "“这次<strong>做得非常出色</strong>。讲师们都很友好、很好接近。真的很感谢这次机会，它让我看到了一个我从没想过自己会接触的电子领域。”<br><span class=\"quote-attribution\"><em>— 学员，San Francisco, CA 2025</em></span>",
+      "q2": "“这是<strong>迄今为止最好的工作坊</strong>，也是我最感兴趣的一个。我很喜欢编程部分和电子硬件”<br><span class=\"quote-attribution\"><em>— 学员，Berkeley, CA 2023</em></span>",
+      "q3": "“你们<strong>太棒了，我玩得非常开心</strong>。迫不及待想做更多工程和编程！”<br><span class=\"quote-attribution\"><em>— 学员，Boston, MA 2023</em></span>",
+      "q4": "“非常有趣，<strong>学到了很多</strong>。这些知识<strong>在我以后的其他项目里也真的用得上</strong>。”<br><span class=\"quote-attribution\"><em>— 学员，Houston, TX 2022</em></span>",
+      "q5": "“这是整个项目中最好的一场工作坊”<br><span class=\"quote-attribution\"><em>— 学员，Boston, MA 2024</em></span>",
+      "q6": "“太棒了”<br><span class=\"quote-attribution\"><em>— 学员，Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "机械工程工作坊",
+    "heroStart": "开始",
+    "overview": {
+      "intro": "在机械工程工作坊里，参加者将<strong>成为火箭设计师！</strong>",
+      "item1": "使用<strong>行业标准的 CAD（计算机辅助设计）</strong>软件，设计并制作属于自己的三段式火箭。",
+      "item2": "跟着<strong>GIF 式短视频</strong>和简明文字一步步操作，无需任何基础。",
+      "item3": "掌握 CAD 的核心技能：草图绘制、参数化建模与装配。",
+      "item4": "现场观看 3D 打印演示。",
+      "item5": "在自由的问答环节，你可以就设计思路、CAD 技巧和工程职业发展，向我们的<strong>一线工程师</strong>提出任何问题。"
+    },
+    "quotes": {
+      "q1": "“<strong>我非常喜欢</strong> —— 讲解清晰、条理分明。配合说明的动画对视觉型学习者很友好。总体来说，我被激发了继续学 CAD、设计新东西的热情。<strong>我原本很犹豫自己到底适不适合做工程师，但这次之后我自信多了</strong>，也更想深入了解这个领域了” <em>— 学员，Houston, TX 2023</em>",
+      "q2": "“<strong>既有挑战性，节奏又刚刚好</strong>。让我对虚拟三维渲染产生了兴趣。现在我<strong>觉得自己能独立完成这些</strong>，也有动力把自己的能力推到极限。” <em>— 学员，Atlanta, GA 2021</em>",
+      "q3": "“<strong>我太喜欢这个工作坊了。</strong>我从没用过任何 CAD 软件，但学会之后<strong>在规定时间内把整枚火箭做完了。</strong>能掌握这类软件我很开心，下次想在少一点指导的情况下试试。:)” <em>— 学员，Los Angeles, CA 2025</em>",
+      "q4": "“这个工作坊是<strong>我最喜欢的一个，没有之一</strong>。我想成为土木工程师，能提前看到将来真正会用到的软件，感觉特别好” <em>— 学员，Berkeley, CA 2021</em>",
+      "q5": "“既有指导又有创作自由，这样的安排太完美了！” <em>— 学员，Berkeley, CA 2025</em>",
+      "q6": "“很棒的工作坊，<strong>过程非常愉快</strong>，同时学到了在工程以及未来道路上<strong>对我的成功至关重要</strong>的技能。” <em>— 学员，Atlanta, GA 2025</em>"
+    }
+  },
+
+  "aiWebsite": {
+    "title": "网页开发工作坊",
+    "comingSoon": "工作坊详情即将公布。"
+  },
+
+  "locations": {
+    "heading": "服务城市",
+    "note": "其他城市可应要求安排",
+    "mapAlt": "地图"
+  },
+
+  "instructors": {
+    "heading": "讲师",
+    "mission": "使命：以亲手实践的工程工作坊启发每一位学习者",
+    "body": "Stage One Education 的工作坊凝聚了顶尖研究者与一线工程师的专业能力和真实工作方式。遍布全美的资深讲师网络，带领参加者投入沉浸式、动手实践的项目学习，内容紧跟最新的工程领域发展。这样的方式，让每一次体验都由真实工程师的洞见与热情所驱动。",
+    "join": "想加入我们的团队吗？",
+    "requirements": "任职要求：团队领导力 - 出色的表达与授课能力 - 扎实的工程实践作品集",
+    "authorization": "须具备在美国以 1099 独立承包人身份工作的资格"
+  },
+
+  "feedback": {
+    "heading": "学员评价",
+    "updated": "更新时间：2026 年 2 月 5 日",
+    "formLink": "反馈表单"
+  },
+
+  "contact": {
+    "heading": "联系我们",
+    "lede": "<b>有问题或想了解更多？欢迎随时联系我们。</b>",
+    "body": "我们的<strong>人工智能</strong>、<strong>机器人</strong>和<strong>机械工程</strong>动手工作坊由一线工程师亲自带领。仅需三小时，参加者就能掌握点燃 STEM 兴趣的核心技能与工具。<br><br>无需任何基础。<br><br> <strong>让我们把这份热情与知识带给您的团队——现在就联系我们吧！</strong>"
+  },
+
+  "about": {
+    "heading": "关于我们",
+    "intro": {
+      "headline": "我们致力于把对工程的热爱传递给更多人",
+      "lede": "我们的工作坊回答这样的问题：",
+      "question1": "<strong>我也能做工程吗？</strong>",
+      "question2": "<strong>工程师究竟在做什么？</strong>",
+      "body1": "从亲手搭建真实电路，到使用专业级 CAD 工具和最新的 AI 模型，参加者通过动手实践，真正体会到工程究竟是怎么一回事。",
+      "body2": "在接触真实项目、工程工具并与资深专业人士交流之后，参加者会带着更强的自信、更多的启发，以及对自己工程之路的期待离开。"
+    },
+    "leadershipHeading": "核心团队",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry，MIT 博士",
+        "role": "创始人",
+        "bio": "Andy 在 MIT 攻读博士期间<a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">亲自操控自主无人机</a>，从此爱上了这个领域。从小型直升机到<a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">高性能四足机器人</a>，他已为一万多名学生带来电子与软件工作坊。"
+      },
+      "pete": {
+        "name": "Pete Florence，MIT 博士",
+        "role": "联合创始人",
+        "bio": "Pete 在 MIT 读博期间操控过各式各样的无人机。他在 <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> 的规划与控制研究，拓展了无人机在速度、敏捷性和可靠性上的边界。他屡获殊荣的<a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">机器人操作</a>研究，正每天为机器人带来新的能力。"
+      },
+      "robbie": {
+        "name": "Robbie Kipp，工程师",
+        "role": "运营总监",
+        "bio": "Robbie 曾任海洋工程师与船舶设计师，他的设计为潜水系统和船舶的未来指明了方向。如今作为 Stage One Education 的运营总监，他正开创新的方式，去激励下一代工程师。他还是一位热衷潜水、攀岩和航空的爱好者。"
+      }
+    },
+    "instructorsCallout": "<strong>Stage One Education 讲师团队</strong><br> 由充满热情的一线工程师组成的全美网络",
+    "workshopsHeading": "亲手实践的工程工作坊",
+    "buttons": {
+      "ai": "人工智能",
+      "robotics": "机器人无人机",
+      "mechanical": "机械工程"
+    },
+    "turnKey": {
+      "heading": "一站式方案",
+      "body": "我们提供讲师、材料和课程全部包含的完整工作坊。参加者将用我们持续打磨的讲解方式、方法与教学法掌握专业级工具，带着全新的自信离开。"
+    },
+    "details": {
+      "heading": "工作坊详情",
+      "offered": "<strong>可选主题：</strong>机器人、人工智能、机械工程",
+      "length": "<strong>时长：</strong>3 小时",
+      "participants": "<strong>参加人数：</strong>每场最多约 60 人（以场地容量为准）",
+      "location": "<strong>地点：</strong>任何地点我们都可以配合",
+      "venue": "<strong>场地要求：</strong>需具备 Wi-Fi、电源插座、桌椅，场地越宽敞越好",
+      "materials": "<strong>材料：</strong>所有工作坊均已包含",
+      "instructors": "<strong>讲师：</strong>乐于分享专业经验的资深一线工程师。",
+      "schedule": "<strong>日程：</strong>可配合您的行程安排，并能根据需要连续或同时开设多场"
+    },
+    "pricing": {
+      "heading": "费用",
+      "body": "人均费用取决于团队规模、连续开课的天数安排、器材调配以及配备的讲师人数等因素。如需为您量身定制的报价，欢迎立即联系我们的团队。我们很乐意为您打造最合适的工程体验。"
+    },
+    "presentations": {
+      "heading": "专题讲座",
+      "lede": "我们还提供由业界专家主讲的一小时互动式讲座。",
+      "topics": "深入探讨： <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>虚拟现实</li> <li>人工智能</li> <li>机器人等更多主题</li> </ul>",
+      "body": "这些讲座能激发创新思维，帮助参加者更好地理解最新的技术突破。"
+    },
+    "contactBlurb": "了解我们的工程工作坊与专题讲座 <br> 立即预约一场线上演示",
+    "letsChat": "联系我们"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | 亲手实践的工程工作坊",
+      "description": "自 2013 年起在全美开展的动手工程工作坊，涵盖 AI、机器人与机械工程，由一线工程师亲自授课。"
+    },
+    "ai": {
+      "title": "人工智能工作坊 | STAGE ONE EDUCATION",
+      "description": "跟着 Stage One Education 动手探索人工智能：搭建神经网络、用 AI 制作短片、讨论 AI 伦理。无需基础，适合各个年龄，由一线工程师带领。"
+    },
+    "robotics": {
+      "title": "机器人无人机工作坊 | STAGE ONE EDUCATION",
+      "description": "在 Stage One Education 的机器人无人机工作坊，用 Arduino 与 ESP32 掌握无人机飞行控制。动手做电子、写代码，零基础也能参加！"
+    },
+    "mechanical": {
+      "title": "机械工程工作坊 | STAGE ONE EDUCATION",
+      "description": "在 CAD 与火箭工作坊中体验机械工程基础：搭建虚拟火箭、了解 3D 打印、掌握设计方法。无需任何基础！"
+    },
+    "aiWebsite": {
+      "title": "网页开发工作坊 | STAGE ONE EDUCATION",
+      "description": "在 Stage One Education 的实践工作坊中，借助 AI 编程工具构建并发布一个真实的网站，由真正的工程师带领。无需任何经验。"
+    },
+    "locations": {
+      "title": "服务城市 | STAGE ONE EDUCATION",
+      "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    },
+    "instructors": {
+      "title": "讲师 | STAGE ONE EDUCATION",
+      "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    },
+    "feedback": {
+      "title": "学员评价 | STAGE ONE EDUCATION",
+      "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    },
+    "contact": {
+      "title": "联系我们 | STAGE ONE EDUCATION",
+      "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    },
+    "about": {
+      "title": "关于我们 | STAGE ONE EDUCATION",
+      "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    }
+  }
+}

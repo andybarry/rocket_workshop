@@ -1,0 +1,424 @@
+{
+  "_readme": "Italian. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (IA, CAD, MIT, Wi-Fi, STEM) follow the glossary. HTML tags inside values must be preserved exactly. Nav and button strings are kept short so they do not wrap or clip.",
+
+  "nav": {
+    "toggle": "Apri navigazione",
+    "menu": "Menu",
+    "workshops": "Workshop <span class=\"caret\"></span>",
+    "ai": "Intelligenza Artificiale",
+    "robotics": "Robotica e Droni",
+    "mechanical": "Ingegneria Meccanica",
+    "aiWebsite": "Sviluppo Web",
+    "home": "Home",
+    "locations": "Sedi",
+    "instructors": "Docenti",
+    "feedback": "Recensioni",
+    "contact": "Contatti",
+    "about": "Chi siamo",
+    "requestDemo": "Richiedi una demo",
+    "planWorkshop": "Pianifica un workshop",
+    "workshopAccess": "Accesso ai workshop"
+  },
+
+  "common": {
+    "letsChat": "Parliamone",
+    "contact": "Contatti",
+    "feedbackSurvey": "Questionario di gradimento",
+    "overview": "Panoramica",
+    "testimonials": "Recensioni",
+    "timeline": "Programma",
+    "workshopSubdata": "3-3,5 ore | Tutte le età | Nessuna esperienza richiesta",
+    "yes": "Sì",
+    "no": "No",
+    "planThisWorkshop": "PIANIFICA QUESTO WORKSHOP"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "Workshop pratici di ingegneria in tutti gli Stati Uniti",
+      "imageAlt": "Aula del workshop",
+      "audience": "Per scuole, tour operator e gruppi",
+      "navLabel": "Tipi di workshop",
+      "linkAi": "IA",
+      "linkRobotics": "Robotica",
+      "linkMechanical": "Meccanica",
+      "linkWebsite": "Sito Web",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Portiamo</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">l’ingegneria pratica</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">da te</span>",
+      "title2": "Per gruppi in tutti gli Stati Uniti",
+      "body1": "Workshop completi di tre ore su IA, robotica, ingegneria meccanica e sviluppo web, organizzati presso il tuo hotel, la tua scuola, il tuo campus o la tua sede in tutti gli Stati Uniti. Portiamo docenti, attrezzature, materiali e programma e ci occupiamo dell’allestimento e del riordino.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Guarda la guida ai workshop",
+      "ctaFind": "<i class=\"fa fa-search\" aria-hidden=\"true\"></i>Trova il tuo workshop",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organizza il tuo workshop",
+      "benefitsLabel": "Vantaggi dei workshop",
+      "benefitDurationTitle": "Workshop di 3 ore",
+      "benefitDurationText": "Orari flessibili al mattino, pomeriggio o sera",
+      "benefitExperienceTitle": "Nessuna esperienza richiesta",
+      "benefitExperienceText": "Progettati per un’ampia gamma di età e livelli di abilità",
+      "benefitGroupsTitle": "Dimensioni del gruppo flessibili",
+      "benefitGroupsText": "Dai gruppi privati ai grandi programmi studenteschi",
+      "benefitDeliveryTitle": "Disponibili in tutti gli Stati Uniti",
+      "benefitDeliveryText": "Nel tuo hotel, scuola, campus o sede per gruppi",
+      "benefitIncludedTitle": "Ingegneri e attrezzature inclusi",
+      "benefitIncludedText": "Guidati da veri ingegneri, con materiali, programma, allestimento e riordino inclusi"
+    },
+    "explorer": {
+      "exploreEyebrow": "ESPLORA I WORKSHOP",
+      "exploreHeading": "Trova il workshop giusto per il tuo gruppo",
+      "exploreSupport": "Esplora tutti e quattro i workshop o restringi le opzioni per destinazione, partecipanti, tipo di gruppo e interesse.",
+      "exploreHelper": "Tutte le selezioni sono facoltative e modificabili.",
+      "planEyebrow": "PIANIFICA UN WORKSHOP",
+      "planHeading": "Inizia a pianificare il workshop del tuo gruppo",
+      "planSupport": "Dicci cosa sai sul gruppo e sulla destinazione negli Stati Uniti. Potrai confermare i dettagli prima dell’invio.",
+      "planHelper": "Seleziona ciò che conosci e continua quando sei pronto.",
+      "refine": "AFFINA I WORKSHOP",
+      "destination": "Destinazione negli Stati Uniti",
+      "optional": "Facoltativo",
+      "otherDestination": "Altra destinazione negli Stati Uniti",
+      "customDestination": "Inserisci destinazione",
+      "participants": "Partecipanti",
+      "participantElementary": "Scuola primaria",
+      "participantMiddle": "Scuola media",
+      "participantHigh": "Scuola superiore",
+      "participantCollege": "College o università",
+      "participantAdult": "Adulti o professionisti",
+      "participantMixed": "Gruppo di età miste",
+      "groupType": "Tipo di gruppo",
+      "groupSchool": "Scuola o classe",
+      "groupTour": "Tour educativo o gruppo di viaggio",
+      "groupYouth": "Programma estivo o giovanile",
+      "groupCollege": "Programma universitario",
+      "groupCorporate": "Gruppo aziendale o professionale",
+      "groupPrivate": "Gruppo privato o comunitario",
+      "international": "Gruppo internazionale",
+      "interest": "Workshop di interesse",
+      "exploreWorkshop": "ESPLORA IL WORKSHOP",
+      "planThis": "PIANIFICA QUESTO WORKSHOP",
+      "viewDetails": "VEDI DETTAGLI",
+      "selectWorkshop": "SELEZIONA WORKSHOP",
+      "selected": "SELEZIONATO",
+      "summaryHeading": "Il tuo piano workshop",
+      "notSelected": "Non ancora selezionato",
+      "clearSelection": "Cancella selezione",
+      "continueSupport": "Indica poi data preferita, partecipanti stimati, sede e contatti.",
+      "continue": "CONTINUA LA PIANIFICAZIONE",
+      "mobileSelected": "Workshop selezionato:",
+      "mobileNotSure": "Workshop: non ancora deciso"
+    },
+    "workshopsHeading": "I nostri workshop",
+    "participantsHeading": "Cosa dicono i partecipanti",
+    "planWorkshop": {
+      "title": "Completa la richiesta del workshop",
+      "subtitle": "Condividi i dettagli rimanenti. Un membro del team esaminerà la richiesta e ti contatterà per disponibilità e prossimi passi.",
+      "preferredDate": "Data preferita",
+      "alternateDate": "Data alternativa",
+      "preferredTime": "Orario preferito",
+      "selectTime": "Seleziona un orario",
+      "morning": "Mattina",
+      "afternoon": "Pomeriggio",
+      "evening": "Sera",
+      "participantCount": "Numero stimato di partecipanti",
+      "venue": "Informazioni sulla sede o hotel",
+      "organization": "Organizzazione o scuola",
+      "contactName": "Nome del referente",
+      "email": "E-mail",
+      "phone": "Telefono",
+      "notes": "Note aggiuntive",
+      "submit": "INVIA RICHIESTA WORKSHOP",
+      "hint": "La richiesta non conferma una prenotazione.",
+      "thanks": "Grazie. Un membro del team ti contatterà per i prossimi passi."
+    },
+    "cardAi": {
+      "title": "Intelligenza Artificiale",
+      "posterAlt": "Locandine create dagli studenti con l'IA",
+      "line1": "Scopri le reti neurali",
+      "line2": "Usa i modelli di IA più recenti: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>testo, immagini e musica</em></li> </ul>",
+      "line3": "Dibattito sull'etica dell'IA"
+    },
+    "cardRobotics": {
+      "title": "Robotica<br>e Droni",
+      "imageAlt": "Circuito del drone",
+      "line1": "Pilota mini droni",
+      "line2": "Costruisci un circuito per comandare il drone",
+      "line3": "Programma il volo autonomo"
+    },
+    "cardMechanical": {
+      "title": "Ingegneria Meccanica",
+      "line1": "Usa software CAD professionale",
+      "line2": "Progetta un razzo in più parti",
+      "line3": "Scopri la stampa 3D"
+    },
+    "cardWebsite": {
+      "title": "Sviluppo <br>Web",
+      "imageAlt": "Sito web creato durante il workshop",
+      "line1": "Crea un sito web reale",
+      "line2": "Programma con un assistente IA",
+      "line3": "Pubblicalo online"
+    },
+    "aboutHeading": "Chi siamo",
+    "about": {
+      "handsOn": {
+        "title": "pratico",
+        "body": "Si fa ingegneria dal primo minuto, senza esperienza precedente, per tutte le età e tutti i livelli."
+      },
+      "turnKey": {
+        "title": "chiavi in mano",
+        "body": "Workshop di ingegneria tutto incluso, che si integrano senza attriti in qualsiasi programma e si adattano a ogni dimensione."
+      },
+      "curriculum": {
+        "title": "programma",
+        "body1": "Ideato e condotto da dottori di ricerca, ingegneri ed educatori.",
+        "body2": "Aggiornato di continuo: nessun anno è uguale all'altro."
+      },
+      "experienced": {
+        "title": "esperienza",
+        "body": "Dal 2013 Stage One Education ha portato i suoi workshop a decine di migliaia di partecipanti in tutti gli Stati Uniti."
+      },
+      "safe": {
+        "title": "sicurezza",
+        "body": "I razzi restano virtuali, tutta l'elettronica è a bassa tensione e gli occhiali protettivi sono forniti da noi."
+      }
+    },
+    "feedbackHeading": "Recensioni",
+    "feedbackNav": {
+      "previous": "Precedente",
+      "next": "Successivo",
+      "expand": "Ingrandisci",
+      "close": "Chiudi"
+    },
+    "moreFeedback": "Altre recensioni",
+    "contactHeading": "Contatti",
+    "heroQuotes": [
+      "È di gran lunga la lezione di questa durata in cui ho imparato di più. Il modo in cui è strutturata è molto formativo e fa davvero imparare.",
+      "Questo workshop è stato davvero divertente! Le istruzioni erano facili da capire, e questo aiuta molto chi non ha mai usato un programma CAD come questo.",
+      "Senza dubbio il migliore finora",
+      "È stato di gran lunga il workshop migliore fino a ora, e il docente è stato accogliente, preparatissimo e così via. Nel complesso una grande esperienza",
+      "Ho adorato questo workshop. Non avevo mai usato un programma CAD e sono riuscito a impararlo e a finire tutto il razzo nel tempo previsto. Sono contento di saper usare programmi così e la prossima volta vorrei provare con un po' meno di guida. :)",
+      "È stato molto divertente e ho apprezzato tanto la libertà, ma anche quello che ho imparato",
+      "Mi è piaciuto molto imparare il prompt engineering, le reti neurali e parlare di temi controversi sull'IA. Mi ha fatto capire quanto ci sia ancora da riflettere sui pro e i contro dell'IA",
+      "Penso sia stato organizzato molto bene e le attività sono state davvero piacevoli e divertenti.",
+      "Ho adorato questo workshop, è la cosa che mi è piaciuta di più tra tutte quelle fatte finora. Consiglio vivamente di farne altri in futuro",
+      "L'addestramento della rete neurale è stata una delle migliori lezioni di intelligenza artificiale che abbia mai avuto. È stato bello poter usare poi diversi programmi di IA.",
+      "Ho imparato molto sui dettagli della generazione con l'IA",
+      "Ho adorato la sfida concettuale dell'attività, soprattutto ragionare su una domanda difficile insieme a persone molto preparate.",
+      "Ho adorato le attività che avete preparato. Mi ha colpito anche quanto sapete.",
+      "Ho adorato questa docente: è molto coinvolgente, sa ascoltare e offre spunti preziosi",
+      "L'inizio, quando ci avete insegnato. Se esistesse un intero corso universitario tenuto da voi due, farei volentieri il viaggio per ogni lezione.",
+      "Mi è piaciuto dibattere. È stato moderato molto bene e, anche quando gli animi si scaldavano, i discorsi restavano logici.",
+      "Questo è stato il workshop migliore perché era molto interattivo e davvero pratico",
+      "È stato divertentissimo e dovrebbe assolutamente essere riproposto.",
+      "Ho fatto tre di questi workshop e ognuno è meglio del precedente. Un programma meraviglioso!",
+      "È stato davvero divertente e, con la poca fiducia che avevo dopo la programmazione in CAD, mi ha reso molto più sicuro delle mie capacità in ingegneria! Workshop fantastico, docente ancora migliore: molto paziente, spiega bene e si vede che ama quello che fa. :D"
+    ]
+  },
+
+  "ai": {
+    "title": "Workshop di Intelligenza Artificiale",
+    "heroNeuralNetwork": "Rete neurale umana",
+    "posterCaption": "locandine create dai partecipanti",
+    "overview": {
+      "nn": {
+        "heading": "<strong>Rete neurale umana: attività pratica</strong>",
+        "item1": "Partecipa a un gioco interattivo del telefono senza fili in cui ogni persona diventa un nodo di una rete neurale.",
+        "item2": "Capisci in modo intuitivo le reti neurali e come apprendono, il tutto senza matematica!"
+      },
+      "film": {
+        "heading": "<strong>Studio cinematografico IA: attività creativa</strong>",
+        "item1": "Esplora strumenti di IA all'avanguardia per generare testo, immagini, musica e voce.",
+        "item2": "I partecipanti realizzano tutti gli elementi di produzione di un cortometraggio originale, dalla sceneggiatura ai materiali promozionali.",
+        "item3": "Si chiude con una proiezione commentata che mostra la forza creativa dell'IA."
+      },
+      "ethics": {
+        "heading": "<strong>Etica dell'IA: attività decisionale</strong>",
+        "item1": "Affronta le questioni etiche più urgenti con cui si confrontano gli ingegneri dell'IA.",
+        "item2": "Partecipa a discussioni vivaci che stimolano il pensiero critico sull'uso responsabile dell'IA."
+      }
+    },
+    "quotes": {
+      "q1": "«È stato davvero fantastico. All'inizio pensavo che non avrei capito, ma avete spiegato benissimo. <strong>Non dimenticherò mai questa esperienza!!!</strong> Grazie mille😍»<br><span class=\"quote-attribution\"><em>— Studente, Boston, MA 2025</em></span>",
+      "q2": "«Avete spiegato tutto molto bene e avete fatto <strong>partecipare tutti</strong> alla lezione, rendendo <strong>divertente imparare</strong>.»<br><span class=\"quote-attribution\"><em>— Studente, Berkeley, CA 2023</em></span>",
+      "q3": "«Grazie per aver risposto alle nostre domande! Questo è il primo posto in cui <strong>sono riuscito a capire davvero le reti neurali :)</strong>»<br><span class=\"quote-attribution\"><em>— Studente, Berkeley, CA 2025</em></span>",
+      "q4": "«Uno dei <strong>migliori workshop sull'IA</strong> che abbia mai fatto. Ho adorato quanto fossero semplici gli strumenti di IA.»<br><span class=\"quote-attribution\"><em>— Studente, Houston, TX 2024</em></span>",
+      "q5": "«Questo workshop mi ha davvero emozionato e credo che resterà <strong>l'attività più memorabile del mio viaggio di studio</strong>. Ho sentito davvero la differenza nella qualità dell'insegnamento rispetto al mio Paese. Se ne avrò l'occasione, mi piacerebbe moltissimo partecipare di nuovo.»<br><span class=\"quote-attribution\"><em>— Studente, Boston, MA 2025</em></span>",
+      "q6": "«Mi è piaciuta l'<strong>attività di gruppo</strong> e la <strong>semplicità</strong><br><strong>ma efficacia</strong> dei docenti nello spiegare»<br><span class=\"quote-attribution\"><em>— Studente, Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "Workshop di Robotica e Droni",
+    "overview": {
+      "intro": "Nel workshop di Robotica gli studenti ricevono un drone, ma <strong>senza radiocomando!</strong><br> Impara l'ingegneria costruendo il tuo radiocomando per un quadricottero:",
+      "item1": "Cabla un circuito completo con <strong>microcontrollore dual-core</strong> con WiFi, accelerometro a 6 assi, luci, potenziometri e pulsanti.",
+      "item2": "Con la tua squadra, impara a <strong>leggere gli schemi elettrici e a trasformarli</strong> in circuiti reali e funzionanti",
+      "item3": "<strong>Programma, carica ed esegui</strong> i tuoi voli autonomi",
+      "item4": "Partecipa all'airshow autonomo per presentare il volo che hai creato"
+    },
+    "quotes": {
+      "q1": "«È stato <strong>fatto davvero benissimo</strong>. I docenti erano molto gentili e disponibili. Sono grato per questa esperienza, perché mi ha aperto gli occhi su un campo dell'elettronica che non avrei mai pensato di esplorare.»<br><span class=\"quote-attribution\"><em>— Studente, San Francisco, CA 2025</em></span>",
+      "q2": "«È stato <strong>di gran lunga il workshop migliore</strong> e quello che mi ha interessato di più. Mi è piaciuta la parte di programmazione e l'hardware elettronico»<br><span class=\"quote-attribution\"><em>— Studente, Berkeley, CA 2023</em></span>",
+      "q3": "«Siete <strong>fantastici e mi sono divertito tantissimo</strong>. Non vedo l'ora di fare altra ingegneria e programmazione!»<br><span class=\"quote-attribution\"><em>— Studente, Boston, MA 2023</em></span>",
+      "q4": "«È stato molto divertente e <strong>ho imparato tanto</strong>. <strong>Potrei davvero usare parte di quello che ho imparato</strong> in altri progetti che farò.»<br><span class=\"quote-attribution\"><em>— Studente, Houston, TX 2022</em></span>",
+      "q5": "«Questo è stato il workshop migliore di tutto il programma»<br><span class=\"quote-attribution\"><em>— Studente, Boston, MA 2024</em></span>",
+      "q6": "«Spettacolare»<br><span class=\"quote-attribution\"><em>— Studente, Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "Workshop di Ingegneria Meccanica",
+    "heroStart": "Inizio",
+    "overview": {
+      "intro": "Nel workshop di Ingegneria Meccanica i partecipanti <strong>diventano progettisti di razzi!</strong>",
+      "item1": "Progetta e realizza il tuo razzo in tre parti con software di <strong>progettazione assistita (CAD) usato nell'industria</strong>.",
+      "item2": "Guidato da <strong>micro-video in stile GIF</strong> e testi essenziali: non serve alcuna esperienza.",
+      "item3": "Impara le basi del CAD: schizzo, modellazione parametrica e assiemi.",
+      "item4": "Dimostrazione dal vivo di stampa 3D.",
+      "item5": "Approfitta di una sessione aperta di domande in cui puoi chiedere ai nostri <strong>ingegneri in attività</strong> qualsiasi cosa sul tuo progetto, sulle tecniche CAD e sulle carriere in ingegneria."
+    },
+    "quotes": {
+      "q1": "«<strong>L'ho adorato</strong>: le istruzioni erano chiare e organizzate benissimo. Mi sono piaciute le animazioni insieme alle istruzioni, perfette per chi impara guardando. Nel complesso mi sento ispirato a continuare a imparare il CAD e a progettare cose nuove. <strong>Ero indeciso se fare l'ingegnere fosse davvero la mia strada, ma dopo questa esperienza mi sento molto più sicuro</strong> e curioso di approfondire» <em>— Studente, Houston, TX 2023</em>",
+      "q2": "«<strong>Impegnativo ma con ritmi giusti</strong> allo stesso tempo. Ha acceso il mio interesse per la modellazione 3D. Ora <strong>mi sento capace di lavorarci da solo</strong> e ho voglia di spingere le mie conoscenze al massimo.» <em>— Studente, Atlanta, GA 2021</em>",
+      "q3": "«<strong>Ho adorato questo workshop.</strong> Non avevo mai usato un programma CAD e sono riuscito a impararlo e a <strong>finire tutto il razzo nel tempo previsto.</strong> Sono contento di saper usare programmi così e la prossima volta vorrei provare con un po' meno di guida. :)» <em>— Studente, Los Angeles, CA 2025</em>",
+      "q4": "«Questo workshop è stato <strong>di gran lunga il mio preferito</strong>. Visto che voglio fare l'ingegnere civile, è stato bellissimo vedere un software che potrei usare davvero in quel lavoro» <em>— Studente, Berkeley, CA 2021</em>",
+      "q5": "«La guida unita alla libertà creativa del workshop è stata perfetta!» <em>— Studente, Berkeley, CA 2025</em>",
+      "q6": "«Ottimo workshop, <strong>mi sono divertito moltissimo</strong> imparando competenze preziose che saranno <strong>fondamentali per il mio successo</strong> più avanti in ingegneria e non solo.» <em>— Studente, Atlanta, GA 2025</em>"
+    }
+  },
+
+  "aiWebsite": {
+    "title": "Workshop Sviluppo Web",
+    "comingSoon": "I dettagli del workshop saranno disponibili a breve."
+  },
+
+  "locations": {
+    "heading": "Sedi",
+    "note": "Altre città disponibili su richiesta",
+    "mapAlt": "Mappa"
+  },
+
+  "instructors": {
+    "heading": "Docenti",
+    "mission": "Missione: ispirare chi impara attraverso workshop pratici di ingegneria",
+    "body": "In Stage One Education proponiamo workshop che racchiudono le competenze e i metodi di ricercatori di primo piano e di professionisti dell'ingegneria. I nostri workshop sono condotti da una rete nazionale di docenti esperti che accompagnano i partecipanti in un apprendimento immersivo, pratico e basato su progetti, in linea con i settori più attuali dell'ingegneria. Questo approccio dinamico offre un'esperienza guidata dallo sguardo e dalla passione di ingegneri che lavorano sul campo.",
+    "join": "Vuoi entrare nel nostro team?",
+    "requirements": "Requisiti: leadership di squadra - ottime capacità di presentazione - solido portfolio di esperienza in ingegneria",
+    "authorization": "Autorizzazione a lavorare negli Stati Uniti come collaboratore autonomo (1099)"
+  },
+
+  "feedback": {
+    "heading": "Recensioni",
+    "updated": "aggiornato: 05/02/2026",
+    "formLink": "Modulo di recensione"
+  },
+
+  "contact": {
+    "heading": "Contattaci",
+    "lede": "<b>Hai una domanda o vuoi saperne di più? Scrivici.</b>",
+    "body": "I nostri workshop pratici di <strong>Intelligenza Artificiale</strong>, <strong>Robotica</strong> e <strong>Ingegneria Meccanica</strong> sono condotti da ingegneri veri. In sole tre ore i partecipanti acquisiscono competenze e strumenti essenziali che accendono la passione per le materie STEM.<br><br>Non serve alcuna esperienza. <br><br> <strong>Portiamo entusiasmo e conoscenza al tuo gruppo: scrivici e iniziamo!</strong>"
+  },
+
+  "about": {
+    "heading": "Chi siamo",
+    "intro": {
+      "headline": "Il nostro impegno è condividere l'amore per l'ingegneria",
+      "lede": "I nostri workshop rispondono a domande come:",
+      "question1": "<strong>posso farcela con l'ingegneria?</strong>",
+      "question2": "<strong>cosa fanno davvero gli ingegneri?</strong>",
+      "body1": "con attività pratiche — dal montare circuiti reali all'usare strumenti CAD professionali e i modelli di IA più recenti — i partecipanti capiscono davvero che cos'è l'ingegneria.",
+      "body2": "Dopo aver lavorato su progetti reali, usato strumenti da ingegneri e parlato con professionisti esperti, i partecipanti tornano a casa più sicuri, ispirati ed entusiasti del loro possibile futuro in ingegneria."
+    },
+    "leadershipHeading": "Il team di direzione",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry, Ph.D. al MIT",
+        "role": "Fondatore",
+        "bio": "Andy si è appassionato ai droni autonomi <a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">pilotandoli</a> durante il dottorato al MIT. Ha portato workshop di elettronica e software a oltre 10.000 studenti, dai piccoli elicotteri ai <a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">sofisticati robot quadrupedi</a>."
+      },
+      "pete": {
+        "name": "Pete Florence, Ph.D. al MIT",
+        "role": "Cofondatore",
+        "bio": "Pete ha pilotato droni di ogni tipo durante il dottorato al MIT. Il suo lavoro su pianificazione e controllo nel <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> ha spostato in avanti i limiti di velocità, agilità e affidabilità dei droni. La sua premiata ricerca sulla <a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">manipolazione robotica</a> dà ogni giorno nuove capacità ai robot."
+      },
+      "robbie": {
+        "name": "Robbie Kipp, Ingegnere",
+        "role": "Direttore delle operazioni",
+        "bio": "I progetti di Robbie hanno indicato la strada per il futuro dei sistemi subacquei e delle navi, negli anni in cui lavorava come ingegnere navale e architetto navale. Oggi, come Direttore delle operazioni di Stage One Education, sperimenta modi nuovi per ispirare la prossima generazione di ingegneri. Robbie è un appassionato di immersioni, arrampicata e aviazione."
+      }
+    },
+    "instructorsCallout": "<strong>I docenti di Stage One Education</strong><br> Rete nazionale di professionisti dell'ingegneria appassionati",
+    "workshopsHeading": "Workshop pratici di ingegneria",
+    "buttons": {
+      "ai": "Intelligenza <br>Artificiale",
+      "robotics": "Robotica <br>e Droni",
+      "mechanical": "Ingegneria <br>Meccanica"
+    },
+    "turnKey": {
+      "heading": "Chiavi in mano",
+      "body": "Offriamo workshop completi, con docenti, materiali e programma inclusi. Gli studenti escono con una sicurezza nuova, dopo aver imparato strumenti professionali con le nostre istruzioni, metodi e didattica in continuo perfezionamento."
+    },
+    "details": {
+      "heading": "Dettagli del workshop",
+      "offered": "<strong>Workshop disponibili:</strong> Robotica, IA, Ingegneria Meccanica",
+      "length": "<strong>Durata:</strong> 3 ore",
+      "participants": "<strong>Partecipanti:</strong> fino a ~60 per workshop (la capienza dipende dalla sala)",
+      "location": "<strong>Luogo:</strong> possiamo raggiungere qualsiasi sede",
+      "venue": "<strong>Sala:</strong> deve avere Wi-Fi, prese di corrente, tavoli e sedie; sono preferibili spazi ampi",
+      "materials": "<strong>Materiali:</strong> inclusi in tutti i workshop",
+      "instructors": "<strong>Docenti:</strong> professionisti dell'ingegneria esperti e appassionati nel condividere quello che sanno.",
+      "schedule": "<strong>Calendario:</strong> ci adattiamo al vostro itinerario e possiamo tenere più sessioni consecutive o in parallelo, se serve"
+    },
+    "pricing": {
+      "heading": "Costi",
+      "body": "Il costo per partecipante dipende da fattori come la dimensione del gruppo, la programmazione di giornate di workshop consecutive, la gestione delle attrezzature e il numero di docenti impiegati. Per un preventivo su misura, contatta oggi stesso il nostro team. Siamo qui per creare con voi l'esperienza di ingegneria perfetta."
+    },
+    "presentations": {
+      "heading": "Conferenze",
+      "lede": "Proponiamo conferenze interattive di 1 ora tenute da esperti del settore.",
+      "topics": "Approfondimenti su: <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>Realtà virtuale</li> <li>Intelligenza artificiale</li> <li>Robotica e molto altro</li> </ul>",
+      "body": "Questi incontri accendono l'innovazione e ampliano la comprensione dei partecipanti sulle più recenti conquiste tecnologiche."
+    },
+    "contactBlurb": "Scopri i nostri workshop di ingegneria e le nostre conferenze <br> prenota oggi una demo online",
+    "letsChat": "Parliamone"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | Workshop pratici di ingegneria",
+      "description": "Workshop pratici di ingegneria in tutti gli Stati Uniti dal 2013: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Accendi l'innovazione!"
+    },
+    "ai": {
+      "title": "Workshop di IA | STAGE ONE EDUCATION",
+      "description": "Scopri l'intelligenza artificiale con Stage One Education: costruisci reti neurali, crea cortometraggi con l'IA e discuti di etica dell'IA. Nessuna esperienza richiesta, per tutte le età e con ingegneri veri."
+    },
+    "robotics": {
+      "title": "Workshop di Robotica | STAGE ONE EDUCATION",
+      "description": "Impara a controllare il volo dei droni con Arduino ed ESP32 nel Workshop di Robotica e Droni di Stage One Education. Elettronica e programmazione pratiche, senza esperienza!"
+    },
+    "mechanical": {
+      "title": "Workshop di Ingegneria Meccanica | STAGE ONE EDUCATION",
+      "description": "Vivi le basi dell'ingegneria meccanica in questo workshop su CAD e razzi: costruisci razzi virtuali, scopri la stampa 3D e impara a progettare. Nessuna esperienza richiesta!"
+    },
+    "aiWebsite": {
+      "title": "Workshop Sviluppo Web | STAGE ONE EDUCATION",
+      "description": "Crea e pubblica un sito web reale con l'aiuto di strumenti di programmazione IA in questo workshop pratico di Stage One Education, guidato da veri ingegneri. Nessuna esperienza richiesta."
+    },
+    "locations": {
+      "title": "Sedi | STAGE ONE EDUCATION",
+      "description": "Workshop pratici di ingegneria in tutto il Paese: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Scopri di più e accendi l'innovazione!"
+    },
+    "instructors": {
+      "title": "Docenti | STAGE ONE EDUCATION",
+      "description": "Workshop pratici di ingegneria in tutto il Paese: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Scopri di più e accendi l'innovazione!"
+    },
+    "feedback": {
+      "title": "Recensioni | STAGE ONE EDUCATION",
+      "description": "Workshop pratici di ingegneria in tutto il Paese: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Scopri di più e accendi l'innovazione!"
+    },
+    "contact": {
+      "title": "Contatti | STAGE ONE EDUCATION",
+      "description": "Workshop pratici di ingegneria in tutto il Paese: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Scopri di più e accendi l'innovazione!"
+    },
+    "about": {
+      "title": "Chi siamo | STAGE ONE EDUCATION",
+      "description": "Workshop pratici di ingegneria in tutto il Paese: IA, robotica e ingegneria meccanica, condotti da ingegneri veri. Scopri di più e accendi l'innovazione!"
+    }
+  }
+}

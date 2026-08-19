@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+
+  <title>Fins + Booster (page 4) | Onshape CAD Tutorial | Stage One Education</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
+
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
+
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
+
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
+        toggleSwitch.checked = savedState === "true";
+        toggleAdvancedMode2(toggleSwitch.checked);
+      }
+
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
+        localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
+    });
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
+
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
+
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
+          
+        </a>
+      </div>
+
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
+
+        <!-- Only show links when NOT on portal.html -->
+        
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
+
+          <!-- Optional “team” icon when on a team page -->
+          
+            <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+              <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+            </li>
+          
+
+          <!-- Getting Started -->
+          
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-team.html">
+                Getting Started
+              </a>
+            </li>
+          
+
+          <!-- Fuselage -->
+          
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">
+                Fuselage
+              </a>
+            </li>
+          
+
+          <!-- Fins + Booster -->
+          
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">
+                Fins+Booster
+              </a>
+            </li>
+          
+
+          <!-- Nosecone -->
+          
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">
+                Nosecone
+              </a>
+            </li>
+          
+
+          <!-- Assembly -->
+          
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-team1.html">
+                Assembly
+              </a>
+            </li>
+          
+
+          <!-- Challenges -->
+          
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-team.html">
+                Challenges
+              </a>
+            </li>
+          
+
+        </ul>
+        
+
+      </div>
+    </div>
+  </nav>
+
+  
+    <header class="not-full-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2>Engine restraints</h2>
+                <hr class="long text-left" />
+                <p><em>in which we stop the engine from undergoing rapid unscheduled disassembly</em></p>
+<!--
+                <video autoplay loop src="videos/middle-body/middle_body_page2_fast.webm" height="480"/>
+                <a href="#workshop" class="btn btn-primary btn-xl page-scroll">Get Flying</a>
+-->
+            </div>
+        </div>
+    </header>
+    
+    
+
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fins + Booster Tutorial </strong><br>
+    
+        
+            <a href="teams-lower-body3.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="teams-lower-body1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="teams-lower-body2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="teams-lower-body3.html">3</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>4</strong>
+        
+        
+        
+    
+    
+</p>
+<br/>
+<!--Page nav-->
+
+                    
+                    <h3 class="section-heading">
+31.
+ Create a plane representing the top of the engine</h3>
+                    <em>We need to make a stopper so the engine doesn't explode out of the top of the rocket.</em>
+                    <ul>
+                        <li>Start a new plane with the plane tool <img src="img/tutorial/offset_surface_menu.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/plane_menu.png" /></li>
+                        <li>Select the <strong>bottom</strong> face of the rocket</li>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the plane appear in the middle of the rocket</li>
+                        <li>Set the "Offset distance" to <strong>2.9</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_1">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_1">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(1)"
+    onmouseout="this.play(); updatePlayPauseIcon(1)"
+    id="video-1"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(1)"
+    >
+    <source src="videos/lower-body/engine_stop_plane.webm" type="video/webm">
+    <source src="videos/lower-body/engine_stop_plane.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-1" onclick="togglePlayPause(1)">▶</div>
+    <div class="pause-icon" id="pause-button-1" onclick="togglePlayPause(1)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+32.
+ Start a sketch on that plane</h3>
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Click "Plane 1" <img src="img/tutorial/plane_1.png" /></li>
+                        <li>Select the "Top" of the view cube to align your view with the sketch</li>
+                        <ul>
+                            <li><img src="img/tutorial/view_cube_top.png" /></li>
+                        </ul>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_2">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_2">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(2)"
+    onmouseout="this.play(); updatePlayPauseIcon(2)"
+    id="video-2"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(2)"
+    >
+    <source src="videos/lower-body/engine_stop_sketch.webm" type="video/webm">
+    <source src="videos/lower-body/engine_stop_sketch.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-2" onclick="togglePlayPause(2)">▶</div>
+    <div class="pause-icon" id="pause-button-2" onclick="togglePlayPause(2)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+33.
+ Sketch the engine block</h3>
+                    <ul>
+                        <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                        <li>Start the circle on the <strong>center point</strong></li>
+                        <li>Draw a circle smaller than the rocket</li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> to set the diameter to <strong>0.6</strong></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_3">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_3">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(3)"
+    onmouseout="this.play(); updatePlayPauseIcon(3)"
+    id="video-3"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(3)"
+    >
+    <source src="videos/lower-body/engine_stop_circle.webm" type="video/webm">
+    <source src="videos/lower-body/engine_stop_circle.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-3" onclick="togglePlayPause(3)">▶</div>
+    <div class="pause-icon" id="pause-button-3" onclick="togglePlayPause(3)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+34.
+ Add the rocket's body to your sketch</h3>
+                    <ul>
+                        <li>Turn your view slightly</li>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click the inner circle of the rocket</li>
+                        <li>You should see that line bold as it becomes part of your sketch</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_4">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_4">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(4)"
+    onmouseout="this.play(); updatePlayPauseIcon(4)"
+    id="video-4"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(4)"
+    >
+    <source src="videos/lower-body/engine_stop_use.webm" type="video/webm">
+    <source src="videos/lower-body/engine_stop_use.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-4" onclick="togglePlayPause(4)">▶</div>
+    <div class="pause-icon" id="pause-button-4" onclick="togglePlayPause(4)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+35.
+ Extrude the engine stop</h3>
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go <strong>upwards</strong></li>
+                        <li>Set the "Depth" to <strong>0.5</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_5">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_5">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(5)"
+    onmouseout="this.play(); updatePlayPauseIcon(5)"
+    id="video-5"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(5)"
+    >
+    <source src="videos/lower-body/engine_stop_extrude.webm" type="video/webm">
+    <source src="videos/lower-body/engine_stop_extrude.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-5" onclick="togglePlayPause(5)">▶</div>
+    <div class="pause-icon" id="pause-button-5" onclick="togglePlayPause(5)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+36.
+ Start engine clip sketch</h3>
+                    <em>We need a clip to stop the engine from exploding out of the back of the rocket when the recovery (reverse) charge goes off.</em>
+                    <ul>
+                        <li>Select the sketch tool <img src="img/tutorial/sketch-small.png" /></li>
+                        <li>Start a sketch on the <strong>bottom</strong> face of the rocket</li>
+                        <li>Select the Use (Project/Convert) tool <img src="img/tutorial/use_tool.png" /></li>
+                        <li>Click the inner circle of the rocket</li>
+                        <ul><li>You should see that line bold as it becomes part of your sketch</li></ul>
+                        <li>Align your view with the sketch by clicking the <strong>Bottom</strong> of the view cube</li>
+                        <ul><li><img src="img/tutorial/view_cube_bottom.png" /></li></ul>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_6">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_6">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(6)"
+    onmouseout="this.play(); updatePlayPauseIcon(6)"
+    id="video-6"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(6)"
+    >
+    <source src="videos/lower-body/engine_clip_sketch.webm" type="video/webm">
+    <source src="videos/lower-body/engine_clip_sketch.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-6" onclick="togglePlayPause(6)">▶</div>
+    <div class="pause-icon" id="pause-button-6" onclick="togglePlayPause(6)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+37.
+ Sketch the engine clip arc</h3>
+                    <ul>
+                        <li>Select the 3-point arc tool <img src="img/tutorial/3_point_arc.png" /></li>
+                        <li>Set the points:</li>
+                        <ol>
+                            <li>Edge of the circle, to the left</li>
+                            <li>Edge of the circle, to the right</li>
+                            <li>Set the radius so the arc curves towards the rocket's center</li>
+                        </ol>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_7">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_7">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(7)"
+    onmouseout="this.play(); updatePlayPauseIcon(7)"
+    id="video-7"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(7)"
+    >
+    <source src="videos/lower-body/engine_clip_3_point_arc.webm" type="video/webm">
+    <source src="videos/lower-body/engine_clip_3_point_arc.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-7" onclick="togglePlayPause(7)">▶</div>
+    <div class="pause-icon" id="pause-button-7" onclick="togglePlayPause(7)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+38.
+ Dimension the engine clip arc</h3>
+                    <ul>
+                        <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Click the outer circle and then the arc and set the distance to <strong>0.04</strong></li>
+                        <li>Use the dimension tool <img src="img/tutorial/dimension_tool.png" /> again to set the arc's radius to <strong>0.1</strong></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_8">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_8">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(8)"
+    onmouseout="this.play(); updatePlayPauseIcon(8)"
+    id="video-8"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(8)"
+    >
+    <source src="videos/lower-body/dimension_engine_clip.webm" type="video/webm">
+    <source src="videos/lower-body/dimension_engine_clip.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-8" onclick="togglePlayPause(8)">▶</div>
+    <div class="pause-icon" id="pause-button-8" onclick="togglePlayPause(8)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+39.
+ Constrain the engine clip arc</h3>
+                    <ul>
+                        <li>Select the "Vertical" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/vertical_tool_menu.png" /></li>
+                        <li>Click the arc's center-point and then the origin of the rocket</li>
+                        <li>You should see the arc jump to the center</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_9">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_9">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(9)"
+    onmouseout="this.play(); updatePlayPauseIcon(9)"
+    id="video-9"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(9)"
+    >
+    <source src="videos/lower-body/constrain_engine_clip.webm" type="video/webm">
+    <source src="videos/lower-body/constrain_engine_clip.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-9" onclick="togglePlayPause(9)">▶</div>
+    <div class="pause-icon" id="pause-button-9" onclick="togglePlayPause(9)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+40.
+ Trim the engine clip sketch</h3>
+                    <ul>
+                        <li>Select the trim tool <img src="img/tutorial/trim_tool.png" /></li>
+                        <li>Trim the bottom of the inner circle</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_10">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_10">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(10)"
+    onmouseout="this.play(); updatePlayPauseIcon(10)"
+    id="video-10"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(10)"
+    >
+    <source src="videos/lower-body/trim_engine_clip.webm" type="video/webm">
+    <source src="videos/lower-body/trim_engine_clip.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-10" onclick="togglePlayPause(10)">▶</div>
+    <div class="pause-icon" id="pause-button-10" onclick="togglePlayPause(10)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+41.
+ Extrude the engine clip arc</h3>
+                    <ul>
+                        <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <ul>
+                            <li>Your sketch will automatically be selected</li>
+                        </ul>
+                        <li>If needed, click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go <strong>upwards</strong></li>
+                        <li>Set the "Depth" to <strong>0.09</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_11">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_11">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(11)"
+    onmouseout="this.play(); updatePlayPauseIcon(11)"
+    id="video-11"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(11)"
+    >
+    <source src="videos/lower-body/extrude_engine_clip.webm" type="video/webm">
+    <source src="videos/lower-body/extrude_engine_clip.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-11" onclick="togglePlayPause(11)">▶</div>
+    <div class="pause-icon" id="pause-button-11" onclick="togglePlayPause(11)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+42.
+ Start the sketch for your name</h3>
+                    <ul>
+                        <li>Select the Sketch tool <img src="img/tutorial/sketch.png" /></li>
+                       <li>Click on flat plane on one of the fins</li>
+                       <li>Right-click and select "View normal to sketch plane" to align your view</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_12">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_12">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(12)"
+    onmouseout="this.play(); updatePlayPauseIcon(12)"
+    id="video-12"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(12)"
+    >
+    <source src="videos/lower-body/text_sketch1.webm" type="video/webm">
+    <source src="videos/lower-body/text_sketch1.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-12" onclick="togglePlayPause(12)">▶</div>
+    <div class="pause-icon" id="pause-button-12" onclick="togglePlayPause(12)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+43.
+ Add your name</h3>
+                    <ul>
+                        <li>Select the "Text" tool <img src="img/tutorial/text.png" /></li>
+                        <li>Draw a box near the fin and type your name</li>
+                        <li>Select the <strong>Roboto Slab</strong> font <img src="img/tutorial/roboto_slab.png" /></li>
+                        <li>Press the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_13">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_13">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(13)"
+    onmouseout="this.play(); updatePlayPauseIcon(13)"
+    id="video-13"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(13)"
+    >
+    <source src="videos/lower-body/text_sketch2.webm" type="video/webm">
+    <source src="videos/lower-body/text_sketch2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-13" onclick="togglePlayPause(13)">▶</div>
+    <div class="pause-icon" id="pause-button-13" onclick="togglePlayPause(13)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+44.
+ Constrain your name</h3>
+                    <ul>
+                        <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                        <li>Select the dashed line on the left</li>
+                        <li>Select the line on the left of the fin, and you should see the letters jump to line up</li>
+                        <li>Repeat with the right side lines</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_14">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_14">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(14)"
+    onmouseout="this.play(); updatePlayPauseIcon(14)"
+    id="video-14"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(14)"
+    >
+    <source src="videos/lower-body/text_sketch3.webm" type="video/webm">
+    <source src="videos/lower-body/text_sketch3.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-14" onclick="togglePlayPause(14)">▶</div>
+    <div class="pause-icon" id="pause-button-14" onclick="togglePlayPause(14)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+45.
+ Dimension your name</h3>
+                    <ul>
+                        <li>Select the "Dimension" tool <img src="img/tutorial/dimension_tool.png" /></li>
+                        <li>Select the dashed line on the bottom of the letters</li>
+                        <li>Select the bottom of the rocket</li>
+                        <li>Set the dimension to <strong>0.25</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_15">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_15">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(15)"
+    onmouseout="this.play(); updatePlayPauseIcon(15)"
+    id="video-15"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(15)"
+    >
+    <source src="videos/lower-body/text_sketch4.webm" type="video/webm">
+    <source src="videos/lower-body/text_sketch4.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-15" onclick="togglePlayPause(15)">▶</div>
+    <div class="pause-icon" id="pause-button-15" onclick="togglePlayPause(15)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h3 class="section-heading">
+46.
+ Extrude your name</h3>
+                    <ul>
+                        <li>Select the "Extrude" tool <img src="img/tutorial/extrude_tool.png" /></li>
+                        <li>Select <em>Sketch 7</em> <img src="img/tutorial/sketch_7.png" /></li>
+                        <li>Set the "Depth" to <strong>0.02</strong></li>
+                        <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_16">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_16">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(16)"
+    onmouseout="this.play(); updatePlayPauseIcon(16)"
+    id="video-16"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(16)"
+    >
+    <source src="videos/lower-body/text_extrude.webm" type="video/webm">
+    <source src="videos/lower-body/text_extrude.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-16" onclick="togglePlayPause(16)">▶</div>
+    <div class="pause-icon" id="pause-button-16" onclick="togglePlayPause(16)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+
+                    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fins + Booster Tutorial </strong><br>
+    
+        
+            <a href="teams-lower-body3.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="teams-lower-body1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="teams-lower-body2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="teams-lower-body3.html">3</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>4</strong>
+        
+        
+        
+    
+    
+</p>
+<br/>
+<!--Page nav-->
+
+                        <br>
+
+
+
+
+    
+                    <section>
+    <div class="container">
+      <div class="row">
+        <!-- 1) Change text-left to text-center here -->
+        <div class="col-lg-12 text-center"> 
+  
+          
+  
+          <!-- 2) Now the paragraphs are centered -->
+          <h2>Next, work on <strong>another part</strong> of the rocket.</h2>
+          <hr class="long" />
+            
+          <section class="no-padding" id="portfolio">
+            <div class="container-fluid">
+              <div class="row no-gutter popup-gallery">
+                
+                
+                <div class="col-lg-4 col-sm-4">
+                  <div style="text-align: center" width="100%">
+                    <a href="fuselage-team2.html">
+                      <br />
+1.
+ Fuselage
+                    </a>
+                  </div>
+                  <a href="fuselage-team2.html" class="portfolio-box" align="center">
+                    <img src="img/portfolio/middle-body.jpg" class="img-responsive" style="margin: auto" alt="">
+                    <div class="portfolio-box-caption">
+                      <div class="portfolio-box-caption-content">
+                        <div class="project-category text-faded">
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                
+  
+                
+  
+                
+                <div class="col-lg-4 col-sm-4">
+                  <div style="text-align: center" width="100%">
+                    <a href="nosecone-team1.html">
+                      <br />
+2.
+ Nosecone
+                    </a>
+                  </div>
+                  <a href="nosecone-team1.html" class="portfolio-box">
+                    <img src="img/portfolio/nosecone.jpg" class="img-responsive" style="margin: auto" alt="">
+                    <div class="portfolio-box-caption">
+                      <div class="portfolio-box-caption-content">
+                        <div class="project-category text-faded">
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                
+  
+                
+                <div class="col-lg-4 col-sm-4">
+                  <div style="text-align: center; width:100%;">
+                    <!-- Use a span to set a smaller font size -->
+                    <span style="font-size: 0.8em;">
+                      (if your whole team has finished)
+                    </span>
+                    <a href="assembly-team1.html">
+                      <br />
+3.
+ Assembly
+                    </a>
+                  </div>
+                  <a href="assembly-team1.html" class="portfolio-box">
+                    <img src="img/portfolio/rocket.jpg" class="img-responsive" style="margin: auto" alt="">
+                    <div class="portfolio-box-caption">
+                      <div class="portfolio-box-caption-content">
+                        <div class="project-category text-faded">
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                
+                
+  
+              </div>
+            </div>
+          </section>
+        </div><!-- /.col-lg-12 -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </section>
+  
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
+
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
+      }
+
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
+    }
+
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
+
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
+    }
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>

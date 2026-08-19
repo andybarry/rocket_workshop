@@ -3,10 +3,9 @@
   <div class="workshop-explorer__shell">
     <header class="workshop-explorer__header">
       <div class="workshop-explorer__heading-block">
-        <span class="workshop-explorer__eyebrow">Explore</span>
         <div>
+          <span class="workshop-explorer__eyebrow">Explore</span>
           <h2 id="find-your-workshop-heading">{{ site.data.explorer_copy.section_heading }}</h2>
-          <p>{{ site.data.explorer_copy.section_intro }}</p>
         </div>
       </div>
       <button type="button" class="workshop-explorer__clear" data-explorer-clear>
@@ -16,13 +15,8 @@
 
     <div class="workshop-explorer__grid">
       <aside class="workshop-explorer__rail" aria-label="Current workshop selections">
-        <div class="workshop-explorer__rail-heading">
-          <span>Choose your options</span>
-          <small>Everything is optional after region</small>
-        </div>
-
         <div class="workshop-explorer__rail-options workshop-explorer__mobile-regions">
-          <span class="workshop-explorer__rail-label">Region</span>
+          <span class="workshop-explorer__rail-label">Region <small>Select a region</small></span>
           <div class="workshop-explorer__rail-option-grid workshop-explorer__mobile-region-grid"
             role="group" aria-label="Choose a region">
             {% for region in site.data.regions %}
@@ -34,6 +28,9 @@
             <button type="button" class="workshop-explorer__rail-option--wide"
               data-explorer-option data-category="region" data-slug="international"
               aria-pressed="false">{{ site.data.explorer_copy.international_label }}</button>
+            <button type="button" class="workshop-explorer__rail-option--wide"
+              data-explorer-option data-category="region" data-slug="other"
+              aria-pressed="false">Other</button>
           </div>
         </div>
 
@@ -75,9 +72,7 @@
         <div class="workshop-explorer__visual-heading">
           <div>
             <span data-explorer-map-title>Choose a Region</span>
-            <small data-explorer-map-instruction>Select a region on the map to begin.</small>
           </div>
-          <span class="workshop-explorer__map-key"><i aria-hidden="true"></i> Workshop regions</span>
         </div>
 
         <div class="workshop-explorer__map-stage">
@@ -94,7 +89,7 @@
           <div class="workshop-explorer__map-refiner" data-explorer-map-refiner hidden>
             <div class="workshop-explorer__map-refiner-heading">
               <div>
-                <strong>Refine Your Workshop</strong>
+                <strong>Select:</strong>
                 <span>Optional—continue anytime</span>
               </div>
             </div>
@@ -126,10 +121,10 @@
             <article class="workshop-explorer__result" data-explorer-result-card>
               <div class="workshop-explorer__result-main">
                 <div class="workshop-explorer__result-copy" aria-live="polite" aria-atomic="true">
+                  <span class="workshop-explorer__result-label">Your workshop</span>
                   <h3 class="workshop-explorer__result-heading" tabindex="-1" data-explorer-result-heading>
                     {{ site.data.explorer_copy.default_heading }}
                   </h3>
-                  <p data-explorer-result-paragraph>{{ site.data.explorer_copy.default_paragraph }}</p>
                 </div>
                 <div class="workshop-explorer__chips" data-explorer-chips></div>
               </div>

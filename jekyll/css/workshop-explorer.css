@@ -1876,7 +1876,11 @@
 /* Streamlined map-led explorer — authoritative layout */
 #find-your-workshop {
     padding: 30px 20px 42px;
-    background: #f7f4f0;
+    background-color: #fafafa;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
     color: #302c29;
 }
 
@@ -1897,24 +1901,22 @@
     gap: 24px;
     padding: 17px 22px;
     border-bottom: 1px solid #eee8e2;
-    background: linear-gradient(105deg, #fff 0%, #fff9f6 100%);
+    background: #fff;
 }
 
 #find-your-workshop .workshop-explorer__heading-block {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display: block;
 }
 
 #find-your-workshop .workshop-explorer__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    min-height: 32px;
-    padding: 0 11px;
-    border-radius: 999px;
-    background: #f05f40;
-    color: #fff;
-    font-size: 10px;
+    display: block;
+    margin: 0 0 2px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #4a4541;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1922,9 +1924,9 @@
 
 #find-your-workshop .workshop-explorer__heading-block h2 {
     margin: 0;
-    color: #28231f;
-    font-size: clamp(24px, 2.6vw, 34px);
-    font-weight: 800;
+    color: #d94d31;
+    font-size: clamp(24px, 2.3vw, 30px);
+    font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.025em;
     text-transform: none;
@@ -1958,7 +1960,7 @@
 
 #find-your-workshop .workshop-explorer__grid {
     display: grid;
-    grid-template-columns: minmax(245px, 30%) minmax(0, 70%);
+    grid-template-columns: minmax(180px, 19%) minmax(0, 81%);
 }
 
 #find-your-workshop .workshop-explorer__rail {
@@ -1969,17 +1971,17 @@
 
 #find-your-workshop .workshop-explorer__rail-heading {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     margin: 0 2px 10px;
 }
 
 #find-your-workshop .workshop-explorer__rail-heading > span,
 #find-your-workshop .workshop-explorer__rail-label {
-    color: #4a433e;
+    color: #26211e;
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
@@ -1987,6 +1989,7 @@
 #find-your-workshop .workshop-explorer__rail-heading small {
     color: #968d86;
     font-size: 9px;
+    white-space: nowrap;
 }
 
 #find-your-workshop .workshop-explorer__summary-list {
@@ -2279,6 +2282,55 @@
     display: block;
 }
 
+#find-your-workshop .explorer-region-map__states > .explorer-region-map__link > .explorer-region-map__label {
+    display: none;
+}
+
+#find-your-workshop .explorer-region-map__labels {
+    pointer-events: none;
+}
+
+#find-your-workshop .explorer-region-map__labels > .explorer-region-map__label {
+    display: inline;
+}
+
+#find-your-workshop .explorer-region-map__label rect {
+    fill: rgba(235, 232, 228, 0.96);
+    stroke: #aaa29a;
+    stroke-width: 1.2;
+    filter: drop-shadow(0 2px 4px rgba(48, 42, 37, 0.16));
+}
+
+#find-your-workshop .explorer-region-map__label text {
+    fill: #403a36;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+#find-your-workshop .explorer-region-map__link:hover .explorer-region-map__label rect,
+#find-your-workshop .explorer-region-map__link:focus-visible .explorer-region-map__label rect,
+#find-your-workshop .explorer-region-map__label.is-preview rect {
+    fill: #f7f5f2;
+    stroke: #756d66;
+}
+
+#find-your-workshop .explorer-region-map__link:hover .explorer-region-map__label text,
+#find-your-workshop .explorer-region-map__link:focus-visible .explorer-region-map__label text,
+#find-your-workshop .explorer-region-map__label.is-preview text {
+    fill: #292522;
+}
+
+#find-your-workshop .explorer-region-map__link.is-selected .explorer-region-map__label rect,
+#find-your-workshop .explorer-region-map__label.is-selected rect {
+    fill: #d8d3cd;
+    stroke: #625a54;
+}
+
+#find-your-workshop .explorer-region-map__link.is-selected .explorer-region-map__label text,
+#find-your-workshop .explorer-region-map__label.is-selected text {
+    fill: #282421;
+}
+
 #find-your-workshop .workshop-explorer__map-refiner {
     position: absolute;
     top: 50%;
@@ -2407,12 +2459,16 @@
 #find-your-workshop .workshop-explorer__map-refiner .workshop-explorer__result {
     min-height: 0;
     margin-top: 10px;
-    padding: 10px 0 0;
+    padding: 12px 13px;
+    grid-template-columns: 1fr;
+    align-items: start;
     gap: 14px;
-    border: 0;
-    border-top: 1px solid #e8e0d9;
-    border-radius: 0;
-    background: transparent;
+    border: 1px solid rgba(217, 77, 49, 0.42);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fffaf7 0%, #fff 68%);
+    box-shadow:
+        0 8px 22px rgba(91, 61, 47, 0.1),
+        inset 3px 0 0 #e65739;
 }
 
 #find-your-workshop .workshop-explorer__map-refiner .workshop-explorer__result-heading {
@@ -2453,9 +2509,12 @@
 #find-your-workshop .workshop-explorer__map-refiner .workshop-explorer__result-cta {
     min-width: 160px;
     min-height: 44px;
+    justify-self: start;
 }
 
 #find-your-workshop .workshop-explorer__result-label {
+    display: block;
+    margin-bottom: 3px;
     color: #b54730;
     font-size: 9px;
     font-weight: 800;
@@ -2507,27 +2566,47 @@
 #find-your-workshop .workshop-explorer__result-cta {
     min-width: 178px;
     min-height: 46px;
-    padding: 10px 15px;
+    padding: 11px 18px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    background: #f05f40;
+    border: 1px solid #c94127;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f46a4b 0%, #d9472d 100%);
     color: #fff;
-    font-size: 12px;
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.01em;
     text-align: center;
     text-decoration: none;
+    box-shadow:
+        0 8px 18px rgba(201, 65, 39, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
 
 #find-your-workshop .workshop-explorer__result-cta:hover {
-    background: #d94d31;
+    background: linear-gradient(135deg, #f46a4b 0%, #d9472d 100%);
     color: #fff;
+    filter: saturate(1.08);
+    transform: translateY(-2px);
+    box-shadow:
+        0 11px 24px rgba(201, 65, 39, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+#find-your-workshop .workshop-explorer__result-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 12px rgba(201, 65, 39, 0.28);
 }
 
 #find-your-workshop .workshop-explorer__result-cta.is-disabled {
     background: #d9d3cd;
     color: #726a64;
+    border-color: #cbc4be;
+    box-shadow: none;
+    filter: none;
+    transform: none;
     pointer-events: none;
 }
 
@@ -2715,13 +2794,12 @@
     }
 
     #find-your-workshop .workshop-explorer__heading-block {
-        align-items: flex-start;
-        gap: 9px;
+        display: block;
     }
 
     #find-your-workshop .workshop-explorer__eyebrow {
-        min-height: 26px;
-        padding: 0 8px;
+        min-height: 0;
+        padding: 0;
         font-size: 8px;
     }
 
@@ -2768,8 +2846,25 @@
 }
 
 @media (min-width: 960px) {
+    #find-your-workshop {
+        padding: 20px 20px 28px;
+    }
+
+    #find-your-workshop .workshop-explorer__header {
+        padding: 12px 18px;
+    }
+
     #find-your-workshop .workshop-explorer__map-canvas svg {
-        height: 760px;
+        height: 460px;
+    }
+
+    #find-your-workshop .workshop-explorer__rail,
+    #find-your-workshop .workshop-explorer__visual {
+        padding: 10px;
+    }
+
+    #find-your-workshop .workshop-explorer__visual {
+        gap: 8px;
     }
 
     #find-your-workshop .workshop-explorer__rail-option-grid {
@@ -2780,8 +2875,8 @@
     }
 
     #find-your-workshop .workshop-explorer__rail-option-grid button {
-        min-height: 34px;
-        padding: 2px;
+        min-height: 22px;
+        padding: 0 2px;
         display: block;
         border: 0;
         border-radius: 0;
@@ -2792,7 +2887,15 @@
     }
 
     #find-your-workshop .workshop-explorer__rail-options + .workshop-explorer__rail-options {
-        margin-top: 8px;
+        margin-top: 2px;
+    }
+
+    #find-your-workshop .workshop-explorer__context {
+        margin-top: 4px;
+    }
+
+    #find-your-workshop .workshop-explorer__context summary {
+        min-height: 36px;
     }
 
     #find-your-workshop .workshop-explorer__rail-option-grid button:hover,

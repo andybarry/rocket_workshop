@@ -237,4 +237,12 @@
 
 <path class="separator1" fill="none" d="m 215,493 v 55 l 36,45 m -251,-168 h 147 l 68,68 h 85 l 54,54 v 46"/>
 
+<g class="explorer-region-map__labels" aria-hidden="true">
+<g class="explorer-region-map__label" data-region-label="west-coast" transform="translate(25 252)"><rect width="110" height="34" rx="17"/><text x="55" y="22">West Coast</text></g>
+<g class="explorer-region-map__label" data-region-label="mountain-west" transform="translate(225 248)"><rect width="140" height="34" rx="17"/><text x="70" y="22">Mountain West</text></g>
+<g class="explorer-region-map__label" data-region-label="midwest-south-central" transform="translate(460.5 327)"><rect width="145" height="50" rx="18"/><text x="72.5" y="20"><tspan x="72.5">Midwest &amp;</tspan><tspan x="72.5" dy="18">South Central</tspan></text></g>
+<g class="explorer-region-map__label" data-region-label="northeast-mid-atlantic" transform="translate(747.5 113)"><rect width="150" height="50" rx="18"/><text x="75" y="20"><tspan x="75">Northeast &amp;</tspan><tspan x="75" dy="18">Mid-Atlantic</tspan></text></g>
+<g class="explorer-region-map__label" data-region-label="southeast" transform="translate(650 390)"><rect width="120" height="34" rx="17"/><text x="60" y="22">Southeast</text></g>
+</g>
+
 </svg>

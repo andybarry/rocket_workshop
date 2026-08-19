@@ -1,0 +1,424 @@
+{
+  "_readme": "French. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (IA, CAD, MIT, Wi-Fi, STIM) follow the glossary. HTML tags inside values must be preserved exactly. Nav and button strings are kept short so they do not wrap or clip.",
+
+  "nav": {
+    "toggle": "Ouvrir la navigation",
+    "menu": "Menu",
+    "workshops": "Ateliers <span class=\"caret\"></span>",
+    "ai": "Intelligence artificielle",
+    "robotics": "Robotique et drones",
+    "mechanical": "Génie mécanique",
+    "aiWebsite": "Développement web",
+    "home": "Accueil",
+    "locations": "Villes",
+    "instructors": "Intervenants",
+    "feedback": "Avis",
+    "contact": "Contact",
+    "about": "À propos",
+    "requestDemo": "Demander une démo",
+    "planWorkshop": "Planifier un atelier",
+    "workshopAccess": "Accès aux ateliers"
+  },
+
+  "common": {
+    "letsChat": "Discutons",
+    "contact": "Contact",
+    "feedbackSurvey": "Questionnaire d'avis",
+    "overview": "Présentation",
+    "testimonials": "Témoignages",
+    "timeline": "Déroulé",
+    "workshopSubdata": "3 à 3,5 heures | Tous âges | Aucune expérience requise",
+    "yes": "Oui",
+    "no": "Non",
+    "planThisWorkshop": "PLANIFIER CET ATELIER"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "Ateliers d'ingénierie pratiques partout aux États-Unis",
+      "imageAlt": "Salle d'atelier",
+      "audience": "Pour les écoles, voyagistes et groupes",
+      "navLabel": "Types d'ateliers",
+      "linkAi": "IA",
+      "linkRobotics": "Robotique",
+      "linkMechanical": "Mécanique",
+      "linkWebsite": "Site web",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Nous apportons</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">l’ingénierie pratique</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">chez vous</span>",
+      "title2": "Pour les groupes partout aux États-Unis",
+      "body1": "Des ateliers complets de trois heures sur l’IA, la robotique, le génie mécanique et le développement web, organisés dans votre hôtel, école, campus ou lieu d’accueil partout aux États-Unis. Nous fournissons les intervenants, l’équipement, le matériel et le programme, et prenons en charge l’installation et le rangement.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Voir le guide des ateliers",
+      "ctaFind": "<i class=\"fa fa-search\" aria-hidden=\"true\"></i>Trouver votre atelier",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Organisez votre atelier",
+      "benefitsLabel": "Avantages des ateliers",
+      "benefitDurationTitle": "Ateliers de 3 heures",
+      "benefitDurationText": "Horaires flexibles le matin, l’après-midi ou le soir",
+      "benefitExperienceTitle": "Aucune expérience requise",
+      "benefitExperienceText": "Conçus pour un large éventail d’âges et de niveaux",
+      "benefitGroupsTitle": "Tailles de groupe flexibles",
+      "benefitGroupsText": "Des groupes privés aux grands programmes étudiants",
+      "benefitDeliveryTitle": "Proposés partout aux États-Unis",
+      "benefitDeliveryText": "Dans votre hôtel, école, campus ou lieu d’accueil pour groupes",
+      "benefitIncludedTitle": "Ingénieurs et équipement inclus",
+      "benefitIncludedText": "Animés par de vrais ingénieurs, avec matériel, programme, installation et rangement fournis"
+    },
+    "explorer": {
+      "exploreEyebrow": "EXPLORER LES ATELIERS",
+      "exploreHeading": "Trouvez l’atelier adapté à votre groupe",
+      "exploreSupport": "Explorez les quatre ateliers ou affinez par destination, participants, type de groupe et intérêt.",
+      "exploreHelper": "Toutes les sélections sont facultatives et modifiables.",
+      "planEyebrow": "PLANIFIER UN ATELIER",
+      "planHeading": "Commencez à planifier l’atelier de votre groupe",
+      "planSupport": "Indiquez ce que vous savez sur votre groupe et votre destination aux États-Unis. Vous pourrez confirmer les détails avant l’envoi.",
+      "planHelper": "Sélectionnez les informations connues et continuez quand vous êtes prêt.",
+      "refine": "AFFINER LES ATELIERS",
+      "destination": "Destination aux États-Unis",
+      "optional": "Facultatif",
+      "otherDestination": "Autre destination aux États-Unis",
+      "customDestination": "Saisir la destination",
+      "participants": "Participants",
+      "participantElementary": "École primaire",
+      "participantMiddle": "Collège",
+      "participantHigh": "Lycée",
+      "participantCollege": "Université",
+      "participantAdult": "Adultes ou professionnels",
+      "participantMixed": "Groupe d’âges variés",
+      "groupType": "Type de groupe",
+      "groupSchool": "École ou classe",
+      "groupTour": "Voyage éducatif ou groupe touristique",
+      "groupYouth": "Programme d’été ou jeunesse",
+      "groupCollege": "Programme universitaire",
+      "groupCorporate": "Groupe professionnel",
+      "groupPrivate": "Groupe privé ou associatif",
+      "international": "Groupe international",
+      "interest": "Atelier souhaité",
+      "exploreWorkshop": "EXPLORER L’ATELIER",
+      "planThis": "PLANIFIER CET ATELIER",
+      "viewDetails": "VOIR LES DÉTAILS",
+      "selectWorkshop": "SÉLECTIONNER L’ATELIER",
+      "selected": "SÉLECTIONNÉ",
+      "summaryHeading": "Votre projet d’atelier",
+      "notSelected": "Pas encore sélectionné",
+      "clearSelection": "Effacer la sélection",
+      "continueSupport": "Indiquez ensuite la date souhaitée, le nombre de participants, le lieu et vos coordonnées.",
+      "continue": "POURSUIVRE LA PLANIFICATION",
+      "mobileSelected": "Atelier sélectionné :",
+      "mobileNotSure": "Atelier : pas encore décidé"
+    },
+    "workshopsHeading": "Nos ateliers",
+    "participantsHeading": "Ce que disent les participants",
+    "planWorkshop": {
+      "title": "Complétez votre demande d’atelier",
+      "subtitle": "Partagez les détails restants. Un membre de l’équipe examinera votre demande et vous informera des disponibilités et prochaines étapes.",
+      "preferredDate": "Date souhaitée",
+      "alternateDate": "Date alternative",
+      "preferredTime": "Horaire souhaité",
+      "selectTime": "Choisir un horaire",
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "participantCount": "Nombre estimé de participants",
+      "venue": "Informations sur le lieu ou l’hôtel",
+      "organization": "Organisation ou école",
+      "contactName": "Nom du contact",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "notes": "Notes complémentaires",
+      "submit": "ENVOYER LA DEMANDE D’ATELIER",
+      "hint": "Cette demande ne confirme pas une réservation.",
+      "thanks": "Merci. Un membre de l’équipe vous contactera pour les prochaines étapes."
+    },
+    "cardAi": {
+      "title": "Intelligence artificielle",
+      "posterAlt": "Affiches de films créées par des élèves avec l'IA",
+      "line1": "Découvrez les réseaux de neurones",
+      "line2": "Utilisez les derniers modèles d'IA : <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>texte, image et musique</em></li> </ul>",
+      "line3": "Débat sur l'éthique de l'IA"
+    },
+    "cardRobotics": {
+      "title": "Robotique<br>et drones",
+      "imageAlt": "Circuit du drone",
+      "line1": "Pilotez des mini-drones",
+      "line2": "Montez un circuit de commande de drone",
+      "line3": "Programmez un vol autonome"
+    },
+    "cardMechanical": {
+      "title": "Génie mécanique",
+      "line1": "Utilisez un logiciel de CAO professionnel",
+      "line2": "Concevez une fusée en plusieurs pièces",
+      "line3": "Découvrez l'impression 3D"
+    },
+    "cardWebsite": {
+      "title": "Développement <br>web",
+      "imageAlt": "Site web créé pendant l'atelier",
+      "line1": "Créez un vrai site web",
+      "line2": "Codez avec un assistant IA",
+      "line3": "Publiez-le en ligne"
+    },
+    "aboutHeading": "À propos",
+    "about": {
+      "handsOn": {
+        "title": "pratique",
+        "body": "On fait de l'ingénierie dès la première minute, sans expérience préalable, à tout âge et à tout niveau."
+      },
+      "turnKey": {
+        "title": "clé en main",
+        "body": "Des ateliers d'ingénierie tout compris, qui s'intègrent et s'adaptent facilement à n'importe quel programme."
+      },
+      "curriculum": {
+        "title": "programme",
+        "body1": "Conçu et animé par des docteurs, des ingénieurs et des enseignants.",
+        "body2": "Mis à jour en continu : aucune année ne se ressemble."
+      },
+      "experienced": {
+        "title": "expérience",
+        "body": "Depuis 2013, Stage One Education a animé des ateliers pour des dizaines de milliers de participants partout aux États-Unis."
+      },
+      "safe": {
+        "title": "sécurité",
+        "body": "Les fusées restent virtuelles, toute l'électronique est en basse tension et des lunettes de protection sont fournies."
+      }
+    },
+    "feedbackHeading": "Avis",
+    "feedbackNav": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "expand": "Voir en grand",
+      "close": "Fermer"
+    },
+    "moreFeedback": "Plus d'avis",
+    "contactHeading": "Contact",
+    "heroQuotes": [
+      "C'est de loin ce que j'ai le plus appris en un cours de cette durée. La façon dont la séance est construite est très pédagogique et permet vraiment d'apprendre.",
+      "Cet atelier était vraiment amusant ! Les consignes étaient faciles à comprendre, ce qui aide beaucoup quand on n'a jamais utilisé un logiciel de CAO comme celui-ci.",
+      "Sans hésiter le meilleur jusqu'ici",
+      "C'était de loin le meilleur atelier jusqu'à présent, et l'intervenant était très accueillant, très calé, etc. Une excellente expérience dans l'ensemble",
+      "J'ai adoré cet atelier. Je n'avais jamais utilisé de logiciel de CAO et j'ai réussi à apprendre et à terminer toute la fusée dans le temps imparti. Je suis content de savoir me servir de ce genre de logiciel et j'aimerais essayer avec un peu moins d'accompagnement la prochaine fois. :)",
+      "C'était très amusant et j'ai vraiment apprécié la liberté, tout en apprenant",
+      "J'ai beaucoup aimé découvrir l'ingénierie des prompts, les réseaux de neurones et discuter de sujets controversés autour de l'IA. Ça m'a fait réaliser tout ce qu'il reste à penser sur les avantages et les inconvénients de l'IA",
+      "Je trouve que c'était très bien préparé et que les activités étaient très agréables et amusantes.",
+      "J'ai adoré cet atelier, c'est ce que j'ai préféré parmi tout ce qu'on a fait jusqu'ici. Je recommande vivement d'en refaire à l'avenir",
+      "L'entraînement du réseau de neurones a été l'un des meilleurs cours d'intelligence artificielle que j'aie suivis. C'était super de pouvoir ensuite utiliser différents outils d'IA.",
+      "J'ai beaucoup appris sur les subtilités de la génération par IA",
+      "J'ai adoré le défi intellectuel de l'activité, surtout le fait de creuser une question difficile avec des personnes très compétentes.",
+      "J'ai vraiment adoré les activités que vous avez préparées. J'ai aussi été impressionné par tout ce que vous savez.",
+      "J'ai adoré cette intervenante : elle est très à l'écoute, très interactive et apporte des éclairages précieux",
+      "Le début, quand vous nous avez enseigné. S'il existait un cours universitaire complet donné par vous deux, je ferais volontiers le trajet pour chaque séance.",
+      "J'ai aimé débattre. C'était très bien animé et, même quand les esprits s'échauffaient, les échanges restaient logiques.",
+      "C'était le meilleur atelier parce qu'il était très interactif et vraiment concret",
+      "C'était super amusant et ça devrait absolument être proposé la prochaine fois.",
+      "J'ai fait trois de ces ateliers et chacun est meilleur que le précédent. Un programme formidable !",
+      "C'était vraiment amusant et, avec le peu de confiance qu'il me restait après la programmation en CAO, ça m'a rendu bien plus sûr de mes capacités en ingénierie ! Super atelier, et intervenant encore meilleur : très patient, il explique bien et on voit qu'il aime ce qu'il fait. :D"
+    ]
+  },
+
+  "ai": {
+    "title": "Atelier Intelligence artificielle",
+    "heroNeuralNetwork": "Réseau de neurones humain",
+    "posterCaption": "affiches de films créées par les participants",
+    "overview": {
+      "nn": {
+        "heading": "<strong>Réseau de neurones humain : activité pratique</strong>",
+        "item1": "Participez à un jeu du téléphone arabe interactif où chaque participant devient un neurone du réseau.",
+        "item2": "Comprenez intuitivement les réseaux de neurones et leur apprentissage, le tout sans mathématiques !"
+      },
+      "film": {
+        "heading": "<strong>Studio de cinéma IA : activité créative</strong>",
+        "item1": "Explorez des outils d'IA de pointe pour générer du texte, des images, de la musique et des voix.",
+        "item2": "Les participants créent tous les éléments de production d'un court-métrage original, du scénario aux supports de promotion.",
+        "item3": "Nous terminons par une projection commentée qui met en valeur la créativité de l'IA."
+      },
+      "ethics": {
+        "heading": "<strong>Éthique de l'IA : activité de prise de décision</strong>",
+        "item1": "Plongez dans les questions éthiques urgentes auxquelles font face les ingénieurs en IA.",
+        "item2": "Participez à des échanges animés qui encouragent une réflexion critique sur un usage responsable de l'IA."
+      }
+    },
+    "quotes": {
+      "q1": "« C'était vraiment génial. Au début, je pensais ne rien comprendre, mais vous avez très bien expliqué. <strong>Je n'oublierai jamais cette expérience !!!</strong> Merci beaucoup😍 »<br><span class=\"quote-attribution\"><em>— Élève, Boston, MA 2025</em></span>",
+      "q2": "« Vous avez très bien tout expliqué et vous avez fait <strong>participer tout le monde</strong> ; vous avez rendu <strong>l'apprentissage amusant</strong>. »<br><span class=\"quote-attribution\"><em>— Élève, Berkeley, CA 2023</em></span>",
+      "q3": "« Merci d'avoir répondu à nos questions ! C'est le premier endroit où <strong>j'ai vraiment réussi à comprendre les réseaux de neurones :)</strong> »<br><span class=\"quote-attribution\"><em>— Élève, Berkeley, CA 2025</em></span>",
+      "q4": "« L'un des <strong>meilleurs ateliers sur l'IA</strong> que j'aie faits. J'ai adoré la simplicité des outils d'IA. »<br><span class=\"quote-attribution\"><em>— Élève, Houston, TX 2024</em></span>",
+      "q5": "« Cet atelier m'a vraiment touché et je pense qu'il restera <strong>l'activité la plus marquante de mon voyage scolaire</strong>. J'ai vraiment senti la différence de qualité de l'enseignement par rapport à mon pays. Si j'en ai l'occasion, j'adorerais y participer à nouveau. »<br><span class=\"quote-attribution\"><em>— Élève, Boston, MA 2025</em></span>",
+      "q6": "« J'ai aimé <strong>l'activité de groupe</strong> et la <strong>simplicité</strong><br><strong>très efficace</strong> des intervenants dans leurs explications »<br><span class=\"quote-attribution\"><em>— Élève, Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "Atelier Robotique et drones",
+    "overview": {
+      "intro": "Dans l'atelier Robotique, les élèves reçoivent un drone, mais <strong>pas de télécommande !</strong><br> Apprenez l'ingénierie en fabriquant votre propre radiocommande pour un quadricoptère :",
+      "item1": "Câblez un circuit complet, avec un <strong>microcontrôleur double cœur</strong> Wi-Fi, un accéléromètre 6 axes, des LED, des potentiomètres et des boutons.",
+      "item2": "En équipe, apprenez à <strong>lire des schémas électroniques et à les traduire</strong> en circuits réels et fonctionnels",
+      "item3": "<strong>Programmez, téléversez et exécutez</strong> vos propres vols autonomes",
+      "item4": "Participez au show aérien autonome pour présenter votre vol personnalisé"
+    },
+    "quotes": {
+      "q1": "« C'était <strong>extrêmement bien fait</strong>. Les intervenants étaient très sympathiques et accessibles. Je suis vraiment reconnaissant, car cela m'a ouvert les yeux sur un domaine de l'électronique que je n'aurais jamais imaginé explorer. »<br><span class=\"quote-attribution\"><em>— Élève, San Francisco, CA 2025</em></span>",
+      "q2": "« C'était <strong>de loin le meilleur atelier</strong> et celui qui m'a le plus intéressé. J'ai aimé la partie programmation et le matériel électronique »<br><span class=\"quote-attribution\"><em>— Élève, Berkeley, CA 2023</em></span>",
+      "q3": "« Vous êtes <strong>géniaux et je me suis énormément amusé</strong>. J'ai hâte de faire encore de l'ingénierie et de la programmation ! »<br><span class=\"quote-attribution\"><em>— Élève, Boston, MA 2023</em></span>",
+      "q4": "« C'était très amusant et <strong>j'ai beaucoup appris</strong>. Je <strong>pourrais vraiment réutiliser une partie de ces connaissances</strong> dans d'autres projets. »<br><span class=\"quote-attribution\"><em>— Élève, Houston, TX 2022</em></span>",
+      "q5": "« C'était le meilleur atelier de tout le programme »<br><span class=\"quote-attribution\"><em>— Élève, Boston, MA 2024</em></span>",
+      "q6": "« Époustouflant »<br><span class=\"quote-attribution\"><em>— Élève, Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "Atelier Génie mécanique",
+    "heroStart": "Début",
+    "overview": {
+      "intro": "Dans l'atelier Génie mécanique, les participants <strong>deviennent concepteurs de fusées !</strong>",
+      "item1": "Concevez et fabriquez votre propre fusée en trois parties avec un logiciel de <strong>conception assistée par ordinateur (CAO) utilisé dans l'industrie</strong>.",
+      "item2": "Guidé par des <strong>micro-vidéos façon GIF</strong> et des textes concis, aucun prérequis n'est nécessaire.",
+      "item3": "Maîtrisez les bases de la CAO : esquisse, modélisation paramétrique et assemblages.",
+      "item4": "Démonstration d'impression 3D en direct.",
+      "item5": "Profitez d'une séance de questions ouverte pour demander à nos <strong>ingénieurs en activité</strong> tout ce que vous voulez sur votre conception, les techniques de CAO et les métiers de l'ingénierie."
+    },
+    "quotes": {
+      "q1": "« <strong>J'ai adoré</strong> : les consignes étaient claires et très bien structurées. J'ai aimé les animations qui accompagnaient les explications, parfaites pour ceux qui apprennent visuellement. Globalement, ça m'a donné envie de continuer la CAO et de concevoir de nouvelles choses. <strong>J'hésitais à savoir si le métier d'ingénieur était vraiment fait pour moi, mais après ça je me sens bien plus sûr de moi</strong> et impatient d'explorer davantage ce domaine » <em>— Élève, Houston, TX 2023</em>",
+      "q2": "« <strong>Exigeant, mais avec un très bon rythme</strong> en même temps. Cela a éveillé mon intérêt pour la modélisation 3D. Maintenant, <strong>j'ai le sentiment que je pourrais m'y mettre tout seul</strong> et j'ai envie de pousser mes connaissances au maximum. » <em>— Élève, Atlanta, GA 2021</em>",
+      "q3": "« <strong>J'ai adoré cet atelier.</strong> Je n'avais jamais utilisé de logiciel de CAO et j'ai réussi à apprendre et à <strong>terminer toute la fusée dans le temps imparti.</strong> Je suis content de savoir me servir de ce genre de logiciel et j'aimerais essayer avec un peu moins d'accompagnement la prochaine fois. :) » <em>— Élève, Los Angeles, CA 2025</em>",
+      "q4": "« Cet atelier a été <strong>de loin mon préféré</strong>. Comme je veux devenir ingénieur civil, c'était très intéressant de découvrir un logiciel que je pourrais utiliser dans ce métier » <em>— Élève, Berkeley, CA 2021</em>",
+      "q5": "« L'accompagnement associé à la liberté créative de l'atelier était parfait ! » <em>— Élève, Berkeley, CA 2025</em>",
+      "q6": "« Super atelier, <strong>j'ai passé un excellent moment</strong> tout en apprenant des compétences précieuses qui seront <strong>essentielles à ma réussite</strong> plus tard en ingénierie et au-delà. » <em>— Élève, Atlanta, GA 2025</em>"
+    }
+  },
+
+  "aiWebsite": {
+    "title": "Atelier Développement web",
+    "comingSoon": "Les détails de l'atelier seront bientôt disponibles."
+  },
+
+  "locations": {
+    "heading": "Villes",
+    "note": "Autres villes possibles sur demande",
+    "mapAlt": "Carte"
+  },
+
+  "instructors": {
+    "heading": "Intervenants",
+    "mission": "Notre mission : inspirer les apprenants par des ateliers d'ingénierie pratiques",
+    "body": "Chez Stage One Education, nous proposons des ateliers qui reprennent l'expertise et les méthodes de chercheurs de haut niveau et de professionnels de l'ingénierie. Nos ateliers sont animés par un réseau national d'intervenants expérimentés, qui accompagnent les participants dans un apprentissage immersif, pratique et par projets, au plus près des domaines actuels de l'ingénierie. Cette approche vivante offre une expérience portée par le regard et la passion d'ingénieurs en activité.",
+    "join": "Envie de rejoindre notre équipe ?",
+    "requirements": "Profil recherché : leadership d'équipe - excellentes qualités de présentation - solide portfolio d'expérience en ingénierie",
+    "authorization": "Autorisation de travailler aux États-Unis comme prestataire indépendant (1099)"
+  },
+
+  "feedback": {
+    "heading": "Avis",
+    "updated": "mise à jour : 05/02/2026",
+    "formLink": "Formulaire d'avis"
+  },
+
+  "contact": {
+    "heading": "Contactez-nous",
+    "lede": "<b>Une question ou envie d'en savoir plus ? Contactez-nous.</b>",
+    "body": "Nos ateliers pratiques en <strong>intelligence artificielle</strong>, <strong>robotique</strong> et <strong>génie mécanique</strong> sont animés par de vrais ingénieurs. En seulement trois heures, les participants acquièrent des compétences et des outils essentiels qui éveillent leur passion pour les sciences et les techniques.<br><br>Aucune expérience requise. <br><br> <strong>Faisons vivre cette énergie et ces apprentissages à votre groupe : écrivez-nous dès maintenant !</strong>"
+  },
+
+  "about": {
+    "heading": "À propos",
+    "intro": {
+      "headline": "Nous avons à cœur de partager notre passion de l'ingénierie",
+      "lede": "Nos ateliers répondent à des questions comme :",
+      "question1": "<strong>est-ce que je peux faire de l'ingénierie ?</strong>",
+      "question2": "<strong>que font vraiment les ingénieurs ?</strong>",
+      "body1": "grâce à des activités concrètes — du câblage de vrais circuits à l'utilisation d'outils de CAO professionnels et des derniers modèles d'IA —, les participants comprennent vraiment ce qu'est l'ingénierie.",
+      "body2": "Après avoir travaillé sur des projets réels, manipulé des outils d'ingénierie et échangé avec des professionnels expérimentés, les participants repartent plus confiants, inspirés et enthousiastes à l'idée d'un avenir possible dans l'ingénierie."
+    },
+    "leadershipHeading": "Équipe de direction",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry, docteur du MIT",
+        "role": "Fondateur",
+        "bio": "Andy est tombé amoureux des drones autonomes en <a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">les pilotant</a> pendant son doctorat au MIT. Il a animé des ateliers d'électronique et de programmation pour plus de 10 000 élèves, des petits hélicoptères aux <a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">robots quadrupèdes sophistiqués</a>."
+      },
+      "pete": {
+        "name": "Pete Florence, docteur du MIT",
+        "role": "Cofondateur",
+        "bio": "Pete a piloté des drones de toutes sortes pendant son doctorat au MIT. Ses travaux de planification et de commande au sein du <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> ont repoussé les limites en matière de vitesse, d'agilité et de fiabilité des drones. Ses recherches primées en <a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">manipulation robotique</a> donnent chaque jour de nouvelles capacités aux robots."
+      },
+      "robbie": {
+        "name": "Robbie Kipp, ingénieur",
+        "role": "Directeur des opérations",
+        "bio": "Les conceptions de Robbie ont tracé l'avenir des systèmes de plongée et des navires, à l'époque où il était ingénieur océanique et architecte naval. Aujourd'hui directeur des opérations de Stage One Education, il invente de nouvelles façons d'inspirer la prochaine génération d'ingénieurs. Robbie est un passionné de plongée, d'escalade et d'aviation."
+      }
+    },
+    "instructorsCallout": "<strong>Les intervenants de Stage One Education</strong><br> Un réseau national de professionnels de l'ingénierie passionnés",
+    "workshopsHeading": "Des ateliers d'ingénierie pratiques",
+    "buttons": {
+      "ai": "Intelligence <br>artificielle",
+      "robotics": "Robotique <br>et drones",
+      "mechanical": "Génie <br>mécanique"
+    },
+    "turnKey": {
+      "heading": "Clé en main",
+      "body": "Nous proposons des ateliers complets, intervenants, matériel et programme inclus. Les élèves repartent avec une confiance nouvelle, après avoir appris à utiliser des outils professionnels grâce à nos instructions, nos méthodes et notre pédagogie sans cesse améliorées."
+    },
+    "details": {
+      "heading": "Détails de l'atelier",
+      "offered": "<strong>Ateliers proposés :</strong> robotique, IA, génie mécanique",
+      "length": "<strong>Durée :</strong> 3 heures",
+      "participants": "<strong>Participants :</strong> jusqu'à ~60 par atelier (la capacité dépend de la taille du lieu)",
+      "location": "<strong>Lieu :</strong> nous pouvons intervenir partout",
+      "venue": "<strong>Salle :</strong> Wi-Fi, prises électriques, tables et chaises indispensables ; les grands espaces sont préférables",
+      "materials": "<strong>Matériel :</strong> inclus dans tous les ateliers",
+      "instructors": "<strong>Intervenants :</strong> des professionnels de l'ingénierie expérimentés et passionnés par la transmission de leur savoir-faire.",
+      "schedule": "<strong>Planning :</strong> nous nous adaptons à votre programme et pouvons organiser plusieurs sessions successives ou simultanées selon les besoins"
+    },
+    "pricing": {
+      "heading": "Tarifs",
+      "body": "Le coût par participant dépend de plusieurs facteurs : la taille du groupe, l'organisation de journées d'ateliers consécutives, la logistique du matériel et le nombre d'intervenants mobilisés. Pour un devis adapté à vos besoins, contactez notre équipe dès aujourd'hui. Nous sommes là pour créer avec vous l'expérience d'ingénierie idéale."
+    },
+    "presentations": {
+      "heading": "Conférences",
+      "lede": "Nous proposons des conférences interactives d'une heure animées par des experts du secteur.",
+      "topics": "Nous approfondissons : <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>la réalité virtuelle</li> <li>l'intelligence artificielle</li> <li>la robotique et bien plus</li> </ul>",
+      "body": "Ces séances stimulent l'innovation et enrichissent la compréhension qu'ont vos participants des dernières avancées technologiques."
+    },
+    "contactBlurb": "Découvrez nos ateliers d'ingénierie et nos conférences <br> réservez dès aujourd'hui une démo en ligne",
+    "letsChat": "Discutons"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | Ateliers d'ingénierie pratiques",
+      "description": "Des ateliers d'ingénierie pratiques partout aux États-Unis depuis 2013 : IA, robotique et génie mécanique, animés par de vrais ingénieurs. Éveillez l'innovation !"
+    },
+    "ai": {
+      "title": "Atelier IA | STAGE ONE EDUCATION",
+      "description": "Découvrez l'intelligence artificielle par la pratique avec Stage One Education : construisez des réseaux de neurones, créez des films générés par IA et débattez de son éthique. Aucun prérequis, pour tous les âges, avec de vrais ingénieurs."
+    },
+    "robotics": {
+      "title": "Atelier Robotique | STAGE ONE EDUCATION",
+      "description": "Maîtrisez le pilotage de drones avec Arduino et ESP32 lors de l'atelier Robotique et drones de Stage One Education. Électronique et programmation en pratique, aucun prérequis !"
+    },
+    "mechanical": {
+      "title": "Atelier Génie mécanique | STAGE ONE EDUCATION",
+      "description": "Découvrez les bases du génie mécanique dans cet atelier CAO et fusées : construisez des fusées virtuelles, explorez l'impression 3D et maîtrisez la conception. Aucun prérequis !"
+    },
+    "aiWebsite": {
+      "title": "Atelier Développement web | STAGE ONE EDUCATION",
+      "description": "Créez et publiez un vrai site web à l'aide d'outils de codage IA lors de cet atelier pratique de Stage One Education, animé par de vrais ingénieurs. Aucune expérience requise."
+    },
+    "locations": {
+      "title": "Villes | STAGE ONE EDUCATION",
+      "description": "Des ateliers d'ingénierie pratiques dans tout le pays : IA, robotique et génie mécanique, animés par de vrais ingénieurs. En savoir plus et éveiller l'innovation !"
+    },
+    "instructors": {
+      "title": "Intervenants | STAGE ONE EDUCATION",
+      "description": "Des ateliers d'ingénierie pratiques dans tout le pays : IA, robotique et génie mécanique, animés par de vrais ingénieurs. En savoir plus et éveiller l'innovation !"
+    },
+    "feedback": {
+      "title": "Avis | STAGE ONE EDUCATION",
+      "description": "Des ateliers d'ingénierie pratiques dans tout le pays : IA, robotique et génie mécanique, animés par de vrais ingénieurs. En savoir plus et éveiller l'innovation !"
+    },
+    "contact": {
+      "title": "Contact | STAGE ONE EDUCATION",
+      "description": "Des ateliers d'ingénierie pratiques dans tout le pays : IA, robotique et génie mécanique, animés par de vrais ingénieurs. En savoir plus et éveiller l'innovation !"
+    },
+    "about": {
+      "title": "À propos | STAGE ONE EDUCATION",
+      "description": "Des ateliers d'ingénierie pratiques dans tout le pays : IA, robotique et génie mécanique, animés par de vrais ingénieurs. En savoir plus et éveiller l'innovation !"
+    }
+  }
+}

@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+
+  <title>Fuselage (page 3) | Onshape CAD Tutorial | Stage One Education</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
+
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
+
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
+
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
+        toggleSwitch.checked = savedState === "true";
+        toggleAdvancedMode2(toggleSwitch.checked);
+      }
+
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
+        localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
+    });
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
+
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
+
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
+          
+        </a>
+      </div>
+
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
+
+        <!-- Only show links when NOT on portal.html -->
+        
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
+
+          <!-- Optional “team” icon when on a team page -->
+          
+            <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+              <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+            </li>
+          
+
+          <!-- Getting Started -->
+          
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-team.html">
+                Getting Started
+              </a>
+            </li>
+          
+
+          <!-- Fuselage -->
+          
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">
+                Fuselage
+              </a>
+            </li>
+          
+
+          <!-- Fins + Booster -->
+          
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">
+                Fins+Booster
+              </a>
+            </li>
+          
+
+          <!-- Nosecone -->
+          
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">
+                Nosecone
+              </a>
+            </li>
+          
+
+          <!-- Assembly -->
+          
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-team1.html">
+                Assembly
+              </a>
+            </li>
+          
+
+          <!-- Challenges -->
+          
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-team.html">
+                Challenges
+              </a>
+            </li>
+          
+
+        </ul>
+        
+
+      </div>
+    </div>
+  </nav>
+
+      
+
+    <header class="not-full-page">
+  <div class="header-content" 
+       style="display:flex; 
+              justify-content:center; 
+              align-items:center; 
+              margin-left:-100px;">
+    <div class="header-content-inner" 
+         style="display:flex; 
+                align-items:center; 
+                justify-content:center; 
+                text-align:right;">
+      <!-- Text on the left -->
+      <div>
+        <h2 style="margin-bottom:10px;">FUSELAGE</h2>
+        <p style="margin-right:0;">
+          <em>Build the nosecone tether connection</em>
+        </p>
+      </div>
+      <!-- Vertical line and image -->
+      <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:150px;"></div>
+      <img 
+          src="img/tutorial/fuselage-iso-2.png" 
+          alt="fuselage-iso" 
+          style="width:150px; height:auto;"
+      >
+    </div>
+  </div>
+</header>
+
+
+    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fuselage Tutorial </strong><br>
+    
+        
+            <a href="fuselage-team2.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="fuselage-team1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-team2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>3</strong>
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-team4.html">4</a>
+            
+        
+        
+        
+            |
+        
+    
+    
+        <a href="fuselage-team4.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    
+</p>
+<br/>
+<!--Page nav-->
+
+
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="top">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+       
+        <div id="advanced-learning-toggle" style="position: fixed; bottom: 0; right: 0; z-index: 9999; background: rgb(216, 216, 216); border: solid rgb(216, 216, 216) 8px; border-left: solid rgb(216, 216, 216) 12px; border-top-left-radius: 10px;">
+    <label for="advancedModeSwitch" style="margin-right: 8px; font-weight: bold;">
+        Advanced mode
+    </label>
+    <label class="switch">
+        <input type="checkbox" id="advancedModeSwitch" onclick="toggleAdvancedMode2(this.checked)" />
+        <span class="slider round"></span>
+    </label>
+</div>
+
+
+
+                      
+                      <h3 class="section-heading">
+22.
+ Create a plane for the nosecone tether sketch</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_1">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_1">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(1)"
+    onmouseout="this.play(); updatePlayPauseIcon(1)"
+    id="video-1"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(1)"
+    >
+    <source src="videos/middle-body/create_plane_nosecone_tether.webm" type="video/webm">
+    <source src="videos/middle-body/create_plane_nosecone_tether.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-1" onclick="togglePlayPause(1)">▶</div>
+    <div class="pause-icon" id="pause-button-1" onclick="togglePlayPause(1)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+ 
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_2">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_2">
+
+                      <ul>
+                        
+                          <li>Now we'll add a spot for the nosecone and parachute to tie on to</li>
+                          <ul>
+                              <li><img src="img/tutorial/rocket_thread_string_s_arrow.jpg" class="tutorial-video" /></li>
+                          </ul>
+                          <br />
+                          <li>Start a new plane with the plane tool <img src="img/tutorial/plane_tool.png" /></li>
+                          <li>Select the top <strong>face</strong> of your tube (the side opposite of where it connects to the lower body).</li>
+                          <li>Set the offset to <strong>1.25 in</strong></li>
+                          <li>Click the "Opposite direction" button <img src="img/tutorial/opposite_direction_button.png" /> to make your plane fall inside your tube</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#opposite_offset">Another way &raquo;</a></li>
+                              <li class="collapse" id="opposite_offset">
+                                  <ul><li>You can use negative offsets to also flip the direction in one step (-1.25 in).</li></ul>
+                              </li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+        
+      
+      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+23.
+ Start the sketch for the nosecone tether holder</h3>
+                      
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_3">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_3">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(3)"
+    onmouseout="this.play(); updatePlayPauseIcon(3)"
+    id="video-3"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(3)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_1_v2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-3" onclick="togglePlayPause(3)">▶</div>
+    <div class="pause-icon" id="pause-button-3" onclick="togglePlayPause(3)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_4">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_4">
+                      
+                      <ul>
+                          <li>Start a new sketch <img src="img/tutorial/sketch-small.png" /></li>
+                          <li>Select the plane you just created <img src="img/tutorial/plane_1.png" /></li>
+                          <li>Select the "Use (Project/Convert)" tool <img src="img/tutorial/use_tool.png" />
+                          <li>Click the <strong>inside</strong> circle on the body tube</li>
+                      </ul>
+            
+     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+      
+                      <h3 class="section-heading">
+24.
+ Sketch the outside of the tether holder</h3>
+                      
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_5">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_5">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(5)"
+    onmouseout="this.play(); updatePlayPauseIcon(5)"
+    id="video-5"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(5)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_2.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-5" onclick="togglePlayPause(5)">▶</div>
+    <div class="pause-icon" id="pause-button-5" onclick="togglePlayPause(5)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_6">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_6">
+                      
+                      <ul>
+                          <li>Deselect the "Use (Project/Convert)" tool by pressing <strong>Esc</strong></li>
+                          <li>Align your view to the sketch plane by clicking "Top" on the view cube</li>
+                          <ul><li><img src="img/tutorial/view_cube_top.png" /></li></ul>
+                          <li>Select the "3 point arc" tool <img src="img/tutorial/3_point_arc.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_a">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_a">
+                                  <ul><li>The 3-point (standard) arc, a sketch tool, uses the letter <code>a</code>.</li></ul>
+                              </li>
+                          <li>Set the first point on the circle, above the centerline</li>
+                          <li>Set the second point on the circle, below the centerline</li>
+                          <li>Set the third point so the arc is in inside the tube</li>
+                      </ul>
+   
+      
+       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+25.
+ Constrain the arc's center to the circle</h3>
+                      
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_7">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_7">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(7)"
+    onmouseout="this.play(); updatePlayPauseIcon(7)"
+    id="video-7"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(7)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch3_1_new.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch3_1_new.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-7" onclick="togglePlayPause(7)">▶</div>
+    <div class="pause-icon" id="pause-button-7" onclick="togglePlayPause(7)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_8">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_8">
+
+                      <ul>
+                          <li>Select the "Coincident" tool <img src="img/tutorial/coincident_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_i">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_i">
+                                  <ul><li>Many of the sketch constraints also use keyboard shortcuts.</li>
+                                  <li>Rather than teach you each one, you can learn them by viewing the displayed letter in dropdown menus or hovering over the tool's name in the interface.</li>
+                                  <li>Note that "circle" is <code>c</code>, so "coincident" must be something else.</li>
+                                  </ul>
+                              </li>
+                          <li>Select the point that is the <strong>center of the arc</strong> you just created</li>
+                          <li>Select the bold circle, and you'll see the point jump onto the circle</li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#constraints">What <em>is</em> a constraint? &raquo;</a></li>
+                              <li class="collapse" id="constraints">
+                                  <ul><li>Constraints fully define the elements of your sketch.</li>
+                                  <li>A sketch that is not fully constrained can be dragged around into different positions</li>
+                                  <li>A fully defined sketch is in exactly the one possible position</li>
+                                  <ul><li>and the lines turn from blue to black</li></ul>
+                                  <li>If you didn't constrain your sketches, your final result could fall within a range of possibilities.  Don't leave your CAD models to chance.</li></ul>
+                              </li>
+                      </ul>
+
+      
+         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+26.
+ Constrain the arc's center to the centerline</h3>
+                                      
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_9">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_9">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(9)"
+    onmouseout="this.play(); updatePlayPauseIcon(9)"
+    id="video-9"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(9)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch3_2.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch3_2.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-9" onclick="togglePlayPause(9)">▶</div>
+    <div class="pause-icon" id="pause-button-9" onclick="togglePlayPause(9)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_10">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_10">
+                     
+                      <ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the arc's center</li>
+                          <li>Select the origin point, and you'll see the point jump to the line and turn black</li>
+                          <ul><li>(black = fully constrained)</li></ul>
+                      </ul>
+        
+           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+27.
+ Draw the center circle</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_11">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_11">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(11)"
+    onmouseout="this.play(); updatePlayPauseIcon(11)"
+    id="video-11"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(11)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch4.1.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch4.1.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-11" onclick="togglePlayPause(11)">▶</div>
+    <div class="pause-icon" id="pause-button-11" onclick="togglePlayPause(11)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_12">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_12">
+                      <ul>
+                          <li>Select the circle tool <img src="img/tutorial/circle_tool.png" /></li>
+                          <li>Draw a circle anywhere inside your arc and the tube (make it small)</li>
+                          <ul><li>(we'll constrain it in a moment to be exactly where we want)</li></ul>
+                          <li>Select the "Horizontal" tool <img src="img/tutorial/constraints_dropdown_horizontal.png" /> <i class="fa fa-arrow-right"></i> <img src="img/tutorial/horizontal_tool_menu.png" /></li>
+                          <li>Select the circle's center</li>
+                          <li>Select the origin and you should see the circle snap to the center</li>
+                      </ul>
+
+      
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+28.
+ Dimension the left gap</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_13">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_13">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(13)"
+    onmouseout="this.play(); updatePlayPauseIcon(13)"
+    id="video-13"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(13)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_left_gap.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_left_gap.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-13" onclick="togglePlayPause(13)">▶</div>
+    <div class="pause-icon" id="pause-button-13" onclick="togglePlayPause(13)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_14">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_14">
+                      <ul>
+                          <li>Select the dimension tool <img src="img/tutorial/dimension_tool.png" /></li>
+                          <li>Click the circle's edge</li>
+                          <li>Click the tube's circle that you have been using</li>
+                          <li>Set the dimension to <strong>0.01 in</strong></li>
+                      </ul>
+
+      
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+29.
+ Dimension the circle's diameter</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_15">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_15">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(15)"
+    onmouseout="this.play(); updatePlayPauseIcon(15)"
+    id="video-15"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(15)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-15" onclick="togglePlayPause(15)">▶</div>
+    <div class="pause-icon" id="pause-button-15" onclick="togglePlayPause(15)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_16">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_16">
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Select the circle</li>
+                              <li>Set the dimension to <strong>0.13 in</strong></li>
+                          </ul>
+                          
+                      </ul>
+
+      
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+30.
+ Dimension the gap on the other side</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_17">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_17">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(17)"
+    onmouseout="this.play(); updatePlayPauseIcon(17)"
+    id="video-17"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(17)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_dim_circle.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-17" onclick="togglePlayPause(17)">▶</div>
+    <div class="pause-icon" id="pause-button-17" onclick="togglePlayPause(17)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_18">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_18">
+                      <ul>
+                          <li><em>With the dimension tool still selected:</em></li>
+                          <ul>
+                              <li>Click the circle's edge</li>
+                              <li>Click your 3-point arc</li>
+                              <li>Set the dimension to <strong>0.025 in</strong></li>
+                          </ul>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#fully-defined">Did you notice how everything turned black? &raquo;</a></li>
+                          <ul class="collapse" id="fully-defined">
+                              <li>Black lines mean, &ldquo;fully defined,&rdquo; which means that you have told Onshape exactly where the line is.</li>
+                              <li>If a line is blue, it means that there are still things to be constrained or dimensioned.</li>
+                          </ul>
+                      </ul>
+                      
+  
+      
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+31.
+ Trim the outer circle, finish sketch</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_19">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_19">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(19)"
+    onmouseout="this.play(); updatePlayPauseIcon(19)"
+    id="video-19"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(19)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_trim.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-19" onclick="togglePlayPause(19)">▶</div>
+    <div class="pause-icon" id="pause-button-19" onclick="togglePlayPause(19)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_20">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_20">
+                      <ul>
+                          <li>Select the "Trim" tool <img src="img/tutorial/trim_tool.png" /></li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#kb_shortcut_m">Keyboard shortcut &raquo;</a></li>
+                              <li class="collapse" id="kb_shortcut_m">
+                                  <ul><li>Since <code>t</code> is taken by "tangent", we use the last letter <code>m</code> for "trim".</li></ul>
+                              </li>
+                          <li><a class="btn help-button" data-toggle="collapse" data-target="#no_trim">Don't see the trim icon? &raquo;</a></li>
+                              <li class="collapse" id="no_trim">
+                                  <ul><li>On narrow screens, items are hidden in menus. Trim collapses into the menu with sketch fillet <img src="img/tutorial/sketch_fillet.png" /></li></ul>
+                              </li>
+                          <li>Select the part of the circle outside of the arc</li>
+                          <!--<li>Click the green check <img src="img/tutorial/green_check.png" /></li>-->
+                      </ul>
+
+      
+                 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+                      <h3 class="section-heading">
+32.
+ Extrude the tether holder</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-4.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_21">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_21">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(21)"
+    onmouseout="this.play(); updatePlayPauseIcon(21)"
+    id="video-21"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(21)"
+    >
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_extrude.webm" type="video/webm">
+    <source src="videos/middle-body/nosecone_tether_holder_sketch_rev2_extrude.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-21" onclick="togglePlayPause(21)">▶</div>
+    <div class="pause-icon" id="pause-button-21" onclick="togglePlayPause(21)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_22">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_22">
+                          <ul>
+                          <li>Select the extrude tool <img src="img/tutorial/extrude_tool.png" /></li>
+                          <!--<li>Select your newly created sketch <img src="img/tutorial/sketch_3.png" /></li>-->
+                          <li>Confirm that your newly created sketch <img src="img/tutorial/sketch_3.png" /> is selected. </li>
+                          <li>Set the depth to <strong>0.75 in</strong></li>
+                          <li>Click the "Opposite direction" <img src="img/tutorial/opposite_direction_button.png" /> to make the extrude go towards the bottom of the part</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+
+      
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                      <h3 class="section-heading">
+33.
+ Fillet the tether holder</h3>
+                      <div class="adv-drawing-container">
+    <img 
+      class="adv-drawing"
+      src=img/tutorial/fuselage-drawing-5.png
+    >
+</div>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_23">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_23">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(23)"
+    onmouseout="this.play(); updatePlayPauseIcon(23)"
+    id="video-23"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(23)"
+    >
+    <source src="videos/middle-body/fillet_nosecone_holder.webm" type="video/webm">
+    <source src="videos/middle-body/fillet_nosecone_holder.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-23" onclick="togglePlayPause(23)">▶</div>
+    <div class="pause-icon" id="pause-button-23" onclick="togglePlayPause(23)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_24">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_24">
+                      <ul>
+                          <li>Select the "fillet" tool <img src="img/tutorial/fillet_tool.png" /></li>
+                          <li>Click the arc on the edge of the tube and the holder</li>
+                          <li>Set the radius to <strong>0.15 in</strong></li>
+                          <li>Select the same arc on the bottom of the holder</li>
+                          <li>Click the green check <img src="img/tutorial/green_check.png" /></li>
+                      </ul>
+                
+      
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                      <h3 class="section-heading">
+34.
+ Exit section view</h3>
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_25">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_25">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(25)"
+    onmouseout="this.play(); updatePlayPauseIcon(25)"
+    id="video-25"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(25)"
+    >
+    <source src="videos/middle-body/finish_middle_body.webm" type="video/webm">
+    <source src="videos/middle-body/finish_middle_body.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-25" onclick="togglePlayPause(25)">▶</div>
+    <div class="pause-icon" id="pause-button-25" onclick="togglePlayPause(25)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <div>
+    <a class="btn help-button adv-text-toggle" style="text-align: left; display: none;" data-toggle="collapse" data-target="#adv_instructions_26">
+        Text instructions &raquo;
+    </a>
+</div>
+<div class="step-instructions" id="adv_instructions_26">
+                      <ul>
+                          <li>Select the view cube menu <img src="img/tutorial/view_menu.png" /></li>
+                          <li>Select "Turn section view off"</li>
+                      </ul>
+                    
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                      <h3 class="section-heading"> 
+35.
+ Part Volume = 0.301 in<sup>3</sup> </h3>           
+                      <ul>
+                      <li>Select "mass properties" <img src="img/tutorial/mass_properties_icon.png" /></li>
+                      <li>Select "Part1"</li>
+                      </ul>
+           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+      
+
+    
+
+
+
+
+
+
+
+
+
+<!--Page nav-->
+<br/>
+<p style="text-align: center" class="navigation-numbers"> 
+    <strong>Fuselage Tutorial </strong><br>
+    
+        
+            <a href="fuselage-team2.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px"><i class="fa fa-arrow-left"></i> Previous</a>
+        
+    
+    Page:
+    
+    
+    
+        
+            
+                <a href="fuselage-team1.html">1</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-team2.html">2</a>
+            
+        
+        
+        
+            |
+        
+    
+        
+            <strong>3</strong>
+        
+        
+        
+            |
+        
+    
+        
+            
+                <a href="fuselage-team4.html">4</a>
+            
+        
+        
+        
+            |
+        
+    
+    
+        <a href="fuselage-team4.html" class="btn btn-primary btn-l page-scroll" style="font-size: 10px">Next <i class="fa fa-arrow-right"></i></a>
+    
+</p>
+<br/>
+<!--Page nav-->
+
+
+
+    <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
+  <nav class="site-footer-regions" aria-label="Workshop regions">
+    
+      
+        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
+      
+    
+      
+        <a href="/regions/southeast/">Southeast</a>
+      
+    
+      
+        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
+      
+    
+      
+        <a href="/regions/mountain-west/">Mountain West</a>
+      
+    
+      
+        <a href="/regions/west-coast/">West Coast</a>
+      
+    
+      
+    
+      
+    
+    <a href="/international-groups/">International Groups</a>
+  </nav>
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+      
+
+      
+
+
+
+
+   
+
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
+
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
+      }
+
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
+    }
+
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
+
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
+    }
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>

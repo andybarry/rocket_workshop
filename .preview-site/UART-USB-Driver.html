@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+     <!-- Dynamically insert or fallback to your hardcoded text -->
+    <title>UART-USB-Driver | Stage One Education, LLC</title>
+
+    <meta 
+    name= "description" 
+    content="Hands-on engineering workshops nationwide, 
+    featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    >
+         
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Stage One Education, LLC">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
+    
+    <link rel="canonical" href="https://stageoneeducation.com/UART-USB-Driver.html">
+    <meta property="og:title" content="UART-USB-Driver | Stage One Education, LLC">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:image" content="https://stageoneeducation.com/img/stageone-logo-orange-small.png">
+    <meta property="og:type" content="website">
+            
+    <meta name="keywords"
+          content='hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
+           real engineers, STEM education, advanced technology, drone building, coding basics, neural networks, 3D printing,
+            summer camps, school programs, engineering instruction, K-12 STEM, educational travel, summer travel programs,
+            traveling workshops, STEM travel experiences '>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/creative.css" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-86650838-1');
+      gtag('config', 'AW-716077034');
+    </script>
+
+</head>
+
+<!-- page-specific styles -->
+<style>
+  /* import Roboto */
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
+
+  /* push the page down so nothing is hidden under the fixed header + sub-header */
+  body#page-top {
+    padding-top: 55px; /* 40px header + 15px sub-header */
+  }
+
+  /* fixed 40px-high orange top bar */
+  header.app-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 40px !important;
+    min-height: 0 !important;
+    line-height: 40px;        /* match the height for vertical centering */
+    background-color: #f05f40;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* lighter “| Drone IDE” text */
+  header.app-header .subtitle {
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  /* fixed 15px-high dark-gray bar immediately below */
+  .sub-header-bar {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #414141; /* dark gray */
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    z-index: 999;
+  }
+  .driver-instructions {
+  /* set Roboto as the font */
+  font-family: 'Roboto', sans-serif;
+
+  /* constrain width to 70% of its container and center it */
+  width: 50%;
+  margin: 0 auto;
+
+  /* keep text left-justified */
+  text-align: left;
+
+  /* optional: give a little breathing room */
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+/* if you need the headings or strong tags to be heavier/lighter: */
+.driver-instructions strong,
+.driver-instructions h2,
+.driver-instructions h3 {
+  font-weight: 500; /* or 700 for bolder */
+}
+
+.highlight-box {
+    background-color: #f05f40;  /* orange fill */
+    color: #ffffff;             /* white text */
+    border-radius: 15px;         /* rounded corners */
+    padding: 0.75rem 1rem;      /* space inside the box */
+    display: inline-block;      /* shrink-wrap to content */
+  }
+  .highlight-box h3 {
+    margin: 0;                  /* remove default h3 margin */
+    font-weight: bold;          /* keep text bold */
+  }
+
+.thin-line {
+  height: 1px;
+  background-color: #ccc;
+  margin: 1.5rem 0;
+}
+
+
+
+</style>
+
+<body id="page-top">
+
+  <!-- orange header -->
+  <header class="app-header">
+    Robotics Workshop<span class="subtitle">| Drone IDE</span>
+  </header>
+
+    <div class="sub-header-bar">
+    UART/USB – Driver
+  </div>
+<br/>
+ 
+    <!-- driver installation instructions -->
+    <section class="driver-instructions">
+      
+<div class="highlight-box">
+  <h3>Connect laptop to ESP32 UART port via USB cable</h3>
+</div>
+<br/>
+<div class="thin-line"></div>
+
+      <h2 style="font-weight: bold;">Check if the Driver is Installed</h2>
+      <ol>
+        <li>Open Device Manager: Press <kbd>Windows</kbd> + <kbd>X</kbd> and select <em>Device Manager</em>.</li>
+        <li>In Device Manager, expand the <em>Ports (COM &amp; LPT)</em> section.</li>
+        <li>Look for <em>Silicon Labs CP210x USB to UART Bridge</em>. If it appears, the driver is installed. If not, you’ll need to install it manually.</li>
+      </ol>
+<div class="thin-line"></div>
+
+      <h2 style="font-weight: bold;">Download the Driver</h2>
+      <h3>Step 1: Download the CP210x Universal Windows Driver</h3>
+      <ul>
+<li>
+  Go to the Silicon Labs:
+  <a
+    href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    CP210x driver download page</a>.
+</li>
+        <li>Download the <em>CP210x Universal Windows Driver</em>.</li>
+        <li>Once downloaded, find the ZIP file in your Downloads folder.</li>
+      </ul>
+
+      <h3>Step 2: Extract the Driver</h3>
+      <ul>
+        <li>Locate the downloaded ZIP file in your Downloads folder.</li>
+        <li>Right-click the file and select <em>Extract All…</em>.</li>
+        <li>Choose a destination folder (e.g., your Desktop) for the extracted files.</li>
+      </ul>
+
+      <h3>Step 3: Install the CP210x Driver</h3>
+      <ol>
+        <li>Open Device Manager again (if it’s not still open).</li>
+        <li>Expand the <em>Ports (COM &amp; LPT)</em> section.</li>
+        <li>If you see an <em>Unknown device</em> or not yet listed CP210x entry, right-click it; otherwise right-click the existing <em>Silicon Labs CP210x USB to UART Bridge</em>.</li>
+        <li>Select <em>Update driver</em> from the context menu.</li>
+        <li>Choose <em>Browse my computer for driver software</em>.</li>
+        <li>Click <em>Browse</em> and navigate to the folder where you extracted the driver files.</li>
+        <li>Click <em>Next</em> to begin the installation.</li>
+      </ol>
+
+      <h3>Update the Driver</h3>
+      <ol>
+        <li>Windows will install the driver. Once complete, you should see <em>Silicon Labs CP210x USB to UART Bridge</em> listed under <em>Ports (COM &amp; LPT)</em>.</li>
+      </ol>
+
+      <div class="thin-line"></div>
+
+
+<h2 style="font-weight: bold;">Verify the Installation</h2>
+     <ul>
+        <li>Restart your computer if prompted or if the driver doesn’t appear immediately.</li>
+        <li>Open Device Manager and confirm the CP210x driver appears under <em>Ports (COM &amp; LPT)</em>.</li>
+      </ul>
+    </section>
+
+ <br/>
+ <br/>
+
+  <!-- existing page content -->
+  <div class="page-content">
+    <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
+  <nav class="site-footer-regions" aria-label="Workshop regions">
+    
+      
+        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
+      
+    
+      
+        <a href="/regions/southeast/">Southeast</a>
+      
+    
+      
+        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
+      
+    
+      
+        <a href="/regions/mountain-west/">Mountain West</a>
+      
+    
+      
+        <a href="/regions/west-coast/">West Coast</a>
+      
+    
+      
+    
+      
+    
+    <a href="/international-groups/">International Groups</a>
+  </nav>
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+    <span class="workshop-title"
+          style="display: block;
+                 height: 10px;
+                 background-color: white;">
+    </span>
+
+    <!-- … the rest of your page markup … -->
+  </div>
+
+</body>
+
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <script src="/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/creative.js"></script>
+    <script>
+window.StageOneExplorerData = {
+  regions: [{"id":"northeast-mid-atlantic","slug":"northeast-mid-atlantic","kind":"us","label":"Northeast & Mid-Atlantic","short_label":"Northeast & Mid-Atlantic","location_phrase":"in the Northeast & Mid-Atlantic","venue_phrase":"throughout the Northeast & Mid-Atlantic","cta_label":"Explore Northeast & Mid-Atlantic Workshops","hero_label":"NORTHEAST & MID-ATLANTIC","hero_title":"Hands-On Engineering Workshops in the Northeast & Mid-Atlantic","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Northeast and Mid-Atlantic. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Northeast and Mid-Atlantic support itineraries shaped by historic cities, universities, museums, government and civic institutions, science, and technology. A Stage One workshop gives students time to move from observing ideas to applying engineering themselves. It can serve as a focused morning or afternoon program, an evening hotel experience, or a hands-on complement to the educational destinations already included in the trip.","themes":["Historic Cities","Universities","Museums","Government & Civic Learning","Science & Technology","Innovation"],"map_states":["ME","NH","VT","MA","RI","CT","NY","NJ","PA","DE","MD","DC","VA","WV"],"map_viewbox":"535 18 424 430","image_src":"/img/regions/northeast-mid-atlantic.webp","image_alt":"Editorial collage of Northeast and Mid-Atlantic architecture, campuses, harbors, and a regional map silhouette","seo_title":"Engineering Workshops in the Northeast & Mid-Atlantic | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Northeast and Mid-Atlantic."},{"id":"southeast","slug":"southeast","kind":"us","label":"Southeast","short_label":"Southeast","location_phrase":"in the Southeast","venue_phrase":"throughout the Southeast","cta_label":"Explore Southeast Workshops","hero_label":"SOUTHEAST","hero_title":"Hands-On Engineering Workshops in the Southeast","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Southeast. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Southeast supports itineraries built around space exploration, theme parks, universities, science centers, coastal destinations, and outdoor learning. A Stage One workshop gives students an opportunity to stop observing and start engineering. It can become a focused program block, an evening hotel activity, or a hands-on complement to the attractions, institutions, and experiences already included in the trip.","themes":["Space & Aerospace","Theme Parks & Design","Universities","Science Centers","Coastal Destinations","Outdoor Learning"],"map_states":["NC","SC","GA","FL","AL","MS","TN","KY"],"map_viewbox":"455 185 455 390","image_src":"/img/regions/southeast.webp","image_alt":"Editorial collage of Southeast space, coastal, campus, and engineering motifs with a regional map outline","seo_title":"Engineering Workshops in the Southeast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Southeast."},{"id":"midwest-south-central","slug":"midwest-south-central","kind":"us","label":"Midwest & South Central","short_label":"Midwest & South Central","location_phrase":"across the Midwest & South Central","venue_phrase":"across the Midwest and South Central United States","cta_label":"Explore Midwest & South Central Workshops","hero_label":"MIDWEST & SOUTH CENTRAL","hero_title":"Hands-On Engineering Workshops Across the Midwest & South Central","hero_intro":"Bring a complete, instructor-led engineering experience to student groups traveling across the Midwest and South Central United States. Stage One delivers the equipment, materials, curriculum, and instructor directly to your group’s venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The region brings together manufacturing, aerospace, energy, universities, science museums, engineering centers, and major city destinations. A Stage One workshop gives students an active experience that connects naturally with these wider themes. Groups can build the workshop into a campus visit, educational travel program, conference schedule, or hotel-based itinerary without needing a dedicated laboratory or permanent classroom.","themes":["Engineering & Manufacturing","Aerospace","Energy","Universities","Science Museums","Major Cities"],"map_states":["OH","MI","IN","IL","WI","MN","IA","MO","ND","SD","NE","KS","OK","TX","AR","LA"],"map_viewbox":"300 45 510 520","image_src":"/img/regions/midwest-south-central.webp","image_alt":"Editorial collage of Midwest and South Central manufacturing, aerospace, campus, and city forms with a regional map silhouette","seo_title":"Engineering Workshops Across the Midwest & South Central | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues across the Midwest and South Central United States."},{"id":"mountain-west","slug":"mountain-west","kind":"us","label":"Mountain West","short_label":"Mountain West","location_phrase":"in the Mountain West","venue_phrase":"throughout the Mountain West","cta_label":"Explore Mountain West Workshops","hero_label":"MOUNTAIN WEST","hero_title":"Hands-On Engineering Workshops in the Mountain West","hero_intro":"Add a practical engineering experience to student programs throughout the Mountain West. Stage One brings the complete three-hour workshop directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Mountain West supports itineraries centered on aerospace, research, geology, technology, universities, and extraordinary natural landscapes. A Stage One workshop adds a collaborative indoor experience that can be scheduled alongside campus visits, science programs, outdoor learning, and regional exploration. Students work directly with engineering ideas while Stage One manages the equipment, materials, instruction, and setup.","themes":["Aerospace","Research & Technology","Geology","Universities","Natural Landscapes","Outdoor Learning"],"map_states":["MT","ID","WY","CO","NM","AZ","UT","NV"],"map_viewbox":"105 25 455 510","image_src":"/img/regions/mountain-west.webp","image_alt":"Editorial collage of Mountain West landscapes, aerospace motifs, and research forms with a regional map silhouette","seo_title":"Engineering Workshops in the Mountain West | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Mountain West."},{"id":"west-coast","slug":"west-coast","kind":"us","label":"West Coast","short_label":"West Coast","location_phrase":"on the West Coast","venue_phrase":"on the West Coast","cta_label":"Explore West Coast Workshops","hero_label":"WEST COAST","hero_title":"Hands-On Engineering Workshops on the West Coast","hero_intro":"Build a complete engineering experience into student travel on the West Coast. Stage One brings the instructor, equipment, materials, and curriculum directly to hotels, schools, campuses, and group venues.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The West Coast brings together technology, aerospace, universities, science, design, entertainment, media, and coastal destinations. A Stage One workshop gives students an active way to engage with the ideas surrounding the wider trip. The experience can complement campus visits, technology-focused programs, science attractions, creative destinations, or educational travel itineraries while remaining easy to schedule at the group’s own venue.","themes":["Technology","Aerospace","Universities","Science & Design","Entertainment & Media","Pacific Coast"],"map_states":["WA","OR","CA","AK","HI"],"map_viewbox":"0 20 455 573","image_src":"/img/regions/west-coast.webp","image_alt":"Editorial collage of West Coast technology, aerospace, campus, and coastal forms with a regional map silhouette","seo_title":"Engineering Workshops on the West Coast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues on the West Coast."},{"id":"international","slug":"international","kind":"international","label":"International","short_label":"International Groups","location_phrase":"for International Groups Visiting the USA","venue_phrase":"during your group’s United States itinerary","cta_label":"Explore Workshops for International Groups","hero_label":"INTERNATIONAL GROUPS","hero_title":"Hands-On Engineering Workshops for International Groups Visiting the USA","hero_intro":"Add a complete, instructor-led engineering experience to your group’s United States itinerary. Stage One coordinates with tour providers, schools, and group leaders and brings the equipment, materials, curriculum, and instructor directly to the group’s hotel, campus, school, or venue.","itinerary_heading":"Easy to Build Into a U.S. Educational Itinerary","itinerary_copy":"Stage One workshops give international students an opportunity to take part in a practical engineering experience while traveling in the United States. The complete three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and the workshop can be adapted for middle school, high school, college, adult, or mixed-age participants.","themes":[],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of an educational itinerary in the United States with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel.","support_cards":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options can be coordinated around the itinerary."},{"title":"Complete Workshop Delivery","text":"Instructor, equipment, materials, curriculum, and setup are included."},{"title":"Clear, Accessible Experience","text":"No prior experience is required, and instruction can be adjusted for the group."}]},{"id":"other","slug":"other","kind":"other","label":"Other","short_label":"Other","location_phrase":"for another location","venue_phrase":"at your group’s destination","cta_label":"Explore Other Workshop Options","hero_label":"OTHER LOCATIONS","hero_title":"Hands-On Engineering Workshops for Other Locations","hero_intro":"Tell Stage One where your group will be. We can help determine workshop delivery options and coordinate the instructor, equipment, materials, and curriculum around your destination and venue.","itinerary_heading":"Build a Workshop Around Your Destination","itinerary_copy":"If your location is not represented by one of the listed regions, Stage One can review your destination, schedule, venue, and group needs. Workshops can be coordinated for hotels, schools, campuses, conference rooms, and other suitable group venues.","themes":["Flexible Destinations","Hotels & Venues","Schools & Campuses","Group Programs"],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of a flexible educational workshop itinerary with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for Other Locations | Stage One Education","seo_description":"Ask about instructor-led engineering workshop delivery for destinations outside Stage One’s listed United States regions."}],
+  audiences: [{"id":"middle-school","label":"Middle School","heading_label":"Middle School","summary":"Structured guidance and regular hands-on milestones help middle school students stay actively involved.","detail":"Structured guidance, clear explanations, collaborative challenges, and regular hands-on milestones help middle school students stay actively involved throughout the experience. Technical concepts are introduced in accessible language, and no prior experience is required.","availability":"Artificial Intelligence, Robotics, Mechanical Engineering, and Web Engineering remain available for this audience."},{"id":"high-school","label":"High School","heading_label":"High School","summary":"Team-based challenges, technical discussion, and hands-on problem-solving for high school groups.","detail":"High school groups can explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the amount of guidance based on the group’s experience, and no previous engineering background is required.","availability":"Every Stage One workshop remains available for this audience."},{"id":"college-university","label":"College & University","heading_label":"College & University","summary":"A faster pace with greater emphasis on applied engineering and technical decision-making.","detail":"College and university groups can move through the experience at a faster pace with greater emphasis on applied engineering, collaboration, technical decision-making, and discussion. The workshop can complement academic travel, campus programs, leadership experiences, or group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"adult-professional","label":"Adult & Professional","heading_label":"Adult & Professional","summary":"A practical, collaborative engineering experience for teams and adult learners.","detail":"Adult and professional groups can take part in a practical, collaborative engineering experience designed for active participation. The format can support professional programs, team experiences, lifelong learning, or customized group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"mixed-age","label":"Mixed-Age Group","heading_label":"Mixed-Age","summary":"Pacing, team structure, and guidance can be adjusted so different experience levels can contribute together.","detail":"Stage One instructors can adjust pacing, team structure, explanations, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","availability":"Every Stage One workshop remains available for mixed-age groups."}],
+  groupTypes: [{"id":"educational-travel","label":"Educational Travel","paragraph_phrase":"designed to fit educational travel itineraries"},{"id":"school-campus","label":"School or Campus","paragraph_phrase":"designed to fit school and campus programs"},{"id":"private-other","label":"Private or Other Group","paragraph_phrase":"designed to fit private and other group programs"}],
+  workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"]},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"]},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"]},{"slug":"web-development","name":"Web Engineering","heading_label":"Web Engineering","explorer_label":"Web Engineering","explorer_summary":"Design, build, and publish a live website while learning layout, content, and front-end development.","duration":"3-Hour Workshop","description":"Design, build, and publish a live website.","image":"img/ai-website-mockup.svg","image_alt":"Website interface created during the Web Development workshop","image_width":200,"image_height":200,"detail_path":"/ai-website-workshop.html","icon":"fa-code","homepage_short_name":"Web","homepage_short_focus":"HTML · AI Coding · Publish","homepage_focus":"HTML & CSS · AI Coding · Publishing","homepage_topics":["Website layout and front-end development","HTML, CSS, and AI-assisted coding","Publishing a live website"]}],
+  copy: {"section_heading":"Find Your Workshop","section_intro":"Choose a region, then optionally refine the audience and workshop.","reassurance":"Every Stage One workshop can be adapted for every audience shown. Choose based on what your group is interested in exploring.","clear_selections":"Clear selections","region_step_heading":"1. Where will your group be?","region_step_support":"Choose a region on the map or use the region buttons on mobile.","audience_step_heading":"2. Who are you planning for?","group_type_subheading":"Planning context — optional","workshop_step_heading":"3. What would your group like to explore?","workshop_step_support":"Every workshop can be adapted for every audience. Choose based on your group's interests.","all_workshops_label":"All Workshops","international_label":"International","default_heading":"Choose a Region","default_paragraph":"Select a region on the map or use the region buttons to explore available Stage One workshops.","default_button":"Select a Region","workshop_cards_heading":"Explore Our Workshops","workshop_cards_support":"Every Stage One workshop can be adapted for every audience shown below. Choose the experience that most interests your group.","selected_interest":"Selected Interest","audience_cards_heading":"Designed Around Your Group","audience_cards_support":"Select an audience to see how the pacing, guidance, and technical depth can be adjusted. Every workshop remains available for every audience.","audience_general_intro":"Every Stage One workshop can be adapted for middle school, high school, college, adult, and mixed-age groups. Select an audience to see how the experience can be adjusted.","clear_audience":"Clear Audience Selection","planning_heading":"Ready to Bring a Workshop to Your Group?","planning_body":"Share your destination, anticipated date, group size, and workshop interests. Stage One will help coordinate the experience around your group’s itinerary, schedule, and venue.","planning_prompt":"Tell us which workshop interests your group.","planning_button":"Start Planning","change_selections":"Change Selections","explore_other_regions":"Explore Other Regions","your_selections":"Your Selections","no_experience":"No Experience Required","delivery_facts":[{"title":"3-Hour Workshops","text":"Flexible morning, afternoon, or evening scheduling.","icon":"fa-clock-o"},{"title":"No Experience Required","text":"Accessible to a wide range of experience levels.","icon":"fa-star-o"},{"title":"Instructors and Equipment Included","text":"Stage One brings the instructor, equipment, materials, and curriculum.","icon":"fa-briefcase"},{"title":"Delivered to Your Venue","text":"At a hotel, school, campus, conference room, or group venue.","icon":"fa-map-marker"}]}
+};
+</script>
+<script src="/js/query-validation.js"></script>
+<script src="/js/selection-urls.js"></script>
+<script src="/js/explorer-copy.js"></script>
+<script src="/js/explorer-state.js"></script>
+
+    <script src="/js/homepage-workshop-explorer.js"></script>
+    <script src="/js/region-page.js"></script>
+    <script src="/js/workshop-page-context.js"></script>
+    <script src="/js/plan-workshop-form.js"></script>
+
+</body>
+
+</html>

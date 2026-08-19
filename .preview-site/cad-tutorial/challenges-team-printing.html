@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:image" content="https://stageoneeducation.com/cad-tutorial/img/rocket_workshop_thumbnail2.png" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="https://stageoneeducation.com/favicon.ico" />
+
+  <title>3D Printing | Onshape CAD Tutorial | Stage One Education</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+  <!-- Custom Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/creative-rocket.css" type="text/css">
+
+  <!-- Additional custom styling -->
+  <style>
+    /* Navbar transition styling */
+    #mainNav {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: none;
+    }
+    #mainNav.scrolled {
+      background-color: #fff;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    /* Default hover styling */
+    .heading-hover {
+      color: gray;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .heading-hover:hover {
+      color: #f05f40;
+    }
+
+    /* Special class to make the link appear hovered permanently */
+    .always-hovered {
+      color: #f05f40 !important;
+    }
+
+    /* Override any text-transform that might be forcing uppercase globally */
+    .navbar-brand, .navbar-brand * {
+      text-transform: none !important;
+    }
+  </style>
+
+  <!-- Removed scripts that control scrolling behavior -->
+  <!-- <script src="video_play_at_scroll.js"></script> -->
+  <!-- <script src="js/creative.js"></script> -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-86650838-1');
+    gtag('config', 'AW-716077034');
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleSwitch = document.getElementById("advancedModeSwitch");
+
+      // Restore the saved state from localStorage
+      const savedState = localStorage.getItem("advancedModeEnabled");
+      if (savedState !== null) {
+        toggleSwitch.checked = savedState === "true";
+        toggleAdvancedMode2(toggleSwitch.checked);
+      }
+
+      // Add event listener for changes
+      toggleSwitch.addEventListener("change", function () {
+        localStorage.setItem("advancedModeEnabled", toggleSwitch.checked);
+      });
+    });
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 1) Make container-fluid a flexbox so brand + links sit on one line and are vertically centered  -->
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="display: flex; align-items: center;">
+
+      <!-- 2) Navbar header (brand + hamburger) -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+          <span class="icon-bar" style="background-color: white;"></span>
+        </button>
+
+        <a class="navbar-brand page-scroll" href="portal.html"
+           style="display:flex; align-items:center; text-transform:none;">
+          
+            <!-- All other pages: text only, no logo -->
+            <span style="font-size:15px;">
+              <strong style="text-transform:uppercase;">STAGE ONE EDUCATION</strong>
+              <span style="text-transform:none; font-weight:normal; color: #777;">
+                <!-- Mechanical Engineering Workshop -->
+              </span>
+            </span>
+          
+        </a>
+      </div>
+
+      <!-- 3) Single collapse div for all nav links -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: auto;">
+
+        <!-- Only show links when NOT on portal.html -->
+        
+        <ul class="nav navbar-nav navbar-right" style="display: flex; align-items: center;">
+
+          <!-- Optional “team” icon when on a team page -->
+          
+            <li class="navbar-text" style="text-align:center; margin-right: 15px;">
+              <i class="fa fa-group" style="font-size:20px; color: #f05f40;"></i>
+            </li>
+          
+
+          <!-- Getting Started -->
+          
+            <li>
+              <a id="getting-started-link" class="heading-hover" href="index-team.html">
+                Getting Started
+              </a>
+            </li>
+          
+
+          <!-- Fuselage -->
+          
+            <li>
+              <a id="fuselage-link" class="heading-hover" href="fuselage-team2.html">
+                Fuselage
+              </a>
+            </li>
+          
+
+          <!-- Fins + Booster -->
+          
+            <li>
+              <a id="fins-booster-link" class="heading-hover" href="lower-body-team1.html">
+                Fins+Booster
+              </a>
+            </li>
+          
+
+          <!-- Nosecone -->
+          
+            <li>
+              <a id="nosecone-link" class="heading-hover" href="nosecone-team1.html">
+                Nosecone
+              </a>
+            </li>
+          
+
+          <!-- Assembly -->
+          
+            <li>
+              <a id="assembly-link" class="heading-hover" href="assembly-team1.html">
+                Assembly
+              </a>
+            </li>
+          
+
+          <!-- Challenges -->
+          
+            <li>
+              <a id="challenges-link" class="heading-hover" href="challenges-team.html">
+                Challenges
+              </a>
+            </li>
+          
+
+        </ul>
+        
+
+      </div>
+    </div>
+  </nav>
+
+  
+
+    <header class="not-full-page">
+    <div class="header-content" 
+         style="display:flex; 
+                justify-content:center; 
+                align-items:center; 
+                margin-left:-250px;">
+      <div class="header-content-inner" 
+           style="display:flex; 
+                  align-items:center; 
+                  justify-content:center; 
+                  text-align:right;">
+        <!-- Text on the left -->
+        <div>
+          <h2 style="margin-bottom:10px;">3D Printing</h2>
+          <p style="margin-right:0;">
+            <em>digital designs to physical reality</em>
+          </p>
+        </div>
+        <!-- Vertical line and image -->
+        <div style="width:2px; background-color:#f05f40; margin-left:40px; margin-right:10px; height:200px;"></div>
+        <img 
+            src="img/tutorial/slicer-full.png" 
+            alt="assembly-iso" 
+            style="width:300px; height:auto;"
+        >
+
+      </div>
+    </div>
+  </header>
+
+  
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+  <h2>3D Printng Workflow</a></h2>
+
+
+<hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+<img 
+            src="img/tutorial/print-workflow.png" 
+            alt="assembly-iso" 
+            style="width: 90%; height:auto;"
+        >
+
+
+<br/><br/><br/>
+
+<h2>Export as STL</a></h2>
+
+<hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+
+                    <h3 class="section-heading">
+1.
+ Export the fins+booster for 3D printing</h3>
+                    <ul>
+                        <li>Right click on the booster and fins</li>
+                        <li>Select "Export..."</li>
+                        <li>Select <strong>STL</strong> from the "Format" list</li>
+                        <li>Set <strong>Units</strong> to <em>Millimeter</em></li>
+                        <ul><li><img src="img/tutorial/units_millimeters.png" /></li></ul>
+                        <li>Click OK</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_1">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_1">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(1)"
+    onmouseout="this.play(); updatePlayPauseIcon(1)"
+    id="video-1"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(1)"
+    >
+    <source src="videos/assembly/export_booster_and_fins.webm" type="video/webm">
+    <source src="videos/assembly/export_booster_and_fins.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-1" onclick="togglePlayPause(1)">▶</div>
+    <div class="pause-icon" id="pause-button-1" onclick="togglePlayPause(1)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+2.
+ Export the fuselage for 3D printing</h3>
+                    <ul>
+                        <li>Right click on the fuselage</li>
+                        <li>Select "Export..."</li>
+                        <li>Select <strong>STL</strong> from the "Format" list</li>
+                        <li>Set <strong>Units</strong> to <em>Millimeter</em></li>
+                        <ul><li><img src="img/tutorial/units_millimeters.png" /></li></ul>
+                        <li>Click OK</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_2">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_2">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(2)"
+    onmouseout="this.play(); updatePlayPauseIcon(2)"
+    id="video-2"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(2)"
+    >
+    <source src="videos/assembly/export_fuselage.webm" type="video/webm">
+    <source src="videos/assembly/export_fuselage.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-2" onclick="togglePlayPause(2)">▶</div>
+    <div class="pause-icon" id="pause-button-2" onclick="togglePlayPause(2)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+3.
+ Export the nosecone for 3D printing</h3>
+                    <ul>
+                        <li>Right click on the nosecone</li>
+                        <li>Select "Export..."</li>
+                        <li>Select <strong>STL</strong> from the "Format" list</li>
+                        <li>Set <strong>Units</strong> to <em>Millimeter</em></li>
+                        <ul><li><img src="img/tutorial/units_millimeters.png" /></li></ul>
+                        <li>Click OK</li>
+                    </ul>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_3">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_3">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(3)"
+    onmouseout="this.play(); updatePlayPauseIcon(3)"
+    id="video-3"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(3)"
+    >
+    <source src="videos/assembly/export_nosecone.webm" type="video/webm">
+    <source src="videos/assembly/export_nosecone.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-3" onclick="togglePlayPause(3)">▶</div>
+    <div class="pause-icon" id="pause-button-3" onclick="togglePlayPause(3)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                    
+            <br/> <br/>
+       
+
+        <h2>Slice</a></h2>
+
+        <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+        <p>A slicer is software that slices 3D models (e.g., STL) into G-code instructions. 
+          It determines nozzle movements, material extrusion, and speeds. Adjusting its settings 
+          affects print time, part strength, and appearance.</p>
+
+     
+        
+        
+        <!-- Common Slicer -->
+
+        <h3>Popular Slicer Software</h3>
+        <!-- Ultimaker Cura -->
+       
+<ul>
+<!-- Ultimaker Cura -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#ultimakerCura">
+    <strong>Ultimaker Cura</strong> &raquo;
+  </a>
+  <div class="collapse" id="ultimakerCura">
+     <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Download Ultimaker Cura</a>
+  </div>
+</li>
+<br/>
+
+<!-- PrusaSlicer -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#prusaSlicer">
+    <strong>PrusaSlicer</strong> &raquo;
+  </a>
+  <div class="collapse" id="prusaSlicer">
+   
+    <a href="https://www.prusa3d.com/prusaslicer/" target="_blank">Download PrusaSlicer</a>
+  </div>
+</li>
+<br/>
+
+
+<!-- Slic3r -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#slic3r">
+    <strong>Slic3r</strong> &raquo;
+  </a>
+  <div class="collapse" id="slic3r">
+    An open-source project that has influenced many other slicers.
+    <br/>
+    <a href="https://slic3r.org/" target="_blank">Download Slic3r</a>
+  </div>
+</li>
+<br/>
+
+<!-- IdeaMaker -->
+<li>
+  <a class="btn help-button" data-toggle="collapse" data-target="#ideaMaker">
+    <strong>IdeaMaker</strong> &raquo;
+  </a>
+  <div class="collapse" id="ideaMaker">
+    Created by Raise3D, offering user-friendly presets and customization.
+    <br/>
+    <a href="https://www.raise3d.com/ideamaker/" target="_blank">Download IdeaMaker</a>
+  </div>
+</li>
+
+        
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+  All slicers share a similar workflow, though the interface and features may vary. <br/><br/>
+
+
+         
+                      <h3 class="section-heading">
+4.
+ Select the 3D printer</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_4">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_4">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(4)"
+    onmouseout="this.play(); updatePlayPauseIcon(4)"
+    id="video-4"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(4)"
+    >
+    <source src="videos/printing/slicer-select-printer1.webm" type="video/webm">
+    <source src="videos/printing/slicer-select-printer1.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-4" onclick="togglePlayPause(4)">▶</div>
+    <div class="pause-icon" id="pause-button-4" onclick="togglePlayPause(4)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      
+                      <ul>
+                          <li>Select <strong>Add printer</strong>  
+                            <li>Look for a profile that matches the model of your 3D printer.
+                            <li>Make sure the build volume and nozzle size are accurate.</li>
+
+                      </ul>
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+5.
+ Choosing the Filament</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_5">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_5">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(5)"
+    onmouseout="this.play(); updatePlayPauseIcon(5)"
+    id="video-5"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(5)"
+    >
+    <source src="videos/printing/slicer-select-filament.webm" type="video/webm">
+    <source src="videos/printing/slicer-select-filament.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-5" onclick="togglePlayPause(5)">▶</div>
+    <div class="pause-icon" id="pause-button-5" onclick="togglePlayPause(5)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      
+                      <ul>
+                        <li>
+                          Check the filament spool label to confirm the type.
+                          <li> Common types: PLA, ABS, PETG, or TPU.
+                                                  </li>
+
+                      </ul>
+
+
+
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+6.
+ Upload the fins-booster.stl</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_6">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_6">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(6)"
+    onmouseout="this.play(); updatePlayPauseIcon(6)"
+    id="video-6"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(6)"
+    >
+    <source src="videos/printing/slicer-fins-booster.webm" type="video/webm">
+    <source src="videos/printing/slicer-fins-booster.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-6" onclick="togglePlayPause(6)">▶</div>
+    <div class="pause-icon" id="pause-button-6" onclick="togglePlayPause(6)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      
+
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+7.
+ Upload the fuselage.stl</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_7">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_7">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(7)"
+    onmouseout="this.play(); updatePlayPauseIcon(7)"
+    id="video-7"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(7)"
+    >
+    <source src="videos/printing/slicer-fuselage.webm" type="video/webm">
+    <source src="videos/printing/slicer-fuselage.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-7" onclick="togglePlayPause(7)">▶</div>
+    <div class="pause-icon" id="pause-button-7" onclick="togglePlayPause(7)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      
+                      
+                      
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+8.
+ Upload the nosecone.stl</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_8">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_8">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(8)"
+    onmouseout="this.play(); updatePlayPauseIcon(8)"
+    id="video-8"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(8)"
+    >
+    <source src="videos/printing/slicer-nosecone.webm" type="video/webm">
+    <source src="videos/printing/slicer-nosecone.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-8" onclick="togglePlayPause(8)">▶</div>
+    <div class="pause-icon" id="pause-button-8" onclick="togglePlayPause(8)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+9.
+ Move the fuselage closer to the fins+booster</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_9">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_9">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(9)"
+    onmouseout="this.play(); updatePlayPauseIcon(9)"
+    id="video-9"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(9)"
+    >
+    <source src="videos/printing/slicer-move-fuselage.webm" type="video/webm">
+    <source src="videos/printing/slicer-move-fuselage.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-9" onclick="togglePlayPause(9)">▶</div>
+    <div class="pause-icon" id="pause-button-9" onclick="togglePlayPause(9)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <ul>
+                        <li>Speeds up printing by reducing travel</li>
+                        <li>Minimizes stringing between parts</li>
+                        <li>Optimizes bed usage</li>
+                        <li>Allows shared supports</li>
+                      </ul>
+                      
+                        
+                      
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+10.
+ Move the nosecone closer to the fins+booster</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_10">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_10">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(10)"
+    onmouseout="this.play(); updatePlayPauseIcon(10)"
+    id="video-10"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(10)"
+    >
+    <source src="videos/printing/slicer-move-nosecone.webm" type="video/webm">
+    <source src="videos/printing/slicer-move-nosecone.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-10" onclick="togglePlayPause(10)">▶</div>
+    <div class="pause-icon" id="pause-button-10" onclick="togglePlayPause(10)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <ul>
+                        <li>Retains heat in the part</li>
+                        <li>Improves inter-layer adhesion</li>
+                        <li>Reduces warping risk</li>
+                      </ul>
+                      
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+11.
+ Inspect the parts</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_11">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_11">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(11)"
+    onmouseout="this.play(); updatePlayPauseIcon(11)"
+    id="video-11"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(11)"
+    >
+    <source src="videos/printing/slicer-inspect.webm" type="video/webm">
+    <source src="videos/printing/slicer-inspect.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-11" onclick="togglePlayPause(11)">▶</div>
+    <div class="pause-icon" id="pause-button-11" onclick="togglePlayPause(11)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <ul>
+                        <li>Ensure all parts are on the build plate</li>
+                        <li>Check that no parts overlap</li>
+                      </ul>
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+12.
+ Set the print settings</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_12">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_12">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(12)"
+    onmouseout="this.play(); updatePlayPauseIcon(12)"
+    id="video-12"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(12)"
+    >
+    <source src="videos/printing/slicer-settings.webm" type="video/webm">
+    <source src="videos/printing/slicer-settings.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-12" onclick="togglePlayPause(12)">▶</div>
+    <div class="pause-icon" id="pause-button-12" onclick="togglePlayPause(12)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <ul>
+                        <li>Each 3D printer requires individual tuning. 
+                          <li>These are the most important settings:
+                           </li><ul>
+                        <!-- Layer Height -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#layerHeight">
+                            <strong>Layer Height</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="layerHeight">
+                            <p>
+                              Determines how thick each layer is. Thinner layers yield smoother surfaces but take longer; thicker layers reduce print time but may show more lines.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Print Speed -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#printSpeed">
+                            <strong>Print Speed</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="printSpeed">
+                            <p>
+                              Controls nozzle movement speed. Faster speeds shorten print time but can reduce quality; slower speeds increase detail but take longer.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Infill Density/Pattern -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#infill">
+                            <strong>Infill Density/Pattern</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="infill">
+                            <p>
+                              Sets how solid the part is inside. Higher infill strengthens parts but uses more material and time; lower infill saves both but weakens parts.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Shell/Wall Thickness -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#shellThickness">
+                            <strong>Shell/Wall Thickness</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="shellThickness">
+                            <p>
+                              Adjusts the number of perimeter lines. Thicker walls improve durability but take longer; thinner walls save time and filament.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Support Structures -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#supportStructures">
+                            <strong>Support Structures</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="supportStructures">
+                            <p>
+                              Temporary material for overhangs or complex shapes, improving print success but requiring removal afterward.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Bed Adhesion -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#bedAdhesion">
+                            <strong>Bed Adhesion (Raft/Brim/Skirt)</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="bedAdhesion">
+                            <p>
+                              Methods to help the first layer stick. They prevent warping or detachment but add extra material and print time.
+                            </p>
+                          </div>
+                        </li>
+                      
+                        <!-- Temperature Settings -->
+                        <li>
+                          <a class="btn help-button" data-toggle="collapse" data-target="#temperatureSettings">
+                            <strong>Temperature Settings (Nozzle/Bed)</strong> &raquo;
+                          </a>
+                          <div class="collapse" id="temperatureSettings">
+                            <p>
+                              Proper temperatures ensure filament melts and bonds correctly, preventing warping or under-extrusion.
+                            </p>
+                          </div>
+                        </li>
+                      </ul>
+                      
+
+
+
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+13.
+ Slice the part</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_13">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_13">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(13)"
+    onmouseout="this.play(); updatePlayPauseIcon(13)"
+    id="video-13"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(13)"
+    >
+    <source src="videos/printing/slicer-slice.webm" type="video/webm">
+    <source src="videos/printing/slicer-slice.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-13" onclick="togglePlayPause(13)">▶</div>
+    <div class="pause-icon" id="pause-button-13" onclick="togglePlayPause(13)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+
+                      <ul>
+                        <li>Slicing is the process of converting a 3D model into layers and generating instructions (G-code) that the printer follows.</li>
+                      </ul>
+                      
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+14.
+ Preview the sliced part</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_14">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_14">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(14)"
+    onmouseout="this.play(); updatePlayPauseIcon(14)"
+    id="video-14"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(14)"
+    >
+    <source src="videos/printing/slicer-preview.webm" type="video/webm">
+    <source src="videos/printing/slicer-preview.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-14" onclick="togglePlayPause(14)">▶</div>
+    <div class="pause-icon" id="pause-button-14" onclick="togglePlayPause(14)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+                      <ul>
+                        <li>Look for overhangs, weak points, or collisions.</li>
+                        <li>Check layer lines for gaps or missing geometry.</li>
+                        <li>Ensure supports are placed correctly for complex shapes.</li>
+                        <li>Confirm the part orientation and infill settings are accurate.</li>
+                      </ul>
+                      
+
+
+
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+         
+                      <h3 class="section-heading">
+15.
+ Download the G-code</h3>
+                      
+                      <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_15">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_15">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(15)"
+    onmouseout="this.play(); updatePlayPauseIcon(15)"
+    id="video-15"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(15)"
+    >
+    <source src="videos/printing/slicer-gcode.webm" type="video/webm">
+    <source src="videos/printing/slicer-gcode.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-15" onclick="togglePlayPause(15)">▶</div>
+    <div class="pause-icon" id="pause-button-15" onclick="togglePlayPause(15)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+
+<br/><br/>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+
+        <h2>3D Printer Setup</a></h2>
+
+        <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+
+
+        <ol style="list-style:none;">
+          <li>
+            
+16.
+
+            <strong>Transfer G-code:</strong>
+            Load the file generated by your slicer (via SD card, USB, or Wi-Fi) to your 3D printer.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+17.
+
+            <strong>Bed Adhesion:</strong>
+            Clean the build surface, level the bed, and apply any adhesive needed for proper first-layer sticking.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+18.
+
+            <strong>Preheat:</strong>
+            Heat the nozzle and build plate to the recommended temperatures for your filament.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+19.
+
+            <strong>Load Filament:</strong>
+            Ensure the filament is inserted and purged of any previous material.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+20.
+
+            <strong>Start Print:</strong>
+            Begin your print job and monitor the first few layers to check for proper adhesion.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+21.
+
+            <strong>Cool & Remove:</strong>
+            Allow the part to cool, then gently remove it from the build surface to avoid damage.
+            <br/><br/>
+          </li>
+        
+          <li>
+            
+22.
+
+            <strong>Post-Process:</strong>
+            Remove supports, sand, or paint as needed for a finished look or functionality.
+            <br/><br/>
+          </li>
+        </ol>
+        
+        
+        
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    
+    
+    
+    <section id="parts_list">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <h2>Assemble Parts</a></h2>
+
+                    <hr class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 long" />
+
+                    <h3 class="section-heading">
+23.
+ 3D print the files and gather parts</h3>
+                    <ul>
+                        <li>Printing will take about 3 hours</li>
+                        <ul><li>or use a <a href="https://www.shapeways.com/">3rd party printing service</a> (&#8776; $40)</li></ul>
+                        <li>Acquire:</li>
+                        <ul>
+                            <li><a href="http://amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=estes a8-3">Rocket engines</a>. A, B, or C sizes will fit.  A8-3 are a good model to start with (&#8776; $10)</a></li>
+                            <li><a href="https://www.amazon.com/Estes-1491-Taser-Rocket-Launch/dp/B002VLUI9E/">Kit containing:</a> (&#8776; $25)</li>
+                            <ul>
+                                <li>launch pad</li>
+                                <li>controller</li>
+                            </ul>
+                            <li><a href="https://www.amazon.com/Swanson-RFTOR300-16-Inch-300-Feet-Flagging/dp/B0081ZRQKS/ref=pd_day0_hl_60_7?_encoding=UTF8&pd_rd_i=B0081ZRQKS&pd_rd_r=a8f1d4f1-3962-11e9-98d1-f51b55fcb6f9&pd_rd_w=ayLCn&pd_rd_wg=Pxkfe&pf_rd_p=ad07871c-e646-4161-82c7-5ed0d4c85b07&pf_rd_r=T77N9WCDGVMJW0BZKKP8&psc=1&refRID=T77N9WCDGVMJW0BZKKP8">Flame resistant flagging streamer</a> (&#8776; $7)</li>
+                            <li><a href="https://www.amazon.com/gp/product/B06X15TZK3/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">1/16 inch paracord / nylon shock coord</a> (&#8776; $9)</li>
+                        </ul>
+                        <br /><a href="img/tutorial/rocket_parts.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_parts_s.jpg" /></a></li>
+                    </ul>
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+24.
+ Start assembling the rocket</h3>
+                    <ul>
+                        <li>Thread a flame-resistant string or shock cord through the tube inside the fuselage
+                        <br /><a href="img/tutorial/rocket_thread_string.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_thread_string_s.jpg" /></a></li>
+                    </ul>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                        
+                    <h3 class="section-heading">
+25.
+ Tie the string off on the bottom end with two knots to keep it from coming out</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_thread_tie.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_thread_tie_s.jpg" /></a></li>
+                    </ul>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                        
+                    <h3 class="section-heading">
+26.
+ Tie the other end around the bar in the nosecone</h3>
+                    <ul>
+                        <li>You can use tweezers or a paperclip to get at the string when it's inside the nosecone.</li>
+                    </ul>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_thread_nosecone3.jpg" target="_blank"><img src="img/tutorial/rocket_thread_nosecone3_s.jpg" class="tutorial-video"/></a>
+                    </li>
+                    </ul>
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+27.
+ Push the fuselage into the lower body.  It should be a very tight fit to keep it from coming loose in flight.</h3>
+                    <ul>
+                        <li>Depending on your printer, you might have to sand a little bit off or put a piece of tape on the side to get the perfect fit.</li>
+                    </ul>
+                    <ul style="list-style: none;">
+                        <li>
+                        <a href="img/tutorial/rocket_stage_connect3.jpg" target="_blank"><img src="img/tutorial/rocket_stage_connect3_s.jpg" class="tutorial-video" /></a>
+                        </li>
+                    </ul>
+                    
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+28.
+ Tie a streamer or parachute to the string</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_thread_streamer.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_thread_streamer_s.jpg" /></a></li>
+                    </ul>
+                                    
+
+
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+29.
+ Roll the streamer and push it into the fuselage</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_streamer_roll.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_streamer_roll_s.jpg" /></a></li>
+                    </ul>
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+30.
+ Slip the nosecone on.  It should be a <strong>loose fit</strong> so that the ejection charge will pop it off.</h3>
+                    <ul>
+                        <li>Depending on your printer, you might have to sand a little bit off or put a piece of tape on the side to get the perfect fit.</li>
+                    </ul>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_assembled.jpg" target="_blank"><img class="tutorial-video" src="img/tutorial/rocket_assembled_s.jpg" /></a></li>
+                    </ul>
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+
+                    <h3 class="section-heading">
+31.
+ Load an engine (A, B, or C-class)</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="img/tutorial/rocket_engine_load.jpg" target="_blank"><img src="img/tutorial/rocket_engine_load_s.jpg" class="tutorial-video" /></a></li>
+                    </ul>
+                        
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left">
+
+                    
+                    <h3 class="section-heading">
+32.
+ Go flying!</h3>
+                    <div class="adv-video-toggle" style="text-align: left; display: none;">
+  <a class="btn help-button" data-toggle="collapse"
+    data-target="#adv_video_16">
+    Video &raquo;
+  </a>
+</div>
+<div class="video-container step-video" id="adv_video_16">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    class="tutorial-video"
+    onmouseover="this.pause(); updatePlayPauseIcon(16)"
+    onmouseout="this.play(); updatePlayPauseIcon(16)"
+    id="video-16"
+    ontimeupdate="updateProgressBar(this)"
+    onplaying="updatePlayPauseIcon(16)"
+    >
+    <source src="videos/assembly/launch.webm" type="video/webm">
+    <source src="videos/assembly/launch.mp4" type="video/mp4">
+  </video>
+
+  <div class="control-icons">
+    <div class="play-icon" id="play-button-16" onclick="togglePlayPause(16)">▶</div>
+    <div class="pause-icon" id="pause-button-16" onclick="togglePlayPause(16)">||</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+
+    <footer style="text-align: center; margin-top: 30px;">
+  <p>
+    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
+    </a>
+  </p>
+  <nav class="site-footer-regions" aria-label="Workshop regions">
+    
+      
+        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
+      
+    
+      
+        <a href="/regions/southeast/">Southeast</a>
+      
+    
+      
+        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
+      
+    
+      
+        <a href="/regions/mountain-west/">Mountain West</a>
+      
+    
+      
+        <a href="/regions/west-coast/">West Coast</a>
+      
+    
+      
+    
+      
+    
+    <a href="/international-groups/">International Groups</a>
+  </nav>
+  <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
+    &copy; 2026 Stage One Education, LLC
+  </span>
+</footer>
+
+
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
+  <script src="js/wow.min.js"></script>
+
+  <!-- JavaScript snippet to detect current page and apply the always-hovered class -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Getting Started
+      if (window.location.href.indexOf('cad-tutorial/index-single.html') !== -1 ||
+          window.location.href.indexOf('index-team.html') !== -1) {
+        var link = document.getElementById('getting-started-link');
+        if (link) link.classList.add('always-hovered');
+      }
+
+      // Fuselage (single)
+      if (window.location.href.indexOf('fuselage-single2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-single1.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+      // Fuselage (team)
+      if (window.location.href.indexOf('fuselage-team1.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team2.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team3.html') !== -1 ||
+          window.location.href.indexOf('fuselage-team4.html') !== -1) {
+        var fuselageLink = document.getElementById('fuselage-link');
+        if (fuselageLink) fuselageLink.classList.add('always-hovered');
+      }
+
+      // Fins+Booster (single)
+      if (window.location.href.indexOf('lower-body-single1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-single4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+      // Fins+Booster (team)
+      if (window.location.href.indexOf('lower-body-team1.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team2.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team3.html') !== -1 ||
+          window.location.href.indexOf('lower-body-team4.html') !== -1) {
+        var finsLink = document.getElementById('fins-booster-link');
+        if (finsLink) finsLink.classList.add('always-hovered');
+      }
+
+      // Nosecone (single)
+      if (window.location.href.indexOf('nosecone-single1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-single3.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+      // Nosecone (team)
+      if (window.location.href.indexOf('nosecone-team1.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team2.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team3.html') !== -1 ||
+          window.location.href.indexOf('nosecone-team4.html') !== -1) {
+        var noseLink = document.getElementById('nosecone-link');
+        if (noseLink) noseLink.classList.add('always-hovered');
+      }
+
+      // Assembly (single)
+      if (window.location.href.indexOf('assembly-single1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+      // Assembly (team)
+      if (window.location.href.indexOf('assembly-team1.html') !== -1) {
+        var assembleLink = document.getElementById('assembly-link');
+        if (assembleLink) assembleLink.classList.add('always-hovered');
+      }
+
+      // Challenges (single)
+      if (window.location.href.indexOf('challenges-single.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-single-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+      // Challenges (team)
+      if (window.location.href.indexOf('challenges-team.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-design.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-printing.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-measuring.html') !== -1 ||
+          window.location.href.indexOf('challenges-team-drawing.html') !== -1) {
+        var chalLink = document.getElementById('challenges-link');
+        if (chalLink) chalLink.classList.add('always-hovered');
+      }
+    });
+
+    // Add scroll event to change navbar background
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('mainNav');
+      if (window.scrollY > 200) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+  <script>
+    function toggleAdvancedMode2(isAdvMode) {
+      const elements = document.querySelectorAll('.adv-drawing-container, .adv-text-toggle, .adv-video-toggle');
+      elements.forEach((element) => {
+        element.style.display = isAdvMode ? 'block' : 'none';
+      });
+
+      const text_elements = document.querySelectorAll('.step-instructions, .step-video');
+      text_elements.forEach((element) => {
+        if (isAdvMode) {
+          element.classList.add('collapse');
+          element.classList.remove('video-container');
+        } else {
+          element.classList.remove('collapse');
+          element.classList.add('video-container');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function updateProgressBar(video) {
+      const progressBar = video.parentElement.querySelector('.progress-bar');
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+
+      if (!isNaN(duration) && duration > 0) {
+        const percentage = (currentTime / duration);
+        progressBar.style.width = percentage * (video.clientWidth - 10) + 'px';
+      }
+    }
+
+    function updatePlayPauseIcon(id) {
+      const video = document.getElementById('video-' + id);
+      const playIcon = document.getElementById('play-button-' + id);
+      const pauseIcon = document.getElementById('pause-button-' + id);
+
+      if (video.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
+    }
+
+    function togglePlayPause(id) {
+      const video = document.getElementById('video-' + id);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+{
+  "_readme": "German. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (KI, CAD, MIT, Wi-Fi, MINT) follow the glossary. HTML tags inside values must be preserved exactly. German compounds are long, so nav and button strings use the shortest accurate wording available.",
+
+  "nav": {
+    "toggle": "Navigation öffnen",
+    "menu": "Menü",
+    "workshops": "Workshops <span class=\"caret\"></span>",
+    "ai": "Künstliche Intelligenz",
+    "robotics": "Robotik & Drohnen",
+    "mechanical": "Maschinenbau",
+    "aiWebsite": "Webentwicklung",
+    "home": "Start",
+    "locations": "Standorte",
+    "instructors": "Dozenten",
+    "feedback": "Stimmen",
+    "contact": "Kontakt",
+    "about": "Über uns",
+    "requestDemo": "Demo anfragen",
+    "planWorkshop": "Workshop planen",
+    "workshopAccess": "Workshop-Zugang"
+  },
+
+  "common": {
+    "letsChat": "Sprechen wir",
+    "contact": "Kontakt",
+    "feedbackSurvey": "Feedback-Umfrage",
+    "overview": "Überblick",
+    "testimonials": "Stimmen",
+    "timeline": "Ablauf",
+    "workshopSubdata": "3–3,5 Stunden | Jedes Alter | Keine Vorkenntnisse nötig",
+    "yes": "Ja",
+    "no": "Nein",
+    "planThisWorkshop": "DIESEN WORKSHOP PLANEN"
+  },
+
+  "home": {
+    "hero": {
+      "sectionLabel": "Praxisnahe Technik-Workshops in den ganzen USA",
+      "imageAlt": "Workshop-Raum",
+      "audience": "Für Schulen, Reiseveranstalter & Gruppen",
+      "navLabel": "Workshop-Arten",
+      "linkAi": "KI",
+      "linkRobotics": "Robotik",
+      "linkMechanical": "Maschinenbau",
+      "linkWebsite": "Webseite",
+      "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">Wir bringen</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">praxisnahe Technik</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">zu Ihnen</span>",
+      "title2": "Für Gruppen in den ganzen USA",
+      "body1": "Komplette dreistündige Workshops zu KI, Robotik, Maschinenbau und Webentwicklung, die wir in den ganzen USA an Ihr Hotel, Ihre Schule, Ihren Campus oder Veranstaltungsort bringen. Wir stellen Dozenten, Ausrüstung, Materialien und Lehrplan bereit und übernehmen Auf- und Abbau.",
+      "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>Workshop-Broschüre ansehen",
+      "ctaFind": "<i class=\"fa fa-search\" aria-hidden=\"true\"></i>Workshop finden",
+      "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Workshop planen",
+      "benefitsLabel": "Workshop-Vorteile",
+      "benefitDurationTitle": "3-Stunden-Workshops",
+      "benefitDurationText": "Flexible Termine vormittags, nachmittags oder abends",
+      "benefitExperienceTitle": "Keine Vorkenntnisse erforderlich",
+      "benefitExperienceText": "Für eine breite Spanne an Altersgruppen und Erfahrungsstufen konzipiert",
+      "benefitGroupsTitle": "Flexible Gruppengrößen",
+      "benefitGroupsText": "Von privaten Gruppen bis zu großen Schülerprogrammen",
+      "benefitDeliveryTitle": "In den ganzen USA vor Ort",
+      "benefitDeliveryText": "In Ihrem Hotel, Ihrer Schule, auf Ihrem Campus oder an Ihrem Gruppenveranstaltungsort",
+      "benefitIncludedTitle": "Ingenieure & Ausrüstung inklusive",
+      "benefitIncludedText": "Von echten Ingenieuren geleitet; Materialien, Lehrplan, Auf- und Abbau werden bereitgestellt"
+    },
+    "explorer": {
+      "exploreEyebrow": "WORKSHOPS ENTDECKEN",
+      "exploreHeading": "Finden Sie den richtigen Workshop für Ihre Gruppe",
+      "exploreSupport": "Entdecken Sie alle vier Workshops oder grenzen Sie nach Zielort, Teilnehmenden, Gruppentyp und Interesse ein.",
+      "exploreHelper": "Alle Angaben sind optional und jederzeit änderbar.",
+      "planEyebrow": "WORKSHOP PLANEN",
+      "planHeading": "Starten Sie die Planung Ihres Gruppenworkshops",
+      "planSupport": "Teilen Sie uns mit, was Sie über Ihre Gruppe und den Zielort wissen. Die restlichen Details können Sie später bestätigen.",
+      "planHelper": "Wählen Sie aus, was Sie wissen, und fahren Sie fort.",
+      "refine": "WORKSHOPS EINGRENZEN",
+      "destination": "Zielort in den USA",
+      "optional": "Optional",
+      "otherDestination": "Anderer US-Zielort",
+      "customDestination": "Zielort eingeben",
+      "participants": "Teilnehmende",
+      "participantElementary": "Grundschule",
+      "participantMiddle": "Mittelschule",
+      "participantHigh": "Highschool",
+      "participantCollege": "College oder Universität",
+      "participantAdult": "Erwachsene oder Berufstätige",
+      "participantMixed": "Gemischte Altersgruppe",
+      "groupType": "Gruppentyp",
+      "groupSchool": "Schule oder Klasse",
+      "groupTour": "Bildungsreise oder Reisegruppe",
+      "groupYouth": "Sommer- oder Jugendprogramm",
+      "groupCollege": "College- oder Universitätsprogramm",
+      "groupCorporate": "Unternehmens- oder Berufsgruppe",
+      "groupPrivate": "Private oder gemeinnützige Gruppe",
+      "international": "Internationale Gruppe",
+      "interest": "Workshop-Interesse",
+      "exploreWorkshop": "WORKSHOP ENTDECKEN",
+      "planThis": "DIESEN WORKSHOP PLANEN",
+      "viewDetails": "DETAILS ANSEHEN",
+      "selectWorkshop": "WORKSHOP AUSWÄHLEN",
+      "selected": "AUSGEWÄHLT",
+      "summaryHeading": "Ihr Workshop-Plan",
+      "notSelected": "Noch nicht ausgewählt",
+      "clearSelection": "Auswahl löschen",
+      "continueSupport": "Als Nächstes benötigen wir Wunschdatum, Teilnehmerzahl, Veranstaltungsort und Kontaktdaten.",
+      "continue": "PLANUNG FORTSETZEN",
+      "mobileSelected": "Workshop ausgewählt:",
+      "mobileNotSure": "Workshop: Noch nicht sicher"
+    },
+    "workshopsHeading": "Unsere Workshops",
+    "participantsHeading": "Was Teilnehmende sagen",
+    "planWorkshop": {
+      "title": "Workshop-Anfrage vervollständigen",
+      "subtitle": "Teilen Sie uns die restlichen Details mit. Ein Teammitglied meldet sich zu Verfügbarkeit und nächsten Schritten.",
+      "preferredDate": "Bevorzugtes Workshop-Datum",
+      "alternateDate": "Alternativdatum",
+      "preferredTime": "Bevorzugte Tageszeit",
+      "selectTime": "Zeit auswählen",
+      "morning": "Vormittag",
+      "afternoon": "Nachmittag",
+      "evening": "Abend",
+      "participantCount": "Geschätzte Teilnehmerzahl",
+      "venue": "Veranstaltungsort oder Hotel",
+      "organization": "Organisation oder Schule",
+      "contactName": "Kontaktperson",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "notes": "Zusätzliche Hinweise",
+      "submit": "WORKSHOP-ANFRAGE SENDEN",
+      "hint": "Diese Anfrage bestätigt keine Buchung.",
+      "thanks": "Vielen Dank. Ein Teammitglied meldet sich zu den nächsten Schritten."
+    },
+    "cardAi": {
+      "title": "Künstliche Intelligenz",
+      "posterAlt": "Von Schülern mit KI erstellte Filmplakate",
+      "line1": "Neuronale Netze entdecken",
+      "line2": "Die neuesten KI-Modelle nutzen: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>Text, Bild und Musik</em></li> </ul>",
+      "line3": "Diskussion zur KI-Ethik"
+    },
+    "cardRobotics": {
+      "title": "Robotik<br>& Drohnen",
+      "imageAlt": "Drohnen-Schaltung",
+      "line1": "Mini-Drohnen fliegen",
+      "line2": "Eine Schaltung zur Drohnensteuerung bauen",
+      "line3": "Autonome Flüge programmieren"
+    },
+    "cardMechanical": {
+      "title": "Maschinenbau",
+      "line1": "Professionelle CAD-Software nutzen",
+      "line2": "Eine mehrteilige Modellrakete konstruieren",
+      "line3": "3D-Druck kennenlernen"
+    },
+    "cardWebsite": {
+      "title": "Web-<br>entwicklung",
+      "imageAlt": "Website, die im Workshop entsteht",
+      "line1": "Eine echte Website erstellen",
+      "line2": "Mit einem KI-Assistenten programmieren",
+      "line3": "Sie live im Web veröffentlichen"
+    },
+    "aboutHeading": "Über uns",
+    "about": {
+      "handsOn": {
+        "title": "praxisnah",
+        "body": "Ab der ersten Minute selbst konstruieren – ohne Vorkenntnisse, für jedes Alter und jedes Niveau."
+      },
+      "turnKey": {
+        "title": "schlüsselfertig",
+        "body": "Rundum-sorglos-Workshops, die sich nahtlos in jedes Programm einfügen und beliebig skalieren."
+      },
+      "curriculum": {
+        "title": "lehrplan",
+        "body1": "Entwickelt und durchgeführt von Promovierten, Ingenieuren und Pädagogen.",
+        "body2": "Laufend aktualisiert – kein Jahr gleicht dem anderen."
+      },
+      "experienced": {
+        "title": "erfahren",
+        "body": "Seit 2013 hat Stage One Education Workshops für Zehntausende Teilnehmende in den gesamten USA durchgeführt."
+      },
+      "safe": {
+        "title": "sicher",
+        "body": "Die Raketen bleiben virtuell, die gesamte Elektronik arbeitet mit Kleinspannung und Schutzbrillen stellen wir."
+      }
+    },
+    "feedbackHeading": "Stimmen",
+    "feedbackNav": {
+      "previous": "Zurück",
+      "next": "Weiter",
+      "expand": "Groß anzeigen",
+      "close": "Schließen"
+    },
+    "moreFeedback": "Mehr Stimmen",
+    "contactHeading": "Kontakt",
+    "heroQuotes": [
+      "In einer Unterrichtseinheit dieser Länge habe ich noch nie so viel gelernt. Der Aufbau ist wirklich lehrreich und man lernt tatsächlich etwas dabei.",
+      "Dieser Workshop hat richtig Spaß gemacht! Die Anleitungen waren leicht verständlich, was für jemanden, der noch nie mit so einem CAD-Programm gearbeitet hat, sehr geholfen hat.",
+      "Mit Abstand das Beste bisher",
+      "Das war bei Weitem der beste Workshop bisher, und der Dozent war ausgesprochen zugewandt, kompetent und so weiter. Insgesamt eine großartige Erfahrung",
+      "Der Workshop hat mir super gefallen. Ich hatte noch nie mit einem CAD-Programm gearbeitet und habe es gelernt und die komplette Rakete in der vorgegebenen Zeit fertiggestellt. Ich bin froh, dass ich mit solchen Programmen umgehen kann, und würde es beim nächsten Mal gern mit etwas weniger Anleitung versuchen. :)",
+      "Es hat großen Spaß gemacht – ich mochte die Freiheit, und gelernt habe ich trotzdem viel",
+      "Mir hat es sehr gefallen, etwas über Prompt Engineering und neuronale Netze zu lernen und über strittige Fragen rund um KI zu sprechen. Mir wurde klar, wie viel man über die Vor- und Nachteile von KI noch nachdenken muss",
+      "Ich fand alles sehr gut geplant und die Aktivitäten waren richtig unterhaltsam und machten Spaß.",
+      "Der Workshop hat mir super gefallen und war von allem, was wir bisher gemacht haben, mein Favorit. Ich empfehle sehr, so etwas künftig öfter anzubieten",
+      "Das Training des neuronalen Netzes war eine der besten Stunden zum Thema künstliche Intelligenz, die ich hatte. Schön, dass wir danach verschiedene KI-Programme selbst ausprobieren konnten.",
+      "Ich habe viel über die Feinheiten der KI-Generierung gelernt",
+      "Mir hat die gedankliche Herausforderung der Aktivität sehr gefallen, vor allem eine schwierige Frage gemeinsam mit sehr kundigen Leuten durchzudenken.",
+      "Die Aktivitäten, die ihr vorbereitet habt, fand ich klasse. Und ich war beeindruckt, wie viel ihr wisst.",
+      "Diese Dozentin war großartig: sehr interaktiv, eine gute Zuhörerin und mit richtig guten Impulsen",
+      "Der Anfang, als ihr uns unterrichtet habt. Gäbe es einen kompletten Uni-Kurs, den ihr beide haltet, würde ich für jede Stunde gern anreisen.",
+      "Das Debattieren hat mir gefallen. Es war sehr gut moderiert, und selbst wenn die Emotionen hochkochten, blieben die Gespräche sachlich.",
+      "Das war der beste Workshop, weil er sehr interaktiv und wirklich praktisch war",
+      "Das hat riesigen Spaß gemacht und sollte auf jeden Fall wieder angeboten werden.",
+      "Ich habe drei dieser Workshops gemacht, und jeder war besser als der vorherige. Ein wunderbares Programm!",
+      "Das hat wirklich Spaß gemacht. Nach dem CAD-Programmieren war mein Selbstvertrauen ziemlich am Boden, und das hier hat mir viel mehr Zutrauen in meine Fähigkeiten als Ingenieur gegeben! Toller Workshop, noch besserer Dozent: sehr geduldig, erklärt gut und liebt sichtlich, was er tut. :D"
+    ]
+  },
+
+  "ai": {
+    "title": "Workshop Künstliche Intelligenz",
+    "heroNeuralNetwork": "Menschliches neuronales Netz",
+    "posterCaption": "von Teilnehmenden erstellte Filmplakate",
+    "overview": {
+      "nn": {
+        "heading": "<strong>Menschliches neuronales Netz: Mitmach-Aktivität</strong>",
+        "item1": "Bei einem interaktiven Stille-Post-Spiel wird jede Person zu einem Knoten im neuronalen Netz.",
+        "item2": "Verstehen Sie neuronale Netze und ihr Lernen ganz intuitiv – ganz ohne Mathematik!"
+      },
+      "film": {
+        "heading": "<strong>KI-Filmstudio: Kreativ-Aktivität</strong>",
+        "item1": "Modernste KI-Werkzeuge für Text, Bild, Musik und Stimme ausprobieren.",
+        "item2": "Die Teilnehmenden erstellen alle Produktionselemente für einen eigenen Kurzfilm – vom Drehbuch bis zum Werbematerial.",
+        "item3": "Zum Abschluss zeigt eine gemeinsame Filmschau, wie kreativ KI sein kann."
+      },
+      "ethics": {
+        "heading": "<strong>KI-Ethik: Entscheidungs-Aktivität</strong>",
+        "item1": "Wir gehen den drängenden ethischen Fragen nach, mit denen KI-Fachleute ringen.",
+        "item2": "In lebhaften Gesprächen wird kritisch über den verantwortungsvollen Umgang mit KI nachgedacht."
+      }
+    },
+    "quotes": {
+      "q1": "„Es war wirklich großartig. Anfangs dachte ich, ich würde nichts verstehen, aber ihr habt es uns so gut erklärt. <strong>Diese Erfahrung werde ich nie vergessen!!!</strong> Vielen, vielen Dank😍“<br><span class=\"quote-attribution\"><em>— Schüler/in, Boston, MA 2025</em></span>",
+      "q2": "„Ihr habt alles gut erklärt und <strong>alle einbezogen</strong>, und ihr habt es geschafft, dass das <strong>Lernen Spaß macht</strong>.“<br><span class=\"quote-attribution\"><em>— Schüler/in, Berkeley, CA 2023</em></span>",
+      "q3": "„Danke, dass ihr unsere Fragen beantwortet habt! Hier habe ich <strong>zum ersten Mal neuronale Netze wirklich verstanden :)</strong>“<br><span class=\"quote-attribution\"><em>— Schüler/in, Berkeley, CA 2025</em></span>",
+      "q4": "„Einer der <strong>besten KI-Workshops</strong>, die ich je gemacht habe. Toll, wie einfach die KI-Werkzeuge waren.“<br><span class=\"quote-attribution\"><em>— Schüler/in, Houston, TX 2024</em></span>",
+      "q5": "„Dieser Workshop hat mich wirklich bewegt, und ich glaube, er wird <strong>die eindrücklichste Aktivität meiner Klassenfahrt</strong> bleiben. Ich habe den Unterschied in der Unterrichtsqualität zu meinem Heimatland deutlich gespürt. Wenn sich die Gelegenheit ergibt, wäre ich sehr gern noch einmal dabei.“<br><span class=\"quote-attribution\"><em>— Schüler/in, Boston, MA 2025</em></span>",
+      "q6": "„Mir hat die <strong>gemeinsame Aktivität</strong> gefallen und wie <strong>einfach</strong><br><strong>und wirkungsvoll</strong> die Dozenten erklärt haben“<br><span class=\"quote-attribution\"><em>— Schüler/in, Washington, D.C. 2024</em></span>"
+    }
+  },
+
+  "robotics": {
+    "title": "Workshop Robotik & Drohnen",
+    "overview": {
+      "intro": "Im Robotik-Workshop bekommen die Teilnehmenden eine Drohne – aber <strong>keine Fernsteuerung!</strong><br> Technik lernen, indem Sie Ihre eigene Funkfernsteuerung für einen Quadrocopter bauen:",
+      "item1": "Verdrahten Sie eine komplette Schaltung mit <strong>Dual-Core-Mikrocontroller</strong> samt WLAN, 6-Achsen-Beschleunigungssensor, Leuchten, Potentiometern und Tastern.",
+      "item2": "Lernen Sie im Team, <strong>Schaltpläne zu lesen und in echte, funktionierende Schaltungen zu übersetzen</strong>",
+      "item3": "<strong>Programmieren, übertragen und starten</strong> Sie Ihre eigenen autonomen Flüge",
+      "item4": "Zeigen Sie Ihren selbst programmierten Flug bei der autonomen Flugshow"
+    },
+    "quotes": {
+      "q1": "„Das war <strong>außerordentlich gut gemacht</strong>. Die Dozenten waren sehr nett und zugänglich. Ich bin sehr dankbar dafür, denn es hat mir einen Bereich der Elektronik eröffnet, mit dem ich nie gerechnet hätte.“<br><span class=\"quote-attribution\"><em>— Schüler/in, San Francisco, CA 2025</em></span>",
+      "q2": "„Das war <strong>mit Abstand der beste Workshop</strong> und hat mich am meisten interessiert. Der Programmierteil und die Elektronik haben mir gefallen“<br><span class=\"quote-attribution\"><em>— Schüler/in, Berkeley, CA 2023</em></span>",
+      "q3": "„Ihr seid <strong>fantastisch und ich hatte so viel Spaß</strong>. Ich kann es kaum erwarten, mehr zu konstruieren und zu programmieren!“<br><span class=\"quote-attribution\"><em>— Schüler/in, Boston, MA 2023</em></span>",
+      "q4": "„Es hat großen Spaß gemacht und <strong>ich habe viel gelernt</strong>. Einiges davon <strong>kann ich tatsächlich für andere Projekte nutzen</strong>.“<br><span class=\"quote-attribution\"><em>— Schüler/in, Houston, TX 2022</em></span>",
+      "q5": "„Das war der beste Workshop im ganzen Programm“<br><span class=\"quote-attribution\"><em>— Schüler/in, Boston, MA 2024</em></span>",
+      "q6": "„Einfach großartig“<br><span class=\"quote-attribution\"><em>— Schüler/in, Houston, TX 2025</em></span>"
+    }
+  },
+
+  "mechanical": {
+    "title": "Workshop Maschinenbau",
+    "heroStart": "Start",
+    "overview": {
+      "intro": "Im Maschinenbau-Workshop <strong>werden die Teilnehmenden zu Raketenkonstrukteuren!</strong>",
+      "item1": "Konstruieren und bauen Sie Ihre eigene dreiteilige Rakete mit <strong>CAD-Software, wie sie in der Industrie eingesetzt wird</strong>.",
+      "item2": "Geführt von <strong>GIF-artigen Mikro-Videos</strong> und knappen Texten – Vorkenntnisse sind nicht nötig.",
+      "item3": "Beherrschen Sie die CAD-Grundlagen: Skizzieren, parametrisches Modellieren, Baugruppen.",
+      "item4": "Live-Vorführung des 3D-Drucks.",
+      "item5": "In einer offenen Fragerunde können Sie unseren <strong>Ingenieurinnen und Ingenieuren aus der Praxis</strong> alles zu Ihrem Entwurf, zu CAD-Techniken und zu Berufswegen im Ingenieurwesen fragen."
+    },
+    "quotes": {
+      "q1": "„<strong>Es hat mir super gefallen</strong> – die Anleitungen waren klar und sehr übersichtlich. Die Animationen zu den Erklärungen fand ich gut für alle, die visuell lernen. Insgesamt fühle ich mich motiviert, weiter CAD zu lernen und Neues zu entwerfen. <strong>Ich war unsicher, ob der Ingenieurberuf wirklich zu mir passt, aber danach fühle ich mich deutlich sicherer</strong> und möchte das Feld weiter erkunden“ <em>— Schüler/in, Houston, TX 2023</em>",
+      "q2": "„<strong>Anspruchsvoll, aber zugleich sehr gut getaktet</strong>. Es hat mein Interesse an virtueller 3D-Darstellung geweckt. Jetzt <strong>habe ich das Gefühl, das auch allein hinzubekommen</strong>, und den Ehrgeiz, mein Wissen bis an die Grenzen auszureizen.“ <em>— Schüler/in, Atlanta, GA 2021</em>",
+      "q3": "„<strong>Dieser Workshop hat mir super gefallen.</strong> Ich hatte noch nie mit einem CAD-Programm gearbeitet und habe es gelernt und <strong>die komplette Rakete in der vorgegebenen Zeit fertiggestellt.</strong> Ich bin froh, dass ich mit solchen Programmen umgehen kann, und würde es beim nächsten Mal gern mit etwas weniger Anleitung versuchen. :)“ <em>— Schüler/in, Los Angeles, CA 2025</em>",
+      "q4": "„Dieser Workshop war <strong>mit Abstand mein Lieblingsworkshop</strong>. Da ich Bauingenieur werden möchte, war es toll, eine Software zu sehen, die ich später wohl nutzen werde“ <em>— Schüler/in, Berkeley, CA 2021</em>",
+      "q5": "„Die Mischung aus Anleitung und kreativer Freiheit war perfekt!“ <em>— Schüler/in, Berkeley, CA 2025</em>",
+      "q6": "„Toller Workshop, <strong>ich hatte eine großartige Zeit</strong> und habe dabei wertvolle Fähigkeiten gelernt, die später im Ingenieurwesen und darüber hinaus <strong>entscheidend für meinen Erfolg</strong> sein werden.“ <em>— Schüler/in, Atlanta, GA 2025</em>"
+    }
+  },
+
+  "aiWebsite": {
+    "title": "Webentwicklung-Workshop",
+    "comingSoon": "Details zum Workshop folgen in Kürze."
+  },
+
+  "locations": {
+    "heading": "Standorte",
+    "note": "Weitere Städte auf Anfrage",
+    "mapAlt": "Karte"
+  },
+
+  "instructors": {
+    "heading": "Dozenten",
+    "mission": "Unser Auftrag: Lernende durch praxisnahe Technik-Workshops begeistern",
+    "body": "Bei Stage One Education bieten wir Workshops, in denen das Wissen und die Arbeitsweise führender Forschender und erfahrener Ingenieurinnen und Ingenieure stecken. Geleitet werden sie von einem landesweiten Netzwerk erfahrener Dozentinnen und Dozenten, die die Teilnehmenden durch immersives, praxisnahes und projektbasiertes Lernen führen – immer am Puls aktueller Ingenieurdisziplinen. So entsteht eine Erfahrung, die von den Einsichten und der Begeisterung echter Ingenieure getragen wird.",
+    "join": "Lust, Teil unseres Teams zu werden?",
+    "requirements": "Voraussetzungen: Teamführung – ausgezeichnetes Präsentationsgeschick – überzeugendes Portfolio an Ingenieurerfahrung",
+    "authorization": "Arbeitserlaubnis für die USA als selbstständige Auftragnehmerin bzw. Auftragnehmer (1099)"
+  },
+
+  "feedback": {
+    "heading": "Stimmen",
+    "updated": "aktualisiert: 05.02.2026",
+    "formLink": "Feedback-Formular"
+  },
+
+  "contact": {
+    "heading": "Kontakt",
+    "lede": "<b>Sie haben eine Frage oder möchten mehr erfahren? Schreiben Sie uns.</b>",
+    "body": "Unsere praxisnahen Workshops zu <strong>künstlicher Intelligenz</strong>, <strong>Robotik</strong> und <strong>Maschinenbau</strong> werden von echten Ingenieurinnen und Ingenieuren geleitet. In nur drei Stunden erwerben die Teilnehmenden Fähigkeiten und Werkzeuge, die ihre Begeisterung für MINT wecken.<br><br>Vorkenntnisse sind nicht nötig. <br><br> <strong>Bringen wir diese Begeisterung und dieses Wissen zu Ihrer Gruppe – melden Sie sich, und es kann losgehen!</strong>"
+  },
+
+  "about": {
+    "heading": "Über uns",
+    "intro": {
+      "headline": "Wir teilen unsere Begeisterung für das Ingenieurwesen",
+      "lede": "Unsere Workshops beantworten Fragen wie:",
+      "question1": "<strong>kann ich das überhaupt – Technik?</strong>",
+      "question2": "<strong>was machen Ingenieure eigentlich wirklich?</strong>",
+      "body1": "Durch praktisches Arbeiten – vom Aufbau echter Schaltungen bis zum Umgang mit professionellen CAD-Werkzeugen und den neuesten KI-Modellen – bekommen die Teilnehmenden ein echtes Gefühl dafür, worum es im Ingenieurwesen geht.",
+      "body2": "Nach der Arbeit an realen Projekten, dem Umgang mit Ingenieurwerkzeugen und Gesprächen mit erfahrenen Fachleuten gehen die Teilnehmenden selbstbewusster, inspirierter und voller Vorfreude auf eine mögliche Zukunft im Ingenieurwesen nach Hause."
+    },
+    "leadershipHeading": "Leitungsteam",
+    "team": {
+      "andy": {
+        "name": "Andrew Barry, Ph.D. (MIT)",
+        "role": "Gründer",
+        "bio": "Andy verliebte sich in autonome Drohnen, als er sie während seiner Promotion am MIT <a href=\"https://www.youtube.com/watch?v=_qah8oIzCwk\" style=\"text-decoration:underline\">selbst flog</a>. Er hat Elektronik- und Software-Workshops für über 10.000 Schülerinnen und Schüler durchgeführt – von kleinen Hubschraubern bis zu <a href=\"https://dev.bostondynamics.com/docs/python/fetch_tutorial/fetch1\" style=\"text-decoration:underline\">hochentwickelten Laufrobotern</a>."
+      },
+      "pete": {
+        "name": "Pete Florence, Ph.D. (MIT)",
+        "role": "Mitgründer",
+        "bio": "Pete flog während seiner Promotion am MIT Drohnen aller Art. Seine Arbeit zu Planung und Regelung in der <a href=\"https://www.youtube.com/user/RobotLocomotionGroup/videos\" style=\"text-decoration:underline\">Robot Locomotion Group</a> verschob die Grenzen hin zu schnelleren, wendigeren und zuverlässigeren Drohnen. Seine preisgekrönte Forschung zur <a href=\"https://www.youtube.com/watch?v=L5UW1VapKNE\" style=\"text-decoration:underline\">Robotermanipulation</a> gibt Robotern täglich neue Fähigkeiten."
+      },
+      "robbie": {
+        "name": "Robbie Kipp, Ingenieur",
+        "role": "Leiter Operations",
+        "bio": "Als Meerestechniker und Schiffbauingenieur prägte Robbie mit seinen Entwürfen die Zukunft von Tauchsystemen und Schiffen. Heute entwickelt er als Leiter Operations bei Stage One Education neue Wege, um die nächste Generation von Ingenieurinnen und Ingenieuren zu begeistern. Robbie taucht, klettert und begeistert sich für die Luftfahrt."
+      }
+    },
+    "instructorsCallout": "<strong>Die Dozenten von Stage One Education</strong><br> Landesweites Netzwerk begeisterter Ingenieurinnen und Ingenieure",
+    "workshopsHeading": "Technik-Workshops zum Anfassen",
+    "buttons": {
+      "ai": "Künstliche <br>Intelligenz",
+      "robotics": "Robotik <br>& Drohnen",
+      "mechanical": "Maschinenbau"
+    },
+    "turnKey": {
+      "heading": "Schlüsselfertig",
+      "body": "Wir bieten komplette Workshops – Dozenten, Material und Lehrplan inklusive. Die Teilnehmenden gehen mit neuem Selbstvertrauen nach Hause, nachdem sie professionelle Werkzeuge mit unseren fortlaufend optimierten Anleitungen, Methoden und Didaktik kennengelernt haben."
+    },
+    "details": {
+      "heading": "Workshop-Details",
+      "offered": "<strong>Angebotene Workshops:</strong> Robotik, KI, Maschinenbau",
+      "length": "<strong>Dauer:</strong> 3 Stunden",
+      "participants": "<strong>Teilnehmende:</strong> bis zu ca. 60 pro Workshop (die Raumgröße bestimmt die Kapazität)",
+      "location": "<strong>Ort:</strong> Wir kommen überall hin",
+      "venue": "<strong>Raum:</strong> mit WLAN, Steckdosen, Tischen und Stühlen; größere Räume bevorzugt",
+      "materials": "<strong>Material:</strong> in allen Workshops enthalten",
+      "instructors": "<strong>Dozenten:</strong> erfahrene Fachleute aus dem Ingenieurwesen, die ihr Wissen mit Begeisterung weitergeben.",
+      "schedule": "<strong>Termine:</strong> Wir richten uns nach Ihrem Ablaufplan und können bei Bedarf mehrere Einheiten nacheinander oder parallel durchführen"
+    },
+    "pricing": {
+      "heading": "Preise",
+      "body": "Der Preis pro Person hängt von Faktoren wie der Gruppengröße, der Planung aufeinanderfolgender Workshop-Tage, der Logistik der Ausrüstung und der Zahl der eingesetzten Dozenten ab. Für ein Angebot, das genau zu Ihnen passt, sprechen Sie noch heute mit unserem Team. Wir gestalten gern das passende Technikerlebnis für Sie."
+    },
+    "presentations": {
+      "heading": "Vorträge",
+      "lede": "Wir bieten einstündige, interaktive Vorträge von Fachleuten aus der Praxis.",
+      "topics": "Wir gehen in die Tiefe zu: <ul style=\"list-style: none; padding: 0; margin-top: 10px;\"> <li>Virtual Reality</li> <li>Künstlicher Intelligenz</li> <li>Robotik und mehr</li> </ul>",
+      "body": "Diese Sitzungen regen zu neuen Ideen an und erweitern das Verständnis Ihrer Teilnehmenden für die jüngsten technischen Durchbrüche."
+    },
+    "contactBlurb": "Entdecken Sie unsere Technik-Workshops und Vorträge <br> vereinbaren Sie noch heute eine Online-Demo",
+    "letsChat": "Sprechen wir"
+  },
+
+  "meta": {
+    "home": {
+      "title": "STAGE ONE EDUCATION | Technik-Workshops zum Anfassen",
+      "description": "Praxisnahe Technik-Workshops in den ganzen USA seit 2013 – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Wecken Sie Innovationsgeist!"
+    },
+    "ai": {
+      "title": "KI-Workshop | STAGE ONE EDUCATION",
+      "description": "Künstliche Intelligenz praktisch erleben mit Stage One Education: neuronale Netze bauen, KI-Kurzfilme erstellen und über KI-Ethik diskutieren. Ohne Vorkenntnisse, für jedes Alter, geleitet von echten Ingenieuren."
+    },
+    "robotics": {
+      "title": "Robotik-Workshop | STAGE ONE EDUCATION",
+      "description": "Drohnensteuerung mit Arduino und ESP32 meistern – im Robotik- und Drohnen-Workshop von Stage One Education. Elektronik und Programmieren zum Anfassen, ohne Vorkenntnisse!"
+    },
+    "mechanical": {
+      "title": "Maschinenbau-Workshop | STAGE ONE EDUCATION",
+      "description": "Grundlagen des Maschinenbaus erleben – im CAD- und Raketen-Workshop: virtuelle Raketen bauen, 3D-Druck entdecken und Konstruktion lernen. Ohne Vorkenntnisse!"
+    },
+    "aiWebsite": {
+      "title": "Webentwicklung-Workshop | STAGE ONE EDUCATION",
+      "description": "Mit KI-Programmierwerkzeugen eine echte Website bauen und veröffentlichen – im praxisnahen Workshop von Stage One Education, geleitet von echten Ingenieuren. Ohne Vorkenntnisse!"
+    },
+    "locations": {
+      "title": "Standorte | STAGE ONE EDUCATION",
+      "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    },
+    "instructors": {
+      "title": "Dozenten | STAGE ONE EDUCATION",
+      "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    },
+    "feedback": {
+      "title": "Stimmen | STAGE ONE EDUCATION",
+      "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    },
+    "contact": {
+      "title": "Kontakt | STAGE ONE EDUCATION",
+      "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    },
+    "about": {
+      "title": "Über uns | STAGE ONE EDUCATION",
+      "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    }
+  }
+}

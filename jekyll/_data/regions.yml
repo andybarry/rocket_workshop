@@ -187,7 +187,7 @@
 - id: international
   slug: international
   kind: international
-  label: International Group Visiting the USA
+  label: International
   short_label: International Groups
   location_phrase: for International Groups Visiting the USA
   venue_phrase: during your group’s United States itinerary
@@ -213,3 +213,28 @@
       text: Instructor, equipment, materials, curriculum, and setup are included.
     - title: Clear, Accessible Experience
       text: No prior experience is required, and instruction can be adjusted for the group.
+
+- id: other
+  slug: other
+  kind: other
+  label: Other
+  short_label: Other
+  location_phrase: for another location
+  venue_phrase: at your group’s destination
+  cta_label: Explore Other Workshop Options
+  hero_label: OTHER LOCATIONS
+  hero_title: Hands-On Engineering Workshops for Other Locations
+  hero_intro: Tell Stage One where your group will be. We can help determine workshop delivery options and coordinate the instructor, equipment, materials, and curriculum around your destination and venue.
+  itinerary_heading: Build a Workshop Around Your Destination
+  itinerary_copy: If your location is not represented by one of the listed regions, Stage One can review your destination, schedule, venue, and group needs. Workshops can be coordinated for hotels, schools, campuses, conference rooms, and other suitable group venues.
+  themes:
+    - Flexible Destinations
+    - Hotels & Venues
+    - Schools & Campuses
+    - Group Programs
+  map_states: []
+  map_viewbox: "0 0 959 593"
+  image_src: /img/regions/international.webp
+  image_alt: Editorial illustration of a flexible educational workshop itinerary with campus, hotel, and engineering motifs
+  seo_title: Engineering Workshops for Other Locations | Stage One Education
+  seo_description: Ask about instructor-led engineering workshop delivery for destinations outside Stage One’s listed United States regions.
