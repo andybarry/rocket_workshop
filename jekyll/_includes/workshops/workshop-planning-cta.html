@@ -1,0 +1,13 @@
+{% assign workshop = nil %}
+{% for item in site.data.workshops %}
+  {% if item.slug == include.slug %}
+    {% assign workshop = item %}
+  {% endif %}
+{% endfor %}
+<section class="workshop-planning-cta" data-workshop-planning data-workshop-slug="{{ include.slug }}" aria-labelledby="workshop-planning-heading-{{ include.slug }}">
+  <h2 id="workshop-planning-heading-{{ include.slug }}">Ready to Bring {{ workshop.heading_label }} to Your Group?</h2>
+  <p>Share your destination, anticipated date, group size, and program details.</p>
+  <a class="workshop-planning-cta__button" data-workshop-plan-cta href="/plan-a-workshop/?workshop={{ include.slug }}">
+    Start Planning This Workshop →
+  </a>
+</section>

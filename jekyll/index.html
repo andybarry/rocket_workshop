@@ -838,11 +838,11 @@ i18n_key: home
             <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta" href="#workshop-explorer" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
+            <a class="home-room-hero__cta" href="#find-your-workshop" data-explorer-entry data-explorer-mode="explore" data-source="hero" data-i18n-html="home.hero.ctaFind">
                 <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
             </a>
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="?mode=plan&amp;source=hero#workshop-finder"
-                data-explorer-entry data-explorer-mode="plan" data-source="hero" data-i18n-html="home.hero.ctaPlan">
+            <a class="home-room-hero__cta home-room-hero__cta--solid" href="/plan-a-workshop/"
+                data-source="hero" data-i18n-html="home.hero.ctaPlan">
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
             </a>
         </div>
@@ -863,15 +863,15 @@ i18n_key: home
 <!-- First Workshop Box -->  
 <div class="row align-items-stretch workshop-cards-row">
     <div class="workshop-card-col text-center">
-        <a href="ai-workshop.html" class="workshop-main-button">
+        <a href="ai-workshop.html" class="workshop-main-button workshop-main-button--ai">
 
             <!-- Title Section -->
             <h2 class="main-button-title-text" data-i18n="home.cardAi.title">Artificial Intelligence</h2>
             <br/>
 
             <!-- Image Section -->
-            <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <div style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+            <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
                     <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
                 </div>
 
@@ -907,6 +907,7 @@ i18n_key: home
                     </ul></h3>
                 <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
             </div>
+            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
 
         </a>
     </div>
@@ -987,7 +988,7 @@ i18n_key: home
     .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
 </style>
 <div class="workshop-card-col text-center">
-    <a href="robotics-workshop.html" class="workshop-main-button" style="position: relative;">
+    <a href="robotics-workshop.html" class="workshop-main-button workshop-main-button--robotics" style="position: relative;">
 
         <!-- White square behind image (lowest z) with scrolling drone-code.png -->
         <div class="drone-code-scroll-box" style="position: absolute; left: 50%; transform: translateX(-50%); width: 220px; top: 85px; bottom: 120px; background: white; border-radius: 8px; z-index: 0;"></div>
@@ -997,7 +998,7 @@ i18n_key: home
         <br/>
 
         <!-- Image Section -->
-        <div style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
+        <div class="workshop-card-visual workshop-card-visual--robotics" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
             <img src="img/drone-circuit.png"
                  alt="Drone Circuit" data-i18n-alt="home.cardRobotics.imageAlt"
                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">
@@ -1017,6 +1018,7 @@ i18n_key: home
     <h3 data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
     <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
 </div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
 
     </a>
 </div>
@@ -1026,15 +1028,15 @@ i18n_key: home
 
 <!-- Third Workshop Box -->
 <div class="workshop-card-col text-center">
-    <a href="rocket-workshop.html" class="workshop-main-button">
+    <a href="rocket-workshop.html" class="workshop-main-button workshop-main-button--mechanical">
 
         <!-- Title Section -->
         <h2 class="main-button-title-text" data-i18n="home.cardMechanical.title">Mechanical Engineering</h2>
         <br/>
 
              <!-- Video Section -->
-             <div class="workshop-card-media">
-                <video autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
+             <div class="workshop-card-media workshop-card-visual workshop-card-visual--mechanical">
+                <video class="workshop-card-video" autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
                     <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
                     <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
                 </video>
@@ -1051,6 +1053,7 @@ i18n_key: home
     <h3 data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
     <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
 </div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
 
         
     </a>
@@ -1061,14 +1064,14 @@ i18n_key: home
 
 <!-- Fourth Workshop Box -->
 <div class="workshop-card-col text-center">
-    <a href="ai-website-workshop.html" class="workshop-main-button">
+    <a href="ai-website-workshop.html" class="workshop-main-button workshop-main-button--website">
 
         <!-- Title Section -->
         <h2 class="main-button-title-text" data-i18n-html="home.cardWebsite.title">Web<br>Development</h2>
         <br/>
 
         <!-- Image Section -->
-        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+        <div class="workshop-card-visual workshop-card-visual--website" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
             <img src="img/ai-website-mockup.svg"
                  alt="Website built during the workshop" data-i18n-alt="home.cardWebsite.imageAlt"
                  style="width: 200px; height: 200px; object-fit: contain;">
@@ -1080,6 +1083,7 @@ i18n_key: home
     <h3 data-i18n="home.cardWebsite.line2">Code with an AI assistant</h3>
     <h3 data-i18n="home.cardWebsite.line3">Publish it live on the web</h3>
 </div>
+<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
 
     </a>
 </div>
@@ -1108,221 +1112,16 @@ i18n_key: home
             </div>
         </div>
     </section>
-    <div class="workshop-plan-modal" data-workshop-plan-modal hidden>
-      <div class="workshop-plan-modal__backdrop" data-workshop-plan-close></div>
-      <section class="workshop-plan-modal__dialog" role="dialog" aria-modal="true"
-        aria-labelledby="workshop-plan-modal-title">
-        <button type="button" class="workshop-plan-modal__close" data-workshop-plan-close
-          aria-label="Close workshop request form"><i class="fa fa-times" aria-hidden="true"></i></button>
-    <form class="participants-plan-cta" id="plan-workshop-form" action="mailto:workshops@stageoneeducation.com" method="get" novalidate>
-        <h3 class="participants-plan-cta__title" id="workshop-plan-modal-title" data-i18n="home.planWorkshop.title">Complete Your Workshop Request</h3>
-        <p class="participants-plan-cta__subtitle" data-i18n="home.planWorkshop.subtitle">Share the remaining details below. A Stage One team member will review your request and follow up about availability and next steps.</p>
-
-        <input type="hidden" name="explorerDestination">
-        <input type="hidden" name="explorerCustomDestination">
-        <input type="hidden" name="explorerParticipants">
-        <input type="hidden" name="explorerRegion">
-        <input type="hidden" name="explorerGroupType">
-        <input type="hidden" name="explorerInternational">
-        <input type="hidden" name="explorerWorkshop" value="Not sure yet">
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.preferredDate">Preferred workshop date</span>
-            <input type="date" name="preferredDate" class="participants-plan-field__control participants-plan-field__control--date">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.alternateDate">Alternative date</span>
-            <input type="date" name="alternateDate" class="participants-plan-field__control participants-plan-field__control--date">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.preferredTime">Preferred time</span>
-            <select name="preferredTime" class="participants-plan-field__control participants-plan-field__control--select">
-                <option value="" data-i18n="home.planWorkshop.selectTime">Select a time</option>
-                <option value="Morning" data-i18n="home.planWorkshop.morning">Morning</option>
-                <option value="Afternoon" data-i18n="home.planWorkshop.afternoon">Afternoon</option>
-                <option value="Evening" data-i18n="home.planWorkshop.evening">Evening</option>
-            </select>
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.participantCount">Estimated participant count</span>
-            <input type="number" name="participantCount" class="participants-plan-field__control" min="1" inputmode="numeric">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.venue">Venue or hotel information</span>
-            <input type="text" name="venue" class="participants-plan-field__control">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.organization">Organization or school name</span>
-            <input type="text" name="organization" class="participants-plan-field__control" autocomplete="organization">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label">
-                <span data-i18n="home.planWorkshop.contactName">Contact name</span>
-                <span class="participants-plan-field__required" aria-hidden="true">*</span>
-            </span>
-            <input type="text" name="contactName" class="participants-plan-field__control" required autocomplete="name">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label">
-                <span data-i18n="home.planWorkshop.email">Email</span>
-                <span class="participants-plan-field__required" aria-hidden="true">*</span>
-            </span>
-            <input type="email" name="email" class="participants-plan-field__control" required autocomplete="email" inputmode="email">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.phone">Phone</span>
-            <input type="tel" name="phone" class="participants-plan-field__control" autocomplete="tel" inputmode="tel">
-        </label>
-
-        <label class="participants-plan-field">
-            <span class="participants-plan-field__label" data-i18n="home.planWorkshop.notes">Additional notes</span>
-            <textarea name="notes" class="participants-plan-field__control" rows="4"></textarea>
-        </label>
-
-        <button type="submit" class="participants-plan-submit" data-i18n="home.planWorkshop.submit">SUBMIT WORKSHOP REQUEST</button>
-        <p class="participants-plan-hint" data-i18n="home.planWorkshop.hint">Submitting this form requests availability and does not confirm a booking.</p>
-        <p class="participants-plan-thanks" data-i18n="home.planWorkshop.thanks" hidden>Thank you. A Stage One team member will follow up about availability and next steps.</p>
-    </form>
-      </section>
-    </div>
-</div>
+  </div>
 
 <script>
 (function () {
-    var form = document.getElementById("plan-workshop-form");
-    var modal = document.querySelector("[data-workshop-plan-modal]");
-    if (!form || !modal) return;
-    var lastTrigger = null;
-
-    function openPlanModal(trigger) {
-        lastTrigger = trigger || document.activeElement;
-        modal.hidden = false;
-        document.documentElement.classList.add("has-workshop-plan-modal");
-        window.requestAnimationFrame(function () {
-            modal.classList.add("is-open");
-            var firstField = form.querySelector("input:not([type='hidden']), select, textarea");
-            if (firstField) firstField.focus();
-        });
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("mode") === "plan" || window.location.hash === "#plan-workshop-form" || window.location.hash === "#workshop-finder") {
+        params.delete("mode");
+        var query = params.toString();
+        window.location.replace("/plan-a-workshop/" + (query ? "?" + query : ""));
     }
-
-    function closePlanModal() {
-        modal.classList.remove("is-open");
-        document.documentElement.classList.remove("has-workshop-plan-modal");
-        window.setTimeout(function () {
-            modal.hidden = true;
-            if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
-        }, 220);
-    }
-
-    document.addEventListener("click", function (event) {
-        var close = event.target.closest("[data-workshop-plan-close]");
-        if (close) {
-            event.preventDefault();
-            closePlanModal();
-            return;
-        }
-
-        var trigger = event.target.closest(
-            "[data-workshop-plan-link], [data-plan-general], [data-plan-workshop], " +
-            "[data-continue-planning], a[href*='mode=plan']"
-        );
-        if (!trigger) return;
-        event.preventDefault();
-        openPlanModal(trigger);
-    });
-
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && !modal.hidden) closePlanModal();
-    });
-
-    var initialParams = new URLSearchParams(window.location.search);
-    if (initialParams.get("workshop") && form.elements.namedItem("explorerWorkshop")) {
-        form.elements.namedItem("explorerWorkshop").value = initialParams.get("workshop");
-    }
-    if (initialParams.get("destination") && form.elements.namedItem("explorerDestination")) {
-        form.elements.namedItem("explorerDestination").value = initialParams.get("destination");
-    }
-    if (initialParams.get("international") && form.elements.namedItem("explorerInternational")) {
-        form.elements.namedItem("explorerInternational").value = initialParams.get("international");
-    }
-    if (initialParams.get("mode") === "plan" || window.location.hash === "#plan-workshop-form") {
-        window.setTimeout(function () { openPlanModal(null); }, 0);
-    }
-
-    function fieldValue(name) {
-        var el = form.elements.namedItem(name);
-        if (!el) return "";
-        return (el.value || "").trim();
-    }
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        var emailInput = form.elements.namedItem("email");
-        var contactInput = form.elements.namedItem("contactName");
-        if (!contactInput || !contactInput.value.trim()) {
-            if (contactInput && contactInput.focus) contactInput.focus();
-            return;
-        }
-        if (!emailInput || !emailInput.value.trim()) {
-            if (emailInput && emailInput.focus) emailInput.focus();
-            return;
-        }
-        if (typeof emailInput.checkValidity === "function" && !emailInput.checkValidity()) {
-            emailInput.reportValidity();
-            return;
-        }
-
-        var lines = [
-            "New workshop availability request from the website:",
-            "",
-            "Explorer selections",
-            "Destination: " + (fieldValue("explorerDestination") || "Not selected yet"),
-            "Custom destination: " + (fieldValue("explorerCustomDestination") || "Not selected yet"),
-            "Participant level: " + (fieldValue("explorerParticipants") || "Not selected yet"),
-            "Region: " + (fieldValue("explorerRegion") || "Not selected yet"),
-            "Group type: " + (fieldValue("explorerGroupType") || "Not selected yet"),
-            "International group: " + (fieldValue("explorerInternational") || "Not selected yet"),
-            "Workshop: " + (fieldValue("explorerWorkshop") || "Not sure yet"),
-            "",
-            "Remaining request details",
-            "Preferred date: " + (fieldValue("preferredDate") || "Not provided"),
-            "Alternative date: " + (fieldValue("alternateDate") || "Not provided"),
-            "Preferred time: " + (fieldValue("preferredTime") || "Not provided"),
-            "Estimated participant count: " + (fieldValue("participantCount") || "Not provided"),
-            "Venue or hotel: " + (fieldValue("venue") || "Not provided"),
-            "Organization or school: " + (fieldValue("organization") || "Not provided"),
-            "Contact name: " + fieldValue("contactName"),
-            "Email: " + fieldValue("email"),
-            "Phone: " + (fieldValue("phone") || "Not provided"),
-            "Additional notes: " + (fieldValue("notes") || "None")
-        ];
-
-        var mailto = "mailto:workshops@stageoneeducation.com"
-            + "?subject=" + encodeURIComponent("Workshop availability request")
-            + "&body=" + encodeURIComponent(lines.join("\n"));
-
-        if (typeof window.gtag === "function") {
-            window.gtag("event", "workshop_request_submitted", {
-                workshop: fieldValue("explorerWorkshop") || "not_sure_yet",
-                destination: fieldValue("explorerDestination") || "not_selected"
-            });
-        }
-        window.location.href = mailto;
-        form.classList.add("is-submitted");
-        var thanks = form.querySelector(".participants-plan-thanks");
-        if (thanks) {
-            thanks.hidden = false;
-        }
-    });
 })();
 </script>
 

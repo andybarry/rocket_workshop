@@ -1,0 +1,11 @@
+- id: educational-travel
+  label: Educational Travel
+  paragraph_phrase: designed to fit educational travel itineraries
+
+- id: school-campus
+  label: School or Campus
+  paragraph_phrase: designed to fit school and campus programs
+
+- id: private-other
+  label: Private or Other Group
+  paragraph_phrase: designed to fit private and other group programs

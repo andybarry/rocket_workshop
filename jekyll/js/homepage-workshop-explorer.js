@@ -1,385 +1,434 @@
 (function () {
     "use strict";
 
-    function track(eventName, details) {
-        if (typeof window.gtag === "function") {
-            window.gtag("event", eventName, details || {});
-        }
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
-        var explorer = document.getElementById("workshop-explorer");
-        if (!explorer) return;
+        var explorer = document.getElementById("find-your-workshop");
+        if (!explorer || !window.StageOneState) return;
 
-        var mapCanvas = explorer.querySelector(".explorer-region-map__canvas");
-        var mapFigure = explorer.querySelector(".explorer-region-map");
-        var groupChooser = explorer.querySelector(".homepage-workshop-explorer__group-chooser");
-        var regionChooser = explorer.querySelector(".homepage-workshop-explorer__region-chooser");
-        var workshopChooser = explorer.querySelector(".homepage-workshop-explorer__workshop-chooser");
-        var callout = explorer.querySelector("[data-region-map-callout]");
-        var sources = {};
-        var groupSources = {};
-        var workshopSources = {};
-        var locationSources = {};
-        var regionLinks = [];
-        var regionButtons = [];
-        var regionSlugs = [];
-        var activeSlug = "west-coast";
-        var calloutContext = "region";
-        var cycleTimer = null;
-        var mapIsVisible = true;
-        var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var state = window.StageOneState.load();
+        var reducedMotion = window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var desktopQuery = window.matchMedia("(min-width: 960px)");
+        var mapPanel = explorer.querySelector(".workshop-explorer__map-panel");
+        var mapSvg = explorer.querySelector(".explorer-region-map__svg");
+        var mapRefiner = explorer.querySelector("[data-explorer-map-refiner]");
+        var mapTitle = explorer.querySelector("[data-explorer-map-title]");
+        var mapInstruction = explorer.querySelector("[data-explorer-map-instruction]");
+        var resultHeading = explorer.querySelector("[data-explorer-result-heading]");
+        var resultParagraph = explorer.querySelector("[data-explorer-result-paragraph]");
+        var resultCta = explorer.querySelector("[data-explorer-result-cta]");
+        var resultCopy = explorer.querySelector(".workshop-explorer__result-copy");
+        var chips = explorer.querySelector("[data-explorer-chips]");
+        var fullMapViewBox = [0, 0, 959, 593];
+        var currentMapViewBox = mapSvg ? parseViewBox(mapSvg.getAttribute("viewBox")) : fullMapViewBox.slice();
+        var mapAnimationFrame = null;
+        var renderedRegion = null;
 
-        function setupRegionMap() {
-            if (!mapCanvas || !mapFigure || !callout) return;
-
-            Array.prototype.forEach.call(explorer.querySelectorAll("[data-region-story]"), function (source) {
-                sources[source.getAttribute("data-region-slug")] = source;
-            });
-            Array.prototype.forEach.call(explorer.querySelectorAll("[data-group-story]"), function (source) {
-                groupSources[source.getAttribute("data-group-slug")] = source;
-            });
-            Array.prototype.forEach.call(explorer.querySelectorAll("[data-workshop-story]"), function (source) {
-                workshopSources[source.getAttribute("data-workshop-slug")] = source;
-            });
-            Array.prototype.forEach.call(explorer.querySelectorAll("[data-location-story]"), function (source) {
-                locationSources[source.getAttribute("data-location-slug")] = source;
-            });
-
-            regionLinks = Array.prototype.slice.call(mapCanvas.querySelectorAll('[data-category="region"][data-slug]'));
-            regionLinks.forEach(function (link) {
-                var slug = link.getAttribute("data-slug");
-                if (regionSlugs.indexOf(slug) === -1) regionSlugs.push(slug);
-
-                link.addEventListener("pointerenter", function () {
-                    pauseCycle();
-                    showRegion(slug);
-                });
-            });
-            if (regionChooser) {
-                regionButtons = Array.prototype.slice.call(regionChooser.querySelectorAll('[data-category="region"][data-slug]'));
-                regionButtons.forEach(function (link) {
-                    var slug = link.getAttribute("data-slug");
-                    link.addEventListener("pointerenter", function () {
-                        pauseCycle();
-                        showRegion(slug);
-                    });
-                    link.addEventListener("focus", function () {
-                        pauseCycle();
-                        showRegion(slug);
-                    });
-                });
-                Array.prototype.forEach.call(regionChooser.querySelectorAll('[data-category="location"][data-slug]'), function (link) {
-                    var slug = link.getAttribute("data-slug");
-                    link.addEventListener("pointerenter", function () {
-                        pauseCycle();
-                        showLocation(slug);
-                    });
-                    link.addEventListener("focus", function () {
-                        pauseCycle();
-                        showLocation(slug);
-                    });
-                });
-                regionChooser.addEventListener("pointerenter", pauseCycle);
-                regionChooser.addEventListener("pointerleave", function () {
-                    scheduleCycle(2200);
-                });
-                regionChooser.addEventListener("focusout", function () {
-                    window.setTimeout(function () {
-                        if (!regionChooser.contains(document.activeElement)) scheduleCycle(2200);
-                    }, 0);
-                });
-            }
-
-            mapFigure.addEventListener("pointerenter", pauseCycle);
-            mapFigure.addEventListener("pointerleave", function () {
-                scheduleCycle(2200);
-            });
-            mapFigure.addEventListener("touchstart", pauseCycle, { passive: true });
-            mapFigure.addEventListener("keydown", pauseCycle);
-            mapFigure.addEventListener("focus", function (event) {
-                var link = event.target.closest('[data-category="region"][data-slug]');
-                if (!link) return;
-                pauseCycle();
-                showRegion(link.getAttribute("data-slug"));
-            }, true);
-            mapFigure.addEventListener("focusout", function () {
-                window.setTimeout(function () {
-                    if (!mapFigure.contains(document.activeElement)) scheduleCycle(2200);
-                }, 0);
-            });
-
-            if (groupChooser) {
-                Array.prototype.forEach.call(groupChooser.querySelectorAll('[data-category="group"][data-slug]'), function (link) {
-                    var slug = link.getAttribute("data-slug");
-                    link.addEventListener("pointerenter", function () {
-                        pauseCycle();
-                        showGroup(slug);
-                    });
-                    link.addEventListener("focus", function () {
-                        pauseCycle();
-                        showGroup(slug);
-                    });
-                });
-                groupChooser.addEventListener("pointerenter", pauseCycle);
-                groupChooser.addEventListener("focusin", pauseCycle);
-                groupChooser.addEventListener("pointerleave", function (event) {
-                    if (!callout.contains(event.relatedTarget)) restoreRegionCallout();
-                    scheduleCycle(2200);
-                });
-                groupChooser.addEventListener("focusout", function (event) {
-                    window.setTimeout(function () {
-                        if (!groupChooser.contains(document.activeElement) && !callout.contains(event.relatedTarget)) {
-                            restoreRegionCallout();
-                            scheduleCycle(2200);
-                        }
-                    }, 0);
-                });
-            }
-            if (workshopChooser) {
-                Array.prototype.forEach.call(workshopChooser.querySelectorAll('[data-category="workshop"][data-slug]'), function (link) {
-                    var slug = link.getAttribute("data-slug");
-                    link.addEventListener("pointerenter", function () {
-                        pauseCycle();
-                        showWorkshop(slug);
-                    });
-                    link.addEventListener("focus", function () {
-                        pauseCycle();
-                        showWorkshop(slug);
-                    });
-                });
-            }
-
-            callout.addEventListener("pointerenter", pauseCycle);
-            callout.addEventListener("pointerleave", function () {
-                scheduleCycle(2200);
-            });
-            callout.addEventListener("focusin", pauseCycle);
-            callout.addEventListener("focusout", function () {
-                scheduleCycle(2200);
-            });
-
-            if ("IntersectionObserver" in window) {
-                mapIsVisible = false;
-                new IntersectionObserver(function (entries) {
-                    mapIsVisible = entries[0].isIntersecting;
-                    if (mapIsVisible) {
-                        scheduleCycle(1800);
-                    } else {
-                        pauseCycle();
-                    }
-                }, { threshold: 0.25 }).observe(mapFigure);
-            }
-
-            document.addEventListener("visibilitychange", function () {
-                if (document.hidden) {
-                    pauseCycle();
-                } else {
-                    scheduleCycle(1800);
-                }
-            });
-
-            finishRegionChange(activeSlug, true);
-            scheduleCycle(5500);
+        function optionButtons(category) {
+            return explorer.querySelectorAll('[data-explorer-option][data-category="' + category + '"]');
         }
 
-        function transitionCallout(update, immediate) {
-            if (reducedMotion || immediate) {
-                callout.classList.remove("is-changing");
-                update();
+        function mapLinks() {
+            return explorer.querySelectorAll(
+                '.explorer-region-map__states .explorer-region-map__link[data-category="region"]'
+            );
+        }
+
+        function parseViewBox(value) {
+            var parsed = String(value || "").trim().split(/\s+/).map(Number);
+            return parsed.length === 4 && parsed.every(function (item) {
+                return Number.isFinite(item);
+            }) ? parsed : fullMapViewBox.slice();
+        }
+
+        function itemFrom(listName, key, value) {
+            var list = (window.StageOneExplorerData || {})[listName] || [];
+            for (var index = 0; index < list.length; index += 1) {
+                if (list[index][key] === value) return list[index];
+            }
+            return null;
+        }
+
+        function regionData(slug) {
+            return itemFrom("regions", "id", slug);
+        }
+
+        function audienceData(slug) {
+            return itemFrom("audiences", "id", slug);
+        }
+
+        function workshopData(slug) {
+            return itemFrom("workshops", "slug", slug);
+        }
+
+        function setPressed(category, slug) {
+            Array.prototype.forEach.call(optionButtons(category), function (button) {
+                var selected = button.getAttribute("data-slug") === slug;
+                button.classList.toggle("is-selected", selected);
+                button.setAttribute("aria-pressed", selected ? "true" : "false");
+            });
+        }
+
+        function setMapSelected(slug) {
+            Array.prototype.forEach.call(mapLinks(), function (link) {
+                var selected = link.getAttribute("data-slug") === slug;
+                link.classList.toggle("is-selected", selected);
+                link.setAttribute("aria-pressed", selected ? "true" : "false");
+            });
+        }
+
+        function setMapPreview(slug) {
+            Array.prototype.forEach.call(mapLinks(), function (link) {
+                link.classList.toggle("is-preview", link.getAttribute("data-slug") === slug);
+            });
+            Array.prototype.forEach.call(optionButtons("region"), function (button) {
+                button.classList.toggle("is-preview", button.getAttribute("data-slug") === slug);
+            });
+        }
+
+        function clearPreview() {
+            setMapPreview(null);
+        }
+
+        function mapTarget(slug) {
+            var region = regionData(slug);
+            return region && region.kind === "us" && region.map_viewbox
+                ? parseViewBox(region.map_viewbox)
+                : fullMapViewBox.slice();
+        }
+
+        function setMapViewBox(values) {
+            if (!mapSvg) return;
+            currentMapViewBox = values.slice();
+            mapSvg.setAttribute("viewBox", values.map(function (item) {
+                return Math.round(item * 100) / 100;
+            }).join(" "));
+        }
+
+        function zoomMap(slug) {
+            if (!mapSvg || renderedRegion === slug) return;
+            renderedRegion = slug;
+            var start = currentMapViewBox.slice();
+            var target = mapTarget(slug);
+
+            if (mapAnimationFrame) window.cancelAnimationFrame(mapAnimationFrame);
+            if (reducedMotion) {
+                setMapViewBox(target);
                 return;
             }
 
-            callout.classList.remove("is-changing");
-            void callout.offsetWidth;
-            callout.classList.add("is-changing");
-            void callout.offsetWidth;
-            update();
-            window.requestAnimationFrame(function () {
-                callout.classList.remove("is-changing");
+            var startedAt = null;
+            function animate(timestamp) {
+                if (!startedAt) startedAt = timestamp;
+                var progress = Math.min((timestamp - startedAt) / 500, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                setMapViewBox(start.map(function (value, index) {
+                    return value + (target[index] - value) * eased;
+                }));
+                if (progress < 1) {
+                    mapAnimationFrame = window.requestAnimationFrame(animate);
+                } else {
+                    mapAnimationFrame = null;
+                }
+            }
+            mapAnimationFrame = window.requestAnimationFrame(animate);
+        }
+
+        function renderChips(list) {
+            chips.innerHTML = "";
+            if (list.length) {
+                var label = document.createElement("span");
+                label.className = "workshop-explorer__chips-label";
+                label.textContent = "My selection:";
+                chips.appendChild(label);
+            }
+            list.forEach(function (chip) {
+                var item = document.createElement("span");
+                item.className = "workshop-explorer__chip";
+                item.textContent = chip.label;
+                chips.appendChild(item);
             });
         }
 
-        function showRegion(slug) {
-            var source = sources[slug];
-            if (!source) return;
-            calloutContext = "region";
-            finishRegionChange(slug);
-        }
+        function renderResultHeading() {
+            var region = regionData(state.region);
+            var audience = audienceData(state.audience);
+            resultHeading.innerHTML = "";
 
-        function finishRegionChange(slug, immediate) {
-            if (!slug || !sources[slug]) return;
-            var source = sources[slug];
+            var locationLine = document.createElement("span");
+            locationLine.className = "workshop-explorer__result-location";
+            locationLine.textContent = region ? region.label : "Choose a Region";
+            resultHeading.appendChild(locationLine);
 
-            activeSlug = slug;
-            mapCanvas.classList.add("is-spotlighting");
-            regionLinks.forEach(function (link) {
-                link.classList.remove("is-leaving");
-                link.classList.toggle("is-active", link.getAttribute("data-slug") === slug);
-            });
-            regionButtons.forEach(function (link) {
-                link.classList.toggle("is-active", link.getAttribute("data-slug") === slug);
-            });
+            var audienceLine = document.createElement("span");
+            audienceLine.className = "workshop-explorer__result-audience";
+            audienceLine.textContent = audience ? audience.label : "All Audiences";
+            resultHeading.appendChild(audienceLine);
 
-            if (calloutContext !== "region") return;
-
-            transitionCallout(function () {
-                callout.querySelector("[data-region-callout-category]").textContent = "Region";
-                callout.querySelector("[data-region-callout-name]").textContent = source.getAttribute("data-region-name");
-                callout.querySelector("[data-region-callout-story]").textContent =
-                    source.querySelector("[data-region-story-text]").textContent;
-
-                var calloutLink = callout.querySelector("[data-region-callout-link]");
-                calloutLink.href = "#workshop-explorer";
-                calloutLink.setAttribute("data-category", "region");
-                calloutLink.setAttribute("data-slug", slug);
-                calloutLink.setAttribute("data-label", source.getAttribute("data-region-name"));
-                calloutLink.querySelector("[data-region-callout-action]").textContent = "Select this region";
-            }, immediate);
-        }
-
-        function clearRegionSpotlight() {
-            mapCanvas.classList.remove("is-spotlighting");
-            regionLinks.forEach(function (link) {
-                link.classList.remove("is-active", "is-leaving");
-            });
-            regionButtons.forEach(function (link) {
-                link.classList.remove("is-active");
-            });
-        }
-
-        function showGroup(slug) {
-            var source = groupSources[slug];
-            if (!source) return;
-            calloutContext = "group";
-            clearRegionSpotlight();
-
-            var name = source.getAttribute("data-group-name");
-            transitionCallout(function () {
-                callout.querySelector("[data-region-callout-category]").textContent = "Age or Group";
-                callout.querySelector("[data-region-callout-name]").textContent = name;
-                callout.querySelector("[data-region-callout-story]").textContent =
-                    source.querySelector("[data-group-story-text]").textContent;
-
-                var calloutLink = callout.querySelector("[data-region-callout-link]");
-                calloutLink.href = "#workshop-explorer";
-                calloutLink.setAttribute("data-category", "group");
-                calloutLink.setAttribute("data-slug", slug);
-                calloutLink.setAttribute("data-label", name);
-                calloutLink.querySelector("[data-region-callout-action]").textContent = "Select this group";
-            });
-        }
-
-        function showWorkshop(slug) {
-            var source = workshopSources[slug];
-            if (!source) return;
-            calloutContext = "workshop";
-            clearRegionSpotlight();
-
-            var name = source.getAttribute("data-workshop-name");
-            transitionCallout(function () {
-                callout.querySelector("[data-region-callout-category]").textContent = "Workshop";
-                callout.querySelector("[data-region-callout-name]").textContent = name;
-                callout.querySelector("[data-region-callout-story]").textContent =
-                    source.querySelector("[data-workshop-story-text]").textContent;
-
-                var calloutLink = callout.querySelector("[data-region-callout-link]");
-                calloutLink.href = "#workshop-explorer";
-                calloutLink.setAttribute("data-category", "workshop");
-                calloutLink.setAttribute("data-slug", slug);
-                calloutLink.setAttribute("data-label", name);
-                calloutLink.querySelector("[data-region-callout-action]").textContent = "Select this workshop";
-            });
-        }
-
-        function showLocation(slug) {
-            var source = locationSources[slug];
-            if (!source) return;
-            calloutContext = "location";
-            clearRegionSpotlight();
-
-            var name = source.getAttribute("data-location-name");
-            transitionCallout(function () {
-                callout.querySelector("[data-region-callout-category]").textContent = "Region";
-                callout.querySelector("[data-region-callout-name]").textContent = name;
-                callout.querySelector("[data-region-callout-story]").textContent =
-                    source.querySelector("[data-location-story-text]").textContent;
-
-                var calloutLink = callout.querySelector("[data-region-callout-link]");
-                calloutLink.href = "#workshop-explorer";
-                calloutLink.setAttribute("data-category", "location");
-                calloutLink.setAttribute("data-slug", slug);
-                calloutLink.setAttribute("data-label", name);
-                calloutLink.querySelector("[data-region-callout-action]").textContent = "Select international";
-            });
-        }
-
-        function restoreRegionCallout() {
-            calloutContext = "region";
-            finishRegionChange(activeSlug);
-        }
-
-        function cycleRegion() {
-            if (!regionSlugs.length) return;
-            var currentIndex = regionSlugs.indexOf(activeSlug);
-            var nextSlug = regionSlugs[(currentIndex + 1) % regionSlugs.length];
-            finishRegionChange(nextSlug);
-            scheduleCycle(6500);
-        }
-
-        function pauseCycle() {
-            if (cycleTimer) {
-                window.clearTimeout(cycleTimer);
-                cycleTimer = null;
+            if (!region) {
+                resultParagraph.textContent =
+                    "Select a region on the map to begin exploring Stage One workshops.";
+            } else if (region.kind === "international") {
+                resultParagraph.textContent =
+                    "Explore hands-on engineering experiences for groups visiting the USA, delivered directly to your hotel, school, campus, or group venue.";
+            } else {
+                resultParagraph.textContent =
+                    "Explore hands-on engineering experiences delivered to hotels, schools, campuses, and group venues throughout " +
+                    region.label + ".";
             }
         }
 
-        function scheduleCycle(delay) {
-            pauseCycle();
-            if (reducedMotion || !mapIsVisible || !regionSlugs.length) return;
-            cycleTimer = window.setTimeout(cycleRegion, delay);
+        function renderResult() {
+            if (resultCopy) resultCopy.classList.add("is-updating");
+            renderResultHeading();
+            renderChips(window.StageOneCopy.selectionChips(state));
+
+            window.requestAnimationFrame(function () {
+                window.requestAnimationFrame(function () {
+                    if (resultCopy) resultCopy.classList.remove("is-updating");
+                });
+            });
+
+            if (state.region) {
+                resultCta.textContent = window.StageOneCopy.resultButtonLabel(state);
+                resultCta.href = window.StageOneUrls.buildRegionUrl(state);
+                resultCta.classList.remove("is-disabled");
+                resultCta.removeAttribute("aria-disabled");
+            } else {
+                resultCta.textContent = (window.StageOneExplorerData.copy || {}).default_button || "Select a Region";
+                resultCta.href = "#find-your-workshop";
+                resultCta.classList.add("is-disabled");
+                resultCta.setAttribute("aria-disabled", "true");
+            }
         }
 
-        setupRegionMap();
+        function renderSummary(name, value, complete, active) {
+            var row = explorer.querySelector('[data-explorer-summary-action="' + name + '"]');
+            var summary = explorer.querySelector('[data-explorer-summary="' + name + '"]');
+            if (!row || !summary) return;
+            summary.textContent = value;
+            row.classList.toggle("is-complete", complete);
+            row.classList.toggle("is-active", active);
+            var action = row.querySelector(".workshop-explorer__summary-action");
+            if (action) action.textContent = complete || name === "workshop" ? "Change" : "Choose";
+        }
+
+        function renderSummaries() {
+            var region = regionData(state.region);
+            var audience = audienceData(state.audience);
+            var workshop = state.workshop && state.workshop !== "all"
+                ? workshopData(state.workshop)
+                : null;
+            var activeName = !region ? "region" : (!audience ? "audience" : "workshop");
+
+            renderSummary("region", region ? region.label : "Choose on the map", !!region, activeName === "region");
+            renderSummary("audience", audience ? audience.label : "Optional", !!audience, activeName === "audience");
+            renderSummary(
+                "workshop",
+                workshop ? workshop.explorer_label : ((window.StageOneExplorerData.copy || {}).all_workshops_label || "All Workshops"),
+                !!workshop,
+                activeName === "workshop"
+            );
+
+            if (mapTitle) mapTitle.textContent = region ? region.label : "Choose a Region";
+            if (mapInstruction) {
+                mapInstruction.textContent = region
+                    ? "Refine your audience and workshop below, or continue anytime."
+                    : "Select a region on the map to begin.";
+            }
+        }
+
+        function writeUrl() {
+            var params = window.StageOneUrls.stateParams(state, { includeRegion: true });
+            var nextUrl = window.location.pathname +
+                (params.toString() ? "?" + params.toString() : "") +
+                window.location.hash;
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState({ stageOneExplorer: true }, "", nextUrl);
+            }
+        }
+
+        function render(options) {
+            setPressed("region", state.region);
+            setPressed("audience", state.audience);
+            setPressed("group", state.groupType);
+            setPressed("workshop", state.workshop || "all");
+            setMapSelected(state.region);
+            if (mapRefiner) mapRefiner.hidden = !state.region;
+            renderSummaries();
+            renderResult();
+            zoomMap(state.region);
+            if (!options || options.writeUrl !== false) writeUrl();
+        }
+
+        function select(category, slug) {
+            var patch = {};
+            if (category === "region") {
+                patch.region = slug;
+            } else if (category === "audience") {
+                patch.audience = state.audience === slug ? null : slug;
+            } else if (category === "group") {
+                patch.groupType = state.groupType === slug ? null : slug;
+            } else if (category === "workshop") {
+                patch.workshop = slug;
+            }
+
+            state = window.StageOneState.assign(state, patch);
+            render();
+
+            var events = {
+                region: "workshop_explorer_region_selected",
+                audience: "workshop_explorer_audience_selected",
+                group: "workshop_explorer_group_type_selected",
+                workshop: "workshop_explorer_workshop_selected"
+            };
+            if (events[category]) {
+                window.StageOneState.track(
+                    events[category],
+                    window.StageOneState.eventParams(state, "homepage")
+                );
+            }
+        }
+
+        function focusChoice(category) {
+            if (category !== "region" && !state.region) category = "region";
+            var target;
+            if (category === "region" && desktopQuery.matches) {
+                if (state.region === "international") {
+                    target = explorer.querySelector(
+                        '.workshop-explorer__mobile-regions [data-slug="international"]'
+                    );
+                } else {
+                    target = explorer.querySelector(
+                        '.explorer-region-map__states [data-slug="' +
+                        (state.region || "northeast-mid-atlantic") + '"]'
+                    );
+                }
+            } else if (category === "region") {
+                target = explorer.querySelector(
+                    '.workshop-explorer__mobile-regions [data-slug="' + (state.region || "northeast-mid-atlantic") + '"]'
+                );
+            } else {
+                var selected = category === "audience" ? state.audience : (state.workshop || "all");
+                target = mapRefiner && mapRefiner.querySelector(
+                    '[data-category="' + category + '"][data-slug="' + selected + '"]'
+                );
+                if (!target && mapRefiner) {
+                    target = mapRefiner.querySelector('[data-category="' + category + '"]');
+                }
+            }
+            if (target) {
+                target.focus({ preventScroll: true });
+                target.scrollIntoView({
+                    behavior: reducedMotion ? "auto" : "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            }
+        }
+
+        function syncMapPanel() {
+            if (!mapPanel) return;
+            mapPanel.open = desktopQuery.matches;
+        }
 
         explorer.addEventListener("click", function (event) {
-            var option = event.target.closest("[data-explorer-option]");
-            if (option) {
+            var clear = event.target.closest("[data-explorer-clear]");
+            if (clear) {
                 event.preventDefault();
-                var category = option.getAttribute("data-category");
-                var slug = option.getAttribute("data-slug");
-                var label = option.getAttribute("data-label");
-
-                if (category === "region") showRegion(slug);
-                else if (category === "group") showGroup(slug);
-                else if (category === "workshop") showWorkshop(slug);
-                else if (category === "location") showLocation(slug);
-
-                var planForm = document.getElementById("plan-workshop-form");
-                if (planForm) {
-                    if (category === "region" && planForm.elements.namedItem("explorerRegion")) {
-                        planForm.elements.namedItem("explorerRegion").value = label;
-                    } else if (category === "group" && planForm.elements.namedItem("explorerParticipants")) {
-                        planForm.elements.namedItem("explorerParticipants").value = label;
-                    } else if (category === "workshop" && planForm.elements.namedItem("explorerWorkshop")) {
-                        planForm.elements.namedItem("explorerWorkshop").value = label;
-                    } else if (category === "location" && planForm.elements.namedItem("explorerInternational")) {
-                        planForm.elements.namedItem("explorerInternational").value = "Yes";
-                    }
-                }
-
-                track("workshop_explorer_option_selected", {
-                    category: category,
-                    slug: slug,
-                    label: label,
-                    source: "homepage"
-                });
+                state = window.StageOneState.assign(state, window.StageOneState.defaults());
+                renderedRegion = undefined;
+                render();
+                window.StageOneState.track(
+                    "workshop_explorer_cleared",
+                    window.StageOneState.eventParams(state, "homepage")
+                );
                 return;
             }
 
-            if (event.target.closest("[data-plan-general]")) {
-                track("plan_a_workshop_clicked", { source: "homepage_explorer" });
+            var summaryAction = event.target.closest("[data-explorer-summary-action]");
+            if (summaryAction) {
+                event.preventDefault();
+                focusChoice(summaryAction.getAttribute("data-explorer-summary-action"));
+                return;
             }
+
+            var option = event.target.closest("[data-explorer-option]");
+            if (!option) return;
+            event.preventDefault();
+            select(option.getAttribute("data-category"), option.getAttribute("data-slug"));
         });
+
+        explorer.addEventListener("click", function (event) {
+            var cta = event.target.closest("[data-explorer-result-cta]");
+            if (!cta || cta.classList.contains("is-disabled")) {
+                if (cta && cta.classList.contains("is-disabled")) event.preventDefault();
+                return;
+            }
+            window.StageOneState.track(
+                "workshop_explorer_region_cta_clicked",
+                window.StageOneState.eventParams(state, "homepage")
+            );
+        });
+
+        Array.prototype.forEach.call(mapLinks(), function (link) {
+            link.setAttribute("role", "button");
+            link.setAttribute("tabindex", "0");
+            link.addEventListener("pointerenter", function () {
+                setMapPreview(link.getAttribute("data-slug"));
+            });
+            link.addEventListener("pointerleave", clearPreview);
+            link.addEventListener("focus", function () {
+                setMapPreview(link.getAttribute("data-slug"));
+            });
+            link.addEventListener("blur", clearPreview);
+            link.addEventListener("keydown", function (event) {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                event.preventDefault();
+                select("region", link.getAttribute("data-slug"));
+            });
+        });
+
+        Array.prototype.forEach.call(optionButtons("region"), function (button) {
+            var slug = button.getAttribute("data-slug");
+            if (slug === "international") return;
+            button.addEventListener("pointerenter", function () {
+                setMapPreview(slug);
+            });
+            button.addEventListener("pointerleave", clearPreview);
+            button.addEventListener("focus", function () {
+                setMapPreview(slug);
+            });
+            button.addEventListener("blur", clearPreview);
+        });
+
+        if (desktopQuery.addEventListener) {
+            desktopQuery.addEventListener("change", syncMapPanel);
+        } else if (desktopQuery.addListener) {
+            desktopQuery.addListener(syncMapPanel);
+        }
+
+        window.addEventListener("popstate", function () {
+            state = window.StageOneState.normalize(window.StageOneState.fromUrl());
+            window.StageOneState.writeStorage(state);
+            renderedRegion = undefined;
+            render({ writeUrl: false });
+        });
+        window.addEventListener("pageshow", syncMapPanel);
+
+        syncMapPanel();
+        window.setTimeout(syncMapPanel, 0);
+        render();
+
+        if (window.location.hash === "#find-your-workshop" ||
+            window.location.hash === "#workshop-explorer") {
+            explorer.scrollIntoView({
+                behavior: reducedMotion ? "auto" : "smooth",
+                block: "start"
+            });
+            window.setTimeout(function () {
+                if (resultHeading) resultHeading.focus();
+            }, 50);
+        }
     });
 })();

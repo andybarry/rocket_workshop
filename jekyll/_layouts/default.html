@@ -19,6 +19,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Stage One Education, LLC">
     <link rel="shortcut icon" href="/favicon.ico" />
+    {% assign canonical_url = page.canonical | default: page.url %}
+    {% unless canonical_url contains "http" %}
+      {% assign canonical_url = canonical_url | prepend: "https://stageoneeducation.com" %}
+    {% endunless %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page.title | escape }}">
+    <meta property="og:description" content="{{ page.description | strip_newlines | truncate: 160 | escape }}">
+    {% assign og_image = page.og_image | default: "/img/stageone-logo-orange-small.png" %}
+    {% unless og_image contains "http" %}
+      {% assign og_image = og_image | prepend: "https://stageoneeducation.com" %}
+    {% endunless %}
+    <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:type" content="website">
             
     <meta name="keywords"
           content='{{ page.keywords | default: "hands-on engineering, AI workshops, robotics workshops, mechanical engineering,
@@ -27,24 +40,25 @@
             traveling workshops, STEM travel experiences " | escape }}'>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">{% if page.i18n %}
+    <link rel="stylesheet" href="/css/creative.css" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">{% if page.i18n %}
 
     <!-- Language switcher. Loads before paint so a stored non-English choice is
          applied without a flash of English. Inert when English is active. -->
-    <link rel="stylesheet" href="css/i18n.css" type="text/css">
-    <script src="js/i18n.js"></script>{% endif %}
+    <link rel="stylesheet" href="/css/i18n.css" type="text/css">
+    <script src="/js/i18n.js"></script>{% endif %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,20 +82,23 @@
 {{ content }}
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/wow.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <script src="/js/wow.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
-    <script src="js/homepage-workshop-explorer.js"></script>
-    <script src="js/workshop-explorer.js"></script>
+    <script src="/js/creative.js"></script>
+    {% include explorer-data.html %}
+    <script src="/js/homepage-workshop-explorer.js"></script>
+    <script src="/js/region-page.js"></script>
+    <script src="/js/workshop-page-context.js"></script>
+    <script src="/js/plan-workshop-form.js"></script>
 
 </body>
 

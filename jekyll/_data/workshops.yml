@@ -1,5 +1,9 @@
 - slug: artificial-intelligence
   name: Artificial Intelligence
+  heading_label: Artificial Intelligence
+  explorer_label: Artificial Intelligence
+  explorer_summary: Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.
+  duration: 3-Hour Workshop
   description: Explore how AI learns, creates, and makes decisions through hands-on projects.
   image: img/poster1.jpg
   image_alt: Student-created artificial intelligence movie poster
@@ -17,6 +21,10 @@
 
 - slug: robotics-drone
   name: Robotics Drone
+  heading_label: Robotics
+  explorer_label: Robotics
+  explorer_summary: Build, program, test, and fly a working drone system through structured, engineer-led challenges.
+  duration: 3-Hour Workshop
   description: Build, program, test, and fly a working drone system.
   image: img/drone-circuit.png
   image_alt: Drone circuit used in the Robotics Drone workshop
@@ -34,6 +42,10 @@
 
 - slug: mechanical-engineering
   name: Mechanical Engineering
+  heading_label: Mechanical Engineering
+  explorer_label: Mechanical Engineering
+  explorer_summary: Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.
+  duration: 3-Hour Workshop
   description: Design a rocket using professional CAD software and explore rapid prototyping.
   image: img/rocket-assem-iso.png
   image_alt: Exploded view of a model rocket assembly
@@ -50,7 +62,11 @@
     - Rapid prototyping and 3D printing
 
 - slug: web-development
-  name: Web Development
+  name: Web Engineering
+  heading_label: Web Engineering
+  explorer_label: Web Engineering
+  explorer_summary: Design, build, and publish a live website while learning layout, content, and front-end development.
+  duration: 3-Hour Workshop
   description: Design, build, and publish a live website.
   image: img/ai-website-mockup.svg
   image_alt: Website interface created during the Web Development workshop

@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <!-- Navbar Header -->
         <div class="navbar-header">
-            <a href="index.html" class="nav-logo-link" aria-label="Stage One Education home">
-                <img id="logo" src="img/stageone-logo-orange-small.png" alt="Stage One Education">
+            <a href="/" class="nav-logo-link" aria-label="Stage One Education home">
+                <img id="logo" src="/img/stageone-logo-orange-small.png" alt="Stage One Education">
             </a>
             <div class="nav-mobile-actions">
                 {% if page.i18n %}
@@ -38,62 +38,61 @@
                         Workshops <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu nav-dropdown-menu">
-                        <li><a class="nav-dropdown-link" href="ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
-                        <li><a class="nav-dropdown-link" href="robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
-                        <li><a class="nav-dropdown-link" href="rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
-                        <li><a class="nav-dropdown-link" href="ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
+                        <li><a class="nav-dropdown-link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
+                        <li><a class="nav-dropdown-link" href="/robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
+                        <li><a class="nav-dropdown-link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
+                        <li><a class="nav-dropdown-link" href="/ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
                     </ul>
                 </li>
                 {% else %}
                 <li>
-                    <a href="index.html" class="nav-button-stageone" data-i18n="nav.home">Home</a>
+                    <a href="/" class="nav-button-stageone" data-i18n="nav.home">Home</a>
                 </li>
                 {% endif %}
                 <!-- Mobile: a clearly labeled workshop group, available on every page -->
                 <li class="nav-mobile-workshop-heading"><span>Workshops</span></li>
                 <li class="nav-mobile-workshop-item">
-                    <a href="ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+                    <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
                 </li>
                 <li class="nav-mobile-workshop-item">
-                    <a href="robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
+                    <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
                 </li>
                 <li class="nav-mobile-workshop-item">
-                    <a href="rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+                    <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
                 </li>
                 <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
-                    <a href="ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
+                    <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
                 </li>
                 <li>
-                    <a href="group.html" class="nav-button-stageone">
-                        Planning
+                    <a href="/group.html" class="nav-button-stageone">
+                        Explore
                     </a>
                 </li>
                 <li>
-                    <a href="locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                    <a href="/locations.html" class="nav-button-stageone" data-i18n="nav.locations">
                         Locations
                     </a>
                 </li>
                 <li>
-                    <a href="feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
+                    <a href="/feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
                         Feedback
                     </a>
                 </li>
                 <li>
-                    <a href="about-us.html" class="nav-button-stageone" data-i18n="nav.about">
+                    <a href="/about-us.html" class="nav-button-stageone" data-i18n="nav.about">
                         About
                     </a>
                 </li>
                 <!-- Plan a Workshop button -->
                 <li class="nav-plan-workshop">
-                    <a href="index.html?mode=plan&amp;source=header#workshop-finder" class="nav-plan-workshop-button"
-                        data-workshop-plan-link data-source="header">
+                    <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
+                        data-source="header">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
                 <li class="nav-workshops-access">
-                    <a href="workshops.html" class="nav-workshops-access-button"{% if page.url == '/workshops.html' %} aria-current="page"{% endif %}>
-                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <a href="/workshops.html" class="nav-workshops-access-button"{% if page.url == '/workshops.html' %} aria-current="page"{% endif %}>
                         <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>{% if page.i18n %}

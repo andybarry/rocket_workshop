@@ -1,0 +1,24 @@
+<section class="region-page__section" aria-labelledby="region-workshops-heading">
+  <h2 id="region-workshops-heading">{{ site.data.explorer_copy.workshop_cards_heading }}</h2>
+  <p>{{ site.data.explorer_copy.workshop_cards_support }}</p>
+  <div class="region-page__workshop-grid">
+    {% for workshop in site.data.workshops %}
+    <article class="region-page__workshop-card" data-workshop-card="{{ workshop.slug }}">
+      <span class="region-page__selected-label" hidden>
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ site.data.explorer_copy.selected_interest }}
+      </span>
+      <img src="/{{ workshop.image }}" alt="{{ workshop.image_alt }}" width="{{ workshop.image_width }}" height="{{ workshop.image_height }}" loading="lazy">
+      <h3>{{ workshop.name }}</h3>
+      <p>{{ workshop.explorer_summary }}</p>
+      <div class="region-page__meta">
+        <span>{{ workshop.duration }}</span>
+        <span>{{ site.data.explorer_copy.no_experience }}</span>
+      </div>
+      <a class="region-page__button" data-workshop-link="{{ workshop.slug }}" href="{{ workshop.detail_path }}">
+        View {{ workshop.name }} Workshop
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+</section>

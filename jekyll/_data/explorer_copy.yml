@@ -1,0 +1,43 @@
+section_heading: Find Your Workshop
+section_intro: Choose a region, then optionally refine the audience and workshop.
+reassurance: Every Stage One workshop can be adapted for every audience shown. Choose based on what your group is interested in exploring.
+clear_selections: Clear selections
+region_step_heading: 1. Where will your group be?
+region_step_support: Choose a region on the map or use the region buttons on mobile.
+audience_step_heading: 2. Who are you planning for?
+group_type_subheading: Planning context — optional
+workshop_step_heading: 3. What would your group like to explore?
+workshop_step_support: Every workshop can be adapted for every audience. Choose based on your group's interests.
+all_workshops_label: All Workshops
+international_label: International Group Visiting the USA
+default_heading: Choose a Region
+default_paragraph: Select a region on the map or use the region buttons to explore available Stage One workshops.
+default_button: Select a Region
+workshop_cards_heading: Explore Our Workshops
+workshop_cards_support: Every Stage One workshop can be adapted for every audience shown below. Choose the experience that most interests your group.
+selected_interest: Selected Interest
+audience_cards_heading: Designed Around Your Group
+audience_cards_support: Select an audience to see how the pacing, guidance, and technical depth can be adjusted. Every workshop remains available for every audience.
+audience_general_intro: Every Stage One workshop can be adapted for middle school, high school, college, adult, and mixed-age groups. Select an audience to see how the experience can be adjusted.
+clear_audience: Clear Audience Selection
+planning_heading: Ready to Bring a Workshop to Your Group?
+planning_body: Share your destination, anticipated date, group size, and workshop interests. Stage One will help coordinate the experience around your group’s itinerary, schedule, and venue.
+planning_prompt: Tell us which workshop interests your group.
+planning_button: Start Planning
+change_selections: Change Selections
+explore_other_regions: Explore Other Regions
+your_selections: Your Selections
+no_experience: No Experience Required
+delivery_facts:
+  - title: 3-Hour Workshops
+    text: Flexible morning, afternoon, or evening scheduling.
+    icon: fa-clock-o
+  - title: No Experience Required
+    text: Accessible to a wide range of experience levels.
+    icon: fa-star-o
+  - title: Instructors and Equipment Included
+    text: Stage One brings the instructor, equipment, materials, and curriculum.
+    icon: fa-briefcase
+  - title: Delivered to Your Venue
+    text: At a hotel, school, campus, conference room, or group venue.
+    icon: fa-map-marker

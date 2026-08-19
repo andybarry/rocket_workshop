@@ -1,0 +1,13 @@
+<script>
+window.StageOneExplorerData = {
+  regions: {{ site.data.regions | jsonify }},
+  audiences: {{ site.data.audiences | jsonify }},
+  groupTypes: {{ site.data.group_types | jsonify }},
+  workshops: {{ site.data.workshops | jsonify }},
+  copy: {{ site.data.explorer_copy | jsonify }}
+};
+</script>
+<script src="/js/query-validation.js"></script>
+<script src="/js/selection-urls.js"></script>
+<script src="/js/explorer-copy.js"></script>
+<script src="/js/explorer-state.js"></script>

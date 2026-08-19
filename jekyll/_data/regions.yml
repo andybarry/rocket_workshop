@@ -1,0 +1,215 @@
+- id: northeast-mid-atlantic
+  slug: northeast-mid-atlantic
+  kind: us
+  label: Northeast & Mid-Atlantic
+  short_label: Northeast & Mid-Atlantic
+  location_phrase: in the Northeast & Mid-Atlantic
+  venue_phrase: throughout the Northeast & Mid-Atlantic
+  cta_label: Explore Northeast & Mid-Atlantic Workshops
+  hero_label: NORTHEAST & MID-ATLANTIC
+  hero_title: Hands-On Engineering Workshops in the Northeast & Mid-Atlantic
+  hero_intro: Add a complete, hands-on engineering experience to student travel throughout the Northeast and Mid-Atlantic. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.
+  itinerary_heading: Add Hands-On Engineering to the Itinerary
+  itinerary_copy: The Northeast and Mid-Atlantic support itineraries shaped by historic cities, universities, museums, government and civic institutions, science, and technology. A Stage One workshop gives students time to move from observing ideas to applying engineering themselves. It can serve as a focused morning or afternoon program, an evening hotel experience, or a hands-on complement to the educational destinations already included in the trip.
+  themes:
+    - Historic Cities
+    - Universities
+    - Museums
+    - Government & Civic Learning
+    - Science & Technology
+    - Innovation
+  map_states:
+    - ME
+    - NH
+    - VT
+    - MA
+    - RI
+    - CT
+    - NY
+    - NJ
+    - PA
+    - DE
+    - MD
+    - DC
+    - VA
+    - WV
+  map_viewbox: "535 18 424 430"
+  image_src: /img/regions/northeast-mid-atlantic.webp
+  image_alt: Editorial collage of Northeast and Mid-Atlantic architecture, campuses, harbors, and a regional map silhouette
+  seo_title: Engineering Workshops in the Northeast & Mid-Atlantic | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Northeast and Mid-Atlantic.
+
+- id: southeast
+  slug: southeast
+  kind: us
+  label: Southeast
+  short_label: Southeast
+  location_phrase: in the Southeast
+  venue_phrase: throughout the Southeast
+  cta_label: Explore Southeast Workshops
+  hero_label: SOUTHEAST
+  hero_title: Hands-On Engineering Workshops in the Southeast
+  hero_intro: Add a complete, hands-on engineering experience to student travel throughout the Southeast. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.
+  itinerary_heading: Add Hands-On Engineering to the Itinerary
+  itinerary_copy: The Southeast supports itineraries built around space exploration, theme parks, universities, science centers, coastal destinations, and outdoor learning. A Stage One workshop gives students an opportunity to stop observing and start engineering. It can become a focused program block, an evening hotel activity, or a hands-on complement to the attractions, institutions, and experiences already included in the trip.
+  themes:
+    - Space & Aerospace
+    - Theme Parks & Design
+    - Universities
+    - Science Centers
+    - Coastal Destinations
+    - Outdoor Learning
+  map_states:
+    - NC
+    - SC
+    - GA
+    - FL
+    - AL
+    - MS
+    - TN
+    - KY
+  map_viewbox: "455 185 455 390"
+  image_src: /img/regions/southeast.webp
+  image_alt: Editorial collage of Southeast space, coastal, campus, and engineering motifs with a regional map outline
+  seo_title: Engineering Workshops in the Southeast | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Southeast.
+
+- id: midwest-south-central
+  slug: midwest-south-central
+  kind: us
+  label: Midwest & South Central
+  short_label: Midwest & South Central
+  location_phrase: across the Midwest & South Central
+  venue_phrase: across the Midwest and South Central United States
+  cta_label: Explore Midwest & South Central Workshops
+  hero_label: MIDWEST & SOUTH CENTRAL
+  hero_title: Hands-On Engineering Workshops Across the Midwest & South Central
+  hero_intro: Bring a complete, instructor-led engineering experience to student groups traveling across the Midwest and South Central United States. Stage One delivers the equipment, materials, curriculum, and instructor directly to your group’s venue.
+  itinerary_heading: Add Hands-On Engineering to the Itinerary
+  itinerary_copy: The region brings together manufacturing, aerospace, energy, universities, science museums, engineering centers, and major city destinations. A Stage One workshop gives students an active experience that connects naturally with these wider themes. Groups can build the workshop into a campus visit, educational travel program, conference schedule, or hotel-based itinerary without needing a dedicated laboratory or permanent classroom.
+  themes:
+    - Engineering & Manufacturing
+    - Aerospace
+    - Energy
+    - Universities
+    - Science Museums
+    - Major Cities
+  map_states:
+    - OH
+    - MI
+    - IN
+    - IL
+    - WI
+    - MN
+    - IA
+    - MO
+    - ND
+    - SD
+    - NE
+    - KS
+    - OK
+    - TX
+    - AR
+    - LA
+  map_viewbox: "300 45 510 520"
+  image_src: /img/regions/midwest-south-central.webp
+  image_alt: Editorial collage of Midwest and South Central manufacturing, aerospace, campus, and city forms with a regional map silhouette
+  seo_title: Engineering Workshops Across the Midwest & South Central | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues across the Midwest and South Central United States.
+
+- id: mountain-west
+  slug: mountain-west
+  kind: us
+  label: Mountain West
+  short_label: Mountain West
+  location_phrase: in the Mountain West
+  venue_phrase: throughout the Mountain West
+  cta_label: Explore Mountain West Workshops
+  hero_label: MOUNTAIN WEST
+  hero_title: Hands-On Engineering Workshops in the Mountain West
+  hero_intro: Add a practical engineering experience to student programs throughout the Mountain West. Stage One brings the complete three-hour workshop directly to your hotel, school, campus, or group venue.
+  itinerary_heading: Add Hands-On Engineering to the Itinerary
+  itinerary_copy: The Mountain West supports itineraries centered on aerospace, research, geology, technology, universities, and extraordinary natural landscapes. A Stage One workshop adds a collaborative indoor experience that can be scheduled alongside campus visits, science programs, outdoor learning, and regional exploration. Students work directly with engineering ideas while Stage One manages the equipment, materials, instruction, and setup.
+  themes:
+    - Aerospace
+    - Research & Technology
+    - Geology
+    - Universities
+    - Natural Landscapes
+    - Outdoor Learning
+  map_states:
+    - MT
+    - ID
+    - WY
+    - CO
+    - NM
+    - AZ
+    - UT
+    - NV
+  map_viewbox: "105 25 455 510"
+  image_src: /img/regions/mountain-west.webp
+  image_alt: Editorial collage of Mountain West landscapes, aerospace motifs, and research forms with a regional map silhouette
+  seo_title: Engineering Workshops in the Mountain West | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Mountain West.
+
+- id: west-coast
+  slug: west-coast
+  kind: us
+  label: West Coast
+  short_label: West Coast
+  location_phrase: on the West Coast
+  venue_phrase: on the West Coast
+  cta_label: Explore West Coast Workshops
+  hero_label: WEST COAST
+  hero_title: Hands-On Engineering Workshops on the West Coast
+  hero_intro: Build a complete engineering experience into student travel on the West Coast. Stage One brings the instructor, equipment, materials, and curriculum directly to hotels, schools, campuses, and group venues.
+  itinerary_heading: Add Hands-On Engineering to the Itinerary
+  itinerary_copy: The West Coast brings together technology, aerospace, universities, science, design, entertainment, media, and coastal destinations. A Stage One workshop gives students an active way to engage with the ideas surrounding the wider trip. The experience can complement campus visits, technology-focused programs, science attractions, creative destinations, or educational travel itineraries while remaining easy to schedule at the group’s own venue.
+  themes:
+    - Technology
+    - Aerospace
+    - Universities
+    - Science & Design
+    - Entertainment & Media
+    - Pacific Coast
+  map_states:
+    - WA
+    - OR
+    - CA
+    - AK
+    - HI
+  map_viewbox: "0 20 455 573"
+  image_src: /img/regions/west-coast.webp
+  image_alt: Editorial collage of West Coast technology, aerospace, campus, and coastal forms with a regional map silhouette
+  seo_title: Engineering Workshops on the West Coast | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues on the West Coast.
+
+- id: international
+  slug: international
+  kind: international
+  label: International Group Visiting the USA
+  short_label: International Groups
+  location_phrase: for International Groups Visiting the USA
+  venue_phrase: during your group’s United States itinerary
+  cta_label: Explore Workshops for International Groups
+  hero_label: INTERNATIONAL GROUPS
+  hero_title: Hands-On Engineering Workshops for International Groups Visiting the USA
+  hero_intro: Add a complete, instructor-led engineering experience to your group’s United States itinerary. Stage One coordinates with tour providers, schools, and group leaders and brings the equipment, materials, curriculum, and instructor directly to the group’s hotel, campus, school, or venue.
+  itinerary_heading: Easy to Build Into a U.S. Educational Itinerary
+  itinerary_copy: Stage One workshops give international students an opportunity to take part in a practical engineering experience while traveling in the United States. The complete three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and the workshop can be adapted for middle school, high school, college, adult, or mixed-age participants.
+  themes: []
+  map_states: []
+  map_viewbox: "0 0 959 593"
+  image_src: /img/regions/international.webp
+  image_alt: Editorial illustration of an educational itinerary in the United States with campus, hotel, and engineering motifs
+  seo_title: Engineering Workshops for International Groups Visiting the USA | Stage One Education
+  seo_description: Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel.
+  support_cards:
+    - title: Delivered to Your Group
+      text: At a hotel, school, campus, conference room, or group venue.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening options can be coordinated around the itinerary.
+    - title: Complete Workshop Delivery
+      text: Instructor, equipment, materials, curriculum, and setup are included.
+    - title: Clear, Accessible Experience
+      text: No prior experience is required, and instruction can be adjusted for the group.

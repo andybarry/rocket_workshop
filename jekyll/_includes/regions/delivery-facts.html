@@ -1,0 +1,11 @@
+<section class="region-page__section" aria-label="Workshop delivery facts">
+  <ul class="region-page__facts">
+    {% for fact in site.data.explorer_copy.delivery_facts %}
+    <li class="region-page__fact">
+      <i class="fa {{ fact.icon }}" aria-hidden="true"></i>
+      <h3>{{ fact.title }}</h3>
+      <p>{{ fact.text }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

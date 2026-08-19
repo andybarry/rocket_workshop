@@ -1,0 +1,51 @@
+---
+layout: default
+---
+{% assign region = site.data.regions | where: "id", page.region_id | first %}
+<body class="region-page" data-region-page data-region-id="{{ region.id }}">
+  {% include navigation.html %}
+
+  <main>
+    <div class="region-page__section" style="padding-bottom: 0;">
+      <a class="region-page__return" data-change-selections href="/#find-your-workshop">
+        ← {{ site.data.explorer_copy.explore_other_regions }}
+      </a>
+    </div>
+
+    {% include regions/region-hero.html region=region %}
+    {% include regions/region-selection-summary.html region=region %}
+    {% include regions/delivery-facts.html %}
+
+    {% if region.kind == "international" %}
+      {% include regions/international-support.html region=region %}
+    {% else %}
+      {% include regions/regional-itinerary.html region=region %}
+    {% endif %}
+
+    {% include regions/workshop-card-grid.html %}
+    {% include regions/audience-explorer.html %}
+    {% include regions/planning-cta.html %}
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://stageoneeducation.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ region.short_label | jsonify }},
+        "item": "https://stageoneeducation.com{{ page.url }}"
+      }
+    ]
+  }
+  </script>
+
+  {% include copyright.html %}

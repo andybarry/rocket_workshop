@@ -1,0 +1,24 @@
+<section class="region-page__section" aria-labelledby="region-audience-heading">
+  <h2 id="region-audience-heading">{{ site.data.explorer_copy.audience_cards_heading }}</h2>
+  <p>{{ site.data.explorer_copy.audience_cards_support }}</p>
+  <div class="region-page__audience-grid" role="group" aria-label="Audience">
+    {% for audience in site.data.audiences %}
+    <button type="button" class="region-page__audience-button"
+      id="audience-tab-{{ audience.id }}"
+      data-audience-button="{{ audience.id }}"
+      aria-pressed="false"
+      aria-expanded="false"
+      aria-controls="region-audience-panel">
+      {{ audience.label }}
+    </button>
+    {% endfor %}
+  </div>
+  <button type="button" class="workshop-explorer__clear" data-clear-audience>
+    {{ site.data.explorer_copy.clear_audience }}
+  </button>
+  <div class="region-page__audience-panel" id="region-audience-panel" aria-live="polite">
+    <h3 data-audience-panel-title>Every audience</h3>
+    <p data-audience-panel-detail>{{ site.data.explorer_copy.audience_general_intro }}</p>
+    <p data-audience-panel-availability></p>
+  </div>
+</section>
