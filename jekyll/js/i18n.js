@@ -23,7 +23,9 @@
     var DEFAULT_LANG = 'en';
     var PENDING_CLASS = 'i18n-pending';
     var REVEAL_TIMEOUT_MS = 1500;
-    var DICT_PATH = 'i18n/';
+    // Dictionaries live at the site root. An absolute path is required for
+    // nested generated pages such as /workshops/orlando/.
+    var DICT_PATH = '/i18n/';
 
     /* Single source of truth for the language list. The nav dropdown is built
        from this at runtime so the markup stays ASCII and cannot drift. */

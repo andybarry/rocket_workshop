@@ -18,6 +18,41 @@
     - Neural networks and how AI learns
     - Creative model behavior and decision-making
     - Responsible AI, bias, and ethics
+  # Discovery landing page (/workshops/artificial-intelligence/)
+  landing_slug: artificial-intelligence
+  landing_headline: Artificial Intelligence Workshops
+  landing_intro: >-
+    Students explore how AI learns, creates, and makes decisions — training
+    neural networks, working with the latest AI models, and debating the
+    ethics of the technology shaping their world. Led by a real engineer,
+    delivered to your venue.
+  landing_supporting_copy:
+    - >-
+      The workshop moves from how neural networks actually learn, through
+      hands-on sessions with text, image, and music models, to a structured
+      discussion of AI ethics and bias. Students leave understanding AI from
+      the inside rather than as a black box.
+    - >-
+      No previous experience is required. Instructors adjust the technical
+      depth from middle school through adult groups, and the complete
+      three-hour experience is delivered to your hotel, school, campus, or
+      group venue.
+  landing_facts:
+    - title: Train Real Neural Networks
+      text: Students see how AI actually learns, hands-on.
+    - title: Latest AI Models
+      text: Text, image, and music generation in guided sessions.
+    - title: Ethics Discussion
+      text: A structured debate on bias, safety, and responsible AI.
+  landing_cta_heading: Ready to Bring Artificial Intelligence to Your Group?
+  landing_cta_copy: >-
+    Share your destination, dates, and group size. Stage One will coordinate
+    the AI workshop around your program.
+  landing_seo_title: Artificial Intelligence Workshops | Stage One Education
+  landing_seo_description: >-
+    Hands-on AI workshops where student groups train neural networks, use the
+    latest AI models, and debate AI ethics. Delivered to hotels, schools, and
+    venues nationwide.
 
 - slug: robotics-drone
   name: Robotics Drone
@@ -39,6 +74,39 @@
     - Electronics, circuits, and microcontrollers
     - Coding and troubleshooting a working system
     - Programming autonomous drone flight
+  # Discovery landing page (/workshops/robotics/)
+  landing_slug: robotics
+  landing_headline: Robotics Workshops
+  landing_intro: >-
+    Students build, program, test, and fly a working drone system — wiring
+    circuits, writing code, and programming autonomous flight through
+    structured, engineer-led challenges delivered to your venue.
+  landing_supporting_copy:
+    - >-
+      The workshop connects electronics, microcontrollers, and coding into one
+      working system that students control themselves. Troubleshooting is part
+      of the experience: when something doesn't fly, students find out why and
+      fix it.
+    - >-
+      No previous experience is required. All electronics are low voltage,
+      safety equipment is provided, and the complete three-hour experience is
+      delivered to your hotel, school, campus, or group venue.
+  landing_facts:
+    - title: Fly Mini Drones
+      text: Students pilot and program real drone flight.
+    - title: Build the Circuit
+      text: Hands-on electronics and microcontroller wiring.
+    - title: Code Autonomy
+      text: Program the drone to fly on its own.
+  landing_cta_heading: Ready to Bring Robotics to Your Group?
+  landing_cta_copy: >-
+    Share your destination, dates, and group size. Stage One will coordinate
+    the robotics workshop around your program.
+  landing_seo_title: Robotics Workshops | Stage One Education
+  landing_seo_description: >-
+    Hands-on robotics workshops where student groups build circuits, write
+    code, and fly drones autonomously. Delivered to hotels, schools, and
+    venues nationwide.
 
 - slug: mechanical-engineering
   name: Mechanical Engineering
@@ -60,6 +128,40 @@
     - Engineering design and professional CAD
     - Multi-part models and assemblies
     - Rapid prototyping and 3D printing
+  # Discovery landing page (/workshops/mechanical-engineering/)
+  landing_slug: mechanical-engineering
+  landing_headline: Mechanical Engineering Workshops
+  landing_intro: >-
+    Students design a multi-part model rocket in professional CAD software and
+    explore rapid prototyping and 3D printing — the same tools and process
+    real engineers use, with no prior CAD experience required.
+  landing_supporting_copy:
+    - >-
+      Guided step by step by an engineer, every student designs their own
+      rocket from nose cone to fins, learns how multi-part assemblies fit
+      together, and sees how designs become physical objects through 3D
+      printing.
+    - >-
+      The workshop consistently reaches students who have never opened a CAD
+      program before — by the end of three hours they have designed a complete
+      engineering model themselves. Delivered to your hotel, school, campus,
+      or group venue.
+  landing_facts:
+    - title: Professional CAD
+      text: The same software used by working engineers.
+    - title: Complete Design
+      text: Every student designs a full multi-part rocket.
+    - title: Rapid Prototyping
+      text: See designs become real through 3D printing.
+  landing_cta_heading: Ready to Bring Mechanical Engineering to Your Group?
+  landing_cta_copy: >-
+    Share your destination, dates, and group size. Stage One will coordinate
+    the mechanical engineering workshop around your program.
+  landing_seo_title: Mechanical Engineering Workshops | Stage One Education
+  landing_seo_description: >-
+    Hands-on mechanical engineering workshops where student groups design
+    rockets in professional CAD and explore 3D printing. Delivered to hotels,
+    schools, and venues nationwide.
 
 - slug: web-development
   name: Web Engineering
@@ -81,3 +183,36 @@
     - Website layout and front-end development
     - HTML, CSS, and AI-assisted coding
     - Publishing a live website
+  # Discovery landing page (/workshops/web-engineering/)
+  landing_slug: web-engineering
+  landing_headline: AI Website & Web Engineering Workshops
+  landing_intro: >-
+    Students design, build, and publish a live website — learning layout,
+    front-end development, and modern AI-assisted coding, then putting their
+    work on the real web before the session ends.
+  landing_supporting_copy:
+    - >-
+      The workshop combines the fundamentals of HTML, CSS, and page structure
+      with the way software is actually built today: alongside an AI coding
+      assistant. Students leave with a live site they created and the link to
+      prove it.
+    - >-
+      No previous coding experience is required. Instructors adjust the pace
+      from middle school through adult groups, and the complete three-hour
+      experience is delivered to your hotel, school, campus, or group venue.
+  landing_facts:
+    - title: Publish for Real
+      text: Every student's website goes live on the web.
+    - title: AI-Assisted Coding
+      text: Build the way modern engineers actually work.
+    - title: No Experience Needed
+      text: From first HTML tag to live site in three hours.
+  landing_cta_heading: Ready to Bring Web Engineering to Your Group?
+  landing_cta_copy: >-
+    Share your destination, dates, and group size. Stage One will coordinate
+    the web engineering workshop around your program.
+  landing_seo_title: AI Website & Web Engineering Workshops | Stage One Education
+  landing_seo_description: >-
+    Hands-on web engineering workshops where student groups build and publish
+    live websites with AI-assisted coding. Delivered to hotels, schools, and
+    venues nationwide.

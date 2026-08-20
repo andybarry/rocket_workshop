@@ -1,0 +1,13 @@
+{% assign copy = site.data.discovery.copy %}
+<section class="discovery-section discovery-delivery" aria-labelledby="discovery-delivery-heading">
+  <h2 id="discovery-delivery-heading" class="discovery-section__heading">{{ copy.delivery_heading }}</h2>
+  <ul class="discovery-delivery__grid">
+    {% for fact in site.data.explorer_copy.delivery_facts %}
+    <li>
+      <i class="fa {{ fact.icon }}" aria-hidden="true"></i>
+      <strong>{{ fact.title }}</strong>
+      <span>{{ fact.text }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

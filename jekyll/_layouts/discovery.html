@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{% assign entry = page.entry %}
+{% assign copy = site.data.discovery.copy %}
+<body class="discovery-page" data-discovery-page
+  data-discovery-category="{{ page.discovery_category }}"
+  data-discovery-id="{{ entry.context_id }}"
+  data-discovery-name="{{ entry.short_label | escape }}">
+  {% include navigation.html %}
+
+  <main class="discovery-main">
+    {% include discovery/back-link.html %}
+    {% include discovery/selection-header.html %}
+
+    {% include discovery/plan-cta.html %}
+
+    <div class="discovery-footer-options">
+      {% include discovery/available-options.html %}
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://stageoneeducation.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ entry.short_label | jsonify }},
+        "item": "https://stageoneeducation.com{{ page.url }}"
+      }
+    ]
+  }
+  </script>
+
+  {% include plan-workshop-modal.html %}
+  {% include copyright.html %}

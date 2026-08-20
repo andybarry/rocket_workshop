@@ -1,0 +1,9 @@
+{% assign entry = page.entry %}
+{% assign copy = site.data.discovery.copy %}
+<section class="discovery-section discovery-plan" aria-labelledby="discovery-plan-heading">
+  <h2 id="discovery-plan-heading" class="discovery-plan__heading">{{ entry.cta_heading | default: "Ready to Plan a Workshop?" }}</h2>
+  <p class="discovery-plan__copy">{{ entry.cta_copy | default: "Share your destination, group details, and schedule. Stage One will help plan the workshop." }}</p>
+  <button type="button" class="discovery-plan-button discovery-plan-button--large" data-plan-workshop-open data-plan-source="landing_footer">
+    <i class="fa fa-calendar" aria-hidden="true"></i>{{ copy.plan_cta_label }}
+  </button>
+</section>

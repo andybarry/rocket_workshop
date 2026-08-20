@@ -1,0 +1,14 @@
+{% assign client_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+<script>
+window.StageOneDiscoveryData = {
+  cities: {{ client_cities | jsonify }},
+  audiences: {{ site.data.discovery.audiences | jsonify }},
+  groupTypes: {{ site.data.discovery.group_types | jsonify }},
+  workshops: {{ site.data.workshops | jsonify }},
+  copy: {{ site.data.discovery.copy | jsonify }}
+};
+</script>
+<script src="/js/query-validation.js"></script>
+<script src="/js/selection-urls.js"></script>
+<script src="/js/explorer-copy.js"></script>
+<script src="/js/explorer-state.js"></script>

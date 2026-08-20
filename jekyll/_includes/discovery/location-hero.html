@@ -1,0 +1,18 @@
+{% assign entry = page.entry %}
+{% comment %}
+  Reusable city visual treatment. The `visual` key on the city entry selects
+  the artwork: cities with bespoke artwork get their own SVG include under
+  discovery/city-visuals/; everything else uses the default treatment.
+{% endcomment %}
+<section class="discovery-location-hero discovery-location-hero--{{ entry.visual }}" aria-hidden="true">
+  <div class="discovery-location-hero__inner">
+    <span class="discovery-location-hero__wordmark">{{ entry.short_label }}</span>
+    <span class="discovery-location-hero__tagline">Engineering &middot; Student Travel &middot; Stage One Education</span>
+  </div>
+  <div class="discovery-location-hero__art">
+    {% case entry.visual %}
+    {% when "boston" %}{% include discovery/city-visuals/boston.svg %}
+    {% else %}{% include discovery/city-visuals/default.svg %}
+    {% endcase %}
+  </div>
+</section>

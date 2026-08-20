@@ -1,0 +1,37 @@
+<svg class="discovery-cityline" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+  <g fill="none" stroke="#434343" stroke-opacity="0.3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Abstract skyline -->
+    <path d="M90 184 l0 -56 l40 0 l0 56"/>
+    <path d="M100 128 l0 56 M110 128 l0 56 M120 128 l0 56"/>
+    <path d="M170 184 l0 -90 l34 0 l0 90"/>
+    <path d="M178 102 l18 0 M178 120 l18 0 M178 138 l18 0 M178 156 l18 0"/>
+    <path d="M244 184 l0 -120 l42 0 l0 120"/>
+    <path d="M254 64 l0 120 M265 64 l0 120 M276 64 l0 120"/>
+    <path d="M326 184 l0 -70 l36 0 l0 70"/>
+    <path d="M344 114 l0 -18" />
+    <path d="M402 184 l0 -104 l38 0 l0 104"/>
+    <path d="M410 88 l22 0 M410 106 l22 0 M410 124 l22 0 M410 142 l22 0 M410 160 l22 0"/>
+    <path d="M480 184 l0 -60 l48 0 l0 60"/>
+    <path d="M492 124 a12 12 0 0 1 24 0"/>
+    <path d="M568 184 l0 -132 l40 12 l0 120"/>
+    <path d="M568 84 l40 10 M568 116 l40 8 M568 148 l40 6"/>
+    <path d="M648 184 l0 -84 l32 0 l0 84"/>
+    <path d="M656 108 l16 0 M656 126 l16 0 M656 144 l16 0 M656 162 l16 0"/>
+    <path d="M720 184 l0 -110 l30 0 l0 110"/>
+    <path d="M726 74 l9 -20 l9 20"/>
+    <path d="M790 184 l0 -66 l44 0 l0 66"/>
+    <path d="M801 118 l0 66 M812 118 l0 66 M823 118 l0 66"/>
+    <path d="M874 184 l0 -94 l36 0 l0 94"/>
+    <path d="M882 98 l20 0 M882 118 l20 0 M882 138 l20 0 M882 158 l20 0"/>
+    <!-- Rocket: engineering motif -->
+    <path d="M985 184 l0 -30" stroke="#f05f40" stroke-opacity="0.85"/>
+    <path d="M985 154 a18 34 0 0 1 0 -62 a18 34 0 0 1 0 62 z" stroke="#f05f40" stroke-opacity="0.85"/>
+    <path d="M973 146 l-10 14 l10 0 M997 146 l10 14 l-10 0" stroke="#f05f40" stroke-opacity="0.85"/>
+    <!-- Small gear -->
+    <circle cx="1080" cy="152" r="14" stroke="#f05f40" stroke-opacity="0.85"/>
+    <circle cx="1080" cy="152" r="5" stroke="#f05f40" stroke-opacity="0.85"/>
+    <path d="M1080 132 l0 -7 M1080 172 l0 7 M1060 152 l-7 0 M1100 152 l7 0" stroke="#f05f40" stroke-opacity="0.85"/>
+    <!-- Ground line -->
+    <path d="M24 184 l1152 0" stroke-opacity="0.5"/>
+  </g>
+</svg>

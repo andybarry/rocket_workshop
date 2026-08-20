@@ -1,5 +1,6 @@
 ---
 layout: default
+permalink: /locations/
 title: Locations | STAGE ONE EDUCATION
 i18n: true
 i18n_key: locations
@@ -58,19 +59,14 @@ i18n_key: locations
 
     <!-- Large box containing location boxes, map, and "other locations available upon request" -->
     <div class="locations-content-box" style="border: 1px solid #d0d0d0; background-color: white; padding: 24px; border-radius: 12px; max-width: 1040px; margin: 20px auto;">
-        <!-- Cities in alphabetical order, each in its own styled box -->
+        <!-- Cities from _data/discovery/cities.yml, each linking to its landing page -->
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 0;">
-            <div class="location-item">Ann Arbor, MI</div>
-            <div class="location-item">Atlanta, GA</div>
-            <div class="location-item">Berkeley, CA</div>
-            <div class="location-item">Boston, MA (HQ)</div>
-            <div class="location-item">Denver, CO</div>
-            <div class="location-item">Houston, TX</div>
-            <div class="location-item">Los Angeles, CA</div>
-            <div class="location-item">New Haven, CT</div>
-            <div class="location-item">Orlando, FL</div>
-            <div class="location-item">San Francisco, CA</div>
-            <div class="location-item">Washington, D.C.</div>
+            {% assign location_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+            {% for city in location_cities %}
+            {% unless city.slug == "other-us-cities" %}
+            <a class="location-item" href="/locations/{{ city.slug }}/" style="cursor: pointer !important; text-decoration: none; color: inherit;">{{ city.name }}{% if city.slug == "boston" %} (HQ){% endif %}</a>
+            {% endunless %}
+            {% endfor %}
         </div>
 
         <!-- Map image -->
@@ -79,7 +75,7 @@ i18n_key: locations
                 Other locations available upon request
             </p>
             <div style="display: inline-block; padding: 0 16px 0 16px;">
-                <img src="img/location-map-2026.png" alt="Map" style="width: 600px; max-width: 100%; height: auto; border-radius: 8px; display: block;" data-i18n-alt="locations.mapAlt" />
+                <img src="/img/location-map-2026.png" alt="Map" style="width: 600px; max-width: 100%; height: auto; border-radius: 8px; display: block;" data-i18n-alt="locations.mapAlt" />
             </div>
         </div>
 
@@ -89,18 +85,18 @@ i18n_key: locations
         <!-- Scrolling room images with left/right fade (same as home page) -->
         <div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 20px; max-width: 100%; white-space: nowrap; position: relative;">
             <div class="scroll-container">
-                <img src="img/room1.png" alt="Room 1" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room2.png" alt="Room 2" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room3.png" alt="Room 3" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room4.png" alt="Room 4" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room5.png" alt="Room 5" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room1.png" alt="Room 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room2.png" alt="Room 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room3.png" alt="Room 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room4.png" alt="Room 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room5.png" alt="Room 5" class="scroll-image" style="margin-right: 40px;">
 
                 <!-- Duplicate images for smooth continuous scroll effect -->
-                <img src="img/room1.png" alt="Room 1" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room2.png" alt="Room 2" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room3.png" alt="Room 3" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room4.png" alt="Room 4" class="scroll-image" style="margin-right: 40px;">
-                <img src="img/room5.png" alt="Room 5" class="scroll-image">
+                <img src="/img/room1.png" alt="Room 1" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room2.png" alt="Room 2" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room3.png" alt="Room 3" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room4.png" alt="Room 4" class="scroll-image" style="margin-right: 40px;">
+                <img src="/img/room5.png" alt="Room 5" class="scroll-image">
             </div>
         </div>
     </div>

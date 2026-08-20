@@ -1,0 +1,146 @@
+{% comment %}
+  Shared Plan a Workshop form, used by the /plan-a-workshop/ page and the
+  Plan a Workshop modal. Parameters:
+    include.form_id — id for the <form> element (must be unique per page)
+{% endcomment %}
+<form id="{{ include.form_id | default: "plan-workshop-form" }}" data-plan-workshop-form novalidate>
+  <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+  <h3>Contact information</h3>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Your name <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">Enter your name.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Work email <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">Enter a valid work email.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Phone number, optional</span>
+    <input class="plan-workshop-field__control" type="tel" name="phone" autocomplete="tel" inputmode="tel">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Organization, school, or tour provider</span>
+    <input class="plan-workshop-field__control" type="text" name="organization" autocomplete="organization">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Your role, optional</span>
+    <input class="plan-workshop-field__control" type="text" name="role">
+  </label>
+
+  <h3>Group information</h3>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Planning for</span>
+    <select class="plan-workshop-field__control" name="groupType">
+      <option value="">Select a group type</option>
+      {% for group in site.data.discovery.group_types %}
+      <option value="{{ group.id }}">{{ group.label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Audience</span>
+    <select class="plan-workshop-field__control" name="audience">
+      <option value="">Select an audience</option>
+      {% for audience in site.data.discovery.audiences %}
+      <option value="{{ audience.id }}">{{ audience.label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Estimated number of participants</span>
+    <input class="plan-workshop-field__control" type="number" name="participantCount" min="1" inputmode="numeric">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Number of accompanying adults, optional</span>
+    <input class="plan-workshop-field__control" type="number" name="accompanyingAdults" min="0" inputmode="numeric">
+  </label>
+  <div data-international-fields hidden>
+    <label class="plan-workshop-field">
+      <span class="plan-workshop-field__label">Country the group is traveling from</span>
+      <input class="plan-workshop-field__control" type="text" name="countryOfOrigin">
+    </label>
+    <label class="plan-workshop-field">
+      <span class="plan-workshop-field__label">U.S. destination or destinations</span>
+      <input class="plan-workshop-field__control" type="text" name="usDestinations">
+    </label>
+    <label class="plan-workshop-field">
+      <span class="plan-workshop-field__label">Tour provider or coordinating organization</span>
+      <input class="plan-workshop-field__control" type="text" name="tourProvider">
+    </label>
+    <label class="plan-workshop-field">
+      <span class="plan-workshop-field__label">Primary language, optional</span>
+      <input class="plan-workshop-field__control" type="text" name="primaryLanguage">
+    </label>
+  </div>
+
+  <h3>Destination and schedule</h3>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Destination city</span>
+    <select class="plan-workshop-field__control" name="city">
+      <option value="">Select a city</option>
+      {% assign form_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+      {% for city in form_cities %}
+      <option value="{{ city.slug }}">{{ city.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Destination, if not listed above</span>
+    <input class="plan-workshop-field__control" type="text" name="destinationCity">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Anticipated date</span>
+    <input class="plan-workshop-field__control" type="date" name="preferredDate">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Date range, if exact date is unknown</span>
+    <input class="plan-workshop-field__control" type="text" name="dateRange" placeholder="For example, March 16–20">
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Preferred time of day, optional</span>
+    <select class="plan-workshop-field__control" name="preferredTime">
+      <option value="">Select a time</option>
+      <option value="Morning">Morning</option>
+      <option value="Afternoon">Afternoon</option>
+      <option value="Evening">Evening</option>
+    </select>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Venue type, optional</span>
+    <input class="plan-workshop-field__control" type="text" name="venueType" placeholder="Hotel, school, campus, or group venue">
+  </label>
+
+  <fieldset class="plan-workshop-field">
+    <legend class="plan-workshop-field__label">Which workshops interest your group?</legend>
+    <div class="plan-workshop-checkboxes">
+      {% for workshop in site.data.workshops %}
+      <label>
+        <input type="checkbox" name="workshops" value="{{ workshop.slug }}">
+        <span>{{ workshop.name }}</span>
+      </label>
+      {% endfor %}
+      <label>
+        <input type="checkbox" name="workshops" value="multiple">
+        <span>Interested in multiple workshops</span>
+      </label>
+      <label>
+        <input type="checkbox" name="workshops" value="exploring">
+        <span>Still exploring</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">What should we know about your group or itinerary?</span>
+    <textarea class="plan-workshop-field__control" name="notes" rows="4"></textarea>
+  </label>
+
+  <button type="submit" class="plan-workshop-page__submit">Send Workshop Details</button>
+  <p class="plan-workshop-page__privacy">
+    Submitting this form opens your email application. Personal information is not placed in the website URL.
+    See the <a href="/privacy.html">privacy policy</a>.
+  </p>
+</form>

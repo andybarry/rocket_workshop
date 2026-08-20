@@ -1,0 +1,207 @@
+# Audience options for the "Find Your Workshop" discovery experience.
+# Each entry drives an option in the homepage Audience card and a generated
+# landing page at /workshops/{id}/. Edit this file to change audiences —
+# no template edits are required.
+
+- id: middle-school
+  label: Middle School
+  short_label: Middle School
+  headline: Engineering Workshops for Middle School Groups
+  intro: >-
+    Middle school students do real engineering from the first minute.
+    Structured guidance, clear explanations, and regular hands-on milestones
+    keep every student actively involved — no previous experience required.
+  supporting_copy:
+    - >-
+      Instructors introduce technical concepts in accessible language and keep
+      the group moving through collaborative challenges. Every Stage One
+      workshop — Artificial Intelligence, Robotics, Mechanical Engineering,
+      and Web Engineering — is available for middle school groups.
+    - >-
+      The workshop is delivered directly to your school, hotel, campus, or
+      group venue. Stage One brings the instructor, equipment, materials, and
+      curriculum, and handles setup and cleanup.
+  facts:
+    - title: No Experience Needed
+      text: Concepts are introduced in accessible language with structured guidance.
+    - title: Hands-On Milestones
+      text: Regular build-and-test moments keep every student engaged.
+    - title: All Workshops Available
+      text: Every Stage One workshop adapts for middle school groups.
+  cta_heading: Ready to Plan a Middle School Workshop?
+  cta_copy: >-
+    Share your group size, destination, and schedule. Stage One will help
+    coordinate the right workshop for your students.
+  seo_title: Middle School Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops designed for middle school groups. Delivered to schools, hotels,
+    and venues nationwide.
+
+- id: high-school
+  label: High School
+  short_label: High School
+  headline: Engineering Workshops for High School Groups
+  intro: >-
+    High school groups explore practical engineering through team-based
+    challenges, technical discussion, design decisions, and hands-on
+    problem-solving. Instructors adjust the depth to the group's experience.
+  supporting_copy:
+    - >-
+      Whether your students are already STEM-focused or trying engineering for
+      the first time, the workshop meets them where they are. Every Stage One
+      workshop — Artificial Intelligence, Robotics, Mechanical Engineering,
+      and Web Engineering — is available for high school groups.
+    - >-
+      The workshop is delivered directly to your school, hotel, campus, or
+      group venue anywhere your group travels. Stage One brings the
+      instructor, equipment, materials, and curriculum.
+  facts:
+    - title: Team-Based Challenges
+      text: Students collaborate on real design and engineering decisions.
+    - title: Adjustable Depth
+      text: Instructors tune guidance and technical depth to the group.
+    - title: All Workshops Available
+      text: Every Stage One workshop adapts for high school groups.
+  cta_heading: Ready to Plan a High School Workshop?
+  cta_copy: >-
+    Share your group size, destination, and schedule. Stage One will help
+    coordinate the right workshop for your students.
+  seo_title: High School Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops designed for high school groups. Delivered to schools, hotels,
+    and venues nationwide.
+
+- id: college
+  label: College
+  short_label: College
+  headline: Engineering Workshops for College Groups
+  intro: >-
+    College and university groups move at a faster pace with greater emphasis
+    on applied engineering, collaboration, and technical decision-making. The
+    workshop complements academic travel, campus programs, and group events.
+  supporting_copy:
+    - >-
+      The three-hour format works as a program block within orientation weeks,
+      leadership programs, academic travel, or student organization events.
+      Every Stage One workshop is available at the college level.
+    - >-
+      Stage One delivers directly to your campus, hotel, or venue, bringing
+      the instructor, equipment, materials, and curriculum.
+  facts:
+    - title: Applied Pace
+      text: Faster pacing with emphasis on technical decision-making.
+    - title: Program-Friendly
+      text: Fits orientations, leadership programs, and academic travel.
+    - title: All Workshops Available
+      text: Every Stage One workshop adapts for college groups.
+  cta_heading: Ready to Plan a College Workshop?
+  cta_copy: >-
+    Share your group size, destination, and schedule. Stage One will help
+    coordinate the right workshop for your program.
+  seo_title: College Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops for college and university groups. Delivered to campuses,
+    hotels, and venues nationwide.
+
+- id: adult-professional
+  label: Adult / Professional
+  short_label: Adult / Professional
+  headline: Engineering Workshops for Adult and Professional Groups
+  intro: >-
+    Adult and professional groups take part in a practical, collaborative
+    engineering experience designed for active participation — a refreshing
+    alternative to conventional team events and professional programs.
+  supporting_copy:
+    - >-
+      The format supports professional development programs, team experiences,
+      lifelong learning groups, and customized events. No engineering
+      background is required, and instructors adjust the depth to the group.
+    - >-
+      Stage One delivers directly to your office, conference venue, hotel, or
+      campus, bringing the instructor, equipment, materials, and curriculum.
+  facts:
+    - title: Active Participation
+      text: Everyone designs, builds, and tests — not a lecture.
+    - title: Team-Friendly
+      text: Works for professional teams, programs, and group events.
+    - title: All Workshops Available
+      text: Every Stage One workshop adapts for adult groups.
+  cta_heading: Ready to Plan an Adult or Professional Workshop?
+  cta_copy: >-
+    Share your group size, location, and schedule. Stage One will help
+    coordinate the right workshop for your team or program.
+  seo_title: Adult & Professional Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops for adult and professional groups. Delivered to offices, hotels,
+    and venues nationwide.
+
+- id: international-students
+  label: International Students
+  short_label: International Students
+  headline: Engineering Workshops for International Student Groups
+  intro: >-
+    Stage One works closely with tour providers, schools, and group leaders
+    bringing international students to the United States. The workshop adds a
+    genuine American engineering experience to the group's U.S. itinerary.
+  supporting_copy:
+    - >-
+      The complete three-hour program is delivered at a venue the group is
+      already using — hotel, campus, school, or conference room — and can be
+      scheduled in the morning, afternoon, or evening around the itinerary.
+    - >-
+      Instruction is clear and accessible, no previous engineering experience
+      is required, and the pace adjusts to the group. Stage One coordinates
+      directly with the tour provider or group leader.
+  facts:
+    - title: Itinerary-Friendly
+      text: Scheduled around the group's U.S. travel program.
+    - title: Clear Instruction
+      text: Accessible pacing and language for international participants.
+    - title: Coordinated Delivery
+      text: Stage One works directly with tour providers and group leaders.
+  cta_heading: Planning a U.S. Itinerary for International Students?
+  cta_copy: >-
+    Share the group's destinations, dates, and size. Stage One will coordinate
+    a workshop around the itinerary.
+  seo_title: Engineering Workshops for International Student Groups | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops for international student groups visiting
+    the United States. Delivered to hotels, campuses, and venues, coordinated
+    with tour providers.
+
+- id: other-groups
+  label: Other
+  short_label: Other Groups
+  headline: Engineering Workshops for Every Kind of Group
+  intro: >-
+    Mixed ages, families, community organizations, camps, scouts, or something
+    entirely different — Stage One instructors adjust pacing, team structure,
+    and guidance so participants with different experience levels can
+    contribute to the same hands-on challenge.
+  supporting_copy:
+    - >-
+      Tell us about your group and what you hope the experience achieves.
+      Every Stage One workshop can be adapted, and the team will recommend the
+      best fit.
+    - >-
+      The workshop is delivered directly to your venue — Stage One brings the
+      instructor, equipment, materials, and curriculum.
+  facts:
+    - title: Mixed Experience Levels
+      text: Pacing and team structure adjust so everyone contributes.
+    - title: Flexible Format
+      text: Camps, community groups, families, and custom programs all work.
+    - title: All Workshops Available
+      text: Every Stage One workshop can be adapted to your group.
+  cta_heading: Tell Us About Your Group
+  cta_copy: >-
+    Share your group's makeup, location, and schedule. Stage One will
+    recommend the right workshop.
+  seo_title: Engineering Workshops for Groups of All Kinds | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops adapted for mixed-age, community, camp, and
+    custom groups. Delivered to hotels, schools, and venues nationwide.

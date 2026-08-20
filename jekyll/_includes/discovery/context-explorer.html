@@ -1,0 +1,42 @@
+{% assign entry = page.entry %}
+{% assign copy = site.data.discovery.copy %}
+{% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+{% if page.discovery_category == "city" %}
+  {% assign labels = copy.explore_sections.city %}
+{% else %}
+  {% assign labels = copy.explore_sections.default %}
+{% endif %}
+<section class="discovery-section discovery-explore" aria-labelledby="discovery-explore-heading" data-discovery-explore>
+  <h2 id="discovery-explore-heading" class="discovery-section__heading">{{ copy.explore_heading }}</h2>
+
+  <div class="discovery-explore__body">
+  {% unless page.discovery_category == "group_type" %}
+  <div class="discovery-explore__group">
+    <h3 class="discovery-explore__label">{{ labels.group_types }}</h3>
+    <div class="discovery-explore__options">
+      {% for group in site.data.discovery.group_types %}
+      <a class="discovery-option" href="/workshops/{{ group.id }}/"
+        data-discovery-option data-category="group_type" data-id="{{ group.id }}">
+        {{ group.label }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endunless %}
+
+  <div class="discovery-explore__group">
+    <h3 class="discovery-explore__label">{{ labels.cities }}</h3>
+    <div class="discovery-explore__options">
+      {% for city in discovery_cities %}
+      {% if city.slug == entry.context_id %}{% continue %}{% endif %}
+      {% if city.featured or city.slug == "other-us-cities" %}
+      <a class="discovery-option" href="/locations/{{ city.slug }}/"
+        data-discovery-option data-category="city" data-id="{{ city.slug }}">
+        {{ city.short_label }}
+      </a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  </div>
+</section>

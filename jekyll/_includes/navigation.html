@@ -64,12 +64,12 @@
                     <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
                 </li>
                 <li>
-                    <a href="/group.html" class="nav-button-stageone">
+                    <a href="/explore/" class="nav-button-stageone"{% if page.url == '/explore/' %} aria-current="page"{% endif %}>
                         Explore
                     </a>
                 </li>
                 <li>
-                    <a href="/locations.html" class="nav-button-stageone" data-i18n="nav.locations">
+                    <a href="/locations/" class="nav-button-stageone"{% if page.url == '/locations/' %} aria-current="page"{% endif %} data-i18n="nav.locations">
                         Locations
                     </a>
                 </li>
@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li class="nav-workshops-access">
-                    <a href="/workshops.html" class="nav-workshops-access-button"{% if page.url == '/workshops.html' %} aria-current="page"{% endif %}>
+                    <a href="/workshop-access.html" class="nav-workshops-access-button"{% if page.url == '/workshop-access.html' %} aria-current="page"{% endif %}>
                         <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>{% if page.i18n %}

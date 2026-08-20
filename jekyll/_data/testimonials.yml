@@ -1,0 +1,285 @@
+# Contextual testimonials for discovery landing pages.
+#
+# Each entry can be associated with any combination of:
+#   cities:       list of city slugs from _data/discovery/cities.yml
+#   workshops:    list of workshop slugs from _data/workshops.yml
+#   audiences:    list of audience ids from _data/discovery/audiences.yml
+#   group_types:  list of group type ids from _data/discovery/group_types.yml
+#
+# The contextual-testimonials component ranks entries for the current page:
+# entries tagged with the page's own dimension appear first, then untagged
+# (general) entries fill the remaining slots. An entry tagged with both a city
+# and a workshop is prioritized on pages matching either.
+#
+# placeholder: true marks an entry as a development placeholder. Placeholder
+# entries are NEVER rendered on the site — they document the tagging structure
+# until real feedback is added. Replace the quote text and set
+# placeholder: false (or remove the field) to publish an entry.
+#
+# The quotes below were collected from real workshop participants and are the
+# same feedback shown on the homepage.
+
+- id: berkeley-structure
+  quote: >-
+    This is by far the most I've learned during a lesson of this duration. The
+    way the lesson is structured is very educational and conducive to real
+    learning.
+  attribution: Workshop participant
+  meta: Berkeley, CA • 2026
+  cities: [berkeley]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: new-haven-cad-first-time
+  quote: >-
+    This workshop was really fun! It was easy to understand the instructions
+    which were very helpful for someone who has never used a CAD program like
+    this.
+  attribution: Workshop participant
+  meta: New Haven, CT • 2026
+  cities: [new-haven]
+  workshops: [mechanical-engineering]
+  audiences: []
+  group_types: []
+
+- id: ann-arbor-best-so-far
+  quote: This was easily the best so far
+  attribution: Workshop participant
+  meta: Ann Arbor, MI • 2026
+  cities: [ann-arbor]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: new-haven-best-yet
+  quote: >-
+    This was by far the best workshop yet, and the instructor was extremely
+    welcoming, knowledgeable, etc. Overall a great experience
+  attribution: Workshop participant
+  meta: New Haven, CT • 2026
+  cities: [new-haven]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: la-cad-rocket
+  quote: >-
+    I loved this workshop. I've never used any CAD program before and I was
+    able to learn how and finish the entire rocket within the allotted time.
+    I'm glad I know how to use programs like this and would like to try with a
+    little less guidance next time. :)
+  attribution: Workshop participant
+  meta: Los Angeles, CA • 2026
+  cities: [los-angeles]
+  workshops: [mechanical-engineering]
+  audiences: []
+  group_types: []
+
+- id: houston-freedom
+  quote: That was so much fun and I really enjoyed the freedom but also learning
+  attribution: Workshop participant
+  meta: Houston, TX • 2026
+  cities: [houston]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: houston-ai-prompting
+  quote: >-
+    I really liked learning about prompt engineering, neural networks and
+    talking about controversial topics about AI. It made me realize how much I
+    still need to think about the pros and cons of AI
+  attribution: Workshop participant
+  meta: Houston, TX • 2026
+  cities: [houston]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: orlando-well-planned
+  quote: >-
+    I think it was really well planned and the activities were very enjoyable
+    and fun.
+  attribution: Workshop participant
+  meta: Orlando, FL • 2026
+  cities: [orlando]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: ann-arbor-favorite
+  quote: >-
+    I loved this workshop and it was my favorite thing that we've done so far.
+    I strongly recommend doing more of this in the future
+  attribution: Workshop participant
+  meta: Ann Arbor, MI • 2026
+  cities: [ann-arbor]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: atlanta-neural-networks
+  quote: >-
+    Neural network training was one of the best artificial intelligence
+    lessons I had. It was nice to use various types of AI programs after that.
+  attribution: Workshop participant
+  meta: Atlanta, GA • 2026
+  cities: [atlanta]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: atlanta-ai-generation
+  quote: I learned much about the intricacies of AI generation
+  attribution: Workshop participant
+  meta: Atlanta, GA • 2026
+  cities: [atlanta]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: ann-arbor-conceptual
+  quote: >-
+    I loved the conceptual challenge the activity provided. I think talking
+    through a tough question with other highly knowledgeable people.
+  attribution: Workshop participant
+  meta: Ann Arbor, MI • 2026
+  cities: [ann-arbor]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: atlanta-knowledge
+  quote: >-
+    I really loved the events you made. I also loved how much knowledge you
+    had.
+  attribution: Workshop participant
+  meta: Atlanta, GA • 2026
+  cities: [atlanta]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: new-haven-instructor
+  quote: >-
+    Loved this instructor, she is very interactive and a good listener and
+    provides great insight
+  attribution: Workshop participant
+  meta: New Haven, CT • 2026
+  cities: [new-haven]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: atlanta-college-course
+  quote: >-
+    The beginning when you taught us. If there was an entire college course
+    where the two of you taught, I would happily commute to every lesson.
+  attribution: Workshop participant
+  meta: Atlanta, GA • 2026
+  cities: [atlanta]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: ann-arbor-debate
+  quote: >-
+    I liked debating. It was very well mediated and even if people's emotions
+    were high there were still logical talks.
+  attribution: Workshop participant
+  meta: Ann Arbor, MI • 2026
+  cities: [ann-arbor]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: houston-interactive
+  quote: >-
+    This was the best workshop because it was super interactive and very hands
+    on
+  attribution: Workshop participant
+  meta: Houston, TX • 2026
+  cities: [houston]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: new-haven-super-fun
+  quote: This was super fun and it should definitely be taught next time.
+  attribution: Workshop participant
+  meta: New Haven, CT • 2026
+  cities: [new-haven]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: berkeley-three-workshops
+  quote: >-
+    I've done three of these workshops and each one is better than the next.
+    Wonderful program!
+  attribution: Workshop participant
+  meta: Berkeley, CA • 2026
+  cities: [berkeley]
+  workshops: []
+  audiences: []
+  group_types: []
+
+- id: atlanta-confidence
+  quote: >-
+    This was really fun, and with how low my confidence levels were after CAD
+    programming, this made me a lot more confident in my engineering
+    capabilities! Awesome workshop, even better instructor; very patient,
+    explains well, and loves what he does. :D
+  attribution: Workshop participant
+  meta: Atlanta, GA • 2026
+  cities: [atlanta]
+  workshops: [mechanical-engineering]
+  audiences: []
+  group_types: []
+
+# ---------------------------------------------------------------------------
+# Development placeholders (never rendered — placeholder: true).
+# These document the tagging structure for feedback we plan to collect.
+# Replace the quote and remove `placeholder: true` to publish.
+# ---------------------------------------------------------------------------
+
+- id: placeholder-boston
+  quote: "[PLACEHOLDER — add feedback from a Boston group here]"
+  attribution: "[PLACEHOLDER attribution]"
+  meta: "Boston, MA"
+  cities: [boston]
+  workshops: []
+  audiences: []
+  group_types: []
+  placeholder: true
+
+- id: placeholder-boston-robotics
+  quote: "[PLACEHOLDER — add feedback from a Boston robotics group here]"
+  attribution: "[PLACEHOLDER attribution]"
+  meta: "Boston, MA"
+  cities: [boston]
+  workshops: [robotics-drone]
+  audiences: []
+  group_types: []
+  placeholder: true
+
+- id: placeholder-international
+  quote: "[PLACEHOLDER — add feedback from an international student group here]"
+  attribution: "[PLACEHOLDER attribution]"
+  meta: ""
+  cities: []
+  workshops: []
+  audiences: [international-students]
+  group_types: [international-groups]
+  placeholder: true
+
+- id: placeholder-high-school-tour
+  quote: "[PLACEHOLDER — add feedback from a high school educational tour here]"
+  attribution: "[PLACEHOLDER attribution]"
+  meta: ""
+  cities: []
+  workshops: []
+  audiences: [high-school]
+  group_types: [educational-tours]
+  placeholder: true

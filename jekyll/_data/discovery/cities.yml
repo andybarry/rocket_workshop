@@ -1,0 +1,695 @@
+# Cities where Stage One Education delivers or actively supports workshops.
+#
+# Each entry drives:
+#   - a pill in the homepage "Find Your Workshop" Cities card
+#   - a generated landing page at /locations/{slug}/
+#
+# To add, remove, or edit a city, change this file only. No template edits are
+# required. Fields:
+#   slug              URL + state id (/locations/{slug}/, ?city={slug})
+#   name              Full display name used in headings
+#   short_label       Compact label used in pills and chips
+#   featured          true = shown in the primary row of the Cities card;
+#                     false = shown inside the "More U.S. cities" group
+#   visual            Theme key for the city hero visual
+#                     ("boston" has a bespoke treatment; use "default" otherwise)
+#   landmark_image    Blurred hero background of a major local landmark
+#   headline          Customer-facing H1 on the landing page
+#   intro             Lead paragraph under the H1
+#   supporting_copy   Additional paragraphs (list)
+#   city_facts        Short cards connecting Stage One with the destination
+#   cta_heading/copy  Copy for the Plan a Workshop section
+#   seo_title         <title> for the landing page
+#   seo_description   Meta description for the landing page
+#   copy_status       "final" or "draft" — draft copy is structured placeholder
+#                     copy awaiting final marketing review (not shown to users)
+
+- slug: boston
+  name: Boston
+  short_label: Boston, MA
+  featured: true
+  visual: boston
+  landmark_image: img/locations/boston.jpg
+  copy_status: final
+  headline: Engineering Workshops in Boston
+  intro: >-
+    Boston offers an exceptional combination of American history, leading
+    academic institutions, science, robotics, and technology. Founded in
+    Boston, Stage One adds a locally connected engineering experience that
+    fits naturally between campus visits, museum stops, and historic
+    sightseeing.
+  supporting_copy:
+    - >-
+      Boston itineraries are shaped by universities, research labs, museums,
+      and centuries of innovation. A Stage One workshop connects naturally with
+      all of it. Students spend three hours designing, building, coding, and
+      testing with a real engineer — a working session that turns the ideas
+      surrounding the trip into something they make themselves.
+    - >-
+      Because Stage One is based in the region, scheduling in Boston is
+      straightforward. We bring the instructor, equipment, materials, and
+      curriculum directly to your hotel, school, campus, or group venue
+      anywhere in the metro area, and we handle setup and cleanup. Morning,
+      afternoon, and evening sessions can all be coordinated around your
+      itinerary.
+  city_facts:
+    - title: Founded Here
+      text: Stage One Education began in the Boston area and has deep experience with groups visiting the city.
+    - title: A Natural Fit
+      text: Boston's identity — engineering, technology, universities, innovation — is exactly what students explore in the workshop.
+    - title: Easy to Schedule
+      text: Local delivery means flexible timing at hotels, schools, campuses, and venues across metro Boston.
+  cta_heading: Ready to Add Engineering to Your Boston Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Boston program.
+  seo_title: Boston Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, campuses, and
+    venues across Boston. Founded in the Boston area.
+
+- slug: washington-dc
+  name: Washington, DC
+  short_label: Washington, DC
+  featured: true
+  visual: default
+  landmark_image: img/locations/washington-dc.jpg
+  copy_status: final
+  headline: Engineering Workshops in Washington, DC
+  intro: >-
+    Washington, DC itineraries are rich in history, government, museums,
+    national institutions, science, and aviation. A Stage One workshop adds a
+    refreshing hands-on block to sightseeing-heavy schedules and works
+    especially well as an engaging indoor or evening program with a clear
+    educational purpose.
+  supporting_copy:
+    - >-
+      Stage One regularly delivers workshops to school groups and educational
+      tours visiting the DC area. The workshop works as a focused morning or
+      afternoon program block, or as an evening activity that turns hotel time
+      into one of the most memorable parts of the trip.
+    - >-
+      We bring the instructor, equipment, materials, and curriculum directly
+      to your hotel, school, campus, or group venue in the DC metro area, and
+      we handle setup and cleanup. No previous engineering experience is
+      required.
+  city_facts:
+    - title: Fits DC Itineraries
+      text: A hands-on complement to museum, government, and civic learning programs.
+    - title: Evening-Friendly
+      text: Hotel-based evening sessions are a popular choice for DC tour groups.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your DC Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Washington, DC program.
+  seo_title: Washington DC Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Washington, DC area.
+
+- slug: new-york-city
+  name: New York City
+  short_label: New York City
+  featured: false
+  active: false
+  visual: default
+  copy_status: draft
+  headline: Engineering Workshops in New York City
+  intro: >-
+    New York City gives student groups energy, scale, and ambition. A Stage
+    One workshop channels that into three hours of real engineering —
+    designing, building, and coding with a professional engineer at your
+    group's hotel or venue.
+  supporting_copy:
+    - >-
+      The workshop is designed for traveling groups: everything arrives with
+      the instructor, and no lab or classroom is required. It can anchor a
+      program morning, fill an afternoon between destinations, or turn an
+      evening at the hotel into the highlight of the trip.
+    - >-
+      Stage One supports groups throughout the New York metro area, including
+      Manhattan, Brooklyn, and surrounding boroughs, with flexible morning,
+      afternoon, and evening scheduling.
+  city_facts:
+    - title: Built for Traveling Groups
+      text: Delivered at hotels and venues — no lab required, even in Manhattan.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening sessions around a packed NYC itinerary.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your NYC Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your New York City program.
+  seo_title: New York City Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels and venues across the New
+    York City metro area.
+
+- slug: orlando
+  name: Orlando
+  short_label: Orlando, FL
+  featured: true
+  visual: default
+  landmark_image: img/locations/orlando.jpg
+  copy_status: final
+  headline: Engineering Workshops in Orlando
+  intro: >-
+    Orlando connects themed entertainment with space exploration, simulation
+    technology, leading institutions, environmental science, and outdoor
+    Florida experiences. Stage One gives planners a strong educational anchor
+    between attraction days or during an evening hotel block, adding
+    meaningful STEM programming without another complicated transfer.
+  supporting_copy:
+    - >-
+      Orlando programs often have busy park days and open evenings. The
+      workshop is a natural evening or arrival-day activity — students build,
+      code, and test together without leaving the hotel.
+    - >-
+      Stage One delivers throughout the Orlando area, bringing the instructor,
+      equipment, materials, and curriculum to your venue and handling setup
+      and cleanup.
+  city_facts:
+    - title: Pairs with Park Days
+      text: A substantive program block that balances entertainment-heavy itineraries.
+    - title: Space Coast Energy
+      text: Engineering themes resonate with Kennedy Space Center visits.
+    - title: Evening-Friendly
+      text: Hotel-based evening sessions fit naturally between park days.
+  cta_heading: Ready to Add Engineering to Your Orlando Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Orlando program.
+  seo_title: Orlando Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels and venues across the
+    Orlando area.
+
+- slug: atlanta
+  name: Atlanta
+  short_label: Atlanta, GA
+  featured: true
+  visual: default
+  landmark_image: img/locations/atlanta.jpg
+  copy_status: final
+  headline: Engineering Workshops in Atlanta
+  intro: >-
+    Atlanta itineraries bring together civil rights history, leading
+    institutions, business, and modern technology. Stage One adds an active
+    engineering experience that balances campus visits and sightseeing while
+    giving planners a complete educational program delivered directly to the
+    group's venue.
+  supporting_copy:
+    - >-
+      Stage One has delivered workshops to many groups visiting Atlanta. The
+      experience adapts to your program — a focused morning session, an
+      afternoon block, or an evening activity at the hotel.
+    - >-
+      Everything arrives with the instructor: equipment, materials, and
+      curriculum. No previous engineering experience is required, and the
+      workshop can be adjusted for middle school through adult groups.
+  city_facts:
+    - title: Proven in Atlanta
+      text: Stage One regularly serves student groups visiting the Atlanta area.
+    - title: University City
+      text: Workshop themes connect with Georgia Tech and Atlanta's campus visits.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Atlanta Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Atlanta program.
+  seo_title: Atlanta Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Atlanta area.
+
+- slug: houston
+  name: Houston
+  short_label: Houston, TX
+  featured: true
+  visual: default
+  landmark_image: img/locations/houston.jpg
+  copy_status: final
+  headline: Engineering Workshops in Houston
+  intro: >-
+    Houston is one of the country's strongest destinations for space
+    exploration, aerospace, medicine, energy, and large-scale engineering.
+    Stage One carries that theme beyond museums and attractions with a
+    complete hands-on workshop that can be scheduled at the group's hotel,
+    campus, or meeting venue.
+  supporting_copy:
+    - >-
+      Houston itineraries built around Space Center Houston and the city's
+      engineering economy pair naturally with a hands-on workshop. Students
+      move from seeing engineering to doing it.
+    - >-
+      Stage One delivers throughout the Houston area with flexible morning,
+      afternoon, and evening scheduling, and brings everything the workshop
+      needs to your venue.
+  city_facts:
+    - title: Space City Fit
+      text: Workshop themes resonate with NASA and Space Center Houston visits.
+    - title: Proven in Houston
+      text: Stage One regularly serves student groups visiting the Houston area.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Houston Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Houston program.
+  seo_title: Houston Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Houston area.
+
+- slug: los-angeles
+  name: Los Angeles
+  short_label: Los Angeles, CA
+  featured: true
+  visual: default
+  landmark_image: img/locations/los-angeles.jpg
+  copy_status: final
+  headline: Engineering Workshops in Los Angeles
+  intro: >-
+    Los Angeles brings together aerospace, entertainment, digital media,
+    design, and technology in a way few destinations can match. Stage One
+    connects those industries through a workshop that combines technical
+    thinking with creativity and pairs naturally with studio experiences,
+    science attractions, and visits to leading institutions.
+  supporting_copy:
+    - >-
+      Stage One has delivered workshops to groups across the LA area. The
+      three-hour format fits campus-visit programs, educational tours, and
+      hotel-based evening sessions equally well.
+    - >-
+      We bring the instructor, equipment, materials, and curriculum, and we
+      handle setup and cleanup. No previous engineering experience is
+      required.
+  city_facts:
+    - title: Proven in LA
+      text: Stage One regularly serves student groups visiting the Los Angeles area.
+    - title: Aerospace & Tech
+      text: Workshop themes connect with LA's aerospace and technology identity.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your LA Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Los Angeles program.
+  seo_title: Los Angeles Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, campuses, and venues
+    across the Los Angeles area.
+
+- slug: san-francisco
+  name: San Francisco / Bay Area
+  short_label: San Francisco, CA
+  featured: true
+  visual: default
+  landmark_image: img/locations/san-francisco.jpg
+  copy_status: final
+  headline: Engineering Workshops in the San Francisco Bay Area
+  intro: >-
+    San Francisco and the wider Bay Area place technology, entrepreneurship,
+    science, and design at the center of the destination. Stage One
+    complements innovation-focused visits, science attractions, leading
+    institutions, and iconic city touring with a complete hands-on workshop
+    delivered directly to the group's venue.
+  supporting_copy:
+    - >-
+      Stage One delivers workshops throughout the Bay Area, including San
+      Francisco, Berkeley, and the wider peninsula. The experience pairs
+      naturally with university visits and technology-focused itineraries.
+    - >-
+      Everything arrives with the instructor — equipment, materials, and
+      curriculum — with flexible morning, afternoon, and evening scheduling.
+  city_facts:
+    - title: Innovation Capital
+      text: Workshop themes align with the Bay Area's technology identity.
+    - title: Campus Connections
+      text: Pairs well with Berkeley, Stanford, and other university visits.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Bay Area Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your San Francisco Bay Area program.
+  seo_title: San Francisco Bay Area Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, campuses, and venues
+    across San Francisco and the Bay Area.
+
+- slug: chicago
+  name: Chicago
+  short_label: Chicago, IL
+  featured: false
+  active: false
+  visual: default
+  copy_status: draft
+  headline: Engineering Workshops in Chicago
+  intro: >-
+    Chicago's museums, architecture, and universities anchor strong
+    educational itineraries. A Stage One workshop adds the hands-on chapter —
+    three hours of designing, building, and coding delivered at your group's
+    hotel or venue.
+  supporting_copy:
+    - >-
+      The workshop complements Museum of Science and Industry visits, campus
+      tours, and city programs, giving students an active engineering
+      experience of their own.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum
+      directly to your venue anywhere in the Chicago area, with flexible
+      scheduling around your itinerary.
+  city_facts:
+    - title: Museum City Fit
+      text: A hands-on complement to Chicago's science and industry museums.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening sessions around your program.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Chicago Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Chicago program.
+  seo_title: Chicago Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels and venues across the
+    Chicago area.
+
+- slug: new-haven
+  name: New Haven
+  short_label: New Haven, CT
+  featured: true
+  visual: default
+  landmark_image: img/locations/new-haven.jpg
+  copy_status: final
+  headline: Engineering Workshops in New Haven
+  intro: >-
+    New Haven offers a distinctive academic setting shaped by prestigious
+    institutions, research, and intellectual discovery. A Stage One workshop
+    takes the itinerary beyond a traditional campus tour by adding a complete
+    engineering experience that strengthens the trip's college, career, and
+    STEM focus.
+  supporting_copy:
+    - >-
+      Stage One has delivered many workshops to groups visiting New Haven and
+      the surrounding region. The three-hour format fits naturally alongside
+      campus visits and academic programs.
+    - >-
+      We bring the instructor, equipment, materials, and curriculum, and
+      handle setup and cleanup. No previous engineering experience is
+      required.
+  city_facts:
+    - title: Proven in New Haven
+      text: Stage One regularly serves student groups visiting the New Haven area.
+    - title: Campus Companion
+      text: Pairs naturally with Yale and New England university visits.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your New Haven Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your New Haven program.
+  seo_title: New Haven Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the New Haven area.
+
+- slug: ann-arbor
+  name: Ann Arbor
+  short_label: Ann Arbor, MI
+  featured: true
+  visual: default
+  landmark_image: img/locations/ann-arbor.jpg
+  copy_status: final
+  headline: Engineering Workshops in Ann Arbor
+  intro: >-
+    Ann Arbor's academic culture, engineering community, and focus on
+    research make it a natural destination for STEM-oriented travel. A Stage
+    One workshop adds a substantial hands-on component after an institutional
+    visit or during an open hotel block, with instructors, equipment, and
+    materials included.
+  supporting_copy:
+    - >-
+      Stage One regularly delivers workshops to groups visiting Ann Arbor. The
+      experience complements University of Michigan visits and Midwest
+      academic programs.
+    - >-
+      Everything arrives with the instructor — equipment, materials, and
+      curriculum — with flexible morning, afternoon, and evening scheduling.
+  city_facts:
+    - title: Proven in Ann Arbor
+      text: Stage One regularly serves student groups visiting the Ann Arbor area.
+    - title: Engineering Campus
+      text: Pairs naturally with University of Michigan engineering visits.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Ann Arbor Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Ann Arbor program.
+  seo_title: Ann Arbor Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Ann Arbor area.
+
+- slug: dallas
+  name: Dallas
+  short_label: Dallas
+  featured: false
+  active: false
+  visual: default
+  copy_status: draft
+  headline: Engineering Workshops in Dallas
+  intro: >-
+    Dallas anchors educational travel across North Texas. A Stage One workshop
+    adds a three-hour, instructor-led engineering experience to the itinerary,
+    delivered directly to your group's hotel, school, or venue.
+  supporting_copy:
+    - >-
+      The workshop is built for traveling groups: no lab required, flexible
+      timing, and a format that adapts from middle school through adult
+      participants.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum to
+      venues throughout the Dallas–Fort Worth area.
+  city_facts:
+    - title: Built for Travel
+      text: Delivered at hotels and venues throughout Dallas–Fort Worth.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening sessions around your program.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Dallas Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Dallas program.
+  seo_title: Dallas Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Dallas–Fort Worth area.
+
+- slug: philadelphia
+  name: Philadelphia
+  short_label: Philadelphia
+  featured: false
+  active: false
+  visual: default
+  copy_status: draft
+  headline: Engineering Workshops in Philadelphia
+  intro: >-
+    Philadelphia itineraries combine American history with universities and
+    science museums. A Stage One workshop adds the hands-on engineering
+    chapter, delivered directly to your group's hotel, school, or venue.
+  supporting_copy:
+    - >-
+      The workshop pairs naturally with Franklin Institute visits, campus
+      tours, and East Coast educational travel programs that route through
+      Philadelphia.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum,
+      with flexible morning, afternoon, and evening scheduling.
+  city_facts:
+    - title: History Meets Hands-On
+      text: A modern engineering complement to history-focused itineraries.
+    - title: East Coast Routing
+      text: Fits naturally between Boston, New York, and Washington programs.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Philadelphia Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Philadelphia program.
+  seo_title: Philadelphia Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across the Philadelphia area.
+
+- slug: miami
+  name: Miami / South Florida
+  short_label: Miami
+  featured: false
+  active: false
+  visual: default
+  copy_status: draft
+  headline: Engineering Workshops in Miami and South Florida
+  intro: >-
+    Miami and South Florida welcome student groups from across the U.S. and
+    around the world. A Stage One workshop adds a three-hour, instructor-led
+    engineering experience, delivered directly to your group's hotel, school,
+    or venue.
+  supporting_copy:
+    - >-
+      The workshop is a strong fit for international student groups and
+      educational tours based in South Florida — no lab required, no previous
+      experience needed, and instruction that adapts to the group.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum to
+      venues throughout the Miami area, with flexible scheduling around your
+      itinerary.
+  city_facts:
+    - title: International Gateway
+      text: A popular base for international student groups visiting the U.S.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening sessions around your program.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your South Florida Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Miami / South Florida program.
+  seo_title: Miami Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, and venues
+    across Miami and South Florida.
+
+- slug: berkeley
+  name: Berkeley
+  short_label: Berkeley, CA
+  featured: true
+  visual: default
+  landmark_image: img/locations/berkeley.jpg
+  copy_status: final
+  headline: Engineering Workshops in Berkeley
+  intro: >-
+    Berkeley is known for bold ideas, academic discovery, and its connection
+    to the wider Bay Area innovation economy. A Stage One workshop extends
+    that theme through a hands-on engineering experience that fits naturally
+    after an institutional visit or as an engaging afternoon or evening
+    program.
+  supporting_copy:
+    - >-
+      The workshop pairs naturally with UC Berkeley visits and Bay Area
+      technology programs, giving students time to design, build, and code
+      with a professional engineer.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum,
+      with flexible morning, afternoon, and evening scheduling.
+  city_facts:
+    - title: Campus Connection
+      text: A hands-on complement to UC Berkeley and Bay Area university visits.
+    - title: Proven in Berkeley
+      text: Stage One has delivered memorable workshops to groups in Berkeley.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Berkeley Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Berkeley program.
+  seo_title: Berkeley Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, campuses, schools, and
+    venues across Berkeley.
+
+- slug: denver
+  name: Denver
+  short_label: Denver, CO
+  featured: true
+  visual: default
+  landmark_image: img/locations/denver.jpg
+  copy_status: final
+  headline: Engineering Workshops in Denver
+  intro: >-
+    Denver combines aerospace, science, outdoor exploration, and the dramatic
+    setting of the Rocky Mountain region. A Stage One workshop provides a
+    strong indoor academic component before or after an outdoor excursion,
+    attraction visit, or institutional tour, while also giving planners a
+    dependable weather-independent activity.
+  supporting_copy:
+    - >-
+      The workshop gives student groups an active program block between
+      campus visits, museums, competitions, and regional travel days.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum,
+      and handles setup and cleanup at your venue.
+  city_facts:
+    - title: Mountain West Fit
+      text: Engineering adds a hands-on dimension to Denver educational travel.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening sessions around your itinerary.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum come to your venue.
+  cta_heading: Ready to Add Engineering to Your Denver Itinerary?
+  cta_copy: >-
+    Share your dates, group size, and venue. Stage One will coordinate a
+    workshop around your Denver program.
+  seo_title: Denver Engineering Workshops | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to student groups at hotels, schools, campuses, and
+    venues across Denver.
+
+- slug: other-us-cities
+  name: Other U.S. Cities
+  short_label: Other U.S. Cities
+  featured: false
+  visual: default
+  copy_status: final
+  headline: Engineering Workshops Anywhere Your Group Travels
+  intro: >-
+    Stage One workshops are not limited to our featured destinations. We work
+    with tour providers to deliver complete hands-on engineering programs in
+    cities across the United States, giving planners a flexible way to add
+    meaningful STEM programming wherever their groups are traveling.
+  supporting_copy:
+    - >-
+      The workshop travels well: the instructor arrives with all equipment,
+      materials, and curriculum, and any hotel meeting room, school, campus
+      space, or group venue can host it.
+    - >-
+      Groups traveling to multiple cities can also schedule the workshop at
+      whichever stop fits the itinerary best.
+  city_facts:
+    - title: Nationwide Delivery
+      text: Workshops have been delivered to groups across the United States.
+    - title: Any Suitable Venue
+      text: Hotels, schools, campuses, and conference rooms all work.
+    - title: Multi-City Trips
+      text: Schedule the workshop at whichever stop fits your itinerary.
+  cta_heading: Tell Us Where Your Group Is Headed
+  cta_copy: >-
+    Share your destination, dates, and group size. Stage One will help
+    determine workshop delivery options for your trip.
+  seo_title: Engineering Workshops Across the U.S. | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops delivered to student groups at hotels,
+    schools, campuses, and venues in cities across the United States.

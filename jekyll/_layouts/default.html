@@ -53,7 +53,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/creative.css" type="text/css">
-    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">{% if page.i18n %}
+    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">
+    <link rel="stylesheet" href="/css/discovery.css" type="text/css">{% if page.i18n %}
 
     <!-- Language switcher. Loads before paint so a stored non-English choice is
          applied without a flash of English. Inert when English is active. -->
@@ -94,11 +95,12 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/creative.js"></script>
-    {% include explorer-data.html %}
-    <script src="/js/homepage-workshop-explorer.js"></script>
-    <script src="/js/region-page.js"></script>
+    {% include discovery-data.html %}
+    <script src="/js/find-your-workshop.js"></script>
+    <script src="/js/discovery-page.js"></script>
     <script src="/js/workshop-page-context.js"></script>
     <script src="/js/plan-workshop-form.js"></script>
+    <script src="/js/plan-workshop-modal.js"></script>
 
 </body>
 

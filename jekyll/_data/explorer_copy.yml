@@ -35,6 +35,9 @@ delivery_facts:
   - title: No Experience Required
     text: Accessible to a wide range of experience levels.
     icon: fa-star-o
+  - title: Flexible Group Sizes
+    text: From private groups to large student programs.
+    icon: fa-users
   - title: Instructors and Equipment Included
     text: Stage One brings the instructor, equipment, materials, and curriculum.
     icon: fa-briefcase

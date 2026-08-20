@@ -1,0 +1,121 @@
+# City hero colors are tied to a real local reference, not a random palette.
+# wash = primary place color, accent = secondary local color, deep = hero field.
+
+boston:
+  motif: harbor
+  note: Charles River blue and Beacon Hill brick
+  wash: "rgba(42, 92, 148, 0.58)"
+  accent: "rgba(168, 58, 48, 0.42)"
+  deep: "#8eafcc"
+
+washington-dc:
+  motif: civic
+  note: Federal navy and monument limestone
+  wash: "rgba(28, 48, 96, 0.55)"
+  accent: "rgba(214, 198, 156, 0.48)"
+  deep: "#c4bba8"
+
+new-york-city:
+  motif: river
+  note: Hudson steel-blue and concrete gray
+  wash: "rgba(36, 64, 112, 0.55)"
+  accent: "rgba(140, 144, 150, 0.40)"
+  deep: "#9aa6b8"
+
+orlando:
+  motif: sun
+  note: Florida sunlight and subtropical green
+  wash: "rgba(240, 164, 32, 0.52)"
+  accent: "rgba(40, 140, 88, 0.40)"
+  deep: "#efc25a"
+
+atlanta:
+  motif: peach
+  note: Georgia peach and Piedmont red clay
+  wash: "rgba(232, 140, 112, 0.52)"
+  accent: "rgba(176, 72, 48, 0.38)"
+  deep: "#efc2ae"
+
+houston:
+  motif: gulf
+  note: Gulf water and Houston brick-clay
+  wash: "rgba(16, 124, 138, 0.55)"
+  accent: "rgba(184, 96, 58, 0.40)"
+  deep: "#6eb8b8"
+
+los-angeles:
+  motif: sunset
+  note: Pacific sunset and Santa Monica blue
+  wash: "rgba(236, 124, 64, 0.50)"
+  accent: "rgba(56, 132, 196, 0.42)"
+  deep: "#efb888"
+
+san-francisco:
+  motif: fog
+  note: Bay fog and Golden Gate international orange
+  wash: "rgba(120, 136, 150, 0.48)"
+  accent: "rgba(196, 72, 36, 0.46)"
+  deep: "#b7c0c8"
+
+chicago:
+  motif: lake
+  note: Lake Michigan blue and Loop steel
+  wash: "rgba(20, 84, 156, 0.56)"
+  accent: "rgba(132, 140, 148, 0.38)"
+  deep: "#7eacd6"
+
+new-haven:
+  motif: ivy
+  note: Yale blue and New England brick
+  wash: "rgba(12, 53, 107, 0.52)"
+  accent: "rgba(168, 68, 52, 0.40)"
+  deep: "#8ea4c4"
+
+ann-arbor:
+  motif: maize
+  note: University of Michigan maize and blue
+  wash: "rgba(252, 203, 0, 0.50)"
+  accent: "rgba(0, 39, 76, 0.46)"
+  deep: "#f0c94a"
+
+dallas:
+  motif: prairie
+  note: North Texas sky and limestone
+  wash: "rgba(56, 126, 186, 0.48)"
+  accent: "rgba(204, 164, 104, 0.42)"
+  deep: "#d8c49a"
+
+philadelphia:
+  motif: brick
+  note: Independence Hall brick and cream limestone
+  wash: "rgba(154, 48, 42, 0.55)"
+  accent: "rgba(232, 214, 176, 0.46)"
+  deep: "#c98980"
+
+miami:
+  motif: aqua
+  note: Atlantic aqua and Art Deco pink
+  wash: "rgba(0, 168, 176, 0.52)"
+  accent: "rgba(236, 120, 148, 0.42)"
+  deep: "#62d0d4"
+
+berkeley:
+  motif: grove
+  note: California gold and eucalyptus green
+  wash: "rgba(253, 181, 21, 0.46)"
+  accent: "rgba(0, 50, 98, 0.40)"
+  deep: "#d4b24a"
+
+denver:
+  motif: alpine
+  note: Front Range blue and Colorado gold
+  wash: "rgba(56, 88, 140, 0.55)"
+  accent: "rgba(214, 162, 36, 0.46)"
+  deep: "#8ea0be"
+
+other-us-cities:
+  motif: atlas
+  note: Neutral map field with Stage One orange
+  wash: "rgba(92, 92, 92, 0.32)"
+  accent: "rgba(240, 95, 64, 0.32)"
+  deep: "#cfc8c0"

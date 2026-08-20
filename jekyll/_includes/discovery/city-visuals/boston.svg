@@ -1,0 +1,50 @@
+<svg class="discovery-cityline" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+  <g fill="none" stroke="#434343" stroke-opacity="0.34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Sailboat on the Charles -->
+    <path d="M60 176 l16 0 l6 8 l-28 0 z"/>
+    <path d="M74 176 l0 -34 l-22 30 z"/>
+    <!-- Brownstone row -->
+    <path d="M130 184 l0 -52 l44 0 l0 52"/>
+    <path d="M141 132 a11 11 0 0 1 22 0"/>
+    <path d="M174 184 l0 -44 l40 0 l0 44"/>
+    <path d="M184 140 l0 44 M204 140 l0 44"/>
+    <!-- Zakim bridge -->
+    <path d="M330 184 l0 -128"/>
+    <path d="M318 74 l24 0"/>
+    <path d="M330 66 l-88 110 M330 84 l-66 92 M330 102 l-44 76 M330 120 l-24 58"/>
+    <path d="M330 66 l88 110 M330 84 l66 92 M330 102 l44 76 M330 120 l24 58"/>
+    <path d="M230 178 l200 0"/>
+    <!-- Mid-rise blocks -->
+    <path d="M470 184 l0 -66 l38 0 l0 66"/>
+    <path d="M479 128 l0 56 M489 128 l0 56 M499 128 l0 56"/>
+    <path d="M516 184 l0 -92 l34 0 l0 92"/>
+    <path d="M525 100 l16 0 M525 116 l16 0 M525 132 l16 0 M525 148 l16 0 M525 164 l16 0"/>
+    <!-- Custom House tower -->
+    <path d="M590 184 l0 -110 l30 0 l0 110"/>
+    <path d="M596 74 l9 -22 l9 22"/>
+    <circle cx="605" cy="92" r="8"/>
+    <path d="M605 86 l0 6 l4 3"/>
+    <!-- State House dome -->
+    <path d="M670 184 l0 -36 l56 0 l0 36"/>
+    <path d="M676 148 a22 22 0 0 1 44 0" stroke="#f05f40" stroke-opacity="0.85"/>
+    <path d="M698 118 l0 8" stroke="#f05f40" stroke-opacity="0.85"/>
+    <!-- Downtown towers -->
+    <path d="M770 184 l0 -122 l40 0 l0 122"/>
+    <path d="M780 62 l0 122 M790 62 l0 122 M800 62 l0 122"/>
+    <path d="M830 184 l0 -96 l32 0 l0 96"/>
+    <path d="M838 96 l16 0 M838 112 l16 0 M838 128 l16 0 M838 144 l16 0 M838 160 l16 0"/>
+    <!-- Hancock slanted tower -->
+    <path d="M900 184 l0 -140 l46 12 l0 128"/>
+    <path d="M900 72 l46 10 M900 100 l46 10 M900 128 l46 8 M900 156 l46 6"/>
+    <!-- Pru -->
+    <path d="M980 184 l0 -112 l36 0 l0 112"/>
+    <path d="M992 72 l0 -14 M998 58 l-12 0"/>
+    <path d="M989 84 l18 0 M989 100 l18 0 M989 116 l18 0 M989 132 l18 0 M989 148 l18 0 M989 164 l18 0"/>
+    <!-- Small gear: engineering motif -->
+    <circle cx="1090" cy="150" r="16" stroke="#f05f40" stroke-opacity="0.85"/>
+    <circle cx="1090" cy="150" r="6" stroke="#f05f40" stroke-opacity="0.85"/>
+    <path d="M1090 128 l0 -8 M1090 172 l0 8 M1068 150 l-8 0 M1112 150 l8 0 M1074 134 l-6 -6 M1106 134 l6 -6 M1074 166 l-6 6 M1106 166 l6 6" stroke="#f05f40" stroke-opacity="0.85"/>
+    <!-- Ground line -->
+    <path d="M24 184 l1152 0" stroke-opacity="0.5"/>
+  </g>
+</svg>

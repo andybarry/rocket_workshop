@@ -1,0 +1,19 @@
+{% comment %}
+  Plan a Workshop modal. Opened by any element carrying [data-plan-workshop-open].
+  Reuses the shared plan form (plan-workshop-form.html) and the same form logic
+  as the /plan-a-workshop/ page (js/plan-workshop-form.js + plan-workshop-modal.js).
+{% endcomment %}
+<div class="plan-workshop-modal" data-plan-workshop-modal hidden>
+  <div class="plan-workshop-modal__backdrop" data-plan-workshop-close tabindex="-1"></div>
+  <div class="plan-workshop-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="plan-workshop-modal-title">
+    <button type="button" class="plan-workshop-modal__close" data-plan-workshop-close aria-label="Close">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title">Plan a Workshop</h2>
+    <p class="plan-workshop-modal__lede">
+      Share what you know about your group, destination, and schedule. An exact
+      date or final group size is not required to begin planning.
+    </p>
+    {% include plan-workshop-form.html form_id="plan-workshop-modal-form" %}
+  </div>
+</div>

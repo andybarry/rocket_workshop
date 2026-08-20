@@ -1,0 +1,5 @@
+# Keep plugin-generated discovery pages. Incremental builds and failed
+# destination cleans otherwise drop /locations/{city}/ and /workshops/{slug}/.
+keep_files:
+  - locations
+  - workshops

@@ -1,0 +1,94 @@
+{% assign entry = page.entry %}
+{% assign copy = site.data.discovery.copy %}
+{% comment %}
+  Contextual testimonials: entries tagged with this page's dimension rank
+  first, then general feedback fills the remaining slots. Placeholder entries
+  (placeholder: true) are never rendered.
+{% endcomment %}
+{% assign pool = site.data.testimonials | where_exp: "t", "t.placeholder != true" %}
+{% assign matched = "" | split: "" %}
+{% case page.discovery_category %}
+{% when "city" %}
+  {% assign matched = pool | where_exp: "t", "t.cities contains page.discovery_slug" %}
+{% when "workshop" %}
+  {% assign matched = pool | where_exp: "t", "t.workshops contains entry.context_id" %}
+{% when "audience" %}
+  {% assign matched = pool | where_exp: "t", "t.audiences contains entry.context_id" %}
+{% when "group_type" %}
+  {% assign matched = pool | where_exp: "t", "t.group_types contains entry.context_id" %}
+{% endcase %}
+
+{% assign shown = "" | split: "" %}
+{% assign shown_ids = "" | split: "" %}
+{% for t in matched limit: 3 %}
+  {% assign shown = shown | push: t %}
+  {% assign shown_ids = shown_ids | push: t.id %}
+{% endfor %}
+{% unless page.discovery_category == "city" %}
+{% for t in pool %}
+  {% if shown.size >= 3 %}{% break %}{% endif %}
+  {% unless shown_ids contains t.id %}
+    {% assign shown = shown | push: t %}
+    {% assign shown_ids = shown_ids | push: t.id %}
+  {% endunless %}
+{% endfor %}
+{% endunless %}
+
+{% assign testimonial_heading = copy.testimonials_heading %}
+{% if matched.size > 0 or page.discovery_category == "city" %}
+  {% case page.discovery_category %}
+  {% when "city" %}
+    {% capture testimonial_heading %}What Groups in {{ entry.short_label | default: entry.name }} Say{% endcapture %}
+  {% when "audience" %}
+    {% capture testimonial_heading %}What {{ entry.short_label }} Groups Say{% endcapture %}
+  {% when "workshop" %}
+    {% capture testimonial_heading %}What Participants Say About {{ entry.short_label }}{% endcapture %}
+  {% when "group_type" %}
+    {% capture testimonial_heading %}What {{ entry.short_label }} Planners Say{% endcapture %}
+  {% endcase %}
+{% endif %}
+{% if include.hero %}
+<aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}">
+  {% for slot in (0..1) %}
+  {% assign t = shown[slot] %}
+  <figure class="discovery-header__quote discovery-header__quote--{% if slot == 0 %}left{% else %}right{% endif %}{% unless t %} discovery-header__quote--placeholder{% endunless %} is-visible"{% if t %}
+    data-testimonial data-testimonial-id="{{ t.id }}"{% endif %}>
+    {% if t %}
+    <blockquote>
+      <p>{{ t.quote }}</p>
+    </blockquote>
+    <figcaption>
+      {% if t.meta and t.meta != "" %}{{ t.meta }}{% endif %}
+    </figcaption>
+    <a class="discovery-header__quote-link" href="/feedback.html"
+      aria-label="View more participant feedback"></a>
+    {% else %}
+    <blockquote>
+      <p></p>
+    </blockquote>
+    <figcaption></figcaption>
+    {% endif %}
+  </figure>
+  {% endfor %}
+</aside>
+{% elsif shown.size > 0 %}
+<section class="discovery-section discovery-testimonials" aria-labelledby="discovery-testimonials-heading">
+  <p class="discovery-testimonials__eyebrow">Participant Feedback</p>
+  <h2 id="discovery-testimonials-heading" class="discovery-section__heading">{{ testimonial_heading | strip }}</h2>
+  <div class="discovery-testimonials__grid">
+    {% for t in shown %}
+    <figure class="discovery-testimonial{% if forloop.first %} discovery-testimonial--featured{% endif %}" data-testimonial data-testimonial-id="{{ t.id }}">
+      <blockquote class="discovery-testimonial__quote">
+        <p>{{ t.quote }}</p>
+      </blockquote>
+      <figcaption class="discovery-testimonial__meta">
+        {{ t.attribution }}{% if t.meta and t.meta != "" %} · {{ t.meta }}{% endif %}
+      </figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+  <a class="discovery-testimonials__more" href="/feedback.html" data-testimonial-more>
+    {{ copy.testimonials_more_label }} <span aria-hidden="true">→</span>
+  </a>
+</section>
+{% endif %}

@@ -7,23 +7,24 @@
 
         var slug = strip.getAttribute("data-workshop-slug");
         var state = window.StageOneState.load();
-        var workshop = window.StageOneCopy.findBy(window.StageOneExplorerData.workshops, "slug", slug);
+        var workshop = window.StageOneCopy.findBy(window.StageOneDiscoveryData.workshops, "slug", slug);
         var note = document.querySelector("[data-workshop-audience-note]");
         var planLinks = document.querySelectorAll("[data-workshop-plan-cta]");
-        var regionLink = strip.querySelector("[data-workshop-region-link]");
+        var cityLink = strip.querySelector("[data-workshop-city-link]");
         var changeLink = strip.querySelector("[data-workshop-change-link]");
-        var hasContext = !!(state.region || state.audience || state.groupType);
+        var hasContext = !!(state.city || state.audience || state.groupType);
 
         if (hasContext) {
             strip.hidden = false;
             strip.querySelector("[data-workshop-context-line]").textContent =
                 window.StageOneCopy.workshopContextLine(state, workshop);
-            if (regionLink) {
-                regionLink.href = state.region
-                    ? window.StageOneUrls.buildRegionUrl(state)
+            if (cityLink) {
+                var city = window.StageOneCopy.cityOf(state);
+                cityLink.href = state.city
+                    ? window.StageOneUrls.buildDiscoveryUrl("city", state.city, state)
                     : window.StageOneUrls.buildExplorerReturnUrl(state);
-                regionLink.textContent = state.region
-                    ? window.StageOneCopy.resultButtonLabel(state).replace(" →", "")
+                cityLink.textContent = city
+                    ? "Explore " + (city.short_label || city.name) + " Workshops"
                     : "Explore Workshops";
             }
             if (changeLink) {

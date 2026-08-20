@@ -1,0 +1,64 @@
+# UI strings for the Find Your Workshop discovery experience
+# (homepage section + generated landing pages).
+
+section_heading: Find Your
+section_heading_accent: Workshop
+section_intro: >-
+  Explore by city, participants, workshop, or program.
+
+cards:
+  cities:
+    title: Destinations
+    subtitle: Where is your group headed?
+    more_label: More U.S. cities
+    international_label: International
+    international_path: /workshops/international-groups/
+    other_label: Other
+    other_path: /locations/other-us-cities/
+  audiences:
+    title: Participants
+    subtitle: Who will take part?
+  workshops:
+    title: Workshops
+    subtitle: What will they experience?
+  group_types:
+    title: Program
+    subtitle: What are you planning?
+
+back_label: Find Your Workshop
+plan_cta_label: Plan a Workshop
+plan_helper_heading: Ready to plan?
+plan_helper: >-
+  Contact our team and we'll create the perfect experience for your group.
+
+category_labels:
+  city: City
+  audience: Participants
+  workshop: Workshop
+  group_type: Program
+
+explore_heading: Keep Exploring
+explore_intro: >-
+  Keep narrowing things down — every path leads to the same easy planning
+  conversation.
+explore_sections:
+  city:
+    cities: Other Cities
+    audiences: "Participants We Serve Here"
+    workshops: "Workshops Available Here"
+    group_types: "Program"
+  default:
+    cities: "Explore by City"
+    audiences: "Explore by Participants"
+    workshops: "Explore Workshops"
+    group_types: "Program"
+
+workshop_detail_label: Explore the full workshop
+testimonials_heading: What Groups Say
+testimonials_more_label: More Feedback
+delivery_heading: Included with Every Workshop
+offerings_heading: Explore More
+offerings_intro: >-
+  Browse other destinations and program types.
+available_workshops_heading: Available Workshops
+audiences_served_heading: Participants We Serve

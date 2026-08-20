@@ -1,0 +1,209 @@
+# "Planning For" options in the Find Your Workshop discovery experience.
+# Each entry drives an option in the homepage "Planning For" card and a
+# generated landing page at /workshops/{id}/. Edit this file to change
+# options — no template edits are required.
+
+- id: school-groups
+  label: School Group
+  short_label: School Group
+  headline: Engineering Workshops for School Groups
+  intro: >-
+    Bring a complete engineering experience to your students — at your school
+    or wherever your group travels. Stage One delivers the instructor,
+    equipment, materials, and curriculum, and handles setup and cleanup.
+  supporting_copy:
+    - >-
+      The three-hour workshop fits enrichment days, STEM weeks, field-trip
+      alternatives, and travel programs. Instruction adapts from middle school
+      through high school, and no previous engineering experience is required.
+    - >-
+      Teachers and chaperones consistently tell us the workshop reaches
+      students who don't usually see themselves as "engineering kids" — every
+      student builds, codes, and tests something real.
+  facts:
+    - title: At School or On the Road
+      text: Delivered to classrooms, gyms, hotels, and travel venues alike.
+    - title: Curriculum Included
+      text: Designed and instructed by PhDs, engineers, and educators.
+    - title: Scales to Your Group
+      text: Formats for single classes through large programs.
+  cta_heading: Ready to Plan a School Group Workshop?
+  cta_copy: >-
+    Share your school, group size, and preferred dates. Stage One will help
+    coordinate the workshop.
+  seo_title: Engineering Workshops for School Groups | Stage One Education
+  seo_description: >-
+    Hands-on AI, robotics, mechanical engineering, and web engineering
+    workshops delivered to school groups at schools, hotels, and venues
+    nationwide.
+
+- id: educational-tours
+  label: Educational Tour
+  short_label: Educational Tour
+  headline: Engineering Workshops for Educational Tours
+  intro: >-
+    Stage One partners with educational tour companies across the United
+    States. The workshop is a turn-key program block: we deliver the complete
+    experience to the group's hotel or venue, on the schedule your itinerary
+    needs.
+  supporting_copy:
+    - >-
+      Tour operators use the workshop as a substantive evening activity, an
+      arrival-day program, or a hands-on complement to the destinations
+      already on the itinerary. It requires no lab, no transportation, and no
+      preparation from the group.
+    - >-
+      One point of contact coordinates everything — dates, venue requirements,
+      group size, and workshop selection — and the format is consistent across
+      cities, so multi-city operators can offer it anywhere they run programs.
+  facts:
+    - title: Turn-Key for Operators
+      text: One contact, complete delivery, consistent format across cities.
+    - title: Evening & Arrival Days
+      text: Turns hotel time into a highlight of the trip.
+    - title: No Lab Required
+      text: Any hotel meeting room or group venue can host the workshop.
+  cta_heading: Ready to Add a Workshop to Your Tour Program?
+  cta_copy: >-
+    Share your itinerary, group size, and dates. Stage One will coordinate the
+    workshop around your program.
+  seo_title: Engineering Workshops for Educational Tour Companies | Stage One Education
+  seo_description: >-
+    Turn-key hands-on engineering workshops for educational tour programs.
+    Delivered to hotels and group venues in cities across the United States.
+
+- id: international-groups
+  label: International Student Group
+  short_label: International Group
+  headline: Engineering Workshops for International Groups
+  intro: >-
+    For international groups traveling through the United States, Stage One
+    adds a distinctive American STEM experience without complicating the
+    itinerary. We bring the instructors, equipment, materials, and complete
+    workshop directly to the group's hotel, school, campus, or meeting venue,
+    making it easy to schedule around sightseeing, institutional visits,
+    attraction days, and travel.
+  supporting_copy:
+    - >-
+      The three-hour program can be scheduled in the morning, afternoon, or
+      evening and delivered at a venue already used by the group. No previous
+      engineering experience is required, and instruction can be adapted for
+      middle school, high school, college, adult, or mixed-age participants.
+    - >-
+      Stage One has welcomed international groups from around the world and
+      understands the logistics of U.S. educational travel — coordination
+      happens directly with the tour provider or coordinating organization.
+  facts:
+    - title: Delivered to Your Group
+      text: At a hotel, school, campus, conference room, or group venue.
+    - title: Flexible Scheduling
+      text: Morning, afternoon, or evening options around the itinerary.
+    - title: Clear, Accessible Experience
+      text: No prior experience required; instruction adjusts to the group.
+  cta_heading: Planning a U.S. Itinerary for an International Group?
+  cta_copy: >-
+    Share the group's destinations, dates, and size. Stage One will coordinate
+    a workshop around the itinerary.
+  seo_title: Engineering Workshops for International Groups Visiting the USA | Stage One Education
+  seo_description: >-
+    Instructor-led engineering workshops delivered to international student
+    groups at hotels, schools, campuses, and venues during United States
+    educational travel.
+
+- id: academic-programs
+  label: Academic Program
+  short_label: Academic Program
+  headline: Engineering Workshops for Academic Programs
+  intro: >-
+    Academic and enrichment programs use Stage One workshops as ready-made
+    engineering experiences — complete with instructor, equipment, materials,
+    and curriculum.
+  supporting_copy:
+    - >-
+      The workshop drops into your program schedule as a self-contained
+      three-hour block, and programs running multiple sessions or cohorts can
+      schedule repeated workshops across days or weeks.
+    - >-
+      Because each of the four workshops is distinct, returning participants
+      can experience something new every time — AI one session, robotics or
+      mechanical engineering the next.
+  facts:
+    - title: Drop-In Program Block
+      text: A self-contained three-hour experience for your schedule.
+    - title: Repeatable
+      text: Multiple cohorts or repeat sessions across days and weeks.
+    - title: Four Distinct Workshops
+      text: Returning participants can try something new each time.
+  cta_heading: Ready to Add Workshops to Your Program?
+  cta_copy: >-
+    Share your program schedule, group sizes, and location. Stage One will
+    help build the workshop plan.
+  seo_title: Engineering Workshops for Academic Programs | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops for academic and enrichment programs.
+    Complete instructor-led sessions delivered to your venue.
+
+- id: college-groups
+  label: College Group
+  short_label: College Group
+  headline: Engineering Workshops for College Groups and Campus Programs
+  intro: >-
+    Student organizations, orientation programs, honors cohorts, and campus
+    events use Stage One workshops as engaging, substantive group experiences
+    delivered right on campus or at the group's venue.
+  supporting_copy:
+    - >-
+      The pace and technical depth rise to meet college participants, with
+      emphasis on applied engineering, collaboration, and decision-making.
+      Every Stage One workshop is available at this level.
+    - >-
+      Stage One brings the instructor, equipment, materials, and curriculum to
+      your campus space, hotel, or venue — no lab or preparation required.
+  facts:
+    - title: Campus-Ready
+      text: Delivered to campus spaces, hotels, and event venues.
+    - title: College-Level Pace
+      text: Applied engineering with real technical decision-making.
+    - title: All Workshops Available
+      text: AI, robotics, mechanical engineering, and web engineering.
+  cta_heading: Ready to Plan a College Group Workshop?
+  cta_copy: >-
+    Share your group, campus or venue, and schedule. Stage One will help
+    coordinate the workshop.
+  seo_title: Engineering Workshops for College Groups | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops for college student organizations,
+    orientations, and campus programs. Delivered to campuses and venues
+    nationwide.
+
+- id: professional-groups
+  label: Adult / Professional Group
+  short_label: Adult / Professional Group
+  headline: Engineering Workshops for Adult and Professional Groups
+  intro: >-
+    Give your team or adult group a genuinely different shared experience:
+    three hours of collaborative, hands-on engineering led by a professional
+    engineer, delivered to your office, conference venue, or hotel.
+  supporting_copy:
+    - >-
+      The workshop works for team events, professional development,
+      conferences, and lifelong-learning groups. Participants design, build,
+      code, and test together — no engineering background required.
+    - >-
+      Stage One brings everything the session needs and adapts the pace and
+      technical depth to your group.
+  facts:
+    - title: A Different Team Event
+      text: Collaborative building and problem-solving, not a lecture.
+    - title: Conference-Friendly
+      text: Fits conference programs, offsites, and professional events.
+    - title: Complete Delivery
+      text: Instructor, equipment, materials, and curriculum included.
+  cta_heading: Ready to Plan an Adult or Professional Group Workshop?
+  cta_copy: >-
+    Share your group size, location, and goals. Stage One will recommend the
+    right workshop.
+  seo_title: Engineering Workshops for Adult & Professional Groups | Stage One Education
+  seo_description: >-
+    Hands-on engineering workshops for professional teams, conferences, and
+    adult groups. Delivered to offices, hotels, and venues nationwide.
