@@ -63,7 +63,7 @@ i18n_key: locations
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 0;">
             {% assign location_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
             {% for city in location_cities %}
-            {% unless city.slug == "other-us-cities" %}
+            {% unless city.slug == "other-us-cities" or city.slug == "international" %}
             <a class="location-item" href="/locations/{{ city.slug }}/" style="cursor: pointer !important; text-decoration: none; color: inherit;">{{ city.name }}{% if city.slug == "boston" %} (HQ){% endif %}</a>
             {% endunless %}
             {% endfor %}

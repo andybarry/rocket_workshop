@@ -6,53 +6,103 @@
   {% endif %}
 {% endif %}
 {% assign copy = site.data.discovery.copy %}
-<header class="discovery-header">
-  <div class="discovery-header__content">
-    <h1 class="discovery-header__headline{% if page.discovery_category == "city" %} discovery-header__headline--city{% endif %}">
-      {% case page.discovery_category %}
-      {% when "city" %}
-        <span class="discovery-header__city">
-          <span class="discovery-header__city-name">{{ entry.name }}</span>
-          {% if entry.state_abbr %}
-            {% unless entry.name contains entry.state_abbr %}
-          <span class="discovery-header__state-abbr">{{ entry.state_abbr }}</span>
-            {% endunless %}
+<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}">
+  {% if page.discovery_category == "city" %}
+  {% if entry.landmark_image %}
+  <div class="discovery-header__visual" aria-hidden="true"
+    style="--discovery-visual: url('/{{ entry.landmark_image | replace: ' ', '%20' }}');{% if entry.landmark_image_position %} --discovery-visual-position: {{ entry.landmark_image_position }};{% endif %}"></div>
+  {% else %}
+  <div class="discovery-header__visual discovery-header__visual--placeholder" aria-hidden="true"></div>
+  {% endif %}
+  {% endif %}
+  {% if page.discovery_category == "city" %}<div class="discovery-header__masthead">{% endif %}
+  <div class="discovery-header__hero">
+    <div class="discovery-header__content">
+      <h1 class="discovery-header__headline{% if page.discovery_category == "city" %} discovery-header__headline--city{% endif %}">
+        {% case page.discovery_category %}
+        {% when "city" %}
+          <span class="discovery-header__city">
+            <span class="discovery-header__city-name">{{ entry.name }}</span>
+            {% if entry.state_abbr %}
+              {% unless entry.name contains entry.state_abbr %}
+            <span class="discovery-header__state-abbr">{{ entry.state_abbr }}</span>
+              {% endunless %}
+            {% endif %}
+          </span>
+          <span class="discovery-header__kind">Engineering Workshops</span>
+        {% when "workshop" %}
+          Engineering Workshops: <span>{{ entry.name }}</span>
+        {% else %}
+          Engineering Workshops for <span>{{ entry.name }}</span>
+        {% endcase %}
+      </h1>
+      <p class="discovery-header__intro">{{ entry.intro }}</p>
+
+      {% if page.discovery_category == "workshop" and entry.detail_path %}
+      <div class="discovery-header__actions">
+        <a class="discovery-header__detail-link" href="{{ entry.detail_path }}" data-discovery-detail-link>
+          {{ copy.workshop_detail_label }} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if page.discovery_category == "city" %}
+  <section class="discovery-header__offerings discovery-header__offerings--combined" aria-labelledby="hero-offerings-heading">
+    <h2 id="hero-offerings-heading">Workshops</h2>
+    <div class="discovery-workshop-cards">
+      {% for workshop in site.data.workshops %}
+      <a class="discovery-workshop-card discovery-workshop-card--summary{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
+        href="/workshops/{{ workshop.landing_slug }}/"
+        aria-label="{{ workshop.explorer_label }}"
+        data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
+        <span class="discovery-workshop-card__label">
+          <strong>{{ workshop.explorer_label }}</strong>
+          {% if workshop.description %}
+          <span class="discovery-workshop-card__summary">{{ workshop.description }}</span>
           {% endif %}
         </span>
-        <span class="discovery-header__kind">Engineering Workshops</span>
-      {% when "workshop" %}
-        Engineering Workshops: <span>{{ entry.name }}</span>
-      {% else %}
-        Engineering Workshops for <span>{{ entry.name }}</span>
-      {% endcase %}
-    </h1>
-    <p class="discovery-header__intro">{{ entry.intro }}</p>
-
-    {% if page.discovery_category == "workshop" and entry.detail_path %}
-    <div class="discovery-header__actions">
-      <a class="discovery-header__detail-link" href="{{ entry.detail_path }}" data-discovery-detail-link>
-        {{ copy.workshop_detail_label }} <span aria-hidden="true">→</span>
       </a>
+      {% endfor %}
     </div>
-    {% endif %}
-  </div>
+    <p class="discovery-header__offerings-label">Ages</p>
+    <div class="discovery-age-row discovery-age-row--summary">
+      {% for audience in site.data.discovery.audiences %}
+      <a class="discovery-age-card discovery-age-card--summary{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
+        href="/workshops/{{ audience.id }}/"
+        data-discovery-option data-category="audience" data-id="{{ audience.id }}">
+        <span class="discovery-age-card__label">
+          <strong>{{ audience.label }}</strong>
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
 
   {% include discovery/contextual-testimonials.html hero=true %}
 
   {% if page.discovery_category == "city" %}
-    {% assign offered_place = entry.short_label | default: entry.name %}
+  </div>
   {% endif %}
 
+  {% unless page.discovery_category == "city" %}
   <div class="discovery-header__offerings">
     <section class="discovery-header__workshops" aria-labelledby="hero-workshops-heading">
-      <h2 id="hero-workshops-heading">{% if offered_place %}Workshops Offered in {{ offered_place }}{% else %}Workshops Offered Here{% endif %}</h2>
+      <h2 id="hero-workshops-heading">Workshops</h2>
       <div class="discovery-workshop-cards">
         {% for workshop in site.data.workshops %}
         <a class="discovery-workshop-card{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
           href="/workshops/{{ workshop.landing_slug }}/"
           aria-label="{{ workshop.explorer_label }}"
           data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
-          <strong>{{ workshop.homepage_short_name }}</strong>
+          <span class="discovery-workshop-card__label">
+            {% if workshop.icon %}
+            <i class="fa {{ workshop.icon }}" aria-hidden="true"></i>
+            {% endif %}
+            <strong>{{ workshop.homepage_short_name }}</strong>
+          </span>
         </a>
         {% endfor %}
       </div>
@@ -60,17 +110,20 @@
   </div>
 
   <section class="discovery-header__ages" aria-labelledby="hero-ages-heading">
-    <h2 id="hero-ages-heading">{% if offered_place %}Ages Offered in {{ offered_place }}{% else %}Ages Offered Here{% endif %}</h2>
+    <h2 id="hero-ages-heading">Ages</h2>
     <div class="discovery-age-row">
       {% for audience in site.data.discovery.audiences %}
       <a class="discovery-age-card{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
-        {{ audience.label }}
+        <span class="discovery-age-card__label">
+          <strong>{{ audience.label }}</strong>
+        </span>
       </a>
       {% endfor %}
     </div>
   </section>
+  {% endunless %}
 
   {% include discovery/delivery-facts.html %}
   {% include discovery/plan-cta.html %}

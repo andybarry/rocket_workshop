@@ -29,7 +29,7 @@
     <div class="discovery-explore__options">
       {% for city in discovery_cities %}
       {% if city.slug == entry.context_id %}{% continue %}{% endif %}
-      {% if city.featured or city.slug == "other-us-cities" %}
+      {% if city.featured or city.slug == "other-us-cities" or city.slug == "international" %}
       <a class="discovery-option" href="/locations/{{ city.slug }}/"
         data-discovery-option data-category="city" data-id="{{ city.slug }}">
         {{ city.short_label }}

@@ -64,6 +64,45 @@
 {% endfor %}
 {% endunless %}
 {% if hero_quotes.size > 0 %}
+{% if page.discovery_category == "city" %}
+<aside class="discovery-header__quote-scroller" aria-label="{{ testimonial_heading | strip }}" data-discovery-quote-scroller>
+  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--prev" aria-label="Scroll quotes left">
+    <span aria-hidden="true"></span>
+  </button>
+  <div class="discovery-header__quote-scroller-viewport" data-discovery-quote-scroller-viewport>
+    <div class="discovery-header__quote-scroller-track">
+      {% for t in hero_quotes %}
+      <figure class="discovery-header__quote discovery-header__quote--scroller is-visible"
+        data-testimonial data-testimonial-id="{{ t.id }}">
+        <blockquote>
+          <p>{{ t.quote }}</p>
+        </blockquote>
+        <button type="button" class="discovery-header__quote-more" hidden data-discovery-quote-more>
+          … Read more
+        </button>
+        <figcaption>{% if t.meta and t.meta != "" %}{{ t.meta }}{% endif %}</figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--next" aria-label="Scroll quotes right">
+    <span aria-hidden="true"></span>
+  </button>
+</aside>
+<div class="discovery-quote-modal" data-discovery-quote-modal hidden>
+  <div class="discovery-quote-modal__backdrop" data-discovery-quote-modal-close tabindex="-1"></div>
+  <div class="discovery-quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="discovery-quote-modal-text">
+    <button type="button" class="discovery-quote-modal__close" data-discovery-quote-modal-close aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+    <blockquote>
+      <p id="discovery-quote-modal-text" data-discovery-quote-modal-text></p>
+    </blockquote>
+    <p class="discovery-quote-modal__meta" data-discovery-quote-modal-meta></p>
+  </div>
+</div>
+{% else %}
+{% assign quote_slot_last = 1 %}
 <aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}" data-discovery-quotes>
   <script type="application/json" data-discovery-quote-data>
 [
@@ -72,7 +111,7 @@
 {% endfor %}
 ]
   </script>
-  {% for slot in (0..1) %}
+  {% for slot in (0..quote_slot_last) %}
   {% assign t = hero_quotes[slot] %}
   {% assign quote_size = "narrow" %}
   {% if t %}
@@ -89,7 +128,12 @@
       {% assign quote_size = "long" %}
     {% endif %}
   {% endif %}
-  <figure class="discovery-header__quote discovery-header__quote--{% if slot == 0 %}left{% else %}right{% endif %} discovery-header__quote--{{ quote_size }}{% unless t %} discovery-header__quote--placeholder{% endunless %}{% if t %} is-visible{% endif %}"
+  {% if slot == 0 %}
+    {% assign quote_side = "left" %}
+  {% else %}
+    {% assign quote_side = "right" %}
+  {% endif %}
+  <figure class="discovery-header__quote discovery-header__quote--{{ quote_side }} discovery-header__quote--{{ quote_size }}{% unless t %} discovery-header__quote--placeholder{% endunless %}{% if t %} is-visible{% endif %}"
     data-discovery-quote-slot="{{ slot }}"{% if t %}
     data-testimonial data-testimonial-id="{{ t.id }}"{% endif %}>
     <blockquote>
@@ -103,6 +147,7 @@
   </figure>
   {% endfor %}
 </aside>
+{% endif %}
 {% endif %}
 {% elsif shown.size > 0 %}
 <section class="discovery-section discovery-testimonials" aria-labelledby="discovery-testimonials-heading">

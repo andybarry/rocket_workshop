@@ -12,7 +12,7 @@ cards:
     subtitle: Where is your group headed?
     more_label: More U.S. cities
     international_label: International
-    international_path: /workshops/international-groups/
+    international_path: /locations/international/
     other_label: Other
     other_path: /locations/other-us-cities/
   audiences:

@@ -119,3 +119,10 @@ other-us-cities:
   wash: "rgba(92, 92, 92, 0.32)"
   accent: "rgba(240, 95, 64, 0.32)"
   deep: "#cfc8c0"
+
+international:
+  motif: atlas
+  note: World map field for international delivery
+  wash: "rgba(92, 92, 92, 0.32)"
+  accent: "rgba(240, 95, 64, 0.32)"
+  deep: "#cfc8c0"
