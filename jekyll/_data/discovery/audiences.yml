@@ -6,6 +6,8 @@
 - id: middle-school
   label: Middle School
   short_label: Middle School
+  icon: fa-book
+  age_label: Ages 11–14
   headline: Engineering Workshops for Middle School Groups
   intro: >-
     Middle school students do real engineering from the first minute.
@@ -41,6 +43,8 @@
 - id: high-school
   label: High School
   short_label: High School
+  icon: fa-graduation-cap
+  age_label: Ages 14–18
   headline: Engineering Workshops for High School Groups
   intro: >-
     High school groups explore practical engineering through team-based
@@ -76,6 +80,8 @@
 - id: college
   label: College
   short_label: College
+  icon: fa-university
+  age_label: College & university
   headline: Engineering Workshops for College Groups
   intro: >-
     College and university groups move at a faster pace with greater emphasis
@@ -109,6 +115,8 @@
 - id: adult-professional
   label: Adult / Professional
   short_label: Adult / Professional
+  icon: fa-briefcase
+  age_label: Adult learners
   headline: Engineering Workshops for Adult and Professional Groups
   intro: >-
     Adult and professional groups take part in a practical, collaborative
@@ -142,6 +150,8 @@
 - id: international-students
   label: International Students
   short_label: International Students
+  icon: fa-globe
+  age_label: Visiting groups
   headline: Engineering Workshops for International Student Groups
   intro: >-
     Stage One works closely with tour providers, schools, and group leaders
@@ -176,6 +186,8 @@
 - id: other-groups
   label: Other
   short_label: Other Groups
+  icon: fa-users
+  age_label: Mixed & custom
   headline: Engineering Workshops for Every Kind of Group
   intro: >-
     Mixed ages, families, community organizations, camps, scouts, or something

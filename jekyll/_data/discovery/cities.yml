@@ -8,6 +8,8 @@
 # required. Fields:
 #   slug              URL + state id (/locations/{slug}/, ?city={slug})
 #   name              Full display name used in headings
+#   state             Full state name
+#   state_abbr        State abbreviation shown beside the city in the hero
 #   short_label       Compact label used in pills and chips
 #   featured          true = shown in the primary row of the Cities card;
 #                     false = shown inside the "More U.S. cities" group
@@ -26,6 +28,8 @@
 
 - slug: boston
   name: Boston
+  state: Massachusetts
+  state_abbr: MA
   short_label: Boston, MA
   featured: true
   visual: boston
@@ -71,6 +75,8 @@
 
 - slug: washington-dc
   name: Washington, DC
+  state: District of Columbia
+  state_abbr: DC
   short_label: Washington, DC
   featured: true
   visual: default
@@ -113,6 +119,8 @@
 
 - slug: new-york-city
   name: New York City
+  state: New York
+  state_abbr: NY
   short_label: New York City
   featured: false
   active: false
@@ -153,6 +161,8 @@
 
 - slug: orlando
   name: Orlando
+  state: Florida
+  state_abbr: FL
   short_label: Orlando, FL
   featured: true
   visual: default
@@ -193,6 +203,8 @@
 
 - slug: atlanta
   name: Atlanta
+  state: Georgia
+  state_abbr: GA
   short_label: Atlanta, GA
   featured: true
   visual: default
@@ -233,6 +245,8 @@
 
 - slug: houston
   name: Houston
+  state: Texas
+  state_abbr: TX
   short_label: Houston, TX
   featured: true
   visual: default
@@ -273,6 +287,8 @@
 
 - slug: los-angeles
   name: Los Angeles
+  state: California
+  state_abbr: CA
   short_label: Los Angeles, CA
   featured: true
   visual: default
@@ -312,46 +328,50 @@
     across the Los Angeles area.
 
 - slug: san-francisco
-  name: San Francisco / Bay Area
+  name: San Francisco
+  state: California
+  state_abbr: CA
   short_label: San Francisco, CA
   featured: true
   visual: default
   landmark_image: img/locations/san-francisco.jpg
   copy_status: final
-  headline: Engineering Workshops in the San Francisco Bay Area
+  headline: Engineering Workshops in San Francisco
   intro: >-
-    San Francisco and the wider Bay Area place technology, entrepreneurship,
-    science, and design at the center of the destination. Stage One
-    complements innovation-focused visits, science attractions, leading
-    institutions, and iconic city touring with a complete hands-on workshop
-    delivered directly to the group's venue.
+    San Francisco places technology, entrepreneurship, science, and design
+    at the center of the destination. Stage One complements
+    innovation-focused visits, science attractions, leading institutions,
+    and iconic city touring with a complete hands-on workshop delivered
+    directly to the group's venue.
   supporting_copy:
     - >-
-      Stage One delivers workshops throughout the Bay Area, including San
-      Francisco, Berkeley, and the wider peninsula. The experience pairs
-      naturally with university visits and technology-focused itineraries.
+      Stage One delivers workshops in San Francisco, including venues
+      across the city. The experience pairs naturally with university visits
+      and technology-focused itineraries.
     - >-
       Everything arrives with the instructor — equipment, materials, and
       curriculum — with flexible morning, afternoon, and evening scheduling.
   city_facts:
     - title: Innovation Capital
-      text: Workshop themes align with the Bay Area's technology identity.
+      text: Workshop themes align with San Francisco's technology identity.
     - title: Campus Connections
       text: Pairs well with Berkeley, Stanford, and other university visits.
     - title: Complete Delivery
       text: Instructor, equipment, materials, and curriculum come to your venue.
-  cta_heading: Ready to Add Engineering to Your Bay Area Itinerary?
+  cta_heading: Ready to Add Engineering to Your San Francisco Itinerary?
   cta_copy: >-
     Share your dates, group size, and venue. Stage One will coordinate a
-    workshop around your San Francisco Bay Area program.
-  seo_title: San Francisco Bay Area Engineering Workshops | Stage One Education
+    workshop around your San Francisco program.
+  seo_title: San Francisco Engineering Workshops | Stage One Education
   seo_description: >-
     Hands-on AI, robotics, mechanical engineering, and web engineering
     workshops delivered to student groups at hotels, campuses, and venues
-    across San Francisco and the Bay Area.
+    across San Francisco.
 
 - slug: chicago
   name: Chicago
+  state: Illinois
+  state_abbr: IL
   short_label: Chicago, IL
   featured: false
   active: false
@@ -391,6 +411,8 @@
 
 - slug: new-haven
   name: New Haven
+  state: Connecticut
+  state_abbr: CT
   short_label: New Haven, CT
   featured: true
   visual: default
@@ -431,6 +453,8 @@
 
 - slug: ann-arbor
   name: Ann Arbor
+  state: Michigan
+  state_abbr: MI
   short_label: Ann Arbor, MI
   featured: true
   visual: default
@@ -470,6 +494,8 @@
 
 - slug: dallas
   name: Dallas
+  state: Texas
+  state_abbr: TX
   short_label: Dallas
   featured: false
   active: false
@@ -507,6 +533,8 @@
 
 - slug: philadelphia
   name: Philadelphia
+  state: Pennsylvania
+  state_abbr: PA
   short_label: Philadelphia
   featured: false
   active: false
@@ -544,6 +572,8 @@
 
 - slug: miami
   name: Miami / South Florida
+  state: Florida
+  state_abbr: FL
   short_label: Miami
   featured: false
   active: false
@@ -583,6 +613,8 @@
 
 - slug: berkeley
   name: Berkeley
+  state: California
+  state_abbr: CA
   short_label: Berkeley, CA
   featured: true
   visual: default
@@ -622,6 +654,8 @@
 
 - slug: denver
   name: Denver
+  state: Colorado
+  state_abbr: CO
   short_label: Denver, CO
   featured: true
   visual: default

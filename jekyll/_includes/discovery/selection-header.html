@@ -11,7 +11,14 @@
     <h1 class="discovery-header__headline{% if page.discovery_category == "city" %} discovery-header__headline--city{% endif %}">
       {% case page.discovery_category %}
       {% when "city" %}
-        <span class="discovery-header__city">{{ entry.name }}</span>
+        <span class="discovery-header__city">
+          <span class="discovery-header__city-name">{{ entry.name }}</span>
+          {% if entry.state_abbr %}
+            {% unless entry.name contains entry.state_abbr %}
+          <span class="discovery-header__state-abbr">{{ entry.state_abbr }}</span>
+            {% endunless %}
+          {% endif %}
+        </span>
         <span class="discovery-header__kind">Engineering Workshops</span>
       {% when "workshop" %}
         Engineering Workshops: <span>{{ entry.name }}</span>
@@ -21,53 +28,50 @@
     </h1>
     <p class="discovery-header__intro">{{ entry.intro }}</p>
 
+    {% if page.discovery_category == "workshop" and entry.detail_path %}
     <div class="discovery-header__actions">
-      <button type="button" class="discovery-plan-button" data-plan-workshop-open data-plan-source="landing_header">
-        <i class="fa fa-calendar" aria-hidden="true"></i>{{ copy.plan_cta_label }}
-      </button>
-      {% if page.discovery_category == "workshop" and entry.detail_path %}
       <a class="discovery-header__detail-link" href="{{ entry.detail_path }}" data-discovery-detail-link>
         {{ copy.workshop_detail_label }} <span aria-hidden="true">→</span>
       </a>
-      {% endif %}
     </div>
+    {% endif %}
   </div>
 
   {% include discovery/contextual-testimonials.html hero=true %}
 
+  {% if page.discovery_category == "city" %}
+    {% assign offered_place = entry.short_label | default: entry.name %}
+  {% endif %}
+
   <div class="discovery-header__offerings">
     <section class="discovery-header__workshops" aria-labelledby="hero-workshops-heading">
-      <h2 id="hero-workshops-heading">Workshops Offered Here</h2>
+      <h2 id="hero-workshops-heading">{% if offered_place %}Workshops Offered in {{ offered_place }}{% else %}Workshops Offered Here{% endif %}</h2>
       <div class="discovery-workshop-cards">
         {% for workshop in site.data.workshops %}
         <a class="discovery-workshop-card{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
           href="/workshops/{{ workshop.landing_slug }}/"
+          aria-label="{{ workshop.explorer_label }}"
           data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
-          <span class="discovery-workshop-card__media">
-            <img src="/{{ workshop.image }}" alt="{{ workshop.image_alt | default: workshop.explorer_label | escape }}">
-          </span>
-          <span class="discovery-workshop-card__copy">
-            <strong>{{ workshop.explorer_label }}</strong>
-            <small>{{ workshop.homepage_short_focus }}</small>
-          </span>
-        </a>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section class="discovery-header__ages" aria-labelledby="hero-ages-heading">
-      <h2 id="hero-ages-heading">Ages Offered Here</h2>
-      <div class="discovery-age-row">
-        {% for audience in site.data.discovery.audiences %}
-        <a class="discovery-age-card{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
-          href="/workshops/{{ audience.id }}/"
-          data-discovery-option data-category="audience" data-id="{{ audience.id }}">
-          <strong>{{ audience.label }}</strong>
+          <strong>{{ workshop.homepage_short_name }}</strong>
         </a>
         {% endfor %}
       </div>
     </section>
   </div>
 
+  <section class="discovery-header__ages" aria-labelledby="hero-ages-heading">
+    <h2 id="hero-ages-heading">{% if offered_place %}Ages Offered in {{ offered_place }}{% else %}Ages Offered Here{% endif %}</h2>
+    <div class="discovery-age-row">
+      {% for audience in site.data.discovery.audiences %}
+      <a class="discovery-age-card{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
+        href="/workshops/{{ audience.id }}/"
+        data-discovery-option data-category="audience" data-id="{{ audience.id }}">
+        {{ audience.label }}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
   {% include discovery/delivery-facts.html %}
+  {% include discovery/plan-cta.html %}
 </header>

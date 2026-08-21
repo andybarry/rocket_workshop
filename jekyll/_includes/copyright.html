@@ -1,11 +1,11 @@
 <footer style="text-align: center; margin-top: 30px;">
+  {% unless page.layout == "discovery" %}
   <p>
     <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
       <i class="fa fa-calendar" aria-hidden="true"></i>
       <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
     </a>
   </p>
-  {% unless page.layout == "discovery" %}
     {% assign footer_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
     <nav class="site-footer-regions" aria-label="Workshop cities">
       {% for city in footer_cities %}

@@ -2,8 +2,9 @@
 {% assign copy = site.data.discovery.copy %}
 {% comment %}
   Contextual testimonials: entries tagged with this page's dimension rank
-  first, then general feedback fills the remaining slots. Placeholder entries
-  (placeholder: true) are never rendered.
+  first. Workshop, audience, and group-type pages fill remaining slots from
+  general feedback. City pages show only quotes tagged to that city.
+  Placeholder entries (placeholder: true) are never rendered.
 {% endcomment %}
 {% assign pool = site.data.testimonials | where_exp: "t", "t.placeholder != true" %}
 {% assign matched = "" | split: "" %}
@@ -48,29 +49,61 @@
   {% endcase %}
 {% endif %}
 {% if include.hero %}
-<aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}">
+{% assign hero_quotes = "" | split: "" %}
+{% assign hero_quote_ids = "" | split: "" %}
+{% for t in matched %}
+  {% assign hero_quotes = hero_quotes | push: t %}
+  {% assign hero_quote_ids = hero_quote_ids | push: t.id %}
+{% endfor %}
+{% unless page.discovery_category == "city" %}
+{% for t in pool %}
+  {% unless hero_quote_ids contains t.id %}
+    {% assign hero_quotes = hero_quotes | push: t %}
+    {% assign hero_quote_ids = hero_quote_ids | push: t.id %}
+  {% endunless %}
+{% endfor %}
+{% endunless %}
+{% if hero_quotes.size > 0 %}
+<aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}" data-discovery-quotes>
+  <script type="application/json" data-discovery-quote-data>
+[
+{% for t in hero_quotes %}
+  {"id":{{ t.id | jsonify }},"quote":{{ t.quote | jsonify }},"meta":{{ t.meta | jsonify }}}{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]
+  </script>
   {% for slot in (0..1) %}
-  {% assign t = shown[slot] %}
-  <figure class="discovery-header__quote discovery-header__quote--{% if slot == 0 %}left{% else %}right{% endif %}{% unless t %} discovery-header__quote--placeholder{% endunless %} is-visible"{% if t %}
+  {% assign t = hero_quotes[slot] %}
+  {% assign quote_size = "narrow" %}
+  {% if t %}
+    {% assign quote_len = t.quote.size %}
+    {% if quote_len <= 40 %}
+      {% assign quote_size = "oneline" %}
+    {% elsif quote_len < 90 %}
+      {% assign quote_size = "narrow" %}
+    {% elsif quote_len < 160 %}
+      {% assign quote_size = "medium" %}
+    {% elsif quote_len < 280 %}
+      {% assign quote_size = "wide" %}
+    {% else %}
+      {% assign quote_size = "long" %}
+    {% endif %}
+  {% endif %}
+  <figure class="discovery-header__quote discovery-header__quote--{% if slot == 0 %}left{% else %}right{% endif %} discovery-header__quote--{{ quote_size }}{% unless t %} discovery-header__quote--placeholder{% endunless %}{% if t %} is-visible{% endif %}"
+    data-discovery-quote-slot="{{ slot }}"{% if t %}
     data-testimonial data-testimonial-id="{{ t.id }}"{% endif %}>
-    {% if t %}
     <blockquote>
-      <p>{{ t.quote }}</p>
+      <p>{% if t %}{{ t.quote }}{% endif %}</p>
     </blockquote>
-    <figcaption>
-      {% if t.meta and t.meta != "" %}{{ t.meta }}{% endif %}
-    </figcaption>
+    <figcaption>{% if t and t.meta and t.meta != "" %}{{ t.meta }}{% endif %}</figcaption>
+    {% if t %}
     <a class="discovery-header__quote-link" href="/feedback.html"
       aria-label="View more participant feedback"></a>
-    {% else %}
-    <blockquote>
-      <p></p>
-    </blockquote>
-    <figcaption></figcaption>
     {% endif %}
   </figure>
   {% endfor %}
 </aside>
+{% endif %}
 {% elsif shown.size > 0 %}
 <section class="discovery-section discovery-testimonials" aria-labelledby="discovery-testimonials-heading">
   <p class="discovery-testimonials__eyebrow">Participant Feedback</p>

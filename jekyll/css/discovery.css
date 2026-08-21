@@ -505,9 +505,9 @@
 }
 
 .discovery-main {
-    max-width: 1040px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 84px 20px 36px;
+    padding: 64px 20px 36px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -528,15 +528,15 @@
 }
 
 .discovery-back {
-    margin-bottom: 12px;
+    margin-bottom: 2px;
 }
 
 .discovery-back__link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    min-height: 44px;
-    padding: 8px 4px;
+    min-height: 32px;
+    padding: 2px 4px;
     color: #6f6f6f;
     font-size: 14px;
     font-weight: 600;
@@ -605,13 +605,14 @@
     grid-column: 2;
     grid-row: 1;
     width: 100%;
-    max-width: 520px;
+    max-width: 600px;
     margin: 0 auto;
+    padding: 6px 0 2px;
     text-align: center;
 }
 
 .discovery-header__headline {
-    margin: 0 0 13px;
+    margin: 0 0 16px;
     font-family: "Roboto", sans-serif;
     font-size: clamp(29px, 4vw, 40px);
     font-weight: 800;
@@ -629,205 +630,264 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
+    gap: 8px;
+    margin: 0 0 18px;
     line-height: 0.95;
     text-wrap: auto;
 }
 
-.discovery-header__headline--city .discovery-header__city,
-.discovery-header__headline--city .discovery-header__kind {
+.discovery-header__headline--city::after {
+    content: "";
     display: block;
+    width: 64px;
+    height: 2px;
+    margin-top: 4px;
+    background: #f05f40;
+}
+
+.discovery-header__headline--city .discovery-header__city {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 0.18em;
+    max-width: 100%;
+    font-size: clamp(46px, 6.4vw, 72px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+}
+
+.discovery-header__headline--city .discovery-header__city-name {
+    color: #f05f40;
+}
+
+.discovery-header__headline--city .discovery-header__state-abbr {
+    color: #f05f40;
+    font-size: 0.42em;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 .discovery-header__headline--city .discovery-header__kind {
-    color: #383838;
+    color: #434343;
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
 }
 
 .discovery-header__intro {
-    max-width: 660px;
-    margin: 0 auto 20px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #5c5c5c;
+    max-width: 560px;
+    margin: 0 auto 8px;
+    font-family: Merriweather, Georgia, serif;
+    font-size: 17.5px;
+    font-weight: 400;
+    line-height: 1.72;
+    color: #555;
     text-wrap: pretty;
 }
 
 .discovery-header__offerings {
     position: relative;
     z-index: 2;
-    display: grid;
-    gap: 14px;
-    grid-column: 1 / -1;
+    grid-column: 2;
     grid-row: 2;
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.discovery-header__ages {
+    position: relative;
+    z-index: 2;
+    grid-column: 2;
+    grid-row: 3;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .discovery-header__workshops,
 .discovery-header__ages {
-    padding: 12px;
+    padding: 14px 16px 16px;
     border: 1px solid rgba(67, 67, 67, 0.08);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    background: #fff;
     box-shadow: 0 6px 16px rgba(45, 45, 45, 0.04);
+    text-align: left;
 }
 
 .discovery-header__workshops h2,
 .discovery-header__ages h2 {
-    margin: 0 0 10px;
-    color: #434343;
+    margin: 0 0 12px;
+    color: #393939;
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-weight: 800;
+    text-align: left;
+}
+
+.discovery-header__workshops h2::after,
+.discovery-header__ages h2::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 6px;
+    background: linear-gradient(
+        90deg,
+        rgba(240, 95, 64, 0.68) 0%,
+        rgba(240, 95, 64, 0.58) 62%,
+        rgba(240, 95, 64, 0.2) 86%,
+        transparent 100%
+    );
 }
 
 .discovery-workshop-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px 22px;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.discovery-age-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
 }
 
 .discovery-workshop-card {
     display: flex;
-    flex: 0 0 104px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    width: 104px;
+    justify-content: flex-start;
+    gap: 8px;
     min-width: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    text-decoration: none;
-    box-shadow: none;
-}
-
-.discovery-workshop-card__media {
-    display: grid;
-    place-items: center;
-    width: 76px;
-    height: 76px;
-    padding: 8px;
-    overflow: hidden;
-    border-radius: 18px;
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 244, 239, 0.94) 100%);
+    min-height: 48px;
+    flex: 0 0 168px;
+    max-width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(67, 67, 67, 0.12);
+    border-radius: 10px;
+    background: #fff;
     box-shadow:
-        inset 0 0 0 1px rgba(67, 67, 67, 0.08),
-        0 8px 18px rgba(45, 45, 45, 0.08);
-    transition: box-shadow 180ms ease, transform 180ms ease;
+        0 0 0 1px rgba(67, 67, 67, 0.02),
+        0 2px 8px rgba(67, 67, 67, 0.07);
+    color: #434343;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
 }
 
-.discovery-workshop-card__media img {
+.discovery-workshop-card::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-left: auto;
+    margin-right: 2px;
+    flex-shrink: 0;
+    border-top: 1.5px solid #f05f40;
+    border-right: 1.5px solid #f05f40;
+    transform: rotate(45deg);
+}
+
+.discovery-workshop-card strong {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 220ms ease;
-}
-
-.discovery-workshop-card__copy {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    width: 100%;
-    padding: 8px 0 0;
-    text-align: center;
-}
-
-.discovery-workshop-card__copy strong,
-.discovery-workshop-card__copy small {
-    display: block;
-}
-
-.discovery-workshop-card__copy strong {
-    color: #3f3f3f;
-    font-size: 12px;
+    max-width: 100%;
+    text-align: left;
+    color: #f05f40;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
     font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-}
-
-.discovery-workshop-card__copy small {
-    color: #8a8a8a;
-    font-size: 10px;
-    font-weight: 500;
-    line-height: 1.25;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    text-transform: uppercase;
 }
 
 .discovery-workshop-card:hover,
 .discovery-workshop-card:focus,
 .discovery-workshop-card.is-current {
+    border-color: rgba(240, 95, 64, 0.55);
+    background: #fff3ef;
+    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.14);
+    transform: translateY(-2px);
     text-decoration: none;
 }
 
-.discovery-workshop-card:hover .discovery-workshop-card__media,
-.discovery-workshop-card:focus .discovery-workshop-card__media,
-.discovery-workshop-card.is-current .discovery-workshop-card__media {
-    transform: translateY(-2px);
-    box-shadow:
-        inset 0 0 0 1px rgba(240, 95, 64, 0.28),
-        0 12px 22px rgba(240, 95, 64, 0.14);
-}
-
-.discovery-workshop-card:hover .discovery-workshop-card__media img,
-.discovery-workshop-card:focus .discovery-workshop-card__media img,
-.discovery-workshop-card.is-current .discovery-workshop-card__media img {
-    transform: scale(1.06);
-}
-
-.discovery-workshop-card:hover .discovery-workshop-card__copy strong,
-.discovery-workshop-card:focus .discovery-workshop-card__copy strong,
-.discovery-workshop-card.is-current .discovery-workshop-card__copy strong,
-.discovery-age-card:hover strong,
-.discovery-age-card:focus strong,
-.discovery-age-card.is-current strong {
+.discovery-workshop-card:hover strong,
+.discovery-workshop-card:focus strong,
+.discovery-workshop-card.is-current strong {
     color: #f05f40;
+}
+
+.discovery-workshop-card:focus-visible {
+    outline: 2px solid rgba(240, 95, 64, 0.45);
+    outline-offset: 2px;
+}
+
+.discovery-age-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    min-width: 0;
+    min-height: 38px;
+    padding: 7px 10px;
+    border: 1px solid rgba(67, 67, 67, 0.12);
+    border-radius: 7px;
+    background: #fff;
+    box-shadow:
+        0 0 0 1px rgba(67, 67, 67, 0.02),
+        0 2px 8px rgba(67, 67, 67, 0.07);
+    color: #434343;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 160ms ease, background-color 160ms ease,
+        box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.discovery-age-card::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-left: auto;
+    margin-right: 2px;
+    flex-shrink: 0;
+    border-top: 1.5px solid #f05f40;
+    border-right: 1.5px solid #f05f40;
+    transform: rotate(45deg);
 }
 
 .discovery-age-card:hover,
 .discovery-age-card:focus,
 .discovery-age-card.is-current {
-    border-color: rgba(240, 95, 64, 0.38);
-    box-shadow: 0 8px 18px rgba(45, 45, 45, 0.09);
-    transform: translateY(-2px);
+    color: #f05f40;
+    background: #fff3ef;
+    border-color: rgba(240, 95, 64, 0.55);
+    box-shadow: 0 3px 9px rgba(67, 67, 67, 0.06);
+    transform: translateY(-1px);
     text-decoration: none;
 }
 
-.discovery-workshop-card:focus-visible .discovery-workshop-card__media,
+.discovery-age-card:focus {
+    outline: none;
+}
+
 .discovery-age-card:focus-visible {
-    outline: 2px solid rgba(240, 95, 64, 0.45);
-    outline-offset: 2px;
-}
-
-.discovery-age-row {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-}
-
-.discovery-age-card {
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-    min-height: 42px;
-    padding: 8px 10px;
-    border: 1px solid rgba(67, 67, 67, 0.08);
-    border-radius: 10px;
-    background: #fff;
-    color: #555;
-    text-decoration: none;
-    box-shadow: 0 2px 7px rgba(45, 45, 45, 0.035);
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-}
-
-.discovery-age-card strong {
-    display: block;
-    color: #444;
-    font-size: 12px;
-    font-weight: 800;
-    line-height: 1.2;
+    box-shadow: 0 0 0 3px rgba(240, 95, 64, 0.4);
 }
 
 .discovery-header__actions {
@@ -859,33 +919,90 @@
 /* Contextual feedback frames the hero title. */
 
 .discovery-header__quotes {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: minmax(190px, 0.72fr) minmax(0, 1.5fr) minmax(190px, 0.72fr);
-    align-items: start;
-    gap: 22px;
-    grid-column: 1 / -1;
-    grid-row: 1;
-    width: 100%;
+    position: absolute;
+    z-index: 3;
+    top: 56px;
+    left: 28px;
+    right: 28px;
+    display: block;
+    width: auto;
     min-width: 0;
     pointer-events: none;
 }
 
 .discovery-header__quote {
-    position: relative;
+    position: absolute;
+    top: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 100%;
+    width: min(210px, 28%);
+    height: auto;
+    max-height: none;
     min-height: 0;
     margin: 0;
-    padding: 15px 16px;
+    padding: 14px 15px;
+    overflow: visible;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 12px 32px rgba(30, 30, 30, 0.13);
-    opacity: 1;
-    pointer-events: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.2s ease;
+    box-sizing: border-box;
+}
+
+.discovery-header__quote--oneline {
+    width: max-content;
+    max-width: min(280px, 36%);
+}
+
+.discovery-header__quote--oneline blockquote p {
+    white-space: nowrap;
+}
+
+.discovery-header__quote--narrow {
+    width: min(200px, 30%);
+}
+
+.discovery-header__quote--medium {
+    width: min(230px, 30%);
+}
+
+.discovery-header__quote--wide {
+    width: min(260px, 32%);
+    max-height: none;
+    padding: 11px 13px;
+    overflow: visible;
+}
+
+.discovery-header__quote--wide blockquote {
+    margin-bottom: 7px;
+}
+
+.discovery-header__quote--wide blockquote p {
+    font-size: 11px;
+    line-height: 1.38;
+}
+
+.discovery-header__quote--long {
+    width: min(280px, 34%);
+    max-height: none;
+    padding: 10px 12px;
+    overflow: visible;
+}
+
+.discovery-header__quote--long blockquote {
+    margin-bottom: 6px;
+}
+
+.discovery-header__quote--long blockquote p {
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.discovery-header__quote--long figcaption {
+    font-size: 9px;
 }
 
 .discovery-header__quote.is-visible {
@@ -893,14 +1010,17 @@
     pointer-events: auto;
 }
 
+.discovery-header__quote.is-leaving {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .discovery-header__quote--left {
-    grid-column: 1;
-    transform: translateY(2px);
+    left: 0;
 }
 
 .discovery-header__quote--right {
-    grid-column: 3;
-    transform: translateY(2px);
+    right: 0;
 }
 
 .discovery-header__quote blockquote {
@@ -917,8 +1037,8 @@
     line-height: 1.45;
 }
 
-.discovery-header__quote--placeholder {
-    min-height: 132px;
+.discovery-header__quotes [data-discovery-quote-data] {
+    display: none;
 }
 
 .discovery-header__quote figcaption {
@@ -1086,47 +1206,100 @@
     position: relative;
     z-index: 2;
     grid-column: 1 / -1;
-    grid-row: 3;
+    grid-row: 4;
     width: 100%;
     margin: 0;
-}
-
-.discovery-header .discovery-delivery > .discovery-section__heading {
-    position: absolute;
-    width: 1px;
-    height: 1px;
     padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
     border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .discovery-header .discovery-delivery__grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 6px;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid #e3e3e3;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(67, 67, 67, 0.06);
 }
 
 .discovery-header .discovery-delivery__grid li {
-    padding: 10px 8px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 12px 13px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
     text-align: center;
+}
+
+.discovery-header .discovery-delivery__grid li + li {
+    border-left: 1px solid rgba(67, 67, 67, 0.14);
 }
 
 .discovery-header .discovery-delivery__grid .fa {
     display: block;
-    margin: 0 auto 5px;
+    margin: 0 auto 4px;
+    color: #f05f40;
+    font-size: 18px;
+    line-height: 1;
 }
 
 .discovery-header .discovery-delivery__grid strong {
     display: block;
-    font-size: 12px;
+    margin: 0 0 2px;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
     line-height: 1.25;
+    color: #434343;
 }
 
-.discovery-header .discovery-delivery__grid span {
-    font-size: 11px;
-    line-height: 1.3;
+.discovery-header .discovery-delivery__grid small {
+    display: block;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #6f6f6f;
+}
+
+.discovery-header .discovery-plan {
+    position: relative;
+    z-index: 2;
+    grid-column: 1 / -1;
+    grid-row: 5;
+    width: 100%;
+    margin: 0;
+    padding: 16px 20px;
+    border: 1px solid rgba(67, 67, 67, 0.22);
+    border-radius: 16px;
+    background: #686868;
+    box-shadow:
+        0 0 18px rgba(240, 95, 64, 0.055),
+        0 5px 16px rgba(44, 44, 44, 0.03);
+}
+
+.discovery-header .discovery-plan__content {
+    padding-left: 14px;
+    border-left: 2px solid #f05f40;
+}
+
+.discovery-header .discovery-plan__heading {
+    font-size: clamp(18px, 2.2vw, 22px);
+}
+
+.discovery-header .discovery-plan__copy {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.84);
 }
 
 .discovery-delivery {
@@ -1311,35 +1484,45 @@
 }
 
 .discovery-footer-options {
-    margin-top: 44px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(67, 67, 67, 0.12);
+    margin-top: 16px;
+    padding: 0 14px;
+    border: 1px solid rgba(67, 67, 67, 0.09);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(44, 44, 44, 0.04);
 }
 
 .discovery-footer-options .discovery-offerings {
-    grid-template-columns: minmax(140px, 0.32fr) minmax(0, 1.68fr);
-    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 16px;
+    align-items: start;
+    margin: 0;
+}
+
+.discovery-footer-options .discovery-offerings__head {
+    margin: 0;
 }
 
 .discovery-footer-options .discovery-offerings__eyebrow {
-    margin-bottom: 3px;
-    color: #8a8a8a;
-    font-size: 9px;
+    display: none;
 }
 
 .discovery-footer-options .discovery-offerings__head .discovery-section__heading {
-    margin-bottom: 3px;
-    color: #555;
-    font-size: 16px;
+    margin: 0;
+    color: #434343;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
 }
 
 .discovery-footer-options .discovery-offerings__head > p:last-child {
-    font-size: 11px;
-    line-height: 1.4;
+    display: none;
 }
 
 .discovery-footer-options .discovery-offerings__grid {
-    gap: 20px;
+    display: contents;
 }
 
 .discovery-footer-options .discovery-offerings__group {
@@ -1347,24 +1530,35 @@
     border: 0;
     border-radius: 0;
     background: transparent;
+    box-shadow: none;
 }
 
 .discovery-footer-options .discovery-offerings__group + .discovery-offerings__group {
-    border-left: 0;
+    border: 0;
 }
 
 .discovery-footer-options .discovery-offerings__group h3 {
-    margin-bottom: 5px;
-    color: #777;
-    font-size: 10px;
-    letter-spacing: 0.08em;
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    margin: 0 0 4px;
+    color: #969696;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
+.discovery-footer-options .discovery-offerings__group h3::after {
+    content: none;
+}
+
 .discovery-footer-options .discovery-offerings__group ul {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 14px;
+    display: block;
+    margin: 0;
 }
 
 .discovery-footer-options .discovery-offerings__group li + li {
@@ -1373,10 +1567,21 @@
 
 .discovery-footer-options .discovery-offerings__group a,
 .discovery-footer-options .discovery-offerings__group:first-child a {
-    min-height: 25px;
-    color: #777;
-    font-size: 11px;
-    font-weight: 500;
+    display: block;
+    min-height: 0;
+    padding: 3px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #8a8a8a;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+.discovery-footer-options .discovery-offerings__group a::after {
+    content: none;
 }
 
 .discovery-footer-options .discovery-offerings__group a > span:last-child {
@@ -1388,6 +1593,9 @@
 .discovery-footer-options .discovery-offerings__group a.is-current {
     padding-left: 0;
     color: #f05f40;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
 }
 
 /* Keep exploring */
@@ -1578,34 +1786,72 @@
 /* Final plan CTA */
 
 .discovery-plan {
-    padding: 28px 22px;
-    border: 1px solid rgba(240, 95, 64, 0.25);
-    border-radius: 16px;
-    background: #fff8f5;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px 32px;
+    margin-bottom: 28px;
+    padding: 26px 30px;
+    border: 1px solid rgba(67, 67, 67, 0.22);
+    border-radius: 22px;
+    background: #686868;
+    box-shadow:
+        0 0 18px rgba(240, 95, 64, 0.055),
+        0 5px 16px rgba(44, 44, 44, 0.03);
+    text-align: left;
+}
+
+.discovery-plan__content {
+    min-width: 0;
+    flex: 1 1 auto;
 }
 
 .discovery-plan__heading {
-    margin: 0 0 8px;
+    margin: 0 0 7px;
     font-family: "Roboto", sans-serif;
-    font-size: clamp(20px, 2.6vw, 24px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #434343;
+    font-size: clamp(22px, 2.8vw, 28px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #fff;
     text-wrap: balance;
+}
+
+.discovery-plan__place {
+    color: #f05f40;
 }
 
 .discovery-plan__copy {
     max-width: 540px;
-    margin: 0 auto 18px;
-    font-size: 15px;
-    line-height: 1.55;
-    color: #5c5c5c;
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.84);
+    text-wrap: pretty;
+}
+
+.discovery-plan .discovery-plan-button {
+    flex: 0 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.08);
 }
 
 @media (max-width: 767px) {
     .discovery-main {
-        padding: 76px 14px 30px;
+        padding: 62px 14px 30px;
+    }
+
+    .discovery-plan {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 20px 18px;
+        border-radius: 18px;
+    }
+
+    .discovery-plan .discovery-plan-button {
+        width: 100%;
     }
 
     .discovery-header {
@@ -1621,8 +1867,10 @@
     }
 
     .discovery-header__content,
-    .discovery-header__quotes,
-    .discovery-header .discovery-delivery {
+    .discovery-header .discovery-delivery,
+    .discovery-header .discovery-plan,
+    .discovery-header__offerings,
+    .discovery-header__ages {
         grid-column: 1;
         grid-row: auto;
         width: 100%;
@@ -1638,28 +1886,57 @@
         grid-row: 2;
     }
 
-    .discovery-header .discovery-delivery {
+    .discovery-header__ages {
         grid-row: 3;
     }
 
-    .discovery-header__quotes {
+    .discovery-header .discovery-delivery {
         grid-row: 4;
+    }
+
+    .discovery-header__quotes {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        grid-column: 1;
+        grid-row: 5;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .discovery-header .discovery-plan {
+        grid-row: 6;
+        padding: 14px 16px;
+        border-radius: 12px;
     }
 
     .discovery-header .discovery-delivery__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .discovery-header__quotes {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
+    .discovery-header__quote,
+    .discovery-header__quote--left,
+    .discovery-header__quote--right,
+    .discovery-header__quote--oneline,
+    .discovery-header__quote--narrow,
+    .discovery-header__quote--medium,
+    .discovery-header__quote--wide,
+    .discovery-header__quote--long {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: 100%;
+        max-width: none;
+        max-height: none;
+        height: auto;
+        overflow: visible;
+        transform: none;
     }
 
-    .discovery-header__quote--left,
-    .discovery-header__quote--right {
-        grid-column: 1;
-        min-height: 0;
-        transform: none;
+    .discovery-header__quote--oneline blockquote p {
+        white-space: normal;
     }
 
     .discovery-header__quote--right {
@@ -1670,59 +1947,73 @@
         font-size: clamp(28px, 9vw, 34px);
     }
 
+    .discovery-header__headline--city .discovery-header__city {
+        font-size: clamp(40px, 11vw, 52px);
+    }
+
     .discovery-header__intro {
-        font-size: 15px;
+        font-size: 16px;
+        line-height: 1.65;
     }
 
     .discovery-header__offerings {
         grid-row: 2;
     }
 
+    .discovery-workshop-cards,
+    .discovery-age-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
     .discovery-workshop-cards {
-        gap: 12px 14px;
+        display: grid;
     }
 
     .discovery-workshop-card {
-        flex: 0 0 92px;
-        width: 92px;
-    }
-
-    .discovery-workshop-card__media {
-        width: 68px;
-        height: 68px;
-        padding: 7px;
-        border-radius: 16px;
-    }
-
-    .discovery-workshop-card__copy small {
-        display: none;
-    }
-
-    .discovery-age-row {
-        flex-wrap: wrap;
+        flex: none;
+        min-height: 46px;
+        padding: 12px;
+        border-radius: 10px;
     }
 
     .discovery-age-card {
-        flex: 1 1 calc(50% - 8px);
-        min-height: 40px;
+        min-height: 44px;
+        padding: 8px 10px;
+        border-radius: 7px;
     }
 
     .discovery-header__quote {
         padding: 16px;
     }
 
-    .discovery-delivery {
+    .discovery-header .discovery-delivery {
         padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
     }
 
-    .discovery-delivery__grid {
+    .discovery-header .discovery-delivery__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .discovery-header .discovery-delivery__grid li + li {
+        border-left: 0;
+        border-top: 1px solid rgba(67, 67, 67, 0.1);
+    }
+
+    .discovery-header .discovery-delivery__grid li:nth-child(2) {
+        border-top: 0;
+        border-left: 1px solid rgba(67, 67, 67, 0.14);
     }
 
     .discovery-delivery__grid li,
     .discovery-delivery__grid li:first-child {
-        padding: 12px;
-        border: 1px solid rgba(67, 67, 67, 0.09);
+        padding: 12px 10px;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
     }
 
     .discovery-delivery__grid li:last-child {
@@ -1750,14 +2041,20 @@
         min-height: 38px;
     }
 
+    .discovery-footer-options {
+        margin-top: 12px;
+        padding: 0 12px;
+        border-radius: 10px;
+    }
+
     .discovery-footer-options .discovery-offerings {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 16px;
     }
 
     .discovery-footer-options .discovery-offerings__grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
+        display: contents;
     }
 
     .discovery-footer-options .discovery-offerings__group + .discovery-offerings__group {
@@ -1766,7 +2063,8 @@
 
     .discovery-footer-options .discovery-offerings__group a,
     .discovery-footer-options .discovery-offerings__group:first-child a {
-        min-height: 30px;
+        min-height: 0;
+        padding: 3px 0;
     }
 
     .discovery-testimonials {
@@ -1799,10 +2097,34 @@
     }
 
     .discovery-header__quotes {
-        grid-template-columns: minmax(155px, 0.65fr) minmax(0, 1.5fr) minmax(155px, 0.65fr);
-        gap: 14px;
-        width: 100%;
-        min-width: 0;
+        top: 48px;
+        left: 20px;
+        right: 20px;
+    }
+
+    .discovery-header__quote {
+        width: min(180px, 28%);
+        max-height: none;
+        overflow: visible;
+    }
+
+    .discovery-header__quote--oneline {
+        max-width: min(240px, 34%);
+    }
+
+    .discovery-header__quote--narrow {
+        width: min(180px, 30%);
+    }
+
+    .discovery-header__quote--medium {
+        width: min(200px, 30%);
+    }
+
+    .discovery-header__quote--wide,
+    .discovery-header__quote--long {
+        width: min(240px, 32%);
+        max-height: none;
+        overflow: visible;
     }
 
     .discovery-offerings {
@@ -1812,6 +2134,18 @@
 
     .discovery-offerings__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .discovery-age-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .discovery-footer-options .discovery-offerings {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .discovery-footer-options .discovery-offerings__grid {
+        display: contents;
     }
 
 }
@@ -1992,14 +2326,20 @@ body.has-plan-workshop-modal {
     .discovery-detail-link__button,
     .discovery-header__quote,
     .discovery-header__detail-link,
-    .discovery-offerings__group a {
+    .discovery-offerings__group a,
+    .discovery-workshop-card,
+    .discovery-age-card {
         transition: none;
     }
 
     .find-workshop__option:hover,
     .find-workshop__plan-button:hover,
     .discovery-plan-button:hover,
-    .discovery-option:hover {
+    .discovery-option:hover,
+    .discovery-workshop-card:hover,
+    .discovery-workshop-card:focus,
+    .discovery-age-card:hover,
+    .discovery-age-card:focus {
         transform: none;
     }
 }

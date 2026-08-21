@@ -129,6 +129,8 @@ module StageOne
     def city_entry(city)
       base_entry(city).merge(
         "name" => city["name"],
+        "state" => city["state"],
+        "state_abbr" => city["state_abbr"],
         "short_label" => city["short_label"] || city["name"],
         "context_id" => city["slug"],
         "facts" => city["city_facts"] || [],
