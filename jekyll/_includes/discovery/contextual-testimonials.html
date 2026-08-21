@@ -10,7 +10,12 @@
 {% assign matched = "" | split: "" %}
 {% case page.discovery_category %}
 {% when "city" %}
-  {% assign matched = pool | where_exp: "t", "t.cities contains page.discovery_slug" %}
+  {% assign city_quotes = site.data.discovery.cities | where: "slug", page.discovery_slug | first %}
+  {% if city_quotes.show_quotes == false %}
+    {% assign matched = "" | split: "" %}
+  {% else %}
+    {% assign matched = pool | where_exp: "t", "t.cities contains page.discovery_slug" %}
+  {% endif %}
 {% when "workshop" %}
   {% assign matched = pool | where_exp: "t", "t.workshops contains entry.context_id" %}
 {% when "audience" %}
@@ -72,15 +77,13 @@
   <div class="discovery-header__quote-scroller-viewport" data-discovery-quote-scroller-viewport>
     <div class="discovery-header__quote-scroller-track">
       {% for t in hero_quotes %}
+      {% include discovery/quote-caption.html %}
       <figure class="discovery-header__quote discovery-header__quote--scroller is-visible"
         data-testimonial data-testimonial-id="{{ t.id }}">
         <blockquote>
           <p>{{ t.quote }}</p>
         </blockquote>
-        <button type="button" class="discovery-header__quote-more" hidden data-discovery-quote-more>
-          … Read more
-        </button>
-        <figcaption>{% if t.meta and t.meta != "" %}{{ t.meta }}{% endif %}</figcaption>
+        <figcaption>{% if quote_caption and quote_caption != "" %}{{ quote_caption }}{% endif %}</figcaption>
       </figure>
       {% endfor %}
     </div>
@@ -107,7 +110,8 @@
   <script type="application/json" data-discovery-quote-data>
 [
 {% for t in hero_quotes %}
-  {"id":{{ t.id | jsonify }},"quote":{{ t.quote | jsonify }},"meta":{{ t.meta | jsonify }}}{% unless forloop.last %},{% endunless %}
+{% include discovery/quote-caption.html %}
+  {"id":{{ t.id | jsonify }},"quote":{{ t.quote | jsonify }},"meta":{{ quote_caption | jsonify }}}{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
   </script>
@@ -139,7 +143,7 @@
     <blockquote>
       <p>{% if t %}{{ t.quote }}{% endif %}</p>
     </blockquote>
-    <figcaption>{% if t and t.meta and t.meta != "" %}{{ t.meta }}{% endif %}</figcaption>
+    <figcaption>{% if t %}{% include discovery/quote-caption.html %}{% if quote_caption and quote_caption != "" %}{{ quote_caption }}{% endif %}{% endif %}</figcaption>
     {% if t %}
     <a class="discovery-header__quote-link" href="/feedback.html"
       aria-label="View more participant feedback"></a>
@@ -160,7 +164,8 @@
         <p>{{ t.quote }}</p>
       </blockquote>
       <figcaption class="discovery-testimonial__meta">
-        {{ t.attribution }}{% if t.meta and t.meta != "" %} · {{ t.meta }}{% endif %}
+        {% include discovery/quote-caption.html %}
+        {{ t.attribution }}{% if quote_caption and quote_caption != "" %} · {{ quote_caption }}{% endif %}
       </figcaption>
     </figure>
     {% endfor %}

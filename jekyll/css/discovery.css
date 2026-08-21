@@ -670,9 +670,11 @@
 
 .discovery-header__headline--city .discovery-header__state-abbr {
     color: #f05f40;
+    font-family: "Roboto", sans-serif;
     font-size: 0.42em;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    font-weight: 100;
+    font-style: normal;
+    letter-spacing: 0.14em;
     line-height: 1;
     text-transform: uppercase;
 }
@@ -700,7 +702,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: 0;
     min-height: 0;
     padding: 0 36px 34px;
     font-family: "Roboto", sans-serif;
@@ -723,7 +725,7 @@
     gap: 8px 22px;
     width: calc(100% + 72px);
     margin: 0 -36px 0;
-    padding: 34px 36px 18px;
+    padding: 34px 36px 8px;
 }
 
 .discovery-header--location .discovery-header__hero {
@@ -845,7 +847,11 @@
 }
 
 .discovery-header--location .discovery-delivery {
-    margin-top: 8px;
+    margin-top: 2px;
+}
+
+.discovery-header--location .discovery-plan {
+    margin-top: 28px;
 }
 
 .discovery-header--location .discovery-header__quotes {
@@ -952,14 +958,34 @@
     align-self: start;
     justify-self: center;
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     margin: 32px 56px 0 0;
-    padding: 12px 12px 12px;
-    border: 1px solid rgba(67, 67, 67, 0.1);
+    padding: 16px 16px 14px;
+    border: 1px solid #f05f40;
     border-radius: 14px;
     background: #fff;
-    box-shadow: 0 12px 32px rgba(30, 30, 30, 0.12);
+    box-shadow: 0 10px 28px rgba(44, 44, 44, 0.08);
     text-align: left;
+}
+
+.discovery-header__offerings-head {
+    margin: 0 0 10px;
+}
+
+.discovery-header__offerings-head h2,
+.discovery-header__offerings-head h3 {
+    margin: 0;
+    color: #393939;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    text-transform: none;
+}
+
+.discovery-header__offerings-head--ages {
+    margin: 14px 0 8px;
 }
 
 .discovery-header--location .discovery-workshop-cards {
@@ -967,35 +993,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: stretch;
     gap: 6px;
-}
-
-.discovery-header__offerings--combined h2,
-.discovery-header__offerings-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 0 8px;
-    color: #393939;
-    font-family: "Roboto", sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-align: left;
-    text-transform: uppercase;
-}
-
-.discovery-header__offerings--combined h2::before,
-.discovery-header__offerings-label::before {
-    content: "";
-    flex-shrink: 0;
-    width: 3px;
-    height: 11px;
-    border-radius: 2px;
-    background: #f05f40;
-}
-
-.discovery-header__offerings-label {
-    margin: 12px 0 8px;
 }
 
 .discovery-header--location .discovery-header__offerings--combined .discovery-age-row {
@@ -1009,27 +1006,37 @@
     border-radius: 8px;
     box-shadow:
         0 0 0 1px rgba(67, 67, 67, 0.02),
-        0 2px 8px rgba(67, 67, 67, 0.06);
+        0 2px 6px rgba(67, 67, 67, 0.05);
 }
 
 .discovery-header--location .discovery-workshop-card--summary {
-    padding: 8px 9px;
-    gap: 6px;
+    align-items: center;
+    min-height: 38px;
+    padding: 8px 10px;
+    gap: 8px;
 }
 
 .discovery-header--location .discovery-workshop-card--summary::after {
     width: 6px;
     height: 6px;
-    margin-top: 4px;
+    margin-top: 0;
     border-top-color: #f05f40;
     border-right-color: #f05f40;
 }
 
+.discovery-header--location .discovery-workshop-card--summary .discovery-workshop-card__label {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+}
+
 .discovery-header--location .discovery-workshop-card--summary strong {
     color: #434343;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: 0;
     line-height: 1.2;
+    text-transform: none;
 }
 
 .discovery-header--location .discovery-workshop-card--summary:hover,
@@ -1689,7 +1696,7 @@
     opacity: 1;
     pointer-events: auto;
     scroll-snap-align: start;
-    cursor: grab;
+    cursor: pointer;
     -webkit-user-drag: none;
 }
 
@@ -1698,44 +1705,10 @@
 }
 
 .discovery-header--location .discovery-header__quote--scroller blockquote p {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
+    display: block;
+    max-height: calc(1.45em * 5);
     overflow: hidden;
     white-space: normal;
-}
-
-.discovery-header__quote-more {
-    position: relative;
-    z-index: 3;
-    align-self: flex-start;
-    margin: 0 0 8px;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: #f05f40;
-    font-family: "Roboto", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 1.2;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.discovery-header__quote-more:hover,
-.discovery-header__quote-more:focus {
-    color: #ee4b28;
-    text-decoration: underline;
-}
-
-.discovery-header__quote-more:focus {
-    outline: none;
-}
-
-.discovery-header__quote-more:focus-visible {
-    outline: 2px solid rgba(240, 95, 64, 0.45);
-    outline-offset: 2px;
 }
 
 .discovery-quote-modal {
@@ -2037,19 +2010,18 @@ body.has-discovery-quote-modal {
     box-shadow: none;
 }
 
+.discovery-header--location.discovery-header .discovery-delivery {
+    margin-top: 4px;
+}
+
 .discovery-header .discovery-delivery__grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0;
     overflow: hidden;
-    border: 1px solid rgba(13, 110, 253, 0.22);
-    border-bottom-color: rgba(8, 72, 176, 0.38);
-    border-radius: 14px;
-    background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 55%, #e8f1ff 100%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 1),
-        inset 0 -2px 6px rgba(13, 110, 253, 0.06),
-        0 4px 0 #3b7de8,
-        0 12px 22px rgba(13, 90, 200, 0.18);
+    border: 1px solid #0d6efd;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: none;
 }
 
 .discovery-header .discovery-delivery__grid li {
@@ -2058,7 +2030,7 @@ body.has-discovery-quote-modal {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 12px 18px;
+    padding: 10px 10px 11px;
     border: 0;
     border-radius: 0;
     background: transparent;
@@ -2073,19 +2045,19 @@ body.has-discovery-quote-modal {
 
 .discovery-header .discovery-delivery__grid .fa {
     display: block;
-    margin: 0 auto 7px;
+    margin: 0 auto 4px;
     color: #0d6efd;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1;
 }
 
 .discovery-header .discovery-delivery__grid strong {
     display: block;
-    margin: 0 0 5px;
+    margin: 0 0 2px;
     font-family: "Roboto", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
-    line-height: 1.3;
+    line-height: 1.2;
     color: #2c2c2c;
 }
 
@@ -2093,9 +2065,9 @@ body.has-discovery-quote-modal {
     display: block;
     margin: 0;
     font-family: "Roboto", sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.3;
     color: #555555;
 }
 
@@ -2106,27 +2078,36 @@ body.has-discovery-quote-modal {
     grid-row: 5;
     width: 100%;
     margin: 0;
-    padding: 16px 20px;
-    border: 1px solid rgba(67, 67, 67, 0.22);
-    border-radius: 16px;
-    background: #686868;
-    box-shadow:
-        0 0 18px rgba(240, 95, 64, 0.055),
-        0 5px 16px rgba(44, 44, 44, 0.03);
+    padding: 10px 18px;
+    border-radius: 12px;
+    gap: 16px 24px;
+}
+
+.discovery-header--location.discovery-header .discovery-plan {
+    margin-top: 32px;
 }
 
 .discovery-header .discovery-plan__content {
-    padding-left: 14px;
-    border-left: 2px solid #f05f40;
+    padding-left: 12px;
+    border-left: 2px solid rgba(255, 255, 255, 0.55);
 }
 
 .discovery-header .discovery-plan__heading {
-    font-size: clamp(18px, 2.2vw, 22px);
+    margin: 0 0 3px;
+    font-size: clamp(16px, 1.8vw, 19px);
+    line-height: 1.2;
 }
 
 .discovery-header .discovery-plan__copy {
-    font-size: 13.5px;
+    font-size: 12.5px;
+    line-height: 1.35;
     color: rgba(255, 255, 255, 0.84);
+}
+
+.discovery-header .discovery-plan-button--large {
+    min-height: 36px;
+    padding: 7px 16px;
+    font-size: 14px;
 }
 
 .discovery-delivery {
@@ -2629,12 +2610,15 @@ body.has-discovery-quote-modal {
     gap: 22px 32px;
     margin-bottom: 28px;
     padding: 26px 30px;
-    border: 1px solid rgba(67, 67, 67, 0.22);
+    border: 1px solid rgba(46, 163, 89, 0.45);
+    border-bottom-color: rgba(32, 130, 70, 0.55);
     border-radius: 22px;
-    background: #686868;
+    background: linear-gradient(180deg, #46c875 0%, #3bbf6b 52%, #34b461 100%);
     box-shadow:
-        0 0 18px rgba(240, 95, 64, 0.055),
-        0 5px 16px rgba(44, 44, 44, 0.03);
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -2px 6px rgba(20, 90, 50, 0.16),
+        0 4px 0 #2ea359,
+        0 12px 22px rgba(32, 140, 70, 0.22);
     text-align: left;
 }
 
@@ -2655,7 +2639,7 @@ body.has-discovery-quote-modal {
 }
 
 .discovery-plan__place {
-    color: #f05f40;
+    color: #fff;
 }
 
 .discovery-plan__copy {
@@ -2670,8 +2654,22 @@ body.has-discovery-quote-modal {
 
 .discovery-plan .discovery-plan-button {
     flex: 0 0 auto;
+    border: 1px solid #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.08);
+    background: #fff;
+    color: #3bbf6b;
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.16);
+}
+
+.discovery-plan .discovery-plan-button:hover,
+.discovery-plan .discovery-plan-button:focus {
+    background: #f3fff7;
+    color: #2ea359;
+    box-shadow: 0 6px 16px rgba(32, 110, 60, 0.2);
+}
+
+.discovery-plan .discovery-plan-button:focus-visible {
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.16), 0 0 0 3px rgba(255, 255, 255, 0.55);
 }
 
 @media (max-width: 767px) {
@@ -2705,7 +2703,7 @@ body.has-discovery-quote-modal {
 
     .discovery-header--location {
         padding: 0 18px 22px;
-        gap: 16px;
+        gap: 0;
     }
 
     .discovery-header--location .discovery-header__masthead {
@@ -2808,8 +2806,12 @@ body.has-discovery-quote-modal {
 
     .discovery-header .discovery-plan {
         grid-row: 6;
-        padding: 14px 16px;
+        padding: 10px 14px;
         border-radius: 12px;
+    }
+
+    .discovery-header--location.discovery-header .discovery-plan {
+        margin-top: 24px;
     }
 
     .discovery-header .discovery-delivery__grid {
@@ -2915,7 +2917,7 @@ body.has-discovery-quote-modal {
 
     .discovery-header .discovery-delivery__grid li,
     .discovery-header .discovery-delivery__grid li:first-child {
-        padding: 16px 12px 18px;
+        padding: 10px 10px 11px;
         border: 0;
         background: transparent;
         box-shadow: none;

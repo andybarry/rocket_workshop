@@ -1,0 +1,9 @@
+{% comment %}
+  Caption for website quotes: Year · Workshop · Location (no specific date).
+  Expects `t` in the parent scope.
+{% endcomment %}
+{% if t.year and t.workshop_label and t.location %}
+  {% assign quote_caption = t.year | append: " · " | append: t.workshop_label | append: " · " | append: t.location %}
+{% else %}
+  {% assign quote_caption = t.meta %}
+{% endif %}

@@ -7,20 +7,22 @@
 #   group_types:  list of group type ids from _data/discovery/group_types.yml
 #
 # Location pages only show quotes tagged with that city slug.
-# Caption format on location pages: Location · Year · Workshop
+# Caption format on location pages: Year · Workshop · Location
+# Cities with show_quotes: false in cities.yml hide the quote scroller
+# (currently Denver, Other U.S. Cities, and International) until quotes are ready.
 #
 # placeholder: true marks an entry as a development placeholder.
 # Placeholder entries are NEVER rendered on the site.
 
 - id: ann-arbor-01
   quote: >-
-    I don’t really have any suggestions because it was the best workshop I’ve done and it
-    was very fun and informing
+    This class was so much fun!! i really enjoyed myself and i hope to do something similar
+    in the future 😊
   attribution: Workshop participant
   location: Ann Arbor, MI
-  year: 2024
-  workshop_label: Robotics
-  meta: Ann Arbor, MI · 2024 · Robotics
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: June 27, 2026 · Robotics Drone Workshop · Ann Arbor, MI
   cities: [ann-arbor]
   workshops: [robotics-drone]
   audiences: []
@@ -33,8 +35,8 @@
   attribution: Workshop participant
   location: Ann Arbor, MI
   year: 2026
-  workshop_label: AI
-  meta: Ann Arbor, MI · 2026 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 27, 2026 · Artificial Intelligence Workshop · Ann Arbor, MI
   cities: [ann-arbor]
   workshops: [artificial-intelligence]
   audiences: []
@@ -42,27 +44,27 @@
 
 - id: ann-arbor-03
   quote: >-
-    This class was so much fun!! i really enjoyed myself and i hope to do something similar
-    in the future 😊
+    I loved the conceptual challenge the activity provided. I think talking through a tough
+    question with other highly knowledgeable people.
   attribution: Workshop participant
   location: Ann Arbor, MI
   year: 2026
-  workshop_label: Robotics
-  meta: Ann Arbor, MI · 2026 · Robotics
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 28, 2026 · Artificial Intelligence Workshop · Ann Arbor, MI
   cities: [ann-arbor]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: ann-arbor-04
   quote: >-
-    It was a lot of fun and put my coding skills to work in which I would like to be a
-    better coder, because this was the first real coding I've done.
+    I don’t really have any suggestions because it was the best workshop I’ve done and it
+    was very fun and informing
   attribution: Workshop participant
   location: Ann Arbor, MI
-  year: 2026
-  workshop_label: Robotics
-  meta: Ann Arbor, MI · 2026 · Robotics
+  year: 2024
+  workshop_label: Robotics Drone Workshop
+  meta: June 18, 2024 · Robotics Drone Workshop · Ann Arbor, MI
   cities: [ann-arbor]
   workshops: [robotics-drone]
   audiences: []
@@ -70,15 +72,14 @@
 
 - id: ann-arbor-05
   quote: >-
-    I can’t decide whether this or the helicopter workshop was the best, but this was one of
-    the most fun of them. This is a topic I’m very interested in and I had tons of fun.
+    I enjoyed seeing my design come to life and just enjoyed using onshape overall.
   attribution: Workshop participant
   location: Ann Arbor, MI
-  year: 2024
-  workshop_label: AI
-  meta: Ann Arbor, MI · 2024 · AI
+  year: 2026
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 27, 2026 · Mechanical Engineering Workshop · Ann Arbor, MI
   cities: [ann-arbor]
-  workshops: [artificial-intelligence]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
@@ -89,8 +90,8 @@
   attribution: Workshop participant
   location: Ann Arbor, MI
   year: 2024
-  workshop_label: Mechanical
-  meta: Ann Arbor, MI · 2024 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 18, 2024 · Mechanical Engineering Workshop · Ann Arbor, MI
   cities: [ann-arbor]
   workshops: [mechanical-engineering]
   audiences: []
@@ -102,8 +103,8 @@
   attribution: Workshop participant
   location: Ann Arbor, MI
   year: 2024
-  workshop_label: Robotics
-  meta: Ann Arbor, MI · 2024 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 18, 2024 · Robotics Drone Workshop · Ann Arbor, MI
   cities: [ann-arbor]
   workshops: [robotics-drone]
   audiences: []
@@ -111,104 +112,33 @@
 
 - id: ann-arbor-08
   quote: >-
-    This was amazing and idk if it could really be improved
+    I’ve been interested in cad for a while, and I never really got the chance to try it
+    until now, and I thought that it was interesting.
   attribution: Workshop participant
   location: Ann Arbor, MI
   year: 2024
-  workshop_label: Robotics
-  meta: Ann Arbor, MI · 2024 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 27, 2024 · Mechanical Engineering Workshop · Ann Arbor, MI
   cities: [ann-arbor]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
 - id: ann-arbor-09
   quote: >-
-    This was easily the best so far
+    My favorite part was the examples that the speaker used to help us understand how ai
+    actually works and how it’s processes things
   attribution: Workshop participant
   location: Ann Arbor, MI
-  year: 2026
-  workshop_label: Mechanical
-  meta: Ann Arbor, MI · 2026 · Mechanical
+  year: 2024
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 27, 2024 · Artificial Intelligence Workshop · Ann Arbor, MI
   cities: [ann-arbor]
-  workshops: [mechanical-engineering]
-  audiences: []
-  group_types: []
-
-- id: ann-arbor-10
-  quote: >-
-    I enjoyed seeing my design come to life and just enjoyed using onshape overall.
-  attribution: Workshop participant
-  location: Ann Arbor, MI
-  year: 2026
-  workshop_label: Mechanical
-  meta: Ann Arbor, MI · 2026 · Mechanical
-  cities: [ann-arbor]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: atlanta-01
-  quote: >-
-    Before this week, I've never done a workshop, but after doing 2 with stage one
-    education(this and the ai one) i dont think I'd even want to do one that wasn't run by
-    them. I've learned more in 3 hours than in 10 years of schooling. At no point was I
-    bored, or wishing it to be over(though i won't lie, i was falling asleep during the
-    first part of the drone presentation because I didn't get enough sleep 💀, in my defense,
-    Paul did have a very soothing voice). The drone lesson was the PERFECT balance learning
-    and hands on activity. 10/10, i would do anything for a week filled to the brim with
-    workshops done by stage one.
-  attribution: Workshop participant
-  location: Atlanta, GA
-  year: 2026
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2026 · Robotics
-  cities: [atlanta]
-  workshops: [robotics-drone]
-  audiences: []
-  group_types: []
-
-- id: atlanta-02
-  quote: >-
-    As an educator and teaching artist, I want to commend this workshop session and the
-    website/teaching tools! They're written so well. Simple to understand, but not "talking
-    down" to the scholars. Having multiple ways to understand/visualize the procedures is
-    awesome, allowing the scholars to find ways to help themselves understand. Each step is
-    incremental enough to not feel tedious while still being manageable/easily
-    understandable chunks of information. I love the visuals so much, and the UI is SUPER
-    user friendly! Having the steps have little check ins (at this point, click this button
-    if this part works) is a great way to offer autonomy to the scholars and feel like
-    they're progressing! Not to mention, Robbie is amazing!!! Speaks with my scholars
-    respectably and at their level, super open/friendly/inviting to let my scholars feel
-    free to ask for help. And knowledgeable to boot! He was able to troubleshoot EVERYONE.
-    He even encouraged me, an instructor, to join in. Thank you so much!!!
-  attribution: Workshop participant
-  location: Atlanta, GA
-  year: 2026
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2026 · Robotics
-  cities: [atlanta]
-  workshops: [robotics-drone]
-  audiences: []
-  group_types: []
-
-- id: atlanta-03
-  quote: >-
-    Im not lying when I say that this is by far the best thing we've (or i've) done so far.
-    This was EASILY my favorite activity of the camp. I barely knew how to use that
-    software, but as soon as I realized that it's very similar to inventor, I got the hang
-    of it, and blazed through it. This was very fun. 10/10 would 1000% recommend.
-  attribution: Workshop participant
-  location: Atlanta, GA
-  year: 2026
-  workshop_label: Mechanical
-  meta: Atlanta, GA · 2026 · Mechanical
-  cities: [atlanta]
-  workshops: [mechanical-engineering]
-  audiences: []
-  group_types: []
-
-- id: atlanta-04
   quote: >-
     This was genuinely my favorite one. I have taken many engineering classes and haven’t
     learned as much about wiring as I did within these few hours. I enjoyed the fact Mr Paul
@@ -217,29 +147,30 @@
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2026
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 17, 2026 · Robotics Drone Workshop · Atlanta, GA
   cities: [atlanta]
   workshops: [robotics-drone]
   audiences: []
   group_types: []
 
-- id: atlanta-05
+- id: atlanta-02
   quote: >-
-    This was really fun, and with how low my confidence levels were after CAD programming,
-    this made me a lot more confident in my engineering capabilities! Awesome workshop, even
-    better instructor; very patient, explains well, and loves what he does.
+    Im not lying when I say that this is by far the best thing we've (or i've) done so far.
+    This was EASILY my favorite activity of the camp. I barely knew how to use that
+    software, but as soon as I realized that it's very similar to inventor, I got the hang
+    of it, and blazed through it. This was very fun. 10/10 would 1000% recommend.
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2026
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2026 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 8, 2026 · Mechanical Engineering Workshop · Atlanta, GA
   cities: [atlanta]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
-- id: atlanta-06
+- id: atlanta-03
   quote: >-
     This was a super engaging and entertaining activity consisting of drone robotics,
     coding, and bread boards. I loved learning about what actually happens within the bread
@@ -248,39 +179,79 @@
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2026
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 16, 2026 · Robotics Drone Workshop · Atlanta, GA
   cities: [atlanta]
   workshops: [robotics-drone]
   audiences: []
   group_types: []
 
-- id: atlanta-07
+- id: atlanta-04
+  quote: >-
+    This was really fun, and with how low my confidence levels were after CAD programming,
+    this made me a lot more confident in my engineering capabilities! Awesome workshop, even
+    better instructor; very patient, explains well, and loves what he does. :D
+  attribution: Workshop participant
+  location: Atlanta, GA
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: July 8, 2026 · Robotics Drone Workshop · Atlanta, GA
+  cities: [atlanta]
+  workshops: [robotics-drone]
+  audiences: []
+  group_types: []
+
+- id: atlanta-05
   quote: >-
     Great workshop, I had an awesome time while learning valuable skills that will help
     essential for my success later in engineering and beyond.
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2025
-  workshop_label: Mechanical
-  meta: Atlanta, GA · 2025 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 8, 2025 · Mechanical Engineering Workshop · Atlanta, GA
   cities: [atlanta]
   workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
-- id: atlanta-08
+- id: atlanta-06
   quote: >-
-    The best part of the workshop was the hands on experience of working with not only
-    circuits, but also with the code that made them function and receiving real-time
-    feedback from it.
+    The instructors answered my questions in an easy to understand way
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2025
-  workshop_label: Robotics
-  meta: Atlanta, GA · 2025 · Robotics
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 7, 2025 · Artificial Intelligence Workshop · Atlanta, GA
   cities: [atlanta]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: atlanta-07
+  quote: >-
+    It was super fun, learning how to utilize AI more and finding out how much AI can
+    actually do.
+  attribution: Workshop participant
+  location: Atlanta, GA
+  year: 2025
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 8, 2025 · Artificial Intelligence Workshop · Atlanta, GA
+  cities: [atlanta]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: atlanta-08
+  quote: >-
+    Loved this whole experience especially the AI discussion
+  attribution: Workshop participant
+  location: Atlanta, GA
+  year: 2025
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 8, 2025 · Artificial Intelligence Workshop · Atlanta, GA
+  cities: [atlanta]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
@@ -290,8 +261,8 @@
   attribution: Workshop participant
   location: Atlanta, GA
   year: 2025
-  workshop_label: Mechanical
-  meta: Atlanta, GA · 2025 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 7, 2025 · Mechanical Engineering Workshop · Atlanta, GA
   cities: [atlanta]
   workshops: [mechanical-engineering]
   audiences: []
@@ -299,15 +270,14 @@
 
 - id: atlanta-10
   quote: >-
-    Shout out to Mr. Robbie because he provided such detailed and easy to follow
-    instructions that allowed me to really learn the different aspects of the software.
+    It was a great and excellent learning experience. I would like to do it again.
   attribution: Workshop participant
   location: Atlanta, GA
-  year: 2025
-  workshop_label: Mechanical
-  meta: Atlanta, GA · 2025 · Mechanical
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: July 17, 2026 · Robotics Drone Workshop · Atlanta, GA
   cities: [atlanta]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
@@ -318,8 +288,8 @@
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2026
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2026 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 27, 2026 · Mechanical Engineering Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [mechanical-engineering]
   audiences: []
@@ -332,8 +302,8 @@
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2026
-  workshop_label: Robotics
-  meta: Berkeley, CA · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 28, 2026 · Robotics Drone Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [robotics-drone]
   audiences: []
@@ -341,27 +311,26 @@
 
 - id: berkeley-03
   quote: >-
-    I had a lot of fun and Ian was definitely really helpful and very encouraging especially
-    as a first time CAD user I really appreciated his energy also he didn’t seem annoyed at
-    all definitely very fun
+    Thank you for answering our questions! This has been the first place that I’ve been able
+    to fully understand neural networks :)
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2025
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2025 · Mechanical
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 18, 2025 · Artificial Intelligence Workshop · Berkeley, CA
   cities: [berkeley]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: berkeley-04
   quote: >-
-    This was really well paced and I enjoyed the whole process. Tutorial was great too.
+    The guidance coupled with creative freedom of the workshop was perfect!
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2025
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2025 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 17, 2025 · Mechanical Engineering Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [mechanical-engineering]
   audiences: []
@@ -369,13 +338,13 @@
 
 - id: berkeley-05
   quote: >-
-    Ms. Jamie and Mr. David were both really wonderful and they taught me a lot. But since I
-    didn’t know a lot about nueral netowrks I learned a lot from Mr. David.
+    I would strongly recommend keeping and advancing the questions and topics presented in
+    the Ethics portion of the workshop.
   attribution: Workshop participant
   location: Berkeley, CA
-  year: 2025
-  workshop_label: AI
-  meta: Berkeley, CA · 2025 · AI
+  year: 2026
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 28, 2026 · Artificial Intelligence Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [artificial-intelligence]
   audiences: []
@@ -383,14 +352,14 @@
 
 - id: berkeley-06
   quote: >-
-    You guys where super engaging and I had a really good time thank you so much
+    This was really well paced and I enjoyed the whole process. Tutorial was great too.
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2025
-  workshop_label: Robotics
-  meta: Berkeley, CA · 2025 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 26, 2025 · Mechanical Engineering Workshop · Berkeley, CA
   cities: [berkeley]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
@@ -401,8 +370,8 @@
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2024
-  workshop_label: Robotics
-  meta: Berkeley, CA · 2024 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 17, 2024 · Robotics Drone Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [robotics-drone]
   audiences: []
@@ -410,27 +379,27 @@
 
 - id: berkeley-08
   quote: >-
-    You guys did amazing, 17 million stars out of 5
+    BUILDING A DRONE. also the coding part was really fun and educational.
   attribution: Workshop participant
   location: Berkeley, CA
-  year: 2024
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2024 · Mechanical
+  year: 2025
+  workshop_label: Robotics Drone Workshop
+  meta: July 17, 2025 · Robotics Drone Workshop · Berkeley, CA
   cities: [berkeley]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: berkeley-09
   quote: >-
-    The guidance coupled with creative freedom of the workshop was perfect!
+    Thank you I enjoyed this workshop and learned a lot more about ai
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2025
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2025 · Mechanical
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 17, 2025 · Artificial Intelligence Workshop · Berkeley, CA
   cities: [berkeley]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
@@ -440,8 +409,8 @@
   attribution: Workshop participant
   location: Berkeley, CA
   year: 2026
-  workshop_label: Mechanical
-  meta: Berkeley, CA · 2026 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 28, 2026 · Mechanical Engineering Workshop · Berkeley, CA
   cities: [berkeley]
   workshops: [mechanical-engineering]
   audiences: []
@@ -456,8 +425,8 @@
   attribution: Workshop participant
   location: Boston, MA
   year: 2026
-  workshop_label: Robotics
-  meta: Boston, MA · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 5, 2026 · Robotics Drone Workshop · Boston, MA
   cities: [boston]
   workshops: [robotics-drone]
   audiences: []
@@ -472,8 +441,8 @@
   attribution: Workshop participant
   location: Boston, MA
   year: 2025
-  workshop_label: AI
-  meta: Boston, MA · 2025 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 12, 2025 · Artificial Intelligence Workshop · Boston, MA
   cities: [boston]
   workshops: [artificial-intelligence]
   audiences: []
@@ -488,8 +457,8 @@
   attribution: Workshop participant
   location: Boston, MA
   year: 2025
-  workshop_label: Robotics
-  meta: Boston, MA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: April 11, 2025 · Robotics Drone Workshop · Boston, MA
   cities: [boston]
   workshops: [robotics-drone]
   audiences: []
@@ -497,14 +466,13 @@
 
 - id: boston-04
   quote: >-
-    It was really great. I first thought that I would not understand it but you did such a
-    good thing instruction for us. I would never forget this experience!!! Thank you so
-    much😍
+    It was very interesting. I could learn more about the AI and it's process. Especially,
+    making movie poster by using AI is so exciting. I appreciate this activity.
   attribution: Workshop participant
   location: Boston, MA
-  year: 2025
-  workshop_label: AI
-  meta: Boston, MA · 2025 · AI
+  year: 2026
+  workshop_label: Artificial Intelligence Workshop
+  meta: May 14, 2026 · Artificial Intelligence Workshop · Boston, MA
   cities: [boston]
   workshops: [artificial-intelligence]
   audiences: []
@@ -512,31 +480,28 @@
 
 - id: boston-05
   quote: >-
+    It was great! Very exciting experience for both children and adults! Both of the helpers
+    were very clear and helpful! I hope to do this again!
+  attribution: Workshop participant
+  location: Boston, MA
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: June 13, 2026 · Robotics Drone Workshop · Boston, MA
+  cities: [boston]
+  workshops: [robotics-drone]
+  audiences: []
+  group_types: []
+
+- id: boston-06
+  quote: >-
     i love how you guys answered all of our qeutions and told us a lot to help us understand
     better. you guys explained everything so well. i loved the activitys you guys let us do.
     You guys did a great job!!
   attribution: Workshop participant
   location: Boston, MA
   year: 2024
-  workshop_label: AI
-  meta: Boston, MA · 2024 · AI
-  cities: [boston]
-  workshops: [artificial-intelligence]
-  audiences: []
-  group_types: []
-
-- id: boston-06
-  quote: >-
-    Neural network training was one of the best artificial intelligence lessons I had. It
-    was nice to use various types of AI programs after that. But I want to know more about
-    complex neural functions and inputs and possibly more about data itself like a byte. It
-    was a nice experience to have. I also hope to learn more about the ups and downs of each
-    program for efficient use and productivity
-  attribution: Workshop participant
-  location: Boston, MA
-  year: 2026
-  workshop_label: AI
-  meta: Boston, MA · 2026 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: March 5, 2024 · Artificial Intelligence Workshop · Boston, MA
   cities: [boston]
   workshops: [artificial-intelligence]
   audiences: []
@@ -544,28 +509,28 @@
 
 - id: boston-07
   quote: >-
-    It was great! Very exciting experience for both children and adults! Both of the helpers
-    were very clear and helpful! I hope to do this again!
+    I had so much fun! I really liked all parts. This really helped meet a better
+    understanding of how Ai works.
   attribution: Workshop participant
   location: Boston, MA
-  year: 2026
-  workshop_label: Robotics
-  meta: Boston, MA · 2026 · Robotics
+  year: 2024
+  workshop_label: Artificial Intelligence Workshop
+  meta: May 9, 2024 · Artificial Intelligence Workshop · Boston, MA
   cities: [boston]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: boston-08
   quote: >-
-    this was the best workshop in the whole program
+    Learning what the different tools do and how to use them to make what I want.
   attribution: Workshop participant
   location: Boston, MA
   year: 2024
-  workshop_label: Robotics
-  meta: Boston, MA · 2024 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 11, 2024 · Mechanical Engineering Workshop · Boston, MA
   cities: [boston]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
@@ -575,8 +540,8 @@
   attribution: Workshop participant
   location: Boston, MA
   year: 2024
-  workshop_label: Robotics
-  meta: Boston, MA · 2024 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 12, 2024 · Robotics Drone Workshop · Boston, MA
   cities: [boston]
   workshops: [robotics-drone]
   audiences: []
@@ -584,14 +549,14 @@
 
 - id: boston-10
   quote: >-
-    This lecture was the best lecture in the US
+    this was the best workshop in the whole program
   attribution: Workshop participant
   location: Boston, MA
-  year: 2025
-  workshop_label: AI
-  meta: Boston, MA · 2025 · AI
+  year: 2024
+  workshop_label: Robotics Drone Workshop
+  meta: July 12, 2024 · Robotics Drone Workshop · Boston, MA
   cities: [boston]
-  workshops: [artificial-intelligence]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
@@ -603,8 +568,8 @@
   attribution: Workshop participant
   location: Houston, TX
   year: 2024
-  workshop_label: AI
-  meta: Houston, TX · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 15, 2024 · Artificial Intelligence Workshop · Houston, TX
   cities: [houston]
   workshops: [artificial-intelligence]
   audiences: []
@@ -617,8 +582,8 @@
   attribution: Workshop participant
   location: Houston, TX
   year: 2026
-  workshop_label: Mechanical
-  meta: Houston, TX · 2026 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 11, 2026 · Mechanical Engineering Workshop · Houston, TX
   cities: [houston]
   workshops: [mechanical-engineering]
   audiences: []
@@ -626,29 +591,26 @@
 
 - id: houston-03
   quote: >-
-    I really liked our instructor, Jenny Wang, she was very knowledgeable and open to all
-    questions. She also was constantly aiding us and encouraging us, and for first time
-    users like me it made learning more fun and easy.
+    This was the best workshop because it was super interactive and very hands on
   attribution: Workshop participant
   location: Houston, TX
-  year: 2024
-  workshop_label: Mechanical
-  meta: Houston, TX · 2024 · Mechanical
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: June 28, 2026 · Robotics Drone Workshop · Houston, TX
   cities: [houston]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: houston-04
   quote: >-
-    Nothing really, this was super cool and I had a ton of fun. I thought I would be bored
-    because it looked so technical, but the tutorial was super easy to follow and it
-    reminded me of the lego sets I used to build but harder and more fun
+    I loved using the OnShape design and learning about how to use the program. It'll
+    definitely be fun to use it in the future!
   attribution: Workshop participant
   location: Houston, TX
-  year: 2026
-  workshop_label: Mechanical
-  meta: Houston, TX · 2026 · Mechanical
+  year: 2024
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 27, 2024 · Mechanical Engineering Workshop · Houston, TX
   cities: [houston]
   workshops: [mechanical-engineering]
   audiences: []
@@ -656,84 +618,81 @@
 
 - id: houston-05
   quote: >-
-    I really enjoyed this workshop! Thank you for giving me this experience, I am certain
-    that it is a stepping stone into my future. ily guys ❤️
+    I liked this workshop. It was fun and I enjoyed learning all of this. It’s very new to
+    me since I do not know how to code but it was very helpful.
   attribution: Workshop participant
   location: Houston, TX
-  year: 2024
-  workshop_label: Mechanical
-  meta: Houston, TX · 2024 · Mechanical
+  year: 2025
+  workshop_label: Robotics Drone Workshop
+  meta: July 1, 2025 · Robotics Drone Workshop · Houston, TX
   cities: [houston]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: houston-06
   quote: >-
-    I really enjoyed the pace and personal anecdotes, he was very knowledgeable and open to
-    helping
+    Neural network game made a complicated concept easy to understand
   attribution: Workshop participant
   location: Houston, TX
-  year: 2025
-  workshop_label: Mechanical
-  meta: Houston, TX · 2025 · Mechanical
+  year: 2024
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 27, 2024 · Artificial Intelligence Workshop · Houston, TX
   cities: [houston]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: houston-07
-  quote: >-
-    I loved using the OnShape design and learning about how to use the program. It'll
-    definitely be fun to use it in the future!
-  attribution: Workshop participant
-  location: Houston, TX
-  year: 2024
-  workshop_label: Mechanical
-  meta: Houston, TX · 2024 · Mechanical
-  cities: [houston]
-  workshops: [mechanical-engineering]
-  audiences: []
-  group_types: []
-
-- id: houston-08
   quote: >-
     The instructors were amazing and super involved! Wasn’t intimidating to approach them
     and were very quick to answer any questions
   attribution: Workshop participant
   location: Houston, TX
   year: 2025
-  workshop_label: Robotics
-  meta: Houston, TX · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 29, 2025 · Robotics Drone Workshop · Houston, TX
   cities: [houston]
   workshops: [robotics-drone]
+  audiences: []
+  group_types: []
+
+- id: houston-08
+  quote: >-
+    He was very nice and patient even though I had never worked with CAD before. Great work!
+  attribution: Workshop participant
+  location: Houston, TX
+  year: 2025
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 29, 2025 · Mechanical Engineering Workshop · Houston, TX
+  cities: [houston]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
 - id: houston-09
   quote: >-
-    This was the best workshop because it was super interactive and very hands on
+    The most engaging and interesting part of my time at this camp so far.
   attribution: Workshop participant
   location: Houston, TX
-  year: 2026
-  workshop_label: Robotics
-  meta: Houston, TX · 2026 · Robotics
+  year: 2024
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 15, 2024 · Artificial Intelligence Workshop · Houston, TX
   cities: [houston]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: houston-10
   quote: >-
-    My favorite part was learning how to use a new program to create a model rocket that I
-    will possibly be able to 3D print, I can further take these skills back home with me.
+    This is a really cool project that was clear and organized.
   attribution: Workshop participant
   location: Houston, TX
-  year: 2024
-  workshop_label: Mechanical
-  meta: Houston, TX · 2024 · Mechanical
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: June 27, 2026 · Robotics Drone Workshop · Houston, TX
   cities: [houston]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
@@ -745,8 +704,8 @@
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2025
-  workshop_label: Mechanical
-  meta: Los Angeles, CA · 2025 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 24, 2025 · Mechanical Engineering Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [mechanical-engineering]
   audiences: []
@@ -759,8 +718,8 @@
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2025
-  workshop_label: AI
-  meta: Los Angeles, CA · 2025 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 24, 2025 · Artificial Intelligence Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [artificial-intelligence]
   audiences: []
@@ -768,12 +727,13 @@
 
 - id: los-angeles-03
   quote: >-
-    Great learning experience and basic introduction, I loved it
+    I enjoyed the drone a lot and it was fun to make a remote and see the code behind it,
+    without having to make the code ourselves
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2025
-  workshop_label: Robotics
-  meta: Los Angeles, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 24, 2025 · Robotics Drone Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [robotics-drone]
   audiences: []
@@ -781,39 +741,38 @@
 
 - id: los-angeles-04
   quote: >-
-    it was very fun it was my favorite workshop by far
-  attribution: Workshop participant
-  location: Los Angeles, CA
-  year: 2026
-  workshop_label: Robotics
-  meta: Los Angeles, CA · 2026 · Robotics
-  cities: [los-angeles]
-  workshops: [robotics-drone]
-  audiences: []
-  group_types: []
-
-- id: los-angeles-05
-  quote: >-
     This was great and I learned a lot and had a lot of fun
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2026
-  workshop_label: AI
-  meta: Los Angeles, CA · 2026 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 17, 2026 · Artificial Intelligence Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
-- id: los-angeles-06
+- id: los-angeles-05
   quote: >-
-    I had fun during this work show the instructor was well prepared in the fact she knew
-    what she was doing and it was really fun
+    it was very fun it was my favorite workshop by far :D
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2026
-  workshop_label: Mechanical
-  meta: Los Angeles, CA · 2026 · Mechanical
+  workshop_label: Robotics Drone Workshop
+  meta: July 17, 2026 · Robotics Drone Workshop · Los Angeles, CA
+  cities: [los-angeles]
+  workshops: [robotics-drone]
+  audiences: []
+  group_types: []
+
+- id: los-angeles-06
+  quote: >-
+    I loved learning another CAD program, I really appreciated the instructions!
+  attribution: Workshop participant
+  location: Los Angeles, CA
+  year: 2025
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 25, 2025 · Mechanical Engineering Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [mechanical-engineering]
   audiences: []
@@ -821,13 +780,12 @@
 
 - id: los-angeles-07
   quote: >-
-    This was amazing! I would add perhaps opportunities for the student to customize it for
-    themselves.
+    Not really any comments, to me it was perfect as is and I enjoyed it very well.
   attribution: Workshop participant
   location: Los Angeles, CA
-  year: 2026
-  workshop_label: Mechanical
-  meta: Los Angeles, CA · 2026 · Mechanical
+  year: 2025
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 24, 2025 · Mechanical Engineering Workshop · Los Angeles, CA
   cities: [los-angeles]
   workshops: [mechanical-engineering]
   audiences: []
@@ -835,41 +793,40 @@
 
 - id: los-angeles-08
   quote: >-
-    It was fun and I feel I’ve learned a lot from it.
+    I loved learning about neural networking and how to use ai
   attribution: Workshop participant
   location: Los Angeles, CA
-  year: 2026
-  workshop_label: Mechanical
-  meta: Los Angeles, CA · 2026 · Mechanical
+  year: 2025
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 25, 2025 · Artificial Intelligence Workshop · Los Angeles, CA
   cities: [los-angeles]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: los-angeles-09
   quote: >-
-    I don’t usually enjoy working with CAD, but I liked my instructor and she made it more
-    enjoyable
+    Great learning experience and basic introduction, I loved it
   attribution: Workshop participant
   location: Los Angeles, CA
-  year: 2026
-  workshop_label: Mechanical
-  meta: Los Angeles, CA · 2026 · Mechanical
+  year: 2025
+  workshop_label: Robotics Drone Workshop
+  meta: June 24, 2025 · Robotics Drone Workshop · Los Angeles, CA
   cities: [los-angeles]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: los-angeles-10
   quote: >-
-    I made fun memories in this workshop!
+    Was making the rocket, it was really fun and challenging I loved it
   attribution: Workshop participant
   location: Los Angeles, CA
   year: 2026
-  workshop_label: Robotics
-  meta: Los Angeles, CA · 2026 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 16, 2026 · Mechanical Engineering Workshop · Los Angeles, CA
   cities: [los-angeles]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
@@ -881,48 +838,14 @@
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Robotics
-  meta: New Haven, CT · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 27, 2026 · Robotics Drone Workshop · New Haven, CT
   cities: [new-haven]
   workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: new-haven-02
-  quote: >-
-    I enjoy CAD and have used it for like 4 years but I still learned from this activity.
-    The instructor was very kind, extremely helpful and knowledgeable and if you can please
-    give this guy a raise.
-  attribution: Workshop participant
-  location: New Haven, CT
-  year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
-  cities: [new-haven]
-  workshops: [mechanical-engineering]
-  audiences: []
-  group_types: []
-
-- id: new-haven-03
-  quote: >-
-    I had so much fun in this workshop that I skipped lunch for it and that’s saying a lot
-    (dw the advisors still gave my group some time to eat afterward) but yeah I really did
-    enjoy doing the electric car circuit thing even if it didn’t exactly become fully
-    functional by the end. I definitely did learn a lot tho, cus by the beginning I was
-    using all the wrong tools and trying to crimp wires with ends that had already been
-    used, but by the end I felt really confident in doing them. Favorite camp so far, def
-    keep running it!
-  attribution: Workshop participant
-  location: New Haven, CT
-  year: 2026
-  workshop_label: Robotics
-  meta: New Haven, CT · 2026 · Robotics
-  cities: [new-haven]
-  workshops: [robotics-drone]
-  audiences: []
-  group_types: []
-
-- id: new-haven-04
   quote: >-
     I really thought this activity was fun, and as someone who has literally no experience
     with CAD, I thought this was a really accessible and understandable way of learning some
@@ -931,8 +854,36 @@
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 26, 2026 · Mechanical Engineering Workshop · New Haven, CT
+  cities: [new-haven]
+  workshops: [mechanical-engineering]
+  audiences: []
+  group_types: []
+
+- id: new-haven-03
+  quote: >-
+    Loved this instructor, she is very interactive and a good listener and provides great
+    insight
+  attribution: Workshop participant
+  location: New Haven, CT
+  year: 2026
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 26, 2026 · Artificial Intelligence Workshop · New Haven, CT
+  cities: [new-haven]
+  workshops: [artificial-intelligence]
+  audiences: []
+  group_types: []
+
+- id: new-haven-04
+  quote: >-
+    I loved this! Everyone was so helpful and this was very interesting and it was great to
+    know something so important to my major was talked about and involved in this program.
+  attribution: Workshop participant
+  location: New Haven, CT
+  year: 2026
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 27, 2026 · Mechanical Engineering Workshop · New Haven, CT
   cities: [new-haven]
   workshops: [mechanical-engineering]
   audiences: []
@@ -940,15 +891,14 @@
 
 - id: new-haven-05
   quote: >-
-    I loved this! Everyone was so helpful and this was very interesting and it was great to
-    know something so important to my major was talked about and involved in this program.
+    i loved the independence granted to us and really enjoyed this experience
   attribution: Workshop participant
   location: New Haven, CT
-  year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
+  year: 2025
+  workshop_label: Robotics Drone Workshop
+  meta: July 8, 2025 · Robotics Drone Workshop · New Haven, CT
   cities: [new-haven]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
@@ -959,8 +909,8 @@
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 27, 2026 · Mechanical Engineering Workshop · New Haven, CT
   cities: [new-haven]
   workshops: [mechanical-engineering]
   audiences: []
@@ -968,39 +918,42 @@
 
 - id: new-haven-07
   quote: >-
-    This workshop was really fun! It was easy to understand the instructions which were very
-    helpful for someone who has never used a CAD program like this.
+    This was really fun and I enjoyed it a lot! I love creating electronics, like I’ve build
+    a cyberdeck already and I think it’s really cool! I loved doing these kinds of things,
+    especially with the right people
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
+  workshop_label: Robotics Drone Workshop
+  meta: July 26, 2026 · Robotics Drone Workshop · New Haven, CT
   cities: [new-haven]
-  workshops: [mechanical-engineering]
+  workshops: [robotics-drone]
   audiences: []
   group_types: []
 
 - id: new-haven-08
   quote: >-
-    Genuinely so glad I got to experience this. Was so informative and I learned so much.
+    The neural networking part was really fun but I do wish there were a few more rounds
+    (like 2) even tho I know it would have gotten redundant, but overall I really liked this
+    station, everything was organized pretty well
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Mechanical
-  meta: New Haven, CT · 2026 · Mechanical
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 26, 2026 · Artificial Intelligence Workshop · New Haven, CT
   cities: [new-haven]
-  workshops: [mechanical-engineering]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: new-haven-09
   quote: >-
-    i loved the independence granted to us and really enjoyed this experience
+    This was super fun and it should definitely be taught next time.
   attribution: Workshop participant
   location: New Haven, CT
-  year: 2025
-  workshop_label: Robotics
-  meta: New Haven, CT · 2025 · Robotics
+  year: 2026
+  workshop_label: Robotics Drone Workshop
+  meta: July 27, 2026 · Robotics Drone Workshop · New Haven, CT
   cities: [new-haven]
   workshops: [robotics-drone]
   audiences: []
@@ -1008,42 +961,38 @@
 
 - id: new-haven-10
   quote: >-
-    This was really fun and I enjoyed it a lot! I love creating electronics, like I’ve build
-    a cyberdeck already and I think it’s really cool! I loved doing these kinds of things,
-    especially with the right people
+    Genuinely so glad I got to experience this. Was so informative and I learned so much.
   attribution: Workshop participant
   location: New Haven, CT
   year: 2026
-  workshop_label: Robotics
-  meta: New Haven, CT · 2026 · Robotics
+  workshop_label: Mechanical Engineering Workshop
+  meta: July 26, 2026 · Mechanical Engineering Workshop · New Haven, CT
   cities: [new-haven]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
 - id: orlando-01
   quote: >-
-    Everything was amazing - just would be helpful to have physical models to refer back to
-    alongside the digital ones on the program for people who get stuck on things like me!
+    I think it was really well planned and the activities were very enjoyable and fun.
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 21, 2026 · Artificial Intelligence Workshop · Orlando, FL
   cities: [orlando]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: orlando-02
   quote: >-
-    It was so cool to see our drone fly! and it all made sense in real world scenarios which
-    was really helpful
+    The instruction was very supportive and engaging. Excellent work.
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 23, 2026 · Robotics Drone Workshop · Orlando, FL
   cities: [orlando]
   workshops: [robotics-drone]
   audiences: []
@@ -1051,12 +1000,13 @@
 
 - id: orlando-03
   quote: >-
-    The instruction was very supportive and engaging. Excellent work.
+    It was so cool to see our drone fly! and it all made sense in real world scenarios which
+    was really helpful
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 23, 2026 · Robotics Drone Workshop · Orlando, FL
   cities: [orlando]
   workshops: [robotics-drone]
   audiences: []
@@ -1064,12 +1014,13 @@
 
 - id: orlando-04
   quote: >-
-    I think it was really well planned and the activities were very enjoyable and fun.
+    Building our own mission and having open and interesting debates on the ethics and
+    consequences of ai usage.
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: AI
-  meta: Orlando, FL · 2026 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 21, 2026 · Artificial Intelligence Workshop · Orlando, FL
   cities: [orlando]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1077,12 +1028,12 @@
 
 - id: orlando-05
   quote: >-
-    You guys are the best :)
+    The instructors are really nice and understanding!!
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 23, 2026 · Robotics Drone Workshop · Orlando, FL
   cities: [orlando]
   workshops: [robotics-drone]
   audiences: []
@@ -1090,67 +1041,27 @@
 
 - id: orlando-06
   quote: >-
-    The instructors are really nice and understanding!!
+    you guy were super fun and entertaining :)
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 21, 2026 · Artificial Intelligence Workshop · Orlando, FL
   cities: [orlando]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: orlando-07
   quote: >-
-    its a pretty cool workshop activity
+    its a pretty cool workshop activity :D
   attribution: Workshop participant
   location: Orlando, FL
   year: 2026
-  workshop_label: Robotics
-  meta: Orlando, FL · 2026 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: June 23, 2026 · Robotics Drone Workshop · Orlando, FL
   cities: [orlando]
   workshops: [robotics-drone]
-  audiences: []
-  group_types: []
-
-- id: orlando-08
-  quote: >-
-    Building our own mission and having open and interesting debates on the ethics and
-    consequences of ai usage.
-  attribution: Workshop participant
-  location: Orlando, FL
-  year: 2026
-  workshop_label: AI
-  meta: Orlando, FL · 2026 · AI
-  cities: [orlando]
-  workshops: [artificial-intelligence]
-  audiences: []
-  group_types: []
-
-- id: orlando-09
-  quote: >-
-    It was very interactive and relatively engaging.
-  attribution: Workshop participant
-  location: Orlando, FL
-  year: 2026
-  workshop_label: AI
-  meta: Orlando, FL · 2026 · AI
-  cities: [orlando]
-  workshops: [artificial-intelligence]
-  audiences: []
-  group_types: []
-
-- id: orlando-10
-  quote: >-
-    you guy were super fun and entertaining :)
-  attribution: Workshop participant
-  location: Orlando, FL
-  year: 2026
-  workshop_label: AI
-  meta: Orlando, FL · 2026 · AI
-  cities: [orlando]
-  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
@@ -1164,8 +1075,8 @@
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1173,14 +1084,14 @@
 
 - id: san-francisco-02
   quote: >-
-    yeah just to reiterate i thought the program was really well structured and organised.
-    the people who taught us were really experienced and passionate about engineering and
-    robotics. thanks for a great session! (robbie and selina)
+    This was extremely well done. The instructors were very nice and approachable. I am
+    extremely grateful for this as it has opened my eyes to a new area of electronics I
+    never would've thought I would do.
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1188,14 +1099,14 @@
 
 - id: san-francisco-03
   quote: >-
-    This was extremely well done. The instructors were very nice and approachable. I am
-    extremely grateful for this as it has opened my eyes to a new area of electronics I
-    never would've thought I would do.
+    yeah just to reiterate i thought the program was really well structured and organised.
+    the people who taught us were really experienced and passionate about engineering and
+    robotics. thanks for a great session! (robbie and selina)
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1207,8 +1118,8 @@
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1216,15 +1127,13 @@
 
 - id: san-francisco-05
   quote: >-
-    I really enjoyed it, it was fun building the code, the only difficulties being
-    controlling the drone in manual flight. I would recommend more time to practice and
-    prepare the autonomous flight (maybe plus 30 mins? (Don't take from other time, just add
-    more to the end))
+    building a drone with my mate and learning the components of it and how each part
+    contributes to the build
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1232,39 +1141,38 @@
 
 - id: san-francisco-06
   quote: >-
-    building a drone with my mate and learning the components of it and how each part
-    contributes to the build
+    Understanding how AI processes prompts
   attribution: Workshop participant
   location: San Francisco, CA
-  year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  year: 2026
+  workshop_label: Artificial Intelligence Workshop
+  meta: June 27, 2026 · Artificial Intelligence Workshop · San Francisco, CA
   cities: [san-francisco]
-  workshops: [robotics-drone]
+  workshops: [artificial-intelligence]
   audiences: []
   group_types: []
 
 - id: san-francisco-07
   quote: >-
-    It was great fun thank you very much
+    Figuring out how to use CAD
   attribution: Workshop participant
   location: San Francisco, CA
-  year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  year: 2026
+  workshop_label: Mechanical Engineering Workshop
+  meta: June 27, 2026 · Mechanical Engineering Workshop · San Francisco, CA
   cities: [san-francisco]
-  workshops: [robotics-drone]
+  workshops: [mechanical-engineering]
   audiences: []
   group_types: []
 
 - id: san-francisco-08
   quote: >-
-    Loved it.
+    It was great fun thank you very much
   attribution: Workshop participant
   location: San Francisco, CA
-  year: 2026
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2026 · Robotics
+  year: 2025
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1272,12 +1180,12 @@
 
 - id: san-francisco-09
   quote: >-
-    Great to be able to relate to the instructors (F1)
+    Learning about the programming behind the drones
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1289,8 +1197,8 @@
   attribution: Workshop participant
   location: San Francisco, CA
   year: 2025
-  workshop_label: Robotics
-  meta: San Francisco, CA · 2025 · Robotics
+  workshop_label: Robotics Drone Workshop
+  meta: July 13, 2025 · Robotics Drone Workshop · San Francisco, CA
   cities: [san-francisco]
   workshops: [robotics-drone]
   audiences: []
@@ -1303,8 +1211,8 @@
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1312,12 +1220,13 @@
 
 - id: washington-dc-02
   quote: >-
-    Thank you for teaching me the knowledge I never know before
+    Liked the social activity and instructors simpleness yet effective in explaining
+    information
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1329,8 +1238,8 @@
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1338,12 +1247,12 @@
 
 - id: washington-dc-04
   quote: >-
-    Love this. Keep going
+    The network nodes game and AI picture generator
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1351,12 +1260,12 @@
 
 - id: washington-dc-05
   quote: >-
-    The network nodes game and AI picture generator
+    Thank you for teaching me the knowledge I never know before
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1364,13 +1273,12 @@
 
 - id: washington-dc-06
   quote: >-
-    Liked the social activity and instructors simpleness yet effective in explaining
-    information
+    Instructor is very enthusiastic:)
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1378,12 +1286,12 @@
 
 - id: washington-dc-07
   quote: >-
-    Instructor is very enthusiastic:)
+    Love this. Keep going
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1395,8 +1303,8 @@
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1408,8 +1316,8 @@
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []
@@ -1421,8 +1329,8 @@
   attribution: Workshop participant
   location: Washington, DC
   year: 2024
-  workshop_label: AI
-  meta: Washington, DC · 2024 · AI
+  workshop_label: Artificial Intelligence Workshop
+  meta: July 3, 2024 · Artificial Intelligence Workshop · Washington, DC
   cities: [washington-dc]
   workshops: [artificial-intelligence]
   audiences: []

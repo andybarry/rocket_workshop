@@ -50,7 +50,9 @@
 
   {% if page.discovery_category == "city" %}
   <section class="discovery-header__offerings discovery-header__offerings--combined" aria-labelledby="hero-offerings-heading">
-    <h2 id="hero-offerings-heading">Workshops</h2>
+    <div class="discovery-header__offerings-head">
+      <h2 id="hero-offerings-heading">Workshops Offered in {{ entry.short_label | default: entry.name }}</h2>
+    </div>
     <div class="discovery-workshop-cards">
       {% for workshop in site.data.workshops %}
       <a class="discovery-workshop-card discovery-workshop-card--summary{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
@@ -58,22 +60,21 @@
         aria-label="{{ workshop.explorer_label }}"
         data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
         <span class="discovery-workshop-card__label">
-          <strong>{{ workshop.explorer_label }}</strong>
-          {% if workshop.description %}
-          <span class="discovery-workshop-card__summary">{{ workshop.description }}</span>
-          {% endif %}
+          <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
         </span>
       </a>
       {% endfor %}
     </div>
-    <p class="discovery-header__offerings-label">Ages</p>
+    <div class="discovery-header__offerings-head discovery-header__offerings-head--ages">
+      <h3>Available for These Ages and Groups</h3>
+    </div>
     <div class="discovery-age-row discovery-age-row--summary">
       {% for audience in site.data.discovery.audiences %}
       <a class="discovery-age-card discovery-age-card--summary{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
         <span class="discovery-age-card__label">
-          <strong>{{ audience.label }}</strong>
+          <strong>{{ audience.short_label | default: audience.label }}</strong>
         </span>
       </a>
       {% endfor %}
@@ -101,7 +102,7 @@
             {% if workshop.icon %}
             <i class="fa {{ workshop.icon }}" aria-hidden="true"></i>
             {% endif %}
-            <strong>{{ workshop.homepage_short_name }}</strong>
+            <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
           </span>
         </a>
         {% endfor %}

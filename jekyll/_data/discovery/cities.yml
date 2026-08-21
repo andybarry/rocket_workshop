@@ -25,6 +25,7 @@
 #   seo_description   Meta description for the landing page
 #   copy_status       "final" or "draft" — draft copy is structured placeholder
 #                     copy awaiting final marketing review (not shown to users)
+#   show_quotes       false = hide the location quote scroller until quotes are ready
 
 - slug: boston
   name: Boston
@@ -85,10 +86,10 @@
   featured: true
   visual: default
   landmark_image: img/locations/washington-dc.jpg
-  landmark_image_position: center
-  # National Mall from Lincoln Memorial toward the Washington Monument
-  # (Carol M. Highsmith / Library of Congress, public domain)
-  # https://commons.wikimedia.org/wiki/File:National_Mall,_Lincoln_Memorial_04448v.jpg
+  landmark_image_position: center top
+  # Washington Monument and Reflecting Pool from the Lincoln Memorial.
+  # Photo: HistoryGal610 / Wikimedia Commons, CC BY-SA 3.0
+  # https://commons.wikimedia.org/wiki/File:Washington_Monument_and_Reflecting_Pool.JPG
   copy_status: final
   headline: Engineering Workshops in Washington, DC
   intro: >-
@@ -261,9 +262,10 @@
   featured: true
   visual: default
   landmark_image: img/locations/houston.jpg
-  landmark_image_position: center
-  # Saturn V at Space Center Houston. Photo: Leijurv / Wikimedia Commons, CC BY-SA 4.0
-  # https://commons.wikimedia.org/wiki/File:Space_Center_Houston_Saturn_V.jpg
+  landmark_image_position: center 38%
+  # Shuttle Independence on NASA 905 at Space Center Houston.
+  # Photo: Alan Wilson / Wikimedia Commons, CC BY-SA 2.0
+  # https://commons.wikimedia.org/wiki/File:Boeing_747-123_%E2%80%98N905NA%E2%80%99_with_replica_Space_Shuttle_Orbiter_%E2%80%9CIndependence%E2%80%9D_(40638285572).jpg
   copy_status: final
   headline: Engineering Workshops in Houston
   intro: >-
@@ -676,6 +678,7 @@
   visual: default
   landmark_image: img/locations/denver.jpg
   copy_status: final
+  show_quotes: false
   headline: Engineering Workshops in Denver
   intro: >-
     Denver combines aerospace, science, outdoor exploration, and the dramatic
@@ -715,6 +718,7 @@
   landmark_image: img/location-map-2026.png
   landmark_image_position: center
   copy_status: final
+  show_quotes: false
   headline: Engineering Workshops Anywhere Your Group Travels
   intro: >-
     Stage One workshops are not limited to our featured destinations. We work
@@ -753,6 +757,7 @@
   landmark_image: img/locations/international.png
   landmark_image_position: center
   copy_status: final
+  show_quotes: false
   headline: Engineering Workshops in Your Country
   intro: >-
     Stage One can come to you. If your program is outside the United States,

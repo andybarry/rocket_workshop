@@ -68,27 +68,29 @@
 
         viewport.addEventListener("pointerdown", function (event) {
             if (event.pointerType === "mouse" && event.button !== 0) return;
-            if (event.target.closest("[data-discovery-quote-more]")) return;
+            if (event.target.closest(".discovery-header__quote-scroller-nav")) return;
             drag.active = true;
             drag.pointerId = event.pointerId;
             drag.moved = false;
             drag.startX = event.clientX;
             drag.startScroll = viewport.scrollLeft;
-            viewport.classList.add("is-dragging");
-            try {
-                viewport.setPointerCapture(event.pointerId);
-            } catch (err) {
-                /* ignore */
-            }
-            event.preventDefault();
         });
 
         viewport.addEventListener("pointermove", function (event) {
             if (!drag.active || event.pointerId !== drag.pointerId) return;
             var delta = event.clientX - drag.startX;
-            if (Math.abs(delta) > 6) drag.moved = true;
+            if (Math.abs(delta) <= 6) return;
+            if (!drag.moved) {
+                drag.moved = true;
+                viewport.classList.add("is-dragging");
+                try {
+                    viewport.setPointerCapture(event.pointerId);
+                } catch (err) {
+                    /* ignore */
+                }
+            }
             viewport.scrollLeft = drag.startScroll - delta;
-            if (drag.moved) event.preventDefault();
+            event.preventDefault();
         });
 
         viewport.addEventListener("pointerup", stopDrag);
@@ -130,17 +132,6 @@
         var closeButton = modal.querySelector(".discovery-quote-modal__close");
         var lastFocus = null;
 
-        function markTruncated() {
-            Array.prototype.forEach.call(cards, function (card) {
-                var paragraph = card.querySelector("blockquote p");
-                var more = card.querySelector("[data-discovery-quote-more]");
-                if (!paragraph || !more) return;
-                var truncated = paragraph.scrollHeight - paragraph.clientHeight > 1;
-                card.classList.toggle("is-truncated", truncated);
-                more.hidden = !truncated;
-            });
-        }
-
         function closeModal() {
             if (modal.hidden) return;
             modal.hidden = true;
@@ -170,11 +161,15 @@
         }
 
         Array.prototype.forEach.call(cards, function (card) {
-            var more = card.querySelector("[data-discovery-quote-more]");
-            if (!more) return;
-            more.addEventListener("click", function (event) {
+            card.setAttribute("tabindex", "0");
+            card.setAttribute("role", "button");
+            card.setAttribute("aria-label", "Read full quote");
+            card.addEventListener("click", function () {
+                openModal(card);
+            });
+            card.addEventListener("keydown", function (event) {
+                if (event.key !== "Enter" && event.key !== " ") return;
                 event.preventDefault();
-                event.stopPropagation();
                 openModal(card);
             });
         });
@@ -188,12 +183,6 @@
                 event.stopPropagation();
             });
         }
-
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(markTruncated);
-        }
-        window.addEventListener("resize", markTruncated);
-        window.requestAnimationFrame(markTruncated);
     }
 
     function initDiscoveryQuoteRotation() {
