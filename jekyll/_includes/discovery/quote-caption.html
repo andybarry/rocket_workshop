@@ -1,8 +1,19 @@
 {% comment %}
-  Caption for website quotes: Year · Workshop · Location (no specific date).
+  Caption for website quotes.
+  Location pages: workshop on one line, then page location and year.
+  Other pages: Year · Workshop · Location.
   Expects `t` in the parent scope.
 {% endcomment %}
-{% if t.year and t.workshop_label and t.location %}
+{% if page.discovery_category == "city" %}
+  {% assign quote_location = entry.short_label | default: entry.name %}
+  {% if t.workshop_label and quote_location %}
+    {% capture quote_caption %}{{ t.workshop_label }}<br>{{ quote_location }}{% if t.year %} {{ t.year }}{% endif %}{% endcapture %}
+  {% elsif t.workshop_label %}
+    {% assign quote_caption = t.workshop_label %}
+  {% else %}
+    {% assign quote_caption = t.meta %}
+  {% endif %}
+{% elsif t.year and t.workshop_label and t.location %}
   {% assign quote_caption = t.year | append: " · " | append: t.workshop_label | append: " · " | append: t.location %}
 {% else %}
   {% assign quote_caption = t.meta %}

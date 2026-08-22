@@ -7,7 +7,7 @@
 #   group_types:  list of group type ids from _data/discovery/group_types.yml
 #
 # Location pages only show quotes tagged with that city slug.
-# Caption format on location pages: Year · Workshop · Location
+# Caption format on location pages: Workshop, then the page location on the next line.
 # Cities with show_quotes: false in cities.yml hide the quote scroller
 # (currently Denver, Other U.S. Cities, and International) until quotes are ready.
 #

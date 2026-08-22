@@ -22,18 +22,251 @@
         return copy;
     }
 
+    function prefersReducedMotion() {
+        return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
     function initQuoteScroller() {
         var root = document.querySelector("[data-discovery-quote-scroller]");
         if (!root) return;
 
         var viewport = root.querySelector("[data-discovery-quote-scroller-viewport]");
-        var prev = root.querySelector(".discovery-header__quote-scroller-nav--prev");
-        var next = root.querySelector(".discovery-header__quote-scroller-nav--next");
+        var track = root.querySelector(".discovery-header__quote-scroller-track");
         if (!viewport) return;
 
         Array.prototype.forEach.call(viewport.querySelectorAll("a"), function (link) {
             link.setAttribute("draggable", "false");
         });
+
+        var cards = track
+            ? track.querySelectorAll(".discovery-header__quote--scroller")
+            : [];
+        fitScrollerQuoteText(cards);
+        if (track && cards.length && !prefersReducedMotion()) {
+            setupQuoteMarquee(root, viewport, track, cards);
+        } else {
+            setupQuoteManualScroll(root, viewport);
+        }
+
+        initQuoteReadMore(root);
+    }
+
+    function fitScrollerQuoteText(cards) {
+        Array.prototype.forEach.call(cards, function (card) {
+            var paragraph = card.querySelector("blockquote p");
+            if (!paragraph) return;
+            paragraph.style.fontSize = "";
+            paragraph.style.maxHeight = "";
+
+            var target = paragraph.clientHeight;
+            if (!target) return;
+            if (paragraph.scrollHeight <= target + 1) return;
+
+            paragraph.style.maxHeight = target + "px";
+            var size = parseFloat(window.getComputedStyle(paragraph).fontSize);
+            var minSize = 9;
+            var step = 0;
+            while (paragraph.scrollHeight > target + 1 && size > minSize && step < 16) {
+                size -= 0.5;
+                paragraph.style.fontSize = size + "px";
+                step += 1;
+            }
+        });
+    }
+
+    function setupQuoteMarquee(root, viewport, track, cards) {
+        var originals = Array.prototype.slice.call(cards);
+        var set = document.createElement("div");
+        set.className = "discovery-header__quote-scroller-set";
+        originals.forEach(function (card) {
+            set.appendChild(card);
+        });
+        while (track.firstChild) {
+            track.removeChild(track.firstChild);
+        }
+        track.appendChild(set);
+
+        var prev = root.querySelector(".discovery-header__quote-scroller-nav--prev");
+        var next = root.querySelector(".discovery-header__quote-scroller-nav--next");
+        var offset = 0;
+        var setWidth = 0;
+        var paused = false;
+        var dragging = false;
+        var pxPerSecond = 5;
+        var lastTs = 0;
+        var cardStep = 262;
+        var glideRemaining = 0;
+        var glideSpeed = 160;
+
+        function cloneSet() {
+            var copy = set.cloneNode(true);
+            copy.setAttribute("aria-hidden", "true");
+            Array.prototype.forEach.call(copy.querySelectorAll("[data-testimonial], [tabindex]"), function (el) {
+                el.removeAttribute("data-testimonial");
+                el.setAttribute("tabindex", "-1");
+            });
+            return copy;
+        }
+
+        function wrapOffset() {
+            if (setWidth <= 0) return;
+            offset = ((offset % setWidth) + setWidth) % setWidth;
+        }
+
+        function applyTransform() {
+            wrapOffset();
+            track.style.transform = "translate3d(" + (-offset) + "px, 0, 0)";
+        }
+
+        function fillTrack() {
+            var nextWidth = set.offsetWidth;
+            var viewportWidth = viewport.clientWidth;
+            var copies = 2;
+            if (nextWidth > 0 && viewportWidth > 0) {
+                copies = Math.max(2, Math.ceil(viewportWidth / nextWidth) + 1);
+            }
+            setWidth = nextWidth;
+            if (copies === lastCopies) {
+                applyTransform();
+                return;
+            }
+            lastCopies = copies;
+            while (track.children.length > 1) {
+                track.removeChild(track.lastChild);
+            }
+            var i;
+            for (i = 1; i < copies; i += 1) {
+                track.appendChild(cloneSet());
+            }
+            applyTransform();
+        }
+
+        var lastCopies = 0;
+
+        fillTrack();
+        root.classList.add("is-marquee");
+
+        function tick(ts) {
+            if (!lastTs) lastTs = ts;
+            var dt = Math.min(48, ts - lastTs);
+            lastTs = ts;
+            var modalOpen = document.body.classList.contains("has-discovery-quote-modal");
+            if (dragging || modalOpen) {
+                requestAnimationFrame(tick);
+                return;
+            }
+            if (glideRemaining !== 0) {
+                var step = glideSpeed * (dt / 1000);
+                if (Math.abs(glideRemaining) <= step) {
+                    offset += glideRemaining;
+                    glideRemaining = 0;
+                } else {
+                    var sign = glideRemaining > 0 ? 1 : -1;
+                    offset += sign * step;
+                    glideRemaining -= sign * step;
+                }
+                applyTransform();
+            } else if (!paused) {
+                offset += pxPerSecond * (dt / 1000);
+                applyTransform();
+            }
+            requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+
+        function nudge(direction) {
+            glideRemaining += direction * cardStep;
+        }
+
+        if (prev) {
+            prev.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                nudge(-1);
+            });
+        }
+        if (next) {
+            next.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                nudge(1);
+            });
+        }
+
+        var drag = {
+            pointerId: null,
+            startX: 0,
+            startOffset: 0,
+            moved: false
+        };
+
+        function stopDrag() {
+            if (!dragging) return;
+            dragging = false;
+            drag.pointerId = null;
+            viewport.classList.remove("is-dragging");
+            paused = false;
+            glideRemaining = 0;
+            lastTs = 0;
+        }
+
+        viewport.addEventListener("pointerdown", function (event) {
+            if (event.pointerType === "mouse" && event.button !== 0) return;
+            if (event.target.closest(".discovery-header__quote-scroller-nav")) return;
+            dragging = true;
+            paused = true;
+            glideRemaining = 0;
+            drag.pointerId = event.pointerId;
+            drag.moved = false;
+            drag.startX = event.clientX;
+            drag.startOffset = offset;
+            try {
+                viewport.setPointerCapture(event.pointerId);
+            } catch (err) {
+                /* ignore */
+            }
+        });
+
+        viewport.addEventListener("pointermove", function (event) {
+            if (!dragging || event.pointerId !== drag.pointerId) return;
+            var delta = event.clientX - drag.startX;
+            if (!drag.moved && Math.abs(delta) <= 6) return;
+            if (!drag.moved) {
+                drag.moved = true;
+                viewport.classList.add("is-dragging");
+            }
+            offset = drag.startOffset - delta;
+            applyTransform();
+            event.preventDefault();
+        });
+
+        viewport.addEventListener("pointerup", stopDrag);
+        viewport.addEventListener("pointercancel", stopDrag);
+        viewport.addEventListener("lostpointercapture", stopDrag);
+
+        viewport.addEventListener("click", function (event) {
+            if (!drag.moved) return;
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+
+        viewport.addEventListener("dragstart", function (event) {
+            event.preventDefault();
+        });
+
+        if (window.ResizeObserver) {
+            var observer = new ResizeObserver(fillTrack);
+            observer.observe(set);
+            observer.observe(viewport);
+        } else {
+            window.addEventListener("resize", fillTrack);
+        }
+    }
+
+    function setupQuoteManualScroll(root, viewport) {
+        var prev = root.querySelector(".discovery-header__quote-scroller-nav--prev");
+        var next = root.querySelector(".discovery-header__quote-scroller-nav--next");
 
         function scrollByCard(direction) {
             var amount = Math.max(220, Math.round(viewport.clientWidth * 0.72));
@@ -113,8 +346,6 @@
             viewport.scrollLeft += event.deltaY;
             event.preventDefault();
         }, { passive: false });
-
-        initQuoteReadMore(root);
     }
 
     function initQuoteReadMore(root) {
@@ -153,20 +384,23 @@
             if (!paragraph || !textEl) return;
             lastFocus = document.activeElement;
             textEl.textContent = paragraph.textContent || "";
-            if (metaEl) metaEl.textContent = caption ? caption.textContent : "";
+            if (metaEl) metaEl.innerHTML = caption ? caption.innerHTML : "";
             modal.hidden = false;
             document.body.classList.add("has-discovery-quote-modal");
             document.addEventListener("keydown", onKey);
             if (closeButton) closeButton.focus();
         }
 
-        Array.prototype.forEach.call(cards, function (card) {
+        root.addEventListener("click", function (event) {
+            var card = event.target.closest(".discovery-header__quote--scroller");
+            if (!card || !root.contains(card)) return;
+            openModal(card);
+        });
+
+        Array.prototype.forEach.call(root.querySelectorAll(".discovery-header__quote-scroller-set:not([aria-hidden]) .discovery-header__quote--scroller, .discovery-header__quote-scroller-track > .discovery-header__quote--scroller"), function (card) {
             card.setAttribute("tabindex", "0");
             card.setAttribute("role", "button");
             card.setAttribute("aria-label", "Read full quote");
-            card.addEventListener("click", function () {
-                openModal(card);
-            });
             card.addEventListener("keydown", function (event) {
                 if (event.key !== "Enter" && event.key !== " ") return;
                 event.preventDefault();

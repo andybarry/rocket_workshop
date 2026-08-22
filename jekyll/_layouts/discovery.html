@@ -12,11 +12,14 @@ layout: default
   <main class="discovery-main">
     {% include discovery/back-link.html %}
     {% include discovery/selection-header.html %}
-
-    <div class="discovery-footer-options">
-      {% include discovery/available-options.html %}
-    </div>
   </main>
+
+  <footer class="discovery-page-footer">
+    <div class="discovery-page-footer__inner">
+      {% include discovery/available-options.html %}
+      <p class="discovery-page-footer__legal">&copy; 2026 Stage One Education, LLC</p>
+    </div>
+  </footer>
 
   <script type="application/ld+json">
   {
@@ -40,4 +43,3 @@ layout: default
   </script>
 
   {% include plan-workshop-modal.html %}
-  {% include copyright.html %}
