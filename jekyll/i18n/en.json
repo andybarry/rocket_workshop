@@ -10,6 +10,7 @@
     "mechanical": "Mechanical Engineering",
     "aiWebsite": "Web Development",
     "home": "Home",
+    "explore": "Explore <span class=\"caret\"></span>",
     "locations": "Locations",
     "instructors": "Instructors",
     "feedback": "Feedback",
@@ -36,7 +37,7 @@
   "home": {
     "hero": {
       "sectionLabel": "Hands-on engineering workshops delivered across the USA",
-      "imageAlt": "Workshop classroom",
+      "imageAlt": "Robotics drone workshop",
       "audience": "For Schools, Tour Operators & Groups",
       "navLabel": "Workshop types",
       "linkAi": "AI",

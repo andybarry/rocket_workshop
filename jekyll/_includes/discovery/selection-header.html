@@ -66,10 +66,11 @@
       {% endfor %}
     </div>
     <div class="discovery-header__offerings-head discovery-header__offerings-head--ages">
-      <h3>Available for These Ages and Groups</h3>
+      <h3>Available for These Ages</h3>
     </div>
     <div class="discovery-age-row discovery-age-row--summary">
       {% for audience in site.data.discovery.audiences %}
+      {% unless audience.hide_from_nav %}
       <a class="discovery-age-card discovery-age-card--summary{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
@@ -77,6 +78,7 @@
           <strong>{{ audience.short_label | default: audience.label }}</strong>
         </span>
       </a>
+      {% endunless %}
       {% endfor %}
     </div>
   </section>
@@ -114,6 +116,7 @@
     <h2 id="hero-ages-heading">Ages</h2>
     <div class="discovery-age-row">
       {% for audience in site.data.discovery.audiences %}
+      {% unless audience.hide_from_nav %}
       <a class="discovery-age-card{% if page.discovery_category == "audience" and audience.id == entry.context_id %} is-current{% endif %}"
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
@@ -121,6 +124,7 @@
           <strong>{{ audience.label }}</strong>
         </span>
       </a>
+      {% endunless %}
       {% endfor %}
     </div>
   </section>
@@ -128,4 +132,5 @@
 
   {% include discovery/delivery-facts.html %}
   {% include discovery/plan-cta.html %}
+  {% include discovery/location-explore.html %}
 </header>

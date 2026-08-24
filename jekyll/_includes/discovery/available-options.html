@@ -11,7 +11,7 @@
       <h3>{{ copy.cards.cities.title }}</h3>
       <ul>
         {% for city in discovery_cities %}
-        {% if city.slug == "other-us-cities" or city.slug == "international" %}{% continue %}{% endif %}
+        {% if city.slug == "other-us-cities" %}{% continue %}{% endif %}
         <li>
           <a href="/locations/{{ city.slug }}/"
             {% if page.discovery_category == "city" and city.slug == entry.context_id %}class="is-current" aria-current="page"{% endif %}
@@ -20,13 +20,6 @@
           </a>
         </li>
         {% endfor %}
-        <li>
-          <a href="{{ copy.cards.cities.international_path }}"
-            {% if page.discovery_category == "city" and entry.context_id == "international" %}class="is-current" aria-current="page"{% endif %}
-            data-discovery-option data-category="city" data-id="international">
-            {{ copy.cards.cities.international_label }}
-          </a>
-        </li>
         <li>
           <a href="{{ copy.cards.cities.other_path }}"
             {% if page.discovery_category == "city" and entry.context_id == "other-us-cities" %}class="is-current" aria-current="page"{% endif %}
@@ -41,6 +34,7 @@
       <h3>{{ copy.cards.audiences.title }}</h3>
       <ul>
         {% for audience in site.data.discovery.audiences %}
+        {% unless audience.hide_from_nav %}
         <li>
           <a href="/workshops/{{ audience.id }}/"
             {% if page.discovery_category == "audience" and audience.id == entry.context_id %}class="is-current" aria-current="page"{% endif %}
@@ -48,6 +42,7 @@
             {{ audience.label }}
           </a>
         </li>
+        {% endunless %}
         {% endfor %}
       </ul>
     </div>

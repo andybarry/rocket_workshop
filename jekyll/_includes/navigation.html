@@ -63,16 +63,19 @@
                 <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
                     <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
                 </li>
-                <li>
-                    <a href="/explore/" class="nav-button-stageone"{% if page.url == '/explore/' %} aria-current="page"{% endif %}>
-                        Explore
+                {% assign explore_current = false %}
+                {% if page.url == '/explore/' or page.layout == 'discovery' %}
+                  {% assign explore_current = true %}
+                {% endif %}
+                <li class="dropdown nav-dropdown nav-desktop-explore">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false"{% if explore_current %} aria-current="page"{% endif %}
+                        data-i18n-html="nav.explore">
+                        Explore <span class="caret"></span>
                     </a>
+                    {% include nav-explore-links.html variant="desktop" %}
                 </li>
-                <li>
-                    <a href="/locations/" class="nav-button-stageone"{% if page.url == '/locations/' %} aria-current="page"{% endif %} data-i18n="nav.locations">
-                        Locations
-                    </a>
-                </li>
+                {% include nav-explore-links.html variant="mobile" %}
                 <li>
                     <a href="/feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
                         Feedback

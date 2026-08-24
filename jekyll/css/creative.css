@@ -1363,7 +1363,8 @@ inline-quote-container {
     }
 
     /* Mobile: hide Workshops dropdown, show three flat workshop links */
-    #mainNav .nav-desktop-workshop {
+    #mainNav .nav-desktop-workshop,
+    #mainNav .nav-desktop-explore {
         display: none !important;
     }
 
@@ -4122,6 +4123,110 @@ html.has-workshop-plan-modal #tab-section {
     opacity: 1;
 }
 
+#mainNav .nav-desktop-explore > .nav-button-stageone,
+#mainNav .nav-desktop-explore > .nav-button-stageone:hover,
+#mainNav .nav-desktop-explore > .nav-button-stageone:focus,
+#mainNav .nav-desktop-explore.open > .nav-button-stageone {
+    color: #fff !important;
+}
+
+#mainNav .nav-desktop-explore > .nav-button-stageone[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+#mainNav .nav-desktop-explore {
+    position: static;
+}
+
+#mainNav .nav-explore-menu {
+    position: fixed;
+    top: 56px;
+    left: 196px;
+    right: auto;
+    width: max-content;
+    max-width: min(720px, calc(100vw - 212px));
+    min-width: 0;
+    margin-top: 8px;
+    padding: 18px 18px 14px;
+}
+
+#mainNav .nav-desktop-explore.open > .nav-explore-menu {
+    display: block;
+}
+
+#mainNav .nav-explore-menu__cols {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 8px 28px;
+}
+
+#mainNav .nav-explore-menu__col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#mainNav .nav-explore-menu__heading {
+    margin: 0 0 8px;
+    color: #8a8a8a;
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#mainNav .nav-explore-menu__link {
+    display: block;
+    margin: 1px 0;
+    padding: 6px 8px;
+    border-radius: 7px;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#mainNav .nav-explore-menu__link:hover,
+#mainNav .nav-explore-menu__link:focus,
+#mainNav .nav-explore-menu__link.is-current {
+    background: #fff3ef;
+    color: #f05f40;
+    text-decoration: none;
+}
+
+#mainNav .nav-explore-menu__all {
+    display: block;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(67, 67, 67, 0.08);
+    color: #f05f40;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+#mainNav .nav-explore-menu__all:hover,
+#mainNav .nav-explore-menu__all:focus {
+    color: #d94e32;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.nav-mobile-explore-heading,
+.nav-mobile-explore-subheading,
+.nav-mobile-explore-item {
+    display: none;
+}
+
 #mainNav .nav-plan-workshop-button,
 #mainNav .nav-workshops-access-button {
     display: inline-flex !important;
@@ -4230,6 +4335,7 @@ html.has-workshop-plan-modal #tab-section {
     #mainNav .navbar-collapse {
         min-width: 0;
         padding: 0;
+        overflow: visible;
     }
 
     #mainNav .nav-main-links {
@@ -4274,6 +4380,17 @@ html.has-workshop-plan-modal #tab-section {
         padding-right: 6px !important;
         padding-left: 6px !important;
         font-size: 11px;
+    }
+
+    #mainNav .nav-explore-menu {
+        left: 16px;
+        right: 16px;
+        width: auto;
+        min-width: 0;
+    }
+
+    #mainNav .nav-explore-menu__cols {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -4454,6 +4571,26 @@ html.has-workshop-plan-modal #tab-section {
         margin-left: 8px;
         border-left: 2px solid #fff;
         background: rgba(255, 255, 255, 0.12);
+    }
+
+    #mainNav .nav-desktop-explore {
+        display: none !important;
+    }
+
+    #mainNav .nav-mobile-explore-heading,
+    #mainNav .nav-mobile-explore-subheading {
+        display: flex !important;
+    }
+
+    #mainNav .nav-mobile-explore-item {
+        display: block !important;
+    }
+
+    #mainNav .nav-mobile-explore-subheading {
+        margin-top: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        opacity: 0.88;
     }
 
     #mainNav .nav-mobile-workshop-heading + .nav-mobile-workshop-item {

@@ -186,6 +186,7 @@
 - id: other-groups
   label: Other
   short_label: Other Groups
+  hide_from_nav: true
   icon: fa-users
   age_label: Mixed & custom
   headline: Engineering Workshops for Every Kind of Group

@@ -3,7 +3,7 @@ layout: default
 ---
 {% assign entry = page.entry %}
 {% assign copy = site.data.discovery.copy %}
-<body class="discovery-page" data-discovery-page
+<body class="discovery-page{% if page.discovery_category == "city" %} discovery-page--location{% endif %}" data-discovery-page
   data-discovery-category="{{ page.discovery_category }}"
   data-discovery-id="{{ entry.context_id }}"
   data-discovery-name="{{ entry.short_label | escape }}">
@@ -14,12 +14,7 @@ layout: default
     {% include discovery/selection-header.html %}
   </main>
 
-  <footer class="discovery-page-footer">
-    <div class="discovery-page-footer__inner">
-      {% include discovery/available-options.html %}
-      <p class="discovery-page-footer__legal">&copy; 2026 Stage One Education, LLC</p>
-    </div>
-  </footer>
+  {% include discovery/page-footer.html %}
 
   <script type="application/ld+json">
   {

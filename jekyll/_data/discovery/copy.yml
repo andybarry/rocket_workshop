@@ -11,8 +11,6 @@ cards:
     title: Destinations
     subtitle: Where is your group headed?
     more_label: More U.S. cities
-    international_label: International
-    international_path: /locations/international/
     other_label: Other
     other_path: /locations/other-us-cities/
   audiences:
@@ -57,6 +55,13 @@ workshop_detail_label: Explore the full workshop
 testimonials_heading: What Groups Say
 testimonials_more_label: More Feedback
 delivery_heading: Included with Every Workshop
+location_explore_list_label: Things to do
+location_explore_intro: >-
+  Popular educational, cultural, and iconic experiences for student groups visiting
+location_explore_disclaimer: >-
+  Nearby experiences are shown for itinerary inspiration only and are not included
+  with Stage One workshops. Admission, transportation, reservations, and availability
+  must be arranged separately. Inclusion does not imply affiliation or endorsement.
 offerings_heading: Explore More
 offerings_intro: >-
   Browse other destinations and program types.

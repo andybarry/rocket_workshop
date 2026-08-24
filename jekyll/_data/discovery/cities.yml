@@ -26,6 +26,9 @@
 #   copy_status       "final" or "draft" — draft copy is structured placeholder
 #                     copy awaiting final marketing review (not shown to users)
 #   show_quotes       false = hide the location quote scroller until quotes are ready
+#
+# Explore section (below the green Plan CTA on city pages):
+#   _data/discovery/location_explore.yml — things_to_do list and map coordinates.
 
 - slug: boston
   name: Boston
@@ -36,9 +39,7 @@
   visual: boston
   landmark_image: img/locations/boston.jpg
   landmark_image_position: center top
-  # Charles River, Harvard Bridge, and Back Bay skyline. Photo: Chris Rycroft /
-  # Wikimedia Commons, CC BY 2.0
-  # https://commons.wikimedia.org/wiki/File:Downtown_Boston_skyline_and_the_Charles_River_(51534558117).jpg
+  # Generated original city photograph for the location hero.
   copy_status: final
   headline: Engineering Workshops in Boston
   intro: >-
@@ -87,9 +88,7 @@
   visual: default
   landmark_image: img/locations/washington-dc.jpg
   landmark_image_position: center top
-  # Washington Monument and Reflecting Pool from the Lincoln Memorial.
-  # Photo: HistoryGal610 / Wikimedia Commons, CC BY-SA 3.0
-  # https://commons.wikimedia.org/wiki/File:Washington_Monument_and_Reflecting_Pool.JPG
+  # Generated original city photograph for the location hero.
   copy_status: final
   headline: Engineering Workshops in Washington, DC
   intro: >-
@@ -176,8 +175,7 @@
   featured: true
   visual: default
   landmark_image: img/locations/orlando.jpg
-  # Downtown Orlando from Lake Eola Park (CC0, Wikimedia Commons)
-  # https://commons.wikimedia.org/wiki/File:High-rises_in_Orlando_from_Lake_Eola_Park_(May_2023)_-_5_(cropped).JPG
+  # Generated original city photograph for the location hero.
   copy_status: final
   headline: Engineering Workshops in Orlando
   intro: >-
@@ -262,10 +260,8 @@
   featured: true
   visual: default
   landmark_image: img/locations/houston.jpg
-  landmark_image_position: center 38%
-  # Shuttle Independence on NASA 905 at Space Center Houston.
-  # Photo: Alan Wilson / Wikimedia Commons, CC BY-SA 2.0
-  # https://commons.wikimedia.org/wiki/File:Boeing_747-123_%E2%80%98N905NA%E2%80%99_with_replica_Space_Shuttle_Orbiter_%E2%80%9CIndependence%E2%80%9D_(40638285572).jpg
+  landmark_image_position: center
+  # Generated original city photograph for the location hero.
   copy_status: final
   headline: Engineering Workshops in Houston
   intro: >-
@@ -308,8 +304,7 @@
   featured: true
   visual: default
   landmark_image: img/locations/los-angeles.jpg
-  # Downtown Los Angeles skyline (public domain, Wikimedia Commons)
-  # https://commons.wikimedia.org/wiki/File:Los_Angeles_skyline_(1).jpg
+  # Generated original city photograph for the location hero.
   copy_status: final
   headline: Engineering Workshops in Los Angeles
   intro: >-
@@ -715,8 +710,9 @@
   short_label: Other U.S. Cities
   featured: false
   visual: default
-  landmark_image: img/location-map-2026.png
+  landmark_image: img/locations/united-states.jpg
   landmark_image_position: center
+  # Generated original landscape photograph for the location hero.
   copy_status: final
   show_quotes: false
   headline: Engineering Workshops Anywhere Your Group Travels
@@ -748,44 +744,4 @@
   seo_description: >-
     Hands-on engineering workshops delivered to student groups at hotels,
     schools, campuses, and venues in cities across the United States.
-
-- slug: international
-  name: International
-  short_label: International
-  featured: false
-  visual: default
-  landmark_image: img/locations/international.png
-  landmark_image_position: center
-  copy_status: final
-  show_quotes: false
-  headline: Engineering Workshops in Your Country
-  intro: >-
-    Stage One can come to you. If your program is outside the United States,
-    we bring a complete engineering workshop to your country — instructor,
-    equipment, materials, and curriculum delivered to a hotel, school,
-    campus, or venue you already use.
-  supporting_copy:
-    - >-
-      International delivery uses the same complete three-hour workshop we run
-      in the United States. You share the country, dates, group size, and
-      venue. We handle travel, setup, and the session itself.
-    - >-
-      Hotels, schools, campuses, and conference rooms work as venues
-      worldwide, so the workshop can fit around travel, classes, or a
-      gathering already on the calendar.
-  city_facts:
-    - title: We Come to You
-      text: Workshops can be delivered in your country, not only in the United States.
-    - title: Complete Delivery
-      text: Instructor, equipment, materials, and curriculum travel with the program.
-    - title: Same Hands-On Session
-      text: The same AI, robotics, mechanical, and web workshops, adapted to your group.
-  cta_heading: Want a Workshop in Your Country?
-  cta_copy: >-
-    Share your country, dates, and group size. Stage One will help plan
-    international workshop delivery.
-  seo_title: International Engineering Workshops | Stage One Education
-  seo_description: >-
-    Hands-on engineering workshops delivered to student groups at hotels,
-    schools, campuses, and venues in countries around the world.
 

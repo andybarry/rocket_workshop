@@ -203,12 +203,3 @@ special_locations:
     selected_value: Other U.S. Destination
     plan_params:
       destination: other
-  - category: location
-    slug: international
-    eyebrow: INTERNATIONAL GROUP WORKSHOPS
-    title: Engineering Workshops for International Groups
-    description: Bring a complete hands-on engineering workshop into your U.S. educational travel program. Stage One provides the instructors, equipment, materials, setup, and cleanup at your hotel, school, campus, or group venue.
-    selected_label: Destination
-    selected_value: International Group
-    plan_params:
-      international: "yes"

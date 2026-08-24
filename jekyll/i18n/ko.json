@@ -10,6 +10,7 @@
     "mechanical": "기계공학",
     "aiWebsite": "웹 개발",
     "home": "홈",
+    "explore": "탐색 <span class=\"caret\"></span>",
     "locations": "진행 지역",
     "instructors": "강사진",
     "feedback": "참가자 평가",

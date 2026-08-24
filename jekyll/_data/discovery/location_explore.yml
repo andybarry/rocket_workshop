@@ -1,0 +1,161 @@
+# Explore section content for city landing pages.
+# explore_image is a generated original photograph focused on nearby activities.
+# variant: city_cards = link cards instead of a things_to_do list (International page).
+
+ann-arbor:
+  explore_image: img/locations/explore/ann-arbor.jpg
+  map:
+    latitude: 42.28083
+    longitude: -83.74304
+    zoom: 9
+  things_to_do:
+    - University of Michigan Campus & Law Quad
+    - Michigan Stadium
+    - U-M Museum of Natural History
+    - Nichols Arboretum
+    - Kerrytown & Downtown Ann Arbor
+
+atlanta:
+  explore_image: img/locations/explore/atlanta.jpg
+  map:
+    latitude: 33.74899
+    longitude: -84.38798
+    zoom: 9
+  things_to_do:
+    - Georgia Aquarium
+    - Martin Luther King Jr. National Historical Park
+    - National Center for Civil and Human Rights
+    - Georgia Tech Campus
+    - World of Coca-Cola
+
+berkeley:
+  explore_image: img/locations/explore/berkeley.jpg
+  map:
+    latitude: 37.87152
+    longitude: -122.27304
+    zoom: 9
+  things_to_do:
+    - UC Berkeley Campus & Campanile
+    - Lawrence Hall of Science
+    - UC Botanical Garden
+    - Berkeley Art Museum & Pacific Film Archive
+    - Tilden Regional Park
+
+boston:
+  explore_image: img/locations/explore/boston-harbor.jpg
+  explore_image_fit: contain
+  explore_image_position: center
+  map:
+    latitude: 42.36008
+    longitude: -71.05888
+    zoom: 9
+  things_to_do:
+    - Boston Duck Tours
+    - Freedom Trail, Faneuil Hall & Quincy Market
+    - USS Constitution & USS Constitution Museum
+    - Museum of Science
+    - Harvard & MIT Campus Visits
+
+denver:
+  explore_image: img/locations/explore/denver.jpg
+  map:
+    latitude: 39.73924
+    longitude: -104.99025
+    zoom: 9
+  things_to_do:
+    - Denver Museum of Nature & Science
+    - Wings Over the Rockies Air & Space Museum
+    - Red Rocks Park & Amphitheatre
+    - Colorado State Capitol
+    - Denver U.S. Mint
+
+houston:
+  explore_image: img/locations/explore/houston.jpg
+  map:
+    latitude: 29.76043
+    longitude: -95.36980
+    zoom: 9
+  things_to_do:
+    - Space Center Houston
+    - Houston Museum of Natural Science
+    - Rice University Campus
+    - The Health Museum
+    - Houston Zoo & Hermann Park
+
+los-angeles:
+  explore_image: img/locations/explore/los-angeles.jpg
+  map:
+    latitude: 34.05223
+    longitude: -118.24368
+    zoom: 8
+  things_to_do:
+    - Griffith Observatory
+    - California Science Center
+    - Warner Bros. Studio Tour Hollywood
+    - UCLA Campus
+    - Santa Monica Pier & Beach
+
+new-haven:
+  explore_image: img/locations/explore/new-haven.jpg
+  map:
+    latitude: 41.30827
+    longitude: -72.92788
+    zoom: 9
+  things_to_do:
+    - Yale University Campus & Beinecke Library
+    - Yale Peabody Museum
+    - Yale University Art Gallery
+    - East Rock Park
+    - Wooster Street & New Haven Pizza
+
+orlando:
+  explore_image: img/locations/explore/orlando.jpg
+  map:
+    latitude: 28.53834
+    longitude: -81.37924
+    zoom: 9
+  things_to_do:
+    - Kennedy Space Center Visitor Complex
+    - Orlando Science Center
+    - Walt Disney World Resort
+    - Universal Orlando Resort
+    - ICON Park & The Orlando Eye
+
+san-francisco:
+  explore_image: img/locations/explore/san-francisco.jpg
+  map:
+    latitude: 37.77493
+    longitude: -122.41942
+    zoom: 9
+  things_to_do:
+    - Golden Gate Bridge
+    - Alcatraz Island
+    - Exploratorium
+    - California Academy of Sciences
+    - Cable Cars, Fisherman's Wharf & PIER 39
+
+washington-dc:
+  explore_image: img/locations/explore/washington-dc.jpg
+  map:
+    latitude: 38.90719
+    longitude: -77.03687
+    zoom: 9
+  things_to_do:
+    - National Mall Monuments & Memorials
+    - Smithsonian Museums
+    - U.S. Capitol & Library of Congress
+    - National Archives
+    - Arlington National Cemetery
+
+other-us-cities:
+  explore_image: img/locations/explore/united-states.jpg
+  map:
+    latitude: 39.8283
+    longitude: -98.5795
+    zoom: 3
+    show_pin: false
+  heading: Bringing Stage One to Your Destination
+  intro: >-
+    Planning a student program in another U.S. city? Share your destination,
+    dates, and group size, and our team will help you explore available workshop
+    options.

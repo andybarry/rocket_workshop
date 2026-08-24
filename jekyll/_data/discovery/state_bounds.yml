@@ -1,0 +1,62 @@
+# Approximate bounding boxes for state-level Explore maps (south, west, north, east).
+# Used with fitBounds so each city page shows its full state with a pin on the city.
+
+CA:
+  south: 32.512
+  west: -124.482
+  north: 42.010
+  east: -114.131
+
+CO:
+  south: 36.992
+  west: -109.060
+  north: 41.003
+  east: -102.042
+
+CT:
+  south: 40.951
+  west: -73.728
+  north: 42.051
+  east: -71.787
+
+DC:
+  south: 38.792
+  west: -77.120
+  north: 38.996
+  east: -76.909
+
+FL:
+  south: 24.396
+  west: -87.635
+  north: 31.001
+  east: -79.974
+
+GA:
+  south: 30.356
+  west: -85.605
+  north: 35.001
+  east: -80.840
+
+MA:
+  south: 41.185
+  west: -73.508
+  north: 42.887
+  east: -69.928
+
+MI:
+  south: 41.696
+  west: -90.418
+  north: 48.306
+  east: -82.123
+
+TX:
+  south: 25.837
+  west: -106.646
+  north: 36.501
+  east: -93.508
+
+US:
+  south: 24.396
+  west: -124.848
+  north: 49.384
+  east: -66.885

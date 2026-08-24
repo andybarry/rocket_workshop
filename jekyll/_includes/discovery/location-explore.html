@@ -1,0 +1,62 @@
+{% if page.discovery_category == "city" %}
+{% assign location_explore = site.data.discovery.location_explore[entry.slug] %}
+{% assign show_explore_section = false %}
+{% if location_explore %}
+  {% if location_explore.things_to_do or location_explore.variant == "city_cards" or location_explore.intro %}
+    {% assign show_explore_section = true %}
+  {% endif %}
+{% endif %}
+{% if show_explore_section %}
+{% if location_explore.heading %}
+{% assign explore_heading = location_explore.heading %}
+{% else %}
+{% assign explore_heading = "Explore " | append: entry.name %}
+{% endif %}
+{% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+<section class="discovery-section discovery-location-explore" aria-labelledby="discovery-location-explore-heading">
+  <div class="discovery-location-explore__media">
+    {% include discovery/location-explore-map.html %}
+  </div>
+  <div class="discovery-location-explore__content">
+    <h2 id="discovery-location-explore-heading" class="discovery-location-explore__heading">
+      {{ explore_heading }}
+    </h2>
+    {% if location_explore.intro %}
+    <p class="discovery-location-explore__intro">{{ location_explore.intro }}</p>
+    {% elsif location_explore.things_to_do %}
+    <p class="discovery-location-explore__intro">{{ copy.location_explore_intro }} {{ entry.name }}.</p>
+    {% endif %}
+
+    {% if location_explore.variant == "city_cards" %}
+    <div class="discovery-location-explore__city-cards">
+      {% for city in discovery_cities %}
+      {% if city.slug == "other-us-cities" %}{% continue %}{% endif %}
+      {% unless site.data.discovery.location_explore[city.slug].things_to_do %}{% continue %}{% endunless %}
+      <a class="discovery-location-explore__city-card" href="/locations/{{ city.slug }}/"
+        data-discovery-option data-category="city" data-id="{{ city.slug }}">
+        <span class="discovery-location-explore__city-card-name">{{ city.name }}</span>
+        {% if city.state_abbr %}
+        <span class="discovery-location-explore__city-card-meta">{{ city.state_abbr }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% elsif location_explore.things_to_do %}
+    <div class="discovery-location-explore__list-wrap">
+      <h3 class="discovery-location-explore__list-label">{{ copy.location_explore_list_label | default: "Things to do" }}</h3>
+      <ul class="discovery-location-explore__list">
+        {% for item in location_explore.things_to_do %}
+        <li>
+          <span class="discovery-location-explore__list-marker" aria-hidden="true"></span>
+          <span class="discovery-location-explore__list-text">{{ item }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <p class="discovery-location-explore__disclaimer">{{ copy.location_explore_disclaimer }}</p>
+  </div>
+</section>
+{% endif %}
+{% endif %}

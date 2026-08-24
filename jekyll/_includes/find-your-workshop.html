@@ -28,11 +28,6 @@
           {% endif %}
           {% endfor %}
           <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="{{ copy.cards.cities.international_path }}"
-            data-discovery-option data-category="city" data-id="international">
-            {{ copy.cards.cities.international_label }}
-          </a>
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
             href="{{ copy.cards.cities.other_path }}"
             data-discovery-option data-category="city" data-id="other-us-cities">
             {{ copy.cards.cities.other_label }}
@@ -48,11 +43,13 @@
         </div>
         <div class="find-workshop__options" role="list">
           {% for audience in site.data.discovery.audiences %}
+          {% unless audience.hide_from_nav %}
           <a class="find-workshop__option" role="listitem"
             href="/workshops/{{ audience.id }}/"
             data-discovery-option data-category="audience" data-id="{{ audience.id }}">
             {{ audience.label }}
           </a>
+          {% endunless %}
           {% endfor %}
         </div>
       </article>
