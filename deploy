@@ -1,5 +1,42 @@
 #!/bin/bash
 
+# Usage: ./deploy <target> [jekyll args...]
+#
+#   target = 1 | stageoneed              -> deploy to stageoneed via firebase
+#   target = 2 | stageoneeducation2      -> deploy to stageoneeducation2.com via rsync
+#
+# NOTE NOTE NOTE
+# The nginx config for stageoneeducation2.com is set up in the musicgen project
+# NOTE NOTE NOTE
+
+usage() {
+    cat <<'EOF'
+Usage: ./deploy <target> [jekyll args...]
+
+The target is required.
+
+Targets:
+  1, stageoneed                       Deploy to stageoneed via firebase.
+                                      Builds ai-network, drone-workshop, and feedback,
+                                      then deploys hosting and the feedback application.
+  2, stageoneeducation2               Deploy to stageoneeducation2.com via rsync.
+                                      Builds ai-network and drone-workshop only.
+
+Options:
+  -h, --help                          Show this help message and exit.
+
+Any additional arguments are forwarded to `jekyll build`.
+EOF
+}
+
+# Show help if requested
+case "$1" in
+    -h|--help|help)
+        usage
+        exit 0
+        ;;
+esac
+
 # The target directory
 TARGET_DIR=~/web/stageoneeducation
 
@@ -9,27 +46,66 @@ if [ "$(pwd)" != "$TARGET_DIR" ]; then
     exit 1
 fi
 
+# Determine the deploy target from the first argument (required)
+case "$1" in
+    1|stageoneed)
+        TARGET="1"
+        shift
+        ;;
+    2|stageoneeducation2|stageoneeducation2.com)
+        TARGET="2"
+        shift
+        ;;
+    "")
+        echo "Error: No deploy target specified."
+        echo "Usage: ./deploy <1|stageoneed|2|stageoneeducation2> [jekyll args...]"
+        exit 1
+        ;;
+    *)
+        echo "Error: Unknown deploy target '$1'"
+        echo "Usage: ./deploy <1|stageoneed|2|stageoneeducation2> [jekyll args...]"
+        exit 1
+        ;;
+esac
+
 cd ai-network
+npm install
 npm run build
 cd ..
 
 cd drone-workshop
+npm install
 npm run build
 cd ..
 
-cd feedback
-npm run build
-cd ..
+if [ "$TARGET" = "1" ]; then
+    cd feedback
+    npm install
+    npm run build
+    cd ..
+fi
+
+# Make sure jekyll is available before trying to build the site
+if ! command -v jekyll >/dev/null 2>&1; then
+    echo "Error: jekyll is not installed or not on your PATH."
+    echo "Install it with: gem install jekyll bundler"
+    exit 1
+fi
 
 echo "Building site..."
 jekyll build --source jekyll --destination www "$@"
 
 echo "Deploying..."
 
-firebase use stageoneed
-firebase deploy --only hosting
+if [ "$TARGET" = "1" ]; then
+    firebase use stageoneed
+    firebase deploy --only hosting
 
-echo "Deploying feedback application..."
-cd feedback
-./deploy-feedback.sh
-cd ..
+    echo "Deploying feedback application..."
+    cd feedback
+    ./deploy-feedback.sh
+    cd ..
+else
+    # Copy the site to stageoneeducation2.com
+    rsync -avz --delete www/* stageoneeducation2.com:www/
+fi
