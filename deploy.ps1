@@ -223,6 +223,33 @@ Write-Host "Building site..."
 $jekyllCommand = @("build", "--source", "jekyll", "--destination", "www") + $JekyllArgs
 Invoke-Native "jekyll" $jekyllCommand
 
+# jekyll/ai-network and jekyll/drone are git symlinks. On Windows they check
+# out as tiny text files, so Jekyll does not copy the built apps into www.
+function Copy-BuiltWorkshopApps {
+    $pairs = @(
+        @{ Src = (Join-Path $RepoRoot "ai-network\dist"); Dst = (Join-Path $RepoRoot "www\ai-network") },
+        @{ Src = (Join-Path $RepoRoot "drone-workshop\build"); Dst = (Join-Path $RepoRoot "www\drone") }
+    )
+    foreach ($pair in $pairs) {
+        if (-not (Test-Path -LiteralPath $pair.Src)) {
+            Exit-WithError "Built app not found at $($pair.Src)"
+        }
+        if (Test-Path -LiteralPath $pair.Dst) {
+            Remove-Item -LiteralPath $pair.Dst -Recurse -Force
+        }
+        New-Item -ItemType Directory -Force -Path $pair.Dst | Out-Null
+        # Copy-Item -Recurse to a new folder can leave an empty dest on Windows.
+        $robocopyArgs = @($pair.Src, $pair.Dst, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/NC", "/NS")
+        & robocopy @robocopyArgs | Out-Null
+        if ($LASTEXITCODE -ge 8) {
+            Exit-WithError "robocopy failed with exit code $LASTEXITCODE copying $($pair.Src)"
+        }
+        Write-Host "Copied $($pair.Src) -> $($pair.Dst)"
+    }
+}
+
+Copy-BuiltWorkshopApps
+
 Write-Host "Deploying..."
 
 if ($Target -eq "1") {

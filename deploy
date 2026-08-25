@@ -95,6 +95,12 @@ fi
 echo "Building site..."
 jekyll build --source jekyll --destination www "$@"
 
+# jekyll/ai-network and jekyll/drone are git symlinks. On Windows they often
+# check out as tiny text files, so copy the built apps into www explicitly.
+rm -rf www/ai-network www/drone
+cp -R ai-network/dist www/ai-network
+cp -R drone-workshop/build www/drone
+
 echo "Deploying..."
 
 if [ "$TARGET" = "1" ]; then
