@@ -43,8 +43,7 @@ berkeley:
 
 boston:
   explore_image: img/locations/explore/boston-harbor.jpg
-  explore_image_fit: contain
-  explore_image_position: center
+  explore_image_position: center 72%
   map:
     latitude: 42.36008
     longitude: -71.05888

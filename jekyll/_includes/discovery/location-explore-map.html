@@ -1,6 +1,6 @@
 {% assign explore_image = location_explore.explore_image | default: entry.landmark_image %}
 {% if explore_image %}
-{% assign explore_image_position = location_explore.explore_image_position | default: entry.landmark_image_position | default: "center" %}
+{% assign explore_image_position = location_explore.explore_image_position | default: "center" %}
 {% assign explore_image_fit = location_explore.explore_image_fit | default: "cover" %}
 <div class="discovery-location-explore__photo-wrap">
   <img
