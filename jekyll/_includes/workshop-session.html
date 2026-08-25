@@ -1,0 +1,161 @@
+<body id="page-top" class="workshop-session-page workshop-session-page--{{ include.workshop }}">
+<style>
+    .workshop-session-page {
+        margin: 0;
+        min-height: 100vh;
+        background: #f5f5f5;
+        color: #434343;
+    }
+
+    .workshop-session-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background: #f5f5f5;
+    }
+
+    .workshop-session-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.28);
+        z-index: 1;
+    }
+
+    @keyframes workshopSessionScroll {
+        from { background-position: center top; }
+        to { background-position: center bottom; }
+    }
+
+    .workshop-session-page--ai .workshop-session-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("/img/film-poster.webp");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: workshopSessionScroll 100s linear infinite;
+        opacity: 0.92;
+    }
+
+    .workshop-session-page--mechanical .workshop-session-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .workshop-session-main {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 56px);
+        padding: 80px 24px 40px;
+        box-sizing: border-box;
+    }
+
+    .workshop-session-title {
+        margin: 0 0 28px;
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(28px, 5vw, 46px);
+        font-weight: 700;
+        line-height: 1.1;
+        color: #f05f40;
+        text-align: center;
+        cursor: default;
+    }
+
+    .workshop-session-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .workshop-session-links .glow-text,
+    .workshop-session-links .glow-button {
+        margin: 0;
+        text-decoration: none;
+    }
+
+    .workshop-session-page .discovery-page-footer {
+        position: relative;
+        z-index: 3;
+    }
+
+    .workshop-session-page .drone {
+        position: absolute;
+        width: auto;
+        height: 50px;
+        z-index: 0;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    @keyframes sessionDroneLtr {
+        from { transform: translateX(-180px); }
+        to { transform: translateX(120vw); }
+    }
+    @keyframes sessionDroneRtl {
+        from { transform: translateX(120vw); }
+        to { transform: translateX(-180px); }
+    }
+    @keyframes sessionDroneUp {
+        from { transform: translateY(110vh); }
+        to { transform: translateY(-160px); }
+    }
+    @keyframes sessionDroneDown {
+        from { transform: translateY(-160px); }
+        to { transform: translateY(110vh); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .workshop-session-page--ai .workshop-session-bg::before,
+        .workshop-session-page .drone {
+            animation: none;
+        }
+    }
+</style>
+
+    {% include navigation.html %}
+
+    <div class="workshop-session-bg" aria-hidden="true">
+        {% if include.workshop == "mechanical" %}
+        <video class="workshop-session-video" autoplay loop muted playsinline>
+            <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+            <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+        </video>
+        {% elsif include.workshop == "robotics" %}
+        <img src="/img/drone.png" class="drone" style="top: 10%; left: -180px; animation: sessionDroneLtr 8s linear infinite;" alt="">
+        <img src="/img/drone.png" class="drone" style="top: 38%; left: -180px; animation: sessionDroneLtr 6s linear infinite;" alt="">
+        <img src="/img/drone.png" class="drone" style="top: 62%; animation: sessionDroneRtl 8s linear infinite;" alt="">
+        <img src="/img/drone.png" class="drone" style="top: 82%; animation: sessionDroneRtl 6s linear infinite;" alt="">
+        <img src="/img/drone.png" class="drone" style="left: 8%; animation: sessionDroneUp 5s linear infinite;" alt="">
+        <img src="/img/drone.png" class="drone" style="left: 78%; animation: sessionDroneDown 4s linear infinite;" alt="">
+        {% endif %}
+    </div>
+
+    <main class="workshop-session-main">
+        <h1 class="workshop-session-title">{{ include.title }}</h1>
+        <div class="workshop-session-links">
+            {% if include.workshop == "ai" %}
+            <a href="https://stageoneeducation.com/ai-network/human-neural-network.html" target="_blank" rel="noopener noreferrer" class="glow-text">Human Neural Network</a>
+            <a href="https://ai.stageoneeducation.com/" target="_blank" rel="noopener noreferrer" class="glow-text">ai.stageoneeducation.com</a>
+            <a href="https://input.stageoneeducation.com/artificial-intelligence-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-text">Feedback Survey</a>
+            {% elsif include.workshop == "robotics" %}
+            <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer" class="glow-button">stageoneeducation.com/drone</a>
+            <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
+            {% else %}
+            <a href="/cad-tutorial/portal.html" target="_blank" rel="noopener noreferrer" class="glow-button">Start</a>
+            <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
+            {% endif %}
+        </div>
+    </main>
+
+    {% include discovery/page-footer.html bar_only=true %}

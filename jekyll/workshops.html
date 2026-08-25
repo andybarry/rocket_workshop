@@ -6,9 +6,19 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
 ---
 
 <style>
+    html:has(body.workshops-page) {
+        height: 100%;
+        overflow: hidden;
+    }
+
     body.workshops-page {
-        margin: 56px 0 0;
-        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding-top: 56px;
+        height: 100vh;
+        overflow: hidden;
+        box-sizing: border-box;
         background-color: #fafafa;
         background-image:
             linear-gradient(to right, rgba(67, 67, 67, 0.035) 1px, transparent 1px),
@@ -18,25 +28,41 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     }
 
     .workshops-page-main {
-        padding: 24px 24px 56px;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 16px 24px 8px;
+        overflow: hidden;
+    }
+
+    body.workshops-page .discovery-page-footer {
+        flex: 0 0 auto;
+        margin-top: 0;
+    }
+
+    body.workshops-page .discovery-page-footer--bar-only .discovery-page-footer__bar {
+        padding-top: 6px;
+        padding-bottom: 8px;
     }
 
     .workshops-page .our-workshops-header {
-        margin-top: 8px;
-        margin-bottom: 16px;
+        margin-top: 56px;
+        margin-bottom: 6px;
     }
 
     .workshops-page .our-workshops-title {
-        color: #434343;
+        color: #f05f40;
         font-family: 'Roboto', sans-serif;
-        font-size: clamp(24px, 3vw, 36px);
-        font-weight: 400;
-        letter-spacing: 0.04em;
+        font-size: clamp(36px, 5vw, 52px);
+        font-weight: 700;
+        letter-spacing: 0.01em;
         text-transform: uppercase;
     }
 
     .workshops-page-intro {
-        margin: 0 0 28px;
+        margin: 0;
+        padding: 0;
         color: #969696;
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
@@ -45,200 +71,221 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     }
 
     .workshops-card-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 300px));
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
         justify-content: center;
-        gap: 24px;
-        max-width: 1272px;
-        margin: 0 auto;
+        gap: 18px;
+        max-width: 1100px;
+        width: 100%;
+        margin: auto auto;
+    }
+
+    .workshops-card-grid .workshop-card-col {
+        display: flex;
+        flex: 0 0 348px;
+        width: 348px;
+        align-items: stretch;
     }
 
     .workshops-page .workshop-main-button {
         width: 100%;
-        height: 430px;
-        margin: 0;
+        margin-bottom: 0;
+        cursor: pointer;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(67, 67, 67, 0.1);
+        transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease,
+            border-color 0.18s ease,
+            background-color 0.18s ease;
     }
 
-    .workshops-card-visual {
-        position: relative;
-        display: flex;
-        align-items: center;
+    .workshops-page .workshop-main-button > .main-button-title-text::before {
+        color: #0d6efd;
+        content: "Workshop Access";
+    }
+
+    .workshops-page .workshop-card-visual,
+    .workshops-page .workshop-card-media {
+        flex: 0 0 168px !important;
+        min-height: 168px;
+    }
+
+    .workshops-page .workshop-card-poster-stage {
+        height: 154px !important;
+    }
+
+    .workshops-page .workshop-main-button .workshop-card-copy {
+        padding: 8px 20px 6px;
+    }
+
+    .workshops-page .workshop-card-link-label {
         justify-content: center;
-        width: 210px;
-        height: 190px;
-        margin: 8px auto 4px;
-        overflow: hidden;
-        border-radius: 10px;
-        background: transparent;
+        gap: 10px;
+        min-height: 48px;
+        margin: auto 16px 16px;
+        padding: 12px 18px;
+        border: 0;
+        border-radius: 50px;
+        background: #f05f40;
+        color: #fff;
+        font-size: 13px;
+        letter-spacing: 0.08em;
     }
 
-    .workshops-card-visual img {
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        object-fit: contain;
-        transition: opacity 1s ease, transform 0.25s ease;
+    .workshops-page .workshop-card-link-label .fa {
+        font-size: 13px;
     }
 
-    .workshops-card-visual--photo img {
-        padding: 0;
-        object-fit: cover;
+    .workshops-page .workshop-main-button:hover,
+    .workshops-page .workshop-main-button:focus,
+    .workshops-page .workshop-main-button.is-hero-hover {
+        background-color: #fff;
+        color: #434343;
+        border-color: #f05f40;
+        border-radius: 20px;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(67, 67, 67, 0.16);
     }
 
-    .workshops-ai-overlay {
-        position: absolute;
-        top: 155px;
-        left: 50%;
-        z-index: 3;
-        width: 190px;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
+    .workshops-page .workshop-main-button:hover > .main-button-title-text,
+    .workshops-page .workshop-main-button:focus > .main-button-title-text,
+    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text,
+    .workshops-page .workshop-main-button:hover > .main-button-title-text::before,
+    .workshops-page .workshop-main-button:focus > .main-button-title-text::before,
+    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text::before,
+    .workshops-page .workshop-main-button:hover .workshop-card-copy,
+    .workshops-page .workshop-main-button:focus .workshop-card-copy,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy,
+    .workshops-page .workshop-main-button:hover .workshop-card-copy h3,
+    .workshops-page .workshop-main-button:focus .workshop-card-copy h3,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy h3,
+    .workshops-page .workshop-main-button:hover .workshop-card-copy li,
+    .workshops-page .workshop-main-button:focus .workshop-card-copy li,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy li,
+    .workshops-page .workshop-main-button:hover .workshop-card-copy em,
+    .workshops-page .workshop-main-button:focus .workshop-card-copy em,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy em {
+        color: inherit;
     }
 
-    .workshops-ai-overlay::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: -1;
-        width: 190px;
-        height: 76px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.9);
-        filter: blur(10px);
-        transform: translate(-50%, -50%);
+    .workshops-page .workshop-main-button:hover > .main-button-title-text,
+    .workshops-page .workshop-main-button:focus > .main-button-title-text,
+    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text {
+        color: #434343;
     }
 
-    .workshops-ai-overlay img {
-        width: 100%;
-        height: auto;
-        padding: 0;
-        object-fit: contain;
+    .workshops-page .workshop-main-button:hover > .main-button-title-text::before,
+    .workshops-page .workshop-main-button:focus > .main-button-title-text::before,
+    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text::before {
+        color: #0d6efd;
     }
 
-    @keyframes workshopDroneCodeScroll {
-        from { background-position: center top; }
-        to { background-position: center bottom; }
+    .workshops-page .workshop-main-button:hover .workshop-card-copy h3::before,
+    .workshops-page .workshop-main-button:focus .workshop-card-copy h3::before,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy h3::before {
+        background: #f05f40;
     }
 
-    .workshops-drone-code {
+    .workshops-page .workshop-main-button:hover .workshop-card-link-label,
+    .workshops-page .workshop-main-button:focus .workshop-card-link-label,
+    .workshops-page .workshop-main-button.is-hero-hover .workshop-card-link-label {
+        background: #d95438;
+        color: #fff;
+        border-top-color: transparent;
+    }
+
+    .workshops-page .workshop-main-button:active {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(67, 67, 67, 0.12);
+    }
+
+    @keyframes droneCodeScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .drone-code-scroll-box {
         position: absolute;
         inset: 0;
         z-index: 0;
-        width: 100%;
         overflow: hidden;
         border-radius: inherit;
         background: #fff;
         pointer-events: none;
     }
-
-    .workshops-drone-code::before {
-        content: "";
+    .drone-code-scroll-box::before {
+        content: '';
         position: absolute;
         inset: 0;
-        background-image: url("img/drone-code.png");
-        background-repeat: no-repeat;
-        background-position: center top;
+        background-image: url('img/drone-code.png');
         background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: droneCodeScrollDown 50s linear infinite;
         opacity: 0.5;
-        animation: workshopDroneCodeScroll 50s linear infinite;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
-        mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+        z-index: 0;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
     }
-
-    .workshops-drone-visual {
-        z-index: 1;
+    @keyframes dronePath1 {
+        0% { transform: translate(-400%, 400%); }
+        100% { transform: translate(400%, -400%); }
     }
-
-    @keyframes workshopDronePathOne {
-        from { transform: translate(-400%, 400%); }
-        to { transform: translate(400%, -400%); }
+    @keyframes dronePath2 {
+        0% { transform: translate(-400%, -400%); }
+        100% { transform: translate(400%, 400%); }
     }
-
-    @keyframes workshopDronePathTwo {
-        from { transform: translate(-400%, -400%); }
-        to { transform: translate(400%, 400%); }
+    @keyframes dronePath3 {
+        0% { transform: translate(-400%, 0); }
+        100% { transform: translate(400%, 400%); }
     }
-
-    @keyframes workshopDronePathThree {
-        from { transform: translate(-400%, 0); }
-        to { transform: translate(400%, 400%); }
+    @keyframes dronePath4 {
+        0% { transform: translate(0, -600%); }
+        100% { transform: translate(-400%, 400%); }
     }
-
-    @keyframes workshopDronePathFour {
-        from { transform: translate(0, -600%); }
-        to { transform: translate(-400%, 400%); }
+    @keyframes droneContainerFadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
     }
-
-    .workshops-drone-flight {
+    .drone-flight-container {
         position: absolute;
         inset: 0;
-        z-index: 5;
         overflow: hidden;
         pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        animation: droneContainerFadeIn 0.3s ease-out 2.5s forwards;
     }
-
-    .workshops-drone-flight img {
+    .drone-flight-container img {
         position: absolute;
+        height: auto;
         top: 50%;
         left: 50%;
-        height: auto;
         animation-timing-function: linear;
         animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
     }
-
-    .workshops-drone-flight img:nth-child(1) {
-        width: 40px;
-        margin: -20px 0 0 -20px;
-        animation: workshopDronePathOne 10s linear infinite;
-    }
-
-    .workshops-drone-flight img:nth-child(2) {
-        width: 55px;
-        margin: -27.5px 0 0 -27.5px;
-        animation: workshopDronePathTwo 14s linear 3s infinite;
-    }
-
-    .workshops-drone-flight img:nth-child(3) {
-        width: 90px;
-        margin: -45px 0 0 -45px;
-        animation: workshopDronePathThree 8s linear 6s infinite;
-    }
-
-    .workshops-drone-flight img:nth-child(4) {
-        width: 120px;
-        margin: -60px 0 0 -60px;
-        animation: workshopDronePathFour 16s linear 2s infinite;
-    }
-
-    .workshop-main-button:hover .workshops-card-visual img,
-    .workshop-main-button:focus .workshops-card-visual img {
-        transform: scale(1.04);
-    }
+    .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
+    .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
+    .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
+    .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
 
     @media (max-width: 1279px) {
-        .workshops-card-grid {
-            grid-template-columns: repeat(2, minmax(0, 300px));
+        .workshops-card-grid .workshop-card-col {
+            flex-basis: 348px;
         }
     }
 
     @media (max-width: 680px) {
         .workshops-page-main {
-            padding: 20px 18px 40px;
-        }
-
-        .workshops-page .our-workshops-header {
-            gap: 10px;
-        }
-
-        .workshops-card-grid {
-            grid-template-columns: minmax(0, 300px);
+            padding: 12px 18px 6px;
         }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .workshops-drone-code::before,
-        .workshops-drone-flight img {
+        .drone-code-scroll-box::before,
+        .drone-flight-container img {
             animation: none;
         }
     }
@@ -253,58 +300,76 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
             <h1 class="workshop-title our-workshops-title">Our workshops</h1>
             <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
         </div>
-        <p class="workshops-page-intro">Choose a workshop to get started.</p>
+        <p class="workshops-page-intro">Choose a workshop to get started</p>
 
         <section class="workshops-card-grid" aria-label="Available workshops">
-            <a href="ai-workshop.html" class="workshop-main-button">
-                <h2 class="main-button-title-text">Artificial Intelligence</h2>
-                <div class="workshops-card-visual workshops-card-visual--photo">
-                    <img id="workshopsCyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters">
-                </div>
-                <div class="workshops-ai-overlay" aria-hidden="true">
-                    <img src="img/nn-nobg.png" alt="">
-                </div>
-                <div class="workshop-card-copy">
-                    <h3>Discover AI Neural Networks</h3>
-                    <h3>Use the latest AI models: <em>text, image, and music</em></h3>
-                    <h3>AI ethics discussion</h3>
-                </div>
-            </a>
+            <div class="workshop-card-col">
+                <a href="/ai-workshop-session.html" class="workshop-main-button workshop-main-button--ai">
+                    <h2 class="main-button-title-text">Artificial Intelligence</h2>
+                    <br/>
+                    <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                            <img id="workshopsCyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <div style="position: absolute; top: 28%; left: 37%; transform: translate(-50%, -50%); pointer-events: none;">
+                            <div style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+                            <img src="img/nn-nobg.png" alt="" style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;">
+                        </div>
+                    </div>
+                    <div class="workshop-card-copy">
+                        <h3>Discover AI Neural Networks</h3>
+                        <h3>Use the latest AI models:
+                            <ul>
+                                <li><em>text, image, and music</em></li>
+                            </ul></h3>
+                        <h3>AI ethics discussion</h3>
+                    </div>
+                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </a>
+            </div>
 
-            <a href="robotics-workshop.html" class="workshop-main-button">
-                <div class="workshops-drone-code" aria-hidden="true"></div>
-                <h2 class="main-button-title-text">Robotics Drone</h2>
-                <div class="workshops-card-visual workshops-drone-visual">
-                    <img src="img/drone-circuit.png" alt="Programmable drone control circuit">
-                </div>
-                <div class="workshops-drone-flight" aria-hidden="true">
-                    <img src="img/drone.png" alt="">
-                    <img src="img/drone.png" alt="">
-                    <img src="img/drone.png" alt="">
-                    <img src="img/drone.png" alt="">
-                </div>
-                <div class="workshop-card-copy">
-                    <h3>Fly mini drones</h3>
-                    <h3>Build a circuit for drone control</h3>
-                    <h3>Program for autonomous flight</h3>
-                </div>
-            </a>
+            <div class="workshop-card-col">
+                <a href="/robotics-workshop-session.html" class="workshop-main-button workshop-main-button--robotics" style="position: relative;">
+                    <h2 class="main-button-title-text">Robotics Drone</h2>
+                    <br/>
+                    <div class="workshop-card-visual workshop-card-visual--robotics" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
+                        <div class="drone-code-scroll-box" aria-hidden="true"></div>
+                        <img src="img/drone-circuit.png" alt="Programmable drone control circuit" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; position: relative; z-index: 1;">
+                        <div class="drone-flight-container">
+                            <img src="img/drone.png" alt="" class="drone-path1">
+                            <img src="img/drone.png" alt="" class="drone-path2">
+                            <img src="img/drone.png" alt="" class="drone-path3">
+                            <img src="img/drone.png" alt="" class="drone-path4">
+                        </div>
+                    </div>
+                    <div class="workshop-card-copy">
+                        <h3>Fly mini drones</h3>
+                        <h3>Build a circuit for drone control</h3>
+                        <h3>Program for autonomous flight</h3>
+                    </div>
+                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </a>
+            </div>
 
-            <a href="rocket-workshop.html" class="workshop-main-button">
-                <h2 class="main-button-title-text">Mechanical Engineering</h2>
-                <div class="workshop-card-media">
-                    <video autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
-                        <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
-                        <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-                    </video>
-                    <img src="img/rocket-assem-iso.png" alt="Multi-part model rocket design" class="workshop-card-rocket-overlay">
-                </div>
-                <div class="workshop-card-copy">
-                    <h3>Use professional CAD software</h3>
-                    <h3>Design a multi-part model rocket</h3>
-                    <h3>Explore 3D printing</h3>
-                </div>
-            </a>
+            <div class="workshop-card-col">
+                <a href="/mechanical-workshop-session.html" class="workshop-main-button workshop-main-button--mechanical">
+                    <h2 class="main-button-title-text">Mechanical Engineering</h2>
+                    <br/>
+                    <div class="workshop-card-media workshop-card-visual workshop-card-visual--mechanical">
+                        <video class="workshop-card-video" autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
+                            <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                            <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                        </video>
+                        <img src="img/rocket-assem-iso.png" alt="Multi-part model rocket design" class="workshop-card-rocket-overlay">
+                    </div>
+                    <div class="workshop-card-copy">
+                        <h3>Use professional CAD software</h3>
+                        <h3>Design a multi-part model rocket</h3>
+                        <h3>Explore 3D printing</h3>
+                    </div>
+                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </a>
+            </div>
         </section>
     </main>
 
@@ -340,4 +405,4 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         })();
     </script>
 
-    {% include copyright.html %}
+    {% include discovery/page-footer.html bar_only=true %}

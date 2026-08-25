@@ -1,7 +1,8 @@
 {% assign entry = page.entry %}
 {% assign copy = site.data.discovery.copy %}
 {% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
-<footer class="discovery-page-footer">
+<footer class="discovery-page-footer{% if include.bar_only %} discovery-page-footer--bar-only{% endif %}">
+  {% unless include.bar_only %}
   <div class="discovery-page-footer__inner">
     <div class="discovery-page-footer__main">
       <div class="discovery-page-footer__brand">
@@ -95,6 +96,7 @@
       </nav>
     </div>
   </div>
+  {% endunless %}
 
   <div class="discovery-page-footer__bar">
     <div class="discovery-page-footer__bar-inner">

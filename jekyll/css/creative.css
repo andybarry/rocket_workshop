@@ -6086,7 +6086,7 @@ html.has-feedback-viewer {
 
 /* The legacy cards on Workshops and About share the base class but not the
    homepage markup. Keep their established presentation isolated. */
-body:not(.cursor-glow-page) .workshop-main-button {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button {
     width: 300px;
     height: 430px;
     border: 2px solid #f05f40;
@@ -6098,7 +6098,7 @@ body:not(.cursor-glow-page) .workshop-main-button {
     transition: box-shadow 0.2s ease, background-color 0.2s ease, border-width 0.2s ease;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-media {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button .workshop-card-media {
     flex: 1 1 auto !important;
     width: 100%;
     min-height: 0;
@@ -6108,7 +6108,7 @@ body:not(.cursor-glow-page) .workshop-main-button .workshop-card-media {
     background: transparent;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button > .main-button-title-text {
     min-height: 0;
     padding: 18px 16px 4px;
     color: #f05f40;
@@ -6121,18 +6121,18 @@ body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text {
     white-space: nowrap;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text::before,
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3::before {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button > .main-button-title-text::before,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button .workshop-card-copy h3::before {
     display: none;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button .workshop-card-copy {
     margin: auto 0 0;
     padding: 6px 20px 18px;
     text-align: center;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3 {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button .workshop-card-copy h3 {
     padding: 5px 0;
     font-size: 13px;
     font-weight: 400;
@@ -6140,9 +6140,9 @@ body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3 {
     letter-spacing: 0.01em;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button:hover,
-body:not(.cursor-glow-page) .workshop-main-button:focus,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:hover,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:focus,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button.is-hero-hover {
     border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: #f05f40;
@@ -6150,15 +6150,15 @@ body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover {
     box-shadow: 0 6px 18px rgba(67, 67, 67, 0.16);
 }
 
-body:not(.cursor-glow-page) .workshop-main-button:hover > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button:focus > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button:hover .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button:focus .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button:hover .workshop-card-copy li,
-body:not(.cursor-glow-page) .workshop-main-button:focus .workshop-card-copy li,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-copy li {
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:focus > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button.is-hero-hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:focus .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:hover .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button:focus .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page) .workshop-main-button.is-hero-hover .workshop-card-copy li {
     color: #fff;
 }
 
