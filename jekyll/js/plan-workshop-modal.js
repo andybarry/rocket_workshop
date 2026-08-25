@@ -3,11 +3,11 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         var openers = document.querySelectorAll("[data-plan-workshop-open]");
-        if (!openers.length || !window.StageOneState) return;
-
         var modal = document.querySelector("[data-plan-workshop-modal]");
+        if (!openers.length || !modal) return;
 
         function trackCta(source) {
+            if (!window.StageOneState) return;
             window.StageOneState.track("plan_workshop_cta_clicked",
                 withSource(window.StageOneState.eventParams(window.StageOneState.load(), pageName()), source));
         }
@@ -19,17 +19,6 @@
 
         function pageName() {
             return document.body.hasAttribute("data-discovery-page") ? "discovery" : "homepage";
-        }
-
-        // No modal markup on this page: fall back to the plan page.
-        if (!modal) {
-            Array.prototype.forEach.call(openers, function (opener) {
-                opener.addEventListener("click", function () {
-                    trackCta(opener.getAttribute("data-plan-source"));
-                    window.location.assign(window.StageOneUrls.buildPlanUrl(window.StageOneState.load()));
-                });
-            });
-            return;
         }
 
         var dialog = modal.querySelector(".plan-workshop-modal__dialog");
@@ -59,8 +48,10 @@
             lastFocused = document.activeElement;
             modal.hidden = false;
             document.body.classList.add("has-plan-workshop-modal");
-            window.StageOneState.track("plan_workshop_modal_opened",
-                withSource(window.StageOneState.eventParams(window.StageOneState.load(), pageName()), source));
+            if (window.StageOneState) {
+                window.StageOneState.track("plan_workshop_modal_opened",
+                    withSource(window.StageOneState.eventParams(window.StageOneState.load(), pageName()), source));
+            }
             if (closeButton) closeButton.focus();
         }
 
@@ -90,7 +81,7 @@
             opener.addEventListener("click", function (event) {
                 event.preventDefault();
                 var source = opener.getAttribute("data-plan-source");
-                if (opener.hasAttribute("data-plan-clear-context")) {
+                if (opener.hasAttribute("data-plan-clear-context") && window.StageOneState) {
                     window.StageOneState.writeStorage(window.StageOneState.defaults());
                 }
                 trackCta(source);
@@ -111,5 +102,11 @@
                 trapFocus(event);
             }
         });
+
+        var params = new URLSearchParams(window.location.search);
+        var hash = window.location.hash;
+        if (params.get("mode") === "plan" || hash === "#plan-workshop-form" || hash === "#workshop-finder") {
+            open("deep_link");
+        }
     });
 })();

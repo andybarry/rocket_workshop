@@ -7,7 +7,8 @@
     function initPlanForm(form, options) {
         options = options || {};
         var source = options.source || "plan";
-        var state = window.StageOneState.load();
+        var compact = form.hasAttribute("data-plan-workshop-compact");
+        var state = window.StageOneState ? window.StageOneState.load() : {};
         var internationalFields = form.querySelector("[data-international-fields]");
         var trackedStart = false;
 
@@ -68,7 +69,9 @@
         form.addEventListener("focusin", function () {
             if (trackedStart) return;
             trackedStart = true;
-            window.StageOneState.track("plan_workshop_form_started", window.StageOneState.eventParams(state, source));
+            if (window.StageOneState) {
+                window.StageOneState.track("plan_workshop_form_started", window.StageOneState.eventParams(state, source));
+            }
         });
 
         if (field("city")) {
@@ -94,7 +97,15 @@
             if (valueOf("website")) return;
             if (!validate()) return;
 
-            var lines = [
+            var lines = compact ? [
+                "New workshop planning request from the website:",
+                "",
+                "Name: " + valueOf("contactName"),
+                "Email: " + valueOf("email"),
+                "",
+                "What we should know about the group:",
+                valueOf("notes") || "None"
+            ] : [
                 "New workshop planning request from the website:",
                 "",
                 "Contact",
@@ -127,7 +138,9 @@
                 "Additional information: " + (valueOf("notes") || "None")
             ];
 
-            window.StageOneState.track("plan_workshop_form_submitted", window.StageOneState.eventParams(state, source));
+            if (window.StageOneState) {
+                window.StageOneState.track("plan_workshop_form_submitted", window.StageOneState.eventParams(state, source));
+            }
             window.location.href = "mailto:workshops@stageoneeducation.com"
                 + "?subject=" + encodeURIComponent("Workshop planning request")
                 + "&body=" + encodeURIComponent(lines.join("\n"));
@@ -140,7 +153,7 @@
 
         return {
             refresh: function () {
-                state = window.StageOneState.load();
+                if (window.StageOneState) state = window.StageOneState.load();
                 syncForm();
             }
         };

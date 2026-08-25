@@ -22,41 +22,26 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     }
 
     .workshops-page .our-workshops-header {
-        flex-direction: column;
-        gap: 8px;
-        margin-top: 0;
-        margin-bottom: 28px;
-    }
-
-    .workshops-page .our-workshops-rule {
-        display: none;
+        margin-top: 8px;
+        margin-bottom: 16px;
     }
 
     .workshops-page .our-workshops-title {
-        position: relative;
         color: #434343;
         font-family: 'Roboto', sans-serif;
         font-size: clamp(24px, 3vw, 36px);
-        font-weight: 700;
+        font-weight: 400;
         letter-spacing: 0.04em;
-    }
-
-    .workshops-page .our-workshops-title::after {
-        content: "";
-        display: block;
-        width: 48px;
-        height: 3px;
-        margin: 10px auto 0;
-        border-radius: 99px;
-        background: #f05f40;
+        text-transform: uppercase;
     }
 
     .workshops-page-intro {
-        margin: 0;
+        margin: 0 0 28px;
         color: #969696;
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
         line-height: 1.4;
+        text-align: center;
     }
 
     .workshops-card-grid {
@@ -138,15 +123,13 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
 
     .workshops-drone-code {
         position: absolute;
-        top: 85px;
-        bottom: 120px;
-        left: 50%;
+        inset: 0;
         z-index: 0;
-        width: 220px;
+        width: 100%;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: inherit;
         background: #fff;
-        transform: translateX(-50%);
+        pointer-events: none;
     }
 
     .workshops-drone-code::before {
@@ -156,7 +139,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         background-image: url("img/drone-code.png");
         background-repeat: no-repeat;
         background-position: center top;
-        background-size: 200px auto;
+        background-size: 100% auto;
         opacity: 0.5;
         animation: workshopDroneCodeScroll 50s linear infinite;
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
@@ -189,10 +172,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
 
     .workshops-drone-flight {
         position: absolute;
-        top: 85px;
-        right: 0;
-        bottom: 120px;
-        left: 0;
+        inset: 0;
         z-index: 5;
         overflow: hidden;
         pointer-events: none;
@@ -270,10 +250,10 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     <main class="workshops-page-main">
         <div class="our-workshops-header">
             <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
-            <h1 class="workshop-title our-workshops-title">Our Workshops</h1>
-            <p class="workshops-page-intro">Choose a workshop to get started.</p>
+            <h1 class="workshop-title our-workshops-title">Our workshops</h1>
             <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
         </div>
+        <p class="workshops-page-intro">Choose a workshop to get started.</p>
 
         <section class="workshops-card-grid" aria-label="Available workshops">
             <a href="ai-workshop.html" class="workshop-main-button">
@@ -293,7 +273,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
 
             <a href="robotics-workshop.html" class="workshop-main-button">
                 <div class="workshops-drone-code" aria-hidden="true"></div>
-                <h2 class="main-button-title-text">Robotics<br>Drone</h2>
+                <h2 class="main-button-title-text">Robotics Drone</h2>
                 <div class="workshops-card-visual workshops-drone-visual">
                     <img src="img/drone-circuit.png" alt="Programmable drone control circuit">
                 </div>

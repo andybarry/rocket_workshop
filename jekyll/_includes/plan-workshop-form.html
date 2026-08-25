@@ -2,10 +2,28 @@
   Shared Plan a Workshop form, used by the /plan-a-workshop/ page and the
   Plan a Workshop modal. Parameters:
     include.form_id — id for the <form> element (must be unique per page)
+    include.compact — when true, show name, email, and group notes only
 {% endcomment %}
-<form id="{{ include.form_id | default: "plan-workshop-form" }}" data-plan-workshop-form novalidate>
+<form id="{{ include.form_id | default: "plan-workshop-form" }}" data-plan-workshop-form{% if include.compact %} data-plan-workshop-compact class="plan-workshop-form--compact"{% endif %} novalidate>
   <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
+{% if include.compact %}
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Name <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">Enter your name.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">Email <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">Enter a valid email.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label">What should we know about your group?</span>
+    <textarea class="plan-workshop-field__control" name="notes" rows="5" placeholder="Tell us about your group, location, time of year, and anything else we should know."></textarea>
+  </label>
+  <button type="submit" class="plan-workshop-page__submit">Send Workshop Details</button>
+{% else %}
   <h3>Contact information</h3>
   <label class="plan-workshop-field">
     <span class="plan-workshop-field__label">Your name <span aria-hidden="true">*</span></span>
@@ -145,4 +163,5 @@
     Submitting this form opens your email application. Personal information is not placed in the website URL.
     See the <a href="/privacy.html">privacy policy</a>.
   </p>
+{% endif %}
 </form>

@@ -59,8 +59,8 @@
       "benefitGroupsText": "From private groups to large student programs",
       "benefitDeliveryTitle": "Delivered Across the USA",
       "benefitDeliveryText": "At your hotel, school, campus, or group venue",
-      "benefitIncludedTitle": "Engineers & Equipment Included",
-      "benefitIncludedText": "Led by real engineers, with materials, curriculum, setup, and cleanup provided",
+      "benefitIncludedTitle": "Engineers & Equipment",
+      "benefitIncludedText": "Led by real engineers, with materials,<br>curriculum, and setup included",
       "benefitSafeTitle": "Safe",
       "benefitSafeText": "Low-voltage electronics and safety gear provided"
     },
@@ -107,7 +107,7 @@
       "mobileSelected": "Workshop selected:",
       "mobileNotSure": "Workshop: Not sure yet"
     },
-    "workshopsHeading": "Our workshops",
+    "workshopsHeading": "Our Workshops",
     "participantsHeading": "What Participants Say",
     "planWorkshop": {
       "title": "Complete Your Workshop Request",
@@ -147,7 +147,7 @@
       "line3": "AI ethics discussion"
     },
     "cardRobotics": {
-      "title": "Robotics<br>Drone",
+      "title": "Robotics Drone",
       "imageAlt": "Drone Circuit",
       "line1": "Fly mini drones",
       "line2": "Build a circuit for drone control",

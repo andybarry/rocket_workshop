@@ -1564,7 +1564,8 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefit-bar {
     grid-template-columns: 1fr;
-    max-width: 1160px;
+    width: min(92vw, 1280px);
+    max-width: 1280px;
     margin: 0 auto;
     overflow: visible;
     gap: 0;
@@ -1597,8 +1598,8 @@ html.has-workshop-plan-modal #tab-section {
     justify-content: center;
     gap: 0;
     min-width: 0;
-    min-height: 116px;
-    padding: 14px 6px;
+    min-height: 108px;
+    padding: 12px 8px;
     border: 0;
     background: transparent;
     box-shadow: none;
@@ -1621,33 +1622,40 @@ html.has-workshop-plan-modal #tab-section {
     display: block;
     width: auto;
     height: auto;
-    margin: -6px auto 10px;
+    margin: 0 auto 8px;
     color: #0d6efd;
-    font-size: 23px;
+    font-size: 22px;
     line-height: 1;
     background: transparent;
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
     display: block;
-    margin: 0 0 2px;
+    margin: 0 0 3px;
     color: #434343;
     font-family: "Roboto", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    white-space: nowrap;
+    line-height: 1.25;
+    white-space: normal;
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
     display: block;
     margin: 0;
     color: #555555;
     font-family: "Roboto", sans-serif;
-    font-size: 9.5px;
+    font-size: 12px;
     font-weight: 400;
-    line-height: 1.25;
+    line-height: 1.3;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
+    font-size: 11.5px;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small br {
+    display: block;
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+    display: block;
     text-align: center;
     text-wrap: pretty;
 }
@@ -4903,10 +4911,7 @@ html.has-workshop-plan-modal #tab-section {
     gap: 12px;
     padding: 14px 18px;
     box-sizing: border-box;
-    /* A surface rather than a sheet of white: warmed by the faintest wash of the
-       brand orange towards the foot, which is what lifts the white quote boxes
-       and charts off it. */
-    background: linear-gradient(180deg, #ffffff 0%, #fffcfb 55%, #fdf8f6 100%);
+    background: #fff;
     border: 1px solid var(--feedback-line);
     border-radius: 16px;
     box-shadow: 0 10px 26px rgba(67, 67, 67, 0.07);
@@ -4925,7 +4930,7 @@ html.has-workshop-plan-modal #tab-section {
 .participants-feedback__title {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.3rem;
+    font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.01em;
     text-transform: none;
@@ -5847,11 +5852,13 @@ html.has-feedback-viewer {
 .workshop-main-button {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-bottom: 20px;
+    flex: 1 1 auto;
+    align-self: stretch;
+    margin: 0 auto 20px;
     width: 300px;
-    height: 440px;
-    border: 1px solid #d9d9d9;
+    height: auto;
+    min-height: 100%;
+    border: 2px solid #f05f40;
     border-radius: 16px;
     background-color: #fff;
     color: #434343;
@@ -5914,7 +5921,7 @@ html.has-feedback-viewer {
 
 .workshop-main-button > .main-button-title-text {
     margin: 0;
-    min-height: 72px;
+    min-height: 0;
     padding: 15px 20px 12px;
     text-align: left;
     font-family: 'Roboto', sans-serif;
@@ -5924,12 +5931,17 @@ html.has-feedback-viewer {
     line-height: 1.05;
     color: #434343;
     text-transform: none;
+    white-space: nowrap;
+}
+
+.workshop-main-button > .main-button-title-text br {
+    display: none;
 }
 
 .workshop-main-button > .main-button-title-text::before {
     display: block;
     margin-bottom: 5px;
-    color: #f05f40;
+    color: #0d6efd;
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.14em;
@@ -5945,7 +5957,7 @@ html.has-feedback-viewer {
 .workshop-main-button .workshop-card-copy {
     width: 100%;
     margin: 0;
-    padding: 12px 20px 8px;
+    padding: 10px 20px 2px;
     text-align: left;
     color: #434343;
 }
@@ -5993,15 +6005,15 @@ html.has-feedback-viewer {
     min-height: 42px;
     margin-top: auto;
     padding: 10px 20px;
-    border-top: 1px solid #f4e4bc;
-    background: #fff3ef;
-    color: #c8472b;
+    border-top: 1px solid rgba(240, 95, 64, 0.18);
+    background: #fff;
+    color: #f05f40;
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .workshop-card-link-label .fa {
@@ -6025,16 +6037,37 @@ html.has-feedback-viewer {
 .workshop-main-button.is-hero-hover {
     border-color: #f05f40;
     border-radius: 16px;
-    background-color: #fff;
-    color: #434343;
+    background-color: #f05f40;
+    color: #fff;
     text-decoration: none;
     box-shadow: none;
 }
 
 .workshop-main-button:hover > .main-button-title-text,
 .workshop-main-button:focus > .main-button-title-text,
-.workshop-main-button.is-hero-hover > .main-button-title-text {
-    color: #f05f40;
+.workshop-main-button.is-hero-hover > .main-button-title-text,
+.workshop-main-button:hover > .main-button-title-text::before,
+.workshop-main-button:focus > .main-button-title-text::before,
+.workshop-main-button.is-hero-hover > .main-button-title-text::before,
+.workshop-main-button:hover .workshop-card-copy,
+.workshop-main-button:focus .workshop-card-copy,
+.workshop-main-button.is-hero-hover .workshop-card-copy,
+.workshop-main-button:hover .workshop-card-copy h3,
+.workshop-main-button:focus .workshop-card-copy h3,
+.workshop-main-button.is-hero-hover .workshop-card-copy h3,
+.workshop-main-button:hover .workshop-card-copy li,
+.workshop-main-button:focus .workshop-card-copy li,
+.workshop-main-button.is-hero-hover .workshop-card-copy li,
+.workshop-main-button:hover .workshop-card-copy em,
+.workshop-main-button:focus .workshop-card-copy em,
+.workshop-main-button.is-hero-hover .workshop-card-copy em {
+    color: #fff;
+}
+
+.workshop-main-button:hover .workshop-card-copy h3::before,
+.workshop-main-button:focus .workshop-card-copy h3::before,
+.workshop-main-button.is-hero-hover .workshop-card-copy h3::before {
+    background: #fff;
 }
 
 .workshop-main-button:hover .workshop-card-link-label,
@@ -6042,6 +6075,7 @@ html.has-feedback-viewer {
 .workshop-main-button.is-hero-hover .workshop-card-link-label {
     background: #f05f40;
     color: #fff;
+    border-top-color: rgba(255, 255, 255, 0.22);
 }
 
 .workshop-main-button:hover .workshop-card-link-label .fa,
@@ -6084,6 +6118,7 @@ body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text {
     line-height: 1.2;
     text-align: center;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text::before,

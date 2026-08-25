@@ -1,3 +1,12 @@
 keep_files:
   - locations
   - workshops
+  - ai-network
+  - drone
+
+# Git symlinks to built workshop apps. On Windows they check out as tiny
+# text files, so Jekyll must not try to write them over www/ai-network
+# and www/drone directories.
+exclude:
+  - ai-network
+  - drone
