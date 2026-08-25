@@ -6,6 +6,14 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "**/*.@(html|css|js)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
+        ]
+      }
+    ],
     "redirects": [
       { "source": "/locations.html", "destination": "/locations/", "type": 301 },
       { "source": "/workshops.html", "destination": "/workshop-access.html", "type": 301 },
