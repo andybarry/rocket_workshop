@@ -25,9 +25,10 @@ cards:
 
 back_label: Find Your Workshop
 plan_cta_label: Plan a Workshop
-plan_helper_heading: Ready to plan?
+plan_helper_heading: Ready to Add Hands-On Engineering to Your Itinerary?
 plan_helper: >-
-  Contact our team and we'll create the perfect experience for your group.
+  Share your destination, group details, and schedule. Stage One will help plan
+  the workshop.
 
 category_labels:
   city: City

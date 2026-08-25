@@ -46,7 +46,9 @@
         return query ? path + "?" + query : path;
     }
 
-    // Landing page path for any discovery dimension.
+    // Path for any discovery dimension.
+    // Workshops go to the full workshop page (detail_path); other
+    // categories go to their discovery landing pages.
     // category: "city" | "audience" | "group_type" | "workshop"
     function discoveryPath(category, id) {
         var entry;
@@ -64,7 +66,7 @@
         }
         if (category === "workshop") {
             entry = findBy(data().workshops, "slug", id);
-            return entry && entry.landing_slug ? "/workshops/" + entry.landing_slug + "/" : "/#find-your-workshop";
+            return entry && entry.detail_path ? entry.detail_path : "/#find-your-workshop";
         }
         return "/#find-your-workshop";
     }

@@ -117,10 +117,12 @@
     <legend class="plan-workshop-field__label">Which workshops interest your group?</legend>
     <div class="plan-workshop-checkboxes">
       {% for workshop in site.data.workshops %}
+      {% unless workshop.hidden %}
       <label>
         <input type="checkbox" name="workshops" value="{{ workshop.slug }}">
         <span>{{ workshop.name }}</span>
       </label>
+      {% endunless %}
       {% endfor %}
       <label>
         <input type="checkbox" name="workshops" value="multiple">

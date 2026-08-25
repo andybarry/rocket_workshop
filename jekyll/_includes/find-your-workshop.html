@@ -62,11 +62,13 @@
         </div>
         <div class="find-workshop__options" role="list">
           {% for workshop in site.data.workshops %}
+          {% unless workshop.hidden %}
           <a class="find-workshop__option" role="listitem"
-            href="/workshops/{{ workshop.landing_slug }}/"
+            href="{{ workshop.detail_path }}"
             data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
             {{ workshop.explorer_label }}
           </a>
+          {% endunless %}
           {% endfor %}
         </div>
       </article>
@@ -89,15 +91,22 @@
       </article>
     </div>
 
-    <div class="find-workshop__plan-helper">
-      <div class="find-workshop__plan-message">
-        <strong>{{ copy.plan_helper_heading }}</strong>
-        <p class="find-workshop__plan-copy">{{ copy.plan_helper }}</p>
+    <section class="discovery-section discovery-plan find-workshop__plan" aria-labelledby="find-workshop-plan-heading">
+      <div class="discovery-plan__lead">
+        <div class="discovery-plan__icon" aria-hidden="true">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <div class="discovery-plan__content">
+          <h2 id="find-workshop-plan-heading" class="discovery-plan__heading">Ready to Add Hands-On Engineering to Your Itinerary?</h2>
+          <p class="discovery-plan__copy">Share your destination, group details, and schedule. Stage One will help plan the workshop.</p>
+        </div>
       </div>
-      <button type="button" class="find-workshop__plan-button" data-plan-workshop-open
-        data-plan-clear-context data-plan-source="find_your_workshop">
-        <i class="fa fa-calendar" aria-hidden="true"></i>{{ copy.plan_cta_label }}
-      </button>
-    </div>
+      <div class="discovery-plan__actions">
+        <button type="button" class="discovery-plan-button discovery-plan-button--large" data-plan-workshop-open
+          data-plan-clear-context data-plan-source="find_your_workshop">
+          <i class="fa fa-calendar" aria-hidden="true"></i>{{ copy.plan_cta_label }}
+        </button>
+      </div>
+    </section>
   </div>
 </section>

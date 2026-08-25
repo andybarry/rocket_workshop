@@ -1,10 +1,11 @@
 {% assign client_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+{% assign visible_workshops = site.data.workshops | where_exp: "workshop", "workshop.hidden != true" %}
 <script>
 window.StageOneDiscoveryData = {
   cities: {{ client_cities | jsonify }},
   audiences: {{ site.data.discovery.audiences | jsonify }},
   groupTypes: {{ site.data.discovery.group_types | jsonify }},
-  workshops: {{ site.data.workshops | jsonify }},
+  workshops: {{ visible_workshops | jsonify }},
   copy: {{ site.data.discovery.copy | jsonify }}
 };
 </script>

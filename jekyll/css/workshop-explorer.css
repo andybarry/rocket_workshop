@@ -6,15 +6,13 @@
    ========================================================================== */
 
 .plan-workshop-page,
-.workshop-context-strip,
-.workshop-planning-cta {
+.workshop-context-strip {
     color: #434343;
     font-family: "Roboto", sans-serif;
 }
 
 .plan-workshop-page *,
-.workshop-context-strip *,
-.workshop-planning-cta * {
+.workshop-context-strip * {
     box-sizing: border-box;
 }
 
@@ -37,8 +35,7 @@
     font-size: 13px;
 }
 
-.plan-workshop-page__submit,
-.workshop-planning-cta__button {
+.plan-workshop-page__submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -55,8 +52,7 @@
     transition: background 180ms ease, transform 180ms ease;
 }
 
-.plan-workshop-page__submit:hover,
-.workshop-planning-cta__button:hover {
+.plan-workshop-page__submit:hover {
     background: #eb3812;
     color: #fff;
     text-decoration: none;
@@ -83,15 +79,6 @@
     color: #1d6fa5;
     font-weight: 600;
     margin-right: 16px;
-}
-
-.workshop-planning-cta {
-    max-width: 1100px;
-    margin: 40px auto 64px;
-    padding: 28px;
-    border-radius: 20px;
-    background: #fff8f5;
-    border: 1px solid #f3d4c8;
 }
 
 .workshop-audience-note {
@@ -211,8 +198,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .plan-workshop-page__submit,
-    .workshop-planning-cta__button {
+    .plan-workshop-page__submit {
         transition: none;
     }
 }

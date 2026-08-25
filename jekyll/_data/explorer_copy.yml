@@ -44,3 +44,6 @@ delivery_facts:
   - title: Engineers & Equipment Included
     text: Led by real engineers, with materials, curriculum, setup, and cleanup provided
     icon: fa-briefcase
+  - title: Safe
+    text: Low-voltage electronics and safety gear provided
+    icon: fa-shield

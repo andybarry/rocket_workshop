@@ -36,10 +36,12 @@
       <p class="nav-explore-menu__heading">{{ copy.cards.workshops.title }}</p>
       <ul>
         {% for workshop in site.data.workshops %}
+        {% unless workshop.hidden %}
         <li>
-          {% assign workshop_path = "/workshops/" | append: workshop.landing_slug | append: "/" %}
+          {% assign workshop_path = workshop.detail_path %}
           <a class="nav-explore-menu__link{% if page.url == workshop_path %} is-current{% endif %}" href="{{ workshop_path }}">{{ workshop.explorer_label }}</a>
         </li>
+        {% endunless %}
         {% endfor %}
       </ul>
     </div>
@@ -78,9 +80,10 @@
 </li>
 {% endfor %}
 <li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.workshops.title }}</span></li>
-{% for workshop in site.data.workshops %}
+{% assign nav_workshops = site.data.workshops | where_exp: "workshop", "workshop.hidden != true" %}
+{% for workshop in nav_workshops %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item{% if forloop.last %} nav-mobile-workshop-item--last{% endif %}">
-  <a href="/workshops/{{ workshop.landing_slug }}/" class="nav-button-stageone">{{ workshop.explorer_label }}</a>
+  <a href="{{ workshop.detail_path }}" class="nav-button-stageone">{{ workshop.explorer_label }}</a>
 </li>
 {% endfor %}
 <li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.group_types.title }}</span></li>

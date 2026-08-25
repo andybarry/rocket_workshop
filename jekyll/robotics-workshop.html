@@ -30,6 +30,14 @@ i18n_key: robotics
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
   }
   body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page .discovery-page-footer {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
@@ -83,7 +91,6 @@ i18n_key: robotics
                 </div>
             </div>
         </div>
-    {% include workshop-plan-entry.html slug="robotics-drone" %}
     
         <!-- Section with Background Image -->
         <style>
@@ -642,9 +649,8 @@ i18n_key: robotics
 
 
         {% include workshops/workshop-planning-cta.html slug="robotics-drone" %}
-        <!-- Footer Section -->
-        {% include copyright.html %}
 
     </div>
+{% include discovery/page-footer.html %}
 
 </body>

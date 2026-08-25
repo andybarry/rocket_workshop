@@ -76,7 +76,9 @@
         <select name="explorerWorkshop">
           <option value="" data-i18n="home.explorer.optional">Optional</option>
           {% for workshop in site.data.workshops %}
+          {% unless workshop.hidden %}
           <option value="{{ workshop.slug }}">{{ workshop.name }}</option>
+          {% endunless %}
           {% endfor %}
         </select>
       </label>
@@ -86,6 +88,7 @@
 
     <div class="workshop-explorer__results" aria-live="polite">
       {% for workshop in site.data.workshops %}
+      {% unless workshop.hidden %}
       <article class="workshop-explorer-card" data-workshop="{{ workshop.slug }}" data-details="{{ workshop.detail_path }}">
         <i class="fa {{ workshop.icon }} workshop-explorer-card__icon" aria-hidden="true"></i>
         <h3>{{ workshop.name }}</h3>
@@ -95,6 +98,7 @@
           <button type="button" class="workshop-explorer-card__plan" data-workshop-select="{{ workshop.slug }}" data-i18n="home.explorer.planThis">PLAN THIS WORKSHOP</button>
         </div>
       </article>
+      {% endunless %}
       {% endfor %}
     </div>
 

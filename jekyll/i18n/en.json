@@ -8,7 +8,7 @@
     "ai": "Artificial Intelligence",
     "robotics": "Robotics Drone",
     "mechanical": "Mechanical Engineering",
-    "aiWebsite": "Web Development",
+    "aiWebsite": "Coming Soon",
     "home": "Home",
     "explore": "Explore <span class=\"caret\"></span>",
     "locations": "Locations",
@@ -46,7 +46,7 @@
       "linkWebsite": "Website",
       "title1": "<span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">We Bring</span><span class=\"home-room-hero__title-line home-room-hero__title-line--orange\">Hands-On Engineering</span><span class=\"home-room-hero__title-line home-room-hero__title-line--gray\">to You</span>",
       "title2": "Delivered to Groups Across the USA",
-      "body1": "Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.",
+      "body1": "Complete three-hour AI, robotics, and mechanical engineering workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.",
       "ctaGuide": "<i class=\"fa fa-book\" aria-hidden=\"true\"></i>View Workshop Guide",
       "ctaFind": "<i class=\"fa fa-search\" aria-hidden=\"true\"></i>FIND YOUR WORKSHOP",
       "ctaPlan": "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>Plan A Workshop",
@@ -60,7 +60,9 @@
       "benefitDeliveryTitle": "Delivered Across the USA",
       "benefitDeliveryText": "At your hotel, school, campus, or group venue",
       "benefitIncludedTitle": "Engineers & Equipment Included",
-      "benefitIncludedText": "Led by real engineers, with materials, curriculum, setup, and cleanup provided"
+      "benefitIncludedText": "Led by real engineers, with materials, curriculum, setup, and cleanup provided",
+      "benefitSafeTitle": "Safe",
+      "benefitSafeText": "Low-voltage electronics and safety gear provided"
     },
     "explorer": {
       "exploreEyebrow": "WORKSHOPS",
@@ -158,7 +160,7 @@
       "line3": "Explore 3D printing"
     },
     "cardWebsite": {
-      "title": "Web<br>Development",
+      "title": "Coming<br>Soon",
       "imageAlt": "Website built during the workshop",
       "line1": "Build a real website",
       "line2": "Code with an AI assistant",

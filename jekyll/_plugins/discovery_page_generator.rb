@@ -7,7 +7,8 @@
 #   _data/discovery/cities.yml       -> /locations/boston/, ...
 #   _data/discovery/audiences.yml    -> /workshops/high-school/, ...
 #   _data/discovery/group_types.yml  -> /workshops/educational-tours/, ...
-#   _data/workshops.yml (landing_*)  -> /workshops/robotics/, ...
+# Workshop buttons go to the full workshop pages (detail_path). The
+# /workshops/{landing_slug}/ URLs redirect there.
 #
 # Each page renders with _layouts/discovery.html and receives a normalized
 # `entry` hash so the layout can treat every category uniformly.
@@ -66,13 +67,6 @@ module StageOne
         next if existing.include?(["group_type", group["id"]])
 
         site.pages << DiscoveryPage.new(site, "group_type", group["id"], simple_entry(group))
-      end
-
-      (site.data["workshops"] || []).each do |workshop|
-        next unless workshop["landing_slug"]
-        next if existing.include?(["workshop", workshop["landing_slug"]])
-
-        site.pages << DiscoveryPage.new(site, "workshop", workshop["landing_slug"], workshop_entry(workshop))
       end
     end
 

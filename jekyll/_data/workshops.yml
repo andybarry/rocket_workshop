@@ -164,6 +164,7 @@
     schools, and venues nationwide.
 
 - slug: web-development
+  hidden: true
   name: Web Engineering
   heading_label: Web Engineering
   explorer_label: Web Engineering
@@ -177,6 +178,7 @@
   detail_path: /ai-website-workshop.html
   icon: fa-code
   homepage_short_name: Web
+  coming_soon: true
   homepage_short_focus: HTML · AI Coding · Publish
   homepage_focus: HTML & CSS · AI Coding · Publishing
   homepage_topics:

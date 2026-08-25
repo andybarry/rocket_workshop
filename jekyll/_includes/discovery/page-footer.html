@@ -72,13 +72,15 @@
           <h3>{{ copy.cards.workshops.title }}</h3>
           <ul>
             {% for workshop in site.data.workshops %}
+            {% unless workshop.hidden %}
             <li>
-              <a href="/workshops/{{ workshop.landing_slug }}/"
+              <a href="{{ workshop.detail_path }}"
                 {% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %}class="is-current" aria-current="page"{% endif %}
                 data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
                 {{ workshop.homepage_short_name }}
               </a>
             </li>
+            {% endunless %}
             {% endfor %}
           </ul>
         </div>

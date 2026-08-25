@@ -32,8 +32,8 @@
                 window.StageOneState.eventParams(state, "homepage"));
         }
 
-        // Option selections. Options are plain links to landing pages; the
-        // selection is remembered so landing pages can keep the context.
+        // Option selections. Options are plain links; the selection is
+        // remembered so later pages can keep the visitor's context.
         Array.prototype.forEach.call(section.querySelectorAll("[data-discovery-option]"), function (option) {
             option.addEventListener("click", function () {
                 var category = option.getAttribute("data-category");

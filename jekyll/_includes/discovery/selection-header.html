@@ -6,7 +6,7 @@
   {% endif %}
 {% endif %}
 {% assign copy = site.data.discovery.copy %}
-<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}">
+<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "audience" %} discovery-header--participants{% endif %}">
   {% if page.discovery_category == "city" %}
   {% if entry.landmark_image %}
   <div class="discovery-header__visual" aria-hidden="true"
@@ -18,6 +18,9 @@
   {% if page.discovery_category == "city" %}<div class="discovery-header__masthead">{% endif %}
   <div class="discovery-header__hero">
     <div class="discovery-header__content">
+      {% if page.discovery_category == "audience" %}
+      {% include discovery/participant-cards.html %}
+      {% else %}
       <h1 class="discovery-header__headline{% if page.discovery_category == "city" %} discovery-header__headline--city{% endif %}">
         {% case page.discovery_category %}
         {% when "city" %}
@@ -45,6 +48,7 @@
         </a>
       </div>
       {% endif %}
+      {% endif %}
     </div>
   </div>
 
@@ -55,14 +59,16 @@
     </div>
     <div class="discovery-workshop-cards">
       {% for workshop in site.data.workshops %}
+      {% unless workshop.hidden %}
       <a class="discovery-workshop-card discovery-workshop-card--summary{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
-        href="/workshops/{{ workshop.landing_slug }}/"
+        href="{{ workshop.detail_path }}"
         aria-label="{{ workshop.explorer_label }}"
         data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
         <span class="discovery-workshop-card__label">
           <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
         </span>
       </a>
+      {% endunless %}
       {% endfor %}
     </div>
     <div class="discovery-header__offerings-head discovery-header__offerings-head--ages">
@@ -82,22 +88,45 @@
       {% endfor %}
     </div>
   </section>
+  {% elsif page.discovery_category == "audience" %}
+  <section class="discovery-header__offerings discovery-header__offerings--combined" aria-labelledby="hero-offerings-heading">
+    <div class="discovery-header__offerings-head">
+      <h2 id="hero-offerings-heading">Workshops for {{ entry.short_label | default: entry.label | default: entry.name }}</h2>
+    </div>
+    <div class="discovery-workshop-cards">
+      {% for workshop in site.data.workshops %}
+      {% unless workshop.hidden %}
+      <a class="discovery-workshop-card discovery-workshop-card--summary"
+        href="{{ workshop.detail_path }}"
+        aria-label="{{ workshop.explorer_label }}"
+        data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
+        <span class="discovery-workshop-card__label">
+          <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
+        </span>
+      </a>
+      {% endunless %}
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
+  {% unless page.discovery_category == "audience" %}
   {% include discovery/contextual-testimonials.html hero=true %}
+  {% endunless %}
 
   {% if page.discovery_category == "city" %}
   </div>
   {% endif %}
 
-  {% unless page.discovery_category == "city" %}
+  {% unless page.discovery_category == "city" or page.discovery_category == "audience" %}
   <div class="discovery-header__offerings">
     <section class="discovery-header__workshops" aria-labelledby="hero-workshops-heading">
       <h2 id="hero-workshops-heading">Workshops</h2>
       <div class="discovery-workshop-cards">
         {% for workshop in site.data.workshops %}
+        {% unless workshop.hidden %}
         <a class="discovery-workshop-card{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
-          href="/workshops/{{ workshop.landing_slug }}/"
+          href="{{ workshop.detail_path }}"
           aria-label="{{ workshop.explorer_label }}"
           data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
           <span class="discovery-workshop-card__label">
@@ -107,6 +136,7 @@
             <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
           </span>
         </a>
+        {% endunless %}
         {% endfor %}
       </div>
     </section>

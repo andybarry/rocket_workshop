@@ -30,6 +30,14 @@ i18n_key: ai
   .quote-container,
   .quote-container * { cursor: default !important; }
   body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page .discovery-page-footer {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
@@ -56,7 +64,6 @@ i18n_key: ai
     
 </div>
     <hr style="border: none; height: 1px; width: 1100px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-    {% include workshop-plan-entry.html slug="artificial-intelligence" %}
     
 
 <!-- Section with Background Image -->
@@ -662,7 +669,5 @@ Feedback Survey
             
         </section>
            {% include workshops/workshop-planning-cta.html slug="artificial-intelligence" %}
-           <!-- Footer Section -->
-           {% include copyright.html %}
-
-</div>
+           </div>
+{% include discovery/page-footer.html %}

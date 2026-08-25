@@ -1089,32 +1089,32 @@ inline-quote-container {
     height: 24px;
     margin: 0 10px;
     padding: 1px 10px !important;
-    border: 1px solid #fff;
+    border: 1px solid #3bbf6b;
     border-radius: 6px;
     box-sizing: border-box;
-    background: #f05f40 !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: #3bbf6b !important;
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
     font-weight: 700;
     line-height: 20px;
     letter-spacing: 0.02em;
     text-decoration: none !important;
-    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.18);
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-plan-workshop-button:hover,
 .nav-plan-workshop-button:focus {
-    border-color: #fff;
-    background: #fff !important;
-    color: #f05f40 !important;
-    box-shadow: 0 3px 10px rgba(67, 67, 67, 0.24);
+    border-color: #3bbf6b;
+    background: #3bbf6b !important;
+    color: #fff !important;
+    box-shadow: 0 3px 10px rgba(59, 191, 107, 0.28);
     outline: none;
 }
 
 .nav-plan-workshop-button:focus-visible {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6), 0 3px 10px rgba(67, 67, 67, 0.24);
+    box-shadow: 0 0 0 3px rgba(59, 191, 107, 0.35), 0 3px 10px rgba(59, 191, 107, 0.28);
 }
 
 .nav-dropdown .caret {
@@ -1389,14 +1389,16 @@ inline-quote-container {
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button {
         margin-top: 8px;
         margin-bottom: 8px;
-        background: #f05f40 !important;
-        color: #fff !important;
+        border-color: #3bbf6b;
+        background: #fff !important;
+        color: #3bbf6b !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:focus {
-        background: #fff !important;
-        color: #f05f40 !important;
+        border-color: #3bbf6b;
+        background: #3bbf6b !important;
+        color: #fff !important;
     }
 }
 
@@ -1573,11 +1575,81 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    border: 1px solid #e3e3e3;
-    border-radius: 14px;
+    list-style: none;
+    border: 1px solid #0d6efd;
+    border-radius: 12px;
     background: #fff;
-    box-shadow: 0 5px 18px rgba(67, 67, 67, 0.06);
+    box-shadow:
+        0 3px 8px rgba(13, 110, 253, 0.05),
+        0 0 8px rgba(13, 110, 253, 0.12);
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    min-width: 0;
+    min-height: 116px;
+    padding: 14px 6px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+    color: #393939;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li {
+    border-left: 0;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    width: 1px;
+    background: #e5e5e5;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: -6px auto 10px;
+    color: #0d6efd;
+    font-size: 23px;
+    line-height: 1;
+    background: transparent;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
+    display: block;
+    margin: 0 0 2px;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
+    display: block;
+    margin: 0;
+    color: #555555;
+    font-family: "Roboto", sans-serif;
+    font-size: 9.5px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+    text-align: center;
+    text-wrap: pretty;
 }
 .homepage-workshop-explorer__header {
     max-width: 760px;
@@ -2089,7 +2161,7 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-explorer__benefits {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 8px;
     margin: 0;
     padding: 3px;
@@ -2129,16 +2201,16 @@ html.has-workshop-plan-modal #tab-section {
 .homepage-workshop-explorer__benefits strong {
     color: #434343;
     font-family: 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 .homepage-workshop-explorer__benefits small {
     margin-top: 2px;
     color: #707070;
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
     line-height: 1.25;
 }
@@ -3252,6 +3324,27 @@ html.has-workshop-plan-modal #tab-section {
         padding-right: 10px;
         padding-left: 10px;
     }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+        min-height: 96px;
+        padding: 14px 8px;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before {
+        top: 0;
+        bottom: auto;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        height: 1px;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(2n + 1)::before {
+        display: none;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(n + 3)::before {
+        display: block;
+    }
     .homepage-workshop-benefits .homepage-workshop-explorer__benefit-intro {
         padding: 0 3px 9px;
     }
@@ -4250,10 +4343,10 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-plan-workshop-button {
     margin-right: 4px;
-    border: 1px solid #fff;
-    background: #f05f40 !important;
-    color: #fff !important;
-    box-shadow: 0 2px 5px rgba(67, 67, 67, 0.12);
+    border: 1px solid #3bbf6b;
+    background: #fff !important;
+    color: #3bbf6b !important;
+    box-shadow: none;
 }
 
 #mainNav .nav-plan-workshop-button > .fa {
@@ -4264,13 +4357,13 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-plan-workshop-button:hover,
 #mainNav .nav-plan-workshop-button:focus {
-    border-color: #fff;
-    background: #fff !important;
-    color: #f05f40 !important;
+    border-color: #3bbf6b;
+    background: #3bbf6b !important;
+    color: #fff !important;
     font-weight: 400;
     text-decoration: none !important;
     text-shadow: none;
-    box-shadow: 0 2px 5px rgba(67, 67, 67, 0.12);
+    box-shadow: 0 2px 5px rgba(59, 191, 107, 0.28);
     filter: none;
 }
 
@@ -4634,16 +4727,16 @@ html.has-workshop-plan-modal #tab-section {
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button {
         margin: 0;
-        border-color: #fff;
-        background: #f05f40 !important;
-        color: #fff !important;
+        border-color: #3bbf6b;
+        background: #fff !important;
+        color: #3bbf6b !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:focus {
-        border-color: #fff;
-        background: #fff !important;
-        color: #f05f40 !important;
+        border-color: #3bbf6b;
+        background: #3bbf6b !important;
+        color: #fff !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button {
@@ -4773,8 +4866,9 @@ html.has-workshop-plan-modal #tab-section {
     display: flex;
     align-items: stretch;
     gap: 28px;
-    width: min(97vw, 1300px);
-    margin: 40px 0 24px calc(50% - min(48.5vw, 650px));
+    width: calc(100% - 30px);
+    max-width: 1160px;
+    margin: 40px auto 24px;
     box-sizing: border-box;
 }
 
@@ -5150,7 +5244,7 @@ html.has-feedback-viewer .feedback-rail__track {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.45;
     color: #464444;
     text-wrap: pretty;
@@ -5670,8 +5764,9 @@ html.has-feedback-viewer {
     .participants-plan-row {
         flex-direction: column;
         gap: 18px;
-        width: 100%;
-        margin: 28px 0 24px;
+        width: calc(100% - 20px);
+        max-width: 1160px;
+        margin: 28px auto 24px;
     }
 
     /* Stacked, a vertical divider has nothing to separate. */
@@ -6118,7 +6213,7 @@ body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-c
 .glow-button {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 400;
     color: #f05f40;
     text-align: center;
     background-color: white;
@@ -6146,7 +6241,7 @@ text-decoration: none; /* Remove underline on hover */
 .glow-text {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 400;
     color: #f05f40;
     text-align: center;
     background-color: white;
@@ -6196,7 +6291,7 @@ text-decoration: none; /* Remove underline on hover */
     .feedback-spacing {
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
-        font-weight: 100;
+        font-weight: 400;
         color: #f05f40;
         text-align: center;
         padding: 1px 15px;

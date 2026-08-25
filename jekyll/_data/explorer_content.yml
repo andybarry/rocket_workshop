@@ -182,17 +182,6 @@ workshop_pages:
     plan_params:
       workshop: mechanical-engineering
 
-  - category: workshop
-    slug: web-development
-    eyebrow: WEB DEVELOPMENT
-    title: Web Development Workshops
-    description: Participants turn an idea into a live website while learning the foundations of layout, content, design, and front-end development. By the end of the workshop, they have created a real digital project they can publish and share.
-    selected_label: Workshop
-    selected_value: Web Development
-    featured_workshop_id: web-development
-    plan_params:
-      workshop: web-development
-
 special_locations:
   - category: location
     slug: other-us-destination

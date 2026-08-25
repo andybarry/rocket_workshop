@@ -9,6 +9,7 @@ i18n_key: home
 <style>
   /* Grid on light gray (home only) */
   body.cursor-glow-page {
+    overflow-x: hidden;
     background-color: #fafafa;
     background-image:
       linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
@@ -71,6 +72,13 @@ i18n_key: home
     body.cursor-glow-page .main-page-hr {
       max-width: 100%;
     }
+  }
+
+  body.cursor-glow-page .discovery-page-footer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
 
   /* Full-bleed room image header (below nav, above Our workshops) */
@@ -520,9 +528,6 @@ i18n_key: home
     }
   }
 
-  /* Four workshop cards on one line. The cards keep their authored 300px
-     width, so the row takes its own centered track a little wider than the
-     1170px container and the space between cards absorbs the difference. */
   .workshop-card-col {
     position: relative;
   }
@@ -531,10 +536,10 @@ i18n_key: home
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      width: min(97vw, 640px);
-      margin-left: calc(50% - min(48.5vw, 320px));
-      margin-right: 0;
+      gap: 16px;
+      width: min(97vw, 980px);
+      margin-left: auto;
+      margin-right: auto;
     }
     /* Bootstrap's .row clearfix pseudo-elements become flex items and would
        take a share of the space between the cards. */
@@ -550,10 +555,11 @@ i18n_key: home
   @media (min-width: 1280px) {
     body.cursor-glow-page #tab-section .workshop-cards-row {
       flex-wrap: nowrap;
-      justify-content: space-between;
-      gap: 0;
-      width: min(97vw, 1300px);
-      margin-left: calc(50% - min(48.5vw, 650px));
+      justify-content: center;
+      gap: 18px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>
@@ -836,7 +842,7 @@ i18n_key: home
             <span data-i18n-html="home.hero.title1"><span class="home-room-hero__title-line home-room-hero__title-line--gray">We Bring</span><span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering</span><span class="home-room-hero__title-line home-room-hero__title-line--gray">to You</span></span>
         </h1>
         <div class="home-room-hero__body">
-            <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, mechanical engineering, and web development workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
+            <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, and mechanical engineering workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
         </div>
         <div class="home-room-hero__actions">
             <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">
@@ -1063,31 +1069,6 @@ i18n_key: home
 
 
 
-<!-- Fourth Workshop Box -->
-<div class="workshop-card-col text-center">
-    <a href="ai-website-workshop.html" class="workshop-main-button workshop-main-button--website">
-
-        <!-- Title Section -->
-        <h2 class="main-button-title-text" data-i18n-html="home.cardWebsite.title">Web<br>Development</h2>
-        <br/>
-
-        <!-- Image Section -->
-        <div class="workshop-card-visual workshop-card-visual--website" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-            <img src="img/ai-website-mockup.svg"
-                 alt="Website built during the workshop" data-i18n-alt="home.cardWebsite.imageAlt"
-                 style="width: 200px; height: 200px; object-fit: contain;">
-        </div>
-
-<!-- Text Section with h3 Title added -->
-<div class="workshop-card-copy">
-    <h3 data-i18n="home.cardWebsite.line1">Build a real website</h3>
-    <h3 data-i18n="home.cardWebsite.line2">Code with an AI assistant</h3>
-    <h3 data-i18n="home.cardWebsite.line3">Publish it live on the web</h3>
-</div>
-<span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
-
-    </a>
-</div>
 </div>
 
 <div class="participants-plan-row">
@@ -1665,356 +1646,8 @@ i18n_key: home
 
 </section>
 
-
-<hr class="main-page-hr" style="margin-top: 8px;"/>
-<span class="workshop-title" style="cursor: default;" data-i18n="home.aboutHeading">About</span>
-<hr class="main-page-hr" />
-
-<style>
-  .about-box {
-    cursor: default;
-    flex: 1 1 calc(20% - 20px);
-    max-width: 250px;
-    padding: 24px 16px;
-    background-color: #fff;
-    border: 1px solid #d0d0d0;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.2s ease;
-    box-sizing: border-box;
-  }
-  .about-box:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.28);
-  }
-  .about-box:hover i.fa {
-    transform: scale(1.12);
-    transition: transform 0.2s ease;
-  }
-  .about-box i.fa {
-    transition: transform 0.2s ease;
-  }
-  /* Desktop: 5 boxes always on one line */
-  @media (min-width: 768px) {
-    .about-section {
-      padding-left: 60px;
-      padding-right: 60px;
-      box-sizing: border-box;
-      flex-wrap: nowrap !important;
-    }
-    .about-box {
-      flex: 0 0 calc(20% - 16px) !important;
-      min-width: 0;
-    }
-  }
-  /* Mobile: first box full width (row 1), turn-key/curriculum/experienced/safe = 2 per row (rows 2 and 3) */
-  @media (max-width: 767px) {
-    .about-section {
-      max-width: 100%;
-      width: 100%;
-      padding-left: 40px;
-      padding-right: 40px;
-      gap: 10px !important; /* override inline gap so 2 boxes fit per row */
-      box-sizing: border-box;
-    }
-    .about-box {
-      overflow: hidden;
-      word-wrap: break-word;
-    }
-    .about-box:first-child {
-      flex: 0 0 100%;
-      max-width: 100%;
-      min-width: 0;
-      padding: 20px 12px;
-    }
-    .about-box:not(:first-child) {
-      flex: 0 0 calc(50% - 5px);
-      max-width: calc(50% - 5px);
-      width: calc(50% - 5px);
-      min-width: 0;
-      padding: 20px 12px;
-    }
-    .about-box .about-title-text {
-      font-size: 16px;
-    }
-    .about-box .about-body-text,
-    .about-box h4,
-    .about-box li {
-      font-size: 11px;
-      line-height: 1.4;
-    }
-    .about-box .fa-4x {
-      font-size: 2em;
-    }
-    .about-box i.fa {
-      visibility: visible !important;
-      animation: none !important;
-    }
-  }
-</style>
-
-    <div class="container about-section" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; text-align: center; max-width: 1200px; margin: 0 auto; margin-top: 20px; position: relative; z-index: 1;">
-        
-        <!-- Hands-on Box -->
-        <div class="about-box"> 
-            <i class="fa fa-4x fa-solid fa-wrench wow text-primary bounceIn"></i>
-            <h3 class="about-title-text" data-i18n="home.about.handsOn.title">hands-on</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.handsOn.body">Do engineering in the first minute, no prior experience needed, for all ages and skill levels.</h4>
-        </div>
-        
-        
-        <!-- Turn-key Box -->
-        <div class="about-box">
-            <i class="fa fa-4x fa-solid fa-gear wow text-primary bounceIn"></i>
-            <h3 class="about-title-text" data-i18n="home.about.turnKey.title">turn-key</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.turnKey.body">All Inclusive engineering workshop packages that seamlessly integrate and scale into any program.</h4>
-        </div>
-
-        <!-- Curriculum Box -->
-        <div class="about-box">
-            <i class="fa fa-lightbulb-o fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text" data-i18n="home.about.curriculum.title">curriculum</h3>
-            <ul style="padding: 0; list-style: none; text-align: center;">
-                <li class="about-body-text" data-i18n="home.about.curriculum.body1">Designed and instructed by PhDs, engineers, and educators.</li>
-                <li class="about-body-text" data-i18n="home.about.curriculum.body2">Continuously updated, no year is the same.</li>
-            </ul>
-        </div>
-
-        <!-- Experienced Box -->
-        <div class="about-box">
-            <i class="fa fa-group fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text" data-i18n="home.about.experienced.title">experienced</h3>
-            <h4 class="about-body-text" style="line-height: 1.6;" data-i18n="home.about.experienced.body">Since 2013, Stage One Education has delivered workshops to tens of thousands of participants across the United States.</h4>
-        </div>
-
-        <!-- Safe & Exciting Box -->
-        <div class="about-box">
-            <i class="fa fa-shield fa-4x wow bounceIn text-primary" data-wow-delay=".2s"></i>
-            <h3 class="about-title-text" data-i18n="home.about.safe.title">safe</h3>
-            <ul style="padding: 0; list-style: none; text-align: center;">
-                <li class="about-body-text" data-i18n="home.about.safe.body">Model rockets stay virtual, all electronics are low voltage, and safety glasses are provided.</li>
-            </ul>
-        </div>
-
-    </div>
-
-
-<hr class="main-page-hr" style="margin-top: 20px;"/>
-<span class="workshop-title" style="cursor: default;" data-i18n="home.feedbackHeading">Feedback</span>
-<hr class="main-page-hr" />
-
-<!-- New Image Section with Continuous Scroll for Feedback -->
-<div class="feedback-scroll-wrapper" style="overflow: hidden; margin-top: 40px; white-space: nowrap; position: relative;">
-    <div class="scroll-container">
-        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
-        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
-        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
-        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
-
-        <!-- Duplicate images for smooth continuous scroll effect -->
-        <img src="img/feedback1.png" alt="Feedback 1" class="scroll-image">
-        <img src="img/feedback2.png" alt="Feedback 2" class="scroll-image">
-        <img src="img/feedback3.png" alt="Feedback 3" class="scroll-image">
-        <img src="img/feedback4.png" alt="Feedback 4" class="scroll-image">
-    </div>
-</div>
-
-<!-- Keyframes for continuous scroll without fade effect -->
-<style>
-    .feedback-scroll-wrapper {
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        width: 80vw;
-        max-width: 80vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
-        box-sizing: border-box;
-    }
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-    
-    /* Container for smooth scroll */
-    .scroll-container {
-        display: inline-block;
-        animation: scroll 45s linear infinite;
-        white-space: nowrap;
-        cursor: grab; /* Change cursor to indicate draggable area */
-        overflow: hidden; /* Hide scrollbar */
-    }
-    
-    /* Apply size and spacing to each image */
-    .scroll-image {
-        display: inline-block;
-        width: 400px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-right: 40px;
-        transition: box-shadow 0.2s ease;
-    }
-    .scroll-image:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
-    }
-    
-    /* Cursor changes when dragging */
-    .scroll-container.dragging {
-        cursor: grabbing !important;
-    }
-    .scroll-container.dragging .scroll-image {
-        cursor: grabbing !important;
-    }
-    
-    /* Hide scrollbar */
-    .scroll-container::-webkit-scrollbar {
-        display: none;
-    }
-    
-</style>
-
-<script>
-(function() {
-    var container = document.querySelector('.feedback-scroll-wrapper .scroll-container');
-    if (!container) return;
-
-    var isDragging = false;
-    var startX = 0;
-    var currentTranslateX = 0;
-    var dragTranslateX = 0;
-
-    function getTranslateX(el) {
-        var style = window.getComputedStyle(el);
-        var matrix = style.transform || style.webkitTransform;
-        if (matrix && matrix !== 'none') {
-            var values = matrix.match(/matrix.*\((.+)\)/);
-            if (values) {
-                var parts = values[1].split(',');
-                return parseFloat(parts[4]) || 0;
-            }
-        }
-        return 0;
-    }
-
-    container.addEventListener('mousedown', function(e) {
-        isDragging = true;
-        container.classList.add('dragging');
-        // Pause animation and capture current translated position
-        currentTranslateX = getTranslateX(container);
-        dragTranslateX = currentTranslateX;
-        container.style.animation = 'none';
-        container.style.transform = 'translateX(' + currentTranslateX + 'px)';
-        startX = e.pageX;
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', function(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        var deltaX = e.pageX - startX;
-        dragTranslateX = currentTranslateX + deltaX;
-        container.style.transform = 'translateX(' + dragTranslateX + 'px)';
-    });
-
-    function stopDrag() {
-        if (!isDragging) return;
-        isDragging = false;
-        container.classList.remove('dragging');
-        // Calculate where in the animation cycle we are and resume from there
-        var totalWidth = container.scrollWidth / 2;
-        var pos = dragTranslateX % totalWidth;
-        if (pos > 0) pos -= totalWidth;
-        var fraction = Math.abs(pos) / totalWidth;
-        var duration = 45;
-        var offset = fraction * duration;
-        // Restart animation from the current position
-        container.style.transform = '';
-        container.style.animation = 'none';
-        void container.offsetHeight; // force reflow
-        container.style.animation = 'scroll ' + duration + 's linear infinite';
-        container.style.animationDelay = '-' + offset + 's';
-    }
-
-    document.addEventListener('mouseup', stopDrag);
-    container.addEventListener('mouseleave', stopDrag);
-})();
-</script>
-
-
-
-
-<!-- Centering the Feedback box below the images -->
-<div style="display: flex; justify-content: center; padding: 0px; margin-top: 20px;">
-    <ul style="list-style: none; padding: 0; margin: 0;">
-        <li>
-            <a href="feedback.html" class="btn btn-primary btn-xl nav-button-stageone-highlight" data-i18n="home.moreFeedback">
-               More Feedback
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-<hr class="main-page-hr" style="margin-top: 50px"/>
-<span class="workshop-title" style="cursor: default;" data-i18n="home.contactHeading">Contact</span>
-<hr class="main-page-hr" />
-
-<section id="contact" class="less-padding" style="padding-top: 20px;">
-    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-       
-        <style>
-            @keyframes pulse {
-                0% {
-                    transform: scale(1);
-                }
-    
-                50% {
-                    transform: scale(1.2);
-                }
-    
-                100% {
-                    transform: scale(1);
-                }
-            }
-        </style>
-        
-        
-        <!-- Email Section with Pulsing Heartbeat Effect -->
-        <div style="display: flex; justify-content: center; align-items: center;">
-
-
-                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40; cursor: default;">
-                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                            style="color: #f05f40; animation: pulse 2.5s infinite; cursor: default;"></i>
-                    </a>
-                </div>
-
-        <!-- Email Link on its own line -->
-        <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
-            <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none; cursor: default;">
-                workshops@stageoneducation.com
-            </a>
-        </p>
-
-    <br>
-
-  <!-- Let's chat Button -->
-  <style>.lets-chat-btn.nav-button-stageone:hover::after { display: none !important; }</style>
-  <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn" data-i18n="common.letsChat">
-  Let's chat
-</a>
-</section>
-
 {% include plan-workshop-modal.html %}
-{% include copyright.html %}
-
-
-<span class="workshop-title" style="display: block; height: 10px; background-color: white;"></span>
+{% include discovery/page-footer.html %}
 
 
 

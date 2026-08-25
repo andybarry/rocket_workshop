@@ -100,9 +100,11 @@
           <h2 id="choose-workshop-title">Selected Workshop</h2>
           <div class="explore-page__workshop-grid explore-page__workshop-grid--selected">
             {% for workshop in site.data.workshops %}
+            {% unless workshop.hidden %}
             {% if workshop.slug == explorer.featured_workshop_id %}
               {% include workshop-explorer-card.html workshop=workshop selected=true context_query=context_query plan_query=card_plan_query %}
             {% endif %}
+            {% endunless %}
             {% endfor %}
           </div>
         </div>
@@ -110,7 +112,7 @@
           <h2>Explore Other Workshops</h2>
           <div class="explore-page__workshop-grid">
             {% for workshop in site.data.workshops %}
-            {% unless workshop.slug == explorer.featured_workshop_id %}
+            {% unless workshop.hidden or workshop.slug == explorer.featured_workshop_id %}
               {% include workshop-explorer-card.html workshop=workshop context_query=context_query plan_query=card_plan_query %}
             {% endunless %}
             {% endfor %}
@@ -123,7 +125,9 @@
         </header>
         <div class="explore-page__workshop-grid">
           {% for workshop in site.data.workshops %}
+            {% unless workshop.hidden %}
             {% include workshop-explorer-card.html workshop=workshop context_query=context_query plan_query=card_plan_query %}
+            {% endunless %}
           {% endfor %}
         </div>
         {% endif %}

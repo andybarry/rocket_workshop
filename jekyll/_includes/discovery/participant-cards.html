@@ -1,0 +1,52 @@
+{% assign selected_id = entry.context_id | default: page.discovery_slug %}
+{% assign selected_audience = nil %}
+{% assign other_audiences = "" | split: "" %}
+{% for audience in site.data.discovery.audiences %}
+  {% if audience.id == selected_id %}
+    {% assign selected_audience = audience %}
+  {% elsif audience.hide_from_nav %}
+    {% continue %}
+  {% else %}
+    {% assign other_audiences = other_audiences | push: audience %}
+  {% endif %}
+{% endfor %}
+<section class="participant-cards" aria-label="Participant groups">
+  {% if selected_audience %}
+  <article class="participant-card participant-card--selected" aria-current="true">
+    <h1 class="participant-card__title">{{ selected_audience.headline | default: selected_audience.label }}</h1>
+    <div class="participant-card__head">
+      {% if selected_audience.icon %}
+      <i class="fa {{ selected_audience.icon }}" aria-hidden="true"></i>
+      {% endif %}
+      <p class="participant-card__meta">{{ selected_audience.age_label }}</p>
+    </div>
+    <p class="participant-card__intro">{{ selected_audience.intro }}</p>
+    {% if selected_audience.facts %}
+    <ul class="participant-card__facts">
+      {% for fact in selected_audience.facts %}
+      <li>
+        <strong>{{ fact.title }}</strong>
+        <span>{{ fact.text }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </article>
+  {% endif %}
+
+  <div class="participant-cards__others" role="list">
+    {% for audience in other_audiences %}
+    <a class="participant-card participant-card--compact" href="/workshops/{{ audience.id }}/"
+      role="listitem"
+      data-discovery-option data-category="audience" data-id="{{ audience.id }}">
+      <h2 class="participant-card__title">{{ audience.label }}</h2>
+      <div class="participant-card__head">
+        {% if audience.icon %}
+        <i class="fa {{ audience.icon }}" aria-hidden="true"></i>
+        {% endif %}
+        <p class="participant-card__meta">{{ audience.age_label }}</p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>

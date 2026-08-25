@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ include.title }} | Stage One Education</title>
+  <link rel="canonical" href="{{ include.path }}">
+  <meta http-equiv="refresh" content="0; url={{ include.path }}">
+  <script>
+    (function () {
+      window.location.replace("{{ include.path }}" + window.location.search + window.location.hash);
+    })();
+  </script>
+</head>
+<body>
+  <p><a href="{{ include.path }}">Continue to the {{ include.title }}</a></p>
+</body>
+</html>
