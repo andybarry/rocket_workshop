@@ -2046,11 +2046,19 @@ a.participant-card:focus-visible {
 }
 
 .discovery-header--location .discovery-header__quote-scroller--placeholder {
-    min-height: 188px;
+    display: none;
+    min-height: 0;
     background: transparent;
     border: 0;
     box-shadow: none;
     pointer-events: none;
+}
+
+.discovery-header--location.discovery-header--no-quotes .discovery-header__masthead > .discovery-delivery {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
 }
 
 .discovery-header__quote-scroller-viewport {
@@ -3869,7 +3877,8 @@ body.has-discovery-quote-modal {
         padding-top: 4px;
     }
 
-    .discovery-header--location .discovery-header__quote-scroller {
+    .discovery-header--location .discovery-header__quote-scroller,
+    .discovery-header--location.discovery-header--no-quotes .discovery-header__masthead > .discovery-delivery {
         grid-column: 1;
         grid-row: auto;
         margin-top: 0;

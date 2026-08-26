@@ -6,7 +6,7 @@
   {% endif %}
 {% endif %}
 {% assign copy = site.data.discovery.copy %}
-<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "audience" %} discovery-header--participants{% endif %}">
+<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "city" and entry.show_quotes == false %} discovery-header--no-quotes{% endif %}{% if page.discovery_category == "audience" %} discovery-header--participants{% endif %}">
   {% if page.discovery_category == "city" %}
   {% if entry.landmark_image %}
   <div class="discovery-header__visual" aria-hidden="true"
@@ -114,6 +114,10 @@
   {% include discovery/contextual-testimonials.html hero=true %}
   {% endunless %}
 
+  {% if page.discovery_category == "city" and entry.show_quotes == false %}
+  {% include discovery/delivery-facts.html %}
+  {% endif %}
+
   {% if page.discovery_category == "city" %}
   </div>
   {% endif %}
@@ -160,7 +164,9 @@
   </section>
   {% endunless %}
 
+  {% unless page.discovery_category == "city" and entry.show_quotes == false %}
   {% include discovery/delivery-facts.html %}
+  {% endunless %}
   {% include discovery/plan-cta.html %}
   {% include discovery/location-explore.html %}
 </header>
