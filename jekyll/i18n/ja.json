@@ -132,7 +132,7 @@
       "title": "人工知能",
       "posterAlt": "生徒が制作したAI映画ポスター",
       "line1": "AIニューラルネットワークを知る",
-      "line2": "最新のAIモデルを使う: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>テキスト・画像・音楽</em></li> </ul>",
+      "line2": "最新のAIモデルを使う: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>テキスト・画像・音声・動画</em></li> </ul>",
       "line3": "AI倫理について話し合う"
     },
     "cardRobotics": {

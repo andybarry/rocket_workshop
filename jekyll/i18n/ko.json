@@ -132,7 +132,7 @@
       "title": "인공지능",
       "posterAlt": "학생들이 만든 AI 영화 포스터",
       "line1": "AI 신경망 이해하기",
-      "line2": "최신 AI 모델 사용: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>텍스트, 이미지, 음악</em></li> </ul>",
+      "line2": "최신 AI 모델 사용: <ul style=\"list-style: none; padding-left: 0; margin: 0;\"> <li style=\"margin-bottom: 10px;\"><em>텍스트, 이미지, 음성, 비디오</em></li> </ul>",
       "line3": "AI 윤리 토론"
     },
     "cardRobotics": {

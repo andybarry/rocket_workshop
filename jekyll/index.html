@@ -33,9 +33,10 @@ i18n_key: home
   body.cursor-glow-page #contact .container,
   body.cursor-glow-page .main-page-hr,
   body.cursor-glow-page .find-workshop__shell,
+  body.cursor-glow-page .our-workshops-shell,
   body.cursor-glow-page .participants-plan-row {
-    width: 100%;
-    max-width: 1100px;
+    width: min(92vw, 1280px);
+    max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
@@ -95,7 +96,7 @@ i18n_key: home
       height: 204px !important;
     }
     body.cursor-glow-page .workshop-main-button > .main-button-title-text {
-      font-size: 23px;
+      font-size: 26px;
     }
     body.cursor-glow-page .workshop-main-button .workshop-card-copy h3 {
       font-size: 13px;
@@ -126,6 +127,8 @@ i18n_key: home
     height: 340px;
     min-height: 340px;
     overflow: hidden;
+    contain: paint;
+    overflow-anchor: none;
     background: transparent;
   }
   .home-room-hero::after {
@@ -135,13 +138,13 @@ i18n_key: home
   .home-room-hero__image {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -2%;
     bottom: 0;
     left: auto;
-    width: 66.666%;
+    width: 70%;
     height: 100%;
     object-fit: cover;
-    object-position: 48% 58%;
+    object-position: 40% 40%;
     -webkit-mask-image:
       linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
       linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
@@ -151,14 +154,70 @@ i18n_key: home
       linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
     mask-composite: intersect;
     z-index: 0;
+    transform-origin: 100% 50%;
+  }
+  .home-room-hero__image--drone {
+    animation:
+      homeHeroZoom 48s ease-in-out infinite alternate,
+      homeHeroFadeDrone 96s ease-in-out infinite;
+  }
+  .home-room-hero__image--mechanical {
+    object-position: 50% 82%;
+    animation:
+      homeHeroZoom 48s ease-in-out infinite alternate,
+      homeHeroFadeMech 96s ease-in-out infinite;
+  }
+  .home-room-hero__image--posters {
+    background-color: #f5f5f5;
+    background-image: url("img/film-poster.webp");
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    animation:
+      homeHeroPosterScroll 90s linear infinite,
+      homeHeroFadePosters 96s ease-in-out infinite;
+  }
+  .home-room-hero__image--hnn {
+    object-position: 50% 40%;
+    animation:
+      homeHeroZoom 48s ease-in-out infinite alternate,
+      homeHeroFadeHnn 96s ease-in-out infinite;
+  }
+  @keyframes homeHeroZoom {
+    from { transform: scale(0.94) translate(0, 0); }
+    to { transform: scale(1.08) translate(0, 2%); }
+  }
+  @keyframes homeHeroPosterScroll {
+    from { background-position: center top; }
+    to { background-position: center bottom; }
+  }
+  @keyframes homeHeroFadeDrone {
+    0%, 20.833% { opacity: 1; }
+    25%, 95.833% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes homeHeroFadeMech {
+    0%, 20.833% { opacity: 0; }
+    25%, 45.833% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  @keyframes homeHeroFadePosters {
+    0%, 45.833% { opacity: 0; }
+    50%, 70.833% { opacity: 1; }
+    75%, 100% { opacity: 0; }
+  }
+  @keyframes homeHeroFadeHnn {
+    0%, 70.833% { opacity: 0; }
+    75%, 95.833% { opacity: 1; }
+    100% { opacity: 0; }
   }
   .home-room-hero__image-overlay {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -2%;
     bottom: 0;
     left: auto;
-    width: 66.666%;
+    width: 70%;
     z-index: 1;
     pointer-events: none;
     background: rgba(255, 255, 255, 0.42);
@@ -425,21 +484,36 @@ i18n_key: home
     position: relative;
     flex: 1 1 0;
     min-height: 0;
+    overflow: visible;
   }
   .home-room-hero__quote {
     position: absolute;
     width: auto;
     max-width: 100%;
     height: auto;
-    padding: 12px 14px;
-    border-radius: 18px;
+    padding: 14px 15px;
+    overflow: visible;
+    border-radius: 14px;
     background: rgba(255, 255, 255, 0.88);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
     color: #464444;
     font-family: 'Roboto', sans-serif;
     opacity: 0;
-    transition: opacity 1.2s ease;
+    transition: opacity 2.6s ease-in-out;
     box-sizing: border-box;
+  }
+  .home-room-hero__quote::before {
+    content: "\201C";
+    position: absolute;
+    top: -18px;
+    left: -12px;
+    z-index: 3;
+    color: #cfcfcf;
+    font-family: "Roboto", sans-serif;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
   }
   /* Short one-line quotes — box grows to fit the text */
   .home-room-hero__quote--oneline {
@@ -501,13 +575,48 @@ i18n_key: home
     .home-room-hero__image,
     .home-room-hero__image-overlay {
       top: 50%;
-      right: 0;
+      right: -2%;
       bottom: auto;
       left: auto;
-      width: 66.666%;
+      width: 70%;
       height: 128%;
       max-width: none;
       transform: translateY(-50%);
+    }
+    .home-room-hero__image {
+      transform-origin: 100% 50%;
+    }
+    .home-room-hero__image--drone {
+      animation-name: homeHeroZoomDesktop, homeHeroFadeDrone;
+    }
+    .home-room-hero__image--mechanical {
+      animation-name: homeHeroZoomDesktop, homeHeroFadeMech;
+    }
+    .home-room-hero__image--posters {
+      animation-name: homeHeroPosterScroll, homeHeroFadePosters;
+    }
+    .home-room-hero__image--hnn {
+      animation-name: homeHeroZoomDesktop, homeHeroFadeHnn;
+    }
+    @keyframes homeHeroZoomDesktop {
+      from { transform: translateY(-50%) scale(0.94) translate(0, 0); }
+      to { transform: translateY(-50%) scale(1.08) translate(0, 2%); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-room-hero__image--drone,
+    .home-room-hero__image--mechanical,
+    .home-room-hero__image--posters,
+    .home-room-hero__image--hnn {
+      animation: none;
+    }
+    .home-room-hero__image--drone {
+      opacity: 1;
+    }
+    .home-room-hero__image--mechanical,
+    .home-room-hero__image--posters,
+    .home-room-hero__image--hnn {
+      opacity: 0;
     }
   }
   @media (min-width: 768px) and (max-width: 991px) {
@@ -549,8 +658,14 @@ i18n_key: home
       width: 92%;
       padding: 20px 18px 22px 24px;
     }
-    .home-room-hero__image {
-      object-position: 80% 70%;
+    .home-room-hero__image--drone {
+      object-position: 72% 52%;
+    }
+    .home-room-hero__image--mechanical {
+      object-position: 50% 82%;
+    }
+    .home-room-hero__image--hnn {
+      object-position: 50% 40%;
     }
     .home-room-hero__title-line {
       white-space: normal;
@@ -599,43 +714,59 @@ i18n_key: home
 
   .our-workshops-section {
     padding: 8px 16px 28px;
-    background:
-      radial-gradient(
-        ellipse at center,
-        rgba(240, 95, 64, 0.12) 0%,
-        rgba(240, 95, 64, 0.06) 42%,
-        transparent 76%
-      ),
-      transparent;
+    background: transparent;
   }
   .our-workshops-shell {
-    width: 100%;
-    max-width: 1100px;
+    width: min(92vw, 1280px);
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 22px 22px 8px;
-    border: 1px solid rgba(240, 95, 64, 0.14);
+    padding: 22px 22px 32px;
+    border: 1px solid rgba(67, 67, 67, 0.14);
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.78);
     box-shadow:
-      0 0 34px rgba(240, 95, 64, 0.075),
-      0 14px 38px rgba(55, 45, 41, 0.055);
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 24px rgba(67, 67, 67, 0.05);
     box-sizing: border-box;
   }
+  body.cursor-glow-page .workshop-main-button {
+    border-color: rgba(67, 67, 67, 0.18);
+    box-shadow:
+      0 0 22px rgba(67, 67, 67, 0.06),
+      0 8px 18px rgba(67, 67, 67, 0.04);
+  }
+  body.cursor-glow-page .workshop-main-button > .main-button-title-text::before {
+    content: none;
+    display: none;
+  }
+  body.cursor-glow-page .workshop-main-button > .main-button-title-text {
+    font-size: 32px;
+    color: #f05f40;
+  }
+  body.cursor-glow-page .workshop-main-button:hover > .main-button-title-text,
+  body.cursor-glow-page .workshop-main-button:focus > .main-button-title-text,
+  body.cursor-glow-page .workshop-main-button.is-hero-hover > .main-button-title-text {
+    color: #fff;
+  }
   .our-workshops-shell .our-workshops-header {
-    display: block;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     width: 100%;
     margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f05f40;
     text-align: left;
   }
   .our-workshops-shell .our-workshops-header .our-workshops-title {
     display: block;
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(22px, 2.6vw, 30px);
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
     line-height: 1.15;
-    color: #f05f40;
+    color: #434343;
     text-transform: none;
     text-align: left;
     cursor: default;
@@ -656,7 +787,7 @@ i18n_key: home
       align-items: stretch;
       justify-content: center;
       gap: 16px;
-      width: min(97vw, 980px);
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -670,7 +801,7 @@ i18n_key: home
       flex: 1 1 0;
       width: auto;
       min-width: 0;
-      max-width: 348px;
+      max-width: none;
     }
   }
   @media (min-width: 1280px) {
@@ -758,9 +889,9 @@ i18n_key: home
             var slotShiftNext = [false, false];
             var slotTimers = [null, null];
             var bubblesStarted = false;
-            var fadeMs = 1200;
-            var gapMs = 500;
-            var displayMs = 10000;
+            var fadeMs = 2600;
+            var gapMs = 700;
+            var displayMs = 18000;
 
             function nextQuote() {
                 var quote = heroQuotes[quoteIndex];
@@ -946,12 +1077,32 @@ i18n_key: home
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
-<body id="page-top" class="cursor-glow-page" style="margin-top: 56px">
+<body id="page-top" class="cursor-glow-page" style="padding-top: 56px">
+<script>
+  (function () {
+    if (window.history && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    function pinHomeTop() {
+      var hash = window.location.hash;
+      if (hash && hash !== "#page-top") return;
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+    pinHomeTop();
+    document.addEventListener("DOMContentLoaded", pinHomeTop);
+    window.addEventListener("load", pinHomeTop);
+  })();
+</script>
 
     {% include navigation.html %}
 
 <section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
-    <img class="home-room-hero__image" src="img/Drone2-BG.png" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
+    <img class="home-room-hero__image home-room-hero__image--drone" src="img/Drone_Hero_BG.jpg" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
+    <img class="home-room-hero__image home-room-hero__image--mechanical" src="img/Mechanical-BG.png" alt="" aria-hidden="true">
+    <div class="home-room-hero__image home-room-hero__image--posters" aria-hidden="true"></div>
+    <img class="home-room-hero__image home-room-hero__image--hnn" src="img/HNN_Hero_BG.jpg" alt="" aria-hidden="true">
     <div class="home-room-hero__image-overlay" aria-hidden="true"></div>
     <div class="home-room-hero__fade" aria-hidden="true"></div>
     <div class="home-room-hero__quotes" aria-hidden="true">
@@ -1031,7 +1182,7 @@ i18n_key: home
                 <h3 data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
                 <h3 data-i18n-html="home.cardAi.line2">Use the latest AI models:
                     <ul>
-                        <li><em>text, image, and music</em></li>
+                        <li><em>text, image, voice, video</em></li>
                     </ul></h3>
                 <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
             </div>
@@ -1206,6 +1357,7 @@ i18n_key: home
             <div class="feedback-rail feedback-rail--charts">
                 <div class="feedback-rail__track" data-feedback-track="chart"></div>
             </div>
+            <p class="feedback-charts-updated">updated: 2/5/2026</p>
             <div class="feedback-quotes feedback-quotes--bottom">
                 <div class="feedback-stack feedback-stack--wide" data-feedback-band="2"></div>
             </div>
@@ -1233,7 +1385,7 @@ i18n_key: home
     var CHARTS = ["img/feedback1.png", "img/feedback2.png", "img/feedback3.png", "img/feedback4.png"];
     // Pixels a second, measured rather than timed, so the charts travel at the
     // same pace whatever is on the rail. Slow enough to read on the way past.
-    var CHART_SPEED = 22;
+    var CHART_SPEED = 11;
     // A pointer that travelled further than this was dragging the rail rather
     // than clicking the chart underneath it.
     var DRAG_SLOP = 6;
@@ -1242,15 +1394,15 @@ i18n_key: home
     // time it turns over: the boxes are never in step, and none of them keeps time
     // for long enough to be predictable. The box holding the longest quotes comes
     // out slowest, which is also the one that takes longest to read.
-    var HOLD_MIN_MS = 6500;
-    var HOLD_STEP_MS = 5200;
-    var HOLD_SPAN_MS = 3200;
+    var HOLD_MIN_MS = 20000;
+    var HOLD_STEP_MS = 14000;
+    var HOLD_SPAN_MS = 7000;
     // The quote on show clears out before its replacement arrives: two quotes
     // fading through each other read as one unreadable paragraph. The slower boxes
     // take longer over it, so they change at a different speed as well as on a
     // different clock. The stylesheet holds the figure for the first box.
-    var FADE_MIN_MS = 700;
-    var FADE_STEP_MS = 250;
+    var FADE_MIN_MS = 2000;
+    var FADE_STEP_MS = 500;
 
     var started = false;
     var lastFrame = 0;
@@ -1319,15 +1471,19 @@ i18n_key: home
         var card = document.createElement("button");
         card.type = "button";
         card.className = "feedback-card feedback-card--chart";
+        card.setAttribute("data-chart-index", String(index));
         card.setAttribute("aria-label", phrase("home.feedbackNav.expand", "View full size"));
 
         var image = document.createElement("img");
         image.className = "feedback-chart__image";
         image.src = CHARTS[index];
         image.alt = "";
+        image.draggable = false;
 
         card.appendChild(image);
-        card.addEventListener("click", function () {
+        card.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
             openViewer(index, card);
         });
         return card;
@@ -1496,38 +1652,26 @@ i18n_key: home
         var half = 0;
         var travelled = 0;
         var dragging = false;
+        var tapTarget = null;
 
-        rail.addEventListener("pointerdown", function (event) {
-            if (event.button) return;
-            // Nothing to take over from if the drift is not running, which is how
-            // the rail is left for anyone who asks for less motion.
-            if (window.getComputedStyle(track).animationName === "none") return;
-            dragging = true;
-            travelled = 0;
-            startX = event.clientX;
+        function freezeAt(clientX) {
             origin = trackOffset(track);
             half = track.getBoundingClientRect().width / 2;
+            startX = clientX;
             track.style.animation = "none";
             track.style.transform = "translateX(" + origin + "px)";
-            rail.classList.add("is-dragging");
-            if (rail.setPointerCapture) rail.setPointerCapture(event.pointerId);
-        });
+        }
 
-        rail.addEventListener("pointermove", function (event) {
-            if (!dragging) return;
-            var moved = event.clientX - startX;
-            travelled = Math.max(travelled, Math.abs(moved));
-            var at = origin + moved;
-            // Kept within one copy of the list so the loop still joins up.
-            while (at > 0) at -= half;
-            while (at < -half) at += half;
+        function applyDrag(clientX) {
+            var at = origin + (clientX - startX);
+            if (half) {
+                while (at > 0) at -= half;
+                while (at < -half) at += half;
+            }
             track.style.transform = "translateX(" + at + "px)";
-        });
+        }
 
-        function release() {
-            if (!dragging) return;
-            dragging = false;
-            rail.classList.remove("is-dragging");
+        function resumeFromHere() {
             var at = trackOffset(track);
             track.style.transform = "";
             track.style.animation = "";
@@ -1538,15 +1682,63 @@ i18n_key: home
             }
         }
 
-        rail.addEventListener("pointerup", release);
-        rail.addEventListener("pointercancel", release);
-
-        // A drag that happens to finish over a chart must not also open it.
-        rail.addEventListener("click", function (event) {
-            if (travelled <= DRAG_SLOP) return;
+        rail.addEventListener("pointerdown", function (event) {
+            if (event.button) return;
+            dragging = true;
+            travelled = 0;
+            tapTarget = event.target.closest(".feedback-card--chart");
+            freezeAt(event.clientX);
+            rail.classList.add("is-dragging");
+            if (rail.setPointerCapture) {
+                try { rail.setPointerCapture(event.pointerId); } catch (err) {}
+            }
             event.preventDefault();
-            event.stopPropagation();
+        });
+
+        rail.addEventListener("pointermove", function (event) {
+            if (!dragging) return;
+            travelled = Math.max(travelled, Math.abs(event.clientX - startX));
+            applyDrag(event.clientX);
+        });
+
+        function release(event) {
+            if (!dragging) return;
+            dragging = false;
+            rail.classList.remove("is-dragging");
+            if (travelled > DRAG_SLOP) {
+                resumeFromHere();
+            } else {
+                resumeFromHere();
+                var card = tapTarget || (event && event.target && event.target.closest
+                    ? event.target.closest(".feedback-card--chart")
+                    : null);
+                if (card && rail.contains(card)) {
+                    var index = parseInt(card.getAttribute("data-chart-index"), 10);
+                    if (!isNaN(index)) openViewer(index, card);
+                }
+            }
+            tapTarget = null;
+        }
+
+        rail.addEventListener("pointerup", release);
+        rail.addEventListener("pointercancel", function () {
+            if (!dragging) return;
+            dragging = false;
+            rail.classList.remove("is-dragging");
+            resumeFromHere();
+            tapTarget = null;
+        });
+
+        rail.addEventListener("click", function (event) {
+            if (travelled > DRAG_SLOP) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         }, true);
+
+        rail.addEventListener("dragstart", function (event) {
+            event.preventDefault();
+        });
     }
 
     // The panel prints the surveys at a little over half their source width,
@@ -1571,15 +1763,16 @@ i18n_key: home
         viewer.innerHTML =
             '<div class="feedback-viewer__backdrop"></div>' +
             '<div class="feedback-viewer__panel" role="dialog" aria-modal="true">' +
-                '<img class="feedback-viewer__image" src="" alt="">' +
-                '<div class="feedback-viewer__bar">' +
-                    '<span class="feedback-viewer__nav">' +
-                        '<button type="button" class="feedback-viewer__step" data-viewer-step="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></button>' +
-                        '<button type="button" class="feedback-viewer__step" data-viewer-step="1"><i class="fa fa-angle-right" aria-hidden="true"></i></button>' +
-                    '</span>' +
-                    '<a class="feedback-viewer__more" href="feedback.html"></a>' +
-                '</div>' +
                 '<button type="button" class="feedback-viewer__close"><i class="fa fa-times" aria-hidden="true"></i></button>' +
+                '<div class="feedback-viewer__frame">' +
+                    '<button type="button" class="feedback-viewer__step" data-viewer-step="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></button>' +
+                    '<img class="feedback-viewer__image" src="" alt="">' +
+                    '<button type="button" class="feedback-viewer__step" data-viewer-step="1"><i class="fa fa-angle-right" aria-hidden="true"></i></button>' +
+                '</div>' +
+                '<a class="feedback-viewer__more" href="feedback.html">' +
+                    '<span class="feedback-viewer__more-label"></span>' +
+                    '<i class="fa fa-angle-right" aria-hidden="true"></i>' +
+                '</a>' +
             '</div>';
         // Hung off the body so no later section of the page can stack over it.
         document.body.appendChild(viewer);
@@ -1665,7 +1858,7 @@ i18n_key: home
             .setAttribute("aria-label", phrase("home.feedbackNav.previous", "Previous"));
         viewer.querySelector('[data-viewer-step="1"]')
             .setAttribute("aria-label", phrase("home.feedbackNav.next", "Next"));
-        viewer.querySelector(".feedback-viewer__more").textContent =
+        viewer.querySelector(".feedback-viewer__more-label").textContent =
             phrase("home.moreFeedback", "More Feedback");
     }
 

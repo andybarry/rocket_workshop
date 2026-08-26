@@ -1558,7 +1558,7 @@ html.has-workshop-plan-modal #tab-section {
     position: relative;
     width: 100%;
     margin-top: 0;
-    padding: 18px 15px 4px;
+    padding: 36px 15px 4px;
     font-family: 'Roboto', sans-serif;
     z-index: 3;
 }
@@ -1583,12 +1583,12 @@ html.has-workshop-plan-modal #tab-section {
     padding: 0;
     overflow: hidden;
     list-style: none;
-    border: 1px solid #0d6efd;
-    border-radius: 12px;
+    border: 1px solid rgba(67, 67, 67, 0.14);
+    border-radius: 22px;
     background: #fff;
     box-shadow:
-        0 3px 8px rgba(13, 110, 253, 0.05),
-        0 0 8px rgba(13, 110, 253, 0.12);
+        0 0 28px rgba(67, 67, 67, 0.07),
+        0 10px 24px rgba(67, 67, 67, 0.05);
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
     position: relative;
@@ -4875,7 +4875,7 @@ html.has-workshop-plan-modal #tab-section {
     align-items: stretch;
     gap: 28px;
     width: calc(100% - 30px);
-    max-width: 1160px;
+    max-width: 1280px;
     margin: 40px auto 24px;
     box-sizing: border-box;
 }
@@ -4908,13 +4908,15 @@ html.has-workshop-plan-modal #tab-section {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 40px;
     padding: 14px 18px;
     box-sizing: border-box;
     background: #fff;
     border: 1px solid var(--feedback-line);
     border-radius: 16px;
-    box-shadow: 0 10px 26px rgba(67, 67, 67, 0.07);
+    box-shadow:
+        0 0 28px rgba(67, 67, 67, 0.07),
+        0 10px 26px rgba(67, 67, 67, 0.05);
     overflow: hidden;
 }
 
@@ -5086,8 +5088,7 @@ html.has-workshop-plan-modal #tab-section {
 .feedback-rail {
     position: relative;
     min-height: 0;
-    /* Room for the cards' shadows, which the overflow would otherwise crop. */
-    padding: 10px 0;
+    padding: 4px 0;
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
@@ -5103,7 +5104,19 @@ html.has-workshop-plan-modal #tab-section {
 /* Held at the height the surveys read well at. Left to itself the rail would take
    the full height of the images, which are 405px tall at source. */
 .feedback-rail--charts {
-    flex: 0 0 180px;
+    flex: 0 0 236px;
+}
+
+.feedback-charts-updated {
+    margin: -4px 2px 0 0;
+    padding: 0;
+    text-align: right;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: #b0b0b0;
 }
 
 /* The track carries the charts twice over, so half of it is exactly one copy and
@@ -5165,9 +5178,13 @@ html.has-feedback-viewer .feedback-rail__track {
 
 /* Only the charts do anything when clicked, so only the charts answer the
    pointer. A quote box lighting up would be a promise the panel cannot keep. */
+.feedback-card--chart {
+    box-shadow: none;
+}
+
 .feedback-card--chart:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(67, 67, 67, 0.12), 0 0 22px rgba(240, 95, 64, 0.26);
+    box-shadow: none;
 }
 
 /* A card being carried along under the hand is not being pointed at. */
@@ -5187,7 +5204,9 @@ html.has-feedback-viewer .feedback-rail__track {
     padding: 7px;
     font: inherit;
     color: inherit;
-    cursor: zoom-in;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .feedback-card--chart:focus {
@@ -5204,6 +5223,9 @@ html.has-feedback-viewer .feedback-rail__track {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 /* Tight to its words, the way the quotes over the hero image are: the box is as
@@ -5219,14 +5241,27 @@ html.has-feedback-viewer .feedback-rail__track {
        on its own shadow is what reads as being said out loud. */
     border: 0;
     border-radius: 16px;
-    /* Trims the ends of the timer line to the rounded foot of the box. */
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 8px 22px rgba(67, 67, 67, 0.10), 0 1px 2px rgba(67, 67, 67, 0.05);
     /* Dissolves in and out where it stands. Slow, since a box changing is meant
        to be caught out of the corner of the eye rather than to snap. The figure
        here is the quickest box's; the script hands the slower boxes a longer one. */
     opacity: 0;
-    transition: opacity 0.7s ease;
+    transition: opacity 2s ease-in-out;
+    pointer-events: none;
+}
+
+.feedback-card--quote::before {
+    content: "\201C";
+    position: absolute;
+    top: -18px;
+    left: -12px;
+    z-index: 3;
+    color: #cfcfcf;
+    font-family: "Roboto", sans-serif;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
     pointer-events: none;
 }
 
@@ -5271,10 +5306,12 @@ html.has-feedback-viewer .feedback-rail__track {
    looked for rather than to be part of the reading. */
 .feedback-quote__timer {
     position: absolute;
-    left: 0;
+    left: 5px;
     right: 0;
     bottom: 0;
     height: 2px;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
     pointer-events: none;
 }
 
@@ -5306,7 +5343,7 @@ html.has-feedback-viewer .feedback-rail__track {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 2000;
+    z-index: 4000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5337,11 +5374,15 @@ html.has-feedback-viewer .feedback-rail__track {
 
 .feedback-viewer__panel {
     position: relative;
-    max-width: min(94vw, 880px);
-    padding: 16px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(96vw, 920px);
+    max-width: 920px;
+    padding: 36px 28px 22px;
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.32);
     transform: translateY(12px) scale(0.985);
     transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -5350,33 +5391,25 @@ html.has-feedback-viewer .feedback-rail__track {
     transform: none;
 }
 
+.feedback-viewer__frame {
+    position: relative;
+    width: 100%;
+}
+
 .feedback-viewer__image {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 74vh;
+    max-height: 78vh;
     object-fit: contain;
-}
-
-.feedback-viewer__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 2px 4px;
-}
-
-.feedback-viewer__nav {
-    display: flex;
-    gap: 8px;
 }
 
 .feedback-viewer__step,
 .feedback-viewer__close {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -5391,6 +5424,22 @@ html.has-feedback-viewer .feedback-rail__track {
     transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
+.feedback-viewer__step {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.feedback-viewer__step[data-viewer-step="-1"] {
+    left: 8px;
+}
+
+.feedback-viewer__step[data-viewer-step="1"] {
+    right: 8px;
+}
+
 .feedback-viewer__step:hover,
 .feedback-viewer__step:focus,
 .feedback-viewer__close:hover,
@@ -5403,24 +5452,42 @@ html.has-feedback-viewer .feedback-rail__track {
 
 .feedback-viewer__close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
 .feedback-viewer__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 4px 12px;
+    border: 1px solid var(--viewer-orange);
+    border-radius: 999px;
+    background: transparent;
     font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-decoration: none;
     color: var(--viewer-orange);
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feedback-viewer__more .fa {
+    font-size: 11px;
 }
 
 .feedback-viewer__more:hover,
 .feedback-viewer__more:focus {
-    color: #d24f34;
-    text-decoration: underline;
+    background: var(--viewer-orange);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.28);
+    text-decoration: none;
 }
 
 /* The page behind is held still while a chart is open. */
@@ -5434,11 +5501,19 @@ html.has-feedback-viewer {
     }
 
     .feedback-viewer__panel {
-        padding: 12px 12px 6px;
+        padding: 32px 14px 16px;
     }
 
     .feedback-viewer__image {
-        max-height: 62vh;
+        max-height: 64vh;
+    }
+
+    .feedback-viewer__step[data-viewer-step="-1"] {
+        left: 2px;
+    }
+
+    .feedback-viewer__step[data-viewer-step="1"] {
+        right: 2px;
     }
 }
 
@@ -5792,7 +5867,7 @@ html.has-feedback-viewer {
 
     /* Stacked, the charts no longer take their height from the form beside them. */
     .feedback-rail--charts {
-        flex: 0 0 190px;
+        flex: 0 0 248px;
     }
 
     /* Nothing is competing for the height any more, so the rows sit at the height
@@ -5824,7 +5899,7 @@ html.has-feedback-viewer {
     /* A chart card is around twice as wide as the rail is tall, so the rail has to
        come down to keep whole charts on a phone screen. */
     .feedback-rail--charts {
-        flex-basis: 152px;
+        flex-basis: 190px;
     }
 
     /* Two boxes cannot sit side by side in a phone's width, so the narrowest band
@@ -5893,6 +5968,10 @@ html.has-feedback-viewer {
 
 .workshop-card-visual--robotics {
     background: rgba(255, 255, 255, 0.78);
+}
+
+.workshop-main-button--robotics .workshop-card-visual > img {
+    object-position: 50% 72%;
 }
 
 .workshop-card-video {
@@ -5971,18 +6050,21 @@ html.has-feedback-viewer {
     letter-spacing: 0;
     color: #434343;
     margin: 0;
-    padding: 3px 0 3px 12px;
+    padding: 3px 0 3px 14px;
 }
 
 .workshop-main-button .workshop-card-copy h3::before {
     position: absolute;
-    top: 0.72em;
+    top: 0.55em;
     left: 0;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
+    border: 0;
     border-radius: 50%;
     background: #f05f40;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.14);
     content: "";
+    transform: none;
 }
 
 .workshop-main-button .workshop-card-copy ul {
@@ -6068,6 +6150,7 @@ html.has-feedback-viewer {
 .workshop-main-button:focus .workshop-card-copy h3::before,
 .workshop-main-button.is-hero-hover .workshop-card-copy h3::before {
     background: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28);
 }
 
 .workshop-main-button:hover .workshop-card-link-label,
