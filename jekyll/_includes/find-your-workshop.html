@@ -12,11 +12,11 @@
 
     <div class="find-workshop__grid">
       <!-- Cities -->
-      <article class="find-workshop__card" data-discovery-card="city" aria-labelledby="find-workshop-cities-heading">
-        <div class="find-workshop__card-head">
+      <details class="find-workshop__card" data-discovery-card="city" open aria-labelledby="find-workshop-cities-heading">
+        <summary class="find-workshop__card-head">
           <h3 id="find-workshop-cities-heading">{{ copy.cards.cities.title }}</h3>
           <p>{{ copy.cards.cities.subtitle }}</p>
-        </div>
+        </summary>
         <div class="find-workshop__options" role="list">
           {% for city in discovery_cities %}
           {% if city.featured %}
@@ -33,14 +33,14 @@
             {{ copy.cards.cities.other_label }}
           </a>
         </div>
-      </article>
+      </details>
 
       <!-- Audience -->
-      <article class="find-workshop__card" data-discovery-card="audience" aria-labelledby="find-workshop-audience-heading">
-        <div class="find-workshop__card-head">
+      <details class="find-workshop__card" data-discovery-card="audience" open aria-labelledby="find-workshop-audience-heading">
+        <summary class="find-workshop__card-head">
           <h3 id="find-workshop-audience-heading">{{ copy.cards.audiences.title }}</h3>
           <p>{{ copy.cards.audiences.subtitle }}</p>
-        </div>
+        </summary>
         <div class="find-workshop__options" role="list">
           {% for audience in site.data.discovery.audiences %}
           {% unless audience.hide_from_nav %}
@@ -52,14 +52,14 @@
           {% endunless %}
           {% endfor %}
         </div>
-      </article>
+      </details>
 
       <!-- Workshops -->
-      <article class="find-workshop__card" data-discovery-card="workshop" aria-labelledby="find-workshop-workshops-heading">
-        <div class="find-workshop__card-head">
+      <details class="find-workshop__card" data-discovery-card="workshop" open aria-labelledby="find-workshop-workshops-heading">
+        <summary class="find-workshop__card-head">
           <h3 id="find-workshop-workshops-heading">{{ copy.cards.workshops.title }}</h3>
           <p>{{ copy.cards.workshops.subtitle }}</p>
-        </div>
+        </summary>
         <div class="find-workshop__options" role="list">
           {% for workshop in site.data.workshops %}
           {% unless workshop.hidden %}
@@ -71,14 +71,14 @@
           {% endunless %}
           {% endfor %}
         </div>
-      </article>
+      </details>
 
       <!-- Planning For -->
-      <article class="find-workshop__card" data-discovery-card="group_type" aria-labelledby="find-workshop-planning-heading">
-        <div class="find-workshop__card-head">
+      <details class="find-workshop__card" data-discovery-card="group_type" open aria-labelledby="find-workshop-planning-heading">
+        <summary class="find-workshop__card-head">
           <h3 id="find-workshop-planning-heading">{{ copy.cards.group_types.title }}</h3>
           <p>{{ copy.cards.group_types.subtitle }}</p>
-        </div>
+        </summary>
         <div class="find-workshop__options" role="list">
           {% for group in site.data.discovery.group_types %}
           <a class="find-workshop__option" role="listitem"
@@ -88,7 +88,7 @@
           </a>
           {% endfor %}
         </div>
-      </article>
+      </details>
     </div>
 
     <section class="discovery-section discovery-plan find-workshop__plan" aria-labelledby="find-workshop-plan-heading">

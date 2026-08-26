@@ -10,7 +10,37 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         var section = document.querySelector("[data-find-your-workshop]");
-        if (!section || !window.StageOneState) return;
+        if (!section) return;
+
+        var cards = section.querySelectorAll("details.find-workshop__card");
+        var mobileMq = window.matchMedia("(max-width: 767px)");
+
+        function syncFindWorkshopCards() {
+            Array.prototype.forEach.call(cards, function (card) {
+                if (mobileMq.matches) {
+                    card.removeAttribute("open");
+                } else {
+                    card.setAttribute("open", "");
+                }
+            });
+        }
+
+        syncFindWorkshopCards();
+        if (mobileMq.addEventListener) {
+            mobileMq.addEventListener("change", syncFindWorkshopCards);
+        } else if (mobileMq.addListener) {
+            mobileMq.addListener(syncFindWorkshopCards);
+        }
+
+        Array.prototype.forEach.call(cards, function (card) {
+            card.addEventListener("toggle", function () {
+                if (!mobileMq.matches && !card.open) {
+                    card.setAttribute("open", "");
+                }
+            });
+        });
+
+        if (!window.StageOneState) return;
 
         var state = window.StageOneState.load();
 

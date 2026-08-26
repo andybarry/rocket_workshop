@@ -69,6 +69,7 @@ i18n_key: home
   @media (max-width: 767px) {
     body.cursor-glow-page {
       overflow: visible;
+      padding-top: 0 !important;
       padding-left: 15px;
       padding-right: 15px;
       box-sizing: border-box;
@@ -100,6 +101,21 @@ i18n_key: home
     body.cursor-glow-page #contact .container {
       padding-left: 0;
       padding-right: 0;
+    }
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+    }
+    body.cursor-glow-page #tab-section .workshop-cards-row::before,
+    body.cursor-glow-page #tab-section .workshop-cards-row::after {
+      display: none;
+    }
+    body.cursor-glow-page #tab-section .workshop-card-col {
+      width: 100%;
+      float: none;
+      margin: 0;
     }
     body.cursor-glow-page .workshop-main-button {
       max-width: 100%;
@@ -664,18 +680,82 @@ i18n_key: home
       width: min(280px, 100%);
     }
   }
+  @media (max-width: 991px) {
+    .home-room-hero__quote-slot:not(:first-child),
+    .home-room-hero__quote-slot--br {
+      display: none !important;
+    }
+    .home-room-hero__quote-slot .home-room-hero__quote ~ .home-room-hero__quote {
+      display: none !important;
+    }
+  }
   @media (max-width: 767px) {
     .home-room-hero {
+      display: flex;
+      flex-direction: column;
       height: auto;
-      min-height: 0;
-      width: calc(100% + 30px);
-      margin-left: -15px;
-      margin-right: -15px;
+      min-height: 620px;
+      width: 100vw !important;
+      max-width: none !important;
+      margin-left: -15px !important;
+      margin-right: -15px !important;
+    }
+    .home-room-hero__image,
+    .home-room-hero__image-overlay {
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      transform: none;
+      transform-origin: center center;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+    .home-room-hero__image--drone {
+      animation-name: homeHeroFadeDrone;
+    }
+    .home-room-hero__image--mechanical {
+      animation-name: homeHeroFadeMech;
+    }
+    .home-room-hero__image--hnn {
+      animation-name: homeHeroFadeHnn;
     }
     .home-room-hero__content {
       position: relative;
-      width: 92%;
-      padding: 20px 18px 22px 24px;
+      width: 100%;
+      margin: 0;
+      justify-content: flex-start;
+      padding: 56px 14px 8px;
+      flex: 0 0 auto;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .home-room-hero__content::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      right: -24px;
+      bottom: -28px;
+      left: -20px;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 120% 95% at 42% 42%, rgba(255, 255, 255, 0.97) 0%, rgba(250, 250, 250, 0.86) 34%, rgba(250, 250, 250, 0.5) 62%, rgba(250, 250, 250, 0) 84%),
+        linear-gradient(180deg, rgba(250, 250, 250, 0.55) 0%, rgba(250, 250, 250, 0.28) 70%, rgba(250, 250, 250, 0) 100%);
+      filter: blur(22px);
+    }
+    .home-room-hero__audience {
+      width: 100%;
+      margin-bottom: 4px;
+      font-size: clamp(10px, 3.15vw, 13px);
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      white-space: nowrap;
     }
     .home-room-hero__image--drone {
       object-position: 72% 52%;
@@ -715,7 +795,62 @@ i18n_key: home
       mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
     }
     .home-room-hero__quotes {
-      display: none;
+      position: relative;
+      top: auto;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      display: flex;
+      width: 100%;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-top: 36px;
+      padding: 16px 14px 28px;
+      overflow: visible;
+    }
+    .home-room-hero__quote-slot {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex: 0 1 auto;
+    }
+    .home-room-hero__quote-slot:not(:first-child),
+    .home-room-hero__quote-slot--br {
+      display: none !important;
+    }
+    .home-room-hero__quote-slot .home-room-hero__quote ~ .home-room-hero__quote {
+      display: none !important;
+    }
+    .home-room-hero__quote,
+    .home-room-hero__quote-slot--tl .home-room-hero__quote,
+    .home-room-hero__quote-slot--br .home-room-hero__quote,
+    .home-room-hero__quote--oneline,
+    .home-room-hero__quote--narrow,
+    .home-room-hero__quote--medium,
+    .home-room-hero__quote--wide {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: 52%;
+      max-width: 52% !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .home-room-hero__quote--shift {
+      transform: none;
+    }
+    .home-room-hero__quote--oneline .home-room-hero__quote-text {
+      white-space: normal;
+    }
+    .home-room-hero__quote::before {
+      top: -12px;
+      left: -8px;
+      font-size: 64px;
     }
   }
   @media (max-width: 350px) {
@@ -909,10 +1044,16 @@ i18n_key: home
         var $quotesLayer = $(".home-room-hero__quotes");
         if ($quotesLayer.length) {
             var quoteIndex = 0;
-            var $slots = [
-                $quotesLayer.find(".home-room-hero__quote-slot--tl"),
-                $quotesLayer.find(".home-room-hero__quote-slot--br")
-            ];
+            var mobileHero = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
+            if (mobileHero) {
+                $quotesLayer.find(".home-room-hero__quote-slot--br").remove();
+            }
+            var $slots = mobileHero
+                ? [$quotesLayer.find(".home-room-hero__quote-slot--tl")]
+                : [
+                    $quotesLayer.find(".home-room-hero__quote-slot--tl"),
+                    $quotesLayer.find(".home-room-hero__quote-slot--br")
+                ];
             var slotShiftNext = [false, false];
             var slotTimers = [null, null];
             var bubblesStarted = false;
@@ -987,6 +1128,7 @@ i18n_key: home
                 var bubble = $bubble[0];
                 var textEl = $bubble.find(".home-room-hero__quote-text")[0];
                 if (!bubble || !textEl || $bubble.hasClass("home-room-hero__quote--oneline")) return;
+                if (window.matchMedia && window.matchMedia("(max-width: 767px)").matches) return;
 
                 // Chinese, Japanese and Korean are written without spaces, so the
                 // orphan check below sees a single "word" and widens every bubble
@@ -1074,22 +1216,25 @@ i18n_key: home
 
             function handleVisibilityChange() {
                 if (document.hidden) {
-                    clearSlotTimer(0);
-                    clearSlotTimer(1);
+                    $slots.forEach(function (_, index) { clearSlotTimer(index); });
                 } else {
                     resumeSlot(0, displayMs);
-                    resumeSlot(1, displayMs + displayMs / 2);
+                    if ($slots.length > 1) {
+                        resumeSlot(1, displayMs + displayMs / 2);
+                    }
                 }
             }
 
-            // Always two quotes: top-left and bottom-right, staggered fades.
-            // Held until the translation pass finishes so the first bubbles are
-            // already in the visitor's language.
+            // Two quotes on laptop (top-left and bottom-right, staggered fades).
+            // One quote on mobile. Held until the translation pass finishes so
+            // the first bubbles are already in the visitor's language.
             function startQuoteBubbles() {
                 if (bubblesStarted) return;
                 bubblesStarted = true;
                 showNextBubble(0, displayMs);
-                showNextBubble(1, displayMs + displayMs / 2);
+                if ($slots.length > 1) {
+                    showNextBubble(1, displayMs + displayMs / 2);
+                }
                 document.addEventListener("visibilitychange", handleVisibilityChange);
             }
 
@@ -1132,10 +1277,6 @@ i18n_key: home
     <img class="home-room-hero__image home-room-hero__image--hnn" src="img/HNN_Hero_BG.jpg" alt="" aria-hidden="true">
     <div class="home-room-hero__image-overlay" aria-hidden="true"></div>
     <div class="home-room-hero__fade" aria-hidden="true"></div>
-    <div class="home-room-hero__quotes" aria-hidden="true">
-        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
-        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
-    </div>
     <div class="home-room-hero__content">
         <p class="home-room-hero__audience" data-i18n="home.hero.audience">For Schools, Tour Operators &amp; Groups</p>
         <h1 class="home-room-hero__title">
@@ -1153,6 +1294,10 @@ i18n_key: home
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
             </a>
         </div>
+    </div>
+    <div class="home-room-hero__quotes" aria-hidden="true">
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
+        <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
     </div>
 </section>
 {% include workshop-benefits.html %}
