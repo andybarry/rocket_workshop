@@ -3,7 +3,7 @@ layout: default
 ---
 {% assign entry = page.entry %}
 {% assign copy = site.data.discovery.copy %}
-<body class="discovery-page{% if page.discovery_category == "city" %} discovery-page--location{% endif %}" data-discovery-page
+<body class="discovery-page{% if page.discovery_category == "city" %} discovery-page--location{% endif %}{% if page.discovery_category == "audience" or page.discovery_category == "group_type" %} discovery-page--participants{% endif %}" data-discovery-page
   data-discovery-category="{{ page.discovery_category }}"
   data-discovery-id="{{ entry.context_id }}"
   data-discovery-name="{{ entry.short_label | escape }}">

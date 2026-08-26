@@ -78,10 +78,10 @@
     and venues nationwide.
 
 - id: college
-  label: College
-  short_label: College
+  label: College and University
+  short_label: College and University
   icon: fa-university
-  age_label: College & university
+  age_label: College & University
   headline: Engineering Workshops for College Groups
   intro: >-
     College and university groups move at a faster pace with greater emphasis

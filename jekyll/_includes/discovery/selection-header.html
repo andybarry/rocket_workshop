@@ -6,7 +6,7 @@
   {% endif %}
 {% endif %}
 {% assign copy = site.data.discovery.copy %}
-<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "city" and entry.show_quotes == false %} discovery-header--no-quotes{% endif %}{% if page.discovery_category == "audience" %} discovery-header--participants{% endif %}">
+<header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "city" and entry.show_quotes == false %} discovery-header--no-quotes{% endif %}{% if page.discovery_category == "audience" or page.discovery_category == "group_type" %} discovery-header--participants{% endif %}">
   {% if page.discovery_category == "city" %}
   {% if entry.landmark_image %}
   <div class="discovery-header__visual" aria-hidden="true"
@@ -18,7 +18,7 @@
   {% if page.discovery_category == "city" %}<div class="discovery-header__masthead">{% endif %}
   <div class="discovery-header__hero">
     <div class="discovery-header__content">
-      {% if page.discovery_category == "audience" %}
+      {% if page.discovery_category == "audience" or page.discovery_category == "group_type" %}
       {% include discovery/participant-cards.html %}
       {% else %}
       <h1 class="discovery-header__headline{% if page.discovery_category == "city" %} discovery-header__headline--city{% endif %}">
@@ -88,29 +88,9 @@
       {% endfor %}
     </div>
   </section>
-  {% elsif page.discovery_category == "audience" %}
-  <section class="discovery-header__offerings discovery-header__offerings--combined" aria-labelledby="hero-offerings-heading">
-    <div class="discovery-header__offerings-head">
-      <h2 id="hero-offerings-heading">Workshops for {{ entry.short_label | default: entry.label | default: entry.name }}</h2>
-    </div>
-    <div class="discovery-workshop-cards">
-      {% for workshop in site.data.workshops %}
-      {% unless workshop.hidden %}
-      <a class="discovery-workshop-card discovery-workshop-card--summary"
-        href="{{ workshop.detail_path }}"
-        aria-label="{{ workshop.explorer_label }}"
-        data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
-        <span class="discovery-workshop-card__label">
-          <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
-        </span>
-      </a>
-      {% endunless %}
-      {% endfor %}
-    </div>
-  </section>
   {% endif %}
 
-  {% unless page.discovery_category == "audience" %}
+  {% unless page.discovery_category == "audience" or page.discovery_category == "group_type" %}
   {% include discovery/contextual-testimonials.html hero=true %}
   {% endunless %}
 
@@ -122,7 +102,7 @@
   </div>
   {% endif %}
 
-  {% unless page.discovery_category == "city" or page.discovery_category == "audience" %}
+  {% unless page.discovery_category == "city" or page.discovery_category == "audience" or page.discovery_category == "group_type" %}
   <div class="discovery-header__offerings">
     <section class="discovery-header__workshops" aria-labelledby="hero-workshops-heading">
       <h2 id="hero-workshops-heading">Workshops</h2>
@@ -164,9 +144,19 @@
   </section>
   {% endunless %}
 
+  {% unless page.discovery_category == "audience" or page.discovery_category == "group_type" %}
   {% unless page.discovery_category == "city" and entry.show_quotes == false %}
   {% include discovery/delivery-facts.html %}
   {% endunless %}
   {% include discovery/plan-cta.html %}
+  {% endunless %}
   {% include discovery/location-explore.html %}
 </header>
+{% if page.discovery_category == "audience" or page.discovery_category == "group_type" %}
+<section class="our-workshops-shell discovery-header__workshops-home" aria-labelledby="hero-offerings-heading">
+  <div class="our-workshops-header">
+    <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title">Workshops</h2>
+  </div>
+  {% include our-workshop-cards.html %}
+</section>
+{% endif %}

@@ -1,0 +1,156 @@
+<style>
+    @keyframes droneCodeScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .drone-code-scroll-box {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        border-radius: inherit;
+        background: #fff;
+        pointer-events: none;
+    }
+    .drone-code-scroll-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/drone-code.png');
+        background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: droneCodeScrollDown 50s linear infinite;
+        opacity: 0.5;
+        z-index: 0;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    @keyframes dronePath1 {
+        0% { transform: translate(-400%, 400%); }
+        100% { transform: translate(400%, -400%); }
+    }
+    @keyframes dronePath2 {
+        0% { transform: translate(-400%, -400%); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath3 {
+        0% { transform: translate(-400%, 0); }
+        100% { transform: translate(400%, 400%); }
+    }
+    @keyframes dronePath4 {
+        0% { transform: translate(0, -600%); }
+        100% { transform: translate(-400%, 400%); }
+    }
+    @keyframes droneContainerFadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .drone-flight-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        animation: droneContainerFadeIn 0.3s ease-out 2.5s forwards;
+    }
+    .drone-flight-container img {
+        position: absolute;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+    }
+    .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
+    .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
+    .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
+    .drone-path4 { width: 120px; margin-left: -60px; margin-top: -60px; transform: translate(0, -600%); animation: dronePath4 16s linear infinite; animation-delay: 2s; }
+</style>
+<div class="row align-items-stretch workshop-cards-row">
+    <div class="workshop-card-col text-center">
+        <a href="/ai-workshop.html" class="workshop-main-button workshop-main-button--ai">
+            <h2 class="main-button-title-text" data-i18n="home.cardAi.title">Artificial Intelligence</h2>
+            <br/>
+            <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                    <img class="js-workshop-cycling-poster" src="/img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
+                </div>
+                <div style="position: absolute; top: 28%; left: 37%; transform: translate(-50%, -50%); pointer-events: none;">
+                    <div style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+                    <img src="/img/nn-nobg.png" alt="" style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;">
+                </div>
+            </div>
+            <div class="workshop-card-copy">
+                <h3 data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
+                <h3 data-i18n-html="home.cardAi.line2">Use the latest AI models:
+                    <ul>
+                        <li><em>text, image, voice, video</em></li>
+                    </ul></h3>
+                <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
+            </div>
+            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+    </div>
+
+    <div class="workshop-card-col text-center">
+        <a href="/robotics-workshop.html" class="workshop-main-button workshop-main-button--robotics" style="position: relative;">
+            <h2 class="main-button-title-text" data-i18n="home.cardRobotics.title">Robotics Drone</h2>
+            <br/>
+            <div class="workshop-card-visual workshop-card-visual--robotics" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 1;">
+                <div class="drone-code-scroll-box" aria-hidden="true"></div>
+                <img src="/img/drone-circuit.png" alt="Drone Circuit" data-i18n-alt="home.cardRobotics.imageAlt" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; position: relative; z-index: 1;">
+                <div class="drone-flight-container">
+                    <img src="/img/drone.png" alt="" class="drone-path1">
+                    <img src="/img/drone.png" alt="" class="drone-path2">
+                    <img src="/img/drone.png" alt="" class="drone-path3">
+                    <img src="/img/drone.png" alt="" class="drone-path4">
+                </div>
+            </div>
+            <div class="workshop-card-copy">
+                <h3 data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
+                <h3 data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
+                <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
+            </div>
+            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+    </div>
+
+    <div class="workshop-card-col text-center">
+        <a href="/rocket-workshop.html" class="workshop-main-button workshop-main-button--mechanical">
+            <h2 class="main-button-title-text" data-i18n="home.cardMechanical.title">Mechanical Engineering</h2>
+            <br/>
+            <div class="workshop-card-media workshop-card-visual workshop-card-visual--mechanical">
+                <video class="workshop-card-video" autoplay loop muted playsinline style="width: 250px; max-width: 90%; height: 200px; object-fit: cover; border-radius: 10px;">
+                    <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+                    <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+                </video>
+                <img src="/img/rocket-assem-iso.png" alt="Rocket Image" class="workshop-card-rocket-overlay">
+            </div>
+            <div class="workshop-card-copy">
+                <h3 data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
+                <h3 data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
+                <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
+            </div>
+            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
+    </div>
+</div>
+<script>
+(function () {
+    var posters = ["/img/poster1.jpg", "/img/poster2.jpg", "/img/poster3.jpg", "/img/poster4.jpg", "/img/poster5.jpg", "/img/poster6.jpg", "/img/poster7.jpg"];
+    var img = document.querySelector(".js-workshop-cycling-poster");
+    if (!img) return;
+    var index = 0;
+    setInterval(function () {
+        index = (index + 1) % posters.length;
+        img.style.opacity = "0";
+        setTimeout(function () {
+            img.src = posters[index];
+            img.style.opacity = "1";
+        }, 220);
+    }, 3200);
+})();
+</script>

@@ -7,7 +7,11 @@
 {% endif %}
 {% assign copy = site.data.discovery.copy %}
 {% assign plan_heading = entry.cta_heading | default: "Ready to Plan a Workshop?" %}
-{% if page.discovery_category == "city" and plan_heading contains "Ready to Add Engineering to Your" %}
+{% assign plan_copy = entry.cta_copy | default: "Share your destination, group details, and schedule. Stage One will help plan the workshop." %}
+{% if page.discovery_category == "audience" or page.discovery_category == "group_type" %}
+  {% assign plan_heading = "Ready to Add Hands-On Engineering to Your Itinerary?" %}
+  {% assign plan_copy = "Share your destination, group details, and schedule. Stage One will help plan the workshop." %}
+{% elsif page.discovery_category == "city" and plan_heading contains "Ready to Add Engineering to Your" %}
   {% assign plan_heading = "Ready to Add Hands-On Engineering to Your Itinerary?" %}
 {% endif %}
 <section class="discovery-section discovery-plan" aria-labelledby="discovery-plan-heading">
@@ -17,7 +21,7 @@
     </div>
     <div class="discovery-plan__content">
       <h2 id="discovery-plan-heading" class="discovery-plan__heading">{{ plan_heading }}</h2>
-      <p class="discovery-plan__copy">{{ entry.cta_copy | default: "Share your destination, group details, and schedule. Stage One will help plan the workshop." }}</p>
+      <p class="discovery-plan__copy">{{ plan_copy }}</p>
     </div>
   </div>
   <div class="discovery-plan__actions">

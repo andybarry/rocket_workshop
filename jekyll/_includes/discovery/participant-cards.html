@@ -1,52 +1,56 @@
 {% assign selected_id = entry.context_id | default: page.discovery_slug %}
-{% assign selected_audience = nil %}
-{% assign other_audiences = "" | split: "" %}
-{% for audience in site.data.discovery.audiences %}
-  {% if audience.id == selected_id %}
-    {% assign selected_audience = audience %}
-  {% elsif audience.hide_from_nav %}
+{% assign selected_item = nil %}
+{% assign browse_items = "" | split: "" %}
+{% if page.discovery_category == "group_type" %}
+  {% assign browse_source = site.data.discovery.group_types %}
+  {% assign browse_category = "group_type" %}
+  {% assign browse_heading = "Browse all programs" %}
+  {% assign browse_label = "Programs" %}
+{% else %}
+  {% assign browse_source = site.data.discovery.audiences %}
+  {% assign browse_category = "audience" %}
+  {% assign browse_heading = "Browse all ages and group types" %}
+  {% assign browse_label = "Participants" %}
+{% endif %}
+{% for item in browse_source %}
+  {% if item.hide_from_nav %}
     {% continue %}
-  {% else %}
-    {% assign other_audiences = other_audiences | push: audience %}
+  {% endif %}
+  {% assign browse_items = browse_items | push: item %}
+  {% if item.id == selected_id %}
+    {% assign selected_item = item %}
   {% endif %}
 {% endfor %}
-<section class="participant-cards" aria-label="Participant groups">
-  {% if selected_audience %}
-  <article class="participant-card participant-card--selected" aria-current="true">
-    <h1 class="participant-card__title">{{ selected_audience.headline | default: selected_audience.label }}</h1>
-    <div class="participant-card__head">
-      {% if selected_audience.icon %}
-      <i class="fa {{ selected_audience.icon }}" aria-hidden="true"></i>
-      {% endif %}
-      <p class="participant-card__meta">{{ selected_audience.age_label }}</p>
-    </div>
-    <p class="participant-card__intro">{{ selected_audience.intro }}</p>
-    {% if selected_audience.facts %}
-    <ul class="participant-card__facts">
-      {% for fact in selected_audience.facts %}
-      <li>
-        <strong>{{ fact.title }}</strong>
-        <span>{{ fact.text }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </article>
+<section class="participant-cards" aria-label="{{ browse_label }}">
+  {% if selected_item %}
+  <header class="participant-cards__header">
+    <h1 class="discovery-header__headline discovery-header__headline--city">
+      <span class="discovery-header__city">
+        <span class="discovery-header__city-name">{{ selected_item.short_label | default: selected_item.label }}</span>
+      </span>
+      <span class="discovery-header__kind">Engineering Workshops</span>
+    </h1>
+  </header>
+  <p class="participant-cards__intro">{{ selected_item.intro }}</p>
   {% endif %}
 
-  <div class="participant-cards__others" role="list">
-    {% for audience in other_audiences %}
-    <a class="participant-card participant-card--compact" href="/workshops/{{ audience.id }}/"
-      role="listitem"
-      data-discovery-option data-category="audience" data-id="{{ audience.id }}">
-      <h2 class="participant-card__title">{{ audience.label }}</h2>
-      <div class="participant-card__head">
-        {% if audience.icon %}
-        <i class="fa {{ audience.icon }}" aria-hidden="true"></i>
-        {% endif %}
-        <p class="participant-card__meta">{{ audience.age_label }}</p>
-      </div>
-    </a>
-    {% endfor %}
+  <div class="participant-cards__ages">
+    <h2 class="participant-cards__ages-label" id="participant-ages-heading">{{ browse_heading }}</h2>
+    <div class="participant-cards__age-row" role="list" aria-labelledby="participant-ages-heading">
+      {% for item in browse_items %}
+      {% assign is_current = false %}
+      {% if item.id == selected_id %}
+        {% assign is_current = true %}
+      {% endif %}
+      <a class="participant-age{% if is_current %} is-current{% endif %}" href="/workshops/{{ item.id }}/" role="listitem"
+        {% if is_current %}aria-current="page"{% endif %}
+        data-discovery-option data-category="{{ browse_category }}" data-id="{{ item.id }}">
+        <strong>{{ item.short_label | default: item.label }}</strong>
+        <span class="participant-age__go" aria-hidden="true"></span>
+      </a>
+      {% endfor %}
+    </div>
   </div>
+  {% include discovery/delivery-facts.html %}
+  {% include discovery/plan-cta.html %}
 </section>

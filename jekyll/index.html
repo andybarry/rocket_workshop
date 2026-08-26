@@ -27,21 +27,38 @@ i18n_key: home
   }
   /* Same 1100px content column as the workshop pages, so browser zoom
      scales the hero and cards together instead of stretching them. */
+  body.cursor-glow-page .homepage-workshop-benefits,
+  body.cursor-glow-page .find-workshop,
+  body.cursor-glow-page #tab-section,
+  body.cursor-glow-page .home-workshops-block,
+  body.cursor-glow-page .our-workshops-section {
+    width: 100%;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+  body.cursor-glow-page .home-align-col {
+    width: min(92vw, 1280px) !important;
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+  body.cursor-glow-page .home-workshops-block {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 8px 0 28px;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+  }
   body.cursor-glow-page #tab-section .container,
   body.cursor-glow-page .about-section,
   body.cursor-glow-page .feedback-scroll-wrapper,
   body.cursor-glow-page #contact .container,
-  body.cursor-glow-page .main-page-hr,
-  body.cursor-glow-page .find-workshop__shell,
-  body.cursor-glow-page .our-workshops-shell,
-  body.cursor-glow-page .participants-plan-row {
-    width: min(92vw, 1280px);
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-  }
-  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefit-bar {
+  body.cursor-glow-page .main-page-hr {
     width: min(92vw, 1280px);
     max-width: 1280px;
     margin-left: auto;
@@ -63,7 +80,9 @@ i18n_key: home
     body.cursor-glow-page #contact,
     body.cursor-glow-page #contact .container,
     body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefit-bar,
+    body.cursor-glow-page .home-align-col,
     body.cursor-glow-page .find-workshop__shell,
+    body.cursor-glow-page .our-workshops-shell,
     body.cursor-glow-page .participants-plan-row,
     body.cursor-glow-page .feedback-scroll-wrapper,
     body.cursor-glow-page .main-page-hr {
@@ -712,9 +731,17 @@ i18n_key: home
     }
   }
 
-  .our-workshops-section {
-    padding: 8px 16px 28px;
-    background: transparent;
+  body.cursor-glow-page .home-workshops-block .participants-feedback {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+  body.cursor-glow-page #tab-section .workshop-cards-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  body.cursor-glow-page #tab-section .workshop-card-col {
+    padding-left: 0;
+    padding-right: 0;
   }
   .our-workshops-shell {
     width: min(92vw, 1280px);
@@ -807,11 +834,11 @@ i18n_key: home
   @media (min-width: 1280px) {
     body.cursor-glow-page #tab-section .workshop-cards-row {
       flex-wrap: nowrap;
-      justify-content: center;
+      justify-content: stretch;
       gap: 18px;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 </style>
@@ -1131,12 +1158,12 @@ i18n_key: home
 {% include workshop-benefits.html %}
 {% include find-your-workshop.html %}
             
-<section style="padding-top: 0; padding-bottom: 10px; position: relative; z-index: 1;" id="tab-section" class="tab-section less-padding our-workshops-section">
-    <div class="container" id="ai">
+<div id="tab-section" class="home-workshops-block">
+<span id="ai" aria-hidden="true"></span>
 
-<div class="our-workshops-shell">
+<div class="our-workshops-shell home-align-col">
 <div class="our-workshops-header">
-    <h2 class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Our Workshops</h2>
+    <h2 class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Workshops</h2>
 </div>
 
 <!-- First Workshop Box -->  
@@ -1340,7 +1367,7 @@ i18n_key: home
 </div>
 </div>
 
-<div class="participants-plan-row">
+<div class="participants-plan-row home-align-col">
     <section class="participants-feedback" aria-label="Participant feedback">
         <div class="participants-feedback__head">
             <h3 class="participants-feedback__title" data-i18n="home.feedbackHeading">Feedback</h3>
@@ -1940,10 +1967,7 @@ i18n_key: home
 })();
 </script>
 
-    </div>
-
-
-</section>
+</div>
 
 {% include discovery/page-footer.html %}
 

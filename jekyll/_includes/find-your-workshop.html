@@ -2,7 +2,7 @@
 {% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
 <section id="find-your-workshop" class="find-workshop" aria-labelledby="find-your-workshop-heading" data-find-your-workshop>
   <span id="workshop-explorer" class="find-workshop__legacy-anchor" aria-hidden="true"></span>
-  <div class="find-workshop__shell">
+  <div class="find-workshop__shell home-align-col">
     <header class="find-workshop__header">
       <h2 id="find-your-workshop-heading">
         {{ copy.section_heading }} <span>{{ copy.section_heading_accent }}</span>
