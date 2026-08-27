@@ -529,7 +529,7 @@ i18n_key: home
     padding: 14px 15px;
     overflow: visible;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.88);
+    background: #fff;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
     color: #464444;
     font-family: 'Roboto', sans-serif;
@@ -596,7 +596,7 @@ i18n_key: home
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
-  .home-room-hero__quote-meta {
+    .home-room-hero__quote-meta {
     display: block;
     margin-top: 8px;
     font-size: 11px;
@@ -605,6 +605,9 @@ i18n_key: home
     letter-spacing: 0.02em;
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+  .home-room-hero__quote-scroller {
+    display: none;
   }
   @media (min-width: 768px) {
     .home-room-hero__image,
@@ -699,6 +702,7 @@ i18n_key: home
       max-width: none !important;
       margin-left: -15px !important;
       margin-right: -15px !important;
+      padding: 0;
     }
     .home-room-hero__image,
     .home-room-hero__image-overlay {
@@ -714,20 +718,31 @@ i18n_key: home
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation-name: homeHeroFadeDrone;
+      animation: homeHeroFadeDrone 96s ease-in-out infinite;
+      object-fit: cover;
     }
     .home-room-hero__image--mechanical {
-      animation-name: homeHeroFadeMech;
+      object-fit: cover;
+      object-position: 50% 42%;
+      animation: homeHeroFadeMech 96s ease-in-out infinite;
+    }
+    .home-room-hero__image--posters {
+      background-color: #ececec;
+      background-size: cover;
+      background-position: center 18%;
+      background-repeat: no-repeat;
+      animation: homeHeroFadePosters 96s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation-name: homeHeroFadeHnn;
+      animation: homeHeroFadeHnn 96s ease-in-out infinite;
+      object-fit: cover;
     }
     .home-room-hero__content {
       position: relative;
       width: 100%;
       margin: 0;
       justify-content: flex-start;
-      padding: 56px 14px 8px;
+      padding: 88px 14px 8px;
       flex: 0 0 auto;
       background: none;
       border-radius: 0;
@@ -738,7 +753,7 @@ i18n_key: home
     .home-room-hero__content::before {
       content: "";
       position: absolute;
-      top: 28px;
+      top: 0;
       right: -24px;
       bottom: -28px;
       left: -20px;
@@ -759,9 +774,6 @@ i18n_key: home
     }
     .home-room-hero__image--drone {
       object-position: 72% 52%;
-    }
-    .home-room-hero__image--mechanical {
-      object-position: 50% 82%;
     }
     .home-room-hero__image--hnn {
       object-position: 50% 40%;
@@ -791,8 +803,21 @@ i18n_key: home
       display: none;
     }
     .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
-      mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+      left: 0;
+      right: 0;
+      height: 42%;
+      min-height: 168px;
+      z-index: 2;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+      background: linear-gradient(
+        to bottom,
+        rgba(250, 250, 250, 0) 0%,
+        rgba(250, 250, 250, 0.22) 28%,
+        rgba(250, 250, 250, 0.72) 68%,
+        #fafafa 100%
+      );
+      box-shadow: 0 -28px 64px 24px rgba(250, 250, 250, 0.45);
     }
     .home-room-hero__quotes {
       position: relative;
@@ -800,7 +825,7 @@ i18n_key: home
       right: auto;
       bottom: auto;
       left: auto;
-      display: flex;
+      display: none;
       width: 100%;
       flex: 1 1 auto;
       flex-direction: column;
@@ -810,6 +835,15 @@ i18n_key: home
       margin-top: 36px;
       padding: 16px 14px 28px;
       overflow: visible;
+    }
+    .home-room-hero__quote-scroller {
+      display: block;
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      margin-top: auto;
+      padding: 4px 0 18px;
+      pointer-events: auto;
     }
     .home-room-hero__quote-slot {
       display: flex;
@@ -1038,11 +1072,63 @@ i18n_key: home
             }, 1000); // 1s delay matches the transition duration in the CSS
         }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
 
-        // Floating feedback quote bubbles over the hero image
+        // Floating feedback quote bubbles over the hero image on laptop.
+        // On the stacked mobile hero, all quotes sit in a horizontal scroller
+        // that matches the location-page quote boxes.
         var heroQuotes = window.SOParticipantQuotes;
 
         var $quotesLayer = $(".home-room-hero__quotes");
-        if ($quotesLayer.length) {
+        var $quoteScroller = $(".home-room-hero__quote-scroller");
+        var stackedHero = window.matchMedia && window.matchMedia("(max-width: 767px)").matches;
+
+        function translatedHeroQuote(index) {
+            var quote = heroQuotes[index];
+            var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+            if (translated && typeof translated[index] === "string") {
+                return { text: translated[index], meta: quote.meta };
+            }
+            return quote;
+        }
+
+        function buildHomeQuoteScroller() {
+            var root = $quoteScroller[0];
+            if (!root || !heroQuotes.length) return;
+            var track = root.querySelector(".discovery-header__quote-scroller-track");
+            if (!track) return;
+
+            track.innerHTML = "";
+            heroQuotes.forEach(function (quote, index) {
+                var item = translatedHeroQuote(index);
+                var figure = document.createElement("figure");
+                figure.className = "discovery-header__quote discovery-header__quote--scroller is-visible";
+                figure.setAttribute("data-testimonial", "");
+
+                var block = document.createElement("blockquote");
+                var paragraph = document.createElement("p");
+                paragraph.textContent = item.text;
+                block.appendChild(paragraph);
+
+                var caption = document.createElement("figcaption");
+                caption.textContent = item.meta;
+
+                figure.appendChild(block);
+                figure.appendChild(caption);
+                track.appendChild(figure);
+            });
+
+            root.setAttribute("data-discovery-quote-scroller", "");
+            if (typeof window.StageOneInitQuoteScroller === "function") {
+                window.StageOneInitQuoteScroller();
+            }
+        }
+
+        if ($quotesLayer.length && stackedHero) {
+            if (window.SOI18n) {
+                window.SOI18n.ready(buildHomeQuoteScroller);
+            } else {
+                buildHomeQuoteScroller();
+            }
+        } else if ($quotesLayer.length) {
             var quoteIndex = 0;
             var mobileHero = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
             if (mobileHero) {
@@ -1062,13 +1148,7 @@ i18n_key: home
             var displayMs = 18000;
 
             function nextQuote() {
-                var quote = heroQuotes[quoteIndex];
-                // Translated quote text, when a non-English language is active.
-                // City and year in `meta` stay as authored.
-                var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
-                if (translated && typeof translated[quoteIndex] === "string") {
-                    quote = { text: translated[quoteIndex], meta: quote.meta };
-                }
+                var quote = translatedHeroQuote(quoteIndex);
                 quoteIndex = (quoteIndex + 1) % heroQuotes.length;
                 return quote;
             }
@@ -1226,8 +1306,8 @@ i18n_key: home
             }
 
             // Two quotes on laptop (top-left and bottom-right, staggered fades).
-            // One quote on mobile. Held until the translation pass finishes so
-            // the first bubbles are already in the visitor's language.
+            // Tablet keeps a single bubble. Held until the translation pass
+            // finishes so the first bubbles are already in the visitor's language.
             function startQuoteBubbles() {
                 if (bubblesStarted) return;
                 bubblesStarted = true;
@@ -1298,6 +1378,29 @@ i18n_key: home
     <div class="home-room-hero__quotes" aria-hidden="true">
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
+    </div>
+    <aside class="home-room-hero__quote-scroller discovery-header__quote-scroller" aria-label="Participant feedback">
+        <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--prev" aria-label="Scroll quotes left">
+            <span aria-hidden="true"></span>
+        </button>
+        <div class="discovery-header__quote-scroller-viewport" data-discovery-quote-scroller-viewport>
+            <div class="discovery-header__quote-scroller-track"></div>
+        </div>
+        <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--next" aria-label="Scroll quotes right">
+            <span aria-hidden="true"></span>
+        </button>
+    </aside>
+    <div class="discovery-quote-modal" data-discovery-quote-modal hidden>
+        <div class="discovery-quote-modal__backdrop" data-discovery-quote-modal-close tabindex="-1"></div>
+        <div class="discovery-quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="home-quote-modal-text">
+            <button type="button" class="discovery-quote-modal__close" data-discovery-quote-modal-close aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <blockquote>
+                <p id="home-quote-modal-text" data-discovery-quote-modal-text></p>
+            </blockquote>
+            <p class="discovery-quote-modal__meta" data-discovery-quote-modal-meta></p>
+        </div>
     </div>
 </section>
 {% include workshop-benefits.html %}

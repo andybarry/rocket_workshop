@@ -28,7 +28,8 @@
 
     function initQuoteScroller() {
         var root = document.querySelector("[data-discovery-quote-scroller]");
-        if (!root) return;
+        if (!root || root.getAttribute("data-scroller-bound")) return;
+        root.setAttribute("data-scroller-bound", "true");
 
         var viewport = root.querySelector("[data-discovery-quote-scroller-viewport]");
         var track = root.querySelector(".discovery-header__quote-scroller-track");
@@ -580,6 +581,8 @@
         }
         document.addEventListener("visibilitychange", handleVisibilityChange);
     }
+
+    window.StageOneInitQuoteScroller = initQuoteScroller;
 
     document.addEventListener("DOMContentLoaded", function () {
         initDiscoveryQuoteRotation();

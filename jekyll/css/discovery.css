@@ -2833,11 +2833,13 @@ a.participant-card:focus-visible {
     pointer-events: auto;
 }
 
-.discovery-header--location .discovery-header__quote-scroller-viewport {
+.discovery-header--location .discovery-header__quote-scroller-viewport,
+.home-room-hero__quote-scroller .discovery-header__quote-scroller-viewport {
     padding-bottom: 0;
 }
 
-.discovery-header--location .discovery-header__quote-scroller-track {
+.discovery-header--location .discovery-header__quote-scroller-track,
+.home-room-hero__quote-scroller .discovery-header__quote-scroller-track {
     padding-bottom: 0;
 }
 
@@ -2943,18 +2945,21 @@ a.participant-card:focus-visible {
     will-change: transform;
 }
 
-.discovery-header--location .discovery-header__quote-scroller-nav {
+.discovery-header--location .discovery-header__quote-scroller-nav,
+.home-room-hero__quote-scroller .discovery-header__quote-scroller-nav {
     width: 26px;
     height: 26px;
     box-shadow: 0 4px 12px rgba(30, 30, 30, 0.14);
 }
 
-.discovery-header--location .discovery-header__quote-scroller-nav span {
+.discovery-header--location .discovery-header__quote-scroller-nav span,
+.home-room-hero__quote-scroller .discovery-header__quote-scroller-nav span {
     width: 6px;
     height: 6px;
 }
 
-.discovery-header--location .discovery-header__quote--scroller {
+.discovery-header--location .discovery-header__quote--scroller,
+.home-room-hero__quote-scroller .discovery-header__quote--scroller {
     position: relative;
     top: auto;
     left: auto;
@@ -2974,6 +2979,7 @@ a.participant-card:focus-visible {
     overflow: visible;
     opacity: 1;
     pointer-events: auto;
+    background: #fff;
     border: 1px solid rgba(67, 67, 67, 0.2);
     box-shadow: 0 4px 12px rgba(45, 45, 45, 0.1);
     scroll-snap-align: start;
@@ -2981,7 +2987,8 @@ a.participant-card:focus-visible {
     -webkit-user-drag: none;
 }
 
-.discovery-header--location .discovery-header__quote--scroller blockquote {
+.discovery-header--location .discovery-header__quote--scroller blockquote,
+.home-room-hero__quote-scroller .discovery-header__quote--scroller blockquote {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -2990,7 +2997,8 @@ a.participant-card:focus-visible {
     margin-bottom: 0;
 }
 
-.discovery-header--location .discovery-header__quote--scroller blockquote p {
+.discovery-header--location .discovery-header__quote--scroller blockquote p,
+.home-room-hero__quote-scroller .discovery-header__quote--scroller blockquote p {
     display: block;
     max-height: calc(13px * 1.45 * 5);
     overflow: hidden;
@@ -2998,7 +3006,8 @@ a.participant-card:focus-visible {
     white-space: normal;
 }
 
-.discovery-header--location .discovery-header__quote--scroller figcaption {
+.discovery-header--location .discovery-header__quote--scroller figcaption,
+.home-room-hero__quote-scroller .discovery-header__quote--scroller figcaption {
     flex: 0 0 auto;
     margin-top: auto;
     padding-top: 8px;
@@ -4617,7 +4626,53 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     }
 
     .find-workshop__plan.discovery-plan {
+        min-height: 0;
         margin: 10px 0 0;
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .find-workshop__plan .discovery-plan__icon {
+        display: none;
+    }
+
+    .find-workshop__plan .discovery-plan__lead,
+    .find-workshop__plan .discovery-plan__content,
+    .find-workshop__plan .discovery-plan__actions {
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .find-workshop__plan .discovery-plan__heading,
+    .find-workshop__plan .discovery-plan__copy {
+        width: 100%;
+        max-width: none;
+        white-space: normal;
+    }
+
+    .find-workshop__plan .discovery-plan__heading {
+        margin: 0 0 4px;
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .find-workshop__plan .discovery-plan__copy {
+        font-size: 13px;
+        line-height: 1.35;
+    }
+
+    .find-workshop__plan .discovery-plan-button,
+    .find-workshop__plan .discovery-plan-button--large {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+    .find-workshop__plan .discovery-plan-button .fa {
+        display: none;
     }
 
     .workshop-planning-cta .discovery-plan__heading,
@@ -4908,7 +4963,10 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 
     .discovery-header .discovery-delivery__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-flow: row;
         gap: 0;
+        min-height: 0;
+        border-radius: 22px;
     }
 
     .discovery-page--participants .participant-cards .discovery-delivery .discovery-delivery__grid,
@@ -4956,15 +5014,32 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     }
 
     .discovery-header .discovery-delivery__grid li,
-    .discovery-header .discovery-delivery__grid li:first-child {
-        padding: 10px 10px 11px;
+    .discovery-header .discovery-delivery__grid li:first-child,
+    .discovery-header--location .discovery-delivery__grid li {
+        min-height: 142px;
+        padding: 22px 10px;
         border: 0;
+        border-right: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
         background: transparent;
         box-shadow: none;
     }
 
     .discovery-header .discovery-delivery__grid strong {
+        margin: 0 0 3px;
+        font-size: 14px;
+        line-height: 1.25;
         white-space: normal;
+    }
+
+    .discovery-header .discovery-delivery__grid small {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .discovery-header .discovery-delivery__grid .fa {
+        margin: 0 auto 12px;
+        font-size: 22px;
     }
 
     .discovery-header .discovery-delivery__grid li + li {
@@ -4972,31 +5047,25 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         border-top: 0;
     }
 
-    .discovery-header .discovery-delivery__grid li + li::before {
-        top: 0;
-        bottom: auto;
-        left: 10px;
-        right: 10px;
-        width: auto;
-        height: 1px;
-    }
-
-    .discovery-header .discovery-delivery__grid li:nth-child(2) {
-        border-top: 0;
-        border-left: 0;
-    }
-
+    .discovery-header .discovery-delivery__grid li + li::before,
     .discovery-header .discovery-delivery__grid li:nth-child(2)::before {
-        top: 8px;
-        bottom: 8px;
-        left: 0;
-        right: auto;
-        width: 1px;
-        height: auto;
+        display: none;
+    }
+
+    .discovery-header .discovery-delivery__grid li:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .discovery-header .discovery-delivery__grid li:nth-child(n + 5) {
+        border-bottom: 0;
     }
 
     .discovery-delivery__grid li:last-child {
         grid-column: 1 / -1;
+    }
+
+    .discovery-header .discovery-delivery__grid li:last-child {
+        grid-column: auto;
     }
 
     .discovery-offerings {
