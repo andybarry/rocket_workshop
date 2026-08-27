@@ -1,5 +1,9 @@
-<footer style="text-align: center; margin-top: 30px;">
-  {% unless page.layout == "discovery" %}
+<footer style="text-align: center; margin-top: 30px; position: relative;">
+  {% assign show_footer_cities = false %}
+  {% if page.show_footer_cities or page.i18n_key == "about" or page.i18n_key == "feedback" %}
+    {% assign show_footer_cities = true %}
+  {% endif %}
+  {% if show_footer_cities %}
   <p>
     <a class="site-footer-plan-link" href="/plan-a-workshop/" data-plan-workshop-open data-plan-source="footer" data-source="footer">
       <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -15,8 +19,24 @@
       {% endfor %}
       <a href="/workshops/international-groups/">International Groups</a>
     </nav>
-  {% endunless %}
+  {% endif %}
   <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
     &copy; 2026 Stage One Education, LLC
   </span>
+  {% if include.feedback_gear %}
+  <a href="https://input.stageoneeducation.com/feedback"
+     style="position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d3d3d3;
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;"
+     onmouseover="this.style.color='#a9a9a9'"
+     onmouseout="this.style.color='#d3d3d3'"
+     title="Feedback Form" data-i18n-title="feedback.formLink">
+      <i class="fa fa-cog"></i>
+  </a>
+  {% endif %}
 </footer>
