@@ -1081,9 +1081,9 @@ inline-quote-container {
 }
 
 .nav-workshops-access-button[aria-current="page"] {
-    color: #434343 !important;
-    background: #fff3ef !important;
-    border-color: #fff;
+    color: #fff !important;
+    background: #0d6efd !important;
+    border-color: #0d6efd;
 }
 
 .nav-workshops-access-button:focus-visible {
@@ -4158,8 +4158,8 @@ html.has-workshop-plan-modal #tab-section {
 }
 
 #mainNav .nav-main-links > li > .nav-button-stageone:hover,
-#mainNav .nav-main-links > li > .nav-button-stageone:focus,
 #mainNav .nav-main-links > li.open > .nav-button-stageone,
+#mainNav .nav-main-links > li > .nav-button-stageone:focus-visible,
 #mainNav .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
     border-color: transparent;
     background: transparent !important;
@@ -4180,6 +4180,11 @@ html.has-workshop-plan-modal #tab-section {
 #mainNav .nav-desktop-workshop > .nav-button-stageone:focus,
 #mainNav .nav-desktop-workshop.open > .nav-button-stageone {
     color: #fff !important;
+}
+
+#mainNav .nav-desktop-workshop:not(:hover):not(.open) > .nav-button-stageone:not([aria-current="page"]) {
+    text-decoration: none !important;
+    text-shadow: none !important;
 }
 
 #mainNav .nav-dropdown .caret {
@@ -4407,8 +4412,8 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-workshops-access-button[aria-current="page"] {
     border-color: #0d6efd;
-    background: #fff !important;
-    color: #0d6efd !important;
+    background: #0d6efd !important;
+    color: #fff !important;
     font-weight: 400;
 }
 
@@ -4653,7 +4658,8 @@ html.has-workshop-plan-modal #tab-section {
     }
 
     #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:hover,
-    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus,
+    #mainNav .navbar-collapse .nav-main-links > li.open > .nav-button-stageone,
+    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus-visible,
     #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
         border-color: transparent;
         background: transparent !important;
@@ -4780,6 +4786,7 @@ html.has-workshop-plan-modal #tab-section {
         box-shadow: none;
     }
 
+    #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button[aria-current="page"],
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button:focus {
         border-color: #0d6efd;
