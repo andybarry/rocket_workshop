@@ -241,6 +241,8 @@ header.discovery-header {
     min-height: 0;
     height: auto;
     flex: 0 0 auto;
+    text-align: left;
+    color: inherit;
 }
 
 header .header-content {

@@ -14,7 +14,6 @@ i18n_key: feedback
   body.cursor-glow-page .navbar button,
   body.cursor-glow-page .navbar img,
   body.cursor-glow-page .feedback-2026 button,
-  body.cursor-glow-page .feedback-cumulative button,
   body.cursor-glow-page .discovery-page-footer a { cursor: pointer !important; }
   body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
   body.cursor-glow-page .discovery-page-footer {
@@ -86,7 +85,7 @@ i18n_key: feedback
     text-align: right;
   }
 
-  .feedback-cumulative {
+  .feedback-cumulative__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
@@ -102,14 +101,6 @@ i18n_key: feedback
     background: #fff;
   }
 
-  .feedback-cumulative__cover {
-    display: none;
-  }
-
-  .feedback-cumulative__cover .feedback-2026__image {
-    aspect-ratio: 960 / 540;
-  }
-
   .feedback-2026 button {
     cursor: pointer !important;
   }
@@ -121,7 +112,7 @@ i18n_key: feedback
     justify-content: center;
     gap: 8px;
     margin: 0 0 14px;
-    overflow-x: auto;
+    overflow: hidden;
   }
 
   .feedback-2026__workshops {
@@ -272,17 +263,58 @@ i18n_key: feedback
       font-size: 11px;
     }
     .feedback-cumulative__grid {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      touch-action: pan-x;
+    }
+    .feedback-cumulative__grid::-webkit-scrollbar {
       display: none;
     }
-    .feedback-cumulative__cover {
-      display: block;
+    .feedback-cumulative__image {
+      flex: 0 0 82%;
+      width: 82%;
+      max-width: 82%;
+      margin: 0;
     }
     .feedback-2026__controls {
-      margin-bottom: 28px;
+      margin-bottom: 0;
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .feedback-2026__controls::-webkit-scrollbar,
+    .feedback-2026__workshops::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    .feedback-2026__workshops {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden;
+      flex-wrap: nowrap;
+    }
+    .feedback-2026__stage {
+      margin-top: 28px;
+      padding-top: 16px;
     }
     .feedback-2026__workshop {
-      font-size: 10px;
-      padding: 3px 7px;
+      flex: 1 1 0;
+      min-width: 0;
+      font-size: 9px;
+      padding: 4px 4px;
+      white-space: normal;
+      text-align: center;
     }
     .feedback-2026__slide.is-current {
       width: 72%;
@@ -307,25 +339,11 @@ i18n_key: feedback
         <p class="feedback-panel__updated" data-i18n="feedback.updatedAugust">updated: August 2026</p>
       </div>
       <div class="feedback-cumulative">
-        <div class="feedback-cumulative__grid">
+        <div class="feedback-cumulative__grid" tabindex="0" aria-label="Cumulative feedback charts">
           <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback.svg" alt="Cumulative workshop feedback" width="960" height="540">
           <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(1).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
           <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(2).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
           <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(3).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
-        </div>
-        <div class="feedback-cumulative__cover">
-          <div class="feedback-2026__stage">
-            <button type="button" class="feedback-2026__slide is-prev" data-slot="prev" aria-label="Previous chart">
-              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(3).svg" alt="" width="960" height="540">
-            </button>
-            <figure class="feedback-2026__slide is-current" data-slot="current">
-              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback.svg" alt="Cumulative workshop feedback" width="960" height="540">
-            </figure>
-            <button type="button" class="feedback-2026__slide is-next" data-slot="next" aria-label="Next chart">
-              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(1).svg" alt="" width="960" height="540">
-            </button>
-          </div>
-          <div class="feedback-2026__dots" role="tablist" aria-label="Cumulative feedback page"></div>
         </div>
       </div>
     </section>
@@ -359,6 +377,92 @@ i18n_key: feedback
     </section>
 
     <script>
+    (function () {
+      var scroller = document.querySelector('.feedback-cumulative__grid');
+      if (!scroller) return;
+      var mobile = window.matchMedia('(max-width: 767px)');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var paused = false;
+      var resumeTimer = null;
+      var loopWidth = 0;
+      var ticking = false;
+      var lastTick = 0;
+      var pxPerSecond = 10;
+
+      function originals() {
+        return Array.prototype.filter.call(scroller.children, function (el) {
+          return !el.hasAttribute('data-clone');
+        });
+      }
+
+      function syncClones() {
+        Array.prototype.slice.call(scroller.querySelectorAll('[data-clone]')).forEach(function (el) {
+          el.parentNode.removeChild(el);
+        });
+        if (!mobile.matches) {
+          scroller.scrollLeft = 0;
+          loopWidth = 0;
+          return;
+        }
+        originals().forEach(function (el) {
+          var clone = el.cloneNode(true);
+          clone.setAttribute('data-clone', 'true');
+          clone.setAttribute('alt', '');
+          clone.setAttribute('aria-hidden', 'true');
+          scroller.appendChild(clone);
+        });
+        loopWidth = scroller.scrollWidth / 2;
+      }
+
+      function pause() {
+        paused = true;
+        clearTimeout(resumeTimer);
+      }
+
+      function scheduleResume() {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () { paused = false; }, 1600);
+      }
+
+      scroller.addEventListener('pointerdown', pause);
+      scroller.addEventListener('touchstart', pause, { passive: true });
+      scroller.addEventListener('pointerup', scheduleResume);
+      scroller.addEventListener('pointercancel', scheduleResume);
+      scroller.addEventListener('touchend', scheduleResume, { passive: true });
+      scroller.addEventListener('wheel', function () {
+        pause();
+        scheduleResume();
+      }, { passive: true });
+      scroller.addEventListener('scroll', function () {
+        if (!mobile.matches || loopWidth <= 0) return;
+        if (scroller.scrollLeft >= loopWidth) {
+          scroller.scrollLeft -= loopWidth;
+        }
+      }, { passive: true });
+
+      function tick(now) {
+        ticking = true;
+        if (!lastTick) lastTick = now;
+        var dt = now - lastTick;
+        lastTick = now;
+        if (dt > 80) dt = 80;
+        if (mobile.matches && !reduce.matches && !paused && loopWidth > 0) {
+          var next = scroller.scrollLeft + (pxPerSecond * dt / 1000);
+          if (next >= loopWidth) next -= loopWidth;
+          scroller.scrollLeft = next;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      syncClones();
+      if (typeof mobile.addEventListener === 'function') {
+        mobile.addEventListener('change', syncClones);
+      } else if (typeof mobile.addListener === 'function') {
+        mobile.addListener(syncClones);
+      }
+      if (!ticking) requestAnimationFrame(tick);
+    })();
+
     (function () {
       var root = document.querySelector('.feedback-2026');
       if (!root) return;
