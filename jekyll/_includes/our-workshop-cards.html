@@ -83,6 +83,7 @@
                     <img src="/img/nn-nobg.png" alt="" style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;">
                 </div>
             </div>
+            {% unless include.hide_copy %}
             <div class="workshop-card-copy">
                 <h3 data-i18n="home.cardAi.line1">Discover AI Neural Networks</h3>
                 <h3 data-i18n-html="home.cardAi.line2">Use the latest AI models:
@@ -91,6 +92,7 @@
                     </ul></h3>
                 <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
             </div>
+            {% endunless %}
             <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>
@@ -109,11 +111,13 @@
                     <img src="/img/drone.png" alt="" class="drone-path4">
                 </div>
             </div>
+            {% unless include.hide_copy %}
             <div class="workshop-card-copy">
                 <h3 data-i18n="home.cardRobotics.line1">Fly mini drones</h3>
                 <h3 data-i18n="home.cardRobotics.line2">Build a circuit for drone control</h3>
                 <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
             </div>
+            {% endunless %}
             <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>
@@ -129,11 +133,13 @@
                 </video>
                 <img src="/img/rocket-assem-iso.png" alt="Rocket Image" class="workshop-card-rocket-overlay">
             </div>
+            {% unless include.hide_copy %}
             <div class="workshop-card-copy">
                 <h3 data-i18n="home.cardMechanical.line1">Use professional CAD software</h3>
                 <h3 data-i18n="home.cardMechanical.line2">Design a multi-part model rocket</h3>
                 <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
             </div>
+            {% endunless %}
             <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>

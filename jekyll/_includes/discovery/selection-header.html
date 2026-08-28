@@ -32,19 +32,19 @@
               {% endunless %}
             {% endif %}
           </span>
-          <span class="discovery-header__kind">Engineering Workshops</span>
+          <span class="discovery-header__kind" data-i18n="discovery.ui.engineeringWorkshops">Engineering Workshops</span>
         {% when "workshop" %}
-          Engineering Workshops: <span>{{ entry.name }}</span>
+          <span data-i18n="discovery.ui.engineeringWorkshopsColon">Engineering Workshops:</span> <span>{{ entry.name }}</span>
         {% else %}
-          Engineering Workshops for <span>{{ entry.name }}</span>
+          <span data-i18n="discovery.ui.engineeringWorkshopsFor">Engineering Workshops for</span> <span>{{ entry.name }}</span>
         {% endcase %}
       </h1>
-      <p class="discovery-header__intro">{{ entry.intro }}</p>
+      <p class="discovery-header__intro"{% if page.discovery_category == "city" %} data-i18n="discovery.city.{{ entry.slug }}.intro"{% elsif page.discovery_category == "workshop" %} data-i18n="discovery.workshop.{{ entry.slug }}.intro"{% endif %}>{{ entry.intro }}</p>
 
       {% if page.discovery_category == "workshop" and entry.detail_path %}
       <div class="discovery-header__actions">
         <a class="discovery-header__detail-link" href="{{ entry.detail_path }}" data-discovery-detail-link>
-          {{ copy.workshop_detail_label }} <span aria-hidden="true">→</span>
+          <span data-i18n="discovery.ui.workshopDetailLabel">{{ copy.workshop_detail_label }}</span> <span aria-hidden="true">→</span>
         </a>
       </div>
       {% endif %}
@@ -55,24 +55,26 @@
   {% if page.discovery_category == "city" %}
   <section class="discovery-header__offerings discovery-header__offerings--combined" aria-labelledby="hero-offerings-heading">
     <div class="discovery-header__offerings-head">
-      <h2 id="hero-offerings-heading">Workshops Offered in {{ entry.short_label | default: entry.name }}</h2>
+      <h2 id="hero-offerings-heading"><span data-i18n="discovery.ui.workshopsOfferedIn">Workshops Offered in</span> {{ entry.short_label | default: entry.name }}</h2>
     </div>
     <div class="discovery-workshop-cards">
       {% for workshop in site.data.workshops %}
       {% unless workshop.hidden %}
+      {% include discovery/workshop-i18n-key.html %}
       <a class="discovery-workshop-card discovery-workshop-card--summary{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
         href="{{ workshop.detail_path }}"
         aria-label="{{ workshop.explorer_label }}"
+        {% if workshop_i18n_key != "" %}data-i18n-aria-label="{{ workshop_i18n_key }}"{% endif %}
         data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
         <span class="discovery-workshop-card__label">
-          <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
+          <strong{% if workshop_i18n_card_key != "" %} data-i18n="{{ workshop_i18n_card_key }}"{% endif %}>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
         </span>
       </a>
       {% endunless %}
       {% endfor %}
     </div>
     <div class="discovery-header__offerings-head discovery-header__offerings-head--ages">
-      <h3>Available for These Ages</h3>
+      <h3 data-i18n="discovery.ui.availableForTheseAges">Available for These Ages</h3>
     </div>
     <div class="discovery-age-row discovery-age-row--summary">
       {% for audience in site.data.discovery.audiences %}
@@ -81,7 +83,7 @@
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
         <span class="discovery-age-card__label">
-          <strong>{{ audience.short_label | default: audience.label }}</strong>
+          <strong data-i18n="discovery.audience.{{ audience.id }}.label">{{ audience.short_label | default: audience.label }}</strong>
         </span>
       </a>
       {% endunless %}
@@ -105,19 +107,21 @@
   {% unless page.discovery_category == "city" or page.discovery_category == "audience" or page.discovery_category == "group_type" %}
   <div class="discovery-header__offerings">
     <section class="discovery-header__workshops" aria-labelledby="hero-workshops-heading">
-      <h2 id="hero-workshops-heading">Workshops</h2>
+      <h2 id="hero-workshops-heading" data-i18n="home.workshopsHeading">Workshops</h2>
       <div class="discovery-workshop-cards">
         {% for workshop in site.data.workshops %}
         {% unless workshop.hidden %}
+        {% include discovery/workshop-i18n-key.html %}
         <a class="discovery-workshop-card{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
           href="{{ workshop.detail_path }}"
           aria-label="{{ workshop.explorer_label }}"
+          {% if workshop_i18n_key != "" %}data-i18n-aria-label="{{ workshop_i18n_key }}"{% endif %}
           data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
           <span class="discovery-workshop-card__label">
             {% if workshop.icon %}
             <i class="fa {{ workshop.icon }}" aria-hidden="true"></i>
             {% endif %}
-            <strong>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
+            <strong{% if workshop_i18n_card_key != "" %} data-i18n="{{ workshop_i18n_card_key }}"{% endif %}>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
           </span>
         </a>
         {% endunless %}
@@ -127,7 +131,7 @@
   </div>
 
   <section class="discovery-header__ages" aria-labelledby="hero-ages-heading">
-    <h2 id="hero-ages-heading">Ages</h2>
+    <h2 id="hero-ages-heading" data-i18n="discovery.ui.ages">Ages</h2>
     <div class="discovery-age-row">
       {% for audience in site.data.discovery.audiences %}
       {% unless audience.hide_from_nav %}
@@ -135,7 +139,7 @@
         href="/workshops/{{ audience.id }}/"
         data-discovery-option data-category="audience" data-id="{{ audience.id }}">
         <span class="discovery-age-card__label">
-          <strong>{{ audience.label }}</strong>
+          <strong data-i18n="discovery.audience.{{ audience.id }}.label">{{ audience.label }}</strong>
         </span>
       </a>
       {% endunless %}
@@ -155,7 +159,7 @@
 {% if page.discovery_category == "audience" or page.discovery_category == "group_type" %}
 <section class="our-workshops-shell discovery-header__workshops-home" aria-labelledby="hero-offerings-heading">
   <div class="our-workshops-header">
-    <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title">Workshops</h2>
+    <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Workshops</h2>
   </div>
   {% include our-workshop-cards.html %}
 </section>

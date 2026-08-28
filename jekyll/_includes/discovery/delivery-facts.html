@@ -1,12 +1,18 @@
 {% assign copy = site.data.discovery.copy %}
-<section class="discovery-section discovery-delivery" aria-label="{{ copy.delivery_heading }}">
+{% assign delivery_title_keys = "home.hero.benefitDurationTitle,home.hero.benefitExperienceTitle,home.hero.benefitGroupsTitle,home.hero.benefitDeliveryTitle,home.hero.benefitIncludedTitle,home.hero.benefitSafeTitle" | split: "," %}
+{% assign delivery_text_keys = "home.hero.benefitDurationText,home.hero.benefitExperienceText,home.hero.benefitGroupsText,home.hero.benefitDeliveryText,home.hero.benefitIncludedText,home.hero.benefitSafeText" | split: "," %}
+<section class="discovery-section discovery-delivery" aria-label="{{ copy.delivery_heading }}" data-i18n-aria-label="home.hero.benefitsLabel">
   <ul class="discovery-delivery__grid">
     {% for fact in site.data.explorer_copy.delivery_facts %}
     <li>
       <i class="fa {{ fact.icon }}" aria-hidden="true"></i>
       <span>
-        <strong>{{ fact.title }}</strong>
-        <small>{{ fact.text }}</small>
+        <strong data-i18n="{{ delivery_title_keys[forloop.index0] }}">{{ fact.title }}</strong>
+        {% if forloop.index0 == 4 %}
+        <small data-i18n-html="{{ delivery_text_keys[forloop.index0] }}">{{ fact.text }}</small>
+        {% else %}
+        <small data-i18n="{{ delivery_text_keys[forloop.index0] }}">{{ fact.text }}</small>
+        {% endif %}
       </span>
     </li>
     {% endfor %}

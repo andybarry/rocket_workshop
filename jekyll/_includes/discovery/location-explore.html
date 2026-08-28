@@ -18,13 +18,13 @@
     {% include discovery/location-explore-map.html %}
   </div>
   <div class="discovery-location-explore__content">
-    <h2 id="discovery-location-explore-heading" class="discovery-location-explore__heading">
-      {{ explore_heading }}
+    <h2 id="discovery-location-explore-heading" class="discovery-location-explore__heading"{% if location_explore.heading %} data-i18n="discovery.city.{{ entry.slug }}.exploreHeading"{% endif %}>
+      {% if location_explore.heading %}{{ explore_heading }}{% else %}<span data-i18n="discovery.ui.explorePrefix">Explore</span> {{ entry.name }}{% endif %}
     </h2>
     {% if location_explore.intro %}
-    <p class="discovery-location-explore__intro">{{ location_explore.intro }}</p>
+    <p class="discovery-location-explore__intro" data-i18n="discovery.city.{{ entry.slug }}.exploreIntro">{{ location_explore.intro }}</p>
     {% elsif location_explore.things_to_do %}
-    <p class="discovery-location-explore__intro">{{ copy.location_explore_intro }} {{ entry.name }}.</p>
+    <p class="discovery-location-explore__intro"><span data-i18n="discovery.ui.locationExploreIntro">{{ copy.location_explore_intro }}</span> {{ entry.name }}.</p>
     {% endif %}
 
     {% if location_explore.variant == "city_cards" %}
@@ -43,7 +43,7 @@
     </div>
     {% elsif location_explore.things_to_do %}
     <div class="discovery-location-explore__list-wrap">
-      <h3 class="discovery-location-explore__list-label">{{ copy.location_explore_list_label | default: "Things to do" }}</h3>
+      <h3 class="discovery-location-explore__list-label" data-i18n="discovery.ui.thingsToDo">{{ copy.location_explore_list_label | default: "Things to do" }}</h3>
       <ul class="discovery-location-explore__list">
         {% for item in location_explore.things_to_do %}
         <li>
@@ -55,7 +55,7 @@
     </div>
     {% endif %}
 
-    <p class="discovery-location-explore__disclaimer">{{ copy.location_explore_disclaimer }}</p>
+    <p class="discovery-location-explore__disclaimer" data-i18n="discovery.ui.locationExploreDisclaimer">{{ copy.location_explore_disclaimer }}</p>
   </div>
 </section>
 {% endif %}

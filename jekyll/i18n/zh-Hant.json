@@ -1,6 +1,5 @@
 {
   "_readme": "Traditional Chinese (Taiwan vocabulary). Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI, CAD, MIT, Wi-Fi) are intentionally left in the original. HTML tags inside values must be preserved exactly.",
-
   "nav": {
     "toggle": "開啟導覽",
     "menu": "選單",
@@ -18,9 +17,12 @@
     "about": "關於我們",
     "requestDemo": "預約導覽",
     "planWorkshop": "規劃工作坊",
-    "workshopAccess": "進入工作坊"
+    "workshopAccess": "進入工作坊",
+    "exploreLabel": "探索",
+    "changeLanguage": "切換語言",
+    "changeLanguageCurrent": "切換語言，目前語言 {name}",
+    "primary": "主導覽"
   },
-
   "common": {
     "letsChat": "聯絡我們",
     "contact": "聯絡我們",
@@ -33,7 +35,6 @@
     "no": "否",
     "planThisWorkshop": "規劃此工作坊"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "為全美各地團體舉辦的動手做工程工作坊",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "全美皆可舉辦",
       "benefitDeliveryText": "可在飯店、學校、校園或團體場地進行",
       "benefitIncludedTitle": "包含工程師與設備",
-      "benefitIncludedText": "由真正的工程師帶領，並提供材料、課程、場地布置與清理"
+      "benefitIncludedText": "由真正的工程師帶領，並提供材料、課程、場地布置與清理",
+      "benefitSafeTitle": "安全",
+      "benefitSafeText": "提供低電壓電子設備與安全裝備"
     },
     "explorer": {
       "exploreEyebrow": "探索工作坊",
@@ -126,7 +129,16 @@
       "notes": "補充說明",
       "submit": "送出工作坊申請",
       "hint": "送出申請不代表預訂已確認。",
-      "thanks": "謝謝。團隊成員將聯絡您說明後續步驟。"
+      "thanks": "謝謝。團隊成員將聯絡您說明後續步驟。",
+      "location": "地點",
+      "locationPlaceholder": "選擇地點",
+      "workshops": "工作坊",
+      "workshopAi": "AI",
+      "workshopRobotics": "機器人",
+      "workshopMechanical": "機械",
+      "workshopWebsite": "網頁",
+      "groupSize": "團體規模",
+      "timing": "日期"
     },
     "cardAi": {
       "title": "人工智慧",
@@ -211,7 +223,6 @@
       "真的很有趣。做完 CAD 設計後我一度很沒信心，這次讓我對自己的工程能力更有把握了！工作坊很棒，講師更棒；很有耐心、講得清楚，而且看得出他真心熱愛這份工作。:D"
     ]
   },
-
   "ai": {
     "title": "人工智慧工作坊",
     "heroNeuralNetwork": "人體神經網路",
@@ -243,7 +254,6 @@
       "q6": "「喜歡這種<strong>大家一起參與</strong>的活動，講師講解得<strong>簡單</strong><br><strong>卻很到位</strong>」<br><span class=\"quote-attribution\"><em>— 學員，Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "機器人無人機工作坊",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "「太讚了」<br><span class=\"quote-attribution\"><em>— 學員，Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "機械工程工作坊",
     "heroStart": "開始",
@@ -283,18 +292,15 @@
       "q6": "「很棒的工作坊，<strong>過程非常愉快</strong>，同時學到了在工程以及未來道路上<strong>對我的成功至關重要</strong>的技能。」 <em>— 學員，Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "網頁開發工作坊",
     "comingSoon": "工作坊詳情即將公布。"
   },
-
   "locations": {
     "heading": "服務城市",
     "note": "其他城市可依需求安排",
     "mapAlt": "地圖"
   },
-
   "instructors": {
     "heading": "講師",
     "mission": "使命：以動手實作的工程工作坊啟發每一位學習者",
@@ -303,19 +309,19 @@
     "requirements": "任職條件：團隊領導力 - 出色的表達與授課能力 - 扎實的工程實務作品集",
     "authorization": "須具備在美國以 1099 獨立承攬人身分工作的資格"
   },
-
   "feedback": {
     "heading": "學員回饋",
     "updated": "更新日期：2026 年 2 月 5 日",
-    "formLink": "回饋表單"
+    "formLink": "回饋表單",
+    "cumulativeHeading": "累計回饋",
+    "heading2026": "2026 回饋",
+    "updatedAugust": "更新日期：2026 年 8 月"
   },
-
   "contact": {
     "heading": "聯絡我們",
     "lede": "<b>有問題或想了解更多？歡迎隨時聯絡我們。</b>",
     "body": "我們的<strong>人工智慧</strong>、<strong>機器人</strong>與<strong>機械工程</strong>動手工作坊由第一線工程師親自帶領。只要三小時，參加者就能掌握點燃 STEM 熱情的關鍵技能與工具。<br><br>不需要任何基礎。<br><br> <strong>讓我們把這份熱情與知識帶給您的團隊——現在就聯絡我們吧！</strong>"
   },
-
   "about": {
     "heading": "關於我們",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "這些講座能激發創新思維，幫助參加者更了解最新的技術突破。"
     },
     "contactBlurb": "了解我們的工程工作坊與專題講座 <br> 立即預約一場線上導覽",
-    "letsChat": "聯絡我們"
+    "letsChat": "聯絡我們",
+    "chatHeading": "來和我們聊聊 Stage One Education 的工作坊、教育與工程",
+    "chatCopy": "請寄信至 workshops@stageoneeducation.com",
+    "chatButton": "與我們交流"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | 動手實作的工程工作坊",
@@ -420,6 +428,185 @@
     "about": {
       "title": "關於我們 | STAGE ONE EDUCATION",
       "description": "由第一線工程師帶領的 AI、機器人與機械工程動手工作坊，服務全美各地。"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "尋找您的",
+      "sectionHeadingAccent": "工作坊",
+      "sectionIntro": "依城市、參加者、工作坊或計畫探索",
+      "destinations": "目的地",
+      "destinationsSubtitle": "您的團體要去哪裡？",
+      "participants": "參加者",
+      "participantsSubtitle": "誰會參加？",
+      "workshops": "工作坊",
+      "workshopsSubtitle": "他們將體驗什麼？",
+      "program": "計畫",
+      "programSubtitle": "您在籌辦什麼？",
+      "other": "其他",
+      "backLabel": "尋找適合的工作坊",
+      "planHeading": "準備好把動手工程體驗加入行程了嗎？",
+      "planCopy": "請分享目的地、團體資訊與時間安排。Stage One 將協助規劃工作坊。",
+      "engineeringWorkshops": "工程工作坊",
+      "engineeringWorkshopsColon": "工程工作坊：",
+      "engineeringWorkshopsFor": "工程工作坊面向",
+      "workshopsOfferedIn": "工作坊開課城市",
+      "availableForTheseAges": "適合以下年齡",
+      "ages": "年齡",
+      "browseAllPrograms": "瀏覽全部計畫",
+      "browseAllAges": "瀏覽全部年齡與團體類型",
+      "programs": "計畫",
+      "thingsToDo": "可做的事",
+      "locationExploreIntro": "深受學生團體歡迎的教育、文化與標誌性體驗，到訪地為",
+      "locationExploreDisclaimer": "附近體驗僅供行程靈感參考，不包含在 Stage One 工作坊中。門票、交通、預約與檔期需另行安排。列出並不表示存在合作或背書關係。",
+      "explorePrefix": "探索",
+      "exploreMore": "探索更多",
+      "contactUs": "聯絡我們",
+      "madeWithLove": "用 <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> 為好奇的心靈打造",
+      "workshopCities": "工作坊城市",
+      "siteFooter": "網站頁尾",
+      "scrollQuotesLeft": "向左捲動學員回饋",
+      "scrollQuotesRight": "向右捲動學員回饋",
+      "viewMoreFeedback": "查看更多學員回饋",
+      "participantFeedback": "學員回饋",
+      "testimonialsHeading": "團體怎麼說",
+      "workshopDetailLabel": "探索完整工作坊",
+      "planModalLede": "請留下聯絡方式與關於團體的簡要說明。我們將追蹤並協助規劃工作坊。",
+      "formName": "姓名 <span aria-hidden=\"true\">*</span>",
+      "formEmail": "電子郵件 <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "關於您的團體，我們還應了解什麼？",
+      "formNotesPlaceholder": "請介紹團體、地點、出行季節，以及其他我們應了解的資訊。",
+      "formSend": "送出工作坊資訊",
+      "formNameError": "請輸入您的姓名。",
+      "formEmailError": "請輸入有效的電子郵件。"
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston 將美國歷史、頂尖學術機構、科學、機器人與科技出色地融合在一起。Stage One 創立於 Boston，帶來具有在地根基的工程體驗，自然銜接校園參訪、博物館停留與歷史觀光。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Boston 的行程協調工作坊。",
+        "testimonialsHeading": "Boston, MA 的團體怎麼說"
+      },
+      "washington-dc": {
+        "intro": "Washington, DC 的行程富含歷史、政府、博物館、國家機構、科學與航空。Stage One 工作坊為觀光密集的日程增添一段清新的動手體驗，尤其適合作為目標明確的室內或晚間教育計畫。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Washington, DC 的行程協調工作坊。",
+        "testimonialsHeading": "Washington, DC 的團體怎麼說"
+      },
+      "orlando": {
+        "intro": "Orlando 將主題娛樂與太空探索、模擬技術、頂尖機構、環境科學和佛羅里達戶外體驗連結起來。Stage One 為籌辦者在景點日之間或飯店晚間時段提供堅實的教育支點，在不必再增加複雜轉乘的前提下加入有意義的 STEM 計畫。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Orlando 的行程協調工作坊。",
+        "testimonialsHeading": "Orlando, FL 的團體怎麼說"
+      },
+      "atlanta": {
+        "intro": "Atlanta 的行程匯集民權歷史、頂尖機構、商業與現代科技。Stage One 加入主動的工程體驗，平衡校園參訪與觀光，並為籌辦者提供直接送到團體場地的完整教育計畫。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Atlanta 的行程協調工作坊。",
+        "testimonialsHeading": "Atlanta, GA 的團體怎麼說"
+      },
+      "houston": {
+        "intro": "Houston 是全美最適合太空探索、航太、醫學、能源與大規模工程的目的地之一。Stage One 以完整的動手工作坊把這一主題延伸到博物館和景點之外，可安排在團體的飯店、校園或會議場地。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Houston 的行程協調工作坊。",
+        "testimonialsHeading": "Houston, TX 的團體怎麼說"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles 以少有目的地能匹敵的方式匯集航太、娛樂、數位媒體、設計與科技。Stage One 透過結合技術思維與創造力的工作坊連結這些產業，並自然搭配片場體驗、科學景點和頂尖機構參訪。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Los Angeles 的行程協調工作坊。",
+        "testimonialsHeading": "Los Angeles, CA 的團體怎麼說"
+      },
+      "san-francisco": {
+        "intro": "San Francisco 把科技、創業、科學與設計放在目的地的核心。Stage One 以直接送到團體場地的完整動手工作坊，補充以創新為重點的參訪、科學景點、頂尖機構與城市標誌性觀光。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 San Francisco 的行程協調工作坊。",
+        "testimonialsHeading": "San Francisco, CA 的團體怎麼說"
+      },
+      "new-haven": {
+        "intro": "New Haven 以頂尖學府、研究與智識探索塑造出獨特的學術氛圍。Stage One 工作坊在傳統校園參觀之外加入完整的工程體驗，強化行程在大學、職涯與 STEM 方面的重點。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 New Haven 的行程協調工作坊。",
+        "testimonialsHeading": "New Haven, CT 的團體怎麼說"
+      },
+      "ann-arbor": {
+        "intro": "Ann Arbor 的學術文化、工程社群和對研究的重視，使其成為 STEM 主題旅行的自然目的地。Stage One 工作坊在機構參訪之後或飯店空檔時段加入充實的動手環節，講師、設備與材料均已包含。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Ann Arbor 的行程協調工作坊。",
+        "testimonialsHeading": "Ann Arbor, MI 的團體怎麼說"
+      },
+      "berkeley": {
+        "intro": "Berkeley 以大膽想法、學術探索以及與灣區創新經濟的連結而聞名。Stage One 工作坊以動手工程體驗延續這一主題，自然銜接機構參訪，或作為引人投入的下午、晚間計畫。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Berkeley 的行程協調工作坊。",
+        "testimonialsHeading": "Berkeley, CA 的團體怎麼說"
+      },
+      "denver": {
+        "intro": "Denver 融合航太、科學、戶外探索與落磯山脈的壯麗景致。Stage One 工作坊在戶外行程、景點或機構參觀前後提供紮實的室內學術環節，也為籌辦者準備了不依賴天氣的可靠活動。",
+        "ctaHeading": "準備好把動手工程體驗加入行程了嗎？",
+        "ctaCopy": "請分享日期、團體規模與場地。Stage One 將圍繞您在 Denver 的行程協調工作坊。",
+        "testimonialsHeading": "Denver, CO 的團體怎麼說"
+      },
+      "other-us-cities": {
+        "intro": "Stage One 工作坊並不限於我們目前的目的地。我們與團體合作，在美國各地城市提供完整的動手工程計畫，讓籌辦者能彈性地在團體所到之處加入有意義的 STEM 課程。",
+        "ctaHeading": "告訴我們您的團體要去哪裡",
+        "ctaCopy": "請分享目的地、日期與團體規模。Stage One 將協助確定此次行程的工作坊交付方案。",
+        "testimonialsHeading": "團體怎麼說",
+        "exploreHeading": "把 Stage One 帶到您的目的地",
+        "exploreIntro": "正在另一座美國城市規劃學生計畫？請分享目的地、日期與團體規模，我們的團隊將協助您了解可用的工作坊方案。"
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "國中",
+        "intro": "國中學生從第一分鐘起就做真正的工程。結構化指導、清楚講解和規律的動手節點讓每位學生都積極參與：無需任何經驗。"
+      },
+      "high-school": {
+        "label": "高中",
+        "intro": "高中團體透過團隊挑戰、技術討論、設計決策和動手解決問題來探索實用工程。講師會依團體經驗調整深度。"
+      },
+      "college": {
+        "label": "大專院校",
+        "intro": "大專院校團體節奏更快，更強調應用工程、協作與技術決策。工作坊可補充學術旅行、校園計畫和團體活動。"
+      },
+      "adult-professional": {
+        "label": "成人或專業人士",
+        "intro": "成人與專業團體參與為積極投入而設計的實用協作工程體驗：是傳統團建和職業計畫之外清新的選擇。"
+      },
+      "international-students": {
+        "label": "國際學生",
+        "intro": "Stage One 與帶領國際學生赴美的旅遊業者、學校和領隊密切合作。工作坊為團體的美國行程增添真實的美國工程體驗。"
+      },
+      "other-groups": {
+        "label": "其他",
+        "intro": "混合年齡、家庭、社區組織、營地、童軍，或完全不同的組合：Stage One 講師會調整節奏、團隊結構和指導，讓不同經驗程度的參加者都能為同一項動手挑戰作出貢獻。"
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "學校團體",
+        "intro": "把完整的工程體驗帶給您的學生——在學校，或在團體所到之處。Stage One 提供講師、設備、材料與課程，並負責布置與清理。"
+      },
+      "educational-tours": {
+        "label": "教育旅行",
+        "intro": "Stage One 與全美教育旅行公司合作。工作坊是即開即用的計畫模組：我們按您行程所需的時間，把完整體驗送到團體的飯店或場地。"
+      },
+      "international-groups": {
+        "label": "國際學生團體",
+        "intro": "對於在美國旅行的國際團體，Stage One 在不增加行程複雜度的前提下加入獨特的美國 STEM 體驗。我們把講師、設備、材料與完整工作坊直接送到飯店、學校、校園或會議室，便於安排在觀光、機構參訪、景點日和轉乘之間。"
+      },
+      "academic-programs": {
+        "label": "學術計畫",
+        "intro": "學術與充實計畫把 Stage One 工作坊用作現成的工程體驗，包含講師、設備、材料與課程。"
+      },
+      "college-groups": {
+        "label": "大學團體",
+        "intro": "學生組織、迎新計畫、榮譽班和校園活動把 Stage One 工作坊用作充實且投入度高的團體體驗，可直接在校園或團體場地進行。"
+      },
+      "professional-groups": {
+        "label": "成人 / 專業團體",
+        "intro": "為您的團隊或成人團體帶來真正不同的共同體驗：由職業工程師帶領的三小時協作動手工程，可在辦公室、會議場地或飯店進行。"
+      }
     }
   }
 }

@@ -1,6 +1,5 @@
 {
   "_readme": "Source of truth for every translatable string on the nine public marketing pages. The site never fetches this file at runtime: English is whatever the HTML already contains, and switching back to English restores the original markup. This file exists so the translated dictionaries have one authoritative English reference to work from. Keys ending in a value that contains HTML tags are applied with innerHTML, so the tags must be preserved in every translation.",
-
   "nav": {
     "toggle": "Toggle navigation",
     "menu": "Menu",
@@ -18,9 +17,12 @@
     "about": "About",
     "requestDemo": "Request a demo",
     "planWorkshop": "Plan A Workshop",
-    "workshopAccess": "Workshop Access"
+    "workshopAccess": "Workshop Access",
+    "exploreLabel": "Explore",
+    "changeLanguage": "Change language",
+    "changeLanguageCurrent": "Change language, current language {name}",
+    "primary": "Primary navigation"
   },
-
   "common": {
     "letsChat": "Let's chat",
     "contact": "Contact",
@@ -33,7 +35,6 @@
     "no": "No",
     "planThisWorkshop": "PLAN THIS WORKSHOP"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "Hands-on engineering workshops delivered across the USA",
@@ -222,7 +223,6 @@
       "This was really fun, and with how low my confidence levels were after CAD programming, this made me a lot more confident in my engineering capabilities! Awesome workshop, even better instructor; very patient, explains well, and loves what he does. :D"
     ]
   },
-
   "ai": {
     "title": "Artificial Intelligence Workshop",
     "heroNeuralNetwork": "Human Neural Network",
@@ -254,7 +254,6 @@
       "q6": "“Liked the <strong>social activity</strong> and instructors <strong>simpleness</strong><br><strong>yet effective</strong> in explaining information”<br><span class=\"quote-attribution\"><em>— Student, Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "Robotics Drone Workshop",
     "overview": {
@@ -273,7 +272,6 @@
       "q6": "“Yeehaw-tastic”<br><span class=\"quote-attribution\"><em>— Student, Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "Mechanical Engineering Workshop",
     "heroStart": "Start",
@@ -294,18 +292,15 @@
       "q6": "“Great workshop, <strong>I had an awesome time</strong> while learning valuable skills that will be <strong>essential for my success</strong> later in engineering and beyond.” <em>— Student, Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "Web Development Workshop",
     "comingSoon": "Workshop details coming soon."
   },
-
   "locations": {
     "heading": "Locations",
     "note": "Other locations available upon request",
     "mapAlt": "Map"
   },
-
   "instructors": {
     "heading": "Instructors",
     "mission": "Mission: Inspiring learners through hands-on engineering workshops",
@@ -314,19 +309,19 @@
     "requirements": "Requirements: Team Leadership - Excellent Presentation Skills - Strong Portfolio of Engineering Experience",
     "authorization": "Authorized to work in the U.S. as a 1099 independent contractor"
   },
-
   "feedback": {
     "heading": "Feedback",
     "updated": "updated: 2/5/2026",
-    "formLink": "Feedback Form"
+    "formLink": "Feedback Form",
+    "cumulativeHeading": "Cumulative Feedback",
+    "heading2026": "2026 Feedback",
+    "updatedAugust": "updated: August 2026"
   },
-
   "contact": {
     "heading": "Contact Us",
     "lede": "<b>Have a question or want to learn more? Contact us.</b>",
     "body": "Our hands-on workshops in <strong>Artificial Intelligence</strong>, <strong>Robotics</strong>, and <strong>Mechanical Engineering</strong> are led by real engineers. In just three hours, participants gain essential skills and tools that ignite their passion for STEM.<br><br>No prior experience needed. <br><br> <strong>Let us bring the excitement and education to your group—reach out now to get started!</strong>"
   },
-
   "about": {
     "heading": "About Us",
     "intro": {
@@ -388,9 +383,11 @@
       "body": "These sessions will spark innovation and expand your participants' understanding of the latest technological breakthroughs."
     },
     "contactBlurb": "Explore our engineering workshops and presentation events <br> schedule a virtual workshop demo today",
-    "letsChat": "Let's Chat"
+    "letsChat": "Let's Chat",
+    "chatHeading": "Chat with us about workshops, education and engineering at Stage One Education",
+    "chatCopy": "Reach us at workshops@stageoneeducation.com",
+    "chatButton": "Chat with us"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | Hands-on Engineering Workshops",
@@ -431,6 +428,185 @@
     "about": {
       "title": "About | STAGE ONE EDUCATION",
       "description": "Hands-on engineering workshops nationwide, featuring AI, robotics, and mechanical engineering led by real engineers. Learn more and spark innovation!"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "Find Your",
+      "sectionHeadingAccent": "Workshop",
+      "sectionIntro": "Explore by city, participants, workshop, or program",
+      "destinations": "Destinations",
+      "destinationsSubtitle": "Where is your group headed?",
+      "participants": "Participants",
+      "participantsSubtitle": "Who will take part?",
+      "workshops": "Workshops",
+      "workshopsSubtitle": "What will they experience?",
+      "program": "Program",
+      "programSubtitle": "What are you planning?",
+      "other": "Other",
+      "backLabel": "Find Your Workshop",
+      "planHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+      "planCopy": "Share your destination, group details, and schedule. Stage One will help plan the workshop.",
+      "engineeringWorkshops": "Engineering Workshops",
+      "engineeringWorkshopsColon": "Engineering Workshops:",
+      "engineeringWorkshopsFor": "Engineering Workshops for",
+      "workshopsOfferedIn": "Workshops Offered in",
+      "availableForTheseAges": "Available for These Ages",
+      "ages": "Ages",
+      "browseAllPrograms": "Browse all programs",
+      "browseAllAges": "Browse all ages and group types",
+      "programs": "Programs",
+      "thingsToDo": "Things to do",
+      "locationExploreIntro": "Popular educational, cultural, and iconic experiences for student groups visiting",
+      "locationExploreDisclaimer": "Nearby experiences are shown for itinerary inspiration only and are not included with Stage One workshops. Admission, transportation, reservations, and availability must be arranged separately. Inclusion does not imply affiliation or endorsement.",
+      "explorePrefix": "Explore",
+      "exploreMore": "Explore More",
+      "contactUs": "Contact Us",
+      "madeWithLove": "Made with <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> for curious minds",
+      "workshopCities": "Workshop cities",
+      "siteFooter": "Site footer",
+      "scrollQuotesLeft": "Scroll quotes left",
+      "scrollQuotesRight": "Scroll quotes right",
+      "viewMoreFeedback": "View more participant feedback",
+      "participantFeedback": "Participant Feedback",
+      "testimonialsHeading": "What Groups Say",
+      "workshopDetailLabel": "Explore the full workshop",
+      "planModalLede": "Share your contact details and a few notes about your group. We’ll follow up to plan the workshop.",
+      "formName": "Name <span aria-hidden=\"true\">*</span>",
+      "formEmail": "Email <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "What should we know about your group?",
+      "formNotesPlaceholder": "Tell us about your group, location, time of year, and anything else we should know.",
+      "formSend": "Send Workshop Details",
+      "formNameError": "Enter your name.",
+      "formEmailError": "Enter a valid email."
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston offers an exceptional combination of American history, leading academic institutions, science, robotics, and technology. Founded in Boston, Stage One adds a locally connected engineering experience that fits naturally between campus visits, museum stops, and historic sightseeing.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Boston program.",
+        "testimonialsHeading": "What Groups in Boston, MA Say"
+      },
+      "washington-dc": {
+        "intro": "Washington, DC itineraries are rich in history, government, museums, national institutions, science, and aviation. A Stage One workshop adds a refreshing hands-on block to sightseeing-heavy schedules and works especially well as an engaging indoor or evening program with a clear educational purpose.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Washington, DC program.",
+        "testimonialsHeading": "What Groups in Washington, DC Say"
+      },
+      "orlando": {
+        "intro": "Orlando connects themed entertainment with space exploration, simulation technology, leading institutions, environmental science, and outdoor Florida experiences. Stage One gives planners a strong educational anchor between attraction days or during an evening hotel block, adding meaningful STEM programming without another complicated transfer.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Orlando program.",
+        "testimonialsHeading": "What Groups in Orlando, FL Say"
+      },
+      "atlanta": {
+        "intro": "Atlanta itineraries bring together civil rights history, leading institutions, business, and modern technology. Stage One adds an active engineering experience that balances campus visits and sightseeing while giving planners a complete educational program delivered directly to the group’s venue.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Atlanta program.",
+        "testimonialsHeading": "What Groups in Atlanta, GA Say"
+      },
+      "houston": {
+        "intro": "Houston is one of the country’s strongest destinations for space exploration, aerospace, medicine, energy, and large-scale engineering. Stage One carries that theme beyond museums and attractions with a complete hands-on workshop that can be scheduled at the group’s hotel, campus, or meeting venue.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Houston program.",
+        "testimonialsHeading": "What Groups in Houston, TX Say"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles brings together aerospace, entertainment, digital media, design, and technology in a way few destinations can match. Stage One connects those industries through a workshop that combines technical thinking with creativity and pairs naturally with studio experiences, science attractions, and visits to leading institutions.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Los Angeles program.",
+        "testimonialsHeading": "What Groups in Los Angeles, CA Say"
+      },
+      "san-francisco": {
+        "intro": "San Francisco places technology, entrepreneurship, science, and design at the center of the destination. Stage One complements innovation-focused visits, science attractions, leading institutions, and iconic city touring with a complete hands-on workshop delivered directly to the group’s venue.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your San Francisco program.",
+        "testimonialsHeading": "What Groups in San Francisco, CA Say"
+      },
+      "new-haven": {
+        "intro": "New Haven offers a distinctive academic setting shaped by prestigious institutions, research, and intellectual discovery. A Stage One workshop takes the itinerary beyond a traditional campus tour by adding a complete engineering experience that strengthens the trip’s college, career, and STEM focus.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your New Haven program.",
+        "testimonialsHeading": "What Groups in New Haven, CT Say"
+      },
+      "ann-arbor": {
+        "intro": "Ann Arbor’s academic culture, engineering community, and focus on research make it a natural destination for STEM-oriented travel. A Stage One workshop adds a substantial hands-on component after an institutional visit or during an open hotel block, with instructors, equipment, and materials included.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Ann Arbor program.",
+        "testimonialsHeading": "What Groups in Ann Arbor, MI Say"
+      },
+      "berkeley": {
+        "intro": "Berkeley is known for bold ideas, academic discovery, and its connection to the wider Bay Area innovation economy. A Stage One workshop extends that theme through a hands-on engineering experience that fits naturally after an institutional visit or as an engaging afternoon or evening program.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Berkeley program.",
+        "testimonialsHeading": "What Groups in Berkeley, CA Say"
+      },
+      "denver": {
+        "intro": "Denver combines aerospace, science, outdoor exploration, and the dramatic setting of the Rocky Mountain region. A Stage One workshop provides a strong indoor academic component before or after an outdoor excursion, attraction visit, or institutional tour, while also giving planners a dependable weather-independent activity.",
+        "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
+        "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Denver program.",
+        "testimonialsHeading": "What Groups in Denver, CO Say"
+      },
+      "other-us-cities": {
+        "intro": "Stage One workshops are not limited to our current destinations. We work with groups to deliver complete hands-on engineering programs in cities across the United States, giving planners a flexible way to add meaningful STEM programming wherever their groups are traveling.",
+        "ctaHeading": "Tell Us Where Your Group Is Headed",
+        "ctaCopy": "Share your destination, dates, and group size. Stage One will help determine workshop delivery options for your trip.",
+        "testimonialsHeading": "What Groups Say",
+        "exploreHeading": "Bringing Stage One to Your Destination",
+        "exploreIntro": "Planning a student program in another U.S. city? Share your destination, dates, and group size, and our team will help you explore available workshop options."
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "Middle School",
+        "intro": "Middle school students do real engineering from the first minute. Structured guidance, clear explanations, and regular hands-on milestones keep every student actively involved — no previous experience required."
+      },
+      "high-school": {
+        "label": "High School",
+        "intro": "High school groups explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the depth to the group’s experience."
+      },
+      "college": {
+        "label": "College and University",
+        "intro": "College and university groups move at a faster pace with greater emphasis on applied engineering, collaboration, and technical decision-making. The workshop complements academic travel, campus programs, and group events."
+      },
+      "adult-professional": {
+        "label": "Adult / Professional",
+        "intro": "Adult and professional groups take part in a practical, collaborative engineering experience designed for active participation — a refreshing alternative to conventional team events and professional programs."
+      },
+      "international-students": {
+        "label": "International Students",
+        "intro": "Stage One works closely with tour providers, schools, and group leaders bringing international students to the United States. The workshop adds a genuine American engineering experience to the group’s U.S. itinerary."
+      },
+      "other-groups": {
+        "label": "Other",
+        "intro": "Mixed ages, families, community organizations, camps, scouts, or something entirely different — Stage One instructors adjust pacing, team structure, and guidance so participants with different experience levels can contribute to the same hands-on challenge."
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "School Group",
+        "intro": "Bring a complete engineering experience to your students — at your school or wherever your group travels. Stage One delivers the instructor, equipment, materials, and curriculum, and handles setup and cleanup."
+      },
+      "educational-tours": {
+        "label": "Educational Tour",
+        "intro": "Stage One partners with educational tour companies across the United States. The workshop is a turn-key program block: we deliver the complete experience to the group’s hotel or venue, on the schedule your itinerary needs."
+      },
+      "international-groups": {
+        "label": "International Student Group",
+        "intro": "For international groups traveling through the United States, Stage One adds a distinctive American STEM experience without complicating the itinerary. We bring the instructors, equipment, materials, and complete workshop directly to the group’s hotel, school, campus, or meeting venue, making it easy to schedule around sightseeing, institutional visits, attraction days, and travel."
+      },
+      "academic-programs": {
+        "label": "Academic Program",
+        "intro": "Academic and enrichment programs use Stage One workshops as ready-made engineering experiences — complete with instructor, equipment, materials, and curriculum."
+      },
+      "college-groups": {
+        "label": "College Group",
+        "intro": "Student organizations, orientation programs, honors cohorts, and campus events use Stage One workshops as engaging, substantive group experiences delivered right on campus or at the group’s venue."
+      },
+      "professional-groups": {
+        "label": "Adult / Professional Group",
+        "intro": "Give your team or adult group a genuinely different shared experience: three hours of collaborative, hands-on engineering led by a professional engineer, delivered to your office, conference venue, or hotel."
+      }
     }
   }
 }

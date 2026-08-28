@@ -1,6 +1,5 @@
 {
   "_readme": "Simplified Chinese. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI, CAD, MIT, Wi-Fi) are intentionally left in the original. HTML tags inside values must be preserved exactly.",
-
   "nav": {
     "toggle": "打开导航",
     "menu": "菜单",
@@ -18,9 +17,12 @@
     "about": "关于我们",
     "requestDemo": "预约演示",
     "planWorkshop": "规划工作坊",
-    "workshopAccess": "进入工作坊"
+    "workshopAccess": "进入工作坊",
+    "exploreLabel": "探索",
+    "changeLanguage": "切换语言",
+    "changeLanguageCurrent": "切换语言，当前语言 {name}",
+    "primary": "主导航"
   },
-
   "common": {
     "letsChat": "联系我们",
     "contact": "联系我们",
@@ -33,7 +35,6 @@
     "no": "否",
     "planThisWorkshop": "规划此工作坊"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "面向全美各地团体的动手工程工作坊",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "覆盖全美",
       "benefitDeliveryText": "可在酒店、学校、校园或团体场地开展",
       "benefitIncludedTitle": "包含工程师和设备",
-      "benefitIncludedText": "由真正的工程师带领，并提供材料、课程、场地布置和清理"
+      "benefitIncludedText": "由真正的工程师带领，并提供材料、课程、场地布置和清理",
+      "benefitSafeTitle": "安全",
+      "benefitSafeText": "提供低电压电子设备和安全装备"
     },
     "explorer": {
       "exploreEyebrow": "探索工作坊",
@@ -126,7 +129,16 @@
       "notes": "补充说明",
       "submit": "提交工作坊申请",
       "hint": "提交申请不代表预订已确认。",
-      "thanks": "谢谢。团队成员将联系您说明后续步骤。"
+      "thanks": "谢谢。团队成员将联系您说明后续步骤。",
+      "location": "地点",
+      "locationPlaceholder": "选择地点",
+      "workshops": "工作坊",
+      "workshopAi": "AI",
+      "workshopRobotics": "机器人",
+      "workshopMechanical": "机械",
+      "workshopWebsite": "网页",
+      "groupSize": "团体规模",
+      "timing": "日期"
     },
     "cardAi": {
       "title": "人工智能",
@@ -211,7 +223,6 @@
       "真的很有意思。做完 CAD 编程后我一度很没信心，这次让我对自己的工程能力有了更多底气！工作坊很棒，讲师更棒；很有耐心，讲得清楚，而且看得出他真心热爱这份工作。:D"
     ]
   },
-
   "ai": {
     "title": "人工智能工作坊",
     "heroNeuralNetwork": "人体神经网络",
@@ -243,7 +254,6 @@
       "q6": "“喜欢这种<strong>大家一起参与</strong>的活动，讲师讲解得<strong>简单</strong><br><strong>却很到位</strong>”<br><span class=\"quote-attribution\"><em>— 学员，Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "机器人无人机工作坊",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "“太棒了”<br><span class=\"quote-attribution\"><em>— 学员，Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "机械工程工作坊",
     "heroStart": "开始",
@@ -283,18 +292,15 @@
       "q6": "“很棒的工作坊，<strong>过程非常愉快</strong>，同时学到了在工程以及未来道路上<strong>对我的成功至关重要</strong>的技能。” <em>— 学员，Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "网页开发工作坊",
     "comingSoon": "工作坊详情即将公布。"
   },
-
   "locations": {
     "heading": "服务城市",
     "note": "其他城市可应要求安排",
     "mapAlt": "地图"
   },
-
   "instructors": {
     "heading": "讲师",
     "mission": "使命：以亲手实践的工程工作坊启发每一位学习者",
@@ -303,19 +309,19 @@
     "requirements": "任职要求：团队领导力 - 出色的表达与授课能力 - 扎实的工程实践作品集",
     "authorization": "须具备在美国以 1099 独立承包人身份工作的资格"
   },
-
   "feedback": {
     "heading": "学员评价",
     "updated": "更新时间：2026 年 2 月 5 日",
-    "formLink": "反馈表单"
+    "formLink": "反馈表单",
+    "cumulativeHeading": "累计反馈",
+    "heading2026": "2026 反馈",
+    "updatedAugust": "更新时间：2026 年 8 月"
   },
-
   "contact": {
     "heading": "联系我们",
     "lede": "<b>有问题或想了解更多？欢迎随时联系我们。</b>",
     "body": "我们的<strong>人工智能</strong>、<strong>机器人</strong>和<strong>机械工程</strong>动手工作坊由一线工程师亲自带领。仅需三小时，参加者就能掌握点燃 STEM 兴趣的核心技能与工具。<br><br>无需任何基础。<br><br> <strong>让我们把这份热情与知识带给您的团队——现在就联系我们吧！</strong>"
   },
-
   "about": {
     "heading": "关于我们",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "这些讲座能激发创新思维，帮助参加者更好地理解最新的技术突破。"
     },
     "contactBlurb": "了解我们的工程工作坊与专题讲座 <br> 立即预约一场线上演示",
-    "letsChat": "联系我们"
+    "letsChat": "联系我们",
+    "chatHeading": "来和我们聊聊 Stage One Education 的工作坊、教育与工程",
+    "chatCopy": "请发邮件至 workshops@stageoneeducation.com",
+    "chatButton": "与我们交流"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | 亲手实践的工程工作坊",
@@ -420,6 +428,185 @@
     "about": {
       "title": "关于我们 | STAGE ONE EDUCATION",
       "description": "由一线工程师带领的 AI、机器人与机械工程动手工作坊，服务全美各地。"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "寻找您的",
+      "sectionHeadingAccent": "工作坊",
+      "sectionIntro": "按城市、参加者、工作坊或项目探索",
+      "destinations": "目的地",
+      "destinationsSubtitle": "您的团体要去哪里？",
+      "participants": "参加者",
+      "participantsSubtitle": "谁会参加？",
+      "workshops": "工作坊",
+      "workshopsSubtitle": "他们将体验什么？",
+      "program": "项目",
+      "programSubtitle": "您在组织什么？",
+      "other": "其他",
+      "backLabel": "寻找适合的工作坊",
+      "planHeading": "准备好把动手工程体验加入行程了吗？",
+      "planCopy": "请分享目的地、团体信息和时间安排。Stage One 将协助规划工作坊。",
+      "engineeringWorkshops": "工程工作坊",
+      "engineeringWorkshopsColon": "工程工作坊：",
+      "engineeringWorkshopsFor": "工程工作坊面向",
+      "workshopsOfferedIn": "工作坊开课城市",
+      "availableForTheseAges": "适合以下年龄",
+      "ages": "年龄",
+      "browseAllPrograms": "浏览全部项目",
+      "browseAllAges": "浏览全部年龄与团体类型",
+      "programs": "项目",
+      "thingsToDo": "可做的事",
+      "locationExploreIntro": "深受学生团体欢迎的教育、文化与标志性体验，到访地为",
+      "locationExploreDisclaimer": "附近体验仅供行程灵感参考，不包含在 Stage One 工作坊中。门票、交通、预约和档期需另行安排。列出并不表示存在合作或背书关系。",
+      "explorePrefix": "探索",
+      "exploreMore": "探索更多",
+      "contactUs": "联系我们",
+      "madeWithLove": "用 <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> 为好奇的心灵打造",
+      "workshopCities": "工作坊城市",
+      "siteFooter": "网站页脚",
+      "scrollQuotesLeft": "向左滚动学员评价",
+      "scrollQuotesRight": "向右滚动学员评价",
+      "viewMoreFeedback": "查看更多学员评价",
+      "participantFeedback": "学员评价",
+      "testimonialsHeading": "团体怎么说",
+      "workshopDetailLabel": "探索完整工作坊",
+      "planModalLede": "请留下联系方式和关于团体的简要说明。我们将跟进并协助规划工作坊。",
+      "formName": "姓名 <span aria-hidden=\"true\">*</span>",
+      "formEmail": "电子邮箱 <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "关于您的团体，我们还应了解什么？",
+      "formNotesPlaceholder": "请介绍团体、地点、出行季节，以及其他我们应了解的信息。",
+      "formSend": "发送工作坊信息",
+      "formNameError": "请输入您的姓名。",
+      "formEmailError": "请输入有效的电子邮箱。"
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston 将美国历史、顶尖学术机构、科学、机器人与技术出色地融合在一起。Stage One 创立于 Boston，带来具有本地根基的工程体验，自然衔接校园参访、博物馆停留与历史观光。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Boston 的行程协调工作坊。",
+        "testimonialsHeading": "Boston, MA 的团体怎么说"
+      },
+      "washington-dc": {
+        "intro": "Washington, DC 的行程富含历史、政府、博物馆、国家机构、科学与航空。Stage One 工作坊为观光密集的日程增添一段清新的动手体验，尤其适合作为目标明确的室内或晚间教育项目。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Washington, DC 的行程协调工作坊。",
+        "testimonialsHeading": "Washington, DC 的团体怎么说"
+      },
+      "orlando": {
+        "intro": "Orlando 将主题娱乐与太空探索、仿真技术、顶尖机构、环境科学和佛罗里达户外体验连接起来。Stage One 为组织者在景点日之间或酒店晚间时段提供坚实的教育支点，在不必再增加复杂转乘的前提下加入有意义的 STEM 项目。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Orlando 的行程协调工作坊。",
+        "testimonialsHeading": "Orlando, FL 的团体怎么说"
+      },
+      "atlanta": {
+        "intro": "Atlanta 的行程汇集民权历史、顶尖机构、商业与现代科技。Stage One 加入主动的工程体验，平衡校园参访与观光，并为组织者提供直接送到团体场地的完整教育项目。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Atlanta 的行程协调工作坊。",
+        "testimonialsHeading": "Atlanta, GA 的团体怎么说"
+      },
+      "houston": {
+        "intro": "Houston 是全美最适合太空探索、航空航天、医学、能源和大规模工程的目的地之一。Stage One 以完整的动手工作坊把这一主题延伸到博物馆和景点之外，可安排在团体的酒店、校园或会议场地。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Houston 的行程协调工作坊。",
+        "testimonialsHeading": "Houston, TX 的团体怎么说"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles 以少有目的地能匹敌的方式汇集航空航天、娱乐、数字媒体、设计与科技。Stage One 通过结合技术思维与创造力的工作坊连接这些产业，并自然搭配片场体验、科学景点和顶尖机构参访。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Los Angeles 的行程协调工作坊。",
+        "testimonialsHeading": "Los Angeles, CA 的团体怎么说"
+      },
+      "san-francisco": {
+        "intro": "San Francisco 把科技、创业、科学与设计放在目的地的核心。Stage One 以直接送到团体场地的完整动手工作坊，补充以创新为重点的参访、科学景点、顶尖机构与城市标志性观光。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 San Francisco 的行程协调工作坊。",
+        "testimonialsHeading": "San Francisco, CA 的团体怎么说"
+      },
+      "new-haven": {
+        "intro": "New Haven 以顶尖学府、研究与智识探索塑造出独特的学术氛围。Stage One 工作坊在传统校园参观之外加入完整的工程体验，强化行程在大学、职业与 STEM 方面的重点。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 New Haven 的行程协调工作坊。",
+        "testimonialsHeading": "New Haven, CT 的团体怎么说"
+      },
+      "ann-arbor": {
+        "intro": "Ann Arbor 的学术文化、工程社群和对研究的重视，使其成为 STEM 主题旅行的自然目的地。Stage One 工作坊在机构参访之后或酒店空档时段加入充实的动手环节，讲师、设备与材料均已包含。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Ann Arbor 的行程协调工作坊。",
+        "testimonialsHeading": "Ann Arbor, MI 的团体怎么说"
+      },
+      "berkeley": {
+        "intro": "Berkeley 以大胆想法、学术探索以及与湾区创新经济的联系而闻名。Stage One 工作坊以动手工程体验延续这一主题，自然衔接机构参访，或作为引人投入的下午、晚间项目。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Berkeley 的行程协调工作坊。",
+        "testimonialsHeading": "Berkeley, CA 的团体怎么说"
+      },
+      "denver": {
+        "intro": "Denver 融合航空航天、科学、户外探索与落基山脉的壮丽景致。Stage One 工作坊在户外行程、景点或机构参观前后提供扎实的室内学术环节，也为组织者准备了不依赖天气的可靠活动。",
+        "ctaHeading": "准备好把动手工程体验加入行程了吗？",
+        "ctaCopy": "请分享日期、团体规模和场地。Stage One 将围绕您在 Denver 的行程协调工作坊。",
+        "testimonialsHeading": "Denver, CO 的团体怎么说"
+      },
+      "other-us-cities": {
+        "intro": "Stage One 工作坊并不限于我们目前的目的地。我们与团体合作，在美国各地城市提供完整的动手工程项目，让组织者能灵活地在团体所到之处加入有意义的 STEM 课程。",
+        "ctaHeading": "告诉我们您的团体要去哪里",
+        "ctaCopy": "请分享目的地、日期和团体规模。Stage One 将协助确定此次行程的工作坊交付方案。",
+        "testimonialsHeading": "团体怎么说",
+        "exploreHeading": "把 Stage One 带到您的目的地",
+        "exploreIntro": "正在另一座美国城市规划学生项目？请分享目的地、日期和团体规模，我们的团队将协助您了解可用的工作坊方案。"
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "初中",
+        "intro": "初中学生从第一分钟起就做真正的工程。结构化指导、清晰讲解和规律的动手节点让每位学生都积极参与：无需任何经验。"
+      },
+      "high-school": {
+        "label": "高中",
+        "intro": "高中团体通过团队挑战、技术讨论、设计决策和动手解决问题来探索实用工程。讲师会根据团体经验调整深度。"
+      },
+      "college": {
+        "label": "学院或大学",
+        "intro": "学院或大学团体节奏更快，更强调应用工程、协作与技术决策。工作坊可补充学术旅行、校园项目和团体活动。"
+      },
+      "adult-professional": {
+        "label": "成人或专业人士",
+        "intro": "成人与专业团体参与为积极投入而设计的实用协作工程体验：是传统团建和职业项目之外清新的选择。"
+      },
+      "international-students": {
+        "label": "国际学生",
+        "intro": "Stage One 与带领国际学生赴美的旅游运营商、学校和领队密切合作。工作坊为团体的美国行程增添真实的美国工程体验。"
+      },
+      "other-groups": {
+        "label": "其他",
+        "intro": "混合年龄、家庭、社区组织、营地、童军，或完全不同的组合：Stage One 讲师会调整节奏、团队结构和指导，让不同经验水平的参加者都能为同一项动手挑战作出贡献。"
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "学校团体",
+        "intro": "把完整的工程体验带给您的学生——在学校，或在团体所到之处。Stage One 提供讲师、设备、材料和课程，并负责布置与清理。"
+      },
+      "educational-tours": {
+        "label": "教育旅行",
+        "intro": "Stage One 与全美教育旅行公司合作。工作坊是即开即用的项目模块：我们按您行程所需的时间，把完整体验送到团体的酒店或场地。"
+      },
+      "international-groups": {
+        "label": "国际学生团体",
+        "intro": "对于在美国旅行的国际团体，Stage One 在不增加行程复杂度的前提下加入独特的美国 STEM 体验。我们把讲师、设备、材料和完整工作坊直接送到酒店、学校、校园或会议室，便于安排在观光、机构参访、景点日和转乘之间。"
+      },
+      "academic-programs": {
+        "label": "学术项目",
+        "intro": "学术与拓展项目把 Stage One 工作坊用作现成的工程体验，包含讲师、设备、材料和课程。"
+      },
+      "college-groups": {
+        "label": "大学团体",
+        "intro": "学生组织、迎新项目、荣誉班和校园活动把 Stage One 工作坊用作充实且投入度高的团体体验，可直接在校园或团体场地进行。"
+      },
+      "professional-groups": {
+        "label": "成人 / 专业团体",
+        "intro": "为您的团队或成人团体带来真正不同的共同体验：由职业工程师带领的三小时协作动手工程，可在办公室、会议场地或酒店进行。"
+      }
     }
   }
 }

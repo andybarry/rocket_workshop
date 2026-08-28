@@ -1,6 +1,5 @@
 {
   "_readme": "Korean. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI, CAD, MIT, Wi-Fi) are intentionally left in the original. HTML tags inside values must be preserved exactly.",
-
   "nav": {
     "toggle": "탐색 메뉴 열기",
     "menu": "메뉴",
@@ -18,9 +17,12 @@
     "about": "소개",
     "requestDemo": "데모 신청",
     "planWorkshop": "워크숍 계획하기",
-    "workshopAccess": "워크숍 이용"
+    "workshopAccess": "워크숍 이용",
+    "exploreLabel": "탐색",
+    "changeLanguage": "언어 변경",
+    "changeLanguageCurrent": "언어 변경, 현재 언어 {name}",
+    "primary": "주 탐색"
   },
-
   "common": {
     "letsChat": "상담 신청",
     "contact": "문의",
@@ -33,7 +35,6 @@
     "no": "아니요",
     "planThisWorkshop": "이 워크숍 계획하기"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "미국 전역에서 진행하는 체험형 엔지니어링 워크숍",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "미국 전역에서 진행",
       "benefitDeliveryText": "호텔, 학교, 캠퍼스 또는 단체 행사장에서 진행",
       "benefitIncludedTitle": "엔지니어와 장비 포함",
-      "benefitIncludedText": "현직 엔지니어가 진행하며 재료, 커리큘럼, 설치 및 정리를 모두 제공"
+      "benefitIncludedText": "현직 엔지니어가 진행하며 재료, 커리큘럼, 설치 및 정리를 모두 제공",
+      "benefitSafeTitle": "안전",
+      "benefitSafeText": "저전압 전자기기와 안전 장비 제공"
     },
     "explorer": {
       "exploreEyebrow": "워크숍 둘러보기",
@@ -126,7 +129,16 @@
       "notes": "추가 메모",
       "submit": "워크숍 요청 제출",
       "hint": "요청 제출은 예약 확정이 아닙니다.",
-      "thanks": "감사합니다. 담당자가 다음 단계를 안내합니다."
+      "thanks": "감사합니다. 담당자가 다음 단계를 안내합니다.",
+      "location": "장소",
+      "locationPlaceholder": "장소를 선택하세요",
+      "workshops": "워크숍",
+      "workshopAi": "AI",
+      "workshopRobotics": "로보틱스",
+      "workshopMechanical": "기계공학",
+      "workshopWebsite": "웹",
+      "groupSize": "그룹 규모",
+      "timing": "날짜"
     },
     "cardAi": {
       "title": "인공지능",
@@ -211,7 +223,6 @@
       "정말 재미있었어요. CAD 프로그래밍 후에 자신감이 많이 떨어져 있었는데, 덕분에 제 공학 실력에 훨씬 자신감이 생겼습니다! 훌륭한 워크숍이었고 강사님은 더 훌륭했어요. 인내심 있게 잘 설명해 주시고 본인 일을 정말 좋아하시는 게 느껴집니다. :D"
     ]
   },
-
   "ai": {
     "title": "인공지능 워크숍",
     "heroNeuralNetwork": "사람으로 만드는 신경망",
@@ -243,7 +254,6 @@
       "q6": "“<strong>함께하는 활동</strong>이 좋았고, 강사님들이 설명을 <strong>간단하면서도</strong><br><strong>효과적으로</strong> 해 주셨어요”<br><span class=\"quote-attribution\"><em>— 학생, Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "로보틱스 드론 워크숍",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "“최고예요”<br><span class=\"quote-attribution\"><em>— 학생, Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "기계공학 워크숍",
     "heroStart": "시작하기",
@@ -283,18 +292,15 @@
       "q6": "“훌륭한 워크숍이었어요. <strong>정말 즐거운 시간</strong>을 보내면서 앞으로 엔지니어링과 그 너머에서 <strong>제 성공에 꼭 필요할</strong> 기술을 배웠습니다.” <em>— 학생, Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "웹 개발 워크숍",
     "comingSoon": "워크숍 상세 내용은 곧 공개됩니다."
   },
-
   "locations": {
     "heading": "진행 지역",
     "note": "요청하시면 다른 지역에서도 진행할 수 있습니다",
     "mapAlt": "지도"
   },
-
   "instructors": {
     "heading": "강사진",
     "mission": "미션: 직접 해 보는 엔지니어링 워크숍으로 배움에 영감을 주는 것",
@@ -303,19 +309,19 @@
     "requirements": "지원 요건: 팀 리더십 - 뛰어난 강의 및 발표 역량 - 탄탄한 엔지니어링 실무 포트폴리오",
     "authorization": "미국에서 1099 독립 계약자로 근무할 수 있는 자격 보유"
   },
-
   "feedback": {
     "heading": "참가자 평가",
     "updated": "업데이트: 2026. 2. 5.",
-    "formLink": "피드백 양식"
+    "formLink": "피드백 양식",
+    "cumulativeHeading": "누적 피드백",
+    "heading2026": "2026 피드백",
+    "updatedAugust": "업데이트: 2026년 8월"
   },
-
   "contact": {
     "heading": "문의하기",
     "lede": "<b>궁금한 점이 있거나 더 알고 싶으신가요? 편하게 연락 주세요.</b>",
     "body": "<strong>인공지능</strong>, <strong>로보틱스</strong>, <strong>기계공학</strong> 체험 워크숍을 현직 엔지니어가 직접 진행합니다. 단 3시간 만에 참가자들은 STEM에 대한 관심에 불을 붙이는 핵심 기술과 도구를 익힙니다.<br><br>사전 경험은 필요하지 않습니다. <br><br> <strong>여러분의 단체에 이 즐거움과 배움을 전해 드리겠습니다. 지금 바로 연락 주세요!</strong>"
   },
-
   "about": {
     "heading": "소개",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "이 강연은 새로운 생각을 자극하고, 최신 기술 혁신에 대한 참가자들의 이해를 넓혀 줍니다."
     },
     "contactBlurb": "저희 엔지니어링 워크숍과 강연 프로그램을 살펴보시고 <br> 온라인 워크숍 데모를 지금 예약해 보세요",
-    "letsChat": "상담 신청"
+    "letsChat": "상담 신청",
+    "chatHeading": "Stage One Education의 워크숍, 교육, 엔지니어링에 대해 이야기해 보세요",
+    "chatCopy": "workshops@stageoneeducation.com 으로 연락해 주세요",
+    "chatButton": "상담하기"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | 직접 해 보는 엔지니어링 워크숍",
@@ -420,6 +428,185 @@
     "about": {
       "title": "소개 | STAGE ONE EDUCATION",
       "description": "현직 엔지니어가 진행하는 AI, 로보틱스, 기계공학 체험형 엔지니어링 워크숍을 미국 전역에서 만나 보세요."
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "나에게 맞는",
+      "sectionHeadingAccent": "워크숍",
+      "sectionIntro": "도시, 참가자, 워크숍 또는 프로그램별로 살펴보기",
+      "destinations": "목적지",
+      "destinationsSubtitle": "그룹은 어디로 가나요?",
+      "participants": "참가자",
+      "participantsSubtitle": "누가 참여하나요?",
+      "workshops": "워크숍",
+      "workshopsSubtitle": "무엇을 경험하게 되나요?",
+      "program": "프로그램",
+      "programSubtitle": "무엇을 준비하고 있나요?",
+      "other": "기타",
+      "backLabel": "워크숍 찾기",
+      "planHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+      "planCopy": "목적지, 그룹 정보, 일정을 알려 주세요. Stage One이 워크숍 계획을 도와 드립니다.",
+      "engineeringWorkshops": "엔지니어링 워크숍",
+      "engineeringWorkshopsColon": "엔지니어링 워크숍:",
+      "engineeringWorkshopsFor": "엔지니어링 워크숍 대상",
+      "workshopsOfferedIn": "워크숍 진행 도시",
+      "availableForTheseAges": "다음 연령에 제공",
+      "ages": "연령",
+      "browseAllPrograms": "모든 프로그램 보기",
+      "browseAllAges": "모든 연령 및 그룹 유형 보기",
+      "programs": "프로그램",
+      "thingsToDo": "할 일",
+      "locationExploreIntro": "학생 그룹에게 인기 있는 교육·문화·상징적 체험. 방문지:",
+      "locationExploreDisclaimer": "인근 체험은 일정 구상용으로만 안내되며 Stage One 워크숍에 포함되지 않습니다. 입장, 이동, 예약, 가능 여부는 별도로 준비해야 합니다. 안내는 제휴나 추천을 의미하지 않습니다.",
+      "explorePrefix": "탐색",
+      "exploreMore": "더 살펴보기",
+      "contactUs": "문의",
+      "madeWithLove": "호기심 많은 마음을 위해 <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> 을 담아 만들었습니다",
+      "workshopCities": "워크숍 도시",
+      "siteFooter": "사이트 바닥글",
+      "scrollQuotesLeft": "참가자 평가를 왼쪽으로 스크롤",
+      "scrollQuotesRight": "참가자 평가를 오른쪽으로 스크롤",
+      "viewMoreFeedback": "참가자 평가 더 보기",
+      "participantFeedback": "참가자 평가",
+      "testimonialsHeading": "그룹의 이야기",
+      "workshopDetailLabel": "전체 워크숍 살펴보기",
+      "planModalLede": "연락처와 그룹에 대한 간단한 메모를 남겨 주세요. 워크숍 계획을 위해 연락드리겠습니다.",
+      "formName": "이름 <span aria-hidden=\"true\">*</span>",
+      "formEmail": "이메일 <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "그룹에 대해 무엇을 알아야 할까요?",
+      "formNotesPlaceholder": "그룹, 장소, 시기, 그 밖에 알려 주실 내용을 적어 주세요.",
+      "formSend": "워크숍 정보 보내기",
+      "formNameError": "이름을 입력해 주세요.",
+      "formEmailError": "유효한 이메일을 입력해 주세요."
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston은 미국 역사, 최고 수준의 학술 기관, 과학, 로보틱스, 기술이 탁월하게 어우러진 도시입니다. Boston에서 시작된 Stage One은 캠퍼스 방문, 박물관 일정, 역사 관광 사이에 자연스럽게 어울리는 현지 연계 엔지니어링 경험을 더합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Boston 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Boston, MA 그룹의 이야기"
+      },
+      "washington-dc": {
+        "intro": "Washington, DC 일정은 역사, 정부, 박물관, 국가 기관, 과학, 항공으로 풍성합니다. Stage One 워크숍은 관광이 많은 일정에 상쾌한 체험 시간을 더하며, 교육 목적이 분명한 실내 또는 저녁 프로그램으로 특히 잘 맞습니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Washington, DC 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Washington, DC 그룹의 이야기"
+      },
+      "orlando": {
+        "intro": "Orlando는 테마 엔터테인먼트를 우주 탐사, 시뮬레이션 기술, 최고 수준 기관, 환경 과학, 플로리다 야외 체험과 연결합니다. Stage One은 명소 일정 사이나 호텔 저녁 시간에 탄탄한 교육 중심점을 제공하여, 복잡한 이동을 추가하지 않고도 의미 있는 STEM 프로그램을 더합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Orlando 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Orlando, FL 그룹의 이야기"
+      },
+      "atlanta": {
+        "intro": "Atlanta 일정은 시민권 역사, 최고 수준 기관, 비즈니스, 현대 기술을 한데 모읍니다. Stage One은 캠퍼스 방문과 관광의 균형을 맞추는 능동적 엔지니어링 경험을 더하고, 단체 장소로 바로 전달되는 완전한 교육 프로그램을 기획자에게 제공합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Atlanta 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Atlanta, GA 그룹의 이야기"
+      },
+      "houston": {
+        "intro": "Houston은 우주 탐사, 항공우주, 의학, 에너지, 대규모 엔지니어링에서 미국 최고의 목적지 중 하나입니다. Stage One은 박물관과 명소를 넘어 그 주제를 이어 가며, 호텔, 캠퍼스, 회의 장소에서 진행할 수 있는 완전한 체험형 워크숍을 제공합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Houston 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Houston, TX 그룹의 이야기"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles는 항공우주, 엔터테인먼트, 디지털 미디어, 디자인, 기술을 거의 따라올 수 없는 방식으로 모읍니다. Stage One은 기술적 사고와 창의성을 결합한 워크숍으로 이 산업들을 연결하며, 스튜디오 체험, 과학 명소, 최고 수준 기관 방문과 자연스럽게 짝을 이룹니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Los Angeles 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Los Angeles, CA 그룹의 이야기"
+      },
+      "san-francisco": {
+        "intro": "San Francisco는 기술, 기업가 정신, 과학, 디자인을 목적지의 중심에 둡니다. Stage One은 혁신 중심 방문, 과학 명소, 최고 수준 기관, 상징적인 도시 관광을 단체 장소로 바로 전달하는 완전한 체험형 워크숍으로 보완합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 San Francisco 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "San Francisco, CA 그룹의 이야기"
+      },
+      "new-haven": {
+        "intro": "New Haven은 명문 기관, 연구, 지적 탐구가 빚어낸 독특한 학술 환경을 제공합니다. Stage One 워크숍은 전통적인 캠퍼스 투어를 넘어 완전한 엔지니어링 경험을 더해, 대학·진로·STEM에 초점을 맞춘 여행을 강화합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 New Haven 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "New Haven, CT 그룹의 이야기"
+      },
+      "ann-arbor": {
+        "intro": "Ann Arbor의 학술 문화, 엔지니어링 커뮤니티, 연구 중심 분위기는 STEM 지향 여행에 자연스러운 목적지입니다. Stage One 워크숍은 기관 방문 후나 호텔의 빈 시간에 충실한 체험 요소를 더하며, 강사, 장비, 재료가 포함됩니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Ann Arbor 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Ann Arbor, MI 그룹의 이야기"
+      },
+      "berkeley": {
+        "intro": "Berkeley는 대담한 아이디어, 학술적 발견, 베이 에어리어 혁신 경제와의 연결로 알려져 있습니다. Stage One 워크숍은 체험형 엔지니어링으로 그 주제를 이어 가며, 기관 방문 후나 오후·저녁 프로그램으로 자연스럽게 자리합니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Berkeley 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Berkeley, CA 그룹의 이야기"
+      },
+      "denver": {
+        "intro": "Denver는 항공우주, 과학, 야외 탐험, 록키산맥의 드라마틱한 풍경을 결합합니다. Stage One 워크숍은 야외 일정, 명소 방문, 기관 투어 전후에 탄탄한 실내 학술 요소를 제공하고, 날씨에 좌우되지 않는 신뢰할 수 있는 활동이 됩니다.",
+        "ctaHeading": "체험형 엔지니어링을 일정에 더할 준비가 되셨나요?",
+        "ctaCopy": "날짜, 그룹 규모, 장소를 알려 주세요. Stage One이 Denver 프로그램에 맞춰 워크숍을 조율합니다.",
+        "testimonialsHeading": "Denver, CO 그룹의 이야기"
+      },
+      "other-us-cities": {
+        "intro": "Stage One 워크숍은 현재 목적지에만 한정되지 않습니다. 미국 전역 도시에서 완전한 체험형 엔지니어링 프로그램을 진행하며, 그룹이 여행하는 어디에서든 의미 있는 STEM 프로그램을 유연하게 더할 수 있게 합니다.",
+        "ctaHeading": "그룹이 어디로 가는지 알려 주세요",
+        "ctaCopy": "목적지, 날짜, 그룹 규모를 알려 주세요. Stage One이 여행에 맞는 워크숍 진행 방안을 함께 찾습니다.",
+        "testimonialsHeading": "그룹의 이야기",
+        "exploreHeading": "Stage One을 목적지로 가져갑니다",
+        "exploreIntro": "다른 미국 도시에서 학생 프로그램을 계획 중이신가요? 목적지, 날짜, 그룹 규모를 알려 주시면 팀이 이용 가능한 워크숍 옵션을 안내합니다."
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "중학생",
+        "intro": "중학생은 첫 분부터 진짜 엔지니어링을 합니다. 구조화된 안내, 분명한 설명, 규칙적인 체험 이정표가 모든 학생을 적극적으로 참여하게 합니다. 사전 경험은 필요하지 않습니다."
+      },
+      "high-school": {
+        "label": "고등학생",
+        "intro": "고등학생 그룹은 팀 과제, 기술 토론, 설계 결정, 손으로 하는 문제 해결을 통해 실용 엔지니어링을 탐색합니다. 강사는 그룹 경험에 맞춰 깊이를 조절합니다."
+      },
+      "college": {
+        "label": "대학생",
+        "intro": "대학생 그룹은 더 빠른 속도로 진행되며, 응용 엔지니어링, 협업, 기술적 의사결정에 더 중점을 둡니다. 워크숍은 학술 여행, 캠퍼스 프로그램, 단체 행사를 보완합니다."
+      },
+      "adult-professional": {
+        "label": "성인 또는 전문가",
+        "intro": "성인 및 전문가 그룹은 적극적 참여를 위해 설계된 실용적이고 협력적인 엔지니어링 경험에 참여합니다. 기존의 팀 행사나 직무 프로그램과는 다른 상쾌한 대안입니다."
+      },
+      "international-students": {
+        "label": "해외 학생",
+        "intro": "Stage One은 해외 학생을 미국으로 데려오는 여행사, 학교, 그룹 리더와 긴밀히 협력합니다. 워크숍은 그룹의 미국 일정에 진정한 미국 엔지니어링 경험을 더합니다."
+      },
+      "other-groups": {
+        "label": "기타",
+        "intro": "혼합 연령, 가족, 지역 단체, 캠프, 스카우트, 또는 전혀 다른 구성이든 Stage One 강사가 속도, 팀 구성, 안내를 조정하여 경험 수준이 다른 참가자가 같은 체험 과제에 기여할 수 있게 합니다."
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "학교 그룹",
+        "intro": "학교에서도, 그룹이 여행하는 곳에서도 완전한 엔지니어링 경험을 학생들에게 전하세요. Stage One이 강사, 장비, 재료, 커리큘럼을 제공하고 설치와 정리를 담당합니다."
+      },
+      "educational-tours": {
+        "label": "교육 여행",
+        "intro": "Stage One은 미국 전역의 교육 여행사와 협력합니다. 워크숍은 바로 쓸 수 있는 프로그램 블록입니다. 일정에 필요한 시간에 호텔이나 단체 장소로 완전한 경험을 전달합니다."
+      },
+      "international-groups": {
+        "label": "해외 학생 그룹",
+        "intro": "미국을 여행하는 해외 그룹에게 Stage One은 일정을 복잡하게 만들지 않고 독특한 미국 STEM 경험을 더합니다. 강사, 장비, 재료, 전체 워크숍을 호텔, 학교, 캠퍼스, 회의장으로 직접 가져가므로 관광, 기관 방문, 명소 일정, 이동 사이에 넣기 쉽습니다."
+      },
+      "academic-programs": {
+        "label": "학술 프로그램",
+        "intro": "학술 및 심화 프로그램은 Stage One 워크숍을 강사, 장비, 재료, 커리큘럼이 포함된 바로 쓸 수 있는 엔지니어링 경험으로 활용합니다."
+      },
+      "college-groups": {
+        "label": "대학 그룹",
+        "intro": "학생 단체, 오리엔테이션, 아너스 코호트, 캠퍼스 행사는 Stage One 워크숍을 알차고 몰입도 높은 단체 경험으로 캠퍼스나 단체 장소에서 진행합니다."
+      },
+      "professional-groups": {
+        "label": "성인 / 전문가 그룹",
+        "intro": "팀이나 성인 그룹에게 정말 다른 공동 경험을 주세요. 현직 엔지니어가 이끄는 3시간의 협력 체험형 엔지니어링을 사무실, 컨퍼런스 장소, 호텔에서 제공합니다."
+      }
     }
   }
 }

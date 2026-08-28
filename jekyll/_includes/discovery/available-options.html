@@ -3,7 +3,7 @@
 {% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
 <section class="discovery-section discovery-offerings" aria-labelledby="discovery-offerings-heading">
   <div class="discovery-offerings__head">
-    <h2 id="discovery-offerings-heading" class="discovery-section__heading">{{ copy.offerings_heading }}</h2>
+    <h2 id="discovery-offerings-heading" class="discovery-section__heading" data-i18n="discovery.ui.exploreMore">{{ copy.offerings_heading }}</h2>
   </div>
 
   <div class="discovery-offerings__grid">

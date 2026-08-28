@@ -4600,91 +4600,122 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         background-image: none;
     }
 
-    .discovery-plan {
+    .discovery-plan:not(.about-chat-cta) {
         flex-direction: column;
         align-items: stretch;
-        gap: 16px;
-        padding: 20px 18px;
-        border-radius: 18px;
-    }
-
-    .discovery-plan__actions {
-        justify-content: flex-end;
-        width: 100%;
-    }
-
-    .discovery-plan .discovery-plan-button {
-        width: auto;
-    }
-
-    .workshop-planning-cta.discovery-plan,
-    .find-workshop__plan.discovery-plan {
-        width: 100%;
-        margin: 28px auto 48px;
-        padding: 18px 16px;
+        gap: 10px;
+        min-height: 0;
+        padding: 12px 14px;
         border-radius: 12px;
     }
 
-    .find-workshop__plan.discovery-plan {
-        min-height: 0;
-        margin: 10px 0 0;
-        padding: 12px 14px;
-        gap: 10px;
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__lead {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        gap: 8px;
+        text-align: center;
     }
 
-    .find-workshop__plan .discovery-plan__icon {
-        display: none;
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        margin: 0 auto;
+        font-size: 28px;
+        line-height: 1;
     }
 
-    .find-workshop__plan .discovery-plan__lead,
-    .find-workshop__plan .discovery-plan__content,
-    .find-workshop__plan .discovery-plan__actions {
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__content,
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__actions {
         display: block;
         width: 100%;
         max-width: none;
         margin: 0;
     }
 
-    .find-workshop__plan .discovery-plan__heading,
-    .find-workshop__plan .discovery-plan__copy {
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__heading,
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__copy {
         width: 100%;
         max-width: none;
         white-space: normal;
+        text-align: center;
     }
 
-    .find-workshop__plan .discovery-plan__heading {
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__heading {
         margin: 0 0 4px;
         font-size: 16px;
         line-height: 1.25;
     }
 
-    .find-workshop__plan .discovery-plan__copy {
+    .discovery-plan:not(.about-chat-cta) .discovery-plan__copy {
         font-size: 13px;
         line-height: 1.35;
     }
 
-    .find-workshop__plan .discovery-plan-button,
-    .find-workshop__plan .discovery-plan-button--large {
+    .discovery-plan:not(.about-chat-cta) .discovery-plan-button,
+    .discovery-plan:not(.about-chat-cta) .discovery-plan-button--large {
         width: 100%;
         min-height: 44px;
         padding: 10px 14px;
         font-size: 15px;
     }
 
-    .find-workshop__plan .discovery-plan-button .fa {
-        display: none;
+    .discovery-header .discovery-plan .discovery-plan-button,
+    .discovery-header .discovery-plan .discovery-plan-button--large,
+    .discovery-page--participants .discovery-plan .discovery-plan-button,
+    .discovery-page--participants .discovery-plan .discovery-plan-button--large {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 15px;
     }
 
-    .workshop-planning-cta .discovery-plan__heading,
-    .find-workshop__plan .discovery-plan__heading {
-        font-size: 18px;
-        white-space: normal;
+    .discovery-page--participants .discovery-plan .discovery-plan__heading {
+        font-size: 16px;
+        line-height: 1.25;
     }
 
-    .workshop-planning-cta .discovery-plan__copy,
-    .find-workshop__plan .discovery-plan__copy {
-        font-size: 14px;
-        white-space: normal;
+    .discovery-page--participants .discovery-plan .discovery-plan__copy {
+        font-size: 13px;
+        line-height: 1.35;
+    }
+
+    .about-chat-cta.discovery-plan {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .about-chat-cta.discovery-plan .discovery-plan__lead,
+    .about-chat-cta.discovery-plan .discovery-plan__content,
+    .about-chat-cta.discovery-plan .discovery-plan__actions {
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .about-chat-cta.discovery-plan .discovery-plan-button,
+    .about-chat-cta.discovery-plan .discovery-plan-button--large {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .workshop-planning-cta.discovery-plan,
+    .find-workshop__plan.discovery-plan {
+        width: 100%;
+        margin: 28px auto 48px;
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+
+    .find-workshop__plan.discovery-plan {
+        margin: 32px 0 0;
     }
 
     .discovery-header {
@@ -4772,6 +4803,37 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 
     .discovery-header--location .discovery-workshop-cards {
         flex-wrap: nowrap;
+        gap: 5px;
+    }
+
+    .discovery-header--location .discovery-workshop-card--summary {
+        min-width: 0;
+        padding: 8px 5px;
+        gap: 0;
+        overflow: hidden;
+        white-space: normal;
+        justify-content: center;
+    }
+
+    .discovery-header--location .discovery-workshop-card--summary::after {
+        display: none;
+    }
+
+    .discovery-header--location .discovery-workshop-card--summary .discovery-workshop-card__label {
+        min-width: 0;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .discovery-header--location .discovery-workshop-card--summary strong {
+        max-width: 100%;
+        font-size: 11px;
+        line-height: 1.15;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-wrap: balance;
     }
 
     .discovery-header__hero,
@@ -4817,8 +4879,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 
     .discovery-header .discovery-plan {
         grid-row: 6;
-        min-height: var(--discovery-header-bar-height);
-        padding: 0 14px;
+        min-height: 0;
+        padding: 12px 14px;
         border-radius: 12px;
     }
 
@@ -4866,7 +4928,16 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     }
 
     .discovery-header .discovery-plan__lead {
+        flex-direction: column;
+        align-items: center;
         margin-left: 0;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .discovery-header .discovery-plan .discovery-plan__icon {
+        display: flex;
+        font-size: 28px;
     }
 
     .discovery-header .discovery-plan__actions {
@@ -5089,10 +5160,14 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         min-height: 38px;
     }
 
-    .discovery-page-footer__inner,
-    .discovery-page-footer__bar {
+    .discovery-page-footer__inner {
         padding-right: 16px;
         padding-left: 16px;
+    }
+
+    .discovery-page-footer__bar {
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
     .discovery-page-footer__logo {
@@ -5125,9 +5200,27 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 
     .discovery-page-footer__bar-inner {
         flex-direction: row;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-between;
-        gap: 8px 12px;
+        gap: 4px 8px;
+    }
+
+    .discovery-page-footer__bar-left {
+        flex-wrap: nowrap;
+        flex: 0 1 auto;
+        gap: 4px 8px;
+    }
+
+    .discovery-page-footer__copyright,
+    .discovery-page-footer__bar-link,
+    .discovery-page-footer__bar-right {
+        font-size: clamp(7px, 2.2vw, 10px);
+        white-space: nowrap;
+    }
+
+    .discovery-page-footer__heart {
+        font-size: inherit;
     }
 
     .discovery-page-footer__bar-right {

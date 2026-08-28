@@ -1,6 +1,5 @@
 {
   "_readme": "Japanese. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (AI, CAD, MIT, Wi-Fi) are intentionally left in the original. HTML tags inside values must be preserved exactly.",
-
   "nav": {
     "toggle": "ナビゲーションを開く",
     "menu": "メニュー",
@@ -18,9 +17,12 @@
     "about": "会社概要",
     "requestDemo": "デモを申し込む",
     "planWorkshop": "ワークショップを計画",
-    "workshopAccess": "ワークショップ入口"
+    "workshopAccess": "ワークショップ入口",
+    "exploreLabel": "探索",
+    "changeLanguage": "言語を変更",
+    "changeLanguageCurrent": "言語を変更、現在の言語 {name}",
+    "primary": "メインナビゲーション"
   },
-
   "common": {
     "letsChat": "相談する",
     "contact": "お問い合わせ",
@@ -33,7 +35,6 @@
     "no": "いいえ",
     "planThisWorkshop": "このワークショップを計画"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "全米各地で実施する体験型エンジニアリング・ワークショップ",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "全米各地で開催",
       "benefitDeliveryText": "ホテル、学校、大学、団体会場で実施",
       "benefitIncludedTitle": "エンジニアと機材込み",
-      "benefitIncludedText": "現役エンジニアが指導し、材料、カリキュラム、設営、撤収をすべて提供"
+      "benefitIncludedText": "現役エンジニアが指導し、材料、カリキュラム、設営、撤収をすべて提供",
+      "benefitSafeTitle": "安全",
+      "benefitSafeText": "低電圧の電子機器と安全装備を提供"
     },
     "explorer": {
       "exploreEyebrow": "ワークショップを探す",
@@ -126,7 +129,16 @@
       "notes": "追加メモ",
       "submit": "ワークショップ申請を送信",
       "hint": "送信しても予約は確定しません。",
-      "thanks": "ありがとうございます。担当者が次の手順をご連絡します。"
+      "thanks": "ありがとうございます。担当者が次の手順をご連絡します。",
+      "location": "開催地",
+      "locationPlaceholder": "開催地を選択",
+      "workshops": "ワークショップ",
+      "workshopAi": "AI",
+      "workshopRobotics": "ロボティクス",
+      "workshopMechanical": "機械工学",
+      "workshopWebsite": "ウェブ",
+      "groupSize": "グループ規模",
+      "timing": "日付"
     },
     "cardAi": {
       "title": "人工知能",
@@ -211,7 +223,6 @@
       "本当に楽しかったです。CADのプログラミングのあと自信をなくしていましたが、おかげで自分の工学の力にずっと自信が持てました！ 素晴らしいワークショップで、講師の方はさらに素晴らしかったです。とても辛抱強く、説明も上手で、ご自身の仕事を心から楽しんでいるのが伝わりました。:D"
     ]
   },
-
   "ai": {
     "title": "人工知能ワークショップ",
     "heroNeuralNetwork": "人間でつくるニューラルネットワーク",
@@ -243,7 +254,6 @@
       "q6": "「<strong>みんなで取り組む活動</strong>が良かったですし、講師の方の説明が<strong>シンプルなのに</strong><br><strong>とても分かりやすかった</strong>です」<br><span class=\"quote-attribution\"><em>— 参加した生徒、Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "ロボティクス・ドローンワークショップ",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "「最高でした」<br><span class=\"quote-attribution\"><em>— 参加した生徒、Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "機械工学ワークショップ",
     "heroStart": "はじめる",
@@ -283,18 +292,15 @@
       "q6": "「素晴らしいワークショップでした。<strong>とても楽しい時間</strong>を過ごしながら、これからエンジニアリングやその先で<strong>自分の成功に欠かせない</strong>スキルを学べました。」 <em>— 参加した生徒、Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "ウェブ開発ワークショップ",
     "comingSoon": "ワークショップの詳細は近日公開します。"
   },
-
   "locations": {
     "heading": "開催地",
     "note": "ご相談いただければ、上記以外の地域でも実施できます",
     "mapAlt": "地図"
   },
-
   "instructors": {
     "heading": "講師",
     "mission": "ミッション：手を動かすエンジニアリング体験で、学ぶ人に刺激を届けること",
@@ -303,19 +309,19 @@
     "requirements": "応募要件：チームをまとめる力 - 優れたプレゼンテーション力 - 確かなエンジニアリング実務の実績",
     "authorization": "米国で1099独立請負人として就業できる資格が必要です"
   },
-
   "feedback": {
     "heading": "参加者の声",
     "updated": "更新日：2026年2月5日",
-    "formLink": "アンケートフォーム"
+    "formLink": "アンケートフォーム",
+    "cumulativeHeading": "累積フィードバック",
+    "heading2026": "2026 フィードバック",
+    "updatedAugust": "更新日：2026年8月"
   },
-
   "contact": {
     "heading": "お問い合わせ",
     "lede": "<b>ご質問やもっと詳しく知りたいことがありましたら、お気軽にご連絡ください。</b>",
     "body": "<strong>人工知能</strong>、<strong>ロボティクス</strong>、<strong>機械工学</strong>の体験型ワークショップを、現役エンジニアが直接進行します。わずか3時間で、参加者はSTEMへの関心に火をつける基礎スキルとツールを身につけます。<br><br>事前の経験は必要ありません。<br><br> <strong>この楽しさと学びを、ぜひ皆さまの団体へお届けさせてください。今すぐご連絡ください！</strong>"
   },
-
   "about": {
     "heading": "私たちについて",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "こうしたセッションは新しい発想を刺激し、最新の技術革新に対する参加者の理解を広げます。"
     },
     "contactBlurb": "エンジニアリング・ワークショップと講演イベントをご覧いただき <br> オンラインのデモを今すぐご予約ください",
-    "letsChat": "相談する"
+    "letsChat": "相談する",
+    "chatHeading": "Stage One Education のワークショップ、教育、エンジニアリングについてご相談ください",
+    "chatCopy": "workshops@stageoneeducation.com までご連絡ください",
+    "chatButton": "チャットする"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | 手を動かして学ぶエンジニアリング・ワークショップ",
@@ -420,6 +428,185 @@
     "about": {
       "title": "会社概要 | STAGE ONE EDUCATION",
       "description": "現役エンジニアが教えるAI、ロボティクス、機械工学の体験型ワークショップを全米各地で実施しています。"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "あなたに合う",
+      "sectionHeadingAccent": "ワークショップ",
+      "sectionIntro": "都市、参加者、ワークショップ、プログラムから探す",
+      "destinations": "目的地",
+      "destinationsSubtitle": "グループの行き先はどこですか？",
+      "participants": "参加者",
+      "participantsSubtitle": "誰が参加しますか？",
+      "workshops": "ワークショップ",
+      "workshopsSubtitle": "どんな体験をしますか？",
+      "program": "プログラム",
+      "programSubtitle": "何を企画していますか？",
+      "other": "その他",
+      "backLabel": "ワークショップを探す",
+      "planHeading": "体験型エンジニアリングを旅程に加えませんか？",
+      "planCopy": "目的地、グループ情報、日程をお知らせください。Stage One がワークショップの計画をお手伝いします。",
+      "engineeringWorkshops": "エンジニアリング・ワークショップ",
+      "engineeringWorkshopsColon": "エンジニアリング・ワークショップ：",
+      "engineeringWorkshopsFor": "エンジニアリング・ワークショップ：対象",
+      "workshopsOfferedIn": "ワークショップ開催地",
+      "availableForTheseAges": "対象年齢",
+      "ages": "年齢",
+      "browseAllPrograms": "すべてのプログラムを見る",
+      "browseAllAges": "すべての年齢・グループ種別を見る",
+      "programs": "プログラム",
+      "thingsToDo": "できること",
+      "locationExploreIntro": "学生グループに人気の教育・文化・象徴的な体験。訪問地：",
+      "locationExploreDisclaimer": "近隣の体験は旅程の参考として掲載しており、Stage One のワークショップには含まれません。入場料、移動、予約、空き状況は別途ご手配ください。掲載は提携や推奨を意味しません。",
+      "explorePrefix": "探索",
+      "exploreMore": "さらに探す",
+      "contactUs": "お問い合わせ",
+      "madeWithLove": "好奇心旺盛な心のために <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> を込めて",
+      "workshopCities": "ワークショップ開催都市",
+      "siteFooter": "サイトフッター",
+      "scrollQuotesLeft": "参加者の声を左にスクロール",
+      "scrollQuotesRight": "参加者の声を右にスクロール",
+      "viewMoreFeedback": "参加者の声をもっと見る",
+      "participantFeedback": "参加者の声",
+      "testimonialsHeading": "グループの声",
+      "workshopDetailLabel": "ワークショップの詳細を見る",
+      "planModalLede": "ご連絡先とグループについてのメモをお知らせください。ワークショップの計画のためご連絡します。",
+      "formName": "お名前 <span aria-hidden=\"true\">*</span>",
+      "formEmail": "メール <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "グループについて教えてください",
+      "formNotesPlaceholder": "グループ、開催地、時期、その他お知らせいただきたいことをご記入ください。",
+      "formSend": "ワークショップ情報を送信",
+      "formNameError": "お名前を入力してください。",
+      "formEmailError": "有効なメールアドレスを入力してください。"
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston は、アメリカの歴史、一流の学術機関、科学、ロボティクス、テクノロジーが見事に揃う都市です。Boston で生まれた Stage One は、キャンパス見学、博物館、歴史探訪のあいだに自然に収まる、土地に根ざしたエンジニアリング体験を加えます。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Boston のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Boston, MA のグループの声"
+      },
+      "washington-dc": {
+        "intro": "Washington, DC の旅程は、歴史、政府、博物館、国家機関、科学、航空で満ちています。Stage One のワークショップは、観光の多い日程に清新な体験型の時間を加え、教育目的が明確な屋内または夜のプログラムとして特に効果的です。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Washington, DC のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Washington, DC のグループの声"
+      },
+      "orlando": {
+        "intro": "Orlando は、テーマパーク型エンターテインメントと宇宙探査、シミュレーション技術、一流機関、環境科学、フロリダの屋外体験をつなぎます。Stage One は、アトラクションの合間やホテルでの夜の時間帯にしっかりした教育の軸を提供し、複雑な移動を増やさずに意味のある STEM プログラムを加えます。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Orlando のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Orlando, FL のグループの声"
+      },
+      "atlanta": {
+        "intro": "Atlanta の旅程は、公民権の歴史、一流機関、ビジネス、現代のテクノロジーを一つにします。Stage One は、キャンパス見学と観光のバランスを取る能動的なエンジニアリング体験を加え、団体会場へ直接届ける完結した教育プログラムを企画者に提供します。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Atlanta のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Atlanta, GA のグループの声"
+      },
+      "houston": {
+        "intro": "Houston は、宇宙探査、航空宇宙、医療、エネルギー、大規模エンジニアリングにおいて国内屈指の目的地です。Stage One は、博物館やアトラクションの先までそのテーマを運び、ホテル、キャンパス、会議会場で実施できる完結した体験型ワークショップを提供します。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Houston のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Houston, TX のグループの声"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles は、航空宇宙、エンターテインメント、デジタルメディア、デザイン、テクノロジーを、他に類を見ない形で一つにします。Stage One は、技術的思考と創造性を組み合わせたワークショップでこれらの産業をつなぎ、スタジオ体験、科学アトラクション、一流機関の訪問と自然に組み合わせられます。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Los Angeles のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Los Angeles, CA のグループの声"
+      },
+      "san-francisco": {
+        "intro": "San Francisco は、テクノロジー、起業、科学、デザインを目的地の中心に据えます。Stage One は、イノベーション重視の訪問、科学アトラクション、一流機関、象徴的な市内観光を、団体会場へ直接届ける完結した体験型ワークショップで補います。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が San Francisco のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "San Francisco, CA のグループの声"
+      },
+      "new-haven": {
+        "intro": "New Haven は、名門機関、研究、知的発見に支えられた独自の学術環境を提供します。Stage One のワークショップは、従来のキャンパスツアーを超えて完結したエンジニアリング体験を加え、大学・キャリア・STEM に焦点を当てた旅を強化します。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が New Haven のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "New Haven, CT のグループの声"
+      },
+      "ann-arbor": {
+        "intro": "Ann Arbor の学術文化、エンジニアリングコミュニティ、研究への注力は、STEM 志向の旅に自然な目的地です。Stage One のワークショップは、機関訪問の後やホテルの空き時間に充実した体験型の時間を加え、講師、機材、材料が含まれます。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Ann Arbor のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Ann Arbor, MI のグループの声"
+      },
+      "berkeley": {
+        "intro": "Berkeley は大胆な発想、学術的発見、ベイエリアのイノベーション経済とのつながりで知られます。Stage One のワークショップは、体験型エンジニアリングでそのテーマを広げ、機関訪問の後や午後・夜の魅力的なプログラムとして自然に収まります。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Berkeley のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Berkeley, CA のグループの声"
+      },
+      "denver": {
+        "intro": "Denver は航空宇宙、科学、アウトドア、ロッキー山脈の壮大な風景を組み合わせます。Stage One のワークショップは、屋外活動、アトラクション、機関見学の前後にしっかりした屋内の学術パートを提供し、天候に左右されない頼れる活動にもなります。",
+        "ctaHeading": "体験型エンジニアリングを旅程に加えませんか？",
+        "ctaCopy": "日程、グループ規模、会場をお知らせください。Stage One が Denver のプログラムに合わせてワークショップを調整します。",
+        "testimonialsHeading": "Denver, CO のグループの声"
+      },
+      "other-us-cities": {
+        "intro": "Stage One のワークショップは、現在の開催地に限りません。全米の都市で完結した体験型エンジニアリング・プログラムを実施し、グループが旅する先どこでも意味のある STEM プログラムを柔軟に加えられるようにします。",
+        "ctaHeading": "グループの行き先をお知らせください",
+        "ctaCopy": "目的地、日程、グループ規模をお知らせください。Stage One が旅に合わせたワークショップ実施の選択肢を一緒に検討します。",
+        "testimonialsHeading": "グループの声",
+        "exploreHeading": "Stage One をご希望の目的地へ",
+        "exploreIntro": "別の米国都市で学生プログラムを計画していますか？目的地、日程、グループ規模をお知らせください。担当チームが利用可能なワークショップの選択肢をご案内します。"
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "中学生",
+        "intro": "中学生は最初の一分から本格的なエンジニアリングに取り組みます。構造化された案内、わかりやすい説明、定期的な体験の区切りで、経験がなくても全員が積極的に参加できます。"
+      },
+      "high-school": {
+        "label": "高校生",
+        "intro": "高校生グループは、チーム課題、技術的な議論、設計の判断、手を動かす問題解決を通じて実践的なエンジニアリングを探ります。講師はグループの経験に合わせて深さを調整します。"
+      },
+      "college": {
+        "label": "大学生",
+        "intro": "大学生グループはより速いペースで進み、応用エンジニアリング、協働、技術的な意思決定に重点を置きます。ワークショップは学術旅行、キャンパスプログラム、団体行事を補完します。"
+      },
+      "adult-professional": {
+        "label": "成人・社会人",
+        "intro": "成人・社会人グループは、積極的な参加を前提とした実践的で協働的なエンジニアリング体験に取り組みます。従来のチーム行事や研修とは一味違う選択肢です。"
+      },
+      "international-students": {
+        "label": "海外からの学生",
+        "intro": "Stage One は、海外からの学生を米国へ案内する旅行会社、学校、グループリーダーと密に連携します。ワークショップは、グループの米国旅程に本格的なアメリカのエンジニアリング体験を加えます。"
+      },
+      "other-groups": {
+        "label": "その他",
+        "intro": "混合年齢、家族、地域団体、キャンプ、スカウト、あるいは全く別の構成でも、Stage One の講師がペース、チーム編成、案内を調整し、経験の異なる参加者が同じ体験型の課題に貢献できるようにします。"
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "学校グループ",
+        "intro": "学校でも、グループの行き先でも、完結したエンジニアリング体験を生徒のもとへ。Stage One が講師、機材、材料、カリキュラムを届け、設営と撤収まで対応します。"
+      },
+      "educational-tours": {
+        "label": "教育旅行",
+        "intro": "Stage One は全米の教育旅行会社と提携しています。ワークショップはすぐに使えるプログラム枠です。旅程が必要とする時間に、ホテルや団体会場へ完結した体験をお届けします。"
+      },
+      "international-groups": {
+        "label": "海外学生グループ",
+        "intro": "米国を旅する海外グループに、旅程を複雑にせず、独自のアメリカ STEM 体験を加えます。講師、機材、材料、ワークショップ一式をホテル、学校、キャンパス、会議室へ直接お届けするので、観光、機関訪問、アトラクション、移動の合間にも組み込みやすいです。"
+      },
+      "academic-programs": {
+        "label": "学術プログラム",
+        "intro": "学術・補習プログラムは、Stage One のワークショップを講師、機材、材料、カリキュラム込みの完成したエンジニアリング体験として活用します。"
+      },
+      "college-groups": {
+        "label": "大学グループ",
+        "intro": "学生団体、オリエンテーション、オナーズ・コホート、キャンパス行事は、Stage One のワークショップを充実した団体体験として、キャンパスや団体会場で実施します。"
+      },
+      "professional-groups": {
+        "label": "成人・社会人グループ",
+        "intro": "チームや成人グループに、本当に違う共同体験を。現役エンジニアが導く3時間の協働・体験型エンジニアリングを、オフィス、会議会場、ホテルへお届けします。"
+      }
     }
   }
 }

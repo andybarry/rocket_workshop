@@ -23,20 +23,54 @@ i18n_key: about
         margin-bottom: 40px;
         padding: 20px;
     }
+    .about-section-card {
+        width: min(92vw, 1280px);
+        max-width: 1280px;
+        margin: 28px auto 8px;
+        padding: 18px 20px 24px;
+        background: #fff;
+        border: 1px solid rgba(67, 67, 67, 0.11);
+        border-radius: 16px;
+        box-shadow:
+            0 0 28px rgba(67, 67, 67, 0.07),
+            0 10px 26px rgba(67, 67, 67, 0.05);
+        box-sizing: border-box;
+    }
+    .about-section-card__head {
+        display: flex;
+        align-items: baseline;
+        width: 100%;
+        margin: 0 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #f05f40;
+    }
+    .about-section-card__title {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        color: #434343;
+        text-transform: none;
+        text-align: left;
+    }
     .leadership-profile-box {
         background: white;
+        border: 1px solid rgba(67, 67, 67, 0.11);
         border-radius: 8px;
         padding: 24px;
         margin-bottom: 24px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        cursor: pointer;
-        transition: box-shadow 0.2s ease;
     }
-    .leadership-profile-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35);
-    }
-    .leadership-row {
+    .about-leadership-card .leadership-row {
         display: flex;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .about-leadership-card .leadership-row > [class*="col-"] {
+        padding-left: 8px;
+        padding-right: 8px;
     }
     .leadership-row .col-sm-4 {
         display: flex;
@@ -98,11 +132,7 @@ i18n_key: about
         z-index: 1;
         border-radius: 6px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.2s ease;
         text-align: center;
-    }
-    .about-us-intro-box .quote-container:hover .quote-text {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 24px rgba(240, 95, 64, 0.28);
     }
     .about-us-intro-box .quote-container {
         position: relative;
@@ -114,58 +144,160 @@ i18n_key: about
         max-width: 420px;
     }
     .about-us-intro-box {
-        transition: box-shadow 0.2s ease;
         border-radius: 8px;
     }
-    .about-us-intro-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
-    }
-    .about-us-workshops-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 28px rgba(240, 95, 64, 0.4) !important;
-    }
-    /* Workshop buttons: fit width and height to text, reduce space between */
-    #tab-section .workshop-main-button-sm {
-        width: auto;
-        min-width: 140px;
-        height: auto;
-        padding: 16px 24px;
-        display: inline-flex;
-        align-items: center;
+    /* Workshop cards: same three cards as Home, without the bullet copy */
+    #tab-section .workshop-cards-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
         justify-content: center;
-        margin-bottom: 4px;
+        gap: 16px;
+        margin-left: 0;
+        margin-right: 0;
     }
-    #tab-section .workshop-main-button-sm > .main-button-title-text-sm {
-        padding: 0;
-        line-height: 1.3;
+    #tab-section .workshop-cards-row::before,
+    #tab-section .workshop-cards-row::after {
+        display: none;
     }
-    #tab-section .row > [class*="col-sm-4"] {
-        padding-left: 4px;
-        padding-right: 4px;
+    #tab-section .workshop-card-col {
+        display: flex;
+        flex: 1 1 0;
+        min-width: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
-    /* Bring left and right buttons toward center by constraining row width; keep centered */
-    #tab-section .workshop-buttons-row {
-        max-width: 720px;
-        margin-left: auto;
-        margin-right: auto;
+    body.cursor-glow-page .workshop-main-button {
+        width: 100%;
+        margin-bottom: 0;
+        border-color: rgba(67, 67, 67, 0.18);
+        box-shadow:
+            0 0 22px rgba(67, 67, 67, 0.06),
+            0 8px 18px rgba(67, 67, 67, 0.04);
+    }
+    body.cursor-glow-page .workshop-main-button > .main-button-title-text::before {
+        content: none;
+        display: none;
+    }
+    body.cursor-glow-page .workshop-main-button > .main-button-title-text {
+        font-size: 26px;
+        color: #f05f40;
+    }
+    body.cursor-glow-page .workshop-main-button:hover > .main-button-title-text,
+    body.cursor-glow-page .workshop-main-button:focus > .main-button-title-text,
+    body.cursor-glow-page .workshop-main-button.is-hero-hover > .main-button-title-text {
+        color: #fff;
     }
     .instructors-callout-box {
-        transition: box-shadow 0.2s ease;
-        border-radius: 8px;
+        background: #f05f40;
+        color: #fff;
+        border: 0;
+        border-radius: 12px;
+        padding: 28px 24px 26px;
+        margin: 0;
+        text-align: center;
+        box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28);
     }
-    .instructors-callout-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    .instructors-callout-box p {
+        margin: 0;
+        color: #fff;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        line-height: 1.4;
     }
-    .workshop-details-box {
-        transition: box-shadow 0.2s ease;
+    .instructors-callout-box strong {
+        display: block;
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
     }
-    .workshop-details-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    .instructors-callout-box br {
+        display: none;
     }
-    .presentation-events-box {
-        transition: box-shadow 0.2s ease;
+    .about-workshops-card .homepage-workshop-benefits {
+        padding: 40px 0;
+        margin: 0;
+        width: 100%;
     }
-    .presentation-events-box:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 24px rgba(240, 95, 64, 0.35) !important;
+    .about-workshops-card .homepage-workshop-benefits .homepage-workshop-explorer__benefit-bar {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+    .about-workshops-copy {
+        font-family: 'Roboto', sans-serif;
+        color: #464444;
+        font-size: 15px;
+        text-align: left;
+    }
+    .about-workshops-copy h3 {
+        margin: 24px 0 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: #434343;
+    }
+    .about-workshops-copy p {
+        margin: 0 0 8px;
+        line-height: 1.65;
+    }
+    .about-workshops-copy ul {
+        margin: 0 0 8px;
+        padding-left: 22px;
+        line-height: 1.65;
+    }
+    .about-chat-cta.discovery-plan {
+        max-width: 1100px;
+        width: 100%;
+        min-height: 96px;
+        margin: 40px auto 64px;
+        padding: 18px 24px;
+        border: 1px solid #f05f40;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow:
+            0 3px 8px rgba(240, 95, 64, 0.05),
+            0 0 8px rgba(240, 95, 64, 0.12);
+        gap: 12px 16px;
+    }
+    .about-chat-cta.discovery-plan .discovery-plan__icon {
+        color: #f05f40;
+        font-size: 44px;
+    }
+    .about-chat-cta.discovery-plan .discovery-plan__heading {
+        margin: 0 0 4px;
+        font-size: 22px;
+        line-height: 1.2;
+        color: #434343;
+    }
+    .about-chat-cta.discovery-plan .discovery-plan__copy {
+        max-width: none;
+        font-size: 16px;
+        line-height: 1.35;
+        color: #6f6f6f;
+    }
+    .about-chat-cta.discovery-plan .discovery-plan-button,
+    .about-chat-cta.discovery-plan .discovery-plan-button:hover,
+    .about-chat-cta.discovery-plan .discovery-plan-button:focus {
+        border: 1px solid #f05f40;
+        background: #f05f40;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(240, 95, 64, 0.22);
+        transform: none;
+    }
+    .about-chat-cta.discovery-plan .discovery-plan-button:hover,
+    .about-chat-cta.discovery-plan .discovery-plan-button:focus {
+        background: #d95438;
+        box-shadow: 0 4px 12px rgba(240, 95, 64, 0.28);
+    }
+    .about-chat-cta.discovery-plan .discovery-plan-button:focus-visible {
+        box-shadow: 0 2px 8px rgba(240, 95, 64, 0.22), 0 0 0 3px rgba(240, 95, 64, 0.35);
     }
     /* Less space above the intro white box */
     .container > section.less-padding:first-of-type {
@@ -173,43 +305,6 @@ i18n_key: about
     }
 </style>
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    let posters = [
-        'img/poster1.jpg',
-        'img/poster2.jpg',
-        'img/poster3.jpg',
-        'img/poster4.jpg',
-        'img/poster5.jpg',
-        'img/poster6.jpg',
-        'img/poster7.jpg',
-    ];
-
-    // Preload the images
-    posters.forEach(function (src) {
-        let img = new Image();
-        img.src = src;
-    });
-
-    $(document).ready(function () {
-        let currentIndex = 0;
-
-        setInterval(function () {
-            // Fade out the current image
-            $("#cyclingPoster").css("opacity", "0");
-
-            setTimeout(function () {
-                // Switch to the next image
-                currentIndex = (currentIndex + 1) % posters.length;
-                $("#cyclingPoster").attr("src", posters[currentIndex]);
-
-                // Fade in the new image
-                $("#cyclingPoster").css("opacity", "1");
-            }, 1000); // 1s delay matches the transition duration in the CSS
-        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
-    });
-</script>
 
 <script src="cad-tutorial/video_play_at_scroll.js"></script>
 
@@ -222,12 +317,26 @@ i18n_key: about
   body.cursor-glow-page * { cursor: default !important; }
   body.cursor-glow-page .navbar a,
   body.cursor-glow-page .navbar button,
-  body.cursor-glow-page .navbar img { cursor: pointer !important; }
-  body.cursor-glow-page .workshop-main-button-sm,
-  body.cursor-glow-page .workshop-main-button-sm * { cursor: pointer !important; }
+  body.cursor-glow-page .navbar img,
+  body.cursor-glow-page .discovery-page-footer a,
+  body.cursor-glow-page .discovery-plan-button,
+  body.cursor-glow-page .discovery-plan-button *,
+  body.cursor-glow-page .about-chat-cta a,
+  body.cursor-glow-page .about-chat-cta a * { cursor: pointer !important; }
+  body.cursor-glow-page .workshop-main-button,
+  body.cursor-glow-page .workshop-main-button * { cursor: pointer !important; }
   body.cursor-glow-page .leadership-profile-box a { cursor: pointer !important; }
   body.cursor-glow-page .navbar { position: fixed; z-index: 1100 !important; }
   body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page .discovery-page-footer {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 48px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
@@ -243,10 +352,15 @@ i18n_key: about
       padding-right: 15px;
       box-sizing: border-box;
     }
+    body.cursor-glow-page .discovery-page-footer {
+      width: calc(100% + 30px);
+      max-width: none;
+      margin-left: -15px;
+      margin-right: -15px;
+    }
     body.cursor-glow-page .container,
-    body.cursor-glow-page .instructors-callout-box,
-    body.cursor-glow-page .workshop-details-box,
-    body.cursor-glow-page .presentation-events-box {
+    body.cursor-glow-page .about-section-card,
+    body.cursor-glow-page .instructors-callout-box {
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
@@ -301,18 +415,57 @@ i18n_key: about
       left: 8%;
       z-index: 2;
     }
-    body.cursor-glow-page #tab-section .workshop-main-button-sm {
-      min-width: 155px;
-      padding: 8px 12px;
-      margin-bottom: 16px;
+    body.cursor-glow-page #tab-section .workshop-cards-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
     }
-    body.cursor-glow-page #tab-section .workshop-main-button-sm > .main-button-title-text-sm {
-      font-size: 10px;
-      line-height: 1.2;
-      white-space: nowrap;
+    body.cursor-glow-page #tab-section .workshop-card-col {
+      width: 100%;
+      float: none;
     }
-    body.cursor-glow-page #tab-section .workshop-main-button-sm > .main-button-title-text-sm br {
-      display: none;
+    body.cursor-glow-page .workshop-main-button {
+      max-width: 348px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.cursor-glow-page .workshop-main-button > .main-button-title-text {
+      font-size: 22px;
+    }
+    body.cursor-glow-page .about-workshops-card .homepage-workshop-benefits {
+      padding: 28px 0;
+    }
+    body.cursor-glow-page .instructors-callout-box {
+      padding: 22px 16px 20px;
+    }
+    body.cursor-glow-page .instructors-callout-box strong {
+      font-size: 24px;
+    }
+    body.cursor-glow-page .instructors-callout-box p {
+      font-size: 16px;
+    }
+    body.cursor-glow-page .about-chat-cta.discovery-plan {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      margin: 28px auto 12px;
+      padding: 18px 16px;
+      gap: 12px;
+    }
+    body.cursor-glow-page .about-chat-cta.discovery-plan .discovery-plan__lead,
+    body.cursor-glow-page .about-chat-cta.discovery-plan .discovery-plan__content,
+    body.cursor-glow-page .about-chat-cta.discovery-plan .discovery-plan__actions {
+      display: block;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+    body.cursor-glow-page .about-chat-cta.discovery-plan .discovery-plan-button,
+    body.cursor-glow-page .about-chat-cta.discovery-plan .discovery-plan-button--large {
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 </style>
@@ -320,24 +473,15 @@ i18n_key: about
     <div class="content" style="position: relative; z-index: 1;">
         <!-- Add a spacer to prevent content from hiding behind the fixed navbar -->
         <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
-
-
-        <!-- Title Section -->
-        <span class="workshop-title"
-            style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 20px; font-weight: 400; cursor: default;"
-            data-i18n="about.heading">
-            About Us
-        </span>
-        <div class="our-workshops-line" style="margin-top: 6px; margin-bottom: 0; max-width: 780px;"></div>
     </div>
 
     <div class="container">
-        <section id="contact" class="less-padding">
+        <section class="less-padding">
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="about-us-intro-box about-box"
-                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 4px auto 20px auto; max-width: 80%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer;">
+                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 4px auto 20px auto; max-width: 80%; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
 
                         <div style="margin-bottom: 10px;">
                             <span class="workshop-title about-us-intro-headline" data-i18n="about.intro.headline">We're dedicated to sharing our love of engineering</span>
@@ -346,7 +490,7 @@ i18n_key: about
                         <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
 
                         <!-- Adjusted spacing for these elements -->
-                        <p style="margin-bottom: 5px;" data-i18n="about.intro.lede">Our workshops answer questions like,</p>
+                        <p style="margin-top: 22px; margin-bottom: 5px;" data-i18n="about.intro.lede">Our workshops answer questions like,</p>
                         <div class="quote-container">
                             <p class="quote-text" data-i18n-html="about.intro.question1">
                                 <strong>can I do engineering?</strong>
@@ -378,14 +522,10 @@ i18n_key: about
         </section>
 
     </div>
-    <!-- Leadership Team heading and hrs outside container so they match home page About section width -->
-    <div style="width: 100%;">
-        <hr class="main-page-hr" style="margin-top: 10px;" />
-        <span class="workshop-title" data-i18n="about.leadershipHeading">Leadership Team</span>
-        <hr class="main-page-hr" style="margin-bottom: 10px;" />
-    </div>
-    <div class="container">
-
+    <section class="about-section-card about-leadership-card">
+        <div class="about-section-card__head">
+            <h2 class="about-section-card__title" data-i18n="about.leadershipHeading">Leadership Team</h2>
+        </div>
         <div class="row leadership-row">
             <div class="col-sm-4">
                 <div class="profile leadership-profile-box">
@@ -440,186 +580,65 @@ i18n_key: about
             </div>
 
         </div>
-        <div class="row"> 
-            <div class="col-lg-12">
-                <div class="instructors-callout-box about-box"
-                    style="background: white; border-radius: 8px; padding: 16px 40px; margin: 0 auto 50px auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-                    <p style="margin: 0;" data-i18n-html="about.instructorsCallout"><strong>Stage One Education Instructors</strong><br/>
-                    Nationwide network of passionate engineering professionals</p>
-                </div>
-            </div>
+        <div class="instructors-callout-box about-box">
+            <p data-i18n-html="about.instructorsCallout"><strong>Stage One Education Instructors</strong><br/>
+            Nationwide network of passionate engineering professionals</p>
         </div>
-    </div>
-    <div style="width: 100%;">
-        <hr class="main-page-hr" style="margin-top: 10px;" />
-        <span class="workshop-title" data-i18n="about.workshopsHeading">Hands-on Engineering Workshops</span>
-        <hr class="main-page-hr" style="margin-bottom: 10px;" />
-    </div>
-    <div class="container">
-        <section id="contact" class="less-padding" style="padding-top: 8px;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="workshop-details-box about-box"
-                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 0 auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
-                        <div id="tab-section" class="tab-section" style="padding-top: 0;">
-                            <div class="row workshop-buttons-row">
-                                <div class="col-sm-4 text-center">
-                                    <a href="ai-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm" data-i18n-html="about.buttons.ai">Artificial <br>Intelligence</div>
-                                    </a>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <a href="robotics-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm" data-i18n-html="about.buttons.robotics">Robotics <br>Drone</div>
-                                    </a>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <a href="rocket-workshop.html" class="workshop-main-button-sm">
-                                        <div class="main-button-title-text-sm" data-i18n-html="about.buttons.mechanical">Mechanical <br>Engineering</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 style="margin-top: 24px;" data-i18n="about.turnKey.heading">Turn-key</h3>
-                        <ul>
-                        <p style="margin-bottom: 5px;" data-i18n="about.turnKey.body">
-                            We offer complete workshops with instructors, materials, and curriculum all included.
-                            Students walk out with newfound confidence, having learned professional-grade tools with our
-                            continuously-optimized instructions, methods, and pedagogy.
-                        </p> </ul>
-
-                        <div class="workshop-details">
-                            <div
-                                style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left; margin-top: 1px; max-width: 80%;">
-                                <h3 data-i18n="about.details.heading">Workshop Details</h3>
-                                <ul>
-                                    <li data-i18n-html="about.details.offered"><strong>Workshops Offered:</strong> Robotics, AI, Mechanical Engineering</li>
-                                    <li data-i18n-html="about.details.length"><strong>Length:</strong> 3 hours</li>
-                                    <li data-i18n-html="about.details.participants"><strong>Participants:</strong> Up to ~60 per workshop (venue size determines
-                                        capacity)</li>
-                                    <li data-i18n-html="about.details.location"><strong>Location:</strong> We can accommodate any location</li>
-                                    <li data-i18n-html="about.details.venue"><strong>Venue:</strong> Must include Wi-Fi, power outlets, tables, and chairs.
-                                        larger spaces preferred</li>
-                                    <li data-i18n-html="about.details.materials"><strong>Materials:</strong> Included with all workshops</li>
-                                    <li data-i18n-html="about.details.instructors"><strong>Instructors:</strong> Experienced engineering professionals who are
-                                        passionate about sharing their expertise.</li>
-                                    <li data-i18n-html="about.details.schedule"><strong>Schedule:</strong> We can work around your itentrary and have the
-                                        capacity to host multiple or simultaneous sessions as needed</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <h3 data-i18n="about.pricing.heading">Pricing</h3>
-                        <ul>
-                            <p data-i18n="about.pricing.body"> The per participant cost is determined by factors such as the group size, the scheduling
-                                of consecutive workshop days, asset
-                                management, and the instructors provided. For a tailored quote that meets your specific
-                                needs, please get in touch with our team today.
-                                We’re here to help create the perfect engineering experience for you.</p><br>
-                        </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <div style="width: 100%;">
-        <hr class="main-page-hr" style="margin-top: 10px;" />
-        <span class="workshop-title" data-i18n="about.presentations.heading">Presentation Events
-        </span>
-        <hr class="main-page-hr" style="margin-bottom: 10px;" />
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="presentation-events-box about-box"
-                    style="background: white; border-radius: 8px; padding: 28px 32px; margin: 0 auto; max-width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; text-align: center; font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px;">
-                    <strong style="display: block; margin-bottom: 16px;" data-i18n="about.presentations.lede">We offer 1-hour interactive lecture-style presentations by
-                        industry experts.</strong>
-                    <ul style="list-style: none; padding: 0; margin: 16px 0;">
-                        <li data-i18n-html="about.presentations.topics">
-                            Deep dives into:
-                            <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                                <li>Virtual Reality</li>
-                                <li>Artificial Intelligence</li>
-                                <li>Robotics and more</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p style="margin: 16px 0 0 0;" data-i18n="about.presentations.body">These sessions will spark innovation and expand your participants'
-                        understanding of
-                        the latest technological breakthroughs.</p>
-                </div>
-            </div>
+    </section>
+    <section class="about-section-card about-workshops-card">
+        <div class="about-section-card__head">
+            <h2 class="about-section-card__title" data-i18n="about.workshopsHeading">Hands-on Engineering Workshops</h2>
         </div>
+        <div id="tab-section" class="tab-section" style="padding-top: 0;">
+            {% include our-workshop-cards.html hide_copy=true %}
+        </div>
+        {% include workshop-benefits.html %}
+        <div class="about-workshops-copy">
+            <h3 data-i18n="about.turnKey.heading">Turn-key</h3>
+            <p data-i18n="about.turnKey.body">
+                We offer complete workshops with instructors, materials, and curriculum all included.
+                Students walk out with newfound confidence, having learned professional-grade tools with our
+                continuously-optimized instructions, methods, and pedagogy.
+            </p>
+            <h3 data-i18n="about.details.heading">Workshop Details</h3>
+            <ul>
+                <li data-i18n-html="about.details.offered"><strong>Workshops Offered:</strong> Robotics, AI, Mechanical Engineering</li>
+                <li data-i18n-html="about.details.length"><strong>Length:</strong> 3 hours</li>
+                <li data-i18n-html="about.details.participants"><strong>Participants:</strong> Up to ~60 per workshop (venue size determines
+                    capacity)</li>
+                <li data-i18n-html="about.details.location"><strong>Location:</strong> We can accommodate any location</li>
+                <li data-i18n-html="about.details.venue"><strong>Venue:</strong> Must include Wi-Fi, power outlets, tables, and chairs.
+                    larger spaces preferred</li>
+                <li data-i18n-html="about.details.materials"><strong>Materials:</strong> Included with all workshops</li>
+                <li data-i18n-html="about.details.instructors"><strong>Instructors:</strong> Experienced engineering professionals who are
+                    passionate about sharing their expertise.</li>
+                <li data-i18n-html="about.details.schedule"><strong>Schedule:</strong> We can work around your itentrary and have the
+                    capacity to host multiple or simultaneous sessions as needed</li>
+            </ul>
+            <h3 data-i18n="about.pricing.heading">Pricing</h3>
+            <p data-i18n="about.pricing.body">The per participant cost is determined by factors such as the group size, the scheduling
+                of consecutive workshop days, asset
+                management, and the instructors provided. For a tailored quote that meets your specific
+                needs, please get in touch with our team today.
+                We’re here to help create the perfect engineering experience for you.</p>
+        </div>
+    </section>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+    <section id="contact" class="discovery-section discovery-plan about-chat-cta" aria-labelledby="about-chat-heading">
+      <div class="discovery-plan__lead">
+        <div class="discovery-plan__icon" aria-hidden="true">
+          <i class="fa fa-comments"></i>
+        </div>
+        <div class="discovery-plan__content">
+          <h2 id="about-chat-heading" class="discovery-plan__heading" data-i18n="about.chatHeading">Chat with us about workshops, education and engineering at Stage One Education</h2>
+          <p class="discovery-plan__copy" data-i18n="about.chatCopy">Reach us at workshops@stageoneeducation.com</p>
+        </div>
+      </div>
+      <div class="discovery-plan__actions">
+        <a class="discovery-plan-button discovery-plan-button--large" href="mailto:workshops@stageoneeducation.com">
+          <i class="fa fa-comments" aria-hidden="true"></i><span data-i18n="about.chatButton">Chat with us</span>
+        </a>
+      </div>
+    </section>
 
-
-
-        <!-- Include Roboto font -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
-    </div>
-    <div style="width: 100%;">
-        <hr class="main-page-hr" style="margin-top: 50px" />
-        <span class="workshop-title" data-i18n="common.contact">Contact</span>
-        <hr class="main-page-hr" />
-    </div>
-    <div class="container">
-        <section id="contact" class="less-padding" style="padding-top: 20px;">
-            <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-
-                <style>
-                    @keyframes pulse {
-                        0% {
-                            transform: scale(1);
-                        }
-
-                        50% {
-                            transform: scale(1.2);
-                        }
-
-                        100% {
-                            transform: scale(1);
-                        }
-                    }
-                </style>
-
-
-                <!-- Email Section with Pulsing Heartbeat Effect -->
-                <div style="display: flex; justify-content: center; align-items: center;">
-
-
-                    <a href="mailto:workshops@stageoneeducation.com" style="text-decoration: none; color: #f05f40;">
-                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"
-                            style="color: #f05f40; animation: pulse 2.5s infinite;"></i>
-                    </a>
-                </div>
-
-                <!-- Email Link on its own line -->
-                <p style="margin: 1px 0; font-family: 'Roboto', sans-serif; font-size: 20px;">
-                    <a href="mailto:workshops@stageoneeducation.com" style="color: #f05f40; text-decoration: none;">
-                        workshops@stageoneducation.com
-                    </a>
-                </p>
-
-                <br>
-
-                <div
-                    style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: center; margin: 20px auto; max-width: 800px;"
-                    data-i18n-html="about.contactBlurb">
-
-                    Explore our engineering workshops and presentation events <br /> schedule a virtual workshop demo
-                    today
-                </div>
-
-                <!-- Let's Chat Button -->
-                <style>.lets-chat-btn-about.nav-button-stageone:hover::after { display: none !important; }</style>
-                <a href={% include demo_link.html %} target="_blank" class="btn btn-primary btn-xl nav-button-stageone lets-chat-btn-about" data-i18n="about.letsChat">
-                    Let's Chat
-                </a>
-        </section>
-
-        <div style="text-align: right; margin-top: 10px;">
-            <!-- Copyright Text on its own line -->
-            {% include copyright.html %}
-
-    </div>
+    {% include discovery/page-footer.html %}

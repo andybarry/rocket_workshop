@@ -1,6 +1,5 @@
 {
   "_readme": "Brazilian Portuguese. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (IA, CAD, MIT, Wi-Fi, STEM) follow the glossary. HTML tags inside values must be preserved exactly. Nav and button strings are kept short so they do not wrap or clip.",
-
   "nav": {
     "toggle": "Abrir navegação",
     "menu": "Menu",
@@ -18,9 +17,12 @@
     "about": "Sobre",
     "requestDemo": "Agendar demo",
     "planWorkshop": "Planejar um workshop",
-    "workshopAccess": "Acesso aos workshops"
+    "workshopAccess": "Acesso aos workshops",
+    "exploreLabel": "Explorar",
+    "changeLanguage": "Alterar idioma",
+    "changeLanguageCurrent": "Alterar idioma, idioma atual {name}",
+    "primary": "Navegação principal"
   },
-
   "common": {
     "letsChat": "Vamos conversar",
     "contact": "Contato",
@@ -33,7 +35,6 @@
     "no": "Não",
     "planThisWorkshop": "PLANEJAR ESTE WORKSHOP"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "Workshops práticos de engenharia em todos os Estados Unidos",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "Realizados em todos os Estados Unidos",
       "benefitDeliveryText": "Em seu hotel, escola, campus ou espaço para grupos",
       "benefitIncludedTitle": "Engenheiros e equipamentos inclusos",
-      "benefitIncludedText": "Conduzidos por engenheiros de verdade, com materiais, conteúdo, montagem e limpeza fornecidos"
+      "benefitIncludedText": "Conduzidos por engenheiros de verdade, com materiais, conteúdo, montagem e limpeza fornecidos",
+      "benefitSafeTitle": "Seguros",
+      "benefitSafeText": "Eletrônica de baixa tensão e equipamento de segurança inclusos"
     },
     "explorer": {
       "exploreEyebrow": "EXPLORE OS WORKSHOPS",
@@ -126,7 +129,16 @@
       "notes": "Observações adicionais",
       "submit": "ENVIAR SOLICITAÇÃO DE WORKSHOP",
       "hint": "O envio não confirma uma reserva.",
-      "thanks": "Obrigado. Um membro da equipe entrará em contato sobre os próximos passos."
+      "thanks": "Obrigado. Um membro da equipe entrará em contato sobre os próximos passos.",
+      "location": "Local",
+      "locationPlaceholder": "Selecione um local",
+      "workshops": "Workshop",
+      "workshopAi": "IA",
+      "workshopRobotics": "Robótica",
+      "workshopMechanical": "Mecânica",
+      "workshopWebsite": "Web",
+      "groupSize": "Tamanho do grupo",
+      "timing": "Data"
     },
     "cardAi": {
       "title": "Inteligência Artificial",
@@ -211,7 +223,6 @@
       "Foi muito divertido e, com a confiança lá embaixo depois da programação em CAD, isso me deixou bem mais seguro sobre a minha capacidade em engenharia! Workshop ótimo, instrutor melhor ainda: muito paciente, explica bem e ama o que faz. :D"
     ]
   },
-
   "ai": {
     "title": "Workshop de Inteligência Artificial",
     "heroNeuralNetwork": "Rede Neural Humana",
@@ -243,7 +254,6 @@
       "q6": "“Gostei da <strong>atividade em grupo</strong> e da <strong>simplicidade</strong><br><strong>e eficiência</strong> dos instrutores ao explicar”<br><span class=\"quote-attribution\"><em>— Estudante, Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "Workshop de Robótica e Drones",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "“Sensacional”<br><span class=\"quote-attribution\"><em>— Estudante, Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "Workshop de Engenharia Mecânica",
     "heroStart": "Início",
@@ -283,18 +292,15 @@
       "q6": "“Ótimo workshop, <strong>me diverti muito</strong> enquanto aprendia habilidades valiosas que serão <strong>essenciais para o meu sucesso</strong> mais adiante na engenharia e além.” <em>— Estudante, Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "Workshop de Desenvolvimento Web",
     "comingSoon": "Os detalhes do workshop estarão disponíveis em breve."
   },
-
   "locations": {
     "heading": "Locais",
     "note": "Outras cidades disponíveis mediante solicitação",
     "mapAlt": "Mapa"
   },
-
   "instructors": {
     "heading": "Instrutores",
     "mission": "Missão: inspirar quem aprende por meio de workshops práticos de engenharia",
@@ -303,19 +309,19 @@
     "requirements": "Requisitos: liderança de equipe - excelente capacidade de apresentação - portfólio sólido de experiência em engenharia",
     "authorization": "Autorização para trabalhar nos EUA como prestador de serviços independente (1099)"
   },
-
   "feedback": {
     "heading": "Depoimentos",
     "updated": "atualizado: 05/02/2026",
-    "formLink": "Formulário de opinião"
+    "formLink": "Formulário de opinião",
+    "cumulativeHeading": "Feedback cumulativo",
+    "heading2026": "Feedback 2026",
+    "updatedAugust": "atualizado: agosto de 2026"
   },
-
   "contact": {
     "heading": "Fale conosco",
     "lede": "<b>Tem alguma dúvida ou quer saber mais? Fale com a gente.</b>",
     "body": "Nossos workshops práticos de <strong>Inteligência Artificial</strong>, <strong>Robótica</strong> e <strong>Engenharia Mecânica</strong> são conduzidos por engenheiros de verdade. Em apenas três horas, os participantes ganham ferramentas e habilidades essenciais que despertam a paixão pelas áreas STEM.<br><br>Não é preciso experiência prévia. <br><br> <strong>Deixe a gente levar essa empolgação e esse aprendizado até o seu grupo — fale conosco e vamos começar!</strong>"
   },
-
   "about": {
     "heading": "Sobre nós",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "Essas sessões despertam a inovação e ampliam a compreensão dos participantes sobre os avanços tecnológicos mais recentes."
     },
     "contactBlurb": "Conheça nossos workshops de engenharia e nossas palestras <br> agende hoje uma demonstração virtual",
-    "letsChat": "Vamos conversar"
+    "letsChat": "Vamos conversar",
+    "chatHeading": "Converse conosco sobre workshops, educação e engenharia na Stage One Education",
+    "chatCopy": "Fale conosco em workshops@stageoneeducation.com",
+    "chatButton": "Converse conosco"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | Workshops práticos de engenharia",
@@ -420,6 +428,185 @@
     "about": {
       "title": "Sobre | STAGE ONE EDUCATION",
       "description": "Workshops práticos de engenharia em todo o país, com IA, robótica e engenharia mecânica conduzidos por engenheiros de verdade. Saiba mais e desperte a inovação!"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "Encontre seu",
+      "sectionHeadingAccent": "workshop",
+      "sectionIntro": "Explore por cidade, participantes, workshop ou programa",
+      "destinations": "Destinos",
+      "destinationsSubtitle": "Para onde o seu grupo vai?",
+      "participants": "Participantes",
+      "participantsSubtitle": "Quem vai participar?",
+      "workshops": "Workshops",
+      "workshopsSubtitle": "O que eles vão vivenciar?",
+      "program": "Programa",
+      "programSubtitle": "O que você está organizando?",
+      "other": "Outros",
+      "backLabel": "Encontre seu workshop",
+      "planHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+      "planCopy": "Compartilhe o destino, os dados do grupo e o horário. A Stage One vai ajudar a planejar o workshop.",
+      "engineeringWorkshops": "Workshops de engenharia",
+      "engineeringWorkshopsColon": "Workshops de engenharia:",
+      "engineeringWorkshopsFor": "Workshops de engenharia para",
+      "workshopsOfferedIn": "Workshops oferecidos em",
+      "availableForTheseAges": "Disponíveis para estas idades",
+      "ages": "Idades",
+      "browseAllPrograms": "Ver todos os programas",
+      "browseAllAges": "Ver todas as idades e tipos de grupo",
+      "programs": "Programas",
+      "thingsToDo": "O que fazer",
+      "locationExploreIntro": "Experiências educativas, culturais e icônicas populares para grupos estudantis que visitam",
+      "locationExploreDisclaimer": "As experiências próximas são exibidas apenas como inspiração para o itinerário e não estão incluídas nos workshops da Stage One. Ingresso, transporte, reservas e disponibilidade devem ser organizados à parte. A inclusão não implica afiliação nem endosso.",
+      "explorePrefix": "Explorar",
+      "exploreMore": "Explorar mais",
+      "contactUs": "Fale conosco",
+      "madeWithLove": "Feito com <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> para mentes curiosas",
+      "workshopCities": "Cidades de workshops",
+      "siteFooter": "Rodapé do site",
+      "scrollQuotesLeft": "Deslocar depoimentos para a esquerda",
+      "scrollQuotesRight": "Deslocar depoimentos para a direita",
+      "viewMoreFeedback": "Ver mais depoimentos de participantes",
+      "participantFeedback": "Depoimentos de participantes",
+      "testimonialsHeading": "O que os grupos dizem",
+      "workshopDetailLabel": "Explorar o workshop completo",
+      "planModalLede": "Compartilhe seus dados de contato e algumas notas sobre o grupo. Entraremos em contato para planejar o workshop.",
+      "formName": "Nome <span aria-hidden=\"true\">*</span>",
+      "formEmail": "E-mail <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "O que devemos saber sobre o seu grupo?",
+      "formNotesPlaceholder": "Conte-nos sobre o grupo, o local, a época do ano e qualquer outra coisa que devamos saber.",
+      "formSend": "Enviar dados do workshop",
+      "formNameError": "Informe o seu nome.",
+      "formEmailError": "Informe um e-mail válido."
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston oferece uma combinação excepcional de história americana, instituições acadêmicas de primeira linha, ciência, robótica e tecnologia. Fundada em Boston, a Stage One acrescenta uma experiência de engenharia com raiz local que se encaixa naturalmente entre visitas a campus, paradas em museus e passeios históricos.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Boston.",
+        "testimonialsHeading": "O que os grupos em Boston, MA dizem"
+      },
+      "washington-dc": {
+        "intro": "Os itinerários em Washington, DC são ricos em história, governo, museus, instituições nacionais, ciência e aviação. Um workshop da Stage One acrescenta um bloco prático e revigorante a agendas com muito turismo e funciona especialmente bem como programa indoor ou noturno com um propósito educacional claro.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Washington, DC.",
+        "testimonialsHeading": "O que os grupos em Washington, DC dizem"
+      },
+      "orlando": {
+        "intro": "Orlando conecta o entretenimento temático à exploração espacial, à tecnologia de simulação, a instituições de primeira linha, às ciências ambientais e às experiências ao ar livre da Flórida. A Stage One oferece aos organizadores uma âncora educacional sólida entre dias de atrações ou durante um bloco noturno no hotel, acrescentando programação STEM significativa sem outro traslado complicado.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Orlando.",
+        "testimonialsHeading": "O que os grupos em Orlando, FL dizem"
+      },
+      "atlanta": {
+        "intro": "Os itinerários em Atlanta reúnem história dos direitos civis, instituições de primeira linha, negócios e tecnologia moderna. A Stage One acrescenta uma experiência ativa de engenharia que equilibra visitas a campus e turismo, e oferece aos organizadores um programa educacional completo entregue diretamente no local do grupo.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Atlanta.",
+        "testimonialsHeading": "O que os grupos em Atlanta, GA dizem"
+      },
+      "houston": {
+        "intro": "Houston é um dos destinos mais sólidos do país para exploração espacial, aeroespacial, medicina, energia e engenharia em grande escala. A Stage One leva esse tema além de museus e atrações com um workshop prático completo que pode ser agendado no hotel, no campus ou no local de reuniões do grupo.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Houston.",
+        "testimonialsHeading": "O que os grupos em Houston, TX dizem"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles reúne aeroespacial, entretenimento, mídia digital, design e tecnologia de um modo que poucos destinos conseguem igualar. A Stage One conecta essas indústrias por meio de um workshop que combina pensamento técnico com criatividade e combina naturalmente com experiências em estúdios, atrações científicas e visitas a instituições de primeira linha.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Los Angeles.",
+        "testimonialsHeading": "O que os grupos em Los Angeles, CA dizem"
+      },
+      "san-francisco": {
+        "intro": "San Francisco coloca a tecnologia, o empreendedorismo, a ciência e o design no centro do destino. A Stage One complementa visitas centradas em inovação, atrações científicas, instituições de primeira linha e o turismo icônico da cidade com um workshop prático completo entregue diretamente no local do grupo.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em San Francisco.",
+        "testimonialsHeading": "O que os grupos em San Francisco, CA dizem"
+      },
+      "new-haven": {
+        "intro": "New Haven oferece um ambiente acadêmico distintivo, marcado por instituições prestigiosas, pesquisa e descoberta intelectual. Um workshop da Stage One leva o itinerário além de uma visita tradicional ao campus ao acrescentar uma experiência completa de engenharia que reforça o foco da viagem em universidade, carreira e STEM.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em New Haven.",
+        "testimonialsHeading": "O que os grupos em New Haven, CT dizem"
+      },
+      "ann-arbor": {
+        "intro": "A cultura acadêmica de Ann Arbor, sua comunidade de engenharia e o foco em pesquisa a tornam um destino natural para viagens orientadas a STEM. Um workshop da Stage One acrescenta um componente prático substancial depois de uma visita institucional ou durante um bloco livre no hotel, com instrutores, equipamentos e materiais inclusos.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Ann Arbor.",
+        "testimonialsHeading": "O que os grupos em Ann Arbor, MI dizem"
+      },
+      "berkeley": {
+        "intro": "Berkeley é conhecida pelas ideias ousadas, pela descoberta acadêmica e pela conexão com a economia de inovação da Bay Area. Um workshop da Stage One amplia esse tema com uma experiência de engenharia prática que se encaixa naturalmente depois de uma visita institucional ou como um programa envolvente à tarde ou à noite.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Berkeley.",
+        "testimonialsHeading": "O que os grupos em Berkeley, CA dizem"
+      },
+      "denver": {
+        "intro": "Denver combina aeroespacial, ciência, exploração ao ar livre e o cenário dramático das Rocky Mountains. Um workshop da Stage One traz um sólido componente acadêmico indoor antes ou depois de uma excursão, uma visita a uma atração ou um percurso institucional, e também oferece aos organizadores uma atividade confiável independente do clima.",
+        "ctaHeading": "Pronto para incluir engenharia prática no seu itinerário?",
+        "ctaCopy": "Compartilhe as datas, o tamanho do grupo e o local. A Stage One vai coordenar um workshop em torno do seu programa em Denver.",
+        "testimonialsHeading": "O que os grupos em Denver, CO dizem"
+      },
+      "other-us-cities": {
+        "intro": "Os workshops da Stage One não se limitam aos nossos destinos atuais. Trabalhamos com grupos para oferecer programas completos de engenharia prática em cidades de todos os Estados Unidos e damos aos organizadores uma forma flexível de acrescentar programação STEM significativa onde quer que seus grupos viajem.",
+        "ctaHeading": "Diga-nos para onde o seu grupo vai",
+        "ctaCopy": "Compartilhe o destino, as datas e o tamanho do grupo. A Stage One vai ajudar a definir as opções de realização do workshop para a sua viagem.",
+        "testimonialsHeading": "O que os grupos dizem",
+        "exploreHeading": "Levamos a Stage One até o seu destino",
+        "exploreIntro": "Você está organizando um programa estudantil em outra cidade dos Estados Unidos? Compartilhe o destino, as datas e o tamanho do grupo, e nossa equipe vai ajudar a explorar as opções de workshop disponíveis."
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "Ensino fundamental II",
+        "intro": "Alunos do ensino fundamental II fazem engenharia de verdade desde o primeiro minuto. Orientação estruturada, explicações claras e marcos práticos regulares mantêm cada estudante ativamente envolvido: não é necessária experiência prévia."
+      },
+      "high-school": {
+        "label": "Ensino médio",
+        "intro": "Grupos do ensino médio exploram a engenharia prática por meio de desafios em equipe, discussão técnica, decisões de projeto e resolução de problemas com as mãos. Os instrutores ajustam a profundidade à experiência do grupo."
+      },
+      "college": {
+        "label": "Faculdade ou universidade",
+        "intro": "Grupos de faculdade ou universidade avançam em um ritmo mais rápido, com maior ênfase em engenharia aplicada, colaboração e tomada de decisões técnicas. O workshop complementa viagens acadêmicas, programas de campus e eventos de grupo."
+      },
+      "adult-professional": {
+        "label": "Adultos ou profissionais",
+        "intro": "Grupos de adultos e profissionais participam de uma experiência de engenharia prática e colaborativa pensada para a participação ativa: uma alternativa revigorante aos eventos de equipe e programas profissionais convencionais."
+      },
+      "international-students": {
+        "label": "Estudantes internacionais",
+        "intro": "A Stage One trabalha de perto com operadoras de turismo, escolas e líderes de grupo que trazem estudantes internacionais aos Estados Unidos. O workshop acrescenta uma autêntica experiência americana de engenharia ao itinerário do grupo nos EUA."
+      },
+      "other-groups": {
+        "label": "Outros",
+        "intro": "Idades mistas, famílias, organizações comunitárias, acampamentos, escoteiros ou algo totalmente diferente: os instrutores da Stage One ajustam o ritmo, a estrutura das equipes e a orientação para que participantes com diferentes níveis de experiência possam contribuir no mesmo desafio prático."
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "Grupo escolar",
+        "intro": "Leve uma experiência completa de engenharia aos seus estudantes, na sua escola ou onde o grupo viajar. A Stage One entrega o instrutor, os equipamentos, os materiais e o conteúdo, e cuida da montagem e da limpeza."
+      },
+      "educational-tours": {
+        "label": "Tour educacional",
+        "intro": "A Stage One colabora com empresas de tours educacionais em todos os Estados Unidos. O workshop é um bloco de programa pronto para usar: entregamos a experiência completa no hotel ou no local do grupo, no horário que o seu itinerário precisa."
+      },
+      "international-groups": {
+        "label": "Grupo de estudantes internacionais",
+        "intro": "Para grupos internacionais que viajam pelos Estados Unidos, a Stage One acrescenta uma experiência STEM americana distintiva sem complicar o itinerário. Levamos os instrutores, os equipamentos, os materiais e o workshop completo diretamente ao hotel, à escola, ao campus ou à sala de reuniões do grupo, para que seja fácil encaixar em torno do turismo, das visitas institucionais, dos dias de atrações e dos deslocamentos."
+      },
+      "academic-programs": {
+        "label": "Programa acadêmico",
+        "intro": "Programas acadêmicos e de enriquecimento usam os workshops da Stage One como experiências de engenharia prontas, completas com instrutor, equipamentos, materiais e conteúdo."
+      },
+      "college-groups": {
+        "label": "Grupo universitário",
+        "intro": "Organizações estudantis, programas de integração, turmas de honra e eventos de campus usam os workshops da Stage One como experiências de grupo envolventes e substanciais, realizadas no próprio campus ou no local do grupo."
+      },
+      "professional-groups": {
+        "label": "Grupo de adultos / profissionais",
+        "intro": "Ofereça à sua equipe ou ao seu grupo de adultos uma experiência compartilhada realmente diferente: três horas de engenharia prática e colaborativa conduzidas por um engenheiro profissional, realizadas no seu escritório, no local da conferência ou no hotel."
+      }
     }
   }
 }

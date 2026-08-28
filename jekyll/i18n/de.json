@@ -1,6 +1,5 @@
 {
   "_readme": "German. Mirrors the key structure of en.json. Brand names (Stage One Education), person names, city and state names, and technical acronyms (KI, CAD, MIT, Wi-Fi, MINT) follow the glossary. HTML tags inside values must be preserved exactly. German compounds are long, so nav and button strings use the shortest accurate wording available.",
-
   "nav": {
     "toggle": "Navigation öffnen",
     "menu": "Menü",
@@ -18,9 +17,12 @@
     "about": "Über uns",
     "requestDemo": "Demo anfragen",
     "planWorkshop": "Workshop planen",
-    "workshopAccess": "Workshop-Zugang"
+    "workshopAccess": "Workshop-Zugang",
+    "exploreLabel": "Entdecken",
+    "changeLanguage": "Sprache ändern",
+    "changeLanguageCurrent": "Sprache ändern, aktuelle Sprache {name}",
+    "primary": "Hauptnavigation"
   },
-
   "common": {
     "letsChat": "Sprechen wir",
     "contact": "Kontakt",
@@ -33,7 +35,6 @@
     "no": "Nein",
     "planThisWorkshop": "DIESEN WORKSHOP PLANEN"
   },
-
   "home": {
     "hero": {
       "sectionLabel": "Praxisnahe Technik-Workshops in den ganzen USA",
@@ -60,7 +61,9 @@
       "benefitDeliveryTitle": "In den ganzen USA vor Ort",
       "benefitDeliveryText": "In Ihrem Hotel, Ihrer Schule, auf Ihrem Campus oder an Ihrem Gruppenveranstaltungsort",
       "benefitIncludedTitle": "Ingenieure & Ausrüstung inklusive",
-      "benefitIncludedText": "Von echten Ingenieuren geleitet; Materialien, Lehrplan, Auf- und Abbau werden bereitgestellt"
+      "benefitIncludedText": "Von echten Ingenieuren geleitet; Materialien, Lehrplan, Auf- und Abbau werden bereitgestellt",
+      "benefitSafeTitle": "Sicher",
+      "benefitSafeText": "Niederspannungselektronik und Schutzausrüstung inklusive"
     },
     "explorer": {
       "exploreEyebrow": "WORKSHOPS ENTDECKEN",
@@ -126,7 +129,16 @@
       "notes": "Zusätzliche Hinweise",
       "submit": "WORKSHOP-ANFRAGE SENDEN",
       "hint": "Diese Anfrage bestätigt keine Buchung.",
-      "thanks": "Vielen Dank. Ein Teammitglied meldet sich zu den nächsten Schritten."
+      "thanks": "Vielen Dank. Ein Teammitglied meldet sich zu den nächsten Schritten.",
+      "location": "Ort",
+      "locationPlaceholder": "Ort auswählen",
+      "workshops": "Workshop",
+      "workshopAi": "KI",
+      "workshopRobotics": "Robotik",
+      "workshopMechanical": "Maschinenbau",
+      "workshopWebsite": "Web",
+      "groupSize": "Gruppengröße",
+      "timing": "Datum"
     },
     "cardAi": {
       "title": "Künstliche Intelligenz",
@@ -211,7 +223,6 @@
       "Das hat wirklich Spaß gemacht. Nach dem CAD-Programmieren war mein Selbstvertrauen ziemlich am Boden, und das hier hat mir viel mehr Zutrauen in meine Fähigkeiten als Ingenieur gegeben! Toller Workshop, noch besserer Dozent: sehr geduldig, erklärt gut und liebt sichtlich, was er tut. :D"
     ]
   },
-
   "ai": {
     "title": "Workshop Künstliche Intelligenz",
     "heroNeuralNetwork": "Menschliches neuronales Netz",
@@ -243,7 +254,6 @@
       "q6": "„Mir hat die <strong>gemeinsame Aktivität</strong> gefallen und wie <strong>einfach</strong><br><strong>und wirkungsvoll</strong> die Dozenten erklärt haben“<br><span class=\"quote-attribution\"><em>— Schüler/in, Washington, D.C. 2024</em></span>"
     }
   },
-
   "robotics": {
     "title": "Workshop Robotik & Drohnen",
     "overview": {
@@ -262,7 +272,6 @@
       "q6": "„Einfach großartig“<br><span class=\"quote-attribution\"><em>— Schüler/in, Houston, TX 2025</em></span>"
     }
   },
-
   "mechanical": {
     "title": "Workshop Maschinenbau",
     "heroStart": "Start",
@@ -283,18 +292,15 @@
       "q6": "„Toller Workshop, <strong>ich hatte eine großartige Zeit</strong> und habe dabei wertvolle Fähigkeiten gelernt, die später im Ingenieurwesen und darüber hinaus <strong>entscheidend für meinen Erfolg</strong> sein werden.“ <em>— Schüler/in, Atlanta, GA 2025</em>"
     }
   },
-
   "aiWebsite": {
     "title": "Webentwicklung-Workshop",
     "comingSoon": "Details zum Workshop folgen in Kürze."
   },
-
   "locations": {
     "heading": "Standorte",
     "note": "Weitere Städte auf Anfrage",
     "mapAlt": "Karte"
   },
-
   "instructors": {
     "heading": "Dozenten",
     "mission": "Unser Auftrag: Lernende durch praxisnahe Technik-Workshops begeistern",
@@ -303,19 +309,19 @@
     "requirements": "Voraussetzungen: Teamführung – ausgezeichnetes Präsentationsgeschick – überzeugendes Portfolio an Ingenieurerfahrung",
     "authorization": "Arbeitserlaubnis für die USA als selbstständige Auftragnehmerin bzw. Auftragnehmer (1099)"
   },
-
   "feedback": {
     "heading": "Stimmen",
     "updated": "aktualisiert: 05.02.2026",
-    "formLink": "Feedback-Formular"
+    "formLink": "Feedback-Formular",
+    "cumulativeHeading": "Kumulatives Feedback",
+    "heading2026": "Feedback 2026",
+    "updatedAugust": "aktualisiert: August 2026"
   },
-
   "contact": {
     "heading": "Kontakt",
     "lede": "<b>Sie haben eine Frage oder möchten mehr erfahren? Schreiben Sie uns.</b>",
     "body": "Unsere praxisnahen Workshops zu <strong>künstlicher Intelligenz</strong>, <strong>Robotik</strong> und <strong>Maschinenbau</strong> werden von echten Ingenieurinnen und Ingenieuren geleitet. In nur drei Stunden erwerben die Teilnehmenden Fähigkeiten und Werkzeuge, die ihre Begeisterung für MINT wecken.<br><br>Vorkenntnisse sind nicht nötig. <br><br> <strong>Bringen wir diese Begeisterung und dieses Wissen zu Ihrer Gruppe – melden Sie sich, und es kann losgehen!</strong>"
   },
-
   "about": {
     "heading": "Über uns",
     "intro": {
@@ -377,9 +383,11 @@
       "body": "Diese Sitzungen regen zu neuen Ideen an und erweitern das Verständnis Ihrer Teilnehmenden für die jüngsten technischen Durchbrüche."
     },
     "contactBlurb": "Entdecken Sie unsere Technik-Workshops und Vorträge <br> vereinbaren Sie noch heute eine Online-Demo",
-    "letsChat": "Sprechen wir"
+    "letsChat": "Sprechen wir",
+    "chatHeading": "Chatten Sie mit uns über Workshops, Bildung und Ingenieurwesen bei Stage One Education",
+    "chatCopy": "Erreichen Sie uns unter workshops@stageoneeducation.com",
+    "chatButton": "Mit uns chatten"
   },
-
   "meta": {
     "home": {
       "title": "STAGE ONE EDUCATION | Technik-Workshops zum Anfassen",
@@ -420,6 +428,185 @@
     "about": {
       "title": "Über uns | STAGE ONE EDUCATION",
       "description": "Praxisnahe Technik-Workshops im ganzen Land – KI, Robotik und Maschinenbau, geleitet von echten Ingenieuren. Mehr erfahren und Innovationsgeist wecken!"
+    }
+  },
+  "discovery": {
+    "ui": {
+      "sectionHeading": "Finden Sie Ihren",
+      "sectionHeadingAccent": "Workshop",
+      "sectionIntro": "Entdecken Sie nach Stadt, Teilnehmenden, Workshop oder Programm",
+      "destinations": "Reiseziele",
+      "destinationsSubtitle": "Wohin fährt Ihre Gruppe?",
+      "participants": "Teilnehmende",
+      "participantsSubtitle": "Wer nimmt teil?",
+      "workshops": "Workshops",
+      "workshopsSubtitle": "Was werden sie erleben?",
+      "program": "Programm",
+      "programSubtitle": "Was planen Sie?",
+      "other": "Andere",
+      "backLabel": "Workshop finden",
+      "planHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+      "planCopy": "Teilen Sie Ihr Reiseziel, die Gruppendaten und den Zeitplan. Stage One hilft Ihnen, den Workshop zu planen.",
+      "engineeringWorkshops": "Technik-Workshops",
+      "engineeringWorkshopsColon": "Technik-Workshops:",
+      "engineeringWorkshopsFor": "Technik-Workshops für",
+      "workshopsOfferedIn": "Workshops angeboten in",
+      "availableForTheseAges": "Verfügbar für diese Altersgruppen",
+      "ages": "Altersgruppen",
+      "browseAllPrograms": "Alle Programme ansehen",
+      "browseAllAges": "Alle Altersgruppen und Gruppentypen ansehen",
+      "programs": "Programme",
+      "thingsToDo": "Aktivitäten",
+      "locationExploreIntro": "Beliebte Bildungs-, Kultur- und Wahrzeichen-Erlebnisse für Schülergruppen auf Besuch in",
+      "locationExploreDisclaimer": "Nahegelegene Erlebnisse dienen nur als Inspiration für den Reiseplan und sind in Stage-One-Workshops nicht enthalten. Eintritt, Transport, Reservierungen und Verfügbarkeit müssen separat organisiert werden. Die Aufnahme impliziert keine Zugehörigkeit und keine Empfehlung.",
+      "explorePrefix": "Entdecken",
+      "exploreMore": "Mehr entdecken",
+      "contactUs": "Kontakt",
+      "madeWithLove": "Gemacht mit <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> für neugierige Köpfe",
+      "workshopCities": "Workshop-Städte",
+      "siteFooter": "Fußzeile",
+      "scrollQuotesLeft": "Stimmen nach links scrollen",
+      "scrollQuotesRight": "Stimmen nach rechts scrollen",
+      "viewMoreFeedback": "Weitere Stimmen von Teilnehmenden ansehen",
+      "participantFeedback": "Stimmen der Teilnehmenden",
+      "testimonialsHeading": "Was Gruppen sagen",
+      "workshopDetailLabel": "Den gesamten Workshop entdecken",
+      "planModalLede": "Teilen Sie Ihre Kontaktdaten und einige Hinweise zu Ihrer Gruppe. Wir melden uns, um den Workshop zu planen.",
+      "formName": "Name <span aria-hidden=\"true\">*</span>",
+      "formEmail": "E-Mail <span aria-hidden=\"true\">*</span>",
+      "formGroupNotes": "Was sollten wir über Ihre Gruppe wissen?",
+      "formNotesPlaceholder": "Erzählen Sie uns von Ihrer Gruppe, dem Ort, der Jahreszeit und allem weiteren, das wir wissen sollten.",
+      "formSend": "Workshop-Daten senden",
+      "formNameError": "Geben Sie Ihren Namen ein.",
+      "formEmailError": "Geben Sie eine gültige E-Mail-Adresse ein."
+    },
+    "city": {
+      "boston": {
+        "intro": "Boston bietet eine außergewöhnliche Verbindung aus amerikanischer Geschichte, führenden akademischen Einrichtungen, Wissenschaft, Robotik und Technologie. In Boston gegründet, ergänzt Stage One das Programm um eine lokal verwurzelte Technik-Erfahrung, die sich natürlich zwischen Campusbesuchen, Museumstopps und historischen Rundgängen einfügt.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Boston.",
+        "testimonialsHeading": "Was Gruppen in Boston, MA sagen"
+      },
+      "washington-dc": {
+        "intro": "Reisepläne in Washington, DC sind reich an Geschichte, Regierung, Museen, nationalen Institutionen, Wissenschaft und Luftfahrt. Ein Stage-One-Workshop bringt einen erfrischenden praxisnahen Block in besichtigungsintensive Programme und eignet sich besonders gut als Indoor- oder Abendprogramm mit klarem Bildungszweck.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Washington, DC.",
+        "testimonialsHeading": "Was Gruppen in Washington, DC sagen"
+      },
+      "orlando": {
+        "intro": "Orlando verbindet Themenunterhaltung mit Weltraumforschung, Simulationstechnik, führenden Einrichtungen, Umweltwissenschaften und Outdoor-Erlebnissen in Florida. Stage One gibt Planenden einen starken bildungsbezogenen Anker zwischen Attraktionstagen oder während eines Abendblocks im Hotel und ergänzt das Programm um sinnvolles MINT-Angebot — ohne einen weiteren komplizierten Transfer.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Orlando.",
+        "testimonialsHeading": "Was Gruppen in Orlando, FL sagen"
+      },
+      "atlanta": {
+        "intro": "Reisepläne in Atlanta verbinden Bürgerrechtsgeschichte, führende Einrichtungen, Wirtschaft und moderne Technologie. Stage One ergänzt das Programm um eine aktive Technik-Erfahrung, die Campusbesuche und Sightseeing ausgleicht, und bietet Planenden ein vollständiges Bildungsprogramm, das direkt am Veranstaltungsort der Gruppe stattfindet.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Atlanta.",
+        "testimonialsHeading": "Was Gruppen in Atlanta, GA sagen"
+      },
+      "houston": {
+        "intro": "Houston gehört zu den stärksten Reisezielen des Landes für Weltraumforschung, Luft- und Raumfahrt, Medizin, Energie und großtechnisches Engineering. Stage One trägt dieses Thema über Museen und Attraktionen hinaus mit einem vollständigen praxisnahen Workshop, der im Hotel, auf dem Campus oder am Tagungsort der Gruppe stattfinden kann.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Houston.",
+        "testimonialsHeading": "Was Gruppen in Houston, TX sagen"
+      },
+      "los-angeles": {
+        "intro": "Los Angeles vereint Luft- und Raumfahrt, Unterhaltung, digitale Medien, Design und Technologie auf eine Weise, der wenige Reiseziele gleichkommen. Stage One verbindet diese Branchen in einem Workshop, der technisches Denken mit Kreativität kombiniert und sich natürlich mit Studioerfahrungen, Wissenschaftsattraktionen und Besuchen führender Einrichtungen verbindet.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Los Angeles.",
+        "testimonialsHeading": "Was Gruppen in Los Angeles, CA sagen"
+      },
+      "san-francisco": {
+        "intro": "San Francisco stellt Technologie, Unternehmertum, Wissenschaft und Design ins Zentrum der Destination. Stage One ergänzt innovationsorientierte Besuche, Wissenschaftsattraktionen, führende Einrichtungen und ikonisches Stadttouring mit einem vollständigen praxisnahen Workshop, der direkt am Veranstaltungsort der Gruppe stattfindet.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in San Francisco.",
+        "testimonialsHeading": "Was Gruppen in San Francisco, CA sagen"
+      },
+      "new-haven": {
+        "intro": "New Haven bietet ein unverwechselbares akademisches Umfeld, geprägt von prestigeträchtigen Einrichtungen, Forschung und intellektueller Entdeckung. Ein Stage-One-Workshop führt den Reiseplan über eine klassische Campusführung hinaus, indem er eine vollständige Technik-Erfahrung hinzufügt, die den Fokus der Reise auf Studium, Beruf und MINT stärkt.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in New Haven.",
+        "testimonialsHeading": "Was Gruppen in New Haven, CT sagen"
+      },
+      "ann-arbor": {
+        "intro": "Die akademische Kultur Ann Arbors, die Ingenieursgemeinschaft und der Fokus auf Forschung machen die Stadt zu einem natürlichen Ziel für MINT-orientiertes Reisen. Ein Stage-One-Workshop ergänzt nach einem Institutionsbesuch oder während eines freien Hotelblocks eine substanzielle praxisnahe Komponente — inklusive Dozenten, Ausrüstung und Materialien.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Ann Arbor.",
+        "testimonialsHeading": "Was Gruppen in Ann Arbor, MI sagen"
+      },
+      "berkeley": {
+        "intro": "Berkeley ist bekannt für kühne Ideen, akademische Entdeckung und die Verbindung zur Innovationswirtschaft der Bay Area. Ein Stage-One-Workshop führt dieses Thema mit einer praxisnahen Technik-Erfahrung weiter, die sich natürlich nach einem Institutionsbesuch oder als ansprechendes Nachmittags- oder Abendprogramm einfügt.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Berkeley.",
+        "testimonialsHeading": "Was Gruppen in Berkeley, CA sagen"
+      },
+      "denver": {
+        "intro": "Denver verbindet Luft- und Raumfahrt, Wissenschaft, Outdoor-Erkundung und die dramatische Kulisse der Rocky Mountains. Ein Stage-One-Workshop bietet eine starke indoor-akademische Komponente vor oder nach einem Ausflug, einem Attraktionsbesuch oder einer Institutionsführung und gibt Planenden zugleich eine verlässliche, wetterunabhängige Aktivität.",
+        "ctaHeading": "Bereit, praxisnahe Technik in Ihren Reiseplan aufzunehmen?",
+        "ctaCopy": "Teilen Sie Ihre Termine, die Gruppengröße und den Veranstaltungsort. Stage One koordiniert einen Workshop um Ihr Programm in Denver.",
+        "testimonialsHeading": "Was Gruppen in Denver, CO sagen"
+      },
+      "other-us-cities": {
+        "intro": "Stage-One-Workshops sind nicht auf unsere aktuellen Reiseziele beschränkt. Wir arbeiten mit Gruppen zusammen, um vollständige praxisnahe Technikprogramme in Städten in den ganzen USA durchzuführen, und geben Planenden eine flexible Möglichkeit, sinnvolles MINT-Programm dort hinzuzufügen, wo ihre Gruppen unterwegs sind.",
+        "ctaHeading": "Sagen Sie uns, wohin Ihre Gruppe fährt",
+        "ctaCopy": "Teilen Sie Ihr Reiseziel, die Termine und die Gruppengröße. Stage One hilft Ihnen, die Workshop-Durchführungsoptionen für Ihre Reise zu klären.",
+        "testimonialsHeading": "Was Gruppen sagen",
+        "exploreHeading": "Wir bringen Stage One an Ihr Reiseziel",
+        "exploreIntro": "Planen Sie ein Schülerprogramm in einer anderen US-Stadt? Teilen Sie Ihr Reiseziel, die Termine und die Gruppengröße, und unser Team hilft Ihnen, die verfügbaren Workshop-Optionen zu erkunden."
+      }
+    },
+    "audience": {
+      "middle-school": {
+        "label": "Mittelschule",
+        "intro": "Schülerinnen und Schüler der Mittelschule betreiben vom ersten Moment an echtes Engineering. Strukturierte Anleitung, klare Erklärungen und regelmäßige praxisnahe Meilensteine halten jede Person aktiv beteiligt — Vorkenntnisse sind nicht erforderlich."
+      },
+      "high-school": {
+        "label": "Highschool",
+        "intro": "Highschool-Gruppen erkunden praxisnahe Technik durch Herausforderungen im Team, technische Diskussion, Konstruktionsentscheidungen und praxisnahes Problemlösen. Die Dozenten passen die Tiefe an die Erfahrung der Gruppe an."
+      },
+      "college": {
+        "label": "College oder Universität",
+        "intro": "College- und Universitätsgruppen arbeiten in einem zügigeren Tempo, mit stärkerem Fokus auf angewandte Technik, Zusammenarbeit und technische Entscheidungen. Der Workshop ergänzt akademische Reisen, Campusprogramme und Gruppenveranstaltungen."
+      },
+      "adult-professional": {
+        "label": "Erwachsene oder Berufstätige",
+        "intro": "Gruppen aus Erwachsenen und Berufstätigen nehmen an einer praxisnahen, kollaborativen Technik-Erfahrung teil, die auf aktive Beteiligung ausgelegt ist — eine erfrischende Alternative zu herkömmlichen Teamevents und Berufsprogrammen."
+      },
+      "international-students": {
+        "label": "Internationale Studierende",
+        "intro": "Stage One arbeitet eng mit Reiseveranstaltern, Schulen und Gruppenleitungen zusammen, die internationale Studierende in die USA bringen. Der Workshop fügt dem US-Reiseplan der Gruppe eine echte amerikanische Technik-Erfahrung hinzu."
+      },
+      "other-groups": {
+        "label": "Andere",
+        "intro": "Gemischte Altersgruppen, Familien, Gemeindeorganisationen, Camps, Pfadfinder oder etwas ganz anderes: Die Dozenten von Stage One passen Tempo, Teamstruktur und Anleitung so an, dass Teilnehmende mit unterschiedlichem Erfahrungsstand zum selben praxisnahen Auftrag beitragen können."
+      }
+    },
+    "group": {
+      "school-groups": {
+        "label": "Schulgruppe",
+        "intro": "Bringen Sie Ihren Schülerinnen und Schülern eine vollständige Technik-Erfahrung — an Ihrer Schule oder überall dort, wo Ihre Gruppe unterwegs ist. Stage One stellt Dozenten, Ausrüstung, Materialien und Lehrplan bereit und übernimmt Auf- und Abbau."
+      },
+      "educational-tours": {
+        "label": "Bildungsreise",
+        "intro": "Stage One arbeitet mit Bildungsreiseveranstaltern in den ganzen USA zusammen. Der Workshop ist ein schlüsselfertiger Programmblock: Wir liefern die vollständige Erfahrung im Hotel oder am Veranstaltungsort der Gruppe, zum Zeitplan, den Ihr Reiseplan braucht."
+      },
+      "international-groups": {
+        "label": "Internationale Studierendengruppe",
+        "intro": "Für internationale Gruppen auf Reisen durch die USA fügt Stage One eine unverwechselbare amerikanische MINT-Erfahrung hinzu, ohne den Reiseplan zu verkomplizieren. Wir bringen Dozenten, Ausrüstung, Materialien und den kompletten Workshop direkt ins Hotel, an die Schule, auf den Campus oder in den Tagungsraum der Gruppe — leicht planbar rund um Sightseeing, Institutionsbesuche, Attraktionstage und Transfers."
+      },
+      "academic-programs": {
+        "label": "Akademisches Programm",
+        "intro": "Akademische und Enrichment-Programme nutzen Stage-One-Workshops als fertige Technik-Erfahrungen — komplett mit Dozenten, Ausrüstung, Materialien und Lehrplan."
+      },
+      "college-groups": {
+        "label": "Hochschulgruppe",
+        "intro": "Studierendenorganisationen, Orientierungprogramme, Honours-Kohorten und Campusveranstaltungen nutzen Stage-One-Workshops als ansprechende, substanzielle Gruppenerfahrungen — direkt auf dem Campus oder am Veranstaltungsort der Gruppe."
+      },
+      "professional-groups": {
+        "label": "Erwachsenen- / Berufsgruppe",
+        "intro": "Geben Sie Ihrem Team oder Ihrer Erwachsenengruppe ein wirklich anderes gemeinsames Erlebnis: drei Stunden kollaborative, praxisnahe Technik unter Leitung einer professionellen Ingenieurin oder eines Ingenieurs — in Ihrem Büro, auf der Tagung oder im Hotel."
+      }
     }
   }
 }

@@ -12,16 +12,286 @@ i18n_key: feedback
   body.cursor-glow-page * { cursor: default !important; }
   body.cursor-glow-page .navbar a,
   body.cursor-glow-page .navbar button,
-  body.cursor-glow-page .navbar img { cursor: pointer !important; }
-  body.cursor-glow-page footer a[title="Feedback Form"],
-  body.cursor-glow-page footer a[title="Feedback Form"] i { cursor: pointer !important; }
+  body.cursor-glow-page .navbar img,
+  body.cursor-glow-page .feedback-2026 button,
+  body.cursor-glow-page .feedback-cumulative button,
+  body.cursor-glow-page .discovery-page-footer a { cursor: pointer !important; }
   body.cursor-glow-page > *:not(.navbar) { position: relative; z-index: 1; }
+  body.cursor-glow-page .discovery-page-footer {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 48px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   body.cursor-glow-page {
     background-color: #fafafa;
     background-image:
       linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  .feedback-panel {
+    width: min(92vw, 1280px);
+    max-width: 1280px;
+    margin: 28px auto 8px;
+    padding: 18px 20px 24px;
+    background: #fff;
+    border: 1px solid rgba(67, 67, 67, 0.11);
+    border-radius: 16px;
+    box-shadow:
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 26px rgba(67, 67, 67, 0.05);
+    box-sizing: border-box;
+  }
+
+  .feedback-panel__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f05f40;
+  }
+
+  .feedback-panel__title {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: #434343;
+    text-transform: none;
+    text-align: left;
+  }
+
+  .feedback-panel__updated {
+    margin: 0 0 0 auto;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #b0b0b0;
+    white-space: nowrap;
+  }
+
+  .feedback-panel__updated--below {
+    margin: 12px 0 0 auto;
+    text-align: right;
+  }
+
+  .feedback-cumulative {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .feedback-cumulative__image {
+    display: block;
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    aspect-ratio: 960 / 540;
+    object-fit: contain;
+    background: #fff;
+  }
+
+  .feedback-cumulative__cover {
+    display: none;
+  }
+
+  .feedback-cumulative__cover .feedback-2026__image {
+    aspect-ratio: 960 / 540;
+  }
+
+  .feedback-2026 button {
+    cursor: pointer !important;
+  }
+
+  .feedback-2026__controls {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    overflow-x: auto;
+  }
+
+  .feedback-2026__workshops {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 0;
+  }
+
+  .feedback-2026__workshop {
+    font-family: 'Roboto', sans-serif;
+    background: #fff;
+    color: #434343;
+    border: 1.5px solid #f05f40;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1.2;
+    padding: 3px 9px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .feedback-2026__workshop.is-active,
+  .feedback-2026__workshop:hover {
+    border-color: #f05f40;
+    color: #fff;
+    background: #f05f40;
+  }
+
+  .feedback-2026__stage {
+    position: relative;
+    width: 100%;
+    min-height: 0;
+  }
+
+  .feedback-2026__slide {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    line-height: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .feedback-2026__slide.is-current {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 54%;
+    margin: 0 auto;
+    box-shadow:
+      0 10px 28px rgba(67, 67, 67, 0.12),
+      0 2px 8px rgba(67, 67, 67, 0.06);
+  }
+
+  .feedback-2026__slide.is-prev,
+  .feedback-2026__slide.is-next {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    width: 44%;
+    transform: translateY(-50%) scale(0.86);
+    opacity: 0.46;
+    filter: saturate(0.8);
+    box-shadow: 0 6px 18px rgba(67, 67, 67, 0.08);
+    transition: opacity 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .feedback-2026__slide.is-prev {
+    left: 0;
+    transform-origin: center left;
+  }
+
+  .feedback-2026__slide.is-next {
+    right: 0;
+    left: auto;
+    transform-origin: center right;
+  }
+
+  .feedback-2026__slide.is-prev:hover,
+  .feedback-2026__slide.is-next:hover {
+    opacity: 0.78;
+    filter: saturate(1);
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  .feedback-2026__slide.is-off {
+    display: none;
+  }
+
+  .feedback-2026__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1056 / 816;
+    object-fit: contain;
+    background: #fff;
+    pointer-events: none;
+  }
+
+  .feedback-2026__caption {
+    margin: 14px 0 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .feedback-2026__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0 0;
+  }
+
+  .feedback-2026__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d8d8d8;
+  }
+
+  .feedback-2026__dot.is-active {
+    background: #f05f40;
+  }
+
+  @media (max-width: 767px) {
+    .feedback-panel {
+      width: 100%;
+      margin: 20px auto 4px;
+      padding: 14px 10px 18px;
+    }
+    .feedback-panel__title {
+      font-size: 22px;
+    }
+    .feedback-panel__updated {
+      font-size: 11px;
+    }
+    .feedback-cumulative__grid {
+      display: none;
+    }
+    .feedback-cumulative__cover {
+      display: block;
+    }
+    .feedback-2026__controls {
+      margin-bottom: 28px;
+    }
+    .feedback-2026__workshop {
+      font-size: 10px;
+      padding: 3px 7px;
+    }
+    .feedback-2026__slide.is-current {
+      width: 72%;
+    }
+    .feedback-2026__slide.is-prev,
+    .feedback-2026__slide.is-next {
+      width: 30%;
+      opacity: 0.28;
+    }
   }
 </style>
 
@@ -30,26 +300,166 @@ i18n_key: feedback
     <!-- Add a spacer to prevent content from hiding behind the fixed navbar -->
     <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
 
-    <!-- Title Section -->
-    <div style="text-align: center;">
-        <span class="workshop-title"
-            style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-weight: 400; cursor: default;"
-            data-i18n="feedback.heading">
-           Feedback
-        </span>
-        <div class="our-workshops-line" style="margin-top: 6px; max-width: 780px;"></div>
-    </div>
-
-    <div class="feedback-svgs-box about-box" style="background: white; border-radius: 8px; padding: 24px; margin: 20px auto; max-width: 90%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; text-align: center;">
-        <div style="margin-bottom: 20px;">
-            <img src="img/cumulative-workshop-feedback-2025.svg" alt="Cumulative Workshop Feedback 2025" style="width: 1000px; max-width: 100%; height: auto;">
+    {% assign feedback_cumulative_dir = "/img/Feedback/Cumulative%20Feedback/" %}
+    <section class="feedback-panel feedback-panel--cumulative" aria-labelledby="feedback-cumulative-heading">
+      <div class="feedback-panel__head">
+        <h2 id="feedback-cumulative-heading" class="feedback-panel__title" data-i18n="feedback.cumulativeHeading">Cumulative Feedback</h2>
+        <p class="feedback-panel__updated" data-i18n="feedback.updatedAugust">updated: August 2026</p>
+      </div>
+      <div class="feedback-cumulative">
+        <div class="feedback-cumulative__grid">
+          <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback.svg" alt="Cumulative workshop feedback" width="960" height="540">
+          <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(1).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
+          <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(2).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
+          <img class="feedback-cumulative__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(3).svg" alt="Cumulative workshop feedback, continued" width="960" height="540">
         </div>
-        <div>
-            <img src="img/2025-workshop-feedback.svg" alt="2025 Workshop Feedback" style="width: 1000px; max-width: 100%; height: auto;">
+        <div class="feedback-cumulative__cover">
+          <div class="feedback-2026__stage">
+            <button type="button" class="feedback-2026__slide is-prev" data-slot="prev" aria-label="Previous chart">
+              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(3).svg" alt="" width="960" height="540">
+            </button>
+            <figure class="feedback-2026__slide is-current" data-slot="current">
+              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback.svg" alt="Cumulative workshop feedback" width="960" height="540">
+            </figure>
+            <button type="button" class="feedback-2026__slide is-next" data-slot="next" aria-label="Next chart">
+              <img class="feedback-2026__image" src="{{ feedback_cumulative_dir }}Cumulative%20Feedback%20(1).svg" alt="" width="960" height="540">
+            </button>
+          </div>
+          <div class="feedback-2026__dots" role="tablist" aria-label="Cumulative feedback page"></div>
         </div>
-        <p style="font-family: 'Roboto', sans-serif; font-size: 12px; color: #aaa; margin: 16px 0 0 0;" data-i18n="feedback.updated">updated: 2/5/2026</p>
-    </div>
+      </div>
+    </section>
 
-    {% include copyright.html feedback_gear=true %}
+    {% assign feedback_2026_dir = "/img/Feedback/2026%20Feedback/" %}
+    <section class="feedback-panel feedback-2026" aria-labelledby="feedback-2026-heading">
+      <div class="feedback-panel__head">
+        <h2 id="feedback-2026-heading" class="feedback-panel__title" data-i18n="feedback.heading2026">2026 Feedback</h2>
+        <p class="feedback-panel__updated" data-i18n="feedback.updatedAugust">updated: August 2026</p>
+      </div>
+        <div class="feedback-2026__controls">
+          <div class="feedback-2026__workshops" role="tablist" aria-label="Workshop">
+            <button type="button" class="feedback-2026__workshop is-active" role="tab" aria-selected="true" data-workshop="ai" data-i18n="nav.ai">Artificial Intelligence</button>
+            <button type="button" class="feedback-2026__workshop" role="tab" aria-selected="false" data-workshop="robotics" data-i18n="home.hero.linkRobotics">Robotics</button>
+            <button type="button" class="feedback-2026__workshop" role="tab" aria-selected="false" data-workshop="mechanical" data-i18n="nav.mechanical">Mechanical Engineering</button>
+          </div>
+        </div>
+        <div class="feedback-2026__stage">
+          <button type="button" class="feedback-2026__slide is-prev" data-slot="prev" aria-label="Previous page">
+            <img class="feedback-2026__image" src="{{ feedback_2026_dir }}2026%20Workshop%20Feedback%20-%20Summary%20(14).svg" alt="" width="1056" height="816">
+          </button>
+          <figure class="feedback-2026__slide is-current" data-slot="current">
+            <img class="feedback-2026__image" src="{{ feedback_2026_dir }}2026%20Workshop%20Feedback%20-%20Summary%20(12).svg" alt="2026 Artificial Intelligence workshop feedback, experience" width="1056" height="816">
+          </figure>
+          <button type="button" class="feedback-2026__slide is-next" data-slot="next" aria-label="Next page">
+            <img class="feedback-2026__image" src="{{ feedback_2026_dir }}2026%20Workshop%20Feedback%20-%20Summary%20(13).svg" alt="" width="1056" height="816">
+          </button>
+        </div>
+        <p class="feedback-2026__caption">Experience</p>
+        <div class="feedback-2026__dots" role="tablist" aria-label="Feedback page"></div>
+    </section>
+
+    <script>
+    (function () {
+      var root = document.querySelector('.feedback-2026');
+      if (!root) return;
+      var dir = '/img/Feedback/2026%20Feedback/';
+      var pages = {
+        ai: [
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(12).svg',
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(13).svg',
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(14).svg'
+        ],
+        robotics: [
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(15).svg',
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(16).svg'
+        ],
+        mechanical: [
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(9).svg',
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(10).svg',
+          dir + '2026%20Workshop%20Feedback%20-%20Summary%20(11).svg'
+        ]
+      };
+      var sectionNames = ['Experience', 'Learning', 'Instructors'];
+      var workshopLabels = {
+        ai: 'Artificial Intelligence',
+        robotics: 'Robotics',
+        mechanical: 'Mechanical Engineering'
+      };
+      var workshop = 'ai';
+      var page = 0;
+      var prevSlide = root.querySelector('[data-slot="prev"]');
+      var currentSlide = root.querySelector('[data-slot="current"]');
+      var nextSlide = root.querySelector('[data-slot="next"]');
+      var prevImg = prevSlide.querySelector('img');
+      var currentImg = currentSlide.querySelector('img');
+      var nextImg = nextSlide.querySelector('img');
+      var caption = root.querySelector('.feedback-2026__caption');
+      var dots = root.querySelector('.feedback-2026__dots');
+      var workshopButtons = root.querySelectorAll('[data-workshop]');
+
+      function names() {
+        return pages[workshop].length === 2 ? ['Experience', 'Instructors'] : sectionNames;
+      }
+
+      function show() {
+        var files = pages[workshop];
+        var n = files.length;
+        var label = names();
+        if (page >= n) page = 0;
+        var prev = (page + n - 1) % n;
+        var next = (page + 1) % n;
+        currentImg.src = files[page];
+        currentImg.alt = '2026 ' + workshopLabels[workshop] + ' workshop feedback, ' + label[page].toLowerCase();
+        prevImg.src = files[prev];
+        nextImg.src = files[next];
+        prevSlide.classList.toggle('is-off', n < 2);
+        nextSlide.classList.toggle('is-off', n < 2);
+        prevSlide.setAttribute('aria-label', 'Show ' + label[prev]);
+        nextSlide.setAttribute('aria-label', 'Show ' + label[next]);
+        if (caption) caption.textContent = label[page];
+        dots.innerHTML = '';
+        for (var i = 0; i < n; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'feedback-2026__dot' + (i === page ? ' is-active' : '');
+          dot.setAttribute('aria-label', label[i]);
+          dot.setAttribute('aria-selected', i === page ? 'true' : 'false');
+          (function (index) {
+            dot.addEventListener('click', function () {
+              page = index;
+              show();
+            });
+          })(i);
+          dots.appendChild(dot);
+        }
+        Array.prototype.forEach.call(workshopButtons, function (button) {
+          var on = button.getAttribute('data-workshop') === workshop;
+          button.classList.toggle('is-active', on);
+          button.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+
+      prevSlide.addEventListener('click', function () {
+        var n = pages[workshop].length;
+        page = (page + n - 1) % n;
+        show();
+      });
+      nextSlide.addEventListener('click', function () {
+        var n = pages[workshop].length;
+        page = (page + 1) % n;
+        show();
+      });
+      Array.prototype.forEach.call(workshopButtons, function (button) {
+        button.addEventListener('click', function () {
+          workshop = button.getAttribute('data-workshop');
+          page = 0;
+          show();
+        });
+      });
+      show();
+    })();
+    </script>
+
+    {% include discovery/page-footer.html %}
 
 </body>

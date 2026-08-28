@@ -1,0 +1,24 @@
+{% comment %}
+  Sets i18n keys for the current workshop:
+    workshop_i18n_key       — explorer / nav label (Artificial Intelligence, Robotics, Mechanical Engineering)
+    workshop_i18n_short_key — compact footer label (AI, Robotics, Mechanical)
+    workshop_i18n_card_key  — city-page card label (Artificial Intelligence, Robotics, Mechanical)
+{% endcomment %}
+{% case workshop.slug %}
+{% when "artificial-intelligence" %}
+  {% assign workshop_i18n_key = "nav.ai" %}
+  {% assign workshop_i18n_short_key = "home.hero.linkAi" %}
+  {% assign workshop_i18n_card_key = "nav.ai" %}
+{% when "robotics-drone" %}
+  {% assign workshop_i18n_key = "home.hero.linkRobotics" %}
+  {% assign workshop_i18n_short_key = "home.hero.linkRobotics" %}
+  {% assign workshop_i18n_card_key = "home.hero.linkRobotics" %}
+{% when "mechanical-engineering" %}
+  {% assign workshop_i18n_key = "nav.mechanical" %}
+  {% assign workshop_i18n_short_key = "home.hero.linkMechanical" %}
+  {% assign workshop_i18n_card_key = "home.hero.linkMechanical" %}
+{% else %}
+  {% assign workshop_i18n_key = "" %}
+  {% assign workshop_i18n_short_key = "" %}
+  {% assign workshop_i18n_card_key = "" %}
+{% endcase %}

@@ -5,17 +5,17 @@
   <div class="find-workshop__shell home-align-col">
     <header class="find-workshop__header">
       <h2 id="find-your-workshop-heading">
-        {{ copy.section_heading }} <span>{{ copy.section_heading_accent }}</span>
+        <span data-i18n="discovery.ui.sectionHeading">{{ copy.section_heading }}</span> <span data-i18n="discovery.ui.sectionHeadingAccent">{{ copy.section_heading_accent }}</span>
       </h2>
-      <p class="find-workshop__intro">{{ copy.section_intro }}</p>
+      <p class="find-workshop__intro" data-i18n="discovery.ui.sectionIntro">{{ copy.section_intro }}</p>
     </header>
 
     <div class="find-workshop__grid">
       <!-- Cities -->
       <details class="find-workshop__card" data-discovery-card="city" open aria-labelledby="find-workshop-cities-heading">
         <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-cities-heading">{{ copy.cards.cities.title }}</h3>
-          <p>{{ copy.cards.cities.subtitle }}</p>
+          <h3 id="find-workshop-cities-heading" data-i18n="discovery.ui.destinations">{{ copy.cards.cities.title }}</h3>
+          <p data-i18n="discovery.ui.destinationsSubtitle">{{ copy.cards.cities.subtitle }}</p>
         </summary>
         <div class="find-workshop__options" role="list">
           {% for city in discovery_cities %}
@@ -29,7 +29,8 @@
           {% endfor %}
           <a class="find-workshop__option find-workshop__option--featured" role="listitem"
             href="{{ copy.cards.cities.other_path }}"
-            data-discovery-option data-category="city" data-id="other-us-cities">
+            data-discovery-option data-category="city" data-id="other-us-cities"
+            data-i18n="discovery.ui.other">
             {{ copy.cards.cities.other_label }}
           </a>
         </div>
@@ -38,15 +39,16 @@
       <!-- Audience -->
       <details class="find-workshop__card" data-discovery-card="audience" open aria-labelledby="find-workshop-audience-heading">
         <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-audience-heading">{{ copy.cards.audiences.title }}</h3>
-          <p>{{ copy.cards.audiences.subtitle }}</p>
+          <h3 id="find-workshop-audience-heading" data-i18n="discovery.ui.participants">{{ copy.cards.audiences.title }}</h3>
+          <p data-i18n="discovery.ui.participantsSubtitle">{{ copy.cards.audiences.subtitle }}</p>
         </summary>
         <div class="find-workshop__options" role="list">
           {% for audience in site.data.discovery.audiences %}
           {% unless audience.hide_from_nav %}
           <a class="find-workshop__option" role="listitem"
             href="/workshops/{{ audience.id }}/"
-            data-discovery-option data-category="audience" data-id="{{ audience.id }}">
+            data-discovery-option data-category="audience" data-id="{{ audience.id }}"
+            data-i18n="discovery.audience.{{ audience.id }}.label">
             {{ audience.label }}
           </a>
           {% endunless %}
@@ -57,15 +59,17 @@
       <!-- Workshops -->
       <details class="find-workshop__card" data-discovery-card="workshop" open aria-labelledby="find-workshop-workshops-heading">
         <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-workshops-heading">{{ copy.cards.workshops.title }}</h3>
-          <p>{{ copy.cards.workshops.subtitle }}</p>
+          <h3 id="find-workshop-workshops-heading" data-i18n="discovery.ui.workshops">{{ copy.cards.workshops.title }}</h3>
+          <p data-i18n="discovery.ui.workshopsSubtitle">{{ copy.cards.workshops.subtitle }}</p>
         </summary>
         <div class="find-workshop__options" role="list">
           {% for workshop in site.data.workshops %}
           {% unless workshop.hidden %}
+          {% include discovery/workshop-i18n-key.html %}
           <a class="find-workshop__option" role="listitem"
             href="{{ workshop.detail_path }}"
-            data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
+            data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}"
+            {% if workshop_i18n_key != "" %}data-i18n="{{ workshop_i18n_key }}"{% endif %}>
             {{ workshop.explorer_label }}
           </a>
           {% endunless %}
@@ -76,14 +80,15 @@
       <!-- Planning For -->
       <details class="find-workshop__card" data-discovery-card="group_type" open aria-labelledby="find-workshop-planning-heading">
         <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-planning-heading">{{ copy.cards.group_types.title }}</h3>
-          <p>{{ copy.cards.group_types.subtitle }}</p>
+          <h3 id="find-workshop-planning-heading" data-i18n="discovery.ui.program">{{ copy.cards.group_types.title }}</h3>
+          <p data-i18n="discovery.ui.programSubtitle">{{ copy.cards.group_types.subtitle }}</p>
         </summary>
         <div class="find-workshop__options" role="list">
           {% for group in site.data.discovery.group_types %}
           <a class="find-workshop__option" role="listitem"
             href="/workshops/{{ group.id }}/"
-            data-discovery-option data-category="group_type" data-id="{{ group.id }}">
+            data-discovery-option data-category="group_type" data-id="{{ group.id }}"
+            data-i18n="discovery.group.{{ group.id }}.label">
             {{ group.label }}
           </a>
           {% endfor %}
@@ -97,14 +102,14 @@
           <i class="fa fa-calendar"></i>
         </div>
         <div class="discovery-plan__content">
-          <h2 id="find-workshop-plan-heading" class="discovery-plan__heading">Ready to Add Hands-On Engineering to Your Itinerary?</h2>
-          <p class="discovery-plan__copy">Share your destination, group details, and schedule. Stage One will help plan the workshop.</p>
+          <h2 id="find-workshop-plan-heading" class="discovery-plan__heading" data-i18n="discovery.ui.planHeading">Ready to Add Hands-On Engineering to Your Itinerary?</h2>
+          <p class="discovery-plan__copy" data-i18n="discovery.ui.planCopy">Share your destination, group details, and schedule. Stage One will help plan the workshop.</p>
         </div>
       </div>
       <div class="discovery-plan__actions">
         <button type="button" class="discovery-plan-button discovery-plan-button--large" data-plan-workshop-open
           data-plan-clear-context data-plan-source="find_your_workshop">
-          <i class="fa fa-calendar" aria-hidden="true"></i>{{ copy.plan_cta_label }}
+          <i class="fa fa-calendar" aria-hidden="true"></i><span data-i18n="nav.planWorkshop">{{ copy.plan_cta_label }}</span>
         </button>
       </div>
     </section>

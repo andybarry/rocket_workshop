@@ -1,6 +1,6 @@
 <footer style="text-align: center; margin-top: 30px; position: relative;">
   {% assign show_footer_cities = false %}
-  {% if page.show_footer_cities or page.i18n_key == "about" or page.i18n_key == "feedback" %}
+  {% if page.show_footer_cities %}
     {% assign show_footer_cities = true %}
   {% endif %}
   {% if show_footer_cities %}
@@ -11,13 +11,13 @@
     </a>
   </p>
     {% assign footer_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
-    <nav class="site-footer-regions" aria-label="Workshop cities">
+    <nav class="site-footer-regions" aria-label="Workshop cities" data-i18n-aria-label="discovery.ui.workshopCities">
       {% for city in footer_cities %}
         {% if city.featured %}
           <a href="/locations/{{ city.slug }}/">{{ city.short_label }}</a>
         {% endif %}
       {% endfor %}
-      <a href="/workshops/international-groups/">International Groups</a>
+      <a href="/workshops/international-groups/" data-i18n="discovery.group.international-groups.label">International Groups</a>
     </nav>
   {% endif %}
   <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">

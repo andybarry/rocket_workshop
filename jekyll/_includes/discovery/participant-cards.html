@@ -5,11 +5,13 @@
   {% assign browse_source = site.data.discovery.group_types %}
   {% assign browse_category = "group_type" %}
   {% assign browse_heading = "Browse all programs" %}
+  {% assign browse_heading_key = "discovery.ui.browseAllPrograms" %}
   {% assign browse_label = "Programs" %}
 {% else %}
   {% assign browse_source = site.data.discovery.audiences %}
   {% assign browse_category = "audience" %}
   {% assign browse_heading = "Browse all ages and group types" %}
+  {% assign browse_heading_key = "discovery.ui.browseAllAges" %}
   {% assign browse_label = "Participants" %}
 {% endif %}
 {% for item in browse_source %}
@@ -21,21 +23,21 @@
     {% assign selected_item = item %}
   {% endif %}
 {% endfor %}
-<section class="participant-cards" aria-label="{{ browse_label }}">
+<section class="participant-cards" aria-label="{{ browse_label }}" data-i18n-aria-label="{% if page.discovery_category == "group_type" %}discovery.ui.programs{% else %}discovery.ui.participants{% endif %}">
   {% if selected_item %}
   <header class="participant-cards__header">
     <h1 class="discovery-header__headline discovery-header__headline--city">
       <span class="discovery-header__city">
-        <span class="discovery-header__city-name">{{ selected_item.short_label | default: selected_item.label }}</span>
+        <span class="discovery-header__city-name" data-i18n="{% if page.discovery_category == "group_type" %}discovery.group.{{ selected_item.id }}.label{% else %}discovery.audience.{{ selected_item.id }}.label{% endif %}">{{ selected_item.short_label | default: selected_item.label }}</span>
       </span>
-      <span class="discovery-header__kind">Engineering Workshops</span>
+      <span class="discovery-header__kind" data-i18n="discovery.ui.engineeringWorkshops">Engineering Workshops</span>
     </h1>
   </header>
-  <p class="participant-cards__intro">{{ selected_item.intro }}</p>
+  <p class="participant-cards__intro" data-i18n="{% if page.discovery_category == "group_type" %}discovery.group.{{ selected_item.id }}.intro{% else %}discovery.audience.{{ selected_item.id }}.intro{% endif %}">{{ selected_item.intro }}</p>
   {% endif %}
 
   <div class="participant-cards__ages">
-    <h2 class="participant-cards__ages-label" id="participant-ages-heading">{{ browse_heading }}</h2>
+    <h2 class="participant-cards__ages-label" id="participant-ages-heading" data-i18n="{{ browse_heading_key }}">{{ browse_heading }}</h2>
     <div class="participant-cards__age-row" role="list" aria-labelledby="participant-ages-heading">
       {% for item in browse_items %}
       {% assign is_current = false %}
@@ -45,7 +47,7 @@
       <a class="participant-age{% if is_current %} is-current{% endif %}" href="/workshops/{{ item.id }}/" role="listitem"
         {% if is_current %}aria-current="page"{% endif %}
         data-discovery-option data-category="{{ browse_category }}" data-id="{{ item.id }}">
-        <strong>{{ item.short_label | default: item.label }}</strong>
+        <strong data-i18n="{% if page.discovery_category == "group_type" %}discovery.group.{{ item.id }}.label{% else %}discovery.audience.{{ item.id }}.label{% endif %}">{{ item.short_label | default: item.label }}</strong>
         <span class="participant-age__go" aria-hidden="true"></span>
       </a>
       {% endfor %}

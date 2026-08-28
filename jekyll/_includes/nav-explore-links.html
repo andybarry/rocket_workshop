@@ -1,10 +1,10 @@
 {% assign copy = site.data.discovery.copy %}
 {% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
 {% if include.variant == "desktop" %}
-<div class="dropdown-menu nav-dropdown-menu nav-explore-menu" role="menu" aria-label="Find Your Workshop">
+<div class="dropdown-menu nav-dropdown-menu nav-explore-menu" role="menu" aria-label="Find Your Workshop" data-i18n-aria-label="discovery.ui.backLabel">
   <div class="nav-explore-menu__cols">
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">{{ copy.cards.cities.title }}</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.destinations">{{ copy.cards.cities.title }}</p>
       <ul>
         {% for city in discovery_cities %}
         {% if city.featured %}
@@ -15,53 +15,54 @@
         {% endif %}
         {% endfor %}
         <li>
-          <a class="nav-explore-menu__link{% if page.url == copy.cards.cities.other_path %} is-current{% endif %}" href="{{ copy.cards.cities.other_path }}">{{ copy.cards.cities.other_label }}</a>
+          <a class="nav-explore-menu__link{% if page.url == copy.cards.cities.other_path %} is-current{% endif %}" href="{{ copy.cards.cities.other_path }}" data-i18n="discovery.ui.other">{{ copy.cards.cities.other_label }}</a>
         </li>
       </ul>
     </div>
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">{{ copy.cards.audiences.title }}</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.participants">{{ copy.cards.audiences.title }}</p>
       <ul>
         {% for audience in site.data.discovery.audiences %}
         {% unless audience.hide_from_nav %}
         <li>
           {% assign audience_path = "/workshops/" | append: audience.id | append: "/" %}
-          <a class="nav-explore-menu__link{% if page.url == audience_path %} is-current{% endif %}" href="{{ audience_path }}">{{ audience.label }}</a>
+          <a class="nav-explore-menu__link{% if page.url == audience_path %} is-current{% endif %}" href="{{ audience_path }}" data-i18n="discovery.audience.{{ audience.id }}.label">{{ audience.label }}</a>
         </li>
         {% endunless %}
         {% endfor %}
       </ul>
     </div>
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">{{ copy.cards.workshops.title }}</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.workshops">{{ copy.cards.workshops.title }}</p>
       <ul>
         {% for workshop in site.data.workshops %}
         {% unless workshop.hidden %}
+        {% include discovery/workshop-i18n-key.html %}
         <li>
           {% assign workshop_path = workshop.detail_path %}
-          <a class="nav-explore-menu__link{% if page.url == workshop_path %} is-current{% endif %}" href="{{ workshop_path }}">{{ workshop.explorer_label }}</a>
+          <a class="nav-explore-menu__link{% if page.url == workshop_path %} is-current{% endif %}" href="{{ workshop_path }}"{% if workshop_i18n_key != "" %} data-i18n="{{ workshop_i18n_key }}"{% endif %}>{{ workshop.explorer_label }}</a>
         </li>
         {% endunless %}
         {% endfor %}
       </ul>
     </div>
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">{{ copy.cards.group_types.title }}</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.program">{{ copy.cards.group_types.title }}</p>
       <ul>
         {% for group in site.data.discovery.group_types %}
         <li>
           {% assign group_path = "/workshops/" | append: group.id | append: "/" %}
-          <a class="nav-explore-menu__link{% if page.url == group_path %} is-current{% endif %}" href="{{ group_path }}">{{ group.label }}</a>
+          <a class="nav-explore-menu__link{% if page.url == group_path %} is-current{% endif %}" href="{{ group_path }}" data-i18n="discovery.group.{{ group.id }}.label">{{ group.label }}</a>
         </li>
         {% endfor %}
       </ul>
     </div>
   </div>
-  <a class="nav-explore-menu__all" href="/explore/">{{ copy.section_heading }} {{ copy.section_heading_accent }}</a>
+  <a class="nav-explore-menu__all" href="/explore/" data-i18n="discovery.ui.backLabel">{{ copy.section_heading }} {{ copy.section_heading_accent }}</a>
 </div>
 {% else %}
-<li class="nav-mobile-workshop-heading nav-mobile-explore-heading"><span>Explore</span></li>
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.cities.title }}</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-heading"><span data-i18n="nav.exploreLabel">Explore</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.destinations">{{ copy.cards.cities.title }}</span></li>
 {% for city in discovery_cities %}
 {% if city.featured %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
@@ -70,26 +71,27 @@
 {% endif %}
 {% endfor %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
-  <a href="{{ copy.cards.cities.other_path }}" class="nav-button-stageone">{{ copy.cards.cities.other_label }}</a>
+  <a href="{{ copy.cards.cities.other_path }}" class="nav-button-stageone" data-i18n="discovery.ui.other">{{ copy.cards.cities.other_label }}</a>
 </li>
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.audiences.title }}</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.participants">{{ copy.cards.audiences.title }}</span></li>
 {% assign audience_items = site.data.discovery.audiences | where_exp: "audience", "audience.hide_from_nav != true" %}
 {% for audience in audience_items %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item{% if forloop.last %} nav-mobile-workshop-item--last{% endif %}">
-  <a href="/workshops/{{ audience.id }}/" class="nav-button-stageone">{{ audience.label }}</a>
+  <a href="/workshops/{{ audience.id }}/" class="nav-button-stageone" data-i18n="discovery.audience.{{ audience.id }}.label">{{ audience.label }}</a>
 </li>
 {% endfor %}
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.workshops.title }}</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.workshops">{{ copy.cards.workshops.title }}</span></li>
 {% assign nav_workshops = site.data.workshops | where_exp: "workshop", "workshop.hidden != true" %}
 {% for workshop in nav_workshops %}
+{% include discovery/workshop-i18n-key.html %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item{% if forloop.last %} nav-mobile-workshop-item--last{% endif %}">
-  <a href="{{ workshop.detail_path }}" class="nav-button-stageone">{{ workshop.explorer_label }}</a>
+  <a href="{{ workshop.detail_path }}" class="nav-button-stageone"{% if workshop_i18n_key != "" %} data-i18n="{{ workshop_i18n_key }}"{% endif %}>{{ workshop.explorer_label }}</a>
 </li>
 {% endfor %}
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>{{ copy.cards.group_types.title }}</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.program">{{ copy.cards.group_types.title }}</span></li>
 {% for group in site.data.discovery.group_types %}
 <li class="nav-mobile-workshop-item nav-mobile-explore-item{% if forloop.last %} nav-mobile-workshop-item--last{% endif %}">
-  <a href="/workshops/{{ group.id }}/" class="nav-button-stageone">{{ group.label }}</a>
+  <a href="/workshops/{{ group.id }}/" class="nav-button-stageone" data-i18n="discovery.group.{{ group.id }}.label">{{ group.label }}</a>
 </li>
 {% endfor %}
 {% endif %}

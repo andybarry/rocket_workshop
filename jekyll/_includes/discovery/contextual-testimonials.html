@@ -41,16 +41,21 @@
 {% endunless %}
 
 {% assign testimonial_heading = copy.testimonials_heading %}
+{% assign testimonial_i18n_key = "discovery.ui.testimonialsHeading" %}
 {% if matched.size > 0 or page.discovery_category == "city" %}
   {% case page.discovery_category %}
   {% when "city" %}
     {% capture testimonial_heading %}What Groups in {{ entry.short_label | default: entry.name }} Say{% endcapture %}
+    {% assign testimonial_i18n_key = "discovery.city." | append: page.discovery_slug | append: ".testimonialsHeading" %}
   {% when "audience" %}
     {% capture testimonial_heading %}What {{ entry.short_label }} Groups Say{% endcapture %}
+    {% assign testimonial_i18n_key = "discovery.audience." | append: entry.context_id | append: ".testimonialsHeading" %}
   {% when "workshop" %}
     {% capture testimonial_heading %}What Participants Say About {{ entry.short_label }}{% endcapture %}
+    {% assign testimonial_i18n_key = "discovery.workshop." | append: entry.context_id | append: ".testimonialsHeading" %}
   {% when "group_type" %}
     {% capture testimonial_heading %}What {{ entry.short_label }} Planners Say{% endcapture %}
+    {% assign testimonial_i18n_key = "discovery.group." | append: entry.context_id | append: ".testimonialsHeading" %}
   {% endcase %}
 {% endif %}
 {% if include.hero %}
@@ -70,8 +75,8 @@
 {% endunless %}
 {% if hero_quotes.size > 0 %}
 {% if page.discovery_category == "city" %}
-<aside class="discovery-header__quote-scroller" aria-label="{{ testimonial_heading | strip }}" data-discovery-quote-scroller>
-  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--prev" aria-label="Scroll quotes left">
+<aside class="discovery-header__quote-scroller" aria-label="{{ testimonial_heading | strip }}" data-i18n-aria-label="{{ testimonial_i18n_key }}" data-discovery-quote-scroller>
+  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--prev" aria-label="Scroll quotes left" data-i18n-aria-label="discovery.ui.scrollQuotesLeft">
     <span aria-hidden="true"></span>
   </button>
   <div class="discovery-header__quote-scroller-viewport" data-discovery-quote-scroller-viewport>
@@ -88,14 +93,14 @@
       {% endfor %}
     </div>
   </div>
-  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--next" aria-label="Scroll quotes right">
+  <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--next" aria-label="Scroll quotes right" data-i18n-aria-label="discovery.ui.scrollQuotesRight">
     <span aria-hidden="true"></span>
   </button>
 </aside>
 <div class="discovery-quote-modal" data-discovery-quote-modal hidden>
   <div class="discovery-quote-modal__backdrop" data-discovery-quote-modal-close tabindex="-1"></div>
   <div class="discovery-quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="discovery-quote-modal-text">
-    <button type="button" class="discovery-quote-modal__close" data-discovery-quote-modal-close aria-label="Close">
+    <button type="button" class="discovery-quote-modal__close" data-discovery-quote-modal-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
       <span aria-hidden="true">×</span>
     </button>
     <blockquote>
@@ -106,7 +111,7 @@
 </div>
 {% else %}
 {% assign quote_slot_last = 1 %}
-<aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}" data-discovery-quotes>
+<aside class="discovery-header__quotes" aria-label="{{ testimonial_heading | strip }}" data-i18n-aria-label="{{ testimonial_i18n_key }}" data-discovery-quotes>
   <script type="application/json" data-discovery-quote-data>
 [
 {% for t in hero_quotes %}
@@ -146,7 +151,7 @@
     <figcaption>{% if t %}{% include discovery/quote-caption.html %}{% if quote_caption and quote_caption != "" %}{{ quote_caption }}{% endif %}{% endif %}</figcaption>
     {% if t %}
     <a class="discovery-header__quote-link" href="/feedback.html"
-      aria-label="View more participant feedback"></a>
+      aria-label="View more participant feedback" data-i18n-aria-label="discovery.ui.viewMoreFeedback"></a>
     {% endif %}
   </figure>
   {% endfor %}
@@ -155,8 +160,8 @@
 {% endif %}
 {% elsif shown.size > 0 %}
 <section class="discovery-section discovery-testimonials" aria-labelledby="discovery-testimonials-heading">
-  <p class="discovery-testimonials__eyebrow">Participant Feedback</p>
-  <h2 id="discovery-testimonials-heading" class="discovery-section__heading">{{ testimonial_heading | strip }}</h2>
+  <p class="discovery-testimonials__eyebrow" data-i18n="discovery.ui.participantFeedback">Participant Feedback</p>
+  <h2 id="discovery-testimonials-heading" class="discovery-section__heading" data-i18n="{{ testimonial_i18n_key }}">{{ testimonial_heading | strip }}</h2>
   <div class="discovery-testimonials__grid">
     {% for t in shown %}
     <figure class="discovery-testimonial{% if forloop.first %} discovery-testimonial--featured{% endif %}" data-testimonial data-testimonial-id="{{ t.id }}">
@@ -171,7 +176,7 @@
     {% endfor %}
   </div>
   <a class="discovery-testimonials__more" href="/feedback.html" data-testimonial-more>
-    {{ copy.testimonials_more_label }} <span aria-hidden="true">→</span>
+    <span data-i18n="home.moreFeedback">{{ copy.testimonials_more_label }}</span> <span aria-hidden="true">→</span>
   </a>
 </section>
 {% endif %}

@@ -9,20 +9,20 @@
 
 {% if include.compact %}
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">Name <span aria-hidden="true">*</span></span>
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
     <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">
-    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName">Enter your name.</span>
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-contactName" data-i18n="discovery.ui.formNameError">Enter your name.</span>
   </label>
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">Email <span aria-hidden="true">*</span></span>
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
     <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">
-    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-email">Enter a valid email.</span>
+    <span class="plan-workshop-field__error" id="{{ include.form_id | default: 'plan-workshop-form' }}-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
   </label>
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">What should we know about your group?</span>
-    <textarea class="plan-workshop-field__control" name="notes" rows="5" placeholder="Tell us about your group, location, time of year, and anything else we should know."></textarea>
+    <span class="plan-workshop-field__label" data-i18n="discovery.ui.formGroupNotes">What should we know about your group?</span>
+    <textarea class="plan-workshop-field__control" name="notes" rows="5" placeholder="Tell us about your group, location, time of year, and anything else we should know." data-i18n-placeholder="discovery.ui.formNotesPlaceholder"></textarea>
   </label>
-  <button type="submit" class="plan-workshop-page__submit">Send Workshop Details</button>
+  <button type="submit" class="plan-workshop-page__submit" data-i18n="discovery.ui.formSend">Send Workshop Details</button>
 {% else %}
   <h3>Contact information</h3>
   <label class="plan-workshop-field">

@@ -3349,9 +3349,17 @@ html.has-workshop-plan-modal #tab-section {
         padding: 22px 10px;
         border-right: 1px solid #e5e5e5;
         border-bottom: 1px solid #e5e5e5;
+        justify-content: flex-start;
     }
     .homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
-        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 22px;
+        width: 22px;
+        height: 22px;
+        margin: 0 auto 12px;
+        line-height: 1;
     }
     .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(2n) {
         border-right: 0;
@@ -4149,7 +4157,8 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-main-links > li > .nav-button-stageone:hover,
 #mainNav .nav-main-links > li > .nav-button-stageone:focus,
-#mainNav .nav-main-links > li.open > .nav-button-stageone {
+#mainNav .nav-main-links > li.open > .nav-button-stageone,
+#mainNav .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
     border-color: transparent;
     background: transparent !important;
     color: #fff !important;
@@ -4642,10 +4651,14 @@ html.has-workshop-plan-modal #tab-section {
     }
 
     #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:hover,
-    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus {
+    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus,
+    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
         border-color: transparent;
         background: transparent !important;
         color: #fff !important;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
     }
 
     #mainNav .nav-mobile-workshop-item > .nav-button-stageone {

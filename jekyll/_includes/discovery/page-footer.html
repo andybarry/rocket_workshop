@@ -13,9 +13,9 @@
 
       <div class="discovery-page-footer__divider" aria-hidden="true"></div>
 
-      <nav class="discovery-page-footer__nav" aria-label="Site footer">
+      <nav class="discovery-page-footer__nav" aria-label="Site footer" data-i18n-aria-label="discovery.ui.siteFooter">
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--destinations">
-          <h3>{{ copy.cards.cities.title }}</h3>
+          <h3 data-i18n="discovery.ui.destinations">{{ copy.cards.cities.title }}</h3>
           <ul>
             {% for city in discovery_cities %}
             {% if city.slug == "other-us-cities" %}{% continue %}{% endif %}
@@ -30,7 +30,8 @@
             <li>
               <a href="{{ copy.cards.cities.other_path }}"
                 {% if page.discovery_category == "city" and entry.context_id == "other-us-cities" %}class="is-current" aria-current="page"{% endif %}
-                data-discovery-option data-category="city" data-id="other-us-cities">
+                data-discovery-option data-category="city" data-id="other-us-cities"
+                data-i18n="discovery.ui.other">
                 {{ copy.cards.cities.other_label }}
               </a>
             </li>
@@ -38,14 +39,15 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>{{ copy.cards.audiences.title }}</h3>
+          <h3 data-i18n="discovery.ui.participants">{{ copy.cards.audiences.title }}</h3>
           <ul>
             {% for audience in site.data.discovery.audiences %}
             {% unless audience.hide_from_nav %}
             <li>
               <a href="/workshops/{{ audience.id }}/"
                 {% if page.discovery_category == "audience" and audience.id == entry.context_id %}class="is-current" aria-current="page"{% endif %}
-                data-discovery-option data-category="audience" data-id="{{ audience.id }}">
+                data-discovery-option data-category="audience" data-id="{{ audience.id }}"
+                data-i18n="discovery.audience.{{ audience.id }}.label">
                 {{ audience.label }}
               </a>
             </li>
@@ -55,13 +57,14 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>Programs</h3>
+          <h3 data-i18n="discovery.ui.programs">Programs</h3>
           <ul>
             {% for group in site.data.discovery.group_types %}
             <li>
               <a href="/workshops/{{ group.id }}/"
                 {% if page.discovery_category == "group_type" and group.id == entry.context_id %}class="is-current" aria-current="page"{% endif %}
-                data-discovery-option data-category="group_type" data-id="{{ group.id }}">
+                data-discovery-option data-category="group_type" data-id="{{ group.id }}"
+                data-i18n="discovery.group.{{ group.id }}.label">
                 {{ group.label }}
               </a>
             </li>
@@ -70,14 +73,16 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>{{ copy.cards.workshops.title }}</h3>
+          <h3 data-i18n="discovery.ui.workshops">{{ copy.cards.workshops.title }}</h3>
           <ul>
             {% for workshop in site.data.workshops %}
             {% unless workshop.hidden %}
+            {% include discovery/workshop-i18n-key.html %}
             <li>
               <a href="{{ workshop.detail_path }}"
                 {% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %}class="is-current" aria-current="page"{% endif %}
-                data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
+                data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}"
+                {% if workshop_i18n_short_key != "" %}data-i18n="{{ workshop_i18n_short_key }}"{% endif %}>
                 {{ workshop.homepage_short_name }}
               </a>
             </li>
@@ -87,11 +92,11 @@
         </div>
 
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--link">
-          <h3><a href="/feedback.html">Feedback</a></h3>
+          <h3><a href="/feedback.html" data-i18n="nav.feedback">Feedback</a></h3>
         </div>
 
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--link">
-          <h3><a href="/about-us.html">About</a></h3>
+          <h3><a href="/about-us.html" data-i18n="nav.about">About</a></h3>
         </div>
       </nav>
     </div>
@@ -102,9 +107,9 @@
     <div class="discovery-page-footer__bar-inner">
       <div class="discovery-page-footer__bar-left">
         <span class="discovery-page-footer__copyright">&copy; 2026 Stage One Education, LLC</span>
-        <a class="discovery-page-footer__bar-link" href="/about-us.html#contact">Contact Us</a>
+        <a class="discovery-page-footer__bar-link" href="/about-us.html#contact" data-i18n="discovery.ui.contactUs">Contact Us</a>
       </div>
-      <p class="discovery-page-footer__bar-right">
+      <p class="discovery-page-footer__bar-right" data-i18n-html="discovery.ui.madeWithLove">
         Made with <span class="discovery-page-footer__heart" aria-hidden="true">🧡</span> for curious minds
       </p>
     </div>

@@ -443,8 +443,12 @@
 
         each(document.querySelectorAll('.nav-lang-toggle'), function (toggle) {
             if (active) {
-                toggle.setAttribute('title', active.label);
-                toggle.setAttribute('aria-label', 'Change language, current language ' + active.label);
+                var dict = lang === DEFAULT_LANG ? null : dictionaries[lang];
+                var changeLang = (dict && lookup(dict, 'nav.changeLanguage')) || 'Change language';
+                var currentTpl = (dict && lookup(dict, 'nav.changeLanguageCurrent')) ||
+                    'Change language, current language {name}';
+                toggle.setAttribute('title', changeLang);
+                toggle.setAttribute('aria-label', String(currentTpl).replace('{name}', active.label));
             }
         });
         each(document.querySelectorAll('.nav-lang-menu [data-lang]'), function (link) {
