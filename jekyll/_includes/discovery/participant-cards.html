@@ -36,6 +36,24 @@
   <p class="participant-cards__intro" data-i18n="{% if page.discovery_category == "group_type" %}discovery.group.{{ selected_item.id }}.intro{% else %}discovery.audience.{{ selected_item.id }}.intro{% endif %}">{{ selected_item.intro }}</p>
   {% endif %}
 
+  {% if selected_item and selected_item.supporting_copy %}
+  <div class="discovery-section discovery-copy">
+    <div class="discovery-copy__text">
+      {% for paragraph in selected_item.supporting_copy %}{{ paragraph | markdownify }}{% endfor %}
+    </div>
+    {% if selected_item.facts and selected_item.facts.size > 0 %}
+    <ul class="discovery-facts">
+      {% for fact in selected_item.facts %}
+      <li class="discovery-facts__item">
+        <strong>{{ fact.title }}</strong>
+        <span>{{ fact.text }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endif %}
+
   <div class="participant-cards__ages">
     <h2 class="participant-cards__ages-label" id="participant-ages-heading" data-i18n="{{ browse_heading_key }}">{{ browse_heading }}</h2>
     <div class="participant-cards__age-row" role="list" aria-labelledby="participant-ages-heading">

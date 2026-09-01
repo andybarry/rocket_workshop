@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- assign excluded = "404,/cad-tutorial/,human-neural-network,node-generator,node_output,workshop-access,-session,workshop-materials,team-member,feedback,OLD,copy,UART" | split: "," %}
+{%- for page in site.pages %}
+{%- if page.sitemap == false %}{% continue %}{% endif %}
+{%- unless page.url == "/" or page.url contains ".html" or page.url contains "/workshops/" or page.url contains "/locations/" or page.url contains "/sample-itineraries/" or page.url contains "/explore/" %}{% continue %}{% endunless %}
+{%- assign skip = false %}
+{%- for pattern in excluded %}{% if page.url contains pattern %}{% assign skip = true %}{% break %}{% endif %}{% endfor %}
+{%- if skip %}{% continue %}{% endif %}
+{%- assign loc = page.canonical | default: page.url %}
+{%- unless loc contains "http" %}{% assign loc = loc | prepend: "https://stageoneeducation.com" %}{% endunless %}
+  <url>
+    <loc>{{ loc }}</loc>
+  </url>
+{%- endfor %}
+</urlset>

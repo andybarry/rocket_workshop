@@ -587,9 +587,17 @@
         "label": "School Group",
         "intro": "Bring a complete engineering experience to your students — at your school or wherever your group travels. Stage One delivers the instructor, equipment, materials, and curriculum, and handles setup and cleanup."
       },
+      "evening-activities": {
+        "label": "Evening Activity",
+        "intro": "Stage One turns the empty hotel evening into the highlight of the trip. A complete three-hour engineering workshop \u2014 instructor, equipment, materials, and curriculum included \u2014 is delivered to the group\u2019s own hotel or venue, so students build, code, and test something real without a bus, a lab, or any preparation from the group."
+      },
       "educational-tours": {
         "label": "Educational Tour",
         "intro": "Stage One partners with educational tour companies across the United States. The workshop is a turn-key program block: we deliver the complete experience to the group’s hotel or venue, on the schedule your itinerary needs."
+      },
+      "tour-operators": {
+        "label": "Tour Operators & DMCs",
+        "intro": "Stage One is a direct supplier of hands-on engineering workshops for educational tour operators, receptive agencies, and DMCs. One contact coordinates everything, delivery is turn-key at the group\u2019s hotel or venue, and the format is identical in every city \u2014 so multi-city programs stay consistent wherever you run them."
       },
       "international-groups": {
         "label": "International Student Group",

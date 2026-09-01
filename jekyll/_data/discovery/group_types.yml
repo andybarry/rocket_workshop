@@ -61,16 +61,56 @@
       text: One contact, complete delivery, consistent format across cities.
     - title: Evening & Arrival Days
       text: Turns hotel time into a highlight of the trip.
-    - title: No Lab Required
-      text: Any hotel meeting room or group venue can host the workshop.
+    - title: Delivered to Your Hotel
+      text: Any hotel meeting room or group venue can host — instructor and equipment included.
   cta_heading: Ready to Add a Workshop to Your Tour Program?
   cta_copy: >-
     Share your itinerary, group size, and dates. Stage One will coordinate the
     workshop around your program.
-  seo_title: Engineering Workshops for Educational Tour Companies | Stage One Education
+  seo_title: Engineering Workshops for Educational Tours — Evening Programs at Your Hotel | Stage One Education
   seo_description: >-
-    Turn-key hands-on engineering workshops for educational tour programs.
-    Delivered to hotels and group venues in cities across the United States.
+    Turn-key hands-on engineering workshops for educational tour programs,
+    delivered to the group's hotel as an evening or arrival-day activity.
+    Instructor and equipment included, in cities across the United States.
+
+- id: evening-activities
+  label: Evening Activity
+  short_label: Evening Activity
+  headline: Evening STEM Activities for Student Tour Groups
+  intro: >-
+    Stage One turns the empty hotel evening into the highlight of the trip. A
+    complete three-hour engineering workshop — instructor, equipment,
+    materials, and curriculum included — is delivered to the group's own hotel
+    or venue, so students build, code, and test something real without a bus,
+    a lab, or any preparation from the group.
+  supporting_copy:
+    - >-
+      Touring groups spend their days at museums, campuses, and monuments —
+      and their evenings in a hotel with nothing scheduled. The workshop fills
+      that slot exactly: it runs in any hotel meeting room, needs only tables,
+      chairs, and power outlets, and requires no transportation once the group
+      is back at the hotel.
+    - >-
+      Choose AI, robotics, or mechanical engineering — or run a different
+      workshop on each evening of a multi-night stay so the program builds
+      across the week. See [sample itineraries](/sample-itineraries/) for how
+      tour planners schedule the evening slots.
+  facts:
+    - title: Delivered to Your Hotel
+      text: Any hotel meeting room or group venue can host — no lab, no bus.
+    - title: Instructor & Equipment Included
+      text: Stage One brings everything and handles setup and cleanup.
+    - title: Fills the Evening Slot
+      text: Three hours that turn hotel downtime into the trip's highlight.
+  cta_heading: Ready to Fill Your Group's Evening?
+  cta_copy: >-
+    Share your destination city, hotel, dates, and group size. Stage One will
+    coordinate the evening workshop around your itinerary.
+  seo_title: Evening STEM Activities for Student Tour Groups — Delivered to Your Hotel | Stage One Education
+  seo_description: >-
+    Hands-on evening engineering workshops for student tour groups, delivered
+    to the group's hotel. Instructor and equipment included — AI, robotics,
+    and mechanical engineering programs across the United States.
 
 - id: international-groups
   label: International Student Group
@@ -104,11 +144,51 @@
   cta_copy: >-
     Share the group's destinations, dates, and size. Stage One will coordinate
     a workshop around the itinerary.
-  seo_title: Engineering Workshops for International Groups Visiting the USA | Stage One Education
+  seo_title: Engineering Workshops for International Groups Visiting the USA — Delivered to Your Hotel | Stage One Education
   seo_description: >-
     Instructor-led engineering workshops delivered to international student
     groups at hotels, schools, campuses, and venues during United States
     educational travel.
+
+- id: tour-operators
+  label: Tour Operators & DMCs
+  short_label: Tour Operators
+  headline: A Turn-Key Workshop Supplier for Tour Operators and DMCs
+  intro: >-
+    Stage One is a direct supplier of hands-on engineering workshops for
+    educational tour operators, receptive agencies, and DMCs. One contact
+    coordinates everything, delivery is turn-key at the group's hotel or
+    venue, and the format is identical in every city — so multi-city programs
+    stay consistent wherever you run them.
+  supporting_copy:
+    - >-
+      Operator logistics are answered up front: booking lead times are
+      flexible, formats scale from a single class to large programs, insurance
+      and certificate-of-insurance documentation is available on request, and
+      coordination runs directly with your operations team — not the school.
+      The three-hour block schedules as an evening activity, an arrival-day
+      program, or a daytime session, whichever the itinerary needs.
+    - >-
+      International operators and receptive agencies are welcome — Stage One
+      has hosted groups from around the world and understands the realities of
+      inbound U.S. educational travel. See [sample itineraries](/sample-itineraries/)
+      for how the workshop slots into multi-city programs.
+  facts:
+    - title: One Contact, Every City
+      text: The same turn-key format and coordination across the country.
+    - title: Operator-Direct Coordination
+      text: Lead times, scaling, and COI documentation handled with your team.
+    - title: Evening & Arrival-Day Slots
+      text: Delivered to the group's hotel — no transportation required.
+  cta_heading: Building a Program for Your Groups?
+  cta_copy: >-
+    Share your itineraries, cities, and group profile. Stage One will set up a
+    workshop program that works across your departures.
+  seo_title: Workshop Supplier for Student Tour Operators & DMCs | Stage One Education
+  seo_description: >-
+    Stage One supplies turn-key, instructor-led engineering workshops to
+    educational tour operators, receptive agencies, and DMCs — delivered to
+    group hotels and venues in cities across the United States.
 
 - id: academic-programs
   label: Academic Program

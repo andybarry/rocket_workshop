@@ -19,6 +19,26 @@ layout: default
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Hands-on engineering workshop",
+    "name": {{ entry.headline | default: page.title | jsonify }},
+    "description": {{ entry.seo_description | default: page.description | strip_newlines | jsonify }},
+    "url": "https://stageoneeducation.com{{ page.url }}",
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "Stage One Education",
+      "url": "https://stageoneeducation.com/",
+      "email": "workshops@stageoneeducation.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       {

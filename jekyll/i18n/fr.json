@@ -587,9 +587,17 @@
         "label": "Groupe scolaire",
         "intro": "Apportez une expérience d’ingénierie complète à vos élèves, dans votre établissement ou là où voyage votre groupe. Stage One fournit l’intervenant, l’équipement, le matériel et le programme, et prend en charge l’installation et le rangement."
       },
+      "evening-activities": {
+        "label": "Activité de soirée",
+        "intro": "Stage One transforme la soirée libre à l’hôtel en moment fort du voyage. Un atelier d’ingénierie complet de trois heures — instructeur, équipement, matériel et programme inclus — est livré directement à l’hôtel ou sur le lieu du groupe : les élèves construisent, codent et testent quelque chose de réel, sans bus, sans laboratoire et sans aucune préparation de la part du groupe."
+      },
       "educational-tours": {
         "label": "Voyage éducatif",
         "intro": "Stage One collabore avec des voyagistes éducatifs partout aux États-Unis. L’atelier est un bloc de programme clé en main : nous livrons l’expérience complète à l’hôtel ou sur le lieu du groupe, selon l’horaire dont votre itinéraire a besoin."
+      },
+      "tour-operators": {
+        "label": "Voyagistes & agences réceptives",
+        "intro": "Stage One est un fournisseur direct d’ateliers d’ingénierie pratiques pour les voyagistes éducatifs, les agences réceptives et les DMC. Un seul contact coordonne tout, la livraison est clé en main à l’hôtel ou sur le lieu du groupe, et le format est identique dans chaque ville — vos programmes multi-villes restent donc cohérents partout où vous opérez."
       },
       "international-groups": {
         "label": "Groupe d’étudiants internationaux",
