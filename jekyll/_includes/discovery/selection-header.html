@@ -155,8 +155,12 @@
   {% include discovery/plan-cta.html %}
   {% endunless %}
   {% include discovery/location-explore.html %}
+  {% if page.discovery_category == "city" %}
+  {% include discovery/venue-collage.html %}
+  {% endif %}
 </header>
 {% if page.discovery_category == "audience" or page.discovery_category == "group_type" %}
+{% include discovery/venue-collage.html %}
 <section class="our-workshops-shell discovery-header__workshops-home" aria-labelledby="hero-offerings-heading">
   <div class="our-workshops-header">
     <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Workshops</h2>

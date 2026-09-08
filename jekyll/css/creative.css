@@ -5135,9 +5135,11 @@ html.has-workshop-plan-modal #tab-section {
 }
 
 /* Held at the height the surveys read well at. Left to itself the rail would take
-   the full height of the images, which are 405px tall at source. */
+   the full height of the images, which are 405px tall at source. Height is set in
+   px as well as flex-basis: Safari will not stretch the cards from basis alone. */
 .feedback-rail--charts {
     flex: 0 0 236px;
+    height: 236px;
 }
 
 .feedback-charts-updated {
@@ -5165,6 +5167,8 @@ html.has-workshop-plan-modal #tab-section {
 
 .feedback-rail__run {
     display: flex;
+    height: 100%;
+    align-items: stretch;
 }
 
 @keyframes feedback-drift {
@@ -5228,7 +5232,13 @@ html.has-feedback-viewer .feedback-rail__track {
 /* Height comes from the rail and width from the shape of the charts, all four of
    which are 817 by 405, so a card is the right size before its image arrives. */
 .feedback-card--chart {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    height: 100%;
+    max-height: 100%;
     aspect-ratio: 817 / 405;
+    overflow: hidden;
     /* A floor for anything that cannot work out a width from the ratio. */
     min-width: 260px;
     /* Spacing along the rail is a margin rather than a flex gap, since the track
@@ -5255,7 +5265,10 @@ html.has-feedback-viewer .feedback-rail__track {
     display: block;
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
+    object-position: center;
     pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
@@ -5901,6 +5914,7 @@ html.has-feedback-viewer {
     /* Stacked, the charts no longer take their height from the form beside them. */
     .feedback-rail--charts {
         flex: 0 0 248px;
+        height: 248px;
     }
 
     /* Nothing is competing for the height any more, so the rows sit at the height
@@ -5929,10 +5943,31 @@ html.has-feedback-viewer {
         display: none;
     }
 
-    /* A chart card is around twice as wide as the rail is tall, so the rail has to
-       come down to keep whole charts on a phone screen. */
+    /* Width is taken from the phone, not from the 817px image: Safari otherwise
+       sizes the button to the PNG and the rail crops it, which reads as zoomed in. */
     .feedback-rail--charts {
-        flex-basis: 190px;
+        flex: 0 0 auto;
+        height: auto;
+    }
+
+    .feedback-rail__track,
+    .feedback-rail__run {
+        height: auto;
+        align-items: stretch;
+    }
+
+    .feedback-card--chart {
+        flex: 0 0 calc(100vw - 56px);
+        width: calc(100vw - 56px);
+        max-width: calc(100vw - 56px);
+        min-width: 0;
+        height: calc((100vw - 56px) * 405 / 817);
+        max-height: none;
+        aspect-ratio: 817 / 405;
+    }
+
+    .feedback-chart__image {
+        height: auto;
     }
 
     /* Two boxes cannot sit side by side in a phone's width, so the narrowest band

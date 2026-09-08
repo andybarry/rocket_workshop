@@ -1,0 +1,21 @@
+{% assign venue_photos = "room1.png,room2.png,room3.png,room4.png,room5.png,room7.png,IMG_5408.jpg,IMG_9270.jpg" | split: "," %}
+<section class="discovery-section discovery-venue-collage" aria-labelledby="discovery-venue-collage-heading">
+  <div class="discovery-venue-collage__head">
+    <h2 id="discovery-venue-collage-heading" class="discovery-venue-collage__heading" data-i18n="discovery.ui.venueCollageHeading">Workshop Venues</h2>
+    <p class="discovery-venue-collage__copy" data-i18n="discovery.ui.venueCollageCopy">Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.</p>
+  </div>
+  <div class="discovery-venue-collage__stage" data-venue-collage-viewport role="region" tabindex="0" aria-label="Workshop venue photos. Click and drag to browse.">
+    <div class="discovery-venue-collage__track">
+      <div class="discovery-venue-collage__set">
+        {% for photo in venue_photos %}
+        <img class="discovery-venue-collage__photo" src="/img/Venues/{{ photo }}" alt="" aria-hidden="true" draggable="false">
+        {% endfor %}
+      </div>
+      <div class="discovery-venue-collage__set" aria-hidden="true">
+        {% for photo in venue_photos %}
+        <img class="discovery-venue-collage__photo" src="/img/Venues/{{ photo }}" alt="" draggable="false">
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1044,7 +1044,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 .discovery-header--location .discovery-header__ages,
 .discovery-header--location .discovery-delivery,
 .discovery-header--location .discovery-plan,
-.discovery-header--location .discovery-location-explore {
+.discovery-header--location .discovery-location-explore,
+.discovery-header--location .discovery-venue-collage {
     position: relative;
     z-index: 2;
     grid-column: auto;
@@ -1056,7 +1057,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 
 .discovery-header--location .discovery-delivery,
 .discovery-header--location .discovery-plan,
-.discovery-header--location .discovery-location-explore {
+.discovery-header--location .discovery-location-explore,
+.discovery-header--location .discovery-venue-collage {
     margin: 0;
 }
 
@@ -1871,6 +1873,21 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
     margin: 18px auto 0;
     padding: 22px 22px 32px;
     border: 1px solid rgba(67, 67, 67, 0.14);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow:
+        0 0 28px rgba(67, 67, 67, 0.07),
+        0 10px 24px rgba(67, 67, 67, 0.05);
+    box-sizing: border-box;
+}
+
+.discovery-page--participants .discovery-main > .discovery-venue-collage {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 1280px);
+    max-width: 1280px;
+    margin: 18px auto 0;
+    padding: 14px 18px 16px;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow:
@@ -3735,6 +3752,123 @@ body.has-discovery-quote-modal {
     line-height: 1.45;
 }
 
+/* Venue collage: overlapping photos that fade in and out */
+.discovery-venue-collage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 14px 16px 16px;
+    border: 1px solid rgba(67, 67, 67, 0.12);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(67, 67, 67, 0.06);
+}
+
+.discovery-header--location .discovery-venue-collage {
+    position: relative;
+    z-index: 2;
+    padding: 12px 16px 14px;
+}
+
+.discovery-venue-collage__head {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    min-width: 0;
+    margin: 0 0 4px;
+}
+
+.discovery-venue-collage__heading {
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f05f40;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    text-align: left;
+    text-transform: none;
+}
+
+.discovery-venue-collage__copy {
+    margin: 0;
+    color: #9a9a9a;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+}
+
+.discovery-venue-collage__stage {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 2px 0 0;
+    padding: 4px 0 8px;
+    border-radius: 0;
+    background: transparent;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-x;
+    container-type: inline-size;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+}
+
+.discovery-venue-collage__stage:active,
+.discovery-venue-collage__stage.is-dragging {
+    cursor: grabbing;
+}
+
+.discovery-venue-collage__track {
+    display: flex;
+    width: max-content;
+    animation: discoveryVenueScroll 220s linear infinite;
+    will-change: transform;
+}
+
+.discovery-venue-collage__stage.is-interactive .discovery-venue-collage__track {
+    animation: none;
+}
+
+.discovery-venue-collage__stage.is-interactive {
+    touch-action: none;
+}
+
+.discovery-venue-collage__set {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: stretch;
+    gap: 20px;
+    padding-right: 20px;
+}
+
+.discovery-venue-collage__photo {
+    display: block;
+    flex: 0 0 auto;
+    width: max(240px, calc((100cqi - 60px) / 3.2));
+    height: auto;
+    aspect-ratio: 12 / 7;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+@keyframes discoveryVenueScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
 .discovery-delivery {
     padding: 0;
     border: 0;
@@ -4933,6 +5067,20 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .discovery-venue-collage {
+        padding: 10px 12px 12px;
+    }
+
+    .discovery-venue-collage__photo {
+        width: max(200px, calc((100cqi - 40px) / 2.15));
+        border-radius: 12px;
+    }
+
+    .discovery-venue-collage__set {
+        gap: 14px;
+        padding-right: 14px;
+    }
+
     .discovery-header .discovery-plan__heading,
     .discovery-header .discovery-plan__copy {
         white-space: normal;
@@ -5393,6 +5541,17 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     overflow: hidden;
 }
 
+/* Workshop and location pages raise every body child above the cursor glow
+   (`body.cursor-glow-page > *:not(.navbar)`). That rule is more specific than
+   the block above, so the dialog would sit in the page flow below the footer.
+   Keep it a viewport overlay, the way the home hero Plan a Workshop button does. */
+body.cursor-glow-page > .plan-workshop-modal[data-plan-workshop-modal],
+body.cursor-glow-page > .discovery-quote-modal[data-discovery-quote-modal] {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+}
+
 .plan-workshop-modal[hidden] {
     display: none;
 }
@@ -5646,5 +5805,9 @@ body.has-plan-workshop-modal {
     .discovery-age-card:hover,
     .discovery-age-card:focus {
         transform: none;
+    }
+
+    .discovery-venue-collage__track {
+        animation: none;
     }
 }

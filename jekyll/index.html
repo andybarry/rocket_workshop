@@ -85,6 +85,7 @@ i18n_key: home
     body.cursor-glow-page .find-workshop__shell,
     body.cursor-glow-page .our-workshops-shell,
     body.cursor-glow-page .participants-plan-row,
+    body.cursor-glow-page .home-venue-wrap,
     body.cursor-glow-page .feedback-scroll-wrapper,
     body.cursor-glow-page .main-page-hr {
       max-width: 100%;
@@ -200,13 +201,13 @@ i18n_key: home
   .home-room-hero__image--drone {
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeDrone 96s ease-in-out infinite;
+      homeHeroFadeDrone 56s ease-in-out infinite;
   }
   .home-room-hero__image--mechanical {
     object-position: 50% 82%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeMech 96s ease-in-out infinite;
+      homeHeroFadeMech 56s ease-in-out infinite;
   }
   .home-room-hero__image--posters {
     background-color: #f5f5f5;
@@ -216,13 +217,13 @@ i18n_key: home
     background-repeat: no-repeat;
     animation:
       homeHeroPosterScroll 90s linear infinite,
-      homeHeroFadePosters 96s ease-in-out infinite;
+      homeHeroFadePosters 56s ease-in-out infinite;
   }
   .home-room-hero__image--hnn {
     object-position: 50% 40%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeHnn 96s ease-in-out infinite;
+      homeHeroFadeHnn 56s ease-in-out infinite;
   }
   @keyframes homeHeroZoom {
     from { transform: scale(0.94) translate(0, 0); }
@@ -233,23 +234,23 @@ i18n_key: home
     to { background-position: center bottom; }
   }
   @keyframes homeHeroFadeDrone {
-    0%, 20.833% { opacity: 1; }
-    25%, 95.833% { opacity: 0; }
+    0%, 17.857% { opacity: 1; }
+    25%, 92.857% { opacity: 0; }
     100% { opacity: 1; }
   }
   @keyframes homeHeroFadeMech {
-    0%, 20.833% { opacity: 0; }
-    25%, 45.833% { opacity: 1; }
+    0%, 17.857% { opacity: 0; }
+    25%, 42.857% { opacity: 1; }
     50%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadePosters {
-    0%, 45.833% { opacity: 0; }
-    50%, 70.833% { opacity: 1; }
+    0%, 42.857% { opacity: 0; }
+    50%, 67.857% { opacity: 1; }
     75%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadeHnn {
-    0%, 70.833% { opacity: 0; }
-    75%, 95.833% { opacity: 1; }
+    0%, 67.857% { opacity: 0; }
+    75%, 92.857% { opacity: 1; }
     100% { opacity: 0; }
   }
   .home-room-hero__image-overlay {
@@ -724,23 +725,23 @@ i18n_key: home
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation: homeHeroFadeDrone 96s ease-in-out infinite;
+      animation: homeHeroFadeDrone 56s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__image--mechanical {
       object-fit: cover;
       object-position: 50% 42%;
-      animation: homeHeroFadeMech 96s ease-in-out infinite;
+      animation: homeHeroFadeMech 56s ease-in-out infinite;
     }
     .home-room-hero__image--posters {
       background-color: #ececec;
       background-size: cover;
       background-position: center 18%;
       background-repeat: no-repeat;
-      animation: homeHeroFadePosters 96s ease-in-out infinite;
+      animation: homeHeroFadePosters 56s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation: homeHeroFadeHnn 96s ease-in-out infinite;
+      animation: homeHeroFadeHnn 56s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__content {
@@ -909,6 +910,19 @@ i18n_key: home
   body.cursor-glow-page .home-workshops-block .participants-feedback {
     width: 100%;
     flex: 1 1 auto;
+  }
+  body.cursor-glow-page .home-venue-wrap {
+    width: min(92vw, 1280px) !important;
+    max-width: 1280px !important;
+    margin: 0 auto 24px !important;
+    box-sizing: border-box !important;
+  }
+  body.cursor-glow-page .home-venue-wrap .discovery-venue-collage {
+    border-radius: 16px;
+    padding: 14px 18px 16px;
+    box-shadow:
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 26px rgba(67, 67, 67, 0.05);
   }
   body.cursor-glow-page #tab-section .workshop-cards-row {
     margin-left: 0;
@@ -1644,6 +1658,10 @@ i18n_key: home
             </div>
         </div>
     </section>
+  </div>
+
+  <div class="home-venue-wrap home-align-col">
+    {% include discovery/venue-collage.html %}
   </div>
 
 <script>

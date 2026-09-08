@@ -584,9 +584,139 @@
 
     window.StageOneInitQuoteScroller = initQuoteScroller;
 
+    function initVenueCollage() {
+        var viewport = document.querySelector("[data-venue-collage-viewport]");
+        if (!viewport || viewport.getAttribute("data-venue-bound")) return;
+        viewport.setAttribute("data-venue-bound", "true");
+
+        var track = viewport.querySelector(".discovery-venue-collage__track");
+        var set = viewport.querySelector(".discovery-venue-collage__set");
+        if (!track || !set) return;
+
+        Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
+            img.setAttribute("draggable", "false");
+        });
+
+        var offset = 0;
+        var setWidth = 0;
+        var dragging = false;
+        var lastTs = 0;
+        var loopSeconds = 220;
+
+        function wrapOffset() {
+            if (setWidth <= 0) return;
+            offset = ((offset % setWidth) + setWidth) % setWidth;
+        }
+
+        function applyTransform() {
+            wrapOffset();
+            track.style.transform = "translate3d(" + (-offset) + "px, 0, 0)";
+        }
+
+        function measure() {
+            setWidth = set.offsetWidth;
+            applyTransform();
+        }
+
+        measure();
+        viewport.classList.add("is-interactive");
+
+        Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
+            if (!img.complete) {
+                img.addEventListener("load", measure);
+            }
+        });
+
+        if (!prefersReducedMotion()) {
+            function tick(ts) {
+                if (!lastTs) lastTs = ts;
+                var dt = Math.min(48, ts - lastTs);
+                lastTs = ts;
+                if (!dragging && setWidth > 0) {
+                    offset += (setWidth / loopSeconds) * (dt / 1000);
+                    applyTransform();
+                }
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        var drag = {
+            pointerId: null,
+            startX: 0,
+            startOffset: 0,
+            moved: false
+        };
+
+        function stopDrag() {
+            if (!dragging) return;
+            dragging = false;
+            drag.pointerId = null;
+            viewport.classList.remove("is-dragging");
+            lastTs = 0;
+        }
+
+        viewport.addEventListener("pointerdown", function (event) {
+            if (event.pointerType === "mouse" && event.button !== 0) return;
+            dragging = true;
+            drag.pointerId = event.pointerId;
+            drag.moved = false;
+            drag.startX = event.clientX;
+            drag.startOffset = offset;
+            try {
+                viewport.setPointerCapture(event.pointerId);
+            } catch (err) {
+                /* ignore */
+            }
+        });
+
+        viewport.addEventListener("pointermove", function (event) {
+            if (!dragging || event.pointerId !== drag.pointerId) return;
+            var delta = event.clientX - drag.startX;
+            if (!drag.moved && Math.abs(delta) <= 4) return;
+            if (!drag.moved) {
+                drag.moved = true;
+                viewport.classList.add("is-dragging");
+            }
+            offset = drag.startOffset - delta;
+            applyTransform();
+            event.preventDefault();
+        });
+
+        viewport.addEventListener("pointerup", stopDrag);
+        viewport.addEventListener("pointercancel", stopDrag);
+        viewport.addEventListener("lostpointercapture", stopDrag);
+
+        viewport.addEventListener("dragstart", function (event) {
+            event.preventDefault();
+        });
+
+        viewport.addEventListener("keydown", function (event) {
+            var step = Math.max(200, Math.round(viewport.clientWidth * 0.45));
+            if (event.key === "ArrowLeft") {
+                offset -= step;
+                applyTransform();
+                event.preventDefault();
+            } else if (event.key === "ArrowRight") {
+                offset += step;
+                applyTransform();
+                event.preventDefault();
+            }
+        });
+
+        if (window.ResizeObserver) {
+            var observer = new ResizeObserver(measure);
+            observer.observe(set);
+            observer.observe(viewport);
+        } else {
+            window.addEventListener("resize", measure);
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         initDiscoveryQuoteRotation();
         initQuoteScroller();
+        initVenueCollage();
 
         var body = document.body;
         if (!body.hasAttribute("data-discovery-page") || !window.StageOneState) return;
