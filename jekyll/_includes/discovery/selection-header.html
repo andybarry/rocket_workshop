@@ -90,7 +90,8 @@
         </span>
         {% elsif workshop.slug == "robotics-drone" %}
         <span class="discovery-workshop-card__media">
-          <img src="/{{ workshop.image }}" alt="" aria-hidden="true">
+          <span class="discovery-workshop-card__media-code" aria-hidden="true"></span>
+          <img class="discovery-workshop-card__media-circuit" src="/{{ workshop.image }}" alt="" aria-hidden="true">
           <span class="discovery-workshop-card__media-drones" aria-hidden="true">
             <img src="/img/drone.png" alt="" class="discovery-drone--1" style="width: 18px; margin: -9px 0 0 -9px; transform: translate(-400%, 400%);">
             <img src="/img/drone.png" alt="" class="discovery-drone--2" style="width: 24px; margin: -12px 0 0 -12px; transform: translate(-400%, -400%);">
@@ -211,7 +212,7 @@
 {% include discovery/venue-collage.html %}
 <section class="our-workshops-shell discovery-header__workshops-home" aria-labelledby="hero-offerings-heading">
   <div class="our-workshops-header">
-    <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Workshops</h2>
+    <h2 id="hero-offerings-heading" class="workshop-title our-workshops-title" data-i18n="about.workshopsHeading">Our Workshops</h2>
   </div>
   {% include our-workshop-cards.html %}
 </section>
