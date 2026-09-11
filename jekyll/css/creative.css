@@ -6070,7 +6070,7 @@ html.has-feedback-viewer {
 }
 
 .workshop-card-poster-stage {
-    width: min(188px, 100%) !important;
+    width: 100% !important;
     height: 174px !important;
 }
 
@@ -6100,7 +6100,7 @@ html.has-feedback-viewer {
     left: 82.5%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    width: min(172px, 58%);
+    width: min(134px, 45%);
     height: auto;
     object-fit: contain;
     z-index: 2;

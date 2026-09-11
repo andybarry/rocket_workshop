@@ -585,7 +585,7 @@
 
 .discovery-page--participants .discovery-main {
     max-width: none;
-    padding: 64px 0 40px;
+    padding: 64px 20px 40px;
 }
 
 .discovery-page--participants .discovery-back,
@@ -2070,10 +2070,10 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: none;
+    width: min(100%, 1280px);
+    max-width: 1280px;
     min-height: 96px;
-    margin: 0;
+    margin: 18px auto 0;
     padding: 18px 24px;
     border: 1px solid #3bbf6b;
     border-radius: 12px;
@@ -2412,7 +2412,7 @@ body.discovery-page--participants .our-workshops-shell .js-workshop-cycling-post
     }
 
     body.discovery-page--participants .our-workshops-shell .workshop-card-poster-stage {
-        width: min(220px, 100%) !important;
+        width: 100% !important;
         height: 204px !important;
     }
 
@@ -5202,14 +5202,20 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         padding: 62px 14px 30px;
     }
 
-    .discovery-page--location .discovery-main,
-    .discovery-page--participants .discovery-main {
+    .discovery-page--location .discovery-main {
         padding: 62px 0 30px;
     }
 
-    .discovery-page--location .discovery-back,
-    .discovery-page--participants .discovery-back {
+    .discovery-page--participants .discovery-main {
+        padding: 62px 14px 30px;
+    }
+
+    .discovery-page--location .discovery-back {
         padding: 0 18px;
+    }
+
+    .discovery-page--participants .discovery-back {
+        padding: 0 4px;
     }
 
     .discovery-page--location .discovery-header,
