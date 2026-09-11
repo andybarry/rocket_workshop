@@ -351,7 +351,9 @@
       }
     },
     "instructorsCallout": "<strong>Stage One Education Instructors</strong><br> Nationwide network of passionate engineering professionals",
-    "workshopsHeading": "Hands-on Engineering Workshops",
+    "instructorsHeading": "Stage One Education Instructors",
+    "instructorsLede": "Nationwide network of passionate engineering professionals",
+    "workshopsHeading": "Our Workshops",
     "buttons": {
       "ai": "Artificial <br>Intelligence",
       "robotics": "Robotics <br>Drone",
@@ -464,6 +466,10 @@
       "venueCollageCopy": "Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.",
       "exploreMore": "Explore More",
       "contactUs": "Contact Us",
+      "contactModalLede": "Email us at the address below. Copy it, or open it in your mail app.",
+      "copyEmail": "Copy",
+      "emailCopied": "Copied",
+      "sendEmail": "Send email",
       "madeWithLove": "Made with <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> for curious minds",
       "madeWithLoveFeedback": "Made with <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> for curious minds",
       "workshopCities": "Workshop cities",

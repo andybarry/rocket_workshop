@@ -5564,7 +5564,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
    the block above, so the dialog would sit in the page flow below the footer.
    Keep it a viewport overlay, the way the home hero Plan a Workshop button does. */
 body.cursor-glow-page > .plan-workshop-modal[data-plan-workshop-modal],
-body.cursor-glow-page > .discovery-quote-modal[data-discovery-quote-modal] {
+body.cursor-glow-page > .discovery-quote-modal[data-discovery-quote-modal],
+body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
     position: fixed;
     inset: 0;
     z-index: 4000;
@@ -5655,11 +5656,81 @@ body.cursor-glow-page > .discovery-quote-modal[data-discovery-quote-modal] {
 }
 
 .plan-workshop-modal__lede {
-    margin: 0 0 20px;
+    margin: 0 0 12px;
     max-width: 42ch;
     font-size: 15px;
     line-height: 1.45;
     color: #6f6f6f;
+}
+
+.plan-workshop-modal__email {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin: 0 0 20px;
+}
+
+.plan-workshop-modal__address {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 14px;
+    border: 1px solid #b7e4c7;
+    border-radius: 10px;
+    background: #fff;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.plan-workshop-modal__copy {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 88px;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid #3bbf6b;
+    border-radius: 10px;
+    background: #3bbf6b;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.16);
+    cursor: pointer;
+}
+
+.plan-workshop-modal__copy:hover,
+.plan-workshop-modal__copy:focus {
+    border-color: #34b461;
+    background: #34b461;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(32, 110, 60, 0.2);
+}
+
+.plan-workshop-modal__copy:focus {
+    outline: none;
+}
+
+.plan-workshop-modal__copy:focus-visible {
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.16), 0 0 0 3px rgba(59, 191, 107, 0.35);
+}
+
+.plan-workshop-modal__copy.is-copied {
+    border-color: #6ed08f;
+    background: #6ed08f;
+}
+
+@media (max-width: 767px) {
+    .plan-workshop-modal__email {
+        flex-direction: column;
+    }
 }
 
 [data-plan-summary-chips],
@@ -5753,6 +5824,204 @@ body.has-plan-workshop-modal {
         max-height: none;
         overflow: visible;
         padding: 22px 18px 18px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Contact Us modal
+   -------------------------------------------------------------------------- */
+
+.contact-email-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    overflow: hidden;
+}
+
+.contact-email-modal[hidden] {
+    display: none;
+}
+
+.contact-email-modal__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(34, 34, 34, 0.55);
+}
+
+.contact-email-modal__dialog {
+    position: relative;
+    width: min(440px, 94vw);
+    max-height: calc(100vh - 24px);
+    margin: 0;
+    padding: 28px 28px 24px;
+    overflow: auto;
+    border: 1px solid #f05f40;
+    border-radius: 16px;
+    background: #fff1ec;
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.22),
+        0 0 12px rgba(240, 95, 64, 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .contact-email-modal__dialog {
+        animation: plan-modal-enter 220ms ease-out both;
+    }
+}
+
+.contact-email-modal__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(67, 67, 67, 0.16);
+    border-radius: 50%;
+    background: #fff;
+    color: #434343;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease;
+}
+
+.contact-email-modal__close:hover,
+.contact-email-modal__close:focus {
+    color: #f05f40;
+    border-color: #f05f40;
+}
+
+.contact-email-modal__close:focus {
+    outline: none;
+}
+
+.contact-email-modal__close:focus-visible {
+    box-shadow: 0 0 0 3px rgba(240, 95, 64, 0.35);
+}
+
+.contact-email-modal__title {
+    margin: 0 0 8px;
+    padding-right: 40px;
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #434343;
+}
+
+.contact-email-modal__lede {
+    margin: 0 0 20px;
+    max-width: 42ch;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #6f6f6f;
+}
+
+.contact-email-modal__row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.contact-email-modal__address {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 14px;
+    border: 1px solid #f7c4b6;
+    border-radius: 10px;
+    background: #fff;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.contact-email-modal__copy,
+.contact-email-modal__send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid #f05f40;
+    border-radius: 10px;
+    background: #f05f40;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(240, 95, 64, 0.16);
+    cursor: pointer;
+}
+
+.contact-email-modal__copy {
+    flex: 0 0 auto;
+    min-width: 88px;
+}
+
+.contact-email-modal__copy:hover,
+.contact-email-modal__copy:focus,
+.contact-email-modal__send:hover,
+.contact-email-modal__send:focus {
+    border-color: #d9542c;
+    background: #d9542c;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.2);
+}
+
+.contact-email-modal__copy:focus,
+.contact-email-modal__send:focus {
+    outline: none;
+}
+
+.contact-email-modal__copy:focus-visible,
+.contact-email-modal__send:focus-visible {
+    box-shadow: 0 2px 8px rgba(240, 95, 64, 0.16), 0 0 0 3px rgba(240, 95, 64, 0.35);
+}
+
+.contact-email-modal__copy.is-copied {
+    border-color: #e8836c;
+    background: #e8836c;
+}
+
+.contact-email-modal__send {
+    width: 100%;
+}
+
+body.has-contact-email-modal {
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .contact-email-modal {
+        align-items: flex-start;
+        padding: 8px;
+        overflow-y: auto;
+    }
+
+    .contact-email-modal__dialog {
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        padding: 22px 18px 18px;
+    }
+
+    .contact-email-modal__row {
+        flex-direction: column;
     }
 }
 

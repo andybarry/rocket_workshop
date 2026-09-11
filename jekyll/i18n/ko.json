@@ -351,6 +351,8 @@
       }
     },
     "instructorsCallout": "<strong>Stage One Education 강사진</strong><br> 열정 넘치는 현직 엔지니어들로 이루어진 전국 네트워크",
+    "instructorsHeading": "Stage One Education 강사진",
+    "instructorsLede": "열정 넘치는 현직 엔지니어들로 이루어진 전국 네트워크",
     "workshopsHeading": "직접 해 보는 엔지니어링 워크숍",
     "buttons": {
       "ai": "인공지능",

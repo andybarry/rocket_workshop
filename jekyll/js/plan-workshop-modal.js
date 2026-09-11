@@ -59,6 +59,8 @@
             if (!isOpen()) return;
             modal.hidden = true;
             document.body.classList.remove("has-plan-workshop-modal");
+            var emailCopy = modal.querySelector("[data-contact-email-copy]");
+            if (emailCopy && emailCopy.resetEmailCopyLabel) emailCopy.resetEmailCopyLabel();
             if (lastFocused && document.body.contains(lastFocused)) lastFocused.focus();
             lastFocused = null;
         }

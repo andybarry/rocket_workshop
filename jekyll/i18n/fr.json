@@ -351,6 +351,8 @@
       }
     },
     "instructorsCallout": "<strong>Les intervenants de Stage One Education</strong><br> Un réseau national de professionnels de l'ingénierie passionnés",
+    "instructorsHeading": "Les intervenants de Stage One Education",
+    "instructorsLede": "Un réseau national de professionnels de l'ingénierie passionnés",
     "workshopsHeading": "Des ateliers d'ingénierie pratiques",
     "buttons": {
       "ai": "Intelligence <br>artificielle",

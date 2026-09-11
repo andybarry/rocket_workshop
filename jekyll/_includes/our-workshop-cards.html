@@ -93,7 +93,7 @@
                 <h3 data-i18n="home.cardAi.line3">AI ethics discussion</h3>
             </div>
             {% endunless %}
-            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            <span class="workshop-card-link-label">{% if include.cta_label %}{{ include.cta_label }}{% else %}Explore workshop{% endif %} <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>
 
@@ -118,7 +118,7 @@
                 <h3 data-i18n="home.cardRobotics.line3">Program for autonomous flight</h3>
             </div>
             {% endunless %}
-            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            <span class="workshop-card-link-label">{% if include.cta_label %}{{ include.cta_label }}{% else %}Explore workshop{% endif %} <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>
 
@@ -140,7 +140,7 @@
                 <h3 data-i18n="home.cardMechanical.line3">Explore 3D printing</h3>
             </div>
             {% endunless %}
-            <span class="workshop-card-link-label">Explore workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            <span class="workshop-card-link-label">{% if include.cta_label %}{{ include.cta_label }}{% else %}Explore workshop{% endif %} <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
         </a>
     </div>
 </div>

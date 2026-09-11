@@ -1,0 +1,25 @@
+{% comment %}
+  Contact Us modal. Opened by any element carrying [data-contact-email-open].
+{% endcomment %}
+<div class="contact-email-modal" data-contact-email-modal hidden>
+  <div class="contact-email-modal__backdrop" data-contact-email-close tabindex="-1"></div>
+  <div class="contact-email-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contact-email-modal-title">
+    <button type="button" class="contact-email-modal__close" data-contact-email-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <h2 class="contact-email-modal__title" id="contact-email-modal-title" data-i18n="discovery.ui.contactUs">Contact Us</h2>
+    <p class="contact-email-modal__lede" data-i18n="discovery.ui.contactModalLede">
+      Email us at the address below. Copy it, or open it in your mail app.
+    </p>
+    <div class="contact-email-modal__row">
+      <p class="contact-email-modal__address" data-contact-email>workshops@stageoneeducation.com</p>
+      <button type="button" class="contact-email-modal__copy" data-contact-email-copy data-copied-label="Copied" data-i18n="discovery.ui.copyEmail" data-i18n-copied="discovery.ui.emailCopied">
+        Copy
+      </button>
+    </div>
+    <a class="contact-email-modal__send" href="mailto:workshops@stageoneeducation.com">
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+      <span data-i18n="discovery.ui.sendEmail">Send email</span>
+    </a>
+  </div>
+</div>

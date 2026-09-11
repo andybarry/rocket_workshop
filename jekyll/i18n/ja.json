@@ -351,6 +351,8 @@
       }
     },
     "instructorsCallout": "<strong>Stage One Education の講師陣</strong><br> 情熱あふれる現役エンジニアによる全米ネットワーク",
+    "instructorsHeading": "Stage One Education の講師陣",
+    "instructorsLede": "情熱あふれる現役エンジニアによる全米ネットワーク",
     "workshopsHeading": "手を動かして学ぶエンジニアリング・ワークショップ",
     "buttons": {
       "ai": "人工知能",
