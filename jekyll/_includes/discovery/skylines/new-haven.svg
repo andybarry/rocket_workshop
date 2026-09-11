@@ -1,20 +1,44 @@
-<svg viewBox="0 0 360 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
-  <g fill="#c9dcff">
-    <rect x="16" y="72" width="58" height="38"/>
-    <rect x="200" y="70" width="62" height="40"/>
-    <rect x="292" y="74" width="50" height="36"/>
+<svg viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
+  <g fill="#f05f40" fill-opacity="0.22">
+    <rect x="36" y="90" width="40" height="28"/>
+    <polygon points="36,90 56,72 76,90"/>
+    <rect x="368" y="94" width="22" height="24"/>
   </g>
-  <g fill="#8fb6f5">
-    <rect x="68" y="76" width="44" height="34"/>
-    <rect x="164" y="34" width="18" height="76"/>
-    <polygon points="173,10 182,34 164,34"/>
-    <rect x="244" y="76" width="40" height="34"/>
+  <g fill="#f05f40" fill-opacity="0.36">
+    <rect x="86" y="82" width="52" height="36"/>
+    <polygon points="86,82 112,60 138,82"/>
+    <rect x="150" y="88" width="46" height="30"/>
+    <polygon points="150,88 173,70 196,88"/>
+    <rect x="312" y="80" width="48" height="38"/>
+    <polygon points="312,80 336,58 360,80"/>
   </g>
-  <g fill="#3d8bfd">
-    <rect x="118" y="80" width="34" height="30"/>
-    <rect x="190" y="78" width="28" height="32"/>
-    <rect x="171" y="16" width="4" height="10" fill="#f05f40"/>
-    <rect x="126" y="86" width="4" height="7" fill="#f05f40"/>
-    <rect x="198" y="84" width="4" height="7" fill="#f05f40"/>
+  <g fill="#f05f40" fill-opacity="0.5">
+    <path d="M0 118h400v22H0z"/>
+    <rect x="208" y="74" width="58" height="44"/>
+    <polygon points="208,74 237,50 266,74"/>
+    <rect x="230" y="36" width="14" height="18"/>
+    <polygon points="230,36 237,22 244,36"/>
+    <rect x="280" y="26" width="26" height="92"/>
+    <rect x="274" y="20" width="38" height="10"/>
+    <rect x="276" y="12" width="6" height="10"/>
+    <rect x="304" y="12" width="6" height="10"/>
+    <polygon points="280,20 293,2 306,20"/>
+    <rect x="291" y="0" width="4" height="8"/>
+    <rect x="284" y="38" width="6" height="12"/>
+    <rect x="296" y="38" width="6" height="12"/>
+    <rect x="216" y="86" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="226" y="86" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="244" y="86" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="254" y="86" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="216" y="98" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="226" y="98" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="244" y="98" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="254" y="98" width="4" height="6" fill="#fff" fill-opacity="1"/>
+    <rect x="286" y="52" width="4" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="296" y="52" width="4" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="286" y="66" width="4" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="296" y="66" width="4" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="286" y="80" width="4" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="296" y="80" width="4" height="8" fill="#fff" fill-opacity="1"/>
   </g>
 </svg>

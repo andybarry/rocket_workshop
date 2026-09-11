@@ -1,20 +1,29 @@
-<svg viewBox="0 0 360 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
-  <g fill="#c9dcff">
-    <polygon points="0,92 70,62 150,80 230,54 320,78 360,66 360,110 0,110"/>
-    <rect x="40" y="70" width="36" height="40"/>
-    <rect x="240" y="64" width="40" height="46"/>
+<svg viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
+  <g fill="#f05f40" fill-opacity="0.22">
+    <path d="M0 98h52l10 20H0z"/>
+    <path d="M400 102h-58l-10 16H400z"/>
   </g>
-  <g fill="#8fb6f5">
-    <rect x="86" y="58" width="20" height="52"/>
-    <polygon points="168,22 182,78 154,78"/>
-    <rect x="280" y="72" width="32" height="38"/>
+  <g fill="#f05f40" fill-opacity="0.36">
+    <path d="M20 94q58-58 104-68" fill="none" stroke="#f05f40" stroke-opacity="0.36" stroke-width="2.4"/>
+    <path d="M130 26q70 46 140 0" fill="none" stroke="#f05f40" stroke-opacity="0.36" stroke-width="2.4"/>
+    <path d="M282 26q48 12 100 68" fill="none" stroke="#f05f40" stroke-opacity="0.36" stroke-width="2.4"/>
+    <path fill="none" stroke="#f05f40" stroke-opacity="0.28" stroke-width="1.1" d="M50 72v22M70 60v34M90 48v46M150 44v50M170 52v42M190 58v36M210 52v42M230 44v50M250 38v56M310 48v46M330 60v34M350 74v20"/>
   </g>
-  <g fill="#3d8bfd">
-    <rect x="118" y="74" width="24" height="36"/>
-    <rect x="200" y="68" width="22" height="42"/>
-    <rect x="308" y="78" width="26" height="32"/>
-    <rect x="126" y="80" width="4" height="7" fill="#f05f40"/>
-    <rect x="206" y="74" width="4" height="7" fill="#f05f40"/>
-    <rect x="316" y="84" width="4" height="7" fill="#f05f40"/>
+  <g fill="#f05f40" fill-opacity="0.5">
+    <path d="M0 118h400v22H0z"/>
+    <rect x="118" y="22" width="12" height="84"/>
+    <rect x="112" y="34" width="24" height="4"/>
+    <rect x="112" y="52" width="24" height="4"/>
+    <rect x="112" y="70" width="24" height="4"/>
+    <rect x="270" y="22" width="12" height="84"/>
+    <rect x="264" y="34" width="24" height="4"/>
+    <rect x="264" y="52" width="24" height="4"/>
+    <rect x="264" y="70" width="24" height="4"/>
+    <path d="M18 96h364v5H18z"/>
+    <path d="M338 118l12-18 4 6 10-14v26z"/>
+    <rect x="121" y="40" width="6" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="121" y="58" width="6" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="273" y="40" width="6" height="8" fill="#fff" fill-opacity="1"/>
+    <rect x="273" y="58" width="6" height="8" fill="#fff" fill-opacity="1"/>
   </g>
 </svg>

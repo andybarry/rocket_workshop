@@ -64,6 +64,20 @@
         animation-iteration-count: infinite;
         animation-fill-mode: backwards;
     }
+    @keyframes aiPosterScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .ai-poster-scroll-box {
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        background-image: url('/img/film-poster.webp');
+        background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: aiPosterScrollDown 60s linear infinite;
+    }
     .drone-path1 { width: 40px; margin-left: -20px; margin-top: -20px; transform: translate(-400%, 400%); animation: dronePath1 10s linear infinite; animation-delay: 0s; }
     .drone-path2 { width: 55px; margin-left: -27.5px; margin-top: -27.5px; transform: translate(-400%, -400%); animation: dronePath2 14s linear infinite; animation-delay: 3s; }
     .drone-path3 { width: 90px; margin-left: -45px; margin-top: -45px; transform: translate(-400%, 0); animation: dronePath3 8s linear infinite; animation-delay: 6s; }
@@ -75,9 +89,7 @@
             <h2 class="main-button-title-text" data-i18n="home.cardAi.title">Artificial Intelligence</h2>
             <br/>
             <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
-                    <img class="js-workshop-cycling-poster" src="/img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
-                </div>
+                <div class="workshop-card-poster-stage ai-poster-scroll-box" style="width: 200px; height: 200px;" role="img" aria-label="Participant-created AI movie posters" data-i18n-aria-label="home.cardAi.posterAlt"></div>
                 <div style="position: absolute; top: 28%; left: 37%; transform: translate(-50%, -50%); pointer-events: none;">
                     <div style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
                     <img src="/img/nn-nobg.png" alt="" style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;">
@@ -144,19 +156,3 @@
         </a>
     </div>
 </div>
-<script>
-(function () {
-    var posters = ["/img/poster1.jpg", "/img/poster2.jpg", "/img/poster3.jpg", "/img/poster4.jpg", "/img/poster5.jpg", "/img/poster6.jpg", "/img/poster7.jpg"];
-    var img = document.querySelector(".js-workshop-cycling-poster");
-    if (!img) return;
-    var index = 0;
-    setInterval(function () {
-        index = (index + 1) % posters.length;
-        img.style.opacity = "0";
-        setTimeout(function () {
-            img.src = posters[index];
-            img.style.opacity = "1";
-        }, 220);
-    }, 3200);
-})();
-</script>

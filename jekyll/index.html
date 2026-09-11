@@ -1032,22 +1032,6 @@ i18n_key: home
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    let posters = [
-        'img/poster1.jpg',
-        'img/poster2.jpg',
-        'img/poster3.jpg',
-        'img/poster4.jpg',
-        'img/poster5.jpg',
-        'img/poster6.jpg',
-        'img/poster7.jpg',
-    ];
-
-    // Preload the images
-    posters.forEach(function (src) {
-        let img = new Image();
-        img.src = src;
-    });
-
     // Participant quotes, shared by the hero bubbles and the Feedback panel
     // further down the page. Translations come from home.heroQuotes, matched by
     // position; the city and year in `meta` stay as authored.
@@ -1075,22 +1059,6 @@ i18n_key: home
     ];
 
     $(document).ready(function () {
-        let currentIndex = 0;
-
-        setInterval(function () {
-            // Fade out the current image
-            $("#cyclingPoster").css("opacity", "0");
-
-            setTimeout(function () {
-                // Switch to the next image
-                currentIndex = (currentIndex + 1) % posters.length;
-                $("#cyclingPoster").attr("src", posters[currentIndex]);
-
-                // Fade in the new image
-                $("#cyclingPoster").css("opacity", "1");
-            }, 1000); // 1s delay matches the transition duration in the CSS
-        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
-
         // Floating feedback quote bubbles over the hero image on laptop.
         // On the stacked mobile hero, all quotes sit in a horizontal scroller
         // that matches the location-page quote boxes.
@@ -1444,9 +1412,7 @@ i18n_key: home
 
             <!-- Image Section -->
             <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
-                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
-                </div>
+                <div class="workshop-card-poster-stage ai-poster-scroll-box" style="width: 200px; height: 200px;" role="img" aria-label="Participant-created AI movie posters" data-i18n-aria-label="home.cardAi.posterAlt"></div>
 
                 <!-- Container to hold both the cloud and the image -->
                 <div
@@ -1489,6 +1455,20 @@ i18n_key: home
 
 <!-- Second Workshop Box -->
 <style>
+    @keyframes aiPosterScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .ai-poster-scroll-box {
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        background-image: url('img/film-poster.webp');
+        background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: aiPosterScrollDown 60s linear infinite;
+    }
     @keyframes droneCodeScrollDown {
         0% { background-position: center top; }
         100% { background-position: center bottom; }

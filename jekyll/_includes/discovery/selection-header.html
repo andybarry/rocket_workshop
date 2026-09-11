@@ -81,13 +81,40 @@
         {% if workshop_i18n_key != "" %}data-i18n-aria-label="{{ workshop_i18n_key }}"{% endif %}
         data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
         <span class="discovery-workshop-card__title"{% if workshop_title_i18n != "" %} data-i18n="{{ workshop_title_i18n }}"{% endif %}>{{ workshop_title }}</span>
-        {% if workshop.image %}
+        {% if workshop.slug == "artificial-intelligence" %}
+        <span class="discovery-workshop-card__media">
+          <span class="discovery-workshop-card__media-scroll" aria-hidden="true"></span>
+          <span class="discovery-workshop-card__media-overlay" aria-hidden="true">
+            <img src="/img/nn-nobg.png" alt="">
+          </span>
+        </span>
+        {% elsif workshop.slug == "robotics-drone" %}
+        <span class="discovery-workshop-card__media">
+          <img src="/{{ workshop.image }}" alt="" aria-hidden="true">
+          <span class="discovery-workshop-card__media-drones" aria-hidden="true">
+            <img src="/img/drone.png" alt="" class="discovery-drone--1" style="width: 18px; margin: -9px 0 0 -9px; transform: translate(-400%, 400%);">
+            <img src="/img/drone.png" alt="" class="discovery-drone--2" style="width: 24px; margin: -12px 0 0 -12px; transform: translate(-400%, -400%);">
+            <img src="/img/drone.png" alt="" class="discovery-drone--3" style="width: 38px; margin: -19px 0 0 -19px; transform: translate(-400%, 0);">
+            <img src="/img/drone.png" alt="" class="discovery-drone--4" style="width: 50px; margin: -25px 0 0 -25px; transform: translate(0, -600%);">
+          </span>
+        </span>
+        {% elsif workshop.slug == "mechanical-engineering" %}
+        <span class="discovery-workshop-card__media">
+          <video class="discovery-workshop-card__media-video" autoplay loop muted playsinline aria-hidden="true">
+            <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+            <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+          </video>
+          <span class="discovery-workshop-card__media-rocket" aria-hidden="true">
+            <img src="/img/rocket-assem-iso.png" alt="">
+          </span>
+        </span>
+        {% elsif workshop.image %}
         <span class="discovery-workshop-card__media">
           <img src="/{{ workshop.image }}" alt="" aria-hidden="true">
         </span>
         {% endif %}
         <span class="discovery-workshop-card__explore">
-          <span data-i18n="discovery.ui.explorePrefix">Explore</span>
+          <span data-i18n="home.explorer.exploreWorkshop">Explore Workshop</span>
           <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </span>
       </a>

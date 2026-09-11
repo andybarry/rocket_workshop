@@ -1,19 +1,37 @@
-{% assign panel_city = explore_city | default: entry.name %}
+{% assign panel_city = entry.name %}
 {% if entry.state %}
   {% assign panel_state = entry.state | upcase %}
+  {% assign panel_alt_place = panel_city | append: ", " | append: entry.state %}
 {% else %}
   {% assign panel_state = "UNITED STATES" %}
+  {% assign panel_alt_place = panel_city %}
 {% endif %}
-<div class="discovery-location-panel" data-city="{{ entry.slug }}">
+{% case entry.slug %}
+{% when "ann-arbor" %}{% assign panel_image = "Ann%20Arbor.png" %}
+{% when "atlanta" %}{% assign panel_image = "Atlanta.png" %}
+{% when "berkeley" %}{% assign panel_image = "Berkeley.png" %}
+{% when "boston" %}{% assign panel_image = "Boston.png" %}
+{% when "denver" %}{% assign panel_image = "Denver.png" %}
+{% when "houston" %}{% assign panel_image = "Houston.png" %}
+{% when "los-angeles" %}{% assign panel_image = "LA.png" %}
+{% when "new-haven" %}{% assign panel_image = "New%20Haven.png" %}
+{% when "orlando" %}{% assign panel_image = "Orlando.png" %}
+{% when "san-francisco" %}{% assign panel_image = "San%20Francisco.png" %}
+{% when "washington-dc" %}{% assign panel_image = "DC.png" %}
+{% else %}{% assign panel_image = "other.png" %}
+{% endcase %}
+<div class="discovery-location-panel" role="img" aria-label="Illustrated {{ panel_alt_place }} skyline" data-city="{{ entry.slug }}">
   <div class="discovery-location-panel__identity">
-    <svg class="discovery-location-panel__pin" viewBox="0 0 24 32" width="22" height="29" aria-hidden="true" focusable="false">
-      <path fill="#f05f40" d="M12 0C6.6 0 2.2 4.3 2.2 9.6c0 7.2 9.8 22.4 9.8 22.4s9.8-15.2 9.8-22.4C21.8 4.3 17.4 0 12 0zm0 13.2a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"/>
-      <circle cx="12" cy="9.6" r="2.3" fill="#fff"/>
-    </svg>
-    <p class="discovery-location-panel__city">{{ panel_city }}</p>
-    <p class="discovery-location-panel__state">{{ panel_state }}</p>
+    <span class="discovery-location-panel__pin-row" aria-hidden="true">
+      <span class="discovery-location-panel__divider"></span>
+      <svg class="discovery-location-panel__pin" viewBox="0 0 24 32" width="26" height="34" focusable="false">
+        <path fill="#f05f40" d="M12 0C6.6 0 2.2 4.3 2.2 9.6c0 7.2 9.8 22.4 9.8 22.4s9.8-15.2 9.8-22.4C21.8 4.3 17.4 0 12 0zm0 13.2a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"/>
+        <circle cx="12" cy="9.6" r="2.4" fill="#fff"/>
+      </svg>
+      <span class="discovery-location-panel__divider"></span>
+    </span>
+    <p class="discovery-location-panel__city" aria-hidden="true">{{ panel_city }}</p>
+    <p class="discovery-location-panel__state" aria-hidden="true">{{ panel_state }}</p>
   </div>
-  <div class="discovery-location-panel__skyline" aria-hidden="true">
-    {% include discovery/skylines/skyline.html %}
-  </div>
+  <img class="discovery-location-panel__image" src="/img/locations/{{ panel_image }}" alt="" width="819" height="819" loading="lazy" aria-hidden="true">
 </div>
