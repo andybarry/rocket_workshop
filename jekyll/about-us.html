@@ -14,9 +14,20 @@ i18n_key: about
         font-weight: bold;
         font-size: 1.8em;
     }
-    .about-us-intro-box .workshop-title {
+    .about-us-intro-box,
+    .about-us-intro-box * {
         font-family: 'Roboto', sans-serif;
-        font-size: 2.6em;
+    }
+    .about-us-intro-box .workshop-title {
+        display: block;
+        margin: 0 0 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(18px, 3.35vw, 51px);
+        font-weight: 800;
+        color: #434343;
+        line-height: 1.15;
+        white-space: nowrap;
+        text-align: center;
     }
 
     .profile {
@@ -45,7 +56,7 @@ i18n_key: about
         border-bottom: 2px solid #f05f40;
     }
     .about-workshops-card .about-section-card__head {
-        margin-bottom: 48px;
+        margin-bottom: 16px;
     }
     .about-section-card__title {
         margin: 0;
@@ -66,10 +77,18 @@ i18n_key: about
         margin-bottom: 24px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
+    .about-leadership-card {
+        padding-bottom: 16px;
+    }
     .about-leadership-card .leadership-row {
         display: flex;
         margin-left: 0;
         margin-right: 0;
+        margin-bottom: 0;
+    }
+    .about-leadership-card .profile,
+    .about-leadership-card .leadership-profile-box {
+        margin-bottom: 0;
     }
     .about-leadership-card .leadership-row > [class*="col-"] {
         padding-left: 8px;
@@ -147,10 +166,22 @@ i18n_key: about
         max-width: 420px;
     }
     .about-us-intro-box {
-        border-radius: 8px;
+        width: min(92vw, 1280px);
+        max-width: 1280px;
+        margin: 28px auto;
+        padding: 28px 32px;
+        border: 1px solid rgba(67, 67, 67, 0.11);
+        border-radius: 16px;
+        background: #fff;
         box-shadow:
-            0 0 22px rgba(240, 95, 64, 0.2),
-            0 6px 16px rgba(240, 95, 64, 0.12);
+            0 0 28px rgba(67, 67, 67, 0.07),
+            0 10px 26px rgba(67, 67, 67, 0.05);
+        box-sizing: border-box;
+    }
+    .about-us-intro-box__inner {
+        width: 100%;
+        max-width: 980px;
+        margin: 0 auto;
     }
     /* Workshop cards: same formatting as Workshop Access */
     #tab-section .workshop-cards-row {
@@ -199,10 +230,11 @@ i18n_key: about
     body.cursor-glow-page #tab-section .workshop-card-media {
         flex: 0 0 168px !important;
         min-height: 168px;
-        margin-bottom: 6px;
+        margin-bottom: 16px;
     }
     body.cursor-glow-page #tab-section .workshop-card-copy {
-        padding-top: 2px;
+        padding-top: 12px;
+        padding-bottom: 16px;
     }
     body.cursor-glow-page #tab-section .workshop-card-poster-stage {
         height: 154px !important;
@@ -275,24 +307,24 @@ i18n_key: about
     .about-instructors-banner {
         width: min(92vw, 1280px);
         max-width: 1280px;
-        margin: 36px auto;
+        margin: 28px auto;
         padding: 16px 24px;
-        border: 1px solid #e45332;
+        border: 1px solid #f05f40;
         border-radius: 22px;
-        background: #f05f40;
-        box-shadow: none;
-        text-align: left;
+        background: #fff;
+        box-shadow: inset 0 0 8px rgba(240, 95, 64, 0.12);
+        text-align: center;
         box-sizing: border-box;
         font-family: 'Roboto', sans-serif;
     }
     .about-instructors-banner__text {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
+        align-items: center;
+        justify-content: center;
         gap: 4px;
         margin: 0;
-        color: #fff;
+        color: #f05f40;
         font-family: 'Roboto', sans-serif;
         font-size: 22px;
         font-weight: 400;
@@ -301,10 +333,7 @@ i18n_key: about
     }
     .about-instructors-banner__title {
         margin: 0;
-        align-self: stretch;
-        padding-bottom: 6px;
-        border-bottom: 2px solid #fff;
-        color: #fff;
+        color: #f05f40;
         font-family: 'Roboto', sans-serif;
         font-size: 36px;
         font-weight: 800;
@@ -316,7 +345,7 @@ i18n_key: about
     .about-instructors-banner__lede {
         display: block;
         margin: 0;
-        color: #fff;
+        color: #f05f40;
         font-family: 'Roboto', sans-serif;
         font-size: 22px;
         font-weight: 400;
@@ -327,7 +356,7 @@ i18n_key: about
     .about-workshop-benefits {
         width: min(92vw, 1280px);
         max-width: 1280px;
-        margin: 28px auto 16px;
+        margin: 36px auto;
         padding: 0;
         background: transparent;
         border: 0;
@@ -345,7 +374,76 @@ i18n_key: about
         margin: 0;
     }
     .about-workshop-benefits .homepage-workshop-explorer__benefits {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        background: #fff;
+        box-shadow: inset 0 0 8px rgba(13, 110, 253, 0.12);
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        min-height: 136px;
+        padding: 26px 22px;
+        text-align: left;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li + li::before,
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 18px;
+        bottom: 18px;
+        left: auto;
+        right: 0;
+        width: 1px;
+        background: #e5e5e5;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(3n)::before {
+        display: none;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(-n+3)::after {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 0;
+        height: 1px;
+        background: #e5e5e5;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 72px;
+        width: 72px;
+        height: 72px;
+        margin: 0;
+        border-radius: 50%;
         background: #f6fbff;
+        color: #0d6efd;
+        font-size: 32px;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: left;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits strong {
+        margin: 0 0 4px;
+        text-align: left;
+        font-size: 20px;
+        line-height: 1.25;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits small {
+        text-align: left;
+        font-size: 15px;
+        line-height: 1.35;
+    }
+    .about-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
+        font-size: 15px;
     }
     .about-workshops-copy {
         margin: 0;
@@ -417,7 +515,7 @@ i18n_key: about
     .about-plan-cta.workshop-planning-cta.discovery-plan {
         width: min(92vw, 1280px);
         max-width: 1280px;
-        margin: 0 auto 28px;
+        margin: 36px auto;
         box-sizing: border-box;
     }
     .about-chat-cta.discovery-plan {
@@ -468,9 +566,8 @@ i18n_key: about
     .about-chat-cta.discovery-plan .discovery-plan-button:focus-visible {
         box-shadow: 0 2px 8px rgba(240, 95, 64, 0.22), 0 0 0 3px rgba(240, 95, 64, 0.35);
     }
-    /* Less space above the intro white box */
     .container > section.less-padding:first-of-type {
-        padding-top: 8px;
+        padding: 0;
     }
 </style>
 
@@ -534,15 +631,18 @@ i18n_key: about
       box-sizing: border-box;
     }
     body.cursor-glow-page .about-us-intro-box {
-      max-width: 360px !important;
       width: 100%;
+      max-width: 100%;
+      overflow: hidden;
       box-sizing: border-box;
       margin-left: auto;
       margin-right: auto;
+      padding: 22px 16px;
     }
     body.cursor-glow-page .leadership-row {
       flex-direction: column;
       align-items: center;
+      gap: 16px;
     }
     body.cursor-glow-page .leadership-row .col-sm-4 {
       width: 100%;
@@ -559,7 +659,12 @@ i18n_key: about
       margin-right: auto;
     }
     body.cursor-glow-page .about-us-intro-headline {
-      font-size: 1.2em !important;
+      max-width: 100%;
+      font-size: 22px !important;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
     body.cursor-glow-page .about-us-intro-box .quote-container {
       max-width: 295px;
@@ -602,25 +707,73 @@ i18n_key: about
       font-size: 26px;
     }
     body.cursor-glow-page .about-workshop-benefits {
-      margin: 24px auto;
+      margin: 28px auto;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits {
+      grid-template-columns: 1fr;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits li {
+      min-height: 0;
+      padding: 16px 14px;
+      border-right: 0;
+      border-bottom: 0;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before,
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(-n+3)::after {
+      display: none;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 0;
+      height: 1px;
+      background: #e5e5e5;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits i {
+      flex: 0 0 58px;
+      width: 58px;
+      height: 58px;
+      margin: 0;
+      font-size: 26px;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits strong {
+      font-size: 17px;
+    }
+    body.cursor-glow-page .about-workshop-benefits .homepage-workshop-explorer__benefits small {
+      font-size: 14px;
     }
     body.cursor-glow-page .about-instructors-banner {
-      width: min(92vw, 1280px);
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
       margin: 24px auto;
       padding: 14px 16px;
     }
+    body.cursor-glow-page .about-instructors-banner__text {
+      max-width: 100%;
+      align-items: stretch;
+    }
+    body.cursor-glow-page .about-instructors-banner__title,
+    body.cursor-glow-page .about-instructors-banner__lede {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
     body.cursor-glow-page .about-instructors-banner__title {
-      font-size: 20px;
+      font-size: 22px;
     }
     body.cursor-glow-page .about-instructors-banner__lede {
-      font-size: 13px;
+      font-size: 15px;
     }
     body.cursor-glow-page .about-plan-cta.workshop-planning-cta.discovery-plan {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       width: min(92vw, 1280px);
-      margin: 0 auto 24px;
+      margin: 28px auto;
       padding: 18px 16px;
       gap: 12px;
     }
@@ -654,53 +807,40 @@ i18n_key: about
         <div style="height: 70px;"></div> <!-- Adjust height to match your navbar's height -->
     </div>
 
-    <div class="container">
-        <section class="less-padding">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="about-us-intro-box about-box"
-                        style="background: white; border-radius: 8px; padding: 28px 32px; margin: 4px auto 20px auto; max-width: 80%;">
-
-                        <div style="margin-bottom: 10px;">
-                            <span class="workshop-title about-us-intro-headline" data-i18n="about.intro.headline">We're dedicated to sharing our love of engineering</span>
-                        </div>
-
-                        <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
-
-                        <!-- Adjusted spacing for these elements -->
-                        <p style="margin-top: 22px; margin-bottom: 5px;" data-i18n="about.intro.lede">Our workshops answer questions like,</p>
-                        <div class="quote-container">
-                            <p class="quote-text" data-i18n-html="about.intro.question1">
-                                <strong>can I do engineering?</strong>
-                            </p>
-                        </div>
-                        <div class="quote-container quote-container--wide">
-                            <p class="quote-text" data-i18n-html="about.intro.question2">
-                                <strong>what do engineers really do?</strong>
-                            </p>
-                        </div>
-
-                        <!-- Apply similar spacing to these paragraphs -->
-                        <p style="margin-top: 10px; margin-bottom: 5px;" data-i18n="about.intro.body1">
-                            through hands-on activities—from building real circuits to working with professional-grade
-                            CAD tools and the latest AI
-                            models—participants gain a true sense of what engineering is all about.
-                        </p>
-
-                        <p style="margin-top: 10px;" data-i18n="about.intro.body2">
-                            After engaging with real-world projects, engineering tools, and talking to experienced
-                            professionals, participants
-                            walk away more confident, inspired, and excited about their potential future in engineering.
-                        </p>
-
-                        </div>
-                    </div>
+    <section class="about-us-intro-box about-box">
+        <span class="workshop-title about-us-intro-headline" data-i18n="about.intro.headline">We're dedicated to sharing our love of engineering</span>
+        <div class="about-us-intro-box__inner">
+            <div style="font-family: 'Roboto', sans-serif; color: #464444; font-size: 15px; text-align: left;">
+                <p style="margin-top: 22px; margin-bottom: 5px;" data-i18n="about.intro.lede">Our workshops answer questions like,</p>
+                <div class="quote-container">
+                    <p class="quote-text" data-i18n-html="about.intro.question1">
+                        <strong>can I do engineering?</strong>
+                    </p>
                 </div>
+                <div class="quote-container quote-container--wide">
+                    <p class="quote-text" data-i18n-html="about.intro.question2">
+                        <strong>what do engineers really do?</strong>
+                    </p>
+                </div>
+                <p style="margin-top: 28px; margin-bottom: 5px;" data-i18n="about.intro.body1">
+                    through hands-on activities—from building real circuits to working with professional-grade
+                    CAD tools and the latest AI
+                    models—participants gain a true sense of what engineering is all about.
+                </p>
+                <p style="margin-top: 10px;" data-i18n="about.intro.body2">
+                    After engaging with real-world projects, engineering tools, and talking to experienced
+                    professionals, participants
+                    walk away more confident, inspired, and excited about their potential future in engineering.
+                </p>
             </div>
-        </section>
-
-    </div>
+        </div>
+    </section>
+    <section class="about-instructors-banner" aria-labelledby="about-instructors-heading">
+        <p class="about-instructors-banner__text">
+            <strong class="about-instructors-banner__title" id="about-instructors-heading" data-i18n="about.instructorsHeading">Stage One Education Instructors</strong>
+            <span class="about-instructors-banner__lede" data-i18n="about.instructorsLede">Nationwide network of passionate engineering professionals</span>
+        </p>
+    </section>
     <section class="about-section-card about-leadership-card">
         <div class="about-section-card__head">
             <h2 class="about-section-card__title" data-i18n="about.leadershipHeading">Leadership Team</h2>
@@ -759,12 +899,6 @@ i18n_key: about
             </div>
 
         </div>
-    </section>
-    <section class="about-instructors-banner" aria-labelledby="about-instructors-heading">
-        <p class="about-instructors-banner__text">
-            <strong class="about-instructors-banner__title" id="about-instructors-heading" data-i18n="about.instructorsHeading">Stage One Education Instructors</strong>
-            <span class="about-instructors-banner__lede" data-i18n="about.instructorsLede">Nationwide network of passionate engineering professionals</span>
-        </p>
     </section>
     <section class="about-section-card about-workshops-card">
         <div class="about-section-card__head">
