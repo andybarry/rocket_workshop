@@ -4348,6 +4348,24 @@ body.has-discovery-quote-modal {
     line-height: 1;
 }
 
+a.discovery-page-footer__heart--login {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.discovery-page-footer__heart--login:hover,
+a.discovery-page-footer__heart--login:focus {
+    color: inherit;
+    text-decoration: none;
+    filter: saturate(1.2);
+}
+
+a.discovery-page-footer__heart--login:focus-visible {
+    outline: 2px solid rgba(240, 95, 64, 0.45);
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
 /* Keep exploring */
 
 .discovery-explore {

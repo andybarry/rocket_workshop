@@ -465,6 +465,7 @@
       "exploreMore": "더 살펴보기",
       "contactUs": "문의",
       "madeWithLove": "호기심 많은 마음을 위해 <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> 을 담아 만들었습니다",
+      "madeWithLoveFeedback": "호기심 많은 마음을 위해 <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> 을 담아 만들었습니다",
       "workshopCities": "워크숍 도시",
       "siteFooter": "사이트 바닥글",
       "scrollQuotesLeft": "참가자 평가를 왼쪽으로 스크롤",

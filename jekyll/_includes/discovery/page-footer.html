@@ -109,9 +109,15 @@
         <span class="discovery-page-footer__copyright">&copy; 2026 Stage One Education, LLC</span>
         <a class="discovery-page-footer__bar-link" href="/about-us.html#contact" data-i18n="discovery.ui.contactUs">Contact Us</a>
       </div>
+      {% if include.feedback_login %}
+      <p class="discovery-page-footer__bar-right" data-i18n-html="discovery.ui.madeWithLoveFeedback">
+        Made with <a class="discovery-page-footer__heart discovery-page-footer__heart--login" href="https://input.stageoneeducation.com/feedback" title="Feedback Form" aria-label="Feedback login" data-i18n-title="feedback.formLink">🧡</a> for curious minds
+      </p>
+      {% else %}
       <p class="discovery-page-footer__bar-right" data-i18n-html="discovery.ui.madeWithLove">
         Made with <span class="discovery-page-footer__heart" aria-hidden="true">🧡</span> for curious minds
       </p>
+      {% endif %}
     </div>
   </div>
 </footer>

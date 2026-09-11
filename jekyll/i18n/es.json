@@ -465,6 +465,7 @@
       "exploreMore": "Explorar más",
       "contactUs": "Contáctanos",
       "madeWithLove": "Hecho con <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> para mentes curiosas",
+      "madeWithLoveFeedback": "Hecho con <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> para mentes curiosas",
       "workshopCities": "Ciudades de talleres",
       "siteFooter": "Pie de página",
       "scrollQuotesLeft": "Desplazar opiniones a la izquierda",

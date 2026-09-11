@@ -465,6 +465,7 @@
       "exploreMore": "探索更多",
       "contactUs": "聯絡我們",
       "madeWithLove": "用 <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> 為好奇的心靈打造",
+      "madeWithLoveFeedback": "用 <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> 為好奇的心靈打造",
       "workshopCities": "工作坊城市",
       "siteFooter": "網站頁尾",
       "scrollQuotesLeft": "向左捲動學員回饋",

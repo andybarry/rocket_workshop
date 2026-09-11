@@ -465,6 +465,7 @@
       "exploreMore": "Mehr entdecken",
       "contactUs": "Kontakt",
       "madeWithLove": "Gemacht mit <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> für neugierige Köpfe",
+      "madeWithLoveFeedback": "Gemacht mit <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> für neugierige Köpfe",
       "workshopCities": "Workshop-Städte",
       "siteFooter": "Fußzeile",
       "scrollQuotesLeft": "Stimmen nach links scrollen",

@@ -60,6 +60,11 @@
                 <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
                     <a href="/rocket-workshop.html" class="nav-button-stageone"{% if page.url == '/rocket-workshop.html' %} aria-current="page"{% endif %} data-i18n="nav.mechanical">Mechanical Engineering</a>
                 </li>
+                {% assign on_workshop_session = false %}
+                {% if page.url contains '-workshop-session.html' %}
+                  {% assign on_workshop_session = true %}
+                {% endif %}
+                {% unless on_workshop_session %}
                 {% assign explore_current = false %}
                 {% if page.url == '/explore/' or page.layout == 'discovery' %}
                   {% assign explore_current = true %}
@@ -83,7 +88,12 @@
                         About
                     </a>
                 </li>
-                <!-- Plan a Workshop button -->
+                {% endunless %}
+                {% assign on_workshop_access = false %}
+                {% if page.url == '/workshop-access.html' or page.url contains '-workshop-session.html' %}
+                  {% assign on_workshop_access = true %}
+                {% endif %}
+                {% unless on_workshop_access %}
                 <li class="nav-plan-workshop">
                     <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
                         data-plan-workshop-open data-plan-source="header" data-source="header">
@@ -91,8 +101,9 @@
                         <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
+                {% endunless %}
                 <li class="nav-workshops-access">
-                    <a href="/workshop-access.html" class="nav-workshops-access-button"{% if page.url == '/workshop-access.html' %} aria-current="page"{% endif %}>
+                    <a href="/workshop-access.html" class="nav-workshops-access-button"{% if on_workshop_access %} aria-current="page"{% endif %}>
                         <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>{% if page.i18n %}

@@ -1,8 +1,19 @@
 <body id="page-top" class="workshop-session-page workshop-session-page--{{ include.workshop }}">
 <style>
+    html:has(body.workshop-session-page) {
+        height: auto;
+        min-height: 100%;
+    }
+
     .workshop-session-page {
+        display: flex;
+        flex-direction: column;
         margin: 0;
         min-height: 100vh;
+        min-height: 100dvh;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
         background: #f5f5f5;
         color: #434343;
     }
@@ -31,7 +42,7 @@
     .workshop-session-page--ai .workshop-session-bg::before {
         content: "";
         position: absolute;
-        inset: 0;
+        inset: -10%;
         background-image: url("/img/film-poster.webp");
         background-size: cover;
         background-position: center top;
@@ -55,19 +66,47 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 56px);
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
         padding: 80px 24px 40px;
         box-sizing: border-box;
     }
 
-    .workshop-session-title {
-        margin: 0 0 28px;
-        font-family: "Roboto", sans-serif;
-        font-size: clamp(28px, 5vw, 46px);
-        font-weight: 700;
-        line-height: 1.1;
-        color: #f05f40;
+    .workshop-session-card {
+        width: fit-content;
+        min-width: min(96vw, 1040px);
+        max-width: min(96vw, 1280px);
+        padding: 22px 40px 28px;
+        border: 1px solid rgba(67, 67, 67, 0.14);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow:
+            0 0 28px rgba(67, 67, 67, 0.07),
+            0 10px 24px rgba(67, 67, 67, 0.05);
+        box-sizing: border-box;
+    }
+
+    .workshop-session-card__head {
+        width: 100%;
+        margin: 0 0 36px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f05f40;
         text-align: center;
+    }
+
+    .workshop-session-title {
+        width: 100%;
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        color: #434343;
+        text-align: center;
+        text-transform: none;
+        white-space: nowrap;
         cursor: default;
     }
 
@@ -75,18 +114,42 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 18px;
+        gap: 32px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .workshop-session-links .glow-text,
     .workshop-session-links .glow-button {
+        width: max-content;
+        min-width: 320px;
+        max-width: 100%;
         margin: 0;
+        padding: 11px 28px;
+        box-sizing: border-box;
+        font-size: 22px;
+        text-align: center;
+        text-decoration: none;
+        color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .workshop-session-links .glow-text:hover,
+    .workshop-session-links .glow-button:hover,
+    .workshop-session-links .glow-text:focus,
+    .workshop-session-links .glow-button:focus {
+        color: #fff;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
         text-decoration: none;
     }
 
     .workshop-session-page .discovery-page-footer {
         position: relative;
         z-index: 3;
+        flex: 0 0 auto;
+        margin-top: auto;
+        background: #fafafa;
     }
 
     .workshop-session-page .drone {
@@ -142,20 +205,24 @@
     </div>
 
     <main class="workshop-session-main">
-        <h1 class="workshop-session-title">{{ include.title }}</h1>
-        <div class="workshop-session-links">
-            {% if include.workshop == "ai" %}
-            <a href="https://stageoneeducation.com/ai-network/human-neural-network.html" target="_blank" rel="noopener noreferrer" class="glow-text">Human Neural Network</a>
-            <a href="https://ai.stageoneeducation.com/" target="_blank" rel="noopener noreferrer" class="glow-text">ai.stageoneeducation.com</a>
-            <a href="https://input.stageoneeducation.com/artificial-intelligence-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-text">Feedback Survey</a>
-            {% elsif include.workshop == "robotics" %}
-            <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer" class="glow-button">stageoneeducation.com/drone</a>
-            <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
-            {% else %}
-            <a href="/cad-tutorial/portal.html" target="_blank" rel="noopener noreferrer" class="glow-button">Start</a>
-            <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
-            {% endif %}
-        </div>
+        <section class="workshop-session-card">
+            <div class="workshop-session-card__head">
+                <h1 class="workshop-session-title">{{ include.title }}</h1>
+            </div>
+            <div class="workshop-session-links">
+                {% if include.workshop == "ai" %}
+                <a href="https://stageoneeducation.com/ai-network/human-neural-network.html" target="_blank" rel="noopener noreferrer" class="glow-text">Human Neural Network</a>
+                <a href="https://ai.stageoneeducation.com/" target="_blank" rel="noopener noreferrer" class="glow-text">ai.stageoneeducation.com</a>
+                <a href="https://input.stageoneeducation.com/artificial-intelligence-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-text">Feedback Survey</a>
+                {% elsif include.workshop == "robotics" %}
+                <a href="https://stageoneeducation.com/drone/" target="_blank" rel="noopener noreferrer" class="glow-button">stageoneeducation.com/drone</a>
+                <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
+                {% else %}
+                <a href="/cad-tutorial/portal.html" target="_blank" rel="noopener noreferrer" class="glow-button">Start</a>
+                <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
+                {% endif %}
+            </div>
+        </section>
     </main>
 
     {% include discovery/page-footer.html bar_only=true %}

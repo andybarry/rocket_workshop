@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /workshop-access.html
-title: "Workshops | Stage One Education"
+title: "Workshop Access | Stage One Education"
 description: "Explore Stage One Education's hands-on artificial intelligence, robotics, and mechanical engineering workshops."
 ---
 
@@ -35,7 +35,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         flex-direction: column;
         flex: 1 0 auto;
         min-height: 0;
-        padding: 12px 24px 36px;
+        padding: 28px 24px 36px;
         overflow: visible;
     }
 
@@ -49,29 +49,65 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         padding-bottom: 8px;
     }
 
-    .workshops-page .our-workshops-header {
+    .workshops-page .our-workshops-shell {
+        width: min(92vw, 1280px);
+        max-width: 1280px;
+        margin: 16px auto 0;
+        padding: 22px 22px 32px;
+        border: 1px solid rgba(67, 67, 67, 0.14);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow:
+            0 0 28px rgba(67, 67, 67, 0.07),
+            0 10px 24px rgba(67, 67, 67, 0.05);
+        box-sizing: border-box;
+    }
+
+    .workshops-page .our-workshops-shell .our-workshops-header {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 10px 12px;
+        width: 100%;
+        margin: 0 0 56px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #f05f40;
+        text-align: left;
+    }
+
+    .workshops-page .our-workshops-shell .our-workshops-title {
+        display: inline;
+        width: auto;
         flex: 0 0 auto;
-        margin-top: 8px;
-        margin-bottom: 4px;
-    }
-
-    .workshops-page .our-workshops-title {
-        color: #f05f40;
+        margin: 0;
         font-family: 'Roboto', sans-serif;
-        font-size: clamp(36px, 5vw, 52px);
-        font-weight: 700;
-        letter-spacing: 0.01em;
-        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 750;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        color: #393939;
+        text-transform: none;
+        text-align: left;
+        white-space: nowrap;
     }
 
-    .workshops-page-intro {
+    .workshops-page .workshops-page-intro {
+        display: inline;
+        width: auto;
+        flex: 1 1 auto;
         margin: 0;
         padding: 0;
-        color: #969696;
+        max-width: none;
+        color: #8a8a8a;
         font-family: 'Roboto', sans-serif;
-        font-size: 15px;
-        line-height: 1.4;
-        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.15;
+        text-align: left;
+        white-space: nowrap;
     }
 
     .workshops-card-grid {
@@ -80,87 +116,92 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         align-items: stretch;
         justify-content: center;
         gap: 18px;
-        max-width: 1100px;
         width: 100%;
-        margin: 8px auto 0;
-        flex: 0 0 auto;
+        margin: 0;
     }
 
     .workshops-card-grid .workshop-card-col {
         display: flex;
-        flex: 0 0 348px;
-        width: 348px;
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
         align-items: stretch;
-        flex-shrink: 0;
     }
 
     .workshops-page .workshop-main-button {
         width: 100%;
         margin-bottom: 0;
+        overflow: hidden;
         cursor: pointer;
+        border: 1px solid #0d6efd;
         border-radius: 20px;
         box-shadow: 0 8px 20px rgba(67, 67, 67, 0.1);
         transition:
-            transform 0.18s ease,
-            box-shadow 0.18s ease,
-            border-color 0.18s ease,
-            background-color 0.18s ease;
+            box-shadow 0.2s ease,
+            border-color 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+    .workshops-page .workshop-main-button > .main-button-title-text {
+        font-size: 32px;
+        white-space: normal;
     }
 
     .workshops-page .workshop-main-button > .main-button-title-text::before {
-        color: #0d6efd;
-        content: "Workshop Access";
+        display: none;
     }
 
     .workshops-page .workshop-card-visual,
     .workshops-page .workshop-card-media {
         flex: 0 0 168px !important;
         min-height: 168px;
+        margin-bottom: 24px;
     }
 
     .workshops-page .workshop-card-poster-stage {
         height: 154px !important;
     }
 
-    .workshops-page .workshop-main-button .workshop-card-copy {
-        padding: 8px 20px 6px;
-    }
-
     .workshops-page .workshop-card-link-label {
-        justify-content: center;
-        gap: 10px;
+        align-self: stretch;
+        flex: 0 0 auto;
+        justify-content: space-between;
+        width: 100%;
+        min-width: 0;
         min-height: 48px;
-        margin: auto 16px 16px;
-        padding: 12px 18px;
+        margin: auto 0 0;
+        padding: 14px 20px;
         border: 0;
-        border-radius: 50px;
-        background: #f05f40;
+        border-top: 1px solid rgba(13, 110, 253, 0.16);
+        border-radius: 0;
+        background: #0d6efd;
         color: #fff;
-        font-size: 13px;
+        font-size: 16px;
         letter-spacing: 0.08em;
+        text-shadow: none;
+        box-shadow: none;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .workshops-page .workshop-card-link-label .fa {
-        font-size: 13px;
+        font-size: 14px;
+        margin-left: auto;
     }
 
     .workshops-page .workshop-main-button:hover,
     .workshops-page .workshop-main-button:focus,
     .workshops-page .workshop-main-button.is-hero-hover {
-        background-color: #fff;
-        color: #434343;
-        border-color: #f05f40;
+        background-color: #0d6efd;
+        color: #fff;
+        border-color: #0d6efd;
         border-radius: 20px;
-        transform: translateY(-4px);
-        box-shadow: 0 16px 32px rgba(67, 67, 67, 0.16);
+        transform: none;
+        box-shadow: none;
     }
 
     .workshops-page .workshop-main-button:hover > .main-button-title-text,
     .workshops-page .workshop-main-button:focus > .main-button-title-text,
     .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text,
-    .workshops-page .workshop-main-button:hover > .main-button-title-text::before,
-    .workshops-page .workshop-main-button:focus > .main-button-title-text::before,
-    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text::before,
     .workshops-page .workshop-main-button:hover .workshop-card-copy,
     .workshops-page .workshop-main-button:focus .workshop-card-copy,
     .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy,
@@ -173,38 +214,34 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     .workshops-page .workshop-main-button:hover .workshop-card-copy em,
     .workshops-page .workshop-main-button:focus .workshop-card-copy em,
     .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy em {
-        color: inherit;
-    }
-
-    .workshops-page .workshop-main-button:hover > .main-button-title-text,
-    .workshops-page .workshop-main-button:focus > .main-button-title-text,
-    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text {
-        color: #434343;
-    }
-
-    .workshops-page .workshop-main-button:hover > .main-button-title-text::before,
-    .workshops-page .workshop-main-button:focus > .main-button-title-text::before,
-    .workshops-page .workshop-main-button.is-hero-hover > .main-button-title-text::before {
-        color: #0d6efd;
+        color: #fff;
     }
 
     .workshops-page .workshop-main-button:hover .workshop-card-copy h3::before,
     .workshops-page .workshop-main-button:focus .workshop-card-copy h3::before,
     .workshops-page .workshop-main-button.is-hero-hover .workshop-card-copy h3::before {
-        background: #f05f40;
+        background: #fff;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28);
     }
 
     .workshops-page .workshop-main-button:hover .workshop-card-link-label,
     .workshops-page .workshop-main-button:focus .workshop-card-link-label,
     .workshops-page .workshop-main-button.is-hero-hover .workshop-card-link-label {
-        background: #d95438;
+        background: #0d6efd;
         color: #fff;
         border-top-color: transparent;
+        filter: none;
+        box-shadow: none;
     }
 
     .workshops-page .workshop-main-button:active {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 18px rgba(67, 67, 67, 0.12);
+        transform: none;
+        box-shadow: none;
+    }
+
+    .workshops-page .workshop-main-button:active .workshop-card-link-label {
+        transform: none;
+        box-shadow: none;
     }
 
     @keyframes droneCodeScrollDown {
@@ -279,13 +316,17 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
 
     @media (max-width: 1279px) {
         .workshops-card-grid .workshop-card-col {
-            flex-basis: 348px;
+            flex: 1 1 300px;
         }
     }
 
     @media (max-width: 680px) {
         .workshops-page-main {
             padding: 8px 18px 32px;
+        }
+
+        .workshops-card-grid .workshop-card-col {
+            flex-basis: 100%;
         }
     }
 
@@ -301,14 +342,13 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     {% include navigation.html %}
 
     <main class="workshops-page-main">
+        <section class="our-workshops-shell" aria-labelledby="workshop-access-heading">
         <div class="our-workshops-header">
-            <span class="our-workshops-rule our-workshops-rule--left" aria-hidden="true"></span>
-            <h1 class="workshop-title our-workshops-title">Workshops</h1>
-            <span class="our-workshops-rule our-workshops-rule--right" aria-hidden="true"></span>
+            <h1 id="workshop-access-heading" class="workshop-title our-workshops-title">Workshop Access</h1>
+            <p class="workshops-page-intro">Choose a workshop to get started</p>
         </div>
-        <p class="workshops-page-intro">Choose a workshop to get started</p>
 
-        <section class="workshops-card-grid" aria-label="Available workshops">
+        <div class="workshops-card-grid">
             <div class="workshop-card-col">
                 <a href="/ai-workshop-session.html" class="workshop-main-button workshop-main-button--ai">
                     <h2 class="main-button-title-text">Artificial Intelligence</h2>
@@ -322,15 +362,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
                             <img src="img/nn-nobg.png" alt="" style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;">
                         </div>
                     </div>
-                    <div class="workshop-card-copy">
-                        <h3>Discover AI Neural Networks</h3>
-                        <h3>Use the latest AI models:
-                            <ul>
-                                <li><em>text, image, and music</em></li>
-                            </ul></h3>
-                        <h3>AI ethics discussion</h3>
-                    </div>
-                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                    <span class="workshop-card-link-label">Start Workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
                 </a>
             </div>
 
@@ -348,12 +380,7 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
                             <img src="img/drone.png" alt="" class="drone-path4">
                         </div>
                     </div>
-                    <div class="workshop-card-copy">
-                        <h3>Fly mini drones</h3>
-                        <h3>Build a circuit for drone control</h3>
-                        <h3>Program for autonomous flight</h3>
-                    </div>
-                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                    <span class="workshop-card-link-label">Start Workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
                 </a>
             </div>
 
@@ -368,14 +395,10 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
                         </video>
                         <img src="img/rocket-assem-iso.png" alt="Multi-part model rocket design" class="workshop-card-rocket-overlay">
                     </div>
-                    <div class="workshop-card-copy">
-                        <h3>Use professional CAD software</h3>
-                        <h3>Design a multi-part model rocket</h3>
-                        <h3>Explore 3D printing</h3>
-                    </div>
-                    <span class="workshop-card-link-label">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                    <span class="workshop-card-link-label">Start Workshop <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
                 </a>
             </div>
+        </div>
         </section>
     </main>
 

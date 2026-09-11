@@ -465,6 +465,7 @@
       "exploreMore": "さらに探す",
       "contactUs": "お問い合わせ",
       "madeWithLove": "好奇心旺盛な心のために <span class=\"discovery-page-footer__heart\" aria-hidden=\"true\">🧡</span> を込めて",
+      "madeWithLoveFeedback": "好奇心旺盛な心のために <a class=\"discovery-page-footer__heart discovery-page-footer__heart--login\" href=\"https://input.stageoneeducation.com/feedback\" title=\"Feedback Form\" aria-label=\"Feedback login\" data-i18n-title=\"feedback.formLink\">🧡</a> を込めて",
       "workshopCities": "ワークショップ開催都市",
       "siteFooter": "サイトフッター",
       "scrollQuotesLeft": "参加者の声を左にスクロール",
