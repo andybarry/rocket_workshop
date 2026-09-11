@@ -462,6 +462,7 @@
       "locationExploreIntro": "Popular educational, cultural, and iconic experiences for student groups visiting",
       "locationExploreDisclaimer": "Nearby experiences are shown for itinerary inspiration only and are not included with Stage One workshops. Admission, transportation, reservations, and availability must be arranged separately. Inclusion does not imply affiliation or endorsement.",
       "explorePrefix": "Explore",
+      "moreToExploreIn": "More to Explore in",
       "venueCollageHeading": "Workshop Venues",
       "venueCollageCopy": "Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.",
       "exploreMore": "Explore More",
@@ -494,67 +495,78 @@
         "intro": "Boston offers an exceptional combination of American history, leading academic institutions, science, robotics, and technology. Founded in Boston, Stage One adds a locally connected engineering experience that fits naturally between campus visits, museum stops, and historic sightseeing.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Boston program.",
-        "testimonialsHeading": "What Groups in Boston, MA Say"
+        "testimonialsHeading": "What Groups in Boston, MA Say",
+        "exploreSummary": "Complement your Stage One workshop with Boston's rich history, university campuses, and experiences on the water or at the ballpark."
       },
       "washington-dc": {
         "intro": "Washington, DC itineraries are rich in history, government, museums, national institutions, science, and aviation. A Stage One workshop adds a refreshing hands-on block to sightseeing-heavy schedules and works especially well as an engaging indoor or evening program with a clear educational purpose.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Washington, DC program.",
-        "testimonialsHeading": "What Groups in Washington, DC Say"
+        "testimonialsHeading": "What Groups in Washington, DC Say",
+        "exploreSummary": "Pair your Stage One workshop with opportunities to explore American history, government, and culture in the nation's capital."
       },
       "orlando": {
         "intro": "Orlando connects themed entertainment with space exploration, simulation technology, leading institutions, environmental science, and outdoor Florida experiences. Stage One gives planners a strong educational anchor between attraction days or during an evening hotel block, adding meaningful STEM programming without another complicated transfer.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Orlando program.",
-        "testimonialsHeading": "What Groups in Orlando, FL Say"
+        "testimonialsHeading": "What Groups in Orlando, FL Say",
+        "exploreSummary": "Pair your Stage One workshop with Orlando's theme parks, wildlife experiences, and entertainment for a well-rounded group visit."
       },
       "atlanta": {
         "intro": "Atlanta itineraries bring together civil rights history, leading institutions, business, and modern technology. Stage One adds an active engineering experience that balances campus visits and sightseeing while giving planners a complete educational program delivered directly to the group’s venue.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Atlanta program.",
-        "testimonialsHeading": "What Groups in Atlanta, GA Say"
+        "testimonialsHeading": "What Groups in Atlanta, GA Say",
+        "exploreSummary": "Round out your Atlanta visit by pairing a Stage One workshop with the city's history, cultural experiences, and Southern flavors."
       },
       "houston": {
         "intro": "Houston is one of the country’s strongest destinations for space exploration, aerospace, medicine, energy, and large-scale engineering. Stage One carries that theme beyond museums and attractions with a complete hands-on workshop that can be scheduled at the group’s hotel, campus, or meeting venue.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Houston program.",
-        "testimonialsHeading": "What Groups in Houston, TX Say"
+        "testimonialsHeading": "What Groups in Houston, TX Say",
+        "exploreSummary": "Round out your Houston visit with a Stage One workshop alongside space and science discoveries, cultural experiences, and local food."
       },
       "los-angeles": {
         "intro": "Los Angeles brings together aerospace, entertainment, digital media, design, and technology in a way few destinations can match. Stage One connects those industries through a workshop that combines technical thinking with creativity and pairs naturally with studio experiences, science attractions, and visits to leading institutions.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Los Angeles program.",
-        "testimonialsHeading": "What Groups in Los Angeles, CA Say"
+        "testimonialsHeading": "What Groups in Los Angeles, CA Say",
+        "exploreSummary": "Pair your Stage One workshop with the entertainment, coastal scenery, and cultural experiences that make Los Angeles distinctive."
       },
       "san-francisco": {
         "intro": "San Francisco places technology, entrepreneurship, science, and design at the center of the destination. Stage One complements innovation-focused visits, science attractions, leading institutions, and iconic city touring with a complete hands-on workshop delivered directly to the group’s venue.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your San Francisco program.",
-        "testimonialsHeading": "What Groups in San Francisco, CA Say"
+        "testimonialsHeading": "What Groups in San Francisco, CA Say",
+        "exploreSummary": "Complement your Stage One workshop with San Francisco's waterfront scenery, distinctive neighborhoods, and local food and culture."
       },
       "new-haven": {
         "intro": "New Haven offers a distinctive academic setting shaped by prestigious institutions, research, and intellectual discovery. A Stage One workshop takes the itinerary beyond a traditional campus tour by adding a complete engineering experience that strengthens the trip’s college, career, and STEM focus.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your New Haven program.",
-        "testimonialsHeading": "What Groups in New Haven, CT Say"
+        "testimonialsHeading": "What Groups in New Haven, CT Say",
+        "exploreSummary": "Complement your Stage One workshop with New Haven's campus atmosphere, art and history, and a taste of the local pizza scene."
       },
       "ann-arbor": {
         "intro": "Ann Arbor’s academic culture, engineering community, and focus on research make it a natural destination for STEM-oriented travel. A Stage One workshop adds a substantial hands-on component after an institutional visit or during an open hotel block, with instructors, equipment, and materials included.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Ann Arbor program.",
-        "testimonialsHeading": "What Groups in Ann Arbor, MI Say"
+        "testimonialsHeading": "What Groups in Ann Arbor, MI Say",
+        "exploreSummary": "Pair your Stage One workshop with campus exploration, college sports, and time outdoors in Ann Arbor."
       },
       "berkeley": {
         "intro": "Berkeley is known for bold ideas, academic discovery, and its connection to the wider Bay Area innovation economy. A Stage One workshop extends that theme through a hands-on engineering experience that fits naturally after an institutional visit or as an engaging afternoon or evening program.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Berkeley program.",
-        "testimonialsHeading": "What Groups in Berkeley, CA Say"
+        "testimonialsHeading": "What Groups in Berkeley, CA Say",
+        "exploreSummary": "Pair your Stage One workshop with campus visits, science discoveries, and the scenery and local flavors of the Bay Area."
       },
       "denver": {
         "intro": "Denver combines aerospace, science, outdoor exploration, and the dramatic setting of the Rocky Mountain region. A Stage One workshop provides a strong indoor academic component before or after an outdoor excursion, attraction visit, or institutional tour, while also giving planners a dependable weather-independent activity.",
         "ctaHeading": "Ready to Add Hands-On Engineering to Your Itinerary?",
         "ctaCopy": "Share your dates, group size, and venue. Stage One will coordinate a workshop around your Denver program.",
-        "testimonialsHeading": "What Groups in Denver, CO Say"
+        "testimonialsHeading": "What Groups in Denver, CO Say",
+        "exploreSummary": "Pair your Stage One workshop with Denver's museums, sports, and outdoor experiences, from city parks to mountain scenery."
       },
       "other-us-cities": {
         "intro": "Stage One workshops are not limited to our current destinations. We work with groups to deliver complete hands-on engineering programs in cities across the United States, giving planners a flexible way to add meaningful STEM programming wherever their groups are traveling.",

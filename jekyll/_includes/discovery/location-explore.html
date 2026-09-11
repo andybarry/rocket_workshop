@@ -2,7 +2,7 @@
 {% assign location_explore = site.data.discovery.location_explore[entry.slug] %}
 {% assign show_explore_section = false %}
 {% if location_explore %}
-  {% if location_explore.things_to_do or location_explore.variant == "city_cards" or location_explore.intro %}
+  {% if location_explore.things_to_do or location_explore.variant == "city_cards" or location_explore.intro or location_explore.summary %}
     {% assign show_explore_section = true %}
   {% endif %}
 {% endif %}
@@ -13,18 +13,47 @@
 {% assign explore_heading = "Explore " | append: entry.name %}
 {% endif %}
 {% assign discovery_cities = site.data.discovery.cities | where_exp: "city", "city.active != false" | sort: "name" %}
+{% assign explore_city = entry.name %}
+{% if entry.state_abbr and entry.name contains entry.state_abbr and entry.name contains ", " %}
+  {% assign explore_name_parts = entry.name | split: ", " %}
+  {% assign explore_city = explore_name_parts[0] %}
+{% endif %}
+{% if entry.state %}
+  {% assign explore_place = explore_city | append: ", " | append: entry.state | upcase %}
+{% else %}
+  {% assign explore_place = explore_city | upcase %}
+{% endif %}
 <section class="discovery-section discovery-location-explore" aria-labelledby="discovery-location-explore-heading">
   <div class="discovery-location-explore__media">
-    {% include discovery/location-explore-map.html %}
+    {% include discovery/location-explore-panel.html %}
   </div>
   <div class="discovery-location-explore__content">
+    {% if location_explore.heading %}
     <h2 id="discovery-location-explore-heading" class="discovery-location-explore__heading"{% if location_explore.heading %} data-i18n="discovery.city.{{ entry.slug }}.exploreHeading"{% endif %}>
-      {% if location_explore.heading %}{{ explore_heading }}{% else %}<span data-i18n="discovery.ui.explorePrefix">Explore</span> {{ entry.name }}{% endif %}
+      {{ explore_heading }}
     </h2>
     {% if location_explore.intro %}
     <p class="discovery-location-explore__intro" data-i18n="discovery.city.{{ entry.slug }}.exploreIntro">{{ location_explore.intro }}</p>
+    {% endif %}
+    {% else %}
+    <div class="discovery-location-explore__title">
+      <p class="discovery-location-explore__place">
+        <span class="discovery-location-explore__place-icon" aria-hidden="true">
+          <i class="fa fa-map-marker"></i>
+        </span>
+        <span class="discovery-location-explore__place-text">{{ explore_place }}</span>
+      </p>
+      <h2 id="discovery-location-explore-heading" class="discovery-location-explore__heading">
+        <span data-i18n="discovery.ui.moreToExploreIn">More to Explore in</span> {{ entry.name }}
+      </h2>
+    </div>
+    {% if location_explore.summary %}
+    <p class="discovery-location-explore__intro" data-i18n="discovery.city.{{ entry.slug }}.exploreSummary">{{ location_explore.summary }}</p>
+    {% elsif location_explore.intro %}
+    <p class="discovery-location-explore__intro" data-i18n="discovery.city.{{ entry.slug }}.exploreIntro">{{ location_explore.intro }}</p>
     {% elsif location_explore.things_to_do %}
     <p class="discovery-location-explore__intro"><span data-i18n="discovery.ui.locationExploreIntro">{{ copy.location_explore_intro }}</span> {{ entry.name }}.</p>
+    {% endif %}
     {% endif %}
 
     {% if location_explore.variant == "city_cards" %}

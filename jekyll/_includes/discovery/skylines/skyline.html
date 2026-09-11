@@ -1,0 +1,14 @@
+{% case entry.slug %}
+{% when "ann-arbor" %}{% include discovery/skylines/ann-arbor.svg %}
+{% when "atlanta" %}{% include discovery/skylines/atlanta.svg %}
+{% when "berkeley" %}{% include discovery/skylines/berkeley.svg %}
+{% when "boston" %}{% include discovery/skylines/boston.svg %}
+{% when "denver" %}{% include discovery/skylines/denver.svg %}
+{% when "houston" %}{% include discovery/skylines/houston.svg %}
+{% when "los-angeles" %}{% include discovery/skylines/los-angeles.svg %}
+{% when "new-haven" %}{% include discovery/skylines/new-haven.svg %}
+{% when "orlando" %}{% include discovery/skylines/orlando.svg %}
+{% when "san-francisco" %}{% include discovery/skylines/san-francisco.svg %}
+{% when "washington-dc" %}{% include discovery/skylines/washington-dc.svg %}
+{% else %}{% include discovery/skylines/default.svg %}
+{% endcase %}

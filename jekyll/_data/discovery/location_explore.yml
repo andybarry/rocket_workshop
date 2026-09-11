@@ -8,6 +8,9 @@ ann-arbor:
     latitude: 42.28083
     longitude: -83.74304
     zoom: 9
+  summary: >-
+    Pair your Stage One workshop with campus exploration, college sports, and
+    time outdoors in Ann Arbor.
   things_to_do:
     - University of Michigan Campus & Law Quad
     - Michigan Stadium
@@ -21,6 +24,9 @@ atlanta:
     latitude: 33.74899
     longitude: -84.38798
     zoom: 9
+  summary: >-
+    Round out your Atlanta visit by pairing a Stage One workshop with the city's
+    history, cultural experiences, and Southern flavors.
   things_to_do:
     - Georgia Aquarium
     - Martin Luther King Jr. National Historical Park
@@ -34,6 +40,9 @@ berkeley:
     latitude: 37.87152
     longitude: -122.27304
     zoom: 9
+  summary: >-
+    Pair your Stage One workshop with campus visits, science discoveries, and
+    the scenery and local flavors of the Bay Area.
   things_to_do:
     - UC Berkeley Campus & Campanile
     - Lawrence Hall of Science
@@ -48,6 +57,9 @@ boston:
     latitude: 42.36008
     longitude: -71.05888
     zoom: 9
+  summary: >-
+    Complement your Stage One workshop with Boston's rich history, university
+    campuses, and experiences on the water or at the ballpark.
   things_to_do:
     - Boston Duck Tours
     - Freedom Trail, Faneuil Hall & Quincy Market
@@ -61,6 +73,9 @@ denver:
     latitude: 39.73924
     longitude: -104.99025
     zoom: 9
+  summary: >-
+    Pair your Stage One workshop with Denver's museums, sports, and outdoor
+    experiences, from city parks to mountain scenery.
   things_to_do:
     - Denver Museum of Nature & Science
     - Wings Over the Rockies Air & Space Museum
@@ -74,6 +89,9 @@ houston:
     latitude: 29.76043
     longitude: -95.36980
     zoom: 9
+  summary: >-
+    Round out your Houston visit with a Stage One workshop alongside space and
+    science discoveries, cultural experiences, and local food.
   things_to_do:
     - Space Center Houston
     - Houston Museum of Natural Science
@@ -87,6 +105,9 @@ los-angeles:
     latitude: 34.05223
     longitude: -118.24368
     zoom: 8
+  summary: >-
+    Pair your Stage One workshop with the entertainment, coastal scenery, and
+    cultural experiences that make Los Angeles distinctive.
   things_to_do:
     - Griffith Observatory
     - California Science Center
@@ -100,6 +121,9 @@ new-haven:
     latitude: 41.30827
     longitude: -72.92788
     zoom: 9
+  summary: >-
+    Complement your Stage One workshop with New Haven's campus atmosphere, art
+    and history, and a taste of the local pizza scene.
   things_to_do:
     - Yale University Campus & Beinecke Library
     - Yale Peabody Museum
@@ -113,6 +137,9 @@ orlando:
     latitude: 28.53834
     longitude: -81.37924
     zoom: 9
+  summary: >-
+    Pair your Stage One workshop with Orlando's theme parks, wildlife
+    experiences, and entertainment for a well-rounded group visit.
   things_to_do:
     - Kennedy Space Center Visitor Complex
     - Orlando Science Center
@@ -126,6 +153,9 @@ san-francisco:
     latitude: 37.77493
     longitude: -122.41942
     zoom: 9
+  summary: >-
+    Complement your Stage One workshop with San Francisco's waterfront scenery,
+    distinctive neighborhoods, and local food and culture.
   things_to_do:
     - Golden Gate Bridge
     - Alcatraz Island
@@ -139,6 +169,9 @@ washington-dc:
     latitude: 38.90719
     longitude: -77.03687
     zoom: 9
+  summary: >-
+    Pair your Stage One workshop with opportunities to explore American history,
+    government, and culture in the nation's capital.
   things_to_do:
     - National Mall Monuments & Memorials
     - Smithsonian Museums

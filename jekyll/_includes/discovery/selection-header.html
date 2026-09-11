@@ -61,13 +61,34 @@
       {% for workshop in site.data.workshops %}
       {% unless workshop.hidden %}
       {% include discovery/workshop-i18n-key.html %}
-      <a class="discovery-workshop-card discovery-workshop-card--summary{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
+      {% case workshop.slug %}
+      {% when "artificial-intelligence" %}
+        {% assign workshop_title = "Artificial Intelligence" %}
+        {% assign workshop_title_i18n = "home.cardAi.title" %}
+      {% when "robotics-drone" %}
+        {% assign workshop_title = "Robotics Drone" %}
+        {% assign workshop_title_i18n = "home.cardRobotics.title" %}
+      {% when "mechanical-engineering" %}
+        {% assign workshop_title = "Mechanical Engineering" %}
+        {% assign workshop_title_i18n = "home.cardMechanical.title" %}
+      {% else %}
+        {% assign workshop_title = workshop.name %}
+        {% assign workshop_title_i18n = workshop_i18n_key %}
+      {% endcase %}
+      <a class="discovery-workshop-card discovery-workshop-card--visual discovery-workshop-card--{{ workshop.slug }}{% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %} is-current{% endif %}"
         href="{{ workshop.detail_path }}"
         aria-label="{{ workshop.explorer_label }}"
         {% if workshop_i18n_key != "" %}data-i18n-aria-label="{{ workshop_i18n_key }}"{% endif %}
         data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}">
-        <span class="discovery-workshop-card__label">
-          <strong{% if workshop_i18n_card_key != "" %} data-i18n="{{ workshop_i18n_card_key }}"{% endif %}>{% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}</strong>
+        <span class="discovery-workshop-card__title"{% if workshop_title_i18n != "" %} data-i18n="{{ workshop_title_i18n }}"{% endif %}>{{ workshop_title }}</span>
+        {% if workshop.image %}
+        <span class="discovery-workshop-card__media">
+          <img src="/{{ workshop.image }}" alt="" aria-hidden="true">
+        </span>
+        {% endif %}
+        <span class="discovery-workshop-card__explore">
+          <span data-i18n="discovery.ui.explorePrefix">Explore</span>
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </span>
       </a>
       {% endunless %}

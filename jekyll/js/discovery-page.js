@@ -585,132 +585,320 @@
     window.StageOneInitQuoteScroller = initQuoteScroller;
 
     function initVenueCollage() {
-        var viewport = document.querySelector("[data-venue-collage-viewport]");
-        if (!viewport || viewport.getAttribute("data-venue-bound")) return;
-        viewport.setAttribute("data-venue-bound", "true");
+        initVenueFades();
+        initVenueStrip();
+    }
 
-        var track = viewport.querySelector(".discovery-venue-collage__track");
-        var set = viewport.querySelector(".discovery-venue-collage__set");
-        if (!track || !set) return;
+    function initVenueFades() {
+        var stages = document.querySelectorAll("[data-venue-collage]");
+        Array.prototype.forEach.call(stages, function (stage) {
+            if (stage.getAttribute("data-venue-bound")) return;
+            stage.setAttribute("data-venue-bound", "true");
 
-        Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
-            img.setAttribute("draggable", "false");
-        });
+            var host = stage.closest(".discovery-venue-collage") || stage.parentElement;
+            var dataEl = stage.querySelector("[data-venue-photos]") || (host && host.querySelector("[data-venue-photos]"));
+            var slots = stage.querySelectorAll("[data-venue-slot]");
+            if (!dataEl || !slots.length) return;
 
-        var offset = 0;
-        var setWidth = 0;
-        var dragging = false;
-        var lastTs = 0;
-        var loopSeconds = 220;
-
-        function wrapOffset() {
-            if (setWidth <= 0) return;
-            offset = ((offset % setWidth) + setWidth) % setWidth;
-        }
-
-        function applyTransform() {
-            wrapOffset();
-            track.style.transform = "translate3d(" + (-offset) + "px, 0, 0)";
-        }
-
-        function measure() {
-            setWidth = set.offsetWidth;
-            applyTransform();
-        }
-
-        measure();
-        viewport.classList.add("is-interactive");
-
-        Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
-            if (!img.complete) {
-                img.addEventListener("load", measure);
+            var photos;
+            try {
+                photos = JSON.parse(dataEl.textContent);
+            } catch (err) {
+                return;
             }
-        });
+            if (!photos || !photos.length) return;
 
-        if (!prefersReducedMotion()) {
+            photos.forEach(function (src) {
+                var preload = new Image();
+                preload.src = src;
+            });
+
+            var rotateMs = 8000;
+            var staggerMs = 1000;
+            var waveTimer = null;
+            var staggerTimers = [];
+            var busy = [];
+
+            function slotSource(slot) {
+                var active = slot.querySelector(".is-active");
+                var incoming = slot.querySelector(".is-incoming");
+                return incoming ? incoming.getAttribute("src") : (active ? active.getAttribute("src") : "");
+            }
+
+            function usedSources() {
+                return Array.prototype.map.call(slots, slotSource);
+            }
+
+            function pickUnused(currentSrc) {
+                var used = usedSources();
+                var pool = photos.filter(function (src) {
+                    return src !== currentSrc && used.indexOf(src) === -1;
+                });
+                if (!pool.length) {
+                    pool = photos.filter(function (src) {
+                        return src !== currentSrc;
+                    });
+                }
+                if (!pool.length) return currentSrc;
+                return pool[Math.floor(Math.random() * pool.length)];
+            }
+
+            if (prefersReducedMotion() || photos.length <= slots.length) return;
+
+            function clearTimers() {
+                if (waveTimer) {
+                    clearTimeout(waveTimer);
+                    waveTimer = null;
+                }
+                var i;
+                for (i = 0; i < staggerTimers.length; i += 1) {
+                    if (staggerTimers[i]) {
+                        clearTimeout(staggerTimers[i]);
+                        staggerTimers[i] = null;
+                    }
+                }
+            }
+
+            function startFade(slotIndex) {
+                var slot = slots[slotIndex];
+                if (!slot || busy[slotIndex]) return;
+                var outgoing = slot.querySelector(".discovery-venue-collage__photo.is-active");
+                var incoming = slot.querySelector(".discovery-venue-collage__photo:not(.is-active)");
+                if (!outgoing || !incoming) return;
+
+                var nextSrc = pickUnused(outgoing.getAttribute("src"));
+                if (!nextSrc || nextSrc === outgoing.getAttribute("src")) return;
+
+                function reveal() {
+                    incoming.classList.add("is-active");
+                    incoming.classList.remove("is-incoming");
+                    outgoing.classList.remove("is-active");
+                    busy[slotIndex] = false;
+                }
+
+                busy[slotIndex] = true;
+                incoming.classList.add("is-incoming");
+                incoming.onload = function () {
+                    incoming.onload = null;
+                    incoming.onerror = null;
+                    window.requestAnimationFrame(reveal);
+                };
+                incoming.onerror = function () {
+                    incoming.onload = null;
+                    incoming.onerror = null;
+                    incoming.classList.remove("is-incoming");
+                    busy[slotIndex] = false;
+                };
+                if (incoming.getAttribute("src") === nextSrc && incoming.complete) {
+                    window.requestAnimationFrame(reveal);
+                } else {
+                    incoming.setAttribute("src", nextSrc);
+                }
+            }
+
+            function startWave() {
+                var i;
+                for (i = 0; i < slots.length; i += 1) {
+                    (function (slotIndex) {
+                        staggerTimers[slotIndex] = setTimeout(function () {
+                            startFade(slotIndex);
+                        }, slotIndex * staggerMs);
+                    }(i));
+                }
+            }
+
+            function scheduleWave(delay) {
+                if (document.hidden) return;
+                if (waveTimer) {
+                    clearTimeout(waveTimer);
+                    waveTimer = null;
+                }
+                waveTimer = setTimeout(function () {
+                    startWave();
+                    scheduleWave(rotateMs);
+                }, delay);
+            }
+
+            var desktopQuery = window.matchMedia("(min-width: 768px)");
+
+            function fadesActive() {
+                return desktopQuery.matches && !document.hidden && !prefersReducedMotion();
+            }
+
+            function syncFades() {
+                if (fadesActive()) {
+                    if (!waveTimer) {
+                        scheduleWave(rotateMs);
+                    }
+                    return;
+                }
+                clearTimers();
+            }
+
+            if (fadesActive()) {
+                scheduleWave(rotateMs);
+            }
+
+            if (desktopQuery.addEventListener) {
+                desktopQuery.addEventListener("change", syncFades);
+            } else if (desktopQuery.addListener) {
+                desktopQuery.addListener(syncFades);
+            }
+
+            document.addEventListener("visibilitychange", syncFades);
+        });
+    }
+
+    function initVenueStrip() {
+        var viewports = document.querySelectorAll("[data-venue-collage-viewport]");
+        Array.prototype.forEach.call(viewports, function (viewport) {
+            if (viewport.getAttribute("data-venue-bound")) return;
+            viewport.setAttribute("data-venue-bound", "true");
+
+            var track = viewport.querySelector(".discovery-venue-collage__track");
+            var set = viewport.querySelector(".discovery-venue-collage__set");
+            if (!track || !set) return;
+
+            Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
+                img.setAttribute("draggable", "false");
+            });
+
+            var offset = 0;
+            var setWidth = 0;
+            var dragging = false;
+            var lastTs = 0;
+            var loopSeconds = 220;
+            var ticking = false;
+            var mobileQuery = window.matchMedia("(max-width: 767px)");
+
+            function wrapOffset() {
+                if (setWidth <= 0) return;
+                offset = ((offset % setWidth) + setWidth) % setWidth;
+            }
+
+            function applyTransform() {
+                wrapOffset();
+                track.style.transform = "translate3d(" + (-offset) + "px, 0, 0)";
+            }
+
+            function measure() {
+                setWidth = set.offsetWidth;
+                applyTransform();
+            }
+
             function tick(ts) {
+                if (!ticking) return;
                 if (!lastTs) lastTs = ts;
                 var dt = Math.min(48, ts - lastTs);
                 lastTs = ts;
-                if (!dragging && setWidth > 0) {
+                if (!dragging && setWidth > 0 && mobileQuery.matches && !document.hidden && !prefersReducedMotion()) {
                     offset += (setWidth / loopSeconds) * (dt / 1000);
                     applyTransform();
                 }
                 requestAnimationFrame(tick);
             }
-            requestAnimationFrame(tick);
-        }
 
-        var drag = {
-            pointerId: null,
-            startX: 0,
-            startOffset: 0,
-            moved: false
-        };
-
-        function stopDrag() {
-            if (!dragging) return;
-            dragging = false;
-            drag.pointerId = null;
-            viewport.classList.remove("is-dragging");
-            lastTs = 0;
-        }
-
-        viewport.addEventListener("pointerdown", function (event) {
-            if (event.pointerType === "mouse" && event.button !== 0) return;
-            dragging = true;
-            drag.pointerId = event.pointerId;
-            drag.moved = false;
-            drag.startX = event.clientX;
-            drag.startOffset = offset;
-            try {
-                viewport.setPointerCapture(event.pointerId);
-            } catch (err) {
-                /* ignore */
+            function startTick() {
+                if (ticking || prefersReducedMotion()) return;
+                ticking = true;
+                lastTs = 0;
+                requestAnimationFrame(tick);
             }
-        });
 
-        viewport.addEventListener("pointermove", function (event) {
-            if (!dragging || event.pointerId !== drag.pointerId) return;
-            var delta = event.clientX - drag.startX;
-            if (!drag.moved && Math.abs(delta) <= 4) return;
-            if (!drag.moved) {
-                drag.moved = true;
-                viewport.classList.add("is-dragging");
+            function stopTick() {
+                ticking = false;
+                lastTs = 0;
             }
-            offset = drag.startOffset - delta;
-            applyTransform();
-            event.preventDefault();
-        });
 
-        viewport.addEventListener("pointerup", stopDrag);
-        viewport.addEventListener("pointercancel", stopDrag);
-        viewport.addEventListener("lostpointercapture", stopDrag);
+            function syncStrip() {
+                if (!mobileQuery.matches) {
+                    stopTick();
+                    return;
+                }
+                measure();
+                if (document.hidden) {
+                    stopTick();
+                    return;
+                }
+                startTick();
+            }
 
-        viewport.addEventListener("dragstart", function (event) {
-            event.preventDefault();
-        });
+            measure();
+            viewport.classList.add("is-interactive");
 
-        viewport.addEventListener("keydown", function (event) {
-            var step = Math.max(200, Math.round(viewport.clientWidth * 0.45));
-            if (event.key === "ArrowLeft") {
-                offset -= step;
+            Array.prototype.forEach.call(viewport.querySelectorAll("img"), function (img) {
+                if (!img.complete) {
+                    img.addEventListener("load", measure);
+                }
+            });
+
+            var drag = {
+                pointerId: null,
+                startX: 0,
+                startOffset: 0,
+                moved: false
+            };
+
+            function stopDrag() {
+                if (!dragging) return;
+                dragging = false;
+                drag.pointerId = null;
+                viewport.classList.remove("is-dragging");
+                lastTs = 0;
+            }
+
+            viewport.addEventListener("pointerdown", function (event) {
+                if (!mobileQuery.matches) return;
+                if (event.pointerType === "mouse" && event.button !== 0) return;
+                dragging = true;
+                drag.pointerId = event.pointerId;
+                drag.moved = false;
+                drag.startX = event.clientX;
+                drag.startOffset = offset;
+                try {
+                    viewport.setPointerCapture(event.pointerId);
+                } catch (err) {
+                    /* ignore */
+                }
+            });
+
+            viewport.addEventListener("pointermove", function (event) {
+                if (!dragging || event.pointerId !== drag.pointerId) return;
+                var delta = event.clientX - drag.startX;
+                if (!drag.moved && Math.abs(delta) <= 4) return;
+                if (!drag.moved) {
+                    drag.moved = true;
+                    viewport.classList.add("is-dragging");
+                }
+                offset = drag.startOffset - delta;
                 applyTransform();
                 event.preventDefault();
-            } else if (event.key === "ArrowRight") {
-                offset += step;
-                applyTransform();
-                event.preventDefault();
-            }
-        });
+            });
 
-        if (window.ResizeObserver) {
-            var observer = new ResizeObserver(measure);
-            observer.observe(set);
-            observer.observe(viewport);
-        } else {
-            window.addEventListener("resize", measure);
-        }
+            viewport.addEventListener("pointerup", stopDrag);
+            viewport.addEventListener("pointercancel", stopDrag);
+            viewport.addEventListener("lostpointercapture", stopDrag);
+
+            viewport.addEventListener("dragstart", function (event) {
+                event.preventDefault();
+            });
+
+            if (window.ResizeObserver) {
+                var observer = new ResizeObserver(measure);
+                observer.observe(set);
+                observer.observe(viewport);
+            } else {
+                window.addEventListener("resize", measure);
+            }
+
+            if (mobileQuery.addEventListener) {
+                mobileQuery.addEventListener("change", syncStrip);
+            } else if (mobileQuery.addListener) {
+                mobileQuery.addListener(syncStrip);
+            }
+            document.addEventListener("visibilitychange", syncStrip);
+            syncStrip();
+        });
     }
 
     document.addEventListener("DOMContentLoaded", function () {

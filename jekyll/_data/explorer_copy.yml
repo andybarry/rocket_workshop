@@ -35,12 +35,12 @@ delivery_facts:
   - title: No Experience Required
     text: Designed for a wide range of ages and skill levels
     icon: fa-star-o
-  - title: Flexible Group Sizes
-    text: From private groups to large student programs
-    icon: fa-users
   - title: Delivered Across the USA
     text: At your hotel, school, campus, or group venue
     icon: fa-map-marker
+  - title: Flexible Group Sizes
+    text: From private groups to large student programs
+    icon: fa-users
   - title: Engineers & Equipment
     text: Led by real engineers, with materials, curriculum, and setup included
     icon: fa-briefcase
