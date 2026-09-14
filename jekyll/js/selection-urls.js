@@ -1,10 +1,6 @@
 (function (root) {
     "use strict";
 
-    function getQuery() {
-        return root.StageOneQuery;
-    }
-
     function data() {
         return root.StageOneDiscoveryData || {};
     }
@@ -17,32 +13,12 @@
         return null;
     }
 
-    // options.omit — state key to leave out of the query string (used when the
-    // destination page already represents that dimension in its path).
-    function stateParams(state, options) {
-        var params = new URLSearchParams();
-        var omit = (options && options.omit) || null;
-        state = state || {};
-
-        if (state.city && omit !== "city") {
-            params.set("city", state.city);
-        }
-        if (state.audience && omit !== "audience") {
-            params.set("audience", state.audience);
-        }
-        if (state.groupType && omit !== "groupType") {
-            params.set("group", state.groupType);
-        }
-        if (state.workshop && state.workshop !== "all" && omit !== "workshop") {
-            params.set("workshop", state.workshop);
-        }
-
-        getQuery().applyUtmParams(params, state.utm || getQuery().collectUtmParams());
-        return params;
+    function stateParams() {
+        return new URLSearchParams();
     }
 
     function withQuery(path, params) {
-        var query = params.toString();
+        var query = params && params.toString();
         return query ? path + "?" + query : path;
     }
 
@@ -71,25 +47,12 @@
         return "/#find-your-workshop";
     }
 
-    var CATEGORY_STATE_KEYS = {
-        city: "city",
-        audience: "audience",
-        group_type: "groupType",
-        workshop: "workshop"
-    };
-
-    // Link to a discovery landing page, carrying the rest of the visitor's
-    // context as query parameters (the destination's own dimension travels in
-    // the path instead).
-    function buildDiscoveryUrl(category, id, state) {
-        var params = stateParams(state, { omit: CATEGORY_STATE_KEYS[category] });
-        return withQuery(discoveryPath(category, id), params);
+    function buildDiscoveryUrl(category, id) {
+        return discoveryPath(category, id);
     }
 
-    function buildExplorerReturnUrl(state) {
-        var params = stateParams(state || {});
-        var query = params.toString();
-        return (query ? "/?" + query : "/") + "#find-your-workshop";
+    function buildExplorerReturnUrl() {
+        return "/#find-your-workshop";
     }
 
     // Full workshop detail page (e.g. /robotics-workshop.html).
@@ -98,25 +61,16 @@
         return match && match.detail_path ? match.detail_path : "/";
     }
 
-    function buildWorkshopUrl(workshop, state) {
-        var params = stateParams({
-            city: state && state.city,
-            audience: state && state.audience,
-            groupType: state && state.groupType,
-            workshop: "all",
-            utm: state && state.utm
-        });
-        return withQuery(workshopPath(workshop), params);
+    function buildWorkshopUrl(workshop) {
+        return workshopPath(workshop);
     }
 
-    function buildPlanUrl(state) {
-        return withQuery("/plan-a-workshop/", stateParams(state || {}));
+    function buildPlanUrl() {
+        return "/plan-a-workshop/";
     }
 
-    function replaceQuery(state) {
-        var params = stateParams(state);
-        var path = window.location.pathname;
-        var url = withQuery(path, params);
+    function replaceQuery() {
+        var url = window.location.pathname;
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, "", url);
         }
