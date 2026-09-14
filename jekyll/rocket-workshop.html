@@ -91,150 +91,206 @@ i18n_key: mechanical
 </style>
     {% include navigation.html %}
 
-    <div style="height: 50px;"></div> <!-- Adjust height to match your navbar's height -->
+<style>
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 5px #f05f40; }
+      50% { box-shadow: 0 0 30px #f05f40; }
+      100% { box-shadow: 0 0 5px #f05f40; }
+    }
 
-   <!-- Title Section -->
-<div style="max-width: 100%; margin: 0 auto; text-align: center;">
-    <h2 class="workshop-title" style="font-family: 'Roboto', sans-serif; color: #f05f40; font-size: 46px; font-weight: bold; cursor: default;" data-i18n="mechanical.title">
-        Mechanical Engineering Workshop
-    </h2>
-</div>
+    .workshop-detail-hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      max-width: 100vw;
+      height: 70vh;
+      min-height: 70vh;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      padding: 72px 24px 24px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background-color: #f5f5f5;
+    }
+
+    .workshop-detail-hero__media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .workshop-detail-hero__media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .workshop-detail-hero__media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.28);
+      z-index: 1;
+    }
+
+    .workshop-detail-hero .workshop-session-card {
+      position: relative;
+      z-index: 2;
+      width: fit-content;
+      max-width: min(94vw, 860px);
+      padding: 20px 40px 22px;
+      border: 1px solid rgba(67, 67, 67, 0.14);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 0 28px rgba(67, 67, 67, 0.07),
+        0 10px 24px rgba(67, 67, 67, 0.05);
+      box-sizing: border-box;
+    }
+
+    .workshop-detail-hero .workshop-session-card__head {
+      width: 100%;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f05f40;
+      text-align: center;
+    }
+
+    .workshop-detail-hero .workshop-session-title {
+      width: 100%;
+      margin: 0;
+      font-family: "Roboto", sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #434343;
+      text-align: center;
+      text-transform: none;
+      white-space: nowrap;
+      cursor: default;
+    }
+
+    .workshop-detail-hero .workshop-session-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .workshop-detail-hero .workshop-session-links .glow-button {
+      width: max-content;
+      min-width: 280px;
+      max-width: 100%;
+      margin: 0;
+      padding: 10px 22px;
+      box-sizing: border-box;
+      font-size: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #f05f40;
+      border-color: #f05f40;
+      animation: none;
+    }
+
+    .workshop-detail-hero .workshop-session-links .glow-button:hover,
+    .workshop-detail-hero .workshop-session-links .glow-button:focus {
+      color: #fff;
+      background-color: #f05f40;
+      border-color: #f05f40;
+      text-decoration: none;
+    }
+
+    @media (max-width: 767px) {
+      .workshop-detail-hero .workshop-session-title {
+        font-size: 24px;
+        white-space: normal;
+      }
+      .workshop-detail-hero .workshop-session-card {
+        padding: 14px 18px 16px;
+      }
+      .workshop-detail-hero .workshop-session-links .glow-button {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+      }
+    }
+</style>
+
+    <section class="workshop-detail-hero" aria-labelledby="mechanical-workshop-hero-title">
+      <div class="workshop-detail-hero__media" aria-hidden="true">
+        <video autoplay loop muted playsinline>
+          <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
+          <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <section class="workshop-session-card">
+        <div class="workshop-session-card__head">
+          <h1 id="mechanical-workshop-hero-title" class="workshop-session-title" data-i18n="mechanical.title">Mechanical Engineering Workshop</h1>
+        </div>
+        <div class="workshop-session-links">
+          <a href="/cad-tutorial/portal.html" target="_blank" rel="noopener noreferrer" class="glow-button" data-i18n="mechanical.heroStart">Start</a>
+          <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button" data-i18n="common.feedbackSurvey">Feedback Survey</a>
+        </div>
+      </section>
+    </section>
 
 <div class="container">
-        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-        <!-- Section with Background Video Loop -->
-        <div class="rocket-video-section" style="position: relative; margin: 0 auto; height: 280px; background-color: white; overflow: hidden;">
-            <div class="video-background autosize" style="height: 100%; width: 100%;">
-                <video autoplay loop muted playsinline style="width: 100%; height: auto;">
-                    <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
-                    <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-<!-- Title Section with Button -->
-<div class="button-container"
-     style="position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;">
-    
-    <!-- First Button: Drone Workshop Link -->
-    <a href="cad-tutorial/portal.html"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="glow-button"
-       style="margin-bottom: 20px;"
-       data-i18n="mechanical.heroStart">
-       Start
-    </a>
-
-    <!-- Feedback Survey -->
-    <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="glow-button"
-       style="margin-bottom: 20px;"
-       data-i18n="common.feedbackSurvey">
-       Feedback Survey
-    </a>
-
-</div>
-
-
-            <!-- Overlay Div -->
-            <div class="overlay"></div>
-        </div>
-
-        <!-- Styles for Glow Button -->
-        <style>
-            @keyframes pulseGlow {
-                0% {
-                    box-shadow: 0 0 5px #f05f40;
-                }
-
-                50% {
-                    box-shadow: 0 0 30px #f05f40;
-                }
-
-                100% {
-                    box-shadow: 0 0 5px #f05f40;
-                }
-            }
-
-            /* Style for the glow-button (same size as AI and robotics pages) */
-            .glow-button {
-                font-family: 'Roboto', sans-serif;
-                font-size: 20px;
-                font-weight: 400;
-                color: #f05f40;
-                text-align: center;
-                background-color: white;
-                padding: 5px 15px;
-                border-radius: 50px;
-                margin: 20px 5px;
-                border: 3px solid #f05f40;
-                text-decoration: none;
-                display: inline-block;
-                white-space: nowrap;
-                animation: pulseGlow 2s infinite;
-                position: relative;
-                z-index: 2;
-            }
-
-            /* Hover effect */
-            .glow-button:hover {
-                color: white;
-                background-color: #f05f40;
-                border: 3px solid #f05f40;
-                text-decoration: none;
-            }
-
-            /* No underline when selected/focused */
-            .glow-button:focus,
-            .glow-button:active,
-            .glow-button:visited {
-                text-decoration: none !important;
-            }
-
-            /* Overlay style */
-            .overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, 0.05);
-                z-index: 1;
-            }
-        </style>
-
-
-        <hr style="border: none; height: 1px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-        <div style="max-width: 100%; margin: 20px auto 5px auto;">
-            <span
-                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.overview">
-                Overview
-            </span>
-        </div>
-
-        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
 
         <style>
             .overview-text-box {
-                background-color: #fff;
-                border-radius: 12px;
-                padding: 24px 20px 29px 20px;
-                border: 1px solid #e8e8e8;
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+            /* Match location-page vertical card spacing (32px gaps) */
+            section.less-padding {
+                padding: 0 !important;
+            }
+            /* Section cards matching the homepage card style */
+            .workshop-section-card {
+                max-width: 1100px;
+                margin: 32px auto;
+                padding: 18px 20px 24px;
+                border: 1px solid rgba(67, 67, 67, 0.11);
+                border-radius: 16px;
+                background: #fff;
+                box-shadow:
+                    inset 0 0 16px rgba(67, 67, 67, 0.12),
+                    0 0 28px rgba(67, 67, 67, 0.07),
+                    0 10px 26px rgba(67, 67, 67, 0.05);
+                box-sizing: border-box;
+            }
+            .workshop-section-card__header {
+                width: 100%;
+                margin: 0 0 16px;
+                padding-bottom: 8px;
+                border-bottom: 2px solid #f05f40;
+                text-align: left;
+            }
+            .workshop-section-card__title {
+                margin: 0;
+                font-family: 'Roboto', sans-serif;
+                font-size: 28px;
+                font-weight: 800;
+                letter-spacing: -0.01em;
+                line-height: 1.15;
+                color: #434343;
+                text-transform: none;
+                cursor: default;
             }
         </style>
         <section class="less-padding">
+            <div class="workshop-section-card">
+            <div class="workshop-section-card__header">
+                <h2 class="workshop-section-card__title" data-i18n="common.overview">Overview</h2>
+            </div>
             <div class="overview-text-box">
             <div class="row" style="align-items: center;">
                 <!-- Text Section -->
@@ -291,19 +347,16 @@ i18n_key: mechanical
                 </div>
             </div>
             </div>
+            </div>
         </section>
 
 
 
 
-        <div style="max-width: 100%; margin: 5px auto;">
-            <span
-                style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.testimonials">
-                Testimonials
-            </span>
-        </div>
-
-        <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
+        <div class="workshop-section-card">
+            <div class="workshop-section-card__header">
+                <h2 class="workshop-section-card__title" data-i18n="common.testimonials">Testimonials</h2>
+            </div>
 
 
         <!-- Continuous Scroll for Feedback -->
@@ -508,21 +561,18 @@ i18n_key: mechanical
                 </div>
             </div>
         </div>
+        </div>
 
         <!-- Timeline -->
-        <div class="row me-timeline-section">
-            <div style="max-width: 100%; margin: 5px auto;">
-                <span
-                    style="display: block; text-align: left; margin-left: 10px; font-family: 'Roboto', sans-serif; color: #464444; font-size: 25px; cursor: default;" data-i18n="common.timeline">
-                    Timeline
-                </span>
-            </div>
-
-            <hr style="border: none; height: 3px; max-width: 100%; background-color: #f05f40; margin: 5px auto;" />
-
-            <div class="text-center" style="margin-top: 40px;">
-                <img src="img/me-timeline.png" alt="Rocket Timeline" class="horizontal-image" style="border: 1px solid #e0e0e0; border-radius: 24px;">
-                <img src="img/vertical-me-timeline.svg" alt="Rocket Timeline" class="vertical-image" style="border: 1px solid #e0e0e0; border-radius: 24px;">
+        <div class="me-timeline-section">
+            <div class="workshop-section-card">
+                <div class="workshop-section-card__header">
+                    <h2 class="workshop-section-card__title" data-i18n="common.timeline">Timeline</h2>
+                </div>
+                <div class="text-center">
+                    <img src="img/me-timeline.png" alt="Rocket Timeline" class="horizontal-image" style="border: 1px solid #e0e0e0; border-radius: 24px;">
+                    <img src="img/vertical-me-timeline.svg" alt="Rocket Timeline" class="vertical-image" style="border: 1px solid #e0e0e0; border-radius: 24px;">
+                </div>
             </div>
         </div>
 

@@ -661,7 +661,7 @@
             document.addEventListener("visibilitychange", function () {
                 if (document.hidden) {
                     stopAuto();
-                } else {
+            } else {
                     startAuto();
                 }
             });
