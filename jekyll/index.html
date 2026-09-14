@@ -53,8 +53,8 @@ i18n_key: home
     overflow: hidden;
     background: #fff;
     box-shadow:
-      inset 0 0 16px rgba(13, 110, 253, 0.16),
-      inset 0 0 6px rgba(13, 110, 253, 0.18);
+      inset 0 0 16px rgba(67, 67, 67, 0.14),
+      inset 0 0 6px rgba(67, 67, 67, 0.16);
   }
   body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
     min-height: 96px;
@@ -101,7 +101,7 @@ i18n_key: home
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 8px 0 28px;
+    padding: 20px 0 28px;
     border: 0;
     background: transparent;
     box-sizing: border-box;
@@ -218,8 +218,8 @@ i18n_key: home
     max-width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    height: 340px;
-    min-height: 340px;
+    height: 360px;
+    min-height: 360px;
     overflow: hidden;
     contain: paint;
     overflow-anchor: none;
@@ -346,7 +346,7 @@ i18n_key: home
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 6px 28px 6px clamp(36px, 5.5vw, 88px);
+    padding: 26px 28px 6px clamp(36px, 5.5vw, 88px);
     box-sizing: border-box;
     /* Fluid type/icons track the copy column, not the full viewport */
     container-type: inline-size;
@@ -726,8 +726,8 @@ i18n_key: home
   }
   @media (min-width: 768px) and (max-width: 991px) {
     .home-room-hero {
-      height: 340px;
-      min-height: 340px;
+      height: 360px;
+      min-height: 360px;
     }
     .home-room-hero__content {
       width: 42%;
@@ -1001,6 +1001,7 @@ i18n_key: home
     border-radius: 16px;
     background: #fff;
     box-shadow:
+      inset 0 0 10px rgba(67, 67, 67, 0.12),
       0 0 28px rgba(67, 67, 67, 0.07),
       0 10px 26px rgba(67, 67, 67, 0.05);
     box-sizing: border-box;
@@ -1417,10 +1418,6 @@ i18n_key: home
             <p data-i18n="home.hero.body1">Give your group a hands-on engineering experience where participants build, code, design, and create. Our three-hour AI, robotics, and mechanical engineering workshops are led by real engineers and delivered directly to your hotel, school, campus, or venue across the USA.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="/plan-a-workshop/"
-                data-plan-workshop-open data-plan-source="hero" data-i18n-html="home.hero.ctaPlan">
-                <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
-            </a>
             <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">
                 <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
             </a>
@@ -1455,8 +1452,7 @@ i18n_key: home
     </div>
 </section>
 {% include workshop-benefits.html %}
-{% include find-your-workshop.html %}
-            
+
 <div id="tab-section" class="home-workshops-block">
 <span id="ai" aria-hidden="true"></span>
 
@@ -1528,7 +1524,9 @@ i18n_key: home
         overflow: hidden;
         background-color: #fff;
         background-image: url('img/film-poster.webp');
-        background-size: 100% auto;
+        /* Slightly over 100% so the poster sheet fills the window edge to
+           edge, matching the media in the other workshop cards. */
+        background-size: 115% auto;
         background-position: center top;
         background-repeat: no-repeat;
         animation: aiPosterScrollDown 60s linear infinite;
@@ -1677,6 +1675,8 @@ i18n_key: home
 
 </div>
 </div>
+
+{% include find-your-workshop.html %}
 
 <div class="participants-plan-row home-align-col">
     <section class="participants-feedback" aria-label="Participant feedback">

@@ -1,5 +1,6 @@
 {% comment %}
   Contact Us modal. Opened by any element carrying [data-contact-email-open].
+  Mirrors the Plan a Workshop modal layout, in the orange theme.
 {% endcomment %}
 <div class="contact-email-modal" data-contact-email-modal hidden>
   <div class="contact-email-modal__backdrop" data-contact-email-close tabindex="-1"></div>
@@ -8,37 +9,47 @@
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <h2 class="contact-email-modal__title" id="contact-email-modal-title" data-i18n="discovery.ui.contactUs">Contact Us</h2>
-    <p class="contact-email-modal__lede" data-i18n="discovery.ui.contactModalLede">
-      Copy our email address, or send us a message right here.
+    <p class="contact-email-modal__lede" data-i18n="discovery.ui.planModalLede">
+      Tell us a few details and we&rsquo;ll be in touch soon.
     </p>
-    <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionEmail">Copy our email address</p>
-    <div class="contact-email-modal__row">
-      <p class="contact-email-modal__address" data-contact-email>workshops@stageoneeducation.com</p>
-      <button type="button" class="contact-email-modal__copy" data-contact-email-copy data-copied-label="Copied" data-i18n="discovery.ui.copyEmail" data-i18n-copied="discovery.ui.emailCopied">
-        Copy
-      </button>
+    <div class="contact-email-modal__columns">
+      <div class="contact-email-modal__col contact-email-modal__col--form">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        <form class="contact-email-modal__form" data-contact-email-form novalidate>
+          <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="contact-email-form-error-name">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-name" data-i18n="discovery.ui.formNameError">Enter your name.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="contact-email-form-error-email">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n="discovery.ui.contactFormMessage">How can we help?</span>
+            <textarea class="plan-workshop-field__control" name="message" rows="3" placeholder="Tell us what you would like to know." data-i18n-placeholder="discovery.ui.contactFormMessagePlaceholder"></textarea>
+          </label>
+          <button type="submit" class="contact-email-modal__send" data-i18n="discovery.ui.contactFormSend">Send Message</button>
+          <p class="plan-workshop-form__status" data-contact-email-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
+        </form>
+        <p class="contact-email-modal__success" data-contact-email-success hidden data-i18n="discovery.ui.contactFormSuccess">Thank you! Your message has been sent. We will get back to you soon.</p>
+        <p class="contact-email-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="contact-email-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="contact-email-modal__copy contact-email-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="contact-email-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="contact-email-modal__col contact-email-modal__col--demo">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="contact-email-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="contact-email-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
     </div>
-    <div class="contact-email-modal__divider"><span data-i18n="discovery.ui.planModalOr">or</span></div>
-    <p class="contact-email-modal__option-label" data-i18n="discovery.ui.contactModalOptionForm">Send us your name, email, and message</p>
-    <form class="contact-email-modal__form" data-contact-email-form novalidate>
-      <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label class="plan-workshop-field">
-        <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
-        <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="contact-email-form-error-name">
-        <span class="plan-workshop-field__error" id="contact-email-form-error-name" data-i18n="discovery.ui.formNameError">Enter your name.</span>
-      </label>
-      <label class="plan-workshop-field">
-        <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
-        <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="contact-email-form-error-email">
-        <span class="plan-workshop-field__error" id="contact-email-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
-      </label>
-      <label class="plan-workshop-field">
-        <span class="plan-workshop-field__label" data-i18n="discovery.ui.contactFormMessage">How can we help?</span>
-        <textarea class="plan-workshop-field__control" name="message" rows="3" placeholder="Tell us what you would like to know." data-i18n-placeholder="discovery.ui.contactFormMessagePlaceholder"></textarea>
-      </label>
-      <button type="submit" class="contact-email-modal__send" data-i18n="discovery.ui.contactFormSend">Send Message</button>
-      <p class="plan-workshop-form__status" data-contact-email-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
-    </form>
-    <p class="contact-email-modal__success" data-contact-email-success hidden data-i18n="discovery.ui.contactFormSuccess">Thank you! Your message has been sent. We will get back to you soon.</p>
   </div>
 </div>

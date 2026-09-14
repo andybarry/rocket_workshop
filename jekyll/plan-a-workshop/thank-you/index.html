@@ -7,14 +7,36 @@ permalink: /plan-a-workshop/thank-you/
 ---
 <body class="thank-you-page">
   {% include navigation.html %}
-  <main>
-    <h1>Thank You for Sharing Your Workshop Details</h1>
-    <p>Your workshop details have been sent to the Stage One team. We will review your destination, group details, schedule, and workshop interests and follow up with the next steps.</p>
-    <p>Want to talk it through sooner? <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer">Book a meeting time</a> that works for you.</p>
-    <p>
-      <a href="/explore/">Explore Workshops</a><br>
-      <a href="/explore/">Explore Other Cities</a><br>
-      <a href="/">Return to the Homepage</a>
-    </p>
+  <main class="thank-you__main">
+    <div class="thank-you__card">
+      <div class="thank-you__check" aria-hidden="true"><i class="fa fa-check"></i></div>
+      <p class="thank-you__eyebrow">Stage One Education</p>
+      <h1 class="thank-you__title">Thank You!</h1>
+      <p class="thank-you__copy">Your workshop details are on their way to the Stage One team.</p>
+
+      <div class="thank-you__options">
+        <div class="thank-you__option">
+          <p class="thank-you__option-label">Want to chat now?</p>
+          <p class="thank-you__option-copy">Email us anytime &mdash; a real person reads every message.</p>
+          <div class="thank-you__email">
+            <span data-contact-email>workshops@stageoneeducation.com</span>
+            <button type="button" class="thank-you__copy-btn" data-contact-email-copy aria-label="Copy email address" title="Copy">
+              <i class="fa fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="thank-you__option">
+          <p class="thank-you__option-label">Want to see it in action?</p>
+          <p class="thank-you__option-copy">Choose a time on our calendar for a 30-minute video call and workshop demo.</p>
+          <a class="thank-you__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer">Schedule a Workshop Demo</a>
+        </div>
+      </div>
+
+      <div class="thank-you__links">
+        <a class="thank-you__link-btn" href="/explore/">Explore Workshops</a>
+        <a class="thank-you__link-btn" href="/explore/">Explore Other Cities</a>
+        <a class="thank-you__link-btn" href="/">Return to the Homepage</a>
+      </div>
+    </div>
   </main>
-  {% include copyright.html %}
+  {% include discovery/page-footer.html bar_only=true %}

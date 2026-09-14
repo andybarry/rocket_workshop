@@ -8,12 +8,23 @@
 {% assign copy = site.data.discovery.copy %}
 <header class="discovery-header{% if page.discovery_category == "city" %} discovery-header--location{% endif %}{% if page.discovery_category == "city" and entry.show_quotes == false %} discovery-header--no-quotes{% endif %}{% if page.discovery_category == "audience" or page.discovery_category == "group_type" %} discovery-header--participants{% endif %}">
   {% if page.discovery_category == "city" %}
-  {% if entry.landmark_image %}
+  {% assign city_bg_aspect = 2.667 %}
+  {% case entry.slug %}
+  {% when "ann-arbor" %}{% assign city_bg_image = "Ann%20Arbor%20Pan%20BG.png" %}
+  {% when "atlanta" %}{% assign city_bg_image = "Atlanta.Pan.BG.png" %}{% assign city_bg_aspect = 2.625 %}
+  {% when "berkeley" %}{% assign city_bg_image = "Berkeley%20Pan%20BG.png" %}
+  {% when "boston" %}{% assign city_bg_image = "Boston%20Pan%20BG.png" %}
+  {% when "denver" %}{% assign city_bg_image = "Denver%20Pan%20BG.png" %}
+  {% when "houston" %}{% assign city_bg_image = "Houston%20Pan%20BG.png" %}
+  {% when "los-angeles" %}{% assign city_bg_image = "Los%20Angeles%20Pan%20BG.png" %}
+  {% when "new-haven" %}{% assign city_bg_image = "NewHaven%20Pan%20BG.png" %}
+  {% when "orlando" %}{% assign city_bg_image = "Orlando%20Pan%20BG.png" %}
+  {% when "san-francisco" %}{% assign city_bg_image = "San%20Francisco%20Pan%20BG.png" %}
+  {% when "washington-dc" %}{% assign city_bg_image = "DC%20Pan%20BG.png" %}
+  {% else %}{% assign city_bg_image = "Boston%20Pan%20BG.png" %}
+  {% endcase %}
   <div class="discovery-header__visual" aria-hidden="true"
-    style="--discovery-visual: url('/{{ entry.landmark_image | replace: ' ', '%20' }}');{% if entry.landmark_image_position %} --discovery-visual-position: {{ entry.landmark_image_position }};{% endif %}"></div>
-  {% else %}
-  <div class="discovery-header__visual discovery-header__visual--placeholder" aria-hidden="true"></div>
-  {% endif %}
+    style="--discovery-visual: url('/img/locations/{{ city_bg_image }}'); --discovery-visual-aspect: {{ city_bg_aspect }}; --discovery-visual-position: center bottom;"></div>
   {% endif %}
   {% if page.discovery_category == "city" %}<div class="discovery-header__masthead">{% endif %}
   <div class="discovery-header__hero">
@@ -203,8 +214,13 @@
   {% endunless %}
   {% include discovery/plan-cta.html %}
   {% endunless %}
-  {% include discovery/location-explore.html %}
   {% if page.discovery_category == "city" %}
+  <section class="our-workshops-shell discovery-header__workshops-home" aria-labelledby="location-workshops-heading">
+    <div class="our-workshops-header">
+      <h2 id="location-workshops-heading" class="workshop-title our-workshops-title" data-i18n="about.workshopsHeading">Our Workshops</h2>
+    </div>
+    {% include our-workshop-cards.html %}
+  </section>
   {% include discovery/venue-collage.html %}
   {% endif %}
 </header>

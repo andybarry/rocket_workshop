@@ -1596,10 +1596,12 @@ html.has-workshop-plan-modal #tab-section {
     padding: 0;
     overflow: hidden;
     list-style: none;
-    border: 1px solid #0d6efd;
+    border: 1px solid rgba(67, 67, 67, 0.3);
     border-radius: 22px;
     background: #fff;
-    box-shadow: inset 0 0 8px rgba(13, 110, 253, 0.12);
+    box-shadow:
+        inset 0 0 16px rgba(67, 67, 67, 0.14),
+        inset 0 0 6px rgba(67, 67, 67, 0.16);
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
     position: relative;
@@ -1609,8 +1611,8 @@ html.has-workshop-plan-modal #tab-section {
     justify-content: flex-start;
     gap: 16px;
     min-width: 0;
-    min-height: 136px;
-    padding: 26px 22px;
+    min-height: 96px;
+    padding: 12px 18px;
     border: 0;
     background: transparent;
     box-shadow: none;
@@ -1625,8 +1627,8 @@ html.has-workshop-plan-modal #tab-section {
     content: "";
     display: block;
     position: absolute;
-    top: 18px;
-    bottom: 18px;
+    top: 10px;
+    bottom: 10px;
     left: auto;
     right: 0;
     width: 1px;
@@ -1648,13 +1650,14 @@ html.has-workshop-plan-modal #tab-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 72px;
-    width: 72px;
-    height: 72px;
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
     margin: 0;
+    font-size: 27px;
     border-radius: 50%;
-    background: #f6fbff;
-    color: #0d6efd;
+    background: #fff3ef;
+    color: #f05f40;
     font-size: 32px;
     line-height: 1;
 }
@@ -1670,13 +1673,14 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
     display: block;
-    margin: 0 0 4px;
+    margin: 0 0 2px;
+    min-height: 24px;
     color: #434343;
     font-family: "Roboto", sans-serif;
     font-size: clamp(15px, calc((100cqi - 4px) / 13.6), 20px);
     font-weight: 800;
     letter-spacing: -0.02em;
-    line-height: 1.25;
+    line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-align: left;
@@ -1687,14 +1691,14 @@ html.has-workshop-plan-modal #tab-section {
     margin: 0;
     color: #555555;
     font-family: "Roboto", sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 400;
-    line-height: 1.35;
+    line-height: 1.25;
     text-align: left;
-    min-height: calc(15px * 1.35 * 2);
+    min-height: calc(13px * 1.25 * 2);
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
-    font-size: 15px;
+    font-size: 13px;
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small br {
     display: block;
@@ -4960,7 +4964,7 @@ html.has-workshop-plan-modal #tab-section {
     gap: 28px;
     width: var(--page-card-width);
     max-width: var(--page-card-max);
-    margin: 40px auto 24px;
+    margin: 24px auto 24px;
     box-sizing: border-box;
 }
 
@@ -6306,7 +6310,7 @@ html.has-feedback-viewer {
 
 /* The legacy cards on Workshops and About share the base class but not the
    homepage markup. Keep their established presentation isolated. */
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button {
     width: 300px;
     height: 430px;
     border: 2px solid #f05f40;
@@ -6318,7 +6322,7 @@ body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participan
     transition: box-shadow 0.2s ease, background-color 0.2s ease, border-width 0.2s ease;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button .workshop-card-media {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-media {
     flex: 1 1 auto !important;
     width: 100%;
     min-height: 0;
@@ -6328,7 +6332,7 @@ body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participan
     background: transparent;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button > .main-button-title-text {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button > .main-button-title-text {
     min-height: 0;
     padding: 18px 16px 4px;
     color: #f05f40;
@@ -6341,18 +6345,18 @@ body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participan
     white-space: nowrap;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button > .main-button-title-text::before,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button .workshop-card-copy h3::before {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button > .main-button-title-text::before,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy h3::before {
     display: none;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button .workshop-card-copy {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy {
     margin: auto 0 0;
     padding: 6px 20px 18px;
     text-align: center;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button .workshop-card-copy h3 {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy h3 {
     padding: 5px 0;
     font-size: 13px;
     font-weight: 400;
@@ -6360,9 +6364,9 @@ body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participan
     letter-spacing: 0.01em;
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:hover,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:focus,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button.is-hero-hover {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover {
     border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: #f05f40;
@@ -6370,15 +6374,15 @@ body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participan
     box-shadow: 0 6px 18px rgba(67, 67, 67, 0.16);
 }
 
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:hover > .main-button-title-text,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:focus > .main-button-title-text,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button.is-hero-hover > .main-button-title-text,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:hover .workshop-card-copy h3,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:focus .workshop-card-copy h3,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:hover .workshop-card-copy li,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button:focus .workshop-card-copy li,
-body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants) .workshop-main-button.is-hero-hover .workshop-card-copy li {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover .workshop-card-copy li {
     color: #fff;
 }
 

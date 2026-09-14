@@ -194,11 +194,252 @@
     text-decoration: underline;
 }
 
-.thank-you-page,
 .privacy-page {
     max-width: 760px;
     margin: 0 auto;
     padding: 96px 16px 72px;
+}
+
+/* Body wrapper: full width so the footer bar can span the page,
+   with the card constrained inside <main>. */
+.thank-you-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.thank-you__main {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 96px 16px 72px;
+}
+
+/* Thank-you page card */
+
+.thank-you__card {
+    padding: 36px 30px 28px;
+    border: 1px solid rgba(67, 67, 67, 0.1);
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: #434343;
+}
+
+.thank-you__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 14px;
+    border: 1px solid #b7e4c7;
+    border-radius: 50%;
+    background: #e8f8ee;
+    color: #2e9e57;
+    font-size: 28px;
+}
+
+.thank-you__eyebrow {
+    margin: 0;
+    color: #f05f40;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.thank-you__title {
+    margin: 0 0 8px;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #434343;
+}
+
+.thank-you__copy {
+    margin: 0 auto 26px;
+    max-width: 56ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #6f6f6f;
+}
+
+.thank-you__options {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    margin: 0 0 24px;
+    text-align: left;
+}
+
+.thank-you__option {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(67, 67, 67, 0.12);
+    border-radius: 14px;
+    background: #fafafa;
+}
+
+.thank-you__option-label {
+    margin: 0 0 6px;
+    color: #6f6f6f;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.thank-you__option-copy {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6f6f6f;
+}
+
+.thank-you__email {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding: 10px 12px;
+    border: 1px solid #b7e4c7;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    color: #434343;
+}
+
+.thank-you__email span[data-contact-email] {
+    min-width: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+    .thank-you__email {
+        font-size: 12.5px;
+    }
+}
+
+.thank-you__copy-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid #3bbf6b;
+    border-radius: 8px;
+    background: #fff;
+    color: #2e9e57;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.thank-you__copy-btn:hover,
+.thank-you__copy-btn:focus {
+    border-color: #34b461;
+    background: #3bbf6b;
+    color: #fff;
+}
+
+.thank-you__copy-btn:focus {
+    outline: none;
+}
+
+.thank-you__copy-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(59, 191, 107, 0.35);
+}
+
+.thank-you__copy-btn.is-copied {
+    border-color: #6ed08f;
+    background: #6ed08f;
+    color: #fff;
+}
+
+.thank-you__demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid #3bbf6b;
+    border-radius: 12px;
+    background: #fff;
+    color: #2e9e57;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.12);
+}
+
+.thank-you__demo:hover,
+.thank-you__demo:focus {
+    border-color: #34b461;
+    background: #3bbf6b;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(32, 110, 60, 0.2);
+}
+
+.thank-you__links {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+}
+
+.thank-you__link-btn {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6f6f6f;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.thank-you__link-btn:hover,
+.thank-you__link-btn:focus {
+    border-color: #2e9e57;
+    color: #2e9e57;
+    background: #f4fbf6;
+    text-decoration: none;
+}
+
+@media (max-width: 719px) {
+    .thank-you__options {
+        flex-direction: column;
+    }
+
+    .thank-you__links {
+        flex-direction: column;
+    }
+
+    .thank-you__card {
+        padding: 28px 18px 22px;
+    }
+
+    .thank-you__title {
+        font-size: 30px;
+    }
 }
 
 .site-footer-regions {

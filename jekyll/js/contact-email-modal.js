@@ -7,6 +7,8 @@
 
         var container = copyButton.closest("[data-contact-email-modal], [data-plan-workshop-modal], .plan-workshop-modal__email, .contact-email-modal__row");
         var addressEl = container ? container.querySelector("[data-contact-email]") : null;
+        // Icon-only buttons swap the icon to a checkmark instead of text.
+        var icon = copyButton.querySelector("i.fa");
         var copiedTimer = null;
 
         function emailAddress() {
@@ -26,15 +28,23 @@
                 window.clearTimeout(copiedTimer);
                 copiedTimer = null;
             }
-            copyButton.textContent = copyLabel();
+            if (icon) {
+                icon.className = "fa fa-copy";
+            } else {
+                copyButton.textContent = copyLabel();
+            }
             copyButton.classList.remove("is-copied");
         }
 
         function markCopied() {
-            if (!copyButton.getAttribute("data-copy-label")) {
-                copyButton.setAttribute("data-copy-label", copyButton.textContent.trim());
+            if (icon) {
+                icon.className = "fa fa-check";
+            } else {
+                if (!copyButton.getAttribute("data-copy-label")) {
+                    copyButton.setAttribute("data-copy-label", copyButton.textContent.trim());
+                }
+                copyButton.textContent = copiedLabel();
             }
-            copyButton.textContent = copiedLabel();
             copyButton.classList.add("is-copied");
             if (copiedTimer) window.clearTimeout(copiedTimer);
             copiedTimer = window.setTimeout(resetCopyLabel, 2000);

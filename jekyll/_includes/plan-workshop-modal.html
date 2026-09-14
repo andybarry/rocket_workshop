@@ -10,21 +10,25 @@
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title" data-i18n="nav.planWorkshop">Plan a Workshop</h2>
-    <p class="plan-workshop-modal__lede" data-i18n="discovery.ui.planModalLede">
-      Three easy ways to get in touch — choose whichever works best for you.
-    </p>
-    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionEmail">Copy our email address</p>
-    <div class="plan-workshop-modal__email">
-      <p class="plan-workshop-modal__address" data-contact-email>workshops@stageoneeducation.com</p>
-      <button type="button" class="plan-workshop-modal__copy" data-contact-email-copy data-copied-label="Copied" data-i18n="discovery.ui.copyEmail">
-        Copy
-      </button>
+    <div class="plan-workshop-modal__columns">
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--form">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        {% include plan-workshop-form.html form_id="plan-workshop-modal-form" compact=true %}
+        <p class="plan-workshop-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="plan-workshop-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="plan-workshop-modal__copy plan-workshop-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="plan-workshop-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--demo">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="plan-workshop-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="plan-workshop-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
     </div>
-    <div class="plan-workshop-modal__divider"><span data-i18n="discovery.ui.planModalOr">or</span></div>
-    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your name, email, and details</p>
-    {% include plan-workshop-form.html form_id="plan-workshop-modal-form" compact=true %}
-    <div class="plan-workshop-modal__divider"><span data-i18n="discovery.ui.planModalOr">or</span></div>
-    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Schedule a 30-minute virtual workshop demo</p>
-    <a class="plan-workshop-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Virtual Demo</a>
   </div>
 </div>
