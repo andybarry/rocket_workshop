@@ -170,6 +170,30 @@
     font-size: 13px;
 }
 
+.plan-workshop-form__status {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #c0392b;
+}
+
+.plan-workshop-form__status a {
+    color: #c0392b;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.plan-workshop-form__book {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.plan-workshop-form__book a {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
 .thank-you-page,
 .privacy-page {
     max-width: 760px;

@@ -1,6 +1,33 @@
 (function () {
     "use strict";
 
+    // Web3Forms delivers each submission to workshops@stageoneeducation.com.
+    // The key is public by design (it only identifies the destination inbox).
+    var WEB3FORMS_ACCESS_KEY = "7eb2fa50-b592-4119-803b-ad43462823ac";
+    var WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
+    // Shared sender, also used by the Contact Us modal form.
+    function sendToWeb3Forms(fields) {
+        if (!window.fetch) {
+            return Promise.reject(new Error("fetch unavailable"));
+        }
+        var payload = { access_key: WEB3FORMS_ACCESS_KEY };
+        for (var key in fields) {
+            if (Object.prototype.hasOwnProperty.call(fields, key)) payload[key] = fields[key];
+        }
+        return window.fetch(WEB3FORMS_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(payload)
+        }).then(function (response) {
+            return response.json()
+                .catch(function () { return {}; })
+                .then(function (data) {
+                    if (!response.ok || !data.success) throw new Error("send failed");
+                });
+        });
+    }
+
     // Shared Plan a Workshop form logic. The same form markup lives on the
     // /plan-a-workshop/ page and inside the Plan a Workshop modal; both call
     // StageOnePlanForm.init with their own container.
@@ -10,7 +37,15 @@
         var compact = form.hasAttribute("data-plan-workshop-compact");
         var state = window.StageOneState ? window.StageOneState.load() : {};
         var internationalFields = form.querySelector("[data-international-fields]");
+        var submitButton = form.querySelector('button[type="submit"]');
+        var statusEl = form.querySelector("[data-plan-workshop-status]");
         var trackedStart = false;
+        var sending = false;
+
+        function translate(key, fallback) {
+            var value = window.SOI18n && window.SOI18n.t ? window.SOI18n.t(key) : null;
+            return value || fallback;
+        }
 
         function field(name) {
             return form.elements.namedItem(name);
@@ -94,6 +129,7 @@
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
+            if (sending) return;
             if (valueOf("website")) return;
             if (!validate()) return;
 
@@ -138,15 +174,38 @@
                 "Additional information: " + (valueOf("notes") || "None")
             ];
 
-            if (window.StageOneState) {
-                window.StageOneState.track("plan_workshop_form_submitted", window.StageOneState.eventParams(state, source));
+            // Post to Web3Forms so the request reaches the Stage One inbox
+            // without relying on the visitor having an email application.
+            sending = true;
+            if (statusEl) statusEl.hidden = true;
+            var restingLabel = submitButton ? submitButton.textContent : "";
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = translate("discovery.ui.formSending", "Sending\u2026");
             }
-            window.location.href = "mailto:workshops@stageoneeducation.com"
-                + "?subject=" + encodeURIComponent("Workshop planning request")
-                + "&body=" + encodeURIComponent(lines.join("\n"));
-            window.setTimeout(function () {
+
+            function showFailure() {
+                sending = false;
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = restingLabel;
+                }
+                if (statusEl) statusEl.hidden = false;
+            }
+
+            sendToWeb3Forms({
+                subject: "Workshop planning request",
+                from_name: valueOf("contactName"),
+                name: valueOf("contactName"),
+                email: valueOf("email"),
+                message: lines.join("\n"),
+                botcheck: valueOf("website")
+            }).then(function () {
+                if (window.StageOneState) {
+                    window.StageOneState.track("plan_workshop_form_submitted", window.StageOneState.eventParams(state, source));
+                }
                 window.location.assign("/plan-a-workshop/thank-you/");
-            }, 400);
+            }).catch(showFailure);
         });
 
         syncForm();
@@ -159,7 +218,7 @@
         };
     }
 
-    window.StageOnePlanForm = { init: initPlanForm };
+    window.StageOnePlanForm = { init: initPlanForm, send: sendToWeb3Forms };
 
     document.addEventListener("DOMContentLoaded", function () {
         if (!window.StageOneState || !document.body.classList.contains("plan-workshop-page")) return;

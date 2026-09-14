@@ -73,12 +73,98 @@
         copyButton.resetEmailCopyLabel = resetCopyLabel;
     }
 
+    // Name/email/message form inside the Contact Us modal. Delivery goes
+    // through the same Web3Forms inbox as the Plan a Workshop form.
+    function bindContactForm(modal) {
+        var form = modal.querySelector("[data-contact-email-form]");
+        if (!form) return;
+        var submitButton = form.querySelector('button[type="submit"]');
+        var statusEl = modal.querySelector("[data-contact-email-status]");
+        var successEl = modal.querySelector("[data-contact-email-success]");
+        var sending = false;
+
+        function translate(key, fallback) {
+            var value = window.SOI18n && window.SOI18n.t ? window.SOI18n.t(key) : null;
+            return value || fallback;
+        }
+
+        function valueOf(name) {
+            var el = form.elements.namedItem(name);
+            return el && el.value ? el.value.trim() : "";
+        }
+
+        function markInvalid(name, invalid) {
+            var el = form.elements.namedItem(name);
+            if (!el) return;
+            var wrap = el.closest(".plan-workshop-field");
+            if (wrap) wrap.classList.toggle("is-invalid", invalid);
+            el.setAttribute("aria-invalid", invalid ? "true" : "false");
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (sending) return;
+            if (valueOf("website")) return;
+
+            var nameOk = !!valueOf("contactName");
+            var emailEl = form.elements.namedItem("email");
+            var emailOk = !!(emailEl && emailEl.value.trim() && emailEl.checkValidity());
+            markInvalid("contactName", !nameOk);
+            markInvalid("email", !emailOk);
+            if (!nameOk) { form.elements.namedItem("contactName").focus(); return; }
+            if (!emailOk) { emailEl.focus(); return; }
+
+            var sender = window.StageOnePlanForm && window.StageOnePlanForm.send;
+            sending = true;
+            if (statusEl) statusEl.hidden = true;
+            var restingLabel = submitButton ? submitButton.textContent : "";
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = translate("discovery.ui.formSending", "Sending\u2026");
+            }
+
+            function showFailure() {
+                sending = false;
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = restingLabel;
+                }
+                if (statusEl) statusEl.hidden = false;
+            }
+
+            if (!sender) { showFailure(); return; }
+
+            sender({
+                subject: "Contact Us message",
+                from_name: valueOf("contactName"),
+                name: valueOf("contactName"),
+                email: valueOf("email"),
+                message: [
+                    "New Contact Us message from the website:",
+                    "",
+                    "Name: " + valueOf("contactName"),
+                    "Email: " + valueOf("email"),
+                    "",
+                    "Message:",
+                    valueOf("message") || "None"
+                ].join("\n"),
+                botcheck: valueOf("website")
+            }).then(function () {
+                sending = false;
+                form.hidden = true;
+                if (successEl) successEl.hidden = false;
+            }).catch(showFailure);
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         Array.prototype.forEach.call(document.querySelectorAll("[data-contact-email-copy]"), bindEmailCopy);
 
         var openers = document.querySelectorAll("[data-contact-email-open]");
         var modal = document.querySelector("[data-contact-email-modal]");
         if (!openers.length || !modal) return;
+
+        bindContactForm(modal);
 
         var dialog = modal.querySelector(".contact-email-modal__dialog");
         var closers = modal.querySelectorAll("[data-contact-email-close]");

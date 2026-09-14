@@ -64,8 +64,8 @@
 }
 
 .find-workshop__shell {
-    width: min(92vw, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 0 auto;
     padding: 22px;
     box-sizing: border-box;
@@ -1057,9 +1057,12 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 
 .discovery-header--location .discovery-delivery,
 .discovery-header--location .discovery-plan,
-.discovery-header--location .discovery-location-explore,
+.discovery-header--location .discovery-header__offerings,
 .discovery-header--location .discovery-venue-collage {
-    margin: 0;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .discovery-header--location .discovery-header__quotes {
@@ -1976,8 +1979,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 
 .discovery-page--participants .discovery-main > .discovery-delivery,
 .discovery-page--participants .discovery-main > .discovery-plan {
-    max-width: 1280px;
-    width: 100%;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 18px auto 0;
 }
 
@@ -2070,8 +2073,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: min(100%, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     min-height: 96px;
     margin: 18px auto 0;
     padding: 18px 24px;
@@ -2138,8 +2141,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 .discovery-page--participants .our-workshops-shell.discovery-header__workshops-home {
     position: relative;
     z-index: 2;
-    width: min(100%, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 18px auto 0;
     padding: 22px 22px 32px;
     border: 1px solid rgba(67, 67, 67, 0.14);
@@ -2154,8 +2157,8 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 .discovery-page--participants .discovery-main > .discovery-venue-collage {
     position: relative;
     z-index: 2;
-    width: min(100%, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 18px auto 0;
     padding: 14px 18px 16px;
     border-radius: 22px;
@@ -2241,15 +2244,16 @@ body.discovery-page--participants .our-workshops-shell .workshop-main-button {
 
 body.discovery-page--participants .our-workshops-shell .workshop-main-button > .main-button-title-text {
     min-height: 0;
-    padding: 15px 20px 12px;
+    padding: 15px 16px 12px;
     color: #f05f40;
-    font-size: 32px;
+    font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
     font-weight: 800;
     letter-spacing: -0.025em;
     line-height: 1.05;
     text-align: left;
     text-transform: none;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 body.discovery-page--participants .our-workshops-shell .workshop-main-button > .main-button-title-text::before {
@@ -2402,7 +2406,7 @@ body.discovery-page--participants .our-workshops-shell .js-workshop-cycling-post
     }
 
     body.discovery-page--participants .our-workshops-shell .workshop-main-button > .main-button-title-text {
-        font-size: 26px;
+        font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
     }
 
     body.discovery-page--participants .our-workshops-shell .workshop-card-visual,
@@ -4327,6 +4331,16 @@ iframe.discovery-location-explore__map {
     display: none;
 }
 
+.discovery-venue-collage__disclaimer {
+    margin: 2px 0 0;
+    color: #aaa;
+    font-family: "Roboto", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+}
+
 .discovery-delivery {
     padding: 0;
     border: 0;
@@ -5142,8 +5156,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 }
 
 .find-workshop__plan.discovery-plan {
-    width: min(92vw, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 24px auto 0;
     box-sizing: border-box;
 }
@@ -5200,6 +5214,20 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
 @media (max-width: 767px) {
     .discovery-main {
         padding: 62px 14px 30px;
+    }
+
+    .find-workshop__shell,
+    .find-workshop__plan.discovery-plan,
+    .discovery-header--location .discovery-delivery,
+    .discovery-header--location .discovery-plan,
+    .discovery-header--location .discovery-header__offerings,
+    .discovery-header--location .discovery-venue-collage,
+    .discovery-page--participants .our-workshops-shell.discovery-header__workshops-home,
+    .discovery-page--participants .discovery-main > .discovery-venue-collage,
+    .discovery-page--participants .discovery-main > .discovery-delivery,
+    .discovery-page--participants .discovery-main > .discovery-plan {
+        width: 100%;
+        max-width: none;
     }
 
     .discovery-page--location .discovery-main {
@@ -5341,8 +5369,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     }
 
     .find-workshop__plan.discovery-plan {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 20px auto 0;
     }
 
@@ -6165,7 +6193,7 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
     width: min(480px, 94vw);
     max-height: calc(100vh - 24px);
     margin: 0;
-    padding: 28px 28px 24px;
+    padding: 20px 24px 18px;
     overflow: auto;
     border: 1px solid #3bbf6b;
     border-radius: 16px;
@@ -6225,35 +6253,94 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
 }
 
 .plan-workshop-modal__title {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     padding-right: 40px;
     font-family: "Roboto", sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.2;
     color: #434343;
 }
 
 .plan-workshop-modal__lede {
-    margin: 0 0 12px;
-    max-width: 42ch;
-    font-size: 15px;
-    line-height: 1.45;
+    margin: 0 0 10px;
+    max-width: 46ch;
+    font-size: 14px;
+    line-height: 1.4;
     color: #6f6f6f;
+}
+
+.plan-workshop-modal__option-label {
+    margin: 0 0 6px;
+    color: #6f6f6f;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.plan-workshop-modal__divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: #9a9a9a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.plan-workshop-modal__divider::before,
+.plan-workshop-modal__divider::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: rgba(67, 67, 67, 0.14);
+}
+
+.plan-workshop-modal__demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid #3bbf6b;
+    border-radius: 12px;
+    background: #fff;
+    color: #2e9e57;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.12);
+}
+
+.plan-workshop-modal__demo:hover,
+.plan-workshop-modal__demo:focus {
+    border-color: #34b461;
+    background: #3bbf6b;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(32, 110, 60, 0.2);
+}
+
+.plan-workshop-modal__demo:focus-visible {
+    outline: none;
+    box-shadow: 0 2px 8px rgba(32, 110, 60, 0.16), 0 0 0 3px rgba(59, 191, 107, 0.35);
 }
 
 .plan-workshop-modal__email {
     display: flex;
     align-items: stretch;
     gap: 8px;
-    margin: 0 0 20px;
+    margin: 0;
 }
 
 .plan-workshop-modal__address {
     flex: 1 1 auto;
     min-width: 0;
     margin: 0;
-    padding: 12px 14px;
+    padding: 10px 12px;
     border: 1px solid #b7e4c7;
     border-radius: 10px;
     background: #fff;
@@ -6271,8 +6358,8 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
     align-items: center;
     justify-content: center;
     min-width: 88px;
-    min-height: 48px;
-    padding: 12px 16px;
+    min-height: 44px;
+    padding: 10px 16px;
     border: 1px solid #3bbf6b;
     border-radius: 10px;
     background: #3bbf6b;
@@ -6320,7 +6407,7 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
 .plan-workshop-modal form[data-plan-workshop-form] {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .plan-workshop-modal .plan-workshop-field {
@@ -6328,10 +6415,14 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
 }
 
 .plan-workshop-modal .plan-workshop-field__label {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.3;
+}
+
+.plan-workshop-modal .plan-workshop-field__control {
+    padding: 10px 12px;
 }
 
 .plan-workshop-modal .plan-workshop-field__control {
@@ -6366,9 +6457,9 @@ body.cursor-glow-page > .contact-email-modal[data-contact-email-modal] {
 }
 
 .plan-workshop-modal .plan-workshop-page__submit {
-    margin-top: 4px;
-    min-height: 48px;
-    padding: 12px 16px;
+    margin-top: 2px;
+    min-height: 44px;
+    padding: 10px 16px;
     border: 1px solid #3bbf6b;
     background: #3bbf6b;
     font-size: 16px;
@@ -6436,7 +6527,7 @@ body.has-plan-workshop-modal {
     width: min(440px, 94vw);
     max-height: calc(100vh - 24px);
     margin: 0;
-    padding: 28px 28px 24px;
+    padding: 20px 24px 18px;
     overflow: auto;
     border: 1px solid #f05f40;
     border-radius: 16px;
@@ -6495,25 +6586,53 @@ body.has-plan-workshop-modal {
 }
 
 .contact-email-modal__lede {
-    margin: 0 0 20px;
-    max-width: 42ch;
-    font-size: 15px;
-    line-height: 1.45;
+    margin: 0 0 10px;
+    max-width: 46ch;
+    font-size: 14px;
+    line-height: 1.4;
     color: #6f6f6f;
+}
+
+.contact-email-modal__option-label {
+    margin: 0 0 6px;
+    color: #6f6f6f;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.contact-email-modal__divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: #9a9a9a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.contact-email-modal__divider::before,
+.contact-email-modal__divider::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: rgba(67, 67, 67, 0.14);
 }
 
 .contact-email-modal__row {
     display: flex;
     align-items: stretch;
     gap: 8px;
-    margin: 0 0 12px;
+    margin: 0;
 }
 
 .contact-email-modal__address {
     flex: 1 1 auto;
     min-width: 0;
     margin: 0;
-    padding: 12px 14px;
+    padding: 10px 12px;
     border: 1px solid #f7c4b6;
     border-radius: 10px;
     background: #fff;
@@ -6531,8 +6650,8 @@ body.has-plan-workshop-modal {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 48px;
-    padding: 12px 16px;
+    min-height: 44px;
+    padding: 10px 16px;
     border: 1px solid #f05f40;
     border-radius: 10px;
     background: #f05f40;
@@ -6579,6 +6698,39 @@ body.has-plan-workshop-modal {
 
 .contact-email-modal__send {
     width: 100%;
+}
+
+.contact-email-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-email-modal__form .plan-workshop-field {
+    margin-bottom: 0;
+}
+
+.contact-email-modal__form .plan-workshop-field__label {
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.contact-email-modal__form .plan-workshop-field__control {
+    padding: 10px 12px;
+}
+
+.contact-email-modal__form .contact-email-modal__send {
+    margin-top: 2px;
+}
+
+.contact-email-modal__success {
+    margin: 10px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #2e7d32;
 }
 
 body.has-contact-email-modal {

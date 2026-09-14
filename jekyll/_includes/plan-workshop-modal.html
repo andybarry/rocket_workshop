@@ -11,14 +11,20 @@
     </button>
     <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title" data-i18n="nav.planWorkshop">Plan a Workshop</h2>
     <p class="plan-workshop-modal__lede" data-i18n="discovery.ui.planModalLede">
-      Share your contact details and a few notes about your group. We’ll follow up to plan the workshop.
+      Three easy ways to get in touch — choose whichever works best for you.
     </p>
+    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionEmail">Copy our email address</p>
     <div class="plan-workshop-modal__email">
       <p class="plan-workshop-modal__address" data-contact-email>workshops@stageoneeducation.com</p>
       <button type="button" class="plan-workshop-modal__copy" data-contact-email-copy data-copied-label="Copied" data-i18n="discovery.ui.copyEmail">
         Copy
       </button>
     </div>
+    <div class="plan-workshop-modal__divider"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your name, email, and details</p>
     {% include plan-workshop-form.html form_id="plan-workshop-modal-form" compact=true %}
+    <div class="plan-workshop-modal__divider"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+    <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Schedule a 30-minute virtual workshop demo</p>
+    <a class="plan-workshop-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Virtual Demo</a>
   </div>
 </div>

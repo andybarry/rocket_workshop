@@ -50,8 +50,8 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
     }
 
     .workshops-page .our-workshops-shell {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 16px auto 0;
         padding: 22px 22px 32px;
         border: 1px solid rgba(67, 67, 67, 0.14);
@@ -136,16 +136,22 @@ description: "Explore Stage One Education's hands-on artificial intelligence, ro
         border: 1px solid #0d6efd;
         border-radius: 20px;
         box-shadow: 0 8px 20px rgba(67, 67, 67, 0.1);
+        container-type: inline-size;
         transition:
             box-shadow 0.2s ease,
             border-color 0.2s ease,
             background-color 0.2s ease;
     }
 
+    /* Size every card title from "Mechanical Engineering", the longest label,
+       so all three stay on one line and fill the card width together. */
     .workshops-page .workshop-main-button > .main-button-title-text {
-        font-size: 32px;
+        font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
         color: #f05f40;
-        white-space: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .workshops-page .workshop-main-button > .main-button-title-text::before {

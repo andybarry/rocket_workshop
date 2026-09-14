@@ -39,11 +39,63 @@ i18n_key: home
     box-sizing: border-box;
   }
   body.cursor-glow-page .home-align-col {
-    width: min(92vw, 1280px) !important;
-    max-width: 1280px !important;
+    width: var(--page-card-width) !important;
+    max-width: var(--page-card-max) !important;
     margin-left: auto !important;
     margin-right: auto !important;
     box-sizing: border-box !important;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits {
+    padding-top: 24px;
+    padding-bottom: 4px;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
+    overflow: hidden;
+    background: #fff;
+    box-shadow:
+      inset 0 0 16px rgba(13, 110, 253, 0.16),
+      inset 0 0 6px rgba(13, 110, 253, 0.18);
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+    min-height: 96px;
+    padding: 12px 18px;
+    gap: 16px;
+    align-items: center;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
+    flex-basis: 58px;
+    width: 58px;
+    height: 58px;
+    font-size: 27px;
+    align-self: center;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    container-type: inline-size;
+    min-width: 0;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
+    margin-bottom: 2px;
+    font-size: clamp(15px, calc((100cqi - 4px) / 13.6), 20px);
+    line-height: 1.2;
+    min-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
+    font-size: 13px;
+    line-height: 1.25;
+    min-height: calc(13px * 1.25 * 2);
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
+    font-size: 13px;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before,
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before {
+    top: 10px;
+    bottom: 10px;
   }
   body.cursor-glow-page .home-workshops-block {
     width: 100%;
@@ -132,10 +184,10 @@ i18n_key: home
       height: 204px !important;
     }
     body.cursor-glow-page .workshop-main-button > .main-button-title-text {
-      font-size: 20px;
+      font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
       letter-spacing: -0.03em;
-      white-space: normal;
-      overflow-wrap: break-word;
+      white-space: nowrap;
+      overflow: hidden;
       max-width: 100%;
       padding-left: 16px;
       padding-right: 16px;
@@ -294,29 +346,31 @@ i18n_key: home
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 10px 28px 10px clamp(36px, 5.5vw, 88px);
+    padding: 6px 28px 6px clamp(36px, 5.5vw, 88px);
     box-sizing: border-box;
     /* Fluid type/icons track the copy column, not the full viewport */
     container-type: inline-size;
     container-name: hero-copy;
   }
   .home-room-hero__audience {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     max-width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(15px, 3.6cqi, 19px);
+    font-size: clamp(17px, 4.2cqi, 22px);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0.13em;
     text-transform: uppercase;
+    white-space: nowrap;
     color: #969696;
   }
   .home-room-hero__title {
     margin: 0;
-    max-width: 100%;
+    max-width: none;
+    overflow: visible;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.45rem, 11cqi, 4.9rem);
+    font-size: clamp(28px, 12.4cqi, 56px);
     line-height: 1;
     letter-spacing: -0.035em;
   }
@@ -332,7 +386,7 @@ i18n_key: home
     letter-spacing: -0.015em;
   }
   .home-room-hero__title > span > .home-room-hero__title-line:nth-child(2) {
-    margin: 0.04em 0 0.07em;
+    margin: 0.02em 0 0.04em;
   }
   .home-room-hero__title-line--orange {
     color: #f05f40;
@@ -341,7 +395,7 @@ i18n_key: home
     color: #434343;
   }
   .home-room-hero__body {
-    margin-top: 10px;
+    margin-top: 6px;
     max-width: min(510px, 100%);
     padding-left: 14px;
     border-left: 2px solid rgba(240, 95, 64, 0.45);
@@ -349,9 +403,9 @@ i18n_key: home
   .home-room-hero__body p {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(1.12rem, 3.2cqi, 1.32rem);
-    line-height: 1.5;
-    font-weight: 500;
+    font-size: clamp(13px, 3.3cqi, 15px);
+    line-height: 1.45;
+    font-weight: 400;
     color: #555;
     text-wrap: pretty;
   }
@@ -359,7 +413,7 @@ i18n_key: home
     margin-bottom: 0;
   }
   .home-room-hero__actions {
-    margin-top: 12px;
+    margin-top: 14px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -371,7 +425,7 @@ i18n_key: home
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 40px;
+    min-height: 36px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     font-size: clamp(13px, 2.7cqi, 15px);
@@ -379,10 +433,10 @@ i18n_key: home
     line-height: 1.2;
     letter-spacing: 0.01em;
     color: #434343;
-    background-color: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(67, 67, 67, 0.24);
+    background-color: #fff;
+    border: 1px solid #f05f40;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: 8px 16px;
     text-decoration: none;
     box-shadow: 0 2px 8px rgba(67, 67, 67, 0.08);
     transition: color .25s ease, background-color .25s ease, box-shadow .25s ease, border-color .25s ease, transform .25s ease;
@@ -398,28 +452,28 @@ i18n_key: home
   .home-room-hero__cta:active {
     color: #434343;
     background-color: #fff3ef;
-    border-color: rgba(240, 95, 64, 0.72);
+    border-color: #f05f40;
     text-decoration: none;
     box-shadow: 0 7px 18px rgba(67, 67, 67, 0.13);
     transform: translateY(-1px);
   }
-  /* Solid primary style for Plan Your Workshop */
+  /* Plan A Workshop: green outline, white fill */
   .home-room-hero__cta--solid {
-    color: #fff;
-    background-color: #f05f40;
-    border-color: #f05f40;
-    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.24);
+    color: #3bbf6b;
+    background-color: #fff;
+    border-color: #3bbf6b;
+    box-shadow: 0 2px 8px rgba(59, 191, 107, 0.08);
   }
   .home-room-hero__cta--solid .fa {
-    color: #fff;
+    color: #3bbf6b;
   }
   .home-room-hero__cta--solid:hover,
   .home-room-hero__cta--solid:focus,
   .home-room-hero__cta--solid:active {
-    color: #fff;
-    background-color: #f05f40;
-    border-color: #f05f40;
-    box-shadow: 0 8px 20px rgba(240, 95, 64, 0.32);
+    color: #3bbf6b;
+    background-color: #e8f8ee;
+    border-color: #3bbf6b;
+    box-shadow: 0 7px 18px rgba(59, 191, 107, 0.16);
   }
   .workshop-benefits-section {
     width: 100vw;
@@ -506,6 +560,9 @@ i18n_key: home
   .home-room-hero__cta:focus-visible {
     box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
   }
+  .home-room-hero__cta--solid:focus-visible {
+    box-shadow: 0 6px 16px rgba(59, 191, 107, 0.28), 0 0 0 3px rgba(59, 191, 107, 0.35);
+  }
   .home-room-hero__quotes {
     position: absolute;
     top: 0;
@@ -579,7 +636,7 @@ i18n_key: home
   }
   .home-room-hero__quote-slot--tl .home-room-hero__quote {
     top: 24px;
-    left: 48px;
+    left: 88px;
   }
   .home-room-hero__quote-slot--br .home-room-hero__quote {
     right: 0;
@@ -588,6 +645,9 @@ i18n_key: home
   /* Alternate placement within a section so successive quotes don't look identical */
   .home-room-hero__quote--shift {
     transform: translate(-5px, -10px);
+  }
+  .home-room-hero__quote-slot--tl .home-room-hero__quote--shift {
+    transform: translate(10px, -10px);
   }
   .home-room-hero__quote.is-visible {
     opacity: 1;
@@ -774,7 +834,7 @@ i18n_key: home
     .home-room-hero__audience {
       width: 100%;
       margin-bottom: 4px;
-      font-size: clamp(10px, 3.15vw, 13px);
+      font-size: clamp(12px, 3.5vw, 15px);
       letter-spacing: 0.04em;
       line-height: 1.2;
       white-space: nowrap;
@@ -912,8 +972,8 @@ i18n_key: home
     flex: 1 1 auto;
   }
   body.cursor-glow-page .home-venue-wrap {
-    width: min(92vw, 1280px) !important;
-    max-width: 1280px !important;
+    width: var(--page-card-width) !important;
+    max-width: var(--page-card-max) !important;
     margin: 0 auto 24px !important;
     box-sizing: border-box !important;
   }
@@ -933,8 +993,8 @@ i18n_key: home
     padding-right: 0;
   }
   .our-workshops-shell {
-    width: min(92vw, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 0 auto;
     padding: 18px 20px 24px;
     border: 1px solid rgba(67, 67, 67, 0.11);
@@ -955,8 +1015,12 @@ i18n_key: home
     display: none;
   }
   body.cursor-glow-page .workshop-main-button > .main-button-title-text {
-    font-size: 32px;
+    font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
     color: #f05f40;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   body.cursor-glow-page .workshop-main-button:hover > .main-button-title-text,
   body.cursor-glow-page .workshop-main-button:focus > .main-button-title-text,
@@ -1350,15 +1414,15 @@ i18n_key: home
             <span data-i18n-html="home.hero.title1"><span class="home-room-hero__title-line home-room-hero__title-line--gray">We Bring</span><span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering</span><span class="home-room-hero__title-line home-room-hero__title-line--gray">to You</span></span>
         </h1>
         <div class="home-room-hero__body">
-            <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, and mechanical engineering workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
+            <p data-i18n="home.hero.body1">Give your group a hands-on engineering experience where participants build, code, design, and create. Our three-hour AI, robotics, and mechanical engineering workshops are led by real engineers and delivered directly to your hotel, school, campus, or venue across the USA.</p>
         </div>
         <div class="home-room-hero__actions">
-            <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">
-                <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
-            </a>
             <a class="home-room-hero__cta home-room-hero__cta--solid" href="/plan-a-workshop/"
                 data-plan-workshop-open data-plan-source="hero" data-i18n-html="home.hero.ctaPlan">
                 <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
+            </a>
+            <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">
+                <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
             </a>
         </div>
     </div>

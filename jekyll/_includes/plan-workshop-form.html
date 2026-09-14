@@ -20,9 +20,10 @@
   </label>
   <label class="plan-workshop-field">
     <span class="plan-workshop-field__label" data-i18n="discovery.ui.formGroupNotes">What should we know about your group?</span>
-    <textarea class="plan-workshop-field__control" name="notes" rows="5" placeholder="Tell us about your group, location, time of year, and anything else we should know." data-i18n-placeholder="discovery.ui.formNotesPlaceholder"></textarea>
+    <textarea class="plan-workshop-field__control" name="notes" rows="3" placeholder="Tell us about your group, location, time of year, and anything else we should know." data-i18n-placeholder="discovery.ui.formNotesPlaceholder"></textarea>
   </label>
   <button type="submit" class="plan-workshop-page__submit" data-i18n="discovery.ui.formSend">Send Workshop Details</button>
+  <p class="plan-workshop-form__status" data-plan-workshop-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
 {% else %}
   <h3>Contact information</h3>
   <label class="plan-workshop-field">
@@ -159,8 +160,10 @@
   </label>
 
   <button type="submit" class="plan-workshop-page__submit">Send Workshop Details</button>
+  <p class="plan-workshop-form__status" data-plan-workshop-status hidden>Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
+  <p class="plan-workshop-form__book">Prefer to talk it through? <a href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer">Book a meeting time</a></p>
   <p class="plan-workshop-page__privacy">
-    Submitting this form opens your email application. Personal information is not placed in the website URL.
+    Your details are sent directly to the Stage One team. Personal information is not placed in the website URL.
     See the <a href="/privacy.html">privacy policy</a>.
   </p>
 {% endif %}

@@ -35,8 +35,8 @@ i18n_key: about
         padding: 20px;
     }
     .about-section-card {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 28px auto 8px;
         padding: 18px 20px 24px;
         background: #fff;
@@ -212,15 +212,19 @@ i18n_key: about
         border: 1px solid #f05f40;
         border-radius: 20px;
         box-shadow: 0 6px 16px rgba(67, 67, 67, 0.1);
+        container-type: inline-size;
         transition:
             box-shadow 0.2s ease,
             border-color 0.2s ease,
             background-color 0.2s ease;
     }
     body.cursor-glow-page #tab-section .workshop-main-button > .main-button-title-text {
-        font-size: 32px;
+        font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
         color: #f05f40;
-        white-space: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
     }
     body.cursor-glow-page #tab-section .workshop-main-button > .main-button-title-text::before {
         content: none;
@@ -305,8 +309,8 @@ i18n_key: about
         box-shadow: none;
     }
     .about-instructors-banner {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 28px auto;
         padding: 16px 24px;
         border: 1px solid #f05f40;
@@ -354,8 +358,8 @@ i18n_key: about
         white-space: nowrap;
     }
     .about-workshop-benefits {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 36px auto;
         padding: 0;
         background: transparent;
@@ -444,14 +448,14 @@ i18n_key: about
         font-weight: 700;
     }
     .about-plan-cta.workshop-planning-cta.discovery-plan {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         margin: 36px auto;
         box-sizing: border-box;
     }
     .about-chat-cta.discovery-plan {
-        width: min(92vw, 1280px);
-        max-width: 1280px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
         min-height: 96px;
         margin: 28px auto 8px;
         padding: 18px 24px;
@@ -635,7 +639,9 @@ i18n_key: about
       margin-right: auto;
     }
     body.cursor-glow-page #tab-section .workshop-main-button > .main-button-title-text {
-      font-size: 26px;
+      font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
+      white-space: nowrap;
+      overflow: hidden;
     }
     body.cursor-glow-page .about-workshop-benefits {
       margin: 28px auto;
@@ -668,7 +674,7 @@ i18n_key: about
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      width: min(92vw, 1280px);
+      width: var(--page-card-width);
       margin: 28px auto;
       padding: 18px 16px;
       gap: 12px;
@@ -677,7 +683,7 @@ i18n_key: about
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      width: min(92vw, 1280px);
+      width: var(--page-card-width);
       margin: 24px auto 12px;
       padding: 18px 16px;
       gap: 12px;
