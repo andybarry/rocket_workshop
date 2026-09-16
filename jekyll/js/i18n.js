@@ -19,6 +19,46 @@
 (function (window, document) {
     'use strict';
 
+    /* Chrome device-mode jumps can leave CSS vw stuck until refresh. Titles
+       read --workshop-vw, which is updated from the live window width. */
+    function syncWorkshopViewport() {
+        var width = window.innerWidth;
+        document.documentElement.style.setProperty('--workshop-vw', (width / 100) + 'px');
+        var titles = document.querySelectorAll('.ai-workshop-hero .workshop-session-title, .workshop-detail-hero .workshop-session-title');
+        if (!titles.length) return;
+        var desktop = width >= 768;
+        var size = desktop ? Math.max(40, Math.min(72, Math.round(width * 0.062))) : '';
+        for (var i = 0; i < titles.length; i++) {
+            var el = titles[i];
+            if (desktop) {
+                el.style.fontSize = size + 'px';
+                el.style.display = 'block';
+                el.style.flexDirection = '';
+                el.style.alignItems = '';
+                el.style.justifyContent = '';
+                el.style.whiteSpace = 'nowrap';
+                el.style.width = 'max-content';
+                el.style.maxWidth = '100%';
+                el.style.textAlign = 'center';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+            } else {
+                el.style.fontSize = '';
+                el.style.display = 'flex';
+                el.style.flexDirection = 'column';
+                el.style.alignItems = 'center';
+                el.style.justifyContent = 'center';
+                el.style.whiteSpace = 'normal';
+                el.style.width = '100%';
+                el.style.maxWidth = '100%';
+                el.style.textAlign = 'center';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+            }
+        }
+    }
+    syncWorkshopViewport();
+
     var STORAGE_KEY = 'so_lang';
     var DEFAULT_LANG = 'en';
     var PENDING_CLASS = 'i18n-pending';
@@ -422,14 +462,28 @@
 
     var resizeTimer = null;
     function watchResize() {
-        window.addEventListener('resize', function () {
+        var onResize = function () {
+            syncWorkshopViewport();
             if (resizeTimer) window.clearTimeout(resizeTimer);
             resizeTimer = window.setTimeout(function () {
                 fitHeader();
                 fitHeroTitle();
                 fitHero();
             }, 150);
-        });
+        };
+        window.addEventListener('resize', onResize);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', onResize);
+        }
+        if (window.matchMedia) {
+            var desktopQuery = window.matchMedia('(min-width: 768px)');
+            if (desktopQuery.addEventListener) {
+                desktopQuery.addEventListener('change', onResize);
+            } else if (desktopQuery.addListener) {
+                desktopQuery.addListener(onResize);
+            }
+        }
+        syncWorkshopViewport();
     }
 
     function updateSwitcher(lang) {

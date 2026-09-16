@@ -2481,6 +2481,23 @@ body.discovery-page--participants .our-workshops-shell .js-workshop-cycling-post
 
     :is(.discovery-page--participants, .discovery-page--location) .our-workshops-shell .workshop-cards-row {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    :is(.discovery-page--participants, .discovery-page--location) .our-workshops-shell .workshop-card-col {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    :is(.discovery-page--participants, .discovery-page--location) .our-workshops-shell .workshop-main-button {
+        flex: 0 0 auto;
+        min-height: 0;
+        height: auto;
+    }
+
+    :is(.discovery-page--participants, .discovery-page--location) .our-workshops-shell .workshop-card-link-label {
+        margin-top: 0;
     }
 
     body.discovery-page--participants .our-workshops-shell .workshop-main-button > .main-button-title-text {

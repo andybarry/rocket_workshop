@@ -51,7 +51,7 @@
     // Fit Text Plugin for Main Header
     // Skip the home hero headline — it uses CSS clamp/media queries (and
     // i18n.js shrinks translations). FitText's 35px floor locked it on mobile.
-    $("h1").not(".home-room-hero__title").fitText(
+    $("h1").not(".home-room-hero__title, .workshop-session-title").fitText(
         1.2, {
             minFontSize: '35px',
             maxFontSize: '65px'

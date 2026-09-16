@@ -82,8 +82,8 @@
               <a href="{{ workshop.detail_path }}"
                 {% if page.discovery_category == "workshop" and workshop.slug == entry.context_id %}class="is-current" aria-current="page"{% endif %}
                 data-discovery-option data-category="workshop" data-id="{{ workshop.slug }}"
-                {% if workshop_i18n_short_key != "" %}data-i18n="{{ workshop_i18n_short_key }}"{% endif %}>
-                {{ workshop.homepage_short_name }}
+                {% if workshop.slug == "artificial-intelligence" %}data-i18n="nav.ai"{% elsif workshop_i18n_short_key != "" %}data-i18n="{{ workshop_i18n_short_key }}"{% endif %}>
+                {% if workshop.slug == "artificial-intelligence" %}Artificial Intelligence{% else %}{{ workshop.homepage_short_name }}{% endif %}
               </a>
             </li>
             {% endunless %}

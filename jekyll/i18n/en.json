@@ -224,7 +224,7 @@
     ]
   },
   "ai": {
-    "title": "Artificial Intelligence Workshop",
+    "title": "<span>Artificial</span> <span>Intelligence</span> <span>Workshop</span>",
     "heroNeuralNetwork": "Human Neural Network",
     "posterCaption": "participant-created movie posters",
     "overview": {
@@ -255,7 +255,7 @@
     }
   },
   "robotics": {
-    "title": "Robotics Drone Workshop",
+    "title": "<span>Robotics</span> <span>Drone</span> <span>Workshop</span>",
     "overview": {
       "intro": "In the Robotics Workshop, students get a drone, but <strong>no controller!</strong><br> Learn engineering by building your own RC controller for a quadrotor:",
       "item1": "Wire a complete circuit, including a <strong>dual-core microcontroller</strong> with WiFi, 6-axis accelerometer, lights, potentiometers, and buttons.",
@@ -273,7 +273,7 @@
     }
   },
   "mechanical": {
-    "title": "Mechanical Engineering Workshop",
+    "title": "<span>Mechanical</span> <span>Engineering</span> <span>Workshop</span>",
     "heroStart": "Start",
     "overview": {
       "intro": "In the Mechanical Engineering Workshop, participants <strong>become rocket designers!</strong>",
