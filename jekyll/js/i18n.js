@@ -19,11 +19,13 @@
 (function (window, document) {
     'use strict';
 
-    /* Chrome device-mode jumps can leave CSS vw stuck until refresh. Titles
-       read --workshop-vw, which is updated from the live window width. */
+    /* Chrome device-mode jumps can leave CSS vw/vh stuck until refresh. Titles
+       read --workshop-vw and --workshop-vh from the live window size. */
     function syncWorkshopViewport() {
         var width = window.innerWidth;
+        var height = window.innerHeight;
         document.documentElement.style.setProperty('--workshop-vw', (width / 100) + 'px');
+        document.documentElement.style.setProperty('--workshop-vh', (height / 100) + 'px');
         var titles = document.querySelectorAll('.ai-workshop-hero .workshop-session-title, .workshop-detail-hero .workshop-session-title');
         if (!titles.length) return;
         var desktop = width >= 768;

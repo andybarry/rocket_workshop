@@ -522,7 +522,7 @@ i18n_key: mechanical
 
     @media (max-width: 767px) {
       .workshop-detail-hero {
-        padding: 88px 16px 16px;
+        padding: 88px 16px 64px;
       }
 
       .workshop-detail-hero__center,
@@ -540,19 +540,19 @@ i18n_key: mechanical
       }
 
       .workshop-detail-hero .workshop-session-card {
-        padding: 16px 8px 20px;
-        transform: translateY(-12px);
+        padding: min(16px, calc(1.8 * var(--workshop-vh, 1vh))) 8px min(20px, calc(2.2 * var(--workshop-vh, 1vh)));
+        transform: translateY(min(-12px, calc(-1.2 * var(--workshop-vh, 1vh))));
       }
 
       .workshop-detail-hero .workshop-session-card__head {
-        padding: 8px 12px 12px;
-        margin-bottom: 20px;
+        padding: min(8px, calc(1 * var(--workshop-vh, 1vh))) 12px min(12px, calc(1.4 * var(--workshop-vh, 1vh)));
+        margin-bottom: min(20px, calc(2.2 * var(--workshop-vh, 1vh)));
       }
 
       .workshop-detail-hero .workshop-session-kicker {
         width: 100%;
         max-width: 100%;
-        font-size: 20px;
+        font-size: min(20px, calc(2.7 * var(--workshop-vh, 1vh)));
         white-space: nowrap;
         text-align: center;
       }
@@ -570,7 +570,7 @@ i18n_key: mechanical
         margin-right: auto;
         white-space: normal !important;
         text-align: center;
-        font-size: min(68px, calc(17 * var(--workshop-vw, 1vw))) !important;
+        font-size: min(68px, calc(17 * var(--workshop-vw, 1vw)), calc(7.2 * var(--workshop-vh, 1vh))) !important;
         line-height: 1.1;
       }
 
@@ -586,7 +586,7 @@ i18n_key: mechanical
       }
 
       .workshop-detail-hero .workshop-session-rule {
-        margin-top: 16px;
+        margin-top: min(16px, calc(1.8 * var(--workshop-vh, 1vh)));
       }
 
       .workshop-detail-hero .workshop-session-links,
@@ -596,7 +596,7 @@ i18n_key: mechanical
         flex-wrap: nowrap;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: min(24px, calc(2.6 * var(--workshop-vh, 1vh)));
         width: 100%;
         max-width: 92vw;
       }
@@ -605,13 +605,23 @@ i18n_key: mechanical
         width: max-content;
         max-width: 92vw;
         white-space: nowrap;
-        font-size: 18px;
-        padding: 14px 26px;
+        font-size: min(18px, calc(2.45 * var(--workshop-vh, 1vh)));
+        padding: min(14px, calc(1.7 * var(--workshop-vh, 1vh))) 26px;
         box-sizing: border-box;
       }
 
+      .workshop-detail-hero__center,
+      .workshop-detail-hero__copy {
+        position: static;
+      }
+
       .workshop-detail-hero__scroll {
-        margin-top: 80px;
+        position: absolute;
+        left: 50%;
+        bottom: 24px;
+        z-index: 3;
+        margin-top: 0;
+        transform: translateX(-50%);
       }
 
       .workshop-detail-hero__transition {
@@ -726,13 +736,12 @@ i18n_key: mechanical
           <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-text" data-i18n="common.feedbackSurvey">Feedback Survey</a>
         </div>
       </section>
-      <a class="workshop-detail-hero__scroll" href="#mechanical-workshop-overview">
+      <a class="workshop-detail-hero__scroll" href="#mechanical-workshop-overview" aria-label="Scroll to explore">
         <span class="workshop-detail-hero__scroll-circle" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="workshop-detail-hero__scroll-label">Scroll to Explore</span>
       </a>
       </div>
       </div>
