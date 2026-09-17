@@ -364,7 +364,7 @@ i18n_key: home
     margin: 0 0 4px;
     max-width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(17px, 4.2cqi, 22px);
+    font-size: clamp(19px, 4.8cqi, 25px);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0.13em;
@@ -378,7 +378,7 @@ i18n_key: home
     overflow: visible;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(28px, 12.4cqi, 56px);
+    font-size: clamp(32px, 14.1cqi, 64px);
     line-height: 1;
     letter-spacing: -0.035em;
   }
@@ -402,16 +402,23 @@ i18n_key: home
   .home-room-hero__title-line--gray {
     color: #434343;
   }
+  .home-room-hero__copy-stack {
+    display: grid;
+    grid-template-columns: min-content;
+    justify-items: stretch;
+  }
   .home-room-hero__body {
     margin-top: 6px;
-    max-width: min(510px, 100%);
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
     padding-left: 14px;
     border-left: 2px solid rgba(240, 95, 64, 0.45);
   }
   .home-room-hero__body p {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(13px, 3.3cqi, 15px);
+    font-size: clamp(15px, 3.8cqi, 17px);
     line-height: 1.45;
     font-weight: 400;
     color: #555;
@@ -433,10 +440,10 @@ i18n_key: home
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 36px;
+    min-height: 41px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(13px, 2.7cqi, 15px);
+    font-size: clamp(15px, 3.1cqi, 17px);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: 0.01em;
@@ -454,7 +461,7 @@ i18n_key: home
   }
   .home-room-hero__cta .fa {
     margin-right: 7px;
-    font-size: 14px;
+    font-size: 16px;
     color: #f05f40;
   }
   .home-room-hero__cta:hover,
@@ -586,19 +593,26 @@ i18n_key: home
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     gap: 12px;
     padding: 18px 24px 12px 12px;
     box-sizing: border-box;
   }
   .home-room-hero__quote-slot {
     position: relative;
-    flex: 1 1 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 0;
     overflow: visible;
   }
+  .home-room-hero__quote-slot--br {
+    display: none;
+  }
   .home-room-hero__quote {
-    position: absolute;
+    position: relative;
     width: auto;
     max-width: 100%;
     height: auto;
@@ -607,10 +621,13 @@ i18n_key: home
     border-radius: 14px;
     background: #fff;
     box-shadow:
-      inset 0 0 16px rgba(67, 67, 67, 0.12),
+      inset 0 1px 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+      inset 0 0 14px rgba(180, 180, 180, 0.22),
       0 10px 28px rgba(0, 0, 0, 0.12);
     color: #464444;
     font-family: 'Roboto', sans-serif;
+    text-align: center;
     opacity: 0;
     transition: opacity 2.6s ease-in-out;
     box-sizing: border-box;
@@ -621,12 +638,15 @@ i18n_key: home
     top: -18px;
     left: -12px;
     z-index: 3;
-    color: #cfcfcf;
+    color: #f05f40;
     font-family: "Roboto", sans-serif;
     font-size: 96px;
     font-weight: 700;
     line-height: 1;
     pointer-events: none;
+    text-shadow:
+      0 0 3px rgba(210, 210, 210, 0.95),
+      0 0 6px rgba(190, 190, 190, 0.55);
   }
   /* Short one-line quotes — box grows to fit the text */
   .home-room-hero__quote--oneline {
@@ -649,12 +669,13 @@ i18n_key: home
     width: min(380px, 100%);
   }
   .home-room-hero__quote-slot--tl .home-room-hero__quote {
-    top: 24px;
-    left: 88px;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
   .home-room-hero__quote-slot--br .home-room-hero__quote {
-    right: 0;
-    bottom: 24px;
+    display: none;
   }
   /* Alternate placement within a section so successive quotes don't look identical */
   .home-room-hero__quote--shift {
@@ -671,17 +692,19 @@ i18n_key: home
   }
   .home-room-hero__quote-text {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.35;
+    font-size: 17px;
+    line-height: 1.5;
     font-weight: 400;
+    color: #2c2c2c;
+    text-align: center;
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
     .home-room-hero__quote-meta {
     display: block;
     margin-top: 8px;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
     color: #f05f40;
     letter-spacing: 0.02em;
     white-space: normal;
@@ -855,6 +878,14 @@ i18n_key: home
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
     }
+    .home-room-hero__copy-stack {
+      display: block;
+      width: 100%;
+    }
+    .home-room-hero__body {
+      width: 100%;
+      max-width: 100%;
+    }
     .home-room-hero__content::before {
       content: "";
       position: absolute;
@@ -872,7 +903,7 @@ i18n_key: home
     .home-room-hero__audience {
       width: 100%;
       margin-bottom: 4px;
-      font-size: clamp(12px, 3.5vw, 15px);
+      font-size: clamp(14px, 4vw, 17px);
       letter-spacing: 0.04em;
       line-height: 1.2;
       white-space: nowrap;
@@ -1056,11 +1087,13 @@ i18n_key: home
     box-sizing: border-box;
   }
   body.cursor-glow-page .workshop-main-button {
-    border: 1px solid #f05f40;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     border-radius: 20px;
     background-color: #434343;
     box-shadow:
-      inset 0 0 16px rgba(255, 255, 255, 0.4);
+      inset 0 1px 1px rgba(255, 255, 255, 0.5),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+      0 10px 22px rgba(0, 0, 0, 0.2);
   }
   body.cursor-glow-page .workshop-main-button > .main-button-title-text::before {
     content: none;
@@ -1081,7 +1114,8 @@ i18n_key: home
     color: #fff;
     border: 1px solid #f05f40;
     box-shadow:
-      inset 0 0 16px rgba(255, 255, 255, 0.4);
+      inset 0 0 16px rgba(255, 255, 255, 0.4),
+      0 12px 24px rgba(0, 0, 0, 0.18);
   }
   body.cursor-glow-page .workshop-main-button:hover > .main-button-title-text,
   body.cursor-glow-page .workshop-main-button:focus > .main-button-title-text,
@@ -1242,16 +1276,8 @@ i18n_key: home
             }
         } else if ($quotesLayer.length) {
             var quoteIndex = 0;
-            var mobileHero = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
-            if (mobileHero) {
-                $quotesLayer.find(".home-room-hero__quote-slot--br").remove();
-            }
-            var $slots = mobileHero
-                ? [$quotesLayer.find(".home-room-hero__quote-slot--tl")]
-                : [
-                    $quotesLayer.find(".home-room-hero__quote-slot--tl"),
-                    $quotesLayer.find(".home-room-hero__quote-slot--br")
-                ];
+            $quotesLayer.find(".home-room-hero__quote-slot--br").remove();
+            var $slots = [$quotesLayer.find(".home-room-hero__quote-slot--tl")];
             var slotShiftNext = [false, false];
             var slotTimers = [null, null];
             var bubblesStarted = false;
@@ -1417,9 +1443,9 @@ i18n_key: home
                 }
             }
 
-            // Two quotes on laptop (top-left and bottom-right, staggered fades).
-            // Tablet keeps a single bubble. Held until the translation pass
-            // finishes so the first bubbles are already in the visitor's language.
+            // One quote on laptop, vertically centered on the right of the hero.
+            // Held until the translation pass finishes so the first bubble is
+            // already in the visitor's language.
             function startQuoteBubbles() {
                 if (bubblesStarted) return;
                 bubblesStarted = true;
@@ -1471,11 +1497,13 @@ i18n_key: home
     <div class="home-room-hero__fade" aria-hidden="true"></div>
     <div class="home-room-hero__content">
         <p class="home-room-hero__audience" data-i18n="home.hero.audience">For Schools, Tour Operators &amp; Groups</p>
+        <div class="home-room-hero__copy-stack">
         <h1 class="home-room-hero__title">
             <span data-i18n-html="home.hero.title1"><span class="home-room-hero__title-line home-room-hero__title-line--gray">We Bring</span><span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering</span><span class="home-room-hero__title-line home-room-hero__title-line--gray">to You</span></span>
         </h1>
         <div class="home-room-hero__body">
             <p data-i18n="home.hero.body1">Give your group a hands-on engineering experience where participants build, code, design, and create. Our three-hour AI, robotics, and mechanical engineering workshops are led by real engineers and delivered directly to your hotel, school, campus, or venue across the USA.</p>
+        </div>
         </div>
         <div class="home-room-hero__actions">
             <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">

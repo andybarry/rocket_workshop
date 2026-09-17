@@ -95,8 +95,8 @@ i18n_key: ai
       justify-content: center;
       width: 100vw;
       max-width: 100vw;
-      height: 96vh;
-      min-height: 96vh;
+      height: 78vh;
+      min-height: 78vh;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
       padding: 72px 24px 24px;
@@ -386,11 +386,13 @@ i18n_key: ai
     }
 
     .ai-workshop-hero__center {
-      position: relative;
+      position: absolute;
+      inset: 0;
       z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .ai-workshop-hero__copy {
@@ -399,74 +401,6 @@ i18n_key: ai
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    .ai-workshop-hero__scroll {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      margin-top: 60px;
-      text-decoration: none;
-      color: #fff;
-      outline: none;
-      box-shadow: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .ai-workshop-hero__scroll:hover,
-    .ai-workshop-hero__scroll:focus,
-    .ai-workshop-hero__scroll:focus-visible,
-    .ai-workshop-hero__scroll:active {
-      outline: none;
-      box-shadow: none;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .ai-workshop-hero__scroll-circle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: transparent;
-      border: 2px solid #f05f40;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.4);
-      transition: background-color 0.15s ease;
-    }
-
-    .ai-workshop-hero__scroll:hover .ai-workshop-hero__scroll-circle,
-    .ai-workshop-hero__scroll:focus .ai-workshop-hero__scroll-circle,
-    .ai-workshop-hero__scroll:focus-visible .ai-workshop-hero__scroll-circle,
-    .ai-workshop-hero__scroll:active .ai-workshop-hero__scroll-circle {
-      background-color: #f05f40;
-    }
-
-    .ai-workshop-hero__scroll-circle svg {
-      display: block;
-      width: 14px;
-      height: 14px;
-      filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.85)) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
-    }
-
-    .ai-workshop-hero__scroll-label,
-    .ai-workshop-hero__scroll:hover .ai-workshop-hero__scroll-label,
-    .ai-workshop-hero__scroll:focus .ai-workshop-hero__scroll-label,
-    .ai-workshop-hero__scroll:focus-visible .ai-workshop-hero__scroll-label,
-    .ai-workshop-hero__scroll:active .ai-workshop-hero__scroll-label {
-      font-family: "Roboto", sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      line-height: 1.2;
-      text-transform: uppercase;
-      color: #fff;
-      white-space: nowrap;
-      text-decoration: none;
-      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75), 0 0 10px rgba(0, 0, 0, 0.45);
     }
 
     html {
@@ -660,15 +594,6 @@ i18n_key: ai
         position: static;
       }
 
-      .ai-workshop-hero__scroll {
-        position: absolute;
-        left: 50%;
-        bottom: 24px;
-        z-index: 3;
-        margin-top: 0;
-        transform: translateX(-50%);
-      }
-
       .ai-workshop-hero__transition {
         height: 112px;
       }
@@ -783,7 +708,6 @@ i18n_key: ai
       <div class="ai-workshop-hero__copy">
       <section class="workshop-session-card">
         <div class="workshop-session-card__head">
-          <p class="workshop-session-kicker">STAGE ONE EDUCATION</p>
           <h1 id="ai-workshop-hero-title" class="workshop-session-title" data-i18n-html="ai.title"><span>Artificial</span> <span>Intelligence</span> <span>Workshop</span></h1>
           <div class="workshop-session-rule" aria-hidden="true"></div>
         </div>
@@ -794,13 +718,6 @@ i18n_key: ai
         </div>
         <p class="ai-workshop-hero__caption" data-i18n="ai.posterCaption">participant-created movie posters</p>
       </section>
-      <a class="ai-workshop-hero__scroll" href="#ai-workshop-overview" aria-label="Scroll to explore">
-        <span class="ai-workshop-hero__scroll-circle" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
       </div>
       </div>
     </section>

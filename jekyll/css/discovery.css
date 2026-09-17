@@ -490,6 +490,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    white-space: nowrap;
     min-height: 44px;
     padding: 10px 20px;
     border: 1px solid #f05f40;
@@ -1104,11 +1106,13 @@ body.discovery-page--participants .discovery-header--participants .discovery-hea
 /* Match the homepage Our Workshops cards: orange title, no eyebrow,
    rounded corners with a soft shadow, zoomed AI poster. */
 body.discovery-page--location .our-workshops-shell .workshop-main-button {
-    border: 1px solid #f05f40;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     border-radius: 20px;
     background-color: #434343;
     box-shadow:
-        inset 0 0 16px rgba(255, 255, 255, 0.4);
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+        0 10px 22px rgba(0, 0, 0, 0.2);
 }
 
 body.discovery-page--location .our-workshops-shell .workshop-main-button > .main-button-title-text::before {
@@ -1132,7 +1136,8 @@ body.discovery-page--location .our-workshops-shell .workshop-main-button.is-hero
     color: #fff;
     border: 1px solid #f05f40;
     box-shadow:
-        inset 0 0 16px rgba(255, 255, 255, 0.4);
+        inset 0 0 16px rgba(255, 255, 255, 0.4),
+        0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
 body.discovery-page--location .our-workshops-shell .workshop-main-button:hover > .main-button-title-text,
@@ -1211,7 +1216,9 @@ body.discovery-page--location .our-workshops-shell .ai-poster-scroll-box {
 
 .discovery-header--location .discovery-header__quote {
     box-shadow:
-        inset 0 0 16px rgba(67, 67, 67, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7),
+        inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+        inset 0 0 14px rgba(180, 180, 180, 0.22),
         0 12px 32px rgba(30, 30, 30, 0.13);
 }
 
@@ -2197,6 +2204,7 @@ body.discovery-page--location .our-workshops-shell .ai-poster-scroll-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: var(--page-card-width);
     max-width: var(--page-card-max);
     min-height: 96px;
@@ -2363,12 +2371,14 @@ body.discovery-page--participants .our-workshops-shell .workshop-main-button {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #f05f40;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     border-radius: 20px;
     background-color: #434343;
     color: #fff;
     box-shadow:
-        inset 0 0 16px rgba(255, 255, 255, 0.4);
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+        0 10px 22px rgba(0, 0, 0, 0.2);
     text-align: left;
     text-decoration: none;
 }
@@ -2419,7 +2429,8 @@ body.discovery-page--participants .our-workshops-shell .workshop-main-button.is-
     background-color: #f05f40;
     color: #fff;
     box-shadow:
-        inset 0 0 16px rgba(255, 255, 255, 0.4);
+        inset 0 0 16px rgba(255, 255, 255, 0.4),
+        0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
 body.discovery-page--participants .our-workshops-shell .workshop-main-button:hover > .main-button-title-text,
@@ -3124,8 +3135,13 @@ a.participant-card:focus-visible {
     overflow: visible;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 32px rgba(30, 30, 30, 0.13);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.7),
+        inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+        inset 0 0 14px rgba(180, 180, 180, 0.22),
+        0 12px 32px rgba(30, 30, 30, 0.13);
     opacity: 0;
+    text-align: center;
     pointer-events: none;
     transition: opacity 1.2s ease;
     box-sizing: border-box;
@@ -3137,12 +3153,15 @@ a.participant-card:focus-visible {
     top: -18px;
     left: 0;
     z-index: 3;
-    color: #cfcfcf;
+    color: #f05f40;
     font-family: "Roboto", sans-serif;
     font-size: 96px;
     font-weight: 700;
     line-height: 1;
     pointer-events: none;
+    text-shadow:
+        0 0 3px rgba(210, 210, 210, 0.95),
+        0 0 6px rgba(190, 190, 190, 0.55);
 }
 
 .discovery-header__quote--placeholder::before {
@@ -3179,8 +3198,8 @@ a.participant-card:focus-visible {
 }
 
 .discovery-header__quote--wide blockquote p {
-    font-size: 11px;
-    line-height: 1.38;
+    font-size: 15px;
+    line-height: 1.45;
 }
 
 .discovery-header__quote--long {
@@ -3195,12 +3214,12 @@ a.participant-card:focus-visible {
 }
 
 .discovery-header__quote--long blockquote p {
-    font-size: 10px;
-    line-height: 1.35;
+    font-size: 14px;
+    line-height: 1.45;
 }
 
 .discovery-header__quote--long figcaption {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .discovery-header__quote.is-visible {
@@ -3229,11 +3248,12 @@ a.participant-card:focus-visible {
 
 .discovery-header__quote blockquote p {
     margin: 0;
-    color: #505050;
+    color: #2c2c2c;
     font-family: "Roboto", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.45;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.55;
+    text-align: center;
 }
 
 .discovery-header__quotes [data-discovery-quote-data] {
@@ -3242,11 +3262,12 @@ a.participant-card:focus-visible {
 
 .discovery-header__quote figcaption {
     color: #f05f40;
-    font-size: 8.5px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.05em;
     line-height: 1.35;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .discovery-header__quote-link {
@@ -3439,7 +3460,9 @@ a.participant-card:focus-visible {
 .discovery-header--location .discovery-header__quote--scroller,
 .home-room-hero__quote-scroller .discovery-header__quote--scroller {
     box-shadow:
-        inset 0 0 16px rgba(67, 67, 67, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7),
+        inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+        inset 0 0 14px rgba(180, 180, 180, 0.22),
         0 4px 12px rgba(45, 45, 45, 0.1);
 }
 
@@ -3456,7 +3479,7 @@ a.participant-card:focus-visible {
 .discovery-header--location .discovery-header__quote--scroller blockquote p,
 .home-room-hero__quote-scroller .discovery-header__quote--scroller blockquote p {
     display: block;
-    max-height: calc(13px * 1.45 * 5);
+    max-height: calc(17px * 1.55 * 5);
     overflow: hidden;
     overflow-wrap: anywhere;
     white-space: normal;
@@ -3863,10 +3886,11 @@ body.has-discovery-quote-modal {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: 100%;
     min-height: var(--discovery-header-bar-height);
     margin: 0;
-    padding: 0 16px;
+    padding: 12px 16px;
     border: 1px solid #3bbf6b;
     border-radius: 12px;
     background: #e8f8ee;
@@ -3887,11 +3911,12 @@ body.has-discovery-quote-modal {
     align-items: center;
     gap: 22px;
     min-width: 0;
-    flex: 1 1 auto;
+    flex: 1 1 20rem;
     margin-left: 24px;
 }
 
 .discovery-header .discovery-plan__content {
+    min-width: 0;
     padding-left: 0;
     border-left: 0;
 }
@@ -3902,6 +3927,7 @@ body.has-discovery-quote-modal {
     justify-content: flex-end;
     gap: 16px;
     flex: 0 0 auto;
+    margin-left: auto;
     margin-right: 24px;
 }
 
@@ -3925,7 +3951,8 @@ body.has-discovery-quote-modal {
     font-size: 22px;
     line-height: 1.2;
     color: #434343;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .discovery-header .discovery-plan__copy {
@@ -3934,12 +3961,15 @@ body.has-discovery-quote-modal {
     font-size: 16px;
     line-height: 1.35;
     color: #6f6f6f;
-    white-space: nowrap;
-    text-wrap: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
 }
 
 .discovery-header .discovery-plan .discovery-plan-button {
     flex: 0 0 auto;
+    flex-shrink: 0;
+    white-space: nowrap;
     margin-right: 0;
     border: 1px solid #3bbf6b;
     background: #3bbf6b;
@@ -5304,6 +5334,7 @@ a.discovery-page-footer__heart--login:focus-visible {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 22px 32px;
     margin-bottom: 28px;
     padding: 26px 30px;
@@ -5324,7 +5355,7 @@ a.discovery-page-footer__heart--login:focus-visible {
     align-items: center;
     gap: 14px;
     min-width: 0;
-    flex: 1 1 auto;
+    flex: 1 1 20rem;
 }
 
 .discovery-plan__content {
@@ -5338,6 +5369,7 @@ a.discovery-page-footer__heart--login:focus-visible {
     justify-content: flex-end;
     gap: 16px;
     flex: 0 0 auto;
+    margin-left: auto;
 }
 
 .discovery-plan__icon {
@@ -5363,6 +5395,8 @@ a.discovery-page-footer__heart--login:focus-visible {
     letter-spacing: -0.03em;
     line-height: 1.15;
     color: #fff;
+    white-space: normal;
+    overflow-wrap: break-word;
     text-wrap: balance;
 }
 
@@ -5373,6 +5407,8 @@ a.discovery-page-footer__heart--login:focus-visible {
     font-weight: 400;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.84);
+    white-space: normal;
+    overflow-wrap: break-word;
     text-wrap: pretty;
 }
 
@@ -5428,6 +5464,7 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         0 3px 8px rgba(59, 191, 107, 0.05),
         0 0 8px rgba(59, 191, 107, 0.12);
     gap: 12px 16px;
+    flex-wrap: wrap;
 }
 
 .find-workshop__plan.discovery-plan {
@@ -5454,6 +5491,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     font-size: 22px;
     line-height: 1.2;
     color: #434343;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .workshop-planning-cta .discovery-plan__copy,
@@ -5462,10 +5501,15 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     font-size: 16px;
     line-height: 1.35;
     color: #6f6f6f;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .workshop-planning-cta .discovery-plan-button,
 .find-workshop__plan .discovery-plan-button {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    white-space: nowrap;
     border: 1px solid #3bbf6b;
     background: #3bbf6b;
     color: #fff;
