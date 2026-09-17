@@ -1161,8 +1161,14 @@ body.discovery-page--location .our-workshops-shell .workshop-card-copy h3 {
 }
 
 body.discovery-page--location .our-workshops-shell .workshop-card-copy ul {
+    list-style: none;
     margin: 2px 0 0;
     padding: 0;
+}
+
+body.discovery-page--location .our-workshops-shell .workshop-card-visual,
+body.discovery-page--location .our-workshops-shell .workshop-card-media {
+    margin-bottom: 0;
 }
 
 body.discovery-page--location .our-workshops-shell .workshop-card-link-label {
@@ -1368,9 +1374,14 @@ body.discovery-page--location .our-workshops-shell .ai-poster-scroll-box {
     gap: 4px;
     overflow: hidden;
     white-space: normal;
-    border: 1px solid #f05f40;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 12px;
     background: #434343;
     color: #fff;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+        0 10px 22px rgba(0, 0, 0, 0.2);
 }
 
 .discovery-header--location .discovery-workshop-card--visual::after {
@@ -1584,9 +1595,11 @@ body.discovery-page--location .our-workshops-shell .ai-poster-scroll-box {
 .discovery-header--location .discovery-workshop-card--visual:hover,
 .discovery-header--location .discovery-workshop-card--visual:focus,
 .discovery-header--location .discovery-workshop-card--visual.is-current {
-    border-color: #f05f40;
+    border: 1px solid #f05f40;
     background: #f05f40;
-    box-shadow: none;
+    box-shadow:
+        inset 0 0 16px rgba(255, 255, 255, 0.4),
+        0 12px 24px rgba(0, 0, 0, 0.18);
     transform: none;
 }
 
@@ -2407,14 +2420,27 @@ body.discovery-page--participants .our-workshops-shell .workshop-main-button .wo
     padding: 10px 20px 12px;
     text-align: left;
     color: #fff;
+    flex: 0 0 auto;
 }
 
 body.discovery-page--participants .our-workshops-shell .workshop-main-button .workshop-card-copy h3 {
+    margin: 0;
     padding: 3px 0 3px 14px;
     font-size: 12px;
     font-weight: 500;
     line-height: 1.28;
     text-align: left;
+}
+
+body.discovery-page--participants .our-workshops-shell .workshop-main-button .workshop-card-copy ul {
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+}
+
+body.discovery-page--participants .our-workshops-shell .workshop-card-visual,
+body.discovery-page--participants .our-workshops-shell .workshop-card-media {
+    margin-bottom: 0;
 }
 
 body.discovery-page--participants .our-workshops-shell .workshop-main-button .workshop-card-copy h3::before {
@@ -5589,10 +5615,21 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         border-radius: 12px;
     }
 
+    .discovery-plan:not(.about-chat-cta) {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 10px;
+        min-height: 0;
+        height: auto;
+    }
+
     .discovery-plan:not(.about-chat-cta) .discovery-plan__lead {
         display: flex;
         flex-direction: column;
         align-items: center;
+        flex: 0 0 auto;
         width: 100%;
         max-width: none;
         margin: 0;
@@ -5613,6 +5650,7 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
     .discovery-plan:not(.about-chat-cta) .discovery-plan__content,
     .discovery-plan:not(.about-chat-cta) .discovery-plan__actions {
         display: block;
+        flex: 0 0 auto;
         width: 100%;
         max-width: none;
         margin: 0;
@@ -5692,6 +5730,8 @@ body.discovery-page--participants .discovery-plan .discovery-plan__icon {
         margin: 28px auto 48px;
         padding: 12px 14px;
         border-radius: 12px;
+        gap: 10px;
+        min-height: 0;
     }
 
     .find-workshop__plan.discovery-plan {

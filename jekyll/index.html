@@ -837,17 +837,13 @@ i18n_key: home
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation:
-        homeHeroZoomMobile 48s ease-in-out infinite alternate,
-        homeHeroFadeDrone 56s ease-in-out infinite;
+      animation: homeHeroFadeDrone 56s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__image--mechanical {
       object-fit: cover;
       object-position: 50% 42%;
-      animation:
-        homeHeroZoomMobile 48s ease-in-out infinite alternate,
-        homeHeroFadeMech 56s ease-in-out infinite;
+      animation: homeHeroFadeMech 56s ease-in-out infinite;
     }
     .home-room-hero__image--posters {
       background-color: #ececec;
@@ -859,14 +855,8 @@ i18n_key: home
         homeHeroFadePosters 56s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation:
-        homeHeroZoomMobile 48s ease-in-out infinite alternate,
-        homeHeroFadeHnn 56s ease-in-out infinite;
+      animation: homeHeroFadeHnn 56s ease-in-out infinite;
       object-fit: cover;
-    }
-    @keyframes homeHeroZoomMobile {
-      from { transform: scale(1.06) translate(0, 0); }
-      to { transform: scale(1.18) translate(0, 2%); }
     }
     .home-room-hero__content {
       position: relative;
