@@ -766,6 +766,28 @@ i18n_key: home
       width: min(280px, 100%);
     }
   }
+  /* Ultra-wide / very large desktops: keep the hero copy and right quote
+     on the same edges as the orange nav (logo left, language button right).
+     Mobile and standard desktop (≤1920px) stay unchanged. */
+  @media (min-width: 1921px) {
+    .home-room-hero__content {
+      left: calc(50% - 720px);
+      width: calc(1440px * 0.38);
+    }
+    .home-room-hero__quotes {
+      left: calc(50% - 720px + 1440px * 0.38);
+      right: calc(50% - 720px);
+      padding-right: 24px;
+    }
+    /* Match a 1440px desktop: photo is 70% of the nav column and
+       clipped at the nav’s right edge, so it only runs a little past
+       the quote (the quote sits 24px inside that edge). */
+    .home-room-hero__image,
+    .home-room-hero__image-overlay {
+      right: calc(50% - 720px);
+      width: calc(1440px * 0.70);
+    }
+  }
   @media (max-width: 991px) {
     .home-room-hero__quote-slot:not(:first-child),
     .home-room-hero__quote-slot--br {

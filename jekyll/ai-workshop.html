@@ -542,6 +542,15 @@ i18n_key: ai
       }
     }
 
+    /* Ultra-wide: keep the same 3D coverage vs the viewport edges as a
+       1920px desktop. Perspective is a fixed 1100px, so without this the
+       poster plane recedes and looks zoomed out. Image size stays 84% / 1.26. */
+    @media (min-width: 1921px) {
+      .ai-workshop-hero {
+        perspective: 57.2917vw;
+      }
+    }
+
     @media (max-width: 767px) {
       .ai-workshop-hero {
         padding: 88px 16px 64px;
