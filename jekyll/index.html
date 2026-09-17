@@ -593,26 +593,19 @@ i18n_key: home
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     gap: 12px;
     padding: 18px 24px 12px 12px;
     box-sizing: border-box;
   }
   .home-room-hero__quote-slot {
     position: relative;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 1 1 0;
     min-height: 0;
     overflow: visible;
   }
-  .home-room-hero__quote-slot--br {
-    display: none;
-  }
   .home-room-hero__quote {
-    position: relative;
+    position: absolute;
     width: auto;
     max-width: 100%;
     height: auto;
@@ -669,13 +662,12 @@ i18n_key: home
     width: min(380px, 100%);
   }
   .home-room-hero__quote-slot--tl .home-room-hero__quote {
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
+    top: 24px;
+    left: clamp(200px, 28%, 260px);
   }
   .home-room-hero__quote-slot--br .home-room-hero__quote {
-    display: none;
+    right: 0;
+    bottom: 24px;
   }
   /* Alternate placement within a section so successive quotes don't look identical */
   .home-room-hero__quote--shift {
@@ -826,7 +818,7 @@ i18n_key: home
       flex-direction: column;
       height: auto;
       min-height: 620px;
-      width: 100vw !important;
+      width: calc(100% + 30px) !important;
       max-width: none !important;
       margin-left: -15px !important;
       margin-right: -15px !important;
@@ -840,30 +832,41 @@ i18n_key: home
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      transform: none;
       transform-origin: center center;
       -webkit-mask-image: none !important;
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation: homeHeroFadeDrone 56s ease-in-out infinite;
+      animation:
+        homeHeroZoomMobile 48s ease-in-out infinite alternate,
+        homeHeroFadeDrone 56s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__image--mechanical {
       object-fit: cover;
       object-position: 50% 42%;
-      animation: homeHeroFadeMech 56s ease-in-out infinite;
+      animation:
+        homeHeroZoomMobile 48s ease-in-out infinite alternate,
+        homeHeroFadeMech 56s ease-in-out infinite;
     }
     .home-room-hero__image--posters {
       background-color: #ececec;
-      background-size: cover;
-      background-position: center 18%;
+      background-size: 100% auto;
+      background-position: center top;
       background-repeat: no-repeat;
-      animation: homeHeroFadePosters 56s ease-in-out infinite;
+      animation:
+        homeHeroPosterScroll 90s linear infinite,
+        homeHeroFadePosters 56s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation: homeHeroFadeHnn 56s ease-in-out infinite;
+      animation:
+        homeHeroZoomMobile 48s ease-in-out infinite alternate,
+        homeHeroFadeHnn 56s ease-in-out infinite;
       object-fit: cover;
+    }
+    @keyframes homeHeroZoomMobile {
+      from { transform: scale(1.06) translate(0, 0); }
+      to { transform: scale(1.18) translate(0, 2%); }
     }
     .home-room-hero__content {
       position: relative;
@@ -882,9 +885,46 @@ i18n_key: home
       display: block;
       width: 100%;
     }
+    .home-room-hero__audience {
+      width: 100%;
+      margin-bottom: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: clamp(10px, 3.2vw, 14px);
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .home-room-hero__title {
+      font-family: 'Roboto', sans-serif;
+      font-size: clamp(48px, 15vw, 72px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+    }
+    .home-room-hero__title > span > .home-room-hero__title-line:first-child,
+    .home-room-hero__title > span > .home-room-hero__title-line:last-child {
+      font-size: 0.82em;
+      font-weight: 700;
+    }
+    .home-room-hero__title > span > .home-room-hero__title-line:nth-child(2) {
+      margin: 0.1em 0 0.12em;
+    }
     .home-room-hero__body {
       width: 100%;
       max-width: 100%;
+      margin-top: 20px;
+    }
+    .home-room-hero__body p {
+      font-size: clamp(16px, 4.4vw, 19px);
+      line-height: 1.55;
+    }
+    .home-room-hero__actions {
+      margin-top: 24px;
+    }
+    .home-room-hero__cta {
+      min-height: 44px;
+      font-size: clamp(15px, 4vw, 18px);
+      padding: 10px 18px;
     }
     .home-room-hero__content::before {
       content: "";
@@ -899,14 +939,6 @@ i18n_key: home
         radial-gradient(ellipse 120% 95% at 42% 42%, rgba(255, 255, 255, 0.97) 0%, rgba(250, 250, 250, 0.86) 34%, rgba(250, 250, 250, 0.5) 62%, rgba(250, 250, 250, 0) 84%),
         linear-gradient(180deg, rgba(250, 250, 250, 0.55) 0%, rgba(250, 250, 250, 0.28) 70%, rgba(250, 250, 250, 0) 100%);
       filter: blur(22px);
-    }
-    .home-room-hero__audience {
-      width: 100%;
-      margin-bottom: 4px;
-      font-size: clamp(14px, 4vw, 17px);
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      white-space: nowrap;
     }
     .home-room-hero__image--drone {
       object-position: 72% 52%;
@@ -1276,8 +1308,16 @@ i18n_key: home
             }
         } else if ($quotesLayer.length) {
             var quoteIndex = 0;
-            $quotesLayer.find(".home-room-hero__quote-slot--br").remove();
-            var $slots = [$quotesLayer.find(".home-room-hero__quote-slot--tl")];
+            var mobileHero = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
+            if (mobileHero) {
+                $quotesLayer.find(".home-room-hero__quote-slot--br").remove();
+            }
+            var $slots = mobileHero
+                ? [$quotesLayer.find(".home-room-hero__quote-slot--tl")]
+                : [
+                    $quotesLayer.find(".home-room-hero__quote-slot--tl"),
+                    $quotesLayer.find(".home-room-hero__quote-slot--br")
+                ];
             var slotShiftNext = [false, false];
             var slotTimers = [null, null];
             var bubblesStarted = false;
@@ -1357,6 +1397,7 @@ i18n_key: home
                 var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
                 if (!parentWidth) return;
 
+                var maxW = Math.max(140, parentWidth - (bubble.offsetLeft || 0) - 8);
                 var width = Math.ceil(bubble.getBoundingClientRect().width);
                 var step = 12;
                 var guard = 40;
@@ -1364,11 +1405,40 @@ i18n_key: home
                 while (guard-- > 0) {
                     var orphanCount = lastLineWordCount(textEl);
                     if (orphanCount === 0 || orphanCount >= 3) break;
-                    if (width >= parentWidth) break;
+                    if (width >= maxW) break;
 
-                    width = Math.min(parentWidth, width + step);
+                    width = Math.min(maxW, width + step);
                     bubble.style.width = width + "px";
-                    bubble.style.maxWidth = "100%";
+                    bubble.style.maxWidth = maxW + "px";
+                }
+            }
+
+            function fitBubbleInSlot($bubble, $slot) {
+                var bubble = $bubble[0];
+                var slot = $slot[0];
+                var textEl = $bubble.find(".home-room-hero__quote-text")[0];
+                if (!bubble || !slot || !textEl) return;
+
+                var slotW = slot.clientWidth;
+                var slotH = slot.clientHeight;
+                var maxW = Math.max(140, slotW - (bubble.offsetLeft || 0) - 8);
+                var maxH = Math.max(80, slotH - 16);
+
+                bubble.style.height = "auto";
+                bubble.style.maxHeight = "none";
+                textEl.style.whiteSpace = "normal";
+
+                if (bubble.offsetWidth > maxW) {
+                    bubble.style.width = maxW + "px";
+                    bubble.style.maxWidth = maxW + "px";
+                }
+
+                var fontSize = parseFloat(window.getComputedStyle(textEl).fontSize) || 17;
+                var minFont = 11;
+                var guard = 48;
+                while (guard-- > 0 && fontSize > minFont && bubble.offsetHeight > maxH) {
+                    fontSize -= 0.5;
+                    textEl.style.fontSize = fontSize + "px";
                 }
             }
 
@@ -1379,6 +1449,7 @@ i18n_key: home
                 $slot.append($bubble);
                 $bubble[0].offsetWidth;
                 expandToAvoidOrphans($bubble);
+                fitBubbleInSlot($bubble, $slot);
                 $bubble.addClass("is-visible");
             }
 
@@ -1443,9 +1514,9 @@ i18n_key: home
                 }
             }
 
-            // One quote on laptop, vertically centered on the right of the hero.
-            // Held until the translation pass finishes so the first bubble is
-            // already in the visitor's language.
+            // Two quotes on laptop (top-left and bottom-right, staggered fades).
+            // Tablet keeps a single bubble. Held until the translation pass
+            // finishes so the first bubbles are already in the visitor's language.
             function startQuoteBubbles() {
                 if (bubblesStarted) return;
                 bubblesStarted = true;
