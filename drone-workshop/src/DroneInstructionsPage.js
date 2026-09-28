@@ -50,7 +50,7 @@ function DroneInstructionsPage() {
 
           <div className="download-links">
             <a
-              href="https://stageoneeducation.com/UART-USB-Driver.html"
+              href={`${process.env.PUBLIC_URL}/UART-USB-Driver.html`}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -39,6 +39,26 @@ function DroneInstructionsOrRedirect() {
   return <DroneInstructionsPage />;
 }
 
+// When the app is opened from an external entry point that appends ?reset=1
+// (e.g. the "stageoneeducation.com/drone/?reset=1" links on the marketing
+// site), clear any saved instructions progress so the left-hand instructions
+// panel starts fresh on page 1. The flag is then removed from the URL via
+// replaceState so a manual refresh afterwards does NOT wipe progress again.
+(function handleResetParam() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reset') === '1') {
+      localStorage.removeItem('droneWorkshopInstructionsState');
+      params.delete('reset');
+      const query = params.toString();
+      const newUrl = window.location.pathname + (query ? `?${query}` : '') + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    }
+  } catch (e) {
+    // If storage or history is unavailable, just continue loading normally.
+  }
+})();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>

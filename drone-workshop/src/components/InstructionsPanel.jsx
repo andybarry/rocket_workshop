@@ -144,6 +144,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const [page5GreenDotSelected, setPage5GreenDotSelected] = useState(false)
   // Track page 5 wrong dot selection error
   const [page5WrongDotError, setPage5WrongDotError] = useState(false)
+  // Track page 5 "Correct" flash message (shown briefly when the correct
+  // red + green dot connection is made)
+  const [page5CorrectFlash, setPage5CorrectFlash] = useState(false)
   // Track which page 5 "wrong" (dummy) dots have been clicked - they stay hidden until reset
   const [page5HiddenWrongDots, setPage5HiddenWrongDots] = useState([])
   // Track if page 5 should temporarily show 5.1.png (when "Need Help?" is clicked)
@@ -415,6 +418,7 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
   const page8WhiteBoxTimeoutRef = useRef(null)
   const page9RightWhiteBoxTimeoutRef = useRef(null)
   const page5HelpImageTimeoutRef = useRef(null)
+  const page5CorrectFlashTimeoutRef = useRef(null)
   const page7HelpImageTimeoutRef = useRef(null)
   const page10HelpImageTimeoutRef = useRef(null)
   const prevCountPage3Ref = useRef(0)
@@ -1714,16 +1718,32 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
     setPage5Button2Clicked(true)
   }
 
+  // Show the green "Correct" message solidly for a few seconds (like the
+  // orange error box). Any in-flight hide timer is cleared first so
+  // back-to-back correct selections don't cut the message short.
+  const showPage5Correct = () => {
+    if (page5CorrectFlashTimeoutRef.current) {
+      clearTimeout(page5CorrectFlashTimeoutRef.current)
+    }
+    setPage5CorrectFlash(true)
+    page5CorrectFlashTimeoutRef.current = setTimeout(() => {
+      setPage5CorrectFlash(false)
+      page5CorrectFlashTimeoutRef.current = null
+    }, 1200)
+  }
+
   // Handler for page 5 blue edge dot (the "red selected" dot). Selecting it now
   // also reveals the green dot + dots (formerly gated behind removed Box 2) and
   // hides the white box.
   const handlePage5BlueDot = () => {
     setPage5BlueDotSelected(true)
     setPage5Button2Clicked(true)
+    showPage5Correct()
   }
 
   const handlePage5GreenDot = () => {
     setPage5GreenDotSelected(true)
+    showPage5Correct()
   }
 
   // Handler for page 5 wrong dot selection. When a specific dummy dot index is
@@ -3515,6 +3535,46 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                           onMouseDown={handleBoxMouseDown}
                         />
                       </>
+                    )
+                  })()}
+                  {/* Version label overlay (bottom-left of page 1). A small
+                      white box with light-gray text; scales with zoom like
+                      the other stage overlays via getButtonStyle. */}
+                  {currentPage === 0 && !editorMode && (() => {
+                    const boxLeft = 1.5
+                    const boxTop = 96.2
+                    const boxWidth = 9
+                    const boxHeight = 3.6
+                    const boxStyle = getButtonStyle(boxLeft, boxTop, boxWidth, boxHeight)
+                    const versionFontSize = Math.min(12, Math.max(6, 11 * stageRelativeScale))
+                    return (
+                      <div
+                        style={{
+                          ...boxStyle,
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxSizing: 'border-box',
+                          pointerEvents: 'none',
+                          zIndex: 12
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'Roboto, sans-serif',
+                            fontSize: `${versionFontSize}px`,
+                            color: '#b0b0b0',
+                            fontWeight: 500,
+                            whiteSpace: 'nowrap',
+                            lineHeight: 1
+                          }}
+                        >
+                          V26.9
+                        </span>
+                      </div>
                     )
                   })()}
                   {currentPage === 0 && !editorMode && (() => {
@@ -30553,6 +30613,114 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
                       </div>
                     )
                   })()}
+                  {/* Green "Correct" flash — appears briefly (flashing in
+                      and out) when the correct red + green dot connection
+                      is made on page 5. Mirrors the orange wrong-dot box. */}
+                  {currentPage === 4 && !editorMode && page5CorrectFlash && stageWidthPx > 0 && stageHeightPx > 0 && imageNaturalSize.width > 0 && imageNaturalSize.height > 0 && (() => {
+                    const baseBoxWidth = 33.15
+                    const baseBoxTop = 66.31
+                    const baseBoxHeight = 5.38
+                    const pixelIncrease = 3
+                    const halfPixelIncrease = pixelIncrease / 2
+                    const widthPercentAdjust = stageWidthPx > 0 ? (pixelIncrease / stageWidthPx) * 100 : 0
+                    const heightPercentAdjust = stageHeightPx > 0 ? (pixelIncrease / stageHeightPx) * 100 : 0
+                    const topOffsetAdjust = stageHeightPx > 0 ? (halfPixelIncrease / stageHeightPx) * 100 : 0
+                    const widthIncreasePx = 45
+                    const widthIncreasePercent = (widthIncreasePx / imageNaturalSize.width) * 100
+                    const heightDecreasePx = 14
+                    const heightDecreasePercent = (heightDecreasePx / imageNaturalSize.height) * 100
+                    const moveDownPx = 4
+                    const moveDownPercent = (moveDownPx / imageNaturalSize.height) * 100
+                    const boxWidth = baseBoxWidth + widthIncreasePercent
+                    const boxHeight = baseBoxHeight - heightDecreasePercent
+                    const expandedWidth = Math.min(100, boxWidth + widthPercentAdjust)
+                    const expandedHeight = Math.min(100 - baseBoxTop, boxHeight + heightPercentAdjust)
+                    const adjustedLeft = (100 - expandedWidth) / 2
+                    const adjustedTop = Math.max(0, baseBoxTop - topOffsetAdjust + moveDownPercent)
+                    const buttonStyle = getButtonStyle(adjustedLeft, adjustedTop, expandedWidth, expandedHeight)
+                    const wrapperWidthPx = (expandedWidth / 100) * stageWidthPx
+                    const wrapperHeightPx = (expandedHeight / 100) * stageHeightPx
+                    const borderRadiusPx = Math.min(4, Math.max(2, 4 * stageRelativeScale))
+                    const borderRadiusWrapperX = Math.min(wrapperWidthPx > 0 ? (borderRadiusPx / wrapperWidthPx) * 100 : 0, 50)
+                    const borderRadiusWrapperY = Math.min(wrapperHeightPx > 0 ? (borderRadiusPx / wrapperHeightPx) * 100 : 0, 50)
+                    const correctBoxFontSize = 14 * stageRelativeScale
+                    const topLeft = 0
+                    const topRight = 100
+                    const topY = 0
+                    const bottomY = 100
+
+                    const roundedRectPath = `
+                      M ${topLeft + borderRadiusWrapperX},${bottomY}
+                      Q ${topLeft},${bottomY} ${topLeft},${bottomY - borderRadiusWrapperY}
+                      L ${topLeft},${topY + borderRadiusWrapperY}
+                      Q ${topLeft},${topY} ${topLeft + borderRadiusWrapperX},${topY}
+                      L ${topRight - borderRadiusWrapperX},${topY}
+                      Q ${topRight},${topY} ${topRight},${topY + borderRadiusWrapperY}
+                      L ${topRight},${bottomY - borderRadiusWrapperY}
+                      Q ${topRight},${bottomY} ${topRight - borderRadiusWrapperX},${bottomY}
+                      Z
+                    `
+                    const borderPath = roundedRectPath
+
+                    return (
+                      <div
+                        className="speech-bubble-wrapper"
+                        style={{
+                          ...buttonStyle,
+                          zIndex: 16,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 11,
+                            padding: '4px 8px',
+                            boxSizing: 'border-box',
+                            overflow: 'hidden'
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Roboto Black', 'Roboto', sans-serif",
+                              fontWeight: 900,
+                              fontSize: `${correctBoxFontSize}px`,
+                              color: 'white',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Correct
+                          </span>
+                        </div>
+                        <svg
+                          className="speech-bubble-svg"
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            pointerEvents: 'none',
+                            overflow: 'visible',
+                            zIndex: 10
+                          }}
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                        >
+                          <path d={roundedRectPath} fill="#3bbf6b" />
+                          <path d={borderPath} fill="none" stroke="#3bbf6b" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                        </svg>
+                      </div>
+                    )
+                  })()}
                   {/* Original red line at old dot position (x=18.55) - REMOVED (replaced by the repositioned red line at x=24.45 above) */}
                   {/* Green line connecting left green dot (15.88%, 78.44%) to right green dot (44.46%, 78.39%) on page 5 - pixel height like dots so zoom transform-origin stays aligned */}
                   {currentPage === 4 && !editorMode && page5GreenDotSelected && (() => {
@@ -31713,6 +31881,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               className="btn-modern btn-nav btn-nav-previous"
               aria-label="Previous page"
             >
+              <svg className="btn-nav-back-arrow" viewBox="0 0 12 12" aria-hidden="true">
+                <polyline points="7.5,2 3.5,6 7.5,10" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
               Back
             </button>
           )}
@@ -32131,6 +32302,9 @@ function InstructionsPanel({ editorMode, onDimensionsCapture, onRefresh, onPageS
               aria-label="Next page"
             >
               <span className="btn-nav-label">Next</span>
+              <svg className="btn-nav-next-arrow" viewBox="0 0 12 12" aria-hidden="true">
+                <polyline points="4.5,2 8.5,6 4.5,10" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </button>
           </div>
         )}

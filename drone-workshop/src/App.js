@@ -266,6 +266,12 @@ function App() {
   const [data, setData] = useState([]);
   const [isSupported, setIsSupported] = useState(true);
   const readerRef = useRef(null);
+  // Tracks whether the ESP32 has reported its firmware version since the
+  // current connection was established, and the retry timer that re-sends
+  // the version handshake until it does (the board resets + boots on first
+  // open, so a single early handshake is often missed).
+  const versionReceivedRef = useRef(false);
+  const handshakeIntervalRef = useRef(null);
   const [autoScroll, setAutoScroll] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
@@ -470,6 +476,34 @@ function App() {
     localStorage.setItem('droneWorkshopState', JSON.stringify(stateToSave));
   }
 
+  // Block browser page zoom so users can't shrink/enlarge the whole tab and
+  // lose the layout — they should rely on the app's own left/right panel and
+  // zoom controls and always see the entire screen. We can intercept the two
+  // zoom paths that flow through the page: Ctrl/Cmd + mouse wheel (also
+  // trackpad pinch, which fires a wheel event with ctrlKey) and the
+  // Ctrl/Cmd +/-/0 keyboard shortcuts. Chrome's own toolbar/menu zoom button
+  // is browser UI and cannot be disabled from a web page.
+  useEffect(() => {
+    const preventWheelZoom = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+      }
+    };
+    const preventKeyZoom = (e) => {
+      if ((e.ctrlKey || e.metaKey) &&
+          ['+', '-', '=', '_', '0'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+    // passive: false is required so preventDefault() actually blocks the zoom.
+    window.addEventListener('wheel', preventWheelZoom, { passive: false });
+    window.addEventListener('keydown', preventKeyZoom);
+    return () => {
+      window.removeEventListener('wheel', preventWheelZoom, { passive: false });
+      window.removeEventListener('keydown', preventKeyZoom);
+    };
+  }, []);
+
   useEffect(() => {
 
     const checkSerialSupport = () => {
@@ -485,83 +519,148 @@ function App() {
       if (!port) return;
 
       try {
-        await port.open({ baudRate: 115200 }).catch(e => console.log(e.message));
+        // Use a large read buffer (default is only 255 bytes). The first
+        // time the port is opened, asserting DTR/RTS resets the ESP32, which
+        // then dumps a burst of boot-log output at 115200 baud. A small
+        // buffer overflows during that burst and trips a benign
+        // "Buffer overrun" error; a generous buffer absorbs it.
+        await port.open({ baudRate: 115200, bufferSize: 16384 }).catch(e => console.log(e.message));
         setIsConnected(true);
 
-        // Send a blank message to the serial port to trigger the firmware to send its version.
-        // Pass forceConnected=true because the `isConnected` captured in this closure is still
-        // stale (false) here -- setIsConnected(true) above won't be reflected until the next
-        // render -- so without the override handleSend would early-return and the version (and
-        // upload completion) would never fire until the user manually clicked Upload.
-        setTimeout(() => handleSend(true), 100);
-
-        const textDecoder = new TextDecoderStream();
-        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-        const reader = textDecoder.readable.getReader();
-        readerRef.current = reader;
-
-        reader.closed.then(() => {
-          setIsConnected(false);
-          setConnectionError('Serial connection closed');
-        }).catch(error => {
-          let extraMessage = "";
-          if (error.message.includes("Buffer overrun")) {
-            extraMessage = " (try refreshing the page)";
-          }
-          setConnectionError(`Error: ${error.message} ${extraMessage}`);
-          setIsConnected(false)
-        });
-
-        try {
-          let last_line = 0
-          while (true) {
-            let value = null
-            let done = null
-            let out = null
-            try {
-              out = await reader.read()//.catch(e => console.log(e.message));
-            } catch (error) {
-              setIsConnected(false)
-            }
-            value = out['value']
-            done = out['done']
-            if (done) {
-              break;
-            }
-
-            setData((prevData) => {
-              const newData = [...prevData, value];
-
-              // Join the array into a string, then split by newline, take the last 5 elements, and join them again
-              const lines = newData.join('').split('\n')
-              const num_new_lines = lines.length - last_line + 1;
-              let recentLines = []
-              if (num_new_lines > 0) {
-                recentLines = lines.slice(-num_new_lines)
-              }
-
-              last_line = lines.length;
-
-
-              // Check for the upload string and drone test completion
-              for (let line of recentLines) {
-                if (line.includes(firmwareVersionString)) {
-                  const version_num = parseFloat(line.replace(firmwareVersionString, ''))
-                  setFirmwareVersion(version_num)
-                  setIsUploading(false);
-                }
-                if (line.includes("Done testing all drones")) {
-                  setDroneTestingString("");
-                }
-              }
-
-              return newData;
-            });
-          }
-        } catch (error) {
-          setConnectionError(`Error reading from serial port: ${error.message}`);
-          setIsConnected(false)
+        // Trigger the firmware to report its version, retrying until it does.
+        // Opening the port asserts DTR/RTS, which resets the ESP32; the board
+        // then needs a few hundred ms to boot before it can answer. A single
+        // early handshake (the old 100ms one) is frequently lost on the first
+        // connect, which left the Upload spinner stuck forever. We instead
+        // re-send every 900ms until the version arrives (tracked via
+        // versionReceivedRef, which the read loop sets), then give up
+        // gracefully after a bounded number of attempts so the spinner never
+        // hangs. forceConnected=true bypasses the stale `isConnected` closure.
+        versionReceivedRef.current = false;
+        if (handshakeIntervalRef.current) {
+          clearInterval(handshakeIntervalRef.current);
         }
+        let handshakeAttempts = 0;
+        const maxHandshakeAttempts = 8;
+        const sendHandshake = () => {
+          if (versionReceivedRef.current) {
+            if (handshakeIntervalRef.current) {
+              clearInterval(handshakeIntervalRef.current);
+              handshakeIntervalRef.current = null;
+            }
+            return;
+          }
+          if (handshakeAttempts >= maxHandshakeAttempts) {
+            if (handshakeIntervalRef.current) {
+              clearInterval(handshakeIntervalRef.current);
+              handshakeIntervalRef.current = null;
+            }
+            // Never got a version response — stop the spinner so the UI
+            // isn't stuck. The port is still open and readable.
+            setIsUploading(false);
+            return;
+          }
+          handshakeAttempts += 1;
+          handleSend(true);
+        };
+        setTimeout(sendHandshake, 250);
+        handshakeIntervalRef.current = setInterval(sendHandshake, 900);
+
+        // Resilient read loop. A BufferOverrunError (or other recoverable
+        // serial receive error) is non-fatal per the Web Serial spec: after
+        // it fires, port.readable is replaced with a fresh ReadableStream.
+        // The old code tore the connection down on the first overrun, which
+        // left the Upload spinner stuck forever because the firmware-version
+        // response (which clears isUploading) was never read. Instead we
+        // re-establish the decoder + reader and keep reading. `last_line`
+        // lives outside the loop so line accounting survives re-establishment,
+        // and a counter guards against a pathological continuous-overrun loop.
+        let last_line = 0
+        let keepReading = true
+        let recoverableErrorCount = 0
+        while (keepReading && port.readable) {
+          const textDecoder = new TextDecoderStream();
+          const readableStreamClosed = port.readable
+            .pipeTo(textDecoder.writable)
+            .catch(() => { /* settled/handled via the reader.read() rejection below */ });
+          const reader = textDecoder.readable.getReader();
+          readerRef.current = reader;
+
+          try {
+            while (true) {
+              const out = await reader.read();
+              if (out.done) {
+                keepReading = false;
+                break;
+              }
+              const value = out.value;
+
+              setData((prevData) => {
+                const newData = [...prevData, value];
+
+                // Join the array into a string, then split by newline, take the last 5 elements, and join them again
+                const lines = newData.join('').split('\n')
+                const num_new_lines = lines.length - last_line + 1;
+                let recentLines = []
+                if (num_new_lines > 0) {
+                  recentLines = lines.slice(-num_new_lines)
+                }
+
+                last_line = lines.length;
+
+
+                // Check for the upload string and drone test completion
+                for (let line of recentLines) {
+                  if (line.includes(firmwareVersionString)) {
+                    const version_num = parseFloat(line.replace(firmwareVersionString, ''))
+                    setFirmwareVersion(version_num)
+                    setIsUploading(false);
+                    // Stop the version-handshake retry loop now that the
+                    // board has answered.
+                    versionReceivedRef.current = true;
+                    if (handshakeIntervalRef.current) {
+                      clearInterval(handshakeIntervalRef.current);
+                      handshakeIntervalRef.current = null;
+                    }
+                  }
+                  if (line.includes("Done testing all drones")) {
+                    setDroneTestingString("");
+                  }
+                }
+
+                return newData;
+              });
+            }
+          } catch (error) {
+            const msg = (error && error.message) || '';
+            if (msg.includes('Buffer overrun')) {
+              // Benign boot-time overrun (the ESP32 resets on first open and
+              // dumps its boot log). Recover and resume reading so the
+              // firmware-version handshake still gets through.
+              recoverableErrorCount += 1;
+              console.warn(`Recovering from serial buffer overrun (#${recoverableErrorCount}):`, msg);
+              if (recoverableErrorCount > 50) {
+                setConnectionError('Serial connection unstable (repeated buffer overruns).');
+                keepReading = false;
+              }
+            } else {
+              // Unknown/fatal read error — surface it and stop.
+              setConnectionError(`Error reading from serial port: ${msg}`);
+              keepReading = false;
+            }
+          } finally {
+            try { reader.releaseLock(); } catch (e) { /* already released */ }
+            // Let the previous pipe fully settle before re-piping.
+            try { await readableStreamClosed; } catch (e) { /* ignored */ }
+          }
+        }
+
+        readerRef.current = null;
+        if (handshakeIntervalRef.current) {
+          clearInterval(handshakeIntervalRef.current);
+          handshakeIntervalRef.current = null;
+        }
+        setIsConnected(false);
       } catch (error) {
         setConnectionError(`Error connecting to serial port: ${error.message}`);
         setIsConnected(false)
@@ -572,12 +671,20 @@ function App() {
     connectToSerial();
 
     return () => {
+      if (handshakeIntervalRef.current) {
+        clearInterval(handshakeIntervalRef.current);
+        handshakeIntervalRef.current = null;
+      }
       if (readerRef.current) {
-        readerRef.current.cancel().catch(() => { });
-        readerRef.current.releaseLock();
+        // cancel() unblocks the pending read() in the loop above (it resolves
+        // done), which lets the resilient loop exit and release the lock. We
+        // avoid calling releaseLock() here because doing so while a read is
+        // still outstanding throws; the loop's finally handles the release.
+        try { readerRef.current.cancel().catch(() => { }); } catch (e) { /* ignored */ }
       }
       if (port && port.close) {
-        port.close().catch(() => { });
+        // Give the read loop a tick to unwind before closing the port.
+        setTimeout(() => { port.close().catch(() => { }); }, 0);
       }
     };
   }, [port]);
@@ -921,16 +1028,15 @@ function App() {
 
         <div className="download-links" style={{ marginBottom: 0 }}>
           <a
-            href="https://stageoneeducation.com/UART-USB-Driver.html"
+            href={`${process.env.PUBLIC_URL}/UART-USB-Driver.html`}
             target="_blank"
             rel="noopener noreferrer"
           >
             USB/UART Drivers
           </a>
           <a
-            href="https://stageoneeducation.com/QuadWiFiPoleBTWebSerialv4_1.ino"
-            download="QuadWiFiPoleBTWebSerialv4_1.ino"
-            target="_blank"
+            href={`${process.env.PUBLIC_URL}/QuadWiFiv4_3.zip`}
+            download="QuadWiFiv4_3.zip"
           >
             Firmware
           </a>

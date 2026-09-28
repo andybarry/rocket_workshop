@@ -145,8 +145,13 @@
 }
 
 .download-links a:hover {
-  color: #f05f40;
-  text-decoration: none; /* or whatever hover styling you prefer */
+  /* Orange was hard to read on the gray (#969696) header. Use white and a
+     faux-bold via text-shadow instead. Keeping font-weight unchanged means
+     the glyph advance widths don't change, so the text can't shift/reflow
+     on hover; the shadow just thickens the strokes in place. No underline. */
+  color: #ffffff;
+  text-shadow: 0.35px 0 0 currentColor, -0.35px 0 0 currentColor;
+  text-decoration: none;
 }
 
 /* Drone-instructions page only: header text */

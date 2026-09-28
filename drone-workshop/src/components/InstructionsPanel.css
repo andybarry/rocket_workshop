@@ -255,10 +255,10 @@
   grid-template-rows: auto;
   align-items: center;
   padding: 4px 8px;
-  margin: 10px clamp(8px, 2.5vw, 20px);
+  margin: 10px clamp(8px, 2.5vw, 20px) 18px;
   background: rgba(255, 255, 255, 0.98);
   border-radius: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 8px rgba(240, 95, 64, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 8px rgba(13, 110, 253, 0.3);
   backdrop-filter: blur(10px);
   column-gap: 1px;
   row-gap: 0px;
@@ -281,23 +281,44 @@
    via the ::after below to signal "I'm selectable". */
 .page-navigation .wiring-diagram-tab {
   background-color: white;
-  /* Blue label matches the blue border for a unified two-tone look,
-     while font-weight and letter-spacing still mirror .page-numbers-label
-     (the "page" text in the pill) so the typography reads cohesive
-     with the rest of the nav bar. */
+  /* Blue label over a white infill with a light-gray edge matching the
+     page-number pill (#ced4da). The eye / eye-off icon (background-
+     image, toggled by aria-pressed below) signals the show/hide action
+     and is likewise tinted blue. */
   color: #0d6efd;
-  border: 1px solid #0d6efd;
+  border: 1px solid #ced4da;
+  /* Eye icon pinned near the left edge; the label is offset right via
+     the extra left padding in the size-override rule below. */
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-size: 12px 12px;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   letter-spacing: normal;
   white-space: nowrap;
   position: relative;
   isolation: isolate;
-  box-shadow: none;
+  /* Soft gray inner glow hugging the inside edge. */
+  box-shadow: inset 0 0 4px rgba(108, 117, 125, 0.12);
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Eye icon reflects the button's visible label rather than aria-pressed:
+   different wiring buttons bind aria-pressed to differently-meaning state
+   variables (some inverted vs the label), so aria-pressed is unreliable
+   here. The aria-label always tracks the label text ("Hide …" / "Show …"),
+   so we key off that: a "Hide" button shows the eye-with-a-line-through-it
+   (eye-off), and a "Show" button shows the open eye. Icons are inline blue
+   SVG data URIs (stroke #0d6efd). */
+.page-navigation .wiring-diagram-tab[aria-label^="Hide"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230d6efd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'/%3E%3Cline x1='1' y1='1' x2='23' y2='23'/%3E%3C/svg%3E");
+}
+.page-navigation .wiring-diagram-tab[aria-label^="Show"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230d6efd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
 }
 
 /* Periodic light-blue shine stripe — same shape and rhythm as the
@@ -316,9 +337,9 @@
   pointer-events: none;
   background-image: linear-gradient(
     105deg,
-    rgba(13, 110, 253, 0) 0%,
-    rgba(13, 110, 253, 0.11) 50%,
-    rgba(13, 110, 253, 0) 100%
+    rgba(108, 117, 125, 0) 0%,
+    rgba(108, 117, 125, 0.10) 50%,
+    rgba(108, 117, 125, 0) 100%
   );
   background-size: 220% 100%;
   background-position: -110% 0;
@@ -328,16 +349,15 @@
   z-index: 1;
 }
 
-/* Hover: deeper blue confirms the affordance. Border thickness stays
-   at 1 px so the outer dimensions don't shift; the
-   .wiring-diagram-tab-label scale below provides the visual feedback.
-   overflow: visible lets the slightly-scaled label render outside
-   the .btn-modern overflow:hidden clip on hover. No outer halo —
-   the colour change alone is the cue. */
+/* Hover: a slightly deeper light-gray fill confirms the affordance.
+   Border thickness stays at 1 px so the outer dimensions don't shift;
+   the .wiring-diagram-tab-label scale below provides the visual
+   feedback. overflow: visible lets the slightly-scaled label render
+   outside the .btn-modern overflow:hidden clip on hover. */
 .page-navigation .wiring-diagram-tab:hover:not(:disabled) {
-  background-color: #0a58ca;
-  color: white;
-  border-color: #0a58ca;
+  background-color: #e2e6ea;
+  color: #495057;
+  border-color: #adb5bd;
   border-width: 1px;
   overflow: visible;
   box-shadow: none;
@@ -420,7 +440,9 @@
   height: clamp(12px, 5cqw, 24px);
   min-height: clamp(12px, 5cqw, 24px);
   min-width: 0;
-  padding: 0 clamp(8px, 2cqw, 12px);
+  /* Extra left padding reserves space for the eye icon (12px wide,
+     pinned at 8px) so the label never overlaps it. */
+  padding: 0 clamp(8px, 2cqw, 12px) 0 24px;
   font-size: clamp(7px, 2.2cqw, 10px);
   line-height: 1;
   border-radius: 9999px;
@@ -583,9 +605,13 @@
   flex-shrink: 0;
 }
 
-/* Disabled state — no shadow, default 1 px border. */
+/* Disabled state — no shadow. The grayed-out Next button gets a
+   light-gray edge + gray text instead of the default orange border it
+   would otherwise inherit from the base .btn-nav rule. */
 .btn-nav:disabled {
   box-shadow: none;
+  color: #adb5bd;
+  border-color: #ced4da;
 }
 
 /* No pressed-state ring on .btn-nav / .btn-nav-blue: the prior
@@ -595,21 +621,46 @@
    detached from the button edge while the click was held. The hover
    background colour change is enough click feedback on its own. */
 
-/* Back button hover — fill with the same orange used for the rest
-   state's text/border so the button reads as a primary affordance
-   on hover (mirrors how .btn-nav-blue fills with blue). Selector is
-   scoped to .btn-nav-previous so it doesn't catch the Reset
-   (.btn-nav-gray / .btn-nav-danger) variants, and the compound
-   .btn-nav.btn-nav-previous bumps specificity high enough to beat
-   any later .btn-nav-* hover rules in the cascade. */
-.btn-nav.btn-nav-previous:hover:not(:disabled) {
-  background-color: #f05f40;
-  color: white;
+/* Back button — blue outlined variant: blue text + blue edge at rest
+   (overrides the default orange .btn-nav). The compound
+   .btn-nav.btn-nav-previous selector bumps specificity high enough to
+   beat the base .btn-nav orange rule. */
+.btn-nav.btn-nav-previous {
+  background-color: #f0f1f3;
+  color: #6c757d;
+  border-color: #ced4da;
 }
 
-/* Blue variant for Next button when enabled on page 3 */
+/* Back / Next chevrons — two-line arrows sized down from the default
+   16 px .btn-nav svg (higher specificity via svg.btn-nav-* beats
+   .btn-nav svg). stroke:currentColor ties them to each button's text
+   colour (gray Back, white/gray Next). z-index keeps the Next chevron
+   above the blue button's ::after shine stripe. */
+.btn-nav svg.btn-nav-back-arrow,
+.btn-nav svg.btn-nav-next-arrow {
+  width: 7px;
+  height: 7px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Back button hover — a slightly deeper light-gray fill so the button
+   reads as interactive without departing from its gray identity.
+   Scoped to .btn-nav-previous so it doesn't catch the Reset
+   (.btn-nav-gray / .btn-nav-danger) variants. */
+.btn-nav.btn-nav-previous:hover:not(:disabled) {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+  color: #495057;
+}
+
+/* Blue variant for the enabled Next button — filled-blue primary CTA
+   with white text, matching the page 1 Start button
+   (.page-start-button: #0d6efd fill, white text). Only applies to the
+   active "blue" state; the disabled/gray Next button is untouched. */
 .btn-nav-blue {
-  color: #0d6efd;
+  background-color: #0d6efd;
+  color: white;
   border: 1px solid #0d6efd;
   /* Isolated stacking context so the ::after shine stripe below
      stays contained within the button (and the .btn-nav-label
@@ -618,7 +669,7 @@
 }
 
 .btn-nav-blue:hover:not(:disabled) {
-  background-color: #0d6efd;
+  background-color: #0b5ed7;
   color: white;
 }
 
@@ -638,9 +689,9 @@
   pointer-events: none;
   background-image: linear-gradient(
     105deg,
-    rgba(13, 110, 253, 0) 0%,
-    rgba(13, 110, 253, 0.11) 50%,
-    rgba(13, 110, 253, 0) 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 100%
   );
   background-size: 220% 100%;
   background-position: -110% 0;
@@ -813,7 +864,8 @@
   gap: 4px;
   box-sizing: border-box;
   position: relative;
-  background: #f0f1f3;
+  background: white;
+  border: 1px solid #ced4da;
   border-radius: 9999px;
   padding: clamp(1px, 0.8cqw, 4px) 8px;
   margin: -1px 0;
@@ -861,7 +913,7 @@
 }
 
 .page-numbers-arrow:hover {
-  color: #f05f40;
+  color: #0d6efd;
 }
 
 .page-numbers-row {
@@ -962,14 +1014,17 @@
 .btn-page-number:hover {
   background: transparent;
   border-color: transparent;
-  color: #f05f40;
+  color: #0d6efd;
 }
 
 .btn-page-number.active {
   background: transparent;
   border-color: transparent;
-  color: #f05f40;
+  color: #0d6efd;
   font-weight: 700;
+  /* Active (blue) number slightly larger than the 8px base for
+     emphasis. line-height stays 1 so the pill footprint is unchanged. */
+  font-size: 9.5px;
 }
 
 .page-jump-row {
