@@ -86,7 +86,13 @@ function FeedbackData({ legacy = false }) {
   }) // Store deleted rows history for undo, organized by workshop type
   const [zoomLevel, setZoomLevel] = useState(65) // CSS zoom percent. Displayed 100% is the scale that fits every column.
   const [fitZoom, setFitZoom] = useState(65) // CSS zoom that shows every column, capped at the original 65% "100%"
+  const [narrowLayout, setNarrowLayout] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+  )
+  const [sheetFrameHeight, setSheetFrameHeight] = useState(0)
   const pinnedToFit = useRef(true)
+  const zoomLevelRef = useRef(zoomLevel)
+  zoomLevelRef.current = zoomLevel
   const containerRef = useRef(null)
   const [showImportModal, setShowImportModal] = useState(false)
   const [importData, setImportData] = useState({})
@@ -309,29 +315,52 @@ function FeedbackData({ legacy = false }) {
 
     const measure = () => {
       const header = container.querySelector('.spreadsheet-header')
+      const content = container.querySelector('.spreadsheet-content')
+      const zoomNow = content ? (parseFloat(getComputedStyle(content).zoom) || 1) : 1
+      const sample = header?.querySelector('.column-header')
+      const styledWidth = sample ? parseFloat(sample.style.width) : 0
+      // Some mobile browsers report offsetWidth after CSS zoom. Divide that
+      // back out so the fit stays on the real column widths.
+      const metricScale = styledWidth > 0 && sample.offsetWidth < styledWidth * 0.92
+        ? sample.offsetWidth / styledWidth
+        : 1
       const measured = header
         ? [...header.children].reduce((sum, child) => sum + child.offsetWidth, 0)
         : 0
-      const contentWidth = measured > 0 ? measured : tableContentWidth
+      const contentWidth = (measured > 0 ? measured : tableContentWidth) / metricScale
       const styles = window.getComputedStyle(container)
       const border = (parseFloat(styles.borderLeftWidth) || 0) + (parseFloat(styles.borderRightWidth) || 0)
-      // offsetWidth ignores the scrollbar. Reserve a gutter so a vertical
-      // scrollbar cannot cover the last column, and so the fit stays stable.
-      const available = container.offsetWidth - border - 24
-      if (available <= 0 || contentWidth <= 0) return
+      const viewport = window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth
+      const visible = Math.min(container.clientWidth || container.offsetWidth, viewport)
+      // Reserve a gutter so a vertical scrollbar cannot cover the last column.
+      const available = visible - border - 16
+      if (available <= 0 || contentWidth <= 0 || !Number.isFinite(zoomNow)) return
       const exactFit = (available / contentWidth) * 100
-      const next = Math.min(65, Math.max(20, exactFit))
+      const next = Math.min(65, Math.max(5, exactFit))
+      const narrow = window.matchMedia('(max-width: 768px)').matches
+      setNarrowLayout(prev => (prev === narrow ? prev : narrow))
       setFitZoom(prev => (Math.abs(prev - next) < 0.05 ? prev : next))
       if (pinnedToFit.current) {
         setZoomLevel(prev => (Math.abs(prev - next) < 0.05 ? prev : next))
+      }
+      if (content && narrow) {
+        const scale = (pinnedToFit.current ? next : zoomLevelRef.current) / 100
+        const nextHeight = content.offsetHeight * scale
+        setSheetFrameHeight(prev => (Math.abs(prev - nextHeight) < 1 ? prev : nextHeight))
       }
     }
 
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(container)
-    return () => observer.disconnect()
-  }, [tableContentWidth, isAuthenticated, loading])
+    window.addEventListener('resize', measure)
+    window.visualViewport?.addEventListener('resize', measure)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', measure)
+      window.visualViewport?.removeEventListener('resize', measure)
+    }
+  }, [tableContentWidth, isAuthenticated, loading, zoomLevel])
 
   const handleZoomIn = () => {
     setZoomLevel(prev => {
@@ -353,7 +382,7 @@ function FeedbackData({ legacy = false }) {
         return fitZoom
       }
       pinnedToFit.current = false
-      return Math.max(next, 20)
+      return Math.max(next, 5)
     })
   }
 
@@ -2323,7 +2352,7 @@ function FeedbackData({ legacy = false }) {
     <div className={`app${legacy ? ' backup-sheet' : ''}`} onKeyDown={handleKeyDown} tabIndex={0}>
       <header className="header-bar">
         <div className="header-left">
-          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> {legacy ? 'Backup Feedback Data' : 'Workshop Feedback Data'}</span>
+          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> <span className="header-page-name">{legacy ? 'Backup Feedback Data' : 'Workshop Feedback Data'}</span></span>
         </div>
         <div className="header-center"></div>
         <div className="header-right">
@@ -2411,22 +2440,6 @@ function FeedbackData({ legacy = false }) {
             target="_blank"
             rel="noopener noreferrer"
             className="survey-link"
-            style={{
-              fontSize: '12px',
-              color: '#f05f40',
-              textDecoration: 'none',
-              fontWeight: '300',
-              marginLeft: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'font-weight 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.fontWeight = 'bold'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.fontWeight = '300'
-            }}
           >
             survey
           </a>
@@ -2434,7 +2447,7 @@ function FeedbackData({ legacy = false }) {
       </div>
       
       <div className="spreadsheet-controls" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="sheet-toolbar-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {error && <span className="sheet-status sheet-status-error">Error: {error}</span>}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button
@@ -2506,7 +2519,7 @@ function FeedbackData({ legacy = false }) {
         </div>
         
         {/* Print, download, import, then zoom — right side, above the table */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div className="sheet-toolbar-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <button
             onClick={printTable}
             title="Print"
@@ -2604,86 +2617,115 @@ function FeedbackData({ legacy = false }) {
               <path d="M12 3v12" />
             </svg>
           </button>
-          <span style={{ color: '#666', fontSize: '13px', fontWeight: '500' }}>Zoom:</span>
-          <button 
-            onClick={handleZoomOut}
-            style={{ 
-              padding: '2px 6px', 
-              backgroundColor: 'white', 
-              color: '#666666ff', 
-              border: '1px solid #666666ff', 
-              borderRadius: '3px',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              minWidth: '22px',
-              height: '22px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s ease'
-            }}
-            title="Zoom Out"
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#f5f5f5'
-              e.target.style.borderColor = '#555555'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = 'white'
-              e.target.style.borderColor = '#666666ff'
-            }}
-          >
-            −
-          </button>
-          <span style={{ 
-            color: '#333', 
-            fontSize: '11px', 
-            minWidth: '35px', 
-            textAlign: 'center',
-            fontWeight: '500',
-            backgroundColor: '#f8f9fa',
-            padding: '2px 6px',
-            borderRadius: '3px',
-            border: '1px solid #e9ecef'
+          <div style={{
+            display: 'flex',
+            alignItems: 'stretch',
+            height: '24px',
+            color: '#666666'
           }}>
-            {zoomLabel}%
-          </span>
-          <button 
-            onClick={handleZoomIn}
-            style={{ 
-              padding: '2px 6px', 
-              backgroundColor: 'white', 
-              color: '#666666ff', 
-              border: '1px solid #666666ff', 
-              borderRadius: '3px',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              minWidth: '22px',
-              height: '22px',
+            <button
+              onClick={handleZoomOut}
+              title="Zoom Out"
+              aria-label="Zoom Out"
+              style={{
+                margin: 0,
+                padding: '0 7px',
+                backgroundColor: 'white',
+                color: '#666666',
+                border: '1px solid #666666',
+                borderRadius: '3px 0 0 3px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                lineHeight: 1,
+                boxSizing: 'border-box',
+                appearance: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#f5f5f5'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'white'
+              }}
+            >
+              −
+            </button>
+            <span style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all 0.2s ease'
-            }}
-            title="Zoom In"
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#f5f5f5'
-              e.target.style.borderColor = '#555555'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = 'white'
-              e.target.style.borderColor = '#666666ff'
-            }}
-          >
-            +
-          </button>
+              boxSizing: 'border-box',
+              marginLeft: '-1px',
+              color: '#333',
+              fontSize: '11px',
+              minWidth: '38px',
+              fontWeight: '500',
+              padding: '0 4px',
+              backgroundColor: 'white',
+              borderTop: '1px solid #666666',
+              borderBottom: '1px solid #666666'
+            }}>
+              {zoomLabel}%
+            </span>
+            <button
+              onClick={handleZoomIn}
+              title="Zoom In"
+              aria-label="Zoom In"
+              style={{
+                margin: 0,
+                marginLeft: '-1px',
+                padding: '0 7px',
+                backgroundColor: 'white',
+                color: '#666666',
+                border: '1px solid #666666',
+                borderRadius: '0 3px 3px 0',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                lineHeight: 1,
+                boxSizing: 'border-box',
+                appearance: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#f5f5f5'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'white'
+              }}
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
       
       <div ref={containerRef} className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
+        <div
+          className="spreadsheet-scale-frame"
+          style={narrowLayout ? {
+            width: '100%',
+            maxWidth: '100%',
+            overflow: 'hidden',
+            height: sheetFrameHeight > 0 ? sheetFrameHeight : undefined
+          } : undefined}
+        >
         <div className="spreadsheet">
-          <div className="spreadsheet-content" style={{ zoom: `${zoomLevel / 100}` }}>
+          <div
+            className="spreadsheet-content"
+            style={narrowLayout ? {
+              transform: `scale(${zoomLevel / 100})`,
+              transformOrigin: 'top left',
+              width: tableContentWidth
+            } : {
+              zoom: `${zoomLevel / 100}`
+            }}
+          >
             <div className="spreadsheet-header">
             <div className="checkbox-header">
               <input
@@ -2969,6 +3011,7 @@ function FeedbackData({ legacy = false }) {
             })}
             </div>
           </div>
+        </div>
         </div>
       </div>
       

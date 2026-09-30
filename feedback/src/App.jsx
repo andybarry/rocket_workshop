@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Login from './Login'
 import { SITE_CONFIG } from './config'
@@ -77,6 +77,65 @@ function FeedbackCommentMeta({ commentData }) {
         </>
       ) : null}
       <span className="comment-location">{commentData.location}</span>
+    </div>
+  )
+}
+
+function FitSelect({ id, value, onChange, disabled, options, selected }) {
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef(null)
+  const current = options.find(option => option.value === value) || options[0]
+
+  useEffect(() => {
+    if (!open) return undefined
+    const close = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false)
+    }
+    const onKey = (event) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', close)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', close)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div className={`fit-select ${disabled ? 'is-disabled' : ''}`} ref={rootRef}>
+      <button
+        type="button"
+        id={id}
+        className={`dropdown-select fit-select-trigger ${selected ? 'selected' : ''}`}
+        disabled={disabled}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen(isOpen => !isOpen)}
+      >
+        <span className="fit-select-label">{current?.label}</span>
+        <span className="fit-select-caret" aria-hidden="true" />
+      </button>
+      {open && !disabled && (
+        <ul className="fit-select-menu" role="listbox">
+          {options.map(option => (
+            <li key={option.value || 'empty'}>
+              <button
+                type="button"
+                role="option"
+                aria-selected={option.value === value}
+                className={option.value === value ? 'is-selected' : ''}
+                onClick={() => {
+                  onChange({ target: { value: option.value } })
+                  setOpen(false)
+                }}
+              >
+                {option.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -1188,7 +1247,7 @@ function App() {
     <div className="app">
       <header className="header-bar">
         <div className="header-left">
-          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> Workshop Feedback</span>
+          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> <span className="header-page-name">Workshop Feedback</span></span>
         </div>
         <div className="header-center"></div>
         <div className="header-right">
@@ -1255,64 +1314,63 @@ function App() {
         <div className="dropdown-and-button-wrapper">
           <div className="dropdown-container">
             <div className="dropdown-group">
-              <select 
-                id="workshop-select" 
-                className={`dropdown-select ${specificWorkshop ? 'selected' : ''}`}
+              <FitSelect
+                id="workshop-select"
                 value={specificWorkshop}
                 onChange={handleSpecificWorkshopChange}
-              >
-                <option value="">Select Workshop</option>
-                <option value="ai-workshop">Artificial Intelligence Workshop</option>
-                <option value="robotics-workshop">Robotics Workshop</option>
-                <option value="mechanical-workshop">Mechanical Workshop</option>
-              </select>
+                selected={!!specificWorkshop}
+                options={[
+                  { value: '', label: 'Select Workshop' },
+                  { value: 'ai-workshop', label: 'Artificial Intelligence Workshop' },
+                  { value: 'robotics-workshop', label: 'Robotics Workshop' },
+                  { value: 'mechanical-workshop', label: 'Mechanical Workshop' }
+                ]}
+              />
             </div>
             <div className="dropdown-group">
-              <select 
-                id="location-select" 
-                className={`dropdown-select ${specificLocation ? 'selected' : ''}`}
+              <FitSelect
+                id="location-select"
                 value={specificLocation}
                 onChange={handleSpecificLocationChange}
                 disabled={!specificWorkshop}
-              >
-                <option value="">Select Location</option>
-                {availableLocations.map((location, index) => (
-                  <option key={index} value={location}>{location}</option>
-                ))}
-                <option value="all-locations">All Locations</option>
-              </select>
+                selected={!!specificLocation}
+                options={[
+                  { value: '', label: 'Select Location' },
+                  ...availableLocations.map(location => ({ value: location, label: location })),
+                  { value: 'all-locations', label: 'All Locations' }
+                ]}
+              />
             </div>
             <div className="dropdown-group">
-              <select 
-                id="range-select" 
-                className={`dropdown-select ${specificRange ? 'selected' : ''}`}
+              <FitSelect
+                id="range-select"
                 value={specificRange}
                 onChange={handleSpecificRangeChange}
                 disabled={!specificWorkshop}
-              >
-                <option value="">Select Range</option>
-                <option value="lifetime">Lifetime</option>
-                <option value="year">Year</option>
-                <option value="date">Date</option>
-              </select>
+                selected={!!specificRange}
+                options={[
+                  { value: '', label: 'Select Range' },
+                  { value: 'lifetime', label: 'Lifetime' },
+                  { value: 'year', label: 'Year' },
+                  { value: 'date', label: 'Date' }
+                ]}
+              />
             </div>
             <div className="dropdown-group">
-              <select 
-                id="date-select" 
-                className={`dropdown-select ${specificDate ? 'selected' : ''}`}
+              <FitSelect
+                id="date-select"
                 value={specificDate}
                 onChange={handleSpecificDateChange}
                 disabled={!specificWorkshop || !specificRange || specificRange === 'lifetime'}
-              >
-                <option value="">
-                  {specificRange === 'year' ? 'Select Year' : 
-                   specificRange === 'date' ? 'Select Date' : 
-                   'Select Date'}
-                </option>
-                {availableDates.map((date, index) => (
-                  <option key={index} value={date}>{date}</option>
-                ))}
-              </select>
+                selected={!!specificDate}
+                options={[
+                  {
+                    value: '',
+                    label: specificRange === 'year' ? 'Select Year' : 'Select Date'
+                  },
+                  ...availableDates.map(date => ({ value: date, label: date }))
+                ]}
+              />
             </div>
           </div>
           <div className="show-feedback-container">

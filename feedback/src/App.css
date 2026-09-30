@@ -108,6 +108,166 @@
   transform: none;
 }
 
+@media (max-width: 768px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: auto;
+  }
+
+  body {
+    display: block;
+    min-width: 0;
+  }
+
+  #root {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 20px 14px;
+    overflow: hidden;
+  }
+
+  .login-box .stage-one-text,
+  .login-box .workshop-feedback-text,
+  .login-header p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .settings-modal {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .settings-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    margin: 8px auto 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .settings-modal .password-section,
+  .settings-modal .form-group,
+  .settings-modal .password-section .form-group,
+  .settings-modal .current-password-display {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .settings-modal .current-password-display {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .settings-modal .current-password-value {
+    overflow-wrap: anywhere;
+  }
+
+  .settings-modal .form-group input,
+  .settings-modal .password-section .form-group input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  .login-box .stage-one-text {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .login-box .workshop-feedback-text {
+    font-size: 20px;
+  }
+
+  .login-header p {
+    margin-bottom: 20px;
+  }
+
+  .login-box .login-form,
+  .login-box .form-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .login-box .form-group input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.2;
+    padding: 14px 12px;
+    min-height: 48px;
+  }
+
+  .login-box .login-btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-container {
+    padding: 12px;
+  }
+
+  .login-box {
+    padding: 22px 14px;
+  }
+
+  .login-box .stage-one-text {
+    font-size: 18px;
+  }
+
+  .login-box .workshop-feedback-text {
+    font-size: 16px;
+  }
+
+  .login-box .form-group input,
+  .login-box .login-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+}
+
 .error-message {
   background-color: #fee;
   color: #c33;
@@ -411,7 +571,7 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 .header-bar {
@@ -659,6 +819,31 @@ html, body {
   outline: none;
   box-shadow: none;
   border: 1px solid #f05f40;
+}
+
+.survey-link {
+  background-color: white;
+  color: #f05f40;
+  border: 1px solid #f05f40;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.survey-link:hover {
+  background-color: #f05f40;
+  color: white;
 }
 
 .workshop-btn {
@@ -1202,9 +1387,11 @@ html, body {
     justify-content: flex-start;
     gap: 0.1rem;
     order: 1;
-    width: 100%;
+    width: auto;
+    min-width: 0;
     min-height: 1.2rem;
-    flex: 1;
+    flex: 1 1 auto;
+    overflow: hidden;
   }
 
   .header-left span {
@@ -1258,9 +1445,11 @@ html, body {
     align-self: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    flex: 1;
+    justify-content: flex-end;
+    gap: 4px;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
   }
 
   .gear-icon-btn,
@@ -1647,6 +1836,118 @@ html, body {
   background-color: white;
   color: #f05f40;
   border: 1px solid #f05f40;
+}
+
+.fit-select {
+  position: relative;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.dropdown-select.fit-select-trigger {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.fit-select-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fit-select-caret {
+  width: 0;
+  height: 0;
+  flex-shrink: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+}
+
+.fit-select-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-width: calc(100vw - 16px);
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  max-height: min(240px, 50vh);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.fit-select-menu li {
+  margin: 0;
+}
+
+.fit-select-menu button {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  background: white;
+  border: none;
+  padding: 0.45rem 0.7rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+
+.fit-select-menu button.is-selected,
+.fit-select-menu button:hover {
+  background: #fff1ee;
+  color: #f05f40;
+}
+
+.fit-select.is-disabled .fit-select-trigger {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .dropdown-container,
+  .dropdown-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .dropdown-group {
+    align-items: stretch;
+  }
+
+  .fit-select,
+  .dropdown-select.fit-select-trigger {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .fit-select-menu {
+    right: 0;
+    width: auto;
+    max-width: 100%;
+  }
 }
 
 .show-feedback-container {
@@ -2079,18 +2380,13 @@ html, body {
   height: 100%;
 }
 
-.stage-one-text {
+.chart-window .stage-one-text {
   font-family: 'Roboto', sans-serif;
   font-size: 0.6rem;
   color: #f05f40;
   text-align: center;
-  margin-top: 0.1rem;
-  font-weight: 700;
-}
-
-/* Clear wrapped x-axis labels (charts only; login uses .stage-one-text without .chart-window) */
-.chart-window .stage-one-text {
   margin-top: 0.38rem;
+  font-weight: 700;
   flex-shrink: 0;
 }
 
@@ -2601,15 +2897,114 @@ html, body {
   background-color: white !important;
 }
 
-/* Mobile horizontal scrolling for feedback data table */
+/* On a phone, fit the sheet and the icon row inside the screen. */
 @media (max-width: 768px) {
+  .workshop-dropdown-container,
+  .spreadsheet-controls,
+  .spreadsheet-container {
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .spreadsheet-controls {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .sheet-toolbar-group {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .workshop-dropdown-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .workshop-dropdown {
+    min-width: 0 !important;
+    width: auto;
+    max-width: calc(100% - 70px) !important;
+  }
+
+  .header-bar {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.3rem 0.4rem;
+    gap: 6px;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .header-left {
+    width: auto !important;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .header-left span {
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: 12px !important;
+    line-height: 1.15;
+  }
+
+  .header-left span strong,
+  .header-page-name {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .header-right {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .gear-icon-btn,
+  .settings-btn,
+  .header-backup-btn {
+    width: 28px;
+    min-width: 28px;
+    height: 26px;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .logout-btn {
+    padding: 0.2rem 0.45rem !important;
+    margin: 0 !important;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
   .spreadsheet-container {
     overflow-x: auto !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
-    /* Ensure scrollbars are visible on mobile */
     scrollbar-width: thin;
     scrollbar-color: #f05f40 #f0f0f0;
+    max-width: 100%;
+    contain: inline-size;
   }
 
   /* Show scrollbars on webkit browsers (iOS Safari, Chrome mobile) */
@@ -2630,30 +3025,29 @@ html, body {
     border-radius: 4px;
   }
 
-  /* Ensure the spreadsheet maintains its minimum width for horizontal scrolling */
-  .spreadsheet {
-    min-width: max-content;
-    width: auto;
-  }
-
-  .spreadsheet-content {
-    min-width: max-content;
-    width: auto;
-  }
-
-  .spreadsheet-header {
-    min-width: max-content;
-    width: auto;
-  }
-
-  .spreadsheet-body {
-    min-width: max-content;
-    width: auto;
-  }
-
+  .spreadsheet,
+  .spreadsheet-content,
+  .spreadsheet-header,
+  .spreadsheet-body,
   .spreadsheet-row {
-    min-width: max-content;
-    width: auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .spreadsheet-scale-frame {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+
+  .spreadsheet-scale-frame .spreadsheet,
+  .spreadsheet-scale-frame .spreadsheet-content,
+  .spreadsheet-scale-frame .spreadsheet-header,
+  .spreadsheet-scale-frame .spreadsheet-body,
+  .spreadsheet-scale-frame .spreadsheet-row {
+    width: max-content;
+    max-width: none;
   }
 }
 
@@ -2669,7 +3063,7 @@ html, body {
   .app {
     padding-top: 20px !important;
     overflow-x: hidden !important;
-    max-width: 100vw !important;
+    max-width: 100% !important;
   }
 
   .main-content {
@@ -2815,7 +3209,7 @@ html, body {
   .app {
     padding-top: 15px !important;
     overflow-x: hidden !important;
-    max-width: 100vw !important;
+    max-width: 100% !important;
   }
 
   .main-content {
@@ -2966,7 +3360,7 @@ html, body {
   .app {
     padding-top: 12px !important;
     overflow-x: hidden !important;
-    max-width: 100vw !important;
+    max-width: 100% !important;
   }
 
   /* Further reduce sizes for very small screens */
@@ -3127,7 +3521,7 @@ html, body {
   .app {
     padding-top: 10px !important;
     overflow-x: hidden !important;
-    max-width: 100vw !important;
+    max-width: 100% !important;
   }
 
   /* Minimal sizes for ultra small screens */
@@ -3416,6 +3810,28 @@ html, body {
 
 .form-group:hover {
   box-shadow: 0 0 12px rgba(240, 95, 64, 0.4);
+}
+
+.login-box .form-group,
+.login-box .form-group:hover {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-bottom: 15px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.login-box .form-group input {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
 }
 
 .form-group label {
@@ -4111,4 +4527,30 @@ html, body {
 .backup-sheet .footer-content,
 .backup-sheet .footer-version {
   color: #bdbdbd;
+}
+
+@media (max-width: 768px) {
+  .backup-sheet {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .backup-sheet .workshop-dropdown-container,
+  .backup-sheet .spreadsheet-controls,
+  .backup-sheet .spreadsheet-container {
+    width: auto !important;
+    max-width: 100% !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+    box-sizing: border-box;
+  }
+
+  .backup-sheet .header-bar {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 }
