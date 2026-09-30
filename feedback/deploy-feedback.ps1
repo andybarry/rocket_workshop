@@ -126,7 +126,8 @@ $ServiceFiles = @("ecosystem.config.cjs", "feedback.service")
 $BackupTs = Get-Date -Format "yyyyMMdd-HHmmss"
 $LocalDb = "database/feedback.db"
 $LocalBackupDir = "database/backups"
-$RemoteDb = "$RemoteRepoDir/database/feedback.db"
+$RemoteDbNew = "/var/lib/feedback/feedback.db"
+$RemoteDbOld = "$RemoteRepoDir/database/feedback.db"
 
 if (-not (Test-HasCommand "ssh")) {
     Exit-WithError "ssh is not installed or not on your PATH. Install OpenSSH Client from Windows Optional Features."
@@ -136,9 +137,13 @@ Write-Host "Backing up remote database..."
 $remoteBackupScript = @'
 set -euo pipefail
 DIR="$HOME/feedback-backups"
-if [ ! -f "$DB" ]; then
-  echo "No remote database found at $DB, skipping remote backup."
-  exit 0
+if [ -f "$NEW" ]; then
+  DB="$NEW"
+elif [ -f "$OLD" ]; then
+  DB="$OLD"
+else
+  echo "No live database found at $NEW or $OLD. Refusing to deploy."
+  exit 1
 fi
 mkdir -p "$DIR"
 DEST="$DIR/feedback-$TS.db"
@@ -152,7 +157,7 @@ fi
 echo "Remote backup created: $DEST"
 '@
 
-$remoteBackupScript | & ssh $RemoteServer "TS='$BackupTs' DB='$RemoteDb' bash -s"
+$remoteBackupScript | & ssh $RemoteServer "TS='$BackupTs' NEW='$RemoteDbNew' OLD='$RemoteDbOld' bash -s"
 if ($LASTEXITCODE -ne 0) {
     Exit-WithError "Remote database backup failed."
 }
@@ -189,6 +194,18 @@ foreach ($item in ($BackendFiles + $ServiceFiles)) {
     }
 }
 
+# Never ship a database. The live file stays on the server, outside this package.
+foreach ($name in @("feedback.db", "feedback.db-wal", "feedback.db-shm")) {
+    $dbFile = Join-Path "deploy-package\database" $name
+    if (Test-Path -LiteralPath $dbFile) {
+        Remove-Item -LiteralPath $dbFile -Force
+    }
+}
+$packagedBackups = Join-Path "deploy-package\database\backups"
+if (Test-Path -LiteralPath $packagedBackups) {
+    Remove-Item -LiteralPath $packagedBackups -Recurse -Force
+}
+
 Write-Host "Syncing to remote server..."
 Invoke-Rsync @(
     "-avz",
@@ -206,6 +223,10 @@ Remove-Item -Recurse -Force "deploy-package"
 Write-Host "Installing dependencies and restarting service on remote server..."
 $remoteInstall = @"
 cd $RemoteRepoDir
+if [ ! -f "$RemoteDbNew" ] && [ ! -f "$RemoteDbOld" ]; then
+  echo "Live database missing after deploy. Refusing to continue."
+  exit 1
+fi
 npm install || { echo "npm install failed"; exit 1; }
 "@
 $remoteInstall | & ssh $RemoteServer "bash -s"

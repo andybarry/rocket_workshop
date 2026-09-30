@@ -142,7 +142,7 @@ if (IS_PRODUCTION) {
 // Authentication routes
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { password } = req.body;
+    const { password, adminOnly } = req.body;
     
     if (!password) {
       return res.status(400).json({ error: 'Password is required' });
@@ -152,6 +152,11 @@ app.post('/api/auth/login', async (req, res) => {
     const isStandardValid = feedbackDB.verifyPassword(password, 'standard');
     const isAdminValid = feedbackDB.verifyPassword(password, 'admin');
     
+    if (adminOnly && !isAdminValid) {
+      logFailedAuth(req, 'Admin password required');
+      return res.status(403).json({ error: 'Admin password required' });
+    }
+
     if (!isStandardValid && !isAdminValid) {
       logFailedAuth(req, 'Invalid password');
       return res.status(401).json({ error: 'Invalid password' });
@@ -302,7 +307,7 @@ app.get('/api/feedback', authenticate, requireAdmin, async (req, res) => {
 // Submit new feedback (public endpoint for student surveys)
 app.post('/api/feedback', async (req, res) => {
   try {
-    const { workshopType, feedbackData } = req.body;
+    const { workshopType, feedbackData, skipLegacy } = req.body;
     
     if (!workshopType || !feedbackData) {
       return res.status(400).json({ error: 'Workshop type and feedback data are required' });
@@ -314,7 +319,13 @@ app.post('/api/feedback', async (req, res) => {
       return res.status(403).json({ error: 'This endpoint is only for student feedback surveys' });
     }
 
-    const result = feedbackDB.insertFeedback(workshopType, feedbackData);
+    // Restoring a deleted working row must not archive a second legacy copy.
+    // Only an admin session may skip the archive.
+    const sessionId = req.headers.authorization?.replace('Bearer ', '');
+    const session = sessionId ? sessions.get(sessionId) : null;
+    const allowSkipLegacy = skipLegacy === true && session && session.isAdmin && Date.now() <= session.expires;
+
+    const result = feedbackDB.insertFeedback(workshopType, feedbackData, { skipLegacy: allowSkipLegacy });
     
     res.json({ 
       success: true, 
@@ -348,6 +359,18 @@ app.post('/api/instructor-feedback', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error submitting instructor feedback:', error);
     res.status(500).json({ error: 'Failed to submit instructor feedback' });
+  }
+});
+
+// Legacy archive for one workshop (admin only, no delete)
+app.get('/api/feedback-legacy/:workshopType', authenticate, requireAdmin, async (req, res) => {
+  try {
+    const { workshopType } = req.params;
+    const data = feedbackDB.getLegacyByWorkshop(workshopType);
+    res.json(data);
+  } catch (error) {
+    console.error('Error in GET /api/feedback-legacy/:workshopType:', error);
+    res.status(500).json({ error: 'Failed to read legacy feedback data' });
   }
 });
 
@@ -513,12 +536,13 @@ if (IS_PRODUCTION) {
 const server = app.listen(PORT, () => {
   console.log(`Feedback server running on http://localhost:${PORT}`);
   console.log(`Environment: ${NODE_ENV}`);
-  console.log(`Database: SQLite (database/feedback.db)`);
+  console.log(`Database: SQLite (${feedbackDB.dbPath})`);
   console.log(`API endpoints:`);
   console.log(`  GET    /api/feedback - Get all feedback data (authenticated)`);
   console.log(`  POST   /api/feedback - Submit student feedback (public - AI/Robotics/Mechanical)`);
   console.log(`  POST   /api/instructor-feedback - Submit instructor feedback (authenticated)`);
   console.log(`  GET    /api/feedback/:workshopType - Get feedback for specific workshop (authenticated)`);
+  console.log(`  GET    /api/feedback-legacy/:workshopType - Get legacy feedback (admin only)`);
   console.log(`  DELETE /api/feedback/:workshopType/:id - Delete specific feedback entry (authenticated)`);
   console.log(`  GET    /api/stats - Get feedback statistics (authenticated)`);
   console.log(`  GET    /api/health - Health check`);

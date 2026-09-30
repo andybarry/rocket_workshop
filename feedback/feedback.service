@@ -8,6 +8,7 @@ Type=simple
 User=abarry
 WorkingDirectory=/home/abarry/feedback
 Environment=NODE_ENV=production
+Environment=FEEDBACK_DB_PATH=/var/lib/feedback/feedback.db
 Environment=PM2_HOME=/home/abarry/.pm2
 # Ensure Node/pm2 are on PATH if you use nvm/volta/asdf; adjust as needed:
 Environment=PATH=/usr/local/bin:/usr/bin:/bin:/home/abarry/.local/bin

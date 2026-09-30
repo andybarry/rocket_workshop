@@ -25,10 +25,11 @@ function MechanicalEngineeringFeedbackSurvey() {
   }, [])
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const field = e.target.getAttribute('data-field') || e.target.name
+    const { value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [field]: value
     }))
   }
 
@@ -147,7 +148,7 @@ function MechanicalEngineeringFeedbackSurvey() {
       </header>
       
       <main className="main-content">
-        <form className="survey-form" onSubmit={handleSubmit}>
+        <form className="survey-form" autoComplete="off" onSubmit={handleSubmit}>
           <div className="survey-title-section">
             <h1>Mechanical Engineering Workshop<br /><span className="feedback-survey-text">Feedback Survey</span><span className="thank-you-text">Thank you for your feedback. Your responses are anonymous and help us improve future workshops.</span></h1>
           </div>
@@ -196,7 +197,8 @@ function MechanicalEngineeringFeedbackSurvey() {
             <label>My favorite part of this workshop was</label>
             <input 
               type="text" 
-              name="favorite-part" 
+              data-field="favorite-part"
+              autoComplete="off"
               placeholder="Your answer"
               value={formData['favorite-part']}
               onChange={handleInputChange}
@@ -248,7 +250,8 @@ function MechanicalEngineeringFeedbackSurvey() {
             <label>Something I'd like to try designing next is</label>
             <input 
               type="text" 
-              name="next-design" 
+              data-field="next-design"
+              autoComplete="off"
               placeholder="Your answer"
               value={formData['next-design']}
               onChange={handleInputChange}
@@ -300,7 +303,8 @@ function MechanicalEngineeringFeedbackSurvey() {
             <label>Which workshop instructor did you learn the most from?</label>
             <input 
               type="text" 
-              name="instructor" 
+              data-field="instructor"
+              autoComplete="off"
               placeholder="Your answer"
               value={formData['instructor']}
               onChange={handleInputChange}
@@ -371,7 +375,8 @@ function MechanicalEngineeringFeedbackSurvey() {
           <div className="form-group">
             <label>Comments / Suggestions / Ideas (we will read everything you write)</label>
             <textarea 
-              name="comments" 
+              data-field="comments"
+              autoComplete="off"
               placeholder="Your answer" 
               rows="4"
               value={formData['comments']}

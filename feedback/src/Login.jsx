@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
-function Login({ onLogin }) {
+function Login({ onLogin, adminOnly = false }) {
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -17,7 +17,7 @@ function Login({ onLogin }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, adminOnly }),
       })
 
       const data = await response.json()
@@ -46,7 +46,7 @@ function Login({ onLogin }) {
             <div className="stage-one-text">STAGE ONE EDUCATION</div>
             <div className="workshop-feedback-text">Workshop Feedback</div>
           </div>
-          <p>Please enter your password to access the feedback data</p>
+          <p>{adminOnly ? 'Enter the admin password to access backup feedback data' : 'Please enter your password to access the feedback data'}</p>
         </div>
         
         <form onSubmit={handleLogin} className="login-form">

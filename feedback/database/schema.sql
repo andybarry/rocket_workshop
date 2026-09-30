@@ -17,7 +17,19 @@ CREATE TABLE IF NOT EXISTS passwords (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Append-only archive. Deletes from feedback do not remove these rows.
+CREATE TABLE IF NOT EXISTS feedback_legacy (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_id INTEGER,
+    workshop_type TEXT NOT NULL CHECK (workshop_type IN ('AI', 'Robotics', 'Mechanical', 'Instructor')),
+    form_data TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_workshop_type ON feedback(workshop_type);
+CREATE INDEX IF NOT EXISTS idx_legacy_workshop_type ON feedback_legacy(workshop_type);
+CREATE INDEX IF NOT EXISTS idx_legacy_timestamp ON feedback_legacy(timestamp);
 CREATE INDEX IF NOT EXISTS idx_timestamp ON feedback(timestamp);
 CREATE INDEX IF NOT EXISTS idx_workshop_timestamp ON feedback(workshop_type, timestamp);

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import './App.css'
 import Login from './Login'
 import { SITE_CONFIG } from './config'
 
-function FeedbackData() {
+function FeedbackData({ legacy = false }) {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [sessionId, setSessionId] = useState(null)
@@ -84,7 +84,10 @@ function FeedbackData() {
     Mechanical: [],
     Instructor: []
   }) // Store deleted rows history for undo, organized by workshop type
-  const [zoomLevel, setZoomLevel] = useState(65) // Zoom level percentage - 65% shows all columns, displayed as 100%
+  const [zoomLevel, setZoomLevel] = useState(65) // CSS zoom percent. Displayed 100% is the scale that fits every column.
+  const [fitZoom, setFitZoom] = useState(65) // CSS zoom that shows every column, capped at the original 65% "100%"
+  const pinnedToFit = useRef(true)
+  const containerRef = useRef(null)
   const [showImportModal, setShowImportModal] = useState(false)
   const [importData, setImportData] = useState({})
   const [isImporting, setIsImporting] = useState(false)
@@ -120,6 +123,9 @@ function FeedbackData() {
       
       if (response.ok) {
         const data = await response.json()
+        if (legacy && !data.isAdmin) {
+          return
+        }
         setIsAuthenticated(true)
         setSessionId(storedSessionId)
         setIsAdmin(data.isAdmin || false)
@@ -139,6 +145,9 @@ function FeedbackData() {
   }
 
   const handleLogin = (newSessionId, newIsAdmin) => {
+    if (legacy && !newIsAdmin) {
+      return
+    }
     setIsAuthenticated(true)
     setSessionId(newSessionId)
     setIsAdmin(newIsAdmin || false)
@@ -288,14 +297,69 @@ function FeedbackData() {
     return { backgroundColor: 'white', color: '#000' }
   }
 
-  // Zoom functions
+  // Fallback before the header is in the DOM. Checkbox (36) + row number (50) + data columns.
+  const tableContentWidth = 36 + 50 + columnWidths.reduce((sum, width) => sum + (width || 0), 0)
+
+  // Keep displayed 100% at a scale that fits every column. 65% is the original
+  // "100%" and already fits on wide screens, so those stay put. Narrower screens
+  // scale down just enough that the last column is not clipped.
+  useLayoutEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const measure = () => {
+      const header = container.querySelector('.spreadsheet-header')
+      const measured = header
+        ? [...header.children].reduce((sum, child) => sum + child.offsetWidth, 0)
+        : 0
+      const contentWidth = measured > 0 ? measured : tableContentWidth
+      const styles = window.getComputedStyle(container)
+      const border = (parseFloat(styles.borderLeftWidth) || 0) + (parseFloat(styles.borderRightWidth) || 0)
+      // offsetWidth ignores the scrollbar. Reserve a gutter so a vertical
+      // scrollbar cannot cover the last column, and so the fit stays stable.
+      const available = container.offsetWidth - border - 24
+      if (available <= 0 || contentWidth <= 0) return
+      const exactFit = (available / contentWidth) * 100
+      const next = Math.min(65, Math.max(20, exactFit))
+      setFitZoom(prev => (Math.abs(prev - next) < 0.05 ? prev : next))
+      if (pinnedToFit.current) {
+        setZoomLevel(prev => (Math.abs(prev - next) < 0.05 ? prev : next))
+      }
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [tableContentWidth, isAuthenticated, loading])
+
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 10, 200)) // Max zoom 200%
+    setZoomLevel(prev => {
+      const next = Math.min(prev + 10, 200)
+      if (prev < fitZoom && next >= fitZoom) {
+        pinnedToFit.current = true
+        return fitZoom
+      }
+      pinnedToFit.current = false
+      return next
+    })
   }
 
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 10, 50)) // Min zoom 50%
+    setZoomLevel(prev => {
+      const next = prev - 10
+      if (prev > fitZoom && next <= fitZoom) {
+        pinnedToFit.current = true
+        return fitZoom
+      }
+      pinnedToFit.current = false
+      return Math.max(next, 20)
+    })
   }
+
+  const zoomLabel = fitZoom > 0 && Math.abs(zoomLevel - fitZoom) < 0.2
+    ? 100
+    : Math.round((zoomLevel / fitZoom) * 100)
 
   // Print table function
   const printTable = () => {
@@ -386,7 +450,7 @@ function FeedbackData() {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>${selectedWorkshop} Workshop Feedback Data</title>
+        <title>${selectedWorkshop} Workshop ${legacy ? 'Backup ' : ''}Feedback Data</title>
         <style>
           body { 
             font-family: Arial, sans-serif; 
@@ -464,7 +528,7 @@ function FeedbackData() {
       </head>
       <body>
         <div class="print-date">Printed on: ${new Date().toLocaleDateString()}</div>
-        <h1>${selectedWorkshop} Workshop Feedback Data</h1>
+        <h1>${selectedWorkshop} Workshop ${legacy ? 'Backup ' : ''}Feedback Data</h1>
         <div class="table-container">
           <table>
             <thead>
@@ -787,7 +851,7 @@ function FeedbackData() {
     const link = document.createElement('a')
     const url = URL.createObjectURL(blob)
     link.setAttribute('href', url)
-    link.setAttribute('download', `${selectedWorkshop}_Workshop_Feedback_${new Date().toISOString().split('T')[0]}.csv`)
+    link.setAttribute('download', `${selectedWorkshop}_Workshop_${legacy ? 'Backup_' : ''}Feedback_${new Date().toISOString().split('T')[0]}.csv`)
     link.style.visibility = 'hidden'
     document.body.appendChild(link)
     link.click()
@@ -906,7 +970,7 @@ function FeedbackData() {
       
       // Try multiple endpoints in case of connectivity issues
       const endpoints = [
-        `/api/feedback/${selectedWorkshop}`
+        `/api/${legacy ? 'feedback-legacy' : 'feedback'}/${selectedWorkshop}`
       ]
       
       let response = null
@@ -1435,6 +1499,7 @@ function FeedbackData() {
   }
 
   const handleRowNumberDoubleClick = (rowIndex) => {
+    if (legacy) return
     // Only allow delete for rows that have actual data
     if (rowIndex < feedbackData.length) {
       setDeleteRowIndex(rowIndex)
@@ -1467,7 +1532,8 @@ function FeedbackData() {
             mode: 'cors',
             body: JSON.stringify({
               workshopType: selectedWorkshop,
-              feedbackData: deletedRow.data
+              feedbackData: deletedRow.data,
+              skipLegacy: true
             })
           })
           if (response.ok) {
@@ -1486,7 +1552,7 @@ function FeedbackData() {
           try {
             setLoading(true)
             const endpoints = [
-              `/api/feedback/${selectedWorkshop}`
+              `/api/${legacy ? 'feedback-legacy' : 'feedback'}/${selectedWorkshop}`
             ]
             
             let response = null
@@ -1537,6 +1603,7 @@ function FeedbackData() {
 
   // Handle row selection for multi-row delete
   const handleRowClick = (rowIndex, event) => {
+    if (legacy) return
     if (event.detail === 2) { // Double click
       if (selectedRows.length === 0) {
         // First selection - just select this row
@@ -1699,7 +1766,7 @@ function FeedbackData() {
         const refreshData = async () => {
           try {
             const endpoints = [
-              `/api/feedback/${selectedWorkshop}`
+              `/api/${legacy ? 'feedback-legacy' : 'feedback'}/${selectedWorkshop}`
             ]
             
             let response = null
@@ -2243,7 +2310,7 @@ function FeedbackData() {
 
   // Show login component if not authenticated
   if (!isAuthenticated) {
-    return <Login onLogin={handleLogin} />
+    return <Login onLogin={handleLogin} adminOnly={legacy} />
   }
 
   // Redirect standard users to main feedback page
@@ -2253,10 +2320,10 @@ function FeedbackData() {
   }
 
   return (
-    <div className="app" onKeyDown={handleKeyDown} tabIndex={0}>
+    <div className={`app${legacy ? ' backup-sheet' : ''}`} onKeyDown={handleKeyDown} tabIndex={0}>
       <header className="header-bar">
         <div className="header-left">
-          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> Workshop Feedback Data</span>
+          <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> {legacy ? 'Backup Feedback Data' : 'Workshop Feedback Data'}</span>
         </div>
         <div className="header-center"></div>
         <div className="header-right">
@@ -2268,8 +2335,31 @@ function FeedbackData() {
                   window.open('/', '_blank');
                 }}
                 title="Feedback Dashboard"
+                aria-label="Feedback Dashboard"
               >
-                📊
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <path d="M4 19V10M10 19V5M16 19v-7M22 19H2" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <button
+                className="gear-icon-btn header-backup-btn"
+                onClick={() => {
+                  window.open(legacy ? '/feedback-data.html' : '/feedback-legacy.html', '_blank');
+                }}
+                title={legacy ? 'Feedback Data' : 'Backup Data'}
+                aria-label={legacy ? 'Feedback Data' : 'Backup Data'}
+              >
+                {legacy ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="white" strokeWidth="2"/>
+                    <path d="M4 9h16M4 14h16M10 4v16M15 4v16" stroke="white" strokeWidth="2"/>
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                    <rect x="5" y="11" width="14" height="10" rx="2" stroke="white" strokeWidth="2"/>
+                    <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                )}
               </button>
               <button 
                 className="settings-btn"
@@ -2280,8 +2370,12 @@ function FeedbackData() {
                   }
                 }}
                 title="Settings"
+                aria-label="Settings"
               >
-                🔧
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <circle cx="12" cy="12" r="3" stroke="white" strokeWidth="2"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                </svg>
               </button>
             </>
           )}
@@ -2341,25 +2435,45 @@ function FeedbackData() {
       
       <div className="spreadsheet-controls" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {loading && <span style={{ color: '#666' }}>Loading...</span>}
-          {error && <span style={{ color: 'red' }}>Error: {error}</span>}
-          <button 
-            onClick={fetchFeedbackData} 
-            style={{ 
-              padding: '2px 6px', 
-              backgroundColor: 'white', 
-              color: '#666666ff', 
-              border: '1px solid #666666ff', 
-              borderRadius: '3px',
-              cursor: 'pointer',
-              fontSize: '10px'
-            }}
-          >
-            Refresh Data
-          </button>
-          <span style={{ color: '#666', fontSize: '14px' }}>
-            {sortedFeedbackData.length} responses
-          </span>
+          {error && <span className="sheet-status sheet-status-error">Error: {error}</span>}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              onClick={fetchFeedbackData}
+              title="Refresh Data"
+              aria-label="Refresh Data"
+              style={{
+                padding: '2px',
+                backgroundColor: 'white',
+                color: '#666666',
+                border: '1px solid #666666',
+                borderRadius: '3px',
+                cursor: 'pointer',
+                width: '24px',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#f5f5f5'
+                e.currentTarget.style.borderColor = '#555555'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'white'
+                e.currentTarget.style.borderColor = '#666666'
+              }}
+            >
+              <svg className={loading ? 'refresh-spin' : undefined} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M16 16h5v5" />
+              </svg>
+            </button>
+            <span className="sheet-status">
+              {sortedFeedbackData.length} responses
+            </span>
+          </div>
           {selectedRows.length > 0 && (
             <span style={{ 
               color: '#1976d2', 
@@ -2391,8 +2505,105 @@ function FeedbackData() {
           )}
         </div>
         
-        {/* Zoom Controls - Right Justified */}
+        {/* Print, download, import, then zoom — right side, above the table */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            onClick={printTable}
+            title="Print"
+            aria-label="Print"
+            style={{
+              padding: '2px',
+              backgroundColor: 'white',
+              color: '#666666',
+              border: '1px solid #666666',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              width: '24px',
+              height: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5f5f5'
+              e.currentTarget.style.borderColor = '#555555'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'white'
+              e.currentTarget.style.borderColor = '#666666'
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 9V2h12v7" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <path d="M6 14h12v8H6z" />
+            </svg>
+          </button>
+          <button
+            onClick={downloadCSV}
+            title="Download CSV"
+            aria-label="Download CSV"
+            style={{
+              padding: '0 5px',
+              backgroundColor: 'white',
+              color: '#666666',
+              border: '1px solid #666666',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              height: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '2px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5f5f5'
+              e.currentTarget.style.borderColor = '#555555'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'white'
+              e.currentTarget.style.borderColor = '#666666'
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 4v11" />
+              <path d="m7 11 5 5 5-5" />
+            </svg>
+            <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.03em', lineHeight: 1 }}>CSV</span>
+          </button>
+          <button
+            onClick={() => setShowImportModal(true)}
+            title="Import"
+            aria-label="Import"
+            style={{
+              padding: '2px',
+              backgroundColor: 'white',
+              color: '#666666',
+              border: '1px solid #666666',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              width: '24px',
+              height: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5f5f5'
+              e.currentTarget.style.borderColor = '#555555'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'white'
+              e.currentTarget.style.borderColor = '#666666'
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="M17 8l-5-5-5 5" />
+              <path d="M12 3v12" />
+            </svg>
+          </button>
           <span style={{ color: '#666', fontSize: '13px', fontWeight: '500' }}>Zoom:</span>
           <button 
             onClick={handleZoomOut}
@@ -2435,7 +2646,7 @@ function FeedbackData() {
             borderRadius: '3px',
             border: '1px solid #e9ecef'
           }}>
-            {zoomLevel === 65 ? '100' : zoomLevel < 65 ? Math.round((zoomLevel / 65) * 100) : zoomLevel}%
+            {zoomLabel}%
           </span>
           <button 
             onClick={handleZoomIn}
@@ -2470,7 +2681,7 @@ function FeedbackData() {
         </div>
       </div>
       
-      <div className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
+      <div ref={containerRef} className="spreadsheet-container" style={{ marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
         <div className="spreadsheet">
           <div className="spreadsheet-content" style={{ zoom: `${zoomLevel / 100}` }}>
             <div className="spreadsheet-header">
@@ -2489,7 +2700,7 @@ function FeedbackData() {
               />
             </div>
             <div className="row-header">
-              {deletedRows[selectedWorkshop].length > 0 && (
+              {!legacy && deletedRows[selectedWorkshop].length > 0 && (
                 <button
                   onClick={handleUndoDelete}
                   style={{
@@ -2693,7 +2904,7 @@ function FeedbackData() {
                     color: selectedRows.includes(rowIndex) ? 'white' : '#000'
                   }}
                 >
-                  {selectedRows.length > 0 && selectedRows.includes(rowIndex) ? (
+                  {!legacy && selectedRows.length > 0 && selectedRows.includes(rowIndex) ? (
                     <button
                       className="delete-button"
                       onClick={(e) => {
@@ -2727,7 +2938,7 @@ function FeedbackData() {
                   return (
                     <div 
                       key={colIndex} 
-                      className={`spreadsheet-cell ${isSelected ? 'selected' : ''}`}
+                      className={`spreadsheet-cell ${isSelected ? 'selected' : ''} ${colIndex === (selectedWorkshop === 'Instructor' ? 9 : 14) ? 'comments-cell' : ''}`}
                       style={{ 
                         width: columnWidths[colIndex],
                         backgroundColor: cellColors.backgroundColor
@@ -2759,106 +2970,6 @@ function FeedbackData() {
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Print, CSV Download, and Import Buttons - Bottom Right */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'flex-end', 
-        marginTop: '10px',
-        marginRight: '20px',
-        gap: '8px'
-      }}>
-        <button 
-          onClick={printTable}
-          style={{ 
-            padding: '4px 8px', 
-            backgroundColor: 'white', 
-            color: '#666666ff', 
-            border: '1px solid #666666ff', 
-            borderRadius: '3px',
-            cursor: 'pointer',
-            fontSize: '11px',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease',
-            gap: '4px',
-            height: '24px'
-          }}
-          title="Print Table"
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#f5f5f5'
-            e.target.style.borderColor = '#555555'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'white'
-            e.target.style.borderColor = '#666666ff'
-          }}
-        >
-          Print
-        </button>
-        <button 
-          onClick={downloadCSV}
-          style={{ 
-            padding: '4px 8px', 
-            backgroundColor: 'white', 
-            color: '#666666ff', 
-            border: '1px solid #666666ff', 
-            borderRadius: '3px',
-            cursor: 'pointer',
-            fontSize: '11px',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease',
-            gap: '4px',
-            height: '24px'
-          }}
-          title="Download CSV"
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#f5f5f5'
-            e.target.style.borderColor = '#555555'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'white'
-            e.target.style.borderColor = '#666666ff'
-          }}
-        >
-          Download CSV
-        </button>
-        <button 
-          onClick={() => setShowImportModal(true)}
-          style={{ 
-            padding: '4px 8px', 
-            backgroundColor: 'white', 
-            color: '#666666ff', 
-            border: '1px solid #666666ff', 
-            borderRadius: '3px',
-            cursor: 'pointer',
-            fontSize: '11px',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease',
-            gap: '4px',
-            height: '24px'
-          }}
-          title="Import Data from Google Sheets"
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#f5f5f5'
-            e.target.style.borderColor = '#555555'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'white'
-            e.target.style.borderColor = '#666666ff'
-          }}
-        >
-          Import
-        </button>
       </div>
       
       {/* Import Modal */}

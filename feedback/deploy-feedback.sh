@@ -18,19 +18,23 @@ SERVICE_FILES="ecosystem.config.cjs feedback.service"
 BACKUP_TS="$(date +%Y%m%d-%H%M%S)"
 LOCAL_DB="database/feedback.db"
 LOCAL_BACKUP_DIR="database/backups"
-REMOTE_DB="$REMOTE_REPO_DIR/database/feedback.db"
+REMOTE_DB_NEW="/var/lib/feedback/feedback.db"
+REMOTE_DB_OLD="$REMOTE_REPO_DIR/database/feedback.db"
 
-# Back up the live database on the remote server before deploying. Uses the
-# SQLite backup API when sqlite3 is available (safe with WAL mode); otherwise
-# falls back to copying the db plus its -wal/-shm files.
+# Back up the live database on the remote server before deploying. The live
+# file may already be outside the repo, or still at the old path until the
+# next process start migrates it. Fail if neither file exists.
 echo "Backing up remote database..."
-ssh "$REMOTE_SERVER" "TS='$BACKUP_TS' DB='$REMOTE_DB' bash -s" << 'EOF' || error_exit "Remote database backup failed."
+ssh "$REMOTE_SERVER" "TS='$BACKUP_TS' NEW='$REMOTE_DB_NEW' OLD='$REMOTE_DB_OLD' bash -s" << 'EOF' || error_exit "Remote database backup failed."
   set -euo pipefail
-  # Store remote backups in the remote user's home folder.
   DIR="$HOME/feedback-backups"
-  if [ ! -f "$DB" ]; then
-    echo "No remote database found at $DB, skipping remote backup."
-    exit 0
+  if [ -f "$NEW" ]; then
+    DB="$NEW"
+  elif [ -f "$OLD" ]; then
+    DB="$OLD"
+  else
+    echo "No live database found at $NEW or $OLD. Refusing to deploy."
+    exit 1
   fi
   mkdir -p "$DIR"
   DEST="$DIR/feedback-$TS.db"
@@ -77,6 +81,12 @@ cp -r $BACKEND_FILES deploy-package/
 cp -r database deploy-package/
 cp -r $SERVICE_FILES deploy-package/
 
+# Never ship a database. The live file stays on the server, outside this package.
+rm -f deploy-package/database/feedback.db \
+  deploy-package/database/feedback.db-wal \
+  deploy-package/database/feedback.db-shm
+rm -rf deploy-package/database/backups
+
 # Sync to remote server
 # IMPORTANT: never overwrite or delete the live SQLite database. The --exclude
 # rules protect the remote feedback.db* files from both being replaced by the
@@ -96,6 +106,10 @@ rm -rf deploy-package
 echo "Installing dependencies and restarting service on remote server..."
 ssh "$REMOTE_SERVER" << EOF
   cd $REMOTE_REPO_DIR
+  if [ ! -f "$REMOTE_DB_NEW" ] && [ ! -f "$REMOTE_DB_OLD" ]; then
+    echo "Live database missing after deploy. Refusing to continue."
+    exit 1
+  fi
   npm install || { echo "npm install failed"; exit 1; }
 #  sudo -n ln -sf $REMOTE_REPO_DIR/feedback.service /etc/systemd/system/ || { echo "Failed to link service file"; exit 1; }
 #  sudo -n systemctl daemon-reload || { echo "Failed to reload systemd"; exit 1; }

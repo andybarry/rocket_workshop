@@ -22,7 +22,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         feedback: './index.html',
-        'feedback-data': './feedback-data.html'
+        'feedback-data': './feedback-data.html',
+        'feedback-legacy': './feedback-legacy.html'
       }
     }
   }

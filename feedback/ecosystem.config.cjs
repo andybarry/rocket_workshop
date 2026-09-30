@@ -12,7 +12,8 @@ module.exports = {
     listen_timeout: 10000,
     env: {
       NODE_ENV: 'production',
-      PORT: 3001
+      PORT: 3001,
+      FEEDBACK_DB_PATH: '/var/lib/feedback/feedback.db'
     },
     error_file: '/home/abarry/feedback/logs/err.log',
     out_file: '/home/abarry/feedback/logs/out.log',

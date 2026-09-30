@@ -161,6 +161,10 @@
   border-color: rgba(255, 255, 255, 0.5);
 }
 
+.header-backup-btn {
+  margin-left: 8px;
+}
+
 /* Settings Modal Styles */
 .settings-modal {
   position: fixed;
@@ -413,7 +417,7 @@ html, body {
 .header-bar {
   background-color: #f05f40ff;
   height: 35px;
-  padding: 0.15rem 2rem;
+  padding: 0.15rem 2rem 0.15rem 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2585,73 +2589,15 @@ html, body {
   background-color: #c9daf8 !important;
 }
 
-/* Comments column - always keep white background regardless of any other styling */
-/* For most workshops: Comments column is at data index 14 (15th data column + 1 for row header = 16th child) */
-.spreadsheet-row .spreadsheet-cell:nth-child(16) {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(16) .cell-input {
-  background-color: white !important;
-}
-
-/* For Instructor workshop: Comments column is at data index 9 (10th data column + 1 for row header = 11th child) */
-.spreadsheet-row .spreadsheet-cell:nth-child(11) {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(11) .cell-input {
-  background-color: white !important;
-}
-
-/* Comments column hover states - keep white */
-.spreadsheet-row:hover .spreadsheet-cell:nth-child(16) {
-  background-color: white !important;
-}
-
-.spreadsheet-row:hover .spreadsheet-cell:nth-child(16) .cell-input {
-  background-color: white !important;
-}
-
-.spreadsheet-row:hover .spreadsheet-cell:nth-child(11) {
-  background-color: white !important;
-}
-
-.spreadsheet-row:hover .spreadsheet-cell:nth-child(11) .cell-input {
-  background-color: white !important;
-}
-
-/* Comments column selected states - keep white */
-.spreadsheet-row .spreadsheet-cell:nth-child(16).selected {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(16).selected .cell-input {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(11).selected {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(11).selected .cell-input {
-  background-color: white !important;
-}
-
-/* Override any inline styles that might be applied to comments columns */
-.spreadsheet-row .spreadsheet-cell:nth-child(16)[style*="background-color"] {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(16)[style*="background-color"] .cell-input {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(11)[style*="background-color"] {
-  background-color: white !important;
-}
-
-.spreadsheet-row .spreadsheet-cell:nth-child(11)[style*="background-color"] .cell-input {
+/* Comments column only. Answer columns keep their green/red and blue colors. */
+.spreadsheet-row .spreadsheet-cell.comments-cell,
+.spreadsheet-row .spreadsheet-cell.comments-cell .cell-input,
+.spreadsheet-row:hover .spreadsheet-cell.comments-cell,
+.spreadsheet-row:hover .spreadsheet-cell.comments-cell .cell-input,
+.spreadsheet-row .spreadsheet-cell.comments-cell.selected,
+.spreadsheet-row .spreadsheet-cell.comments-cell.selected .cell-input,
+.spreadsheet-row .spreadsheet-cell.comments-cell[style*="background-color"],
+.spreadsheet-row .spreadsheet-cell.comments-cell[style*="background-color"] .cell-input {
   background-color: white !important;
 }
 
@@ -4106,4 +4052,63 @@ html, body {
     min-width: fit-content !important;
     gap: 0.5rem !important;
   }
+}
+
+.backup-sheet {
+  background-color: #1a1a1a;
+}
+
+.backup-sheet .spreadsheet-container,
+.backup-sheet .spreadsheet-body {
+  background-color: #121212;
+  border-color: #3a3a3a;
+}
+
+.backup-sheet .spreadsheet-header,
+.backup-sheet .row-header,
+.backup-sheet .row-number,
+.backup-sheet .checkbox-header,
+.backup-sheet .checkbox-cell {
+  background-color: #2a2a2a;
+  color: #f2f2f2;
+  border-color: #3a3a3a;
+}
+
+.backup-sheet .column-header {
+  background-color: #2a2a2a;
+  border-right-color: #3a3a3a;
+}
+
+.sheet-status {
+  color: #9a9a9a;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.refresh-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: refresh-spin 0.7s linear infinite;
+}
+
+@keyframes refresh-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sheet-status-error {
+  color: #c62828;
+}
+
+.backup-sheet .sheet-status {
+  color: #d0d0d0;
+}
+
+.backup-sheet .sheet-status-error {
+  color: #ff8a80;
+}
+
+.backup-sheet .footer-content,
+.backup-sheet .footer-version {
+  color: #bdbdbd;
 }

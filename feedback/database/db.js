@@ -7,9 +7,43 @@ import crypto from 'crypto';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const PRODUCTION_DB_PATH = '/var/lib/feedback/feedback.db';
+
+// Production must open the live file outside the deploy folder. Never create a
+// new empty database over a missing live file. Local dev keeps using the repo db.
+function resolveDatabasePath() {
+  const repoDb = path.join(__dirname, 'feedback.db');
+  const isProduction = process.env.NODE_ENV === 'production';
+  const configured = process.env.FEEDBACK_DB_PATH || (isProduction ? PRODUCTION_DB_PATH : repoDb);
+
+  if (!isProduction && !process.env.FEEDBACK_DB_PATH) {
+    return repoDb;
+  }
+
+  if (fs.existsSync(configured)) {
+    return configured;
+  }
+
+  if (fs.existsSync(repoDb)) {
+    fs.mkdirSync(path.dirname(configured), { recursive: true });
+    fs.copyFileSync(repoDb, configured);
+    for (const suffix of ['-wal', '-shm']) {
+      const side = `${repoDb}${suffix}`;
+      if (fs.existsSync(side)) {
+        fs.copyFileSync(side, `${configured}${suffix}`);
+      }
+    }
+    console.log(`Migrated live database to ${configured}`);
+    return configured;
+  }
+
+  console.error(`Live database not found at ${configured} or ${repoDb}. Refusing to create an empty database.`);
+  process.exit(1);
+}
+
 class FeedbackDB {
   constructor() {
-    this.dbPath = path.join(__dirname, 'feedback.db');
+    this.dbPath = resolveDatabasePath();
     this.db = new Database(this.dbPath);
     this.initializeDatabase();
   }
@@ -27,12 +61,26 @@ class FeedbackDB {
     
     // Initialize passwords
     this.initializePasswords();
+
+    // One-time copy of rows that existed before the legacy table.
+    this.backfillLegacy();
   }
 
   prepareStatements() {
     this.insertStmt = this.db.prepare(`
       INSERT INTO feedback (workshop_type, form_data, timestamp)
       VALUES (?, ?, ?)
+    `);
+
+    this.insertLegacyStmt = this.db.prepare(`
+      INSERT INTO feedback_legacy (source_id, workshop_type, form_data, timestamp)
+      VALUES (?, ?, ?, ?)
+    `);
+
+    this.selectLegacyByWorkshopStmt = this.db.prepare(`
+      SELECT * FROM feedback_legacy
+      WHERE workshop_type = ?
+      ORDER BY timestamp DESC
     `);
     
     this.selectByWorkshopStmt = this.db.prepare(`
@@ -165,10 +213,50 @@ class FeedbackDB {
   }
 
   // Methods for CRUD operations
-  insertFeedback(workshopType, formData) {
+  insertFeedback(workshopType, formData, { skipLegacy = false } = {}) {
     const timestamp = new Date().toISOString();
-    const result = this.insertStmt.run(workshopType, JSON.stringify(formData), timestamp);
-    return { id: result.lastInsertRowid, timestamp };
+    const payload = JSON.stringify(formData);
+    const insertBoth = this.db.transaction(() => {
+      const result = this.insertStmt.run(workshopType, payload, timestamp);
+      if (!skipLegacy) {
+        this.insertLegacyStmt.run(result.lastInsertRowid, workshopType, payload, timestamp);
+      }
+      return { id: result.lastInsertRowid, timestamp };
+    });
+    return insertBoth();
+  }
+
+  // Copy current working rows into legacy once. Later deletes do not remove them.
+  backfillLegacy() {
+    const count = this.db.prepare('SELECT COUNT(*) as count FROM feedback_legacy').get();
+    if (count.count > 0) return;
+
+    const rows = this.db.prepare(
+      'SELECT id, workshop_type, form_data, timestamp FROM feedback'
+    ).all();
+    if (rows.length === 0) return;
+
+    const insert = this.db.prepare(`
+      INSERT INTO feedback_legacy (source_id, workshop_type, form_data, timestamp)
+      VALUES (?, ?, ?, ?)
+    `);
+    const copy = this.db.transaction((items) => {
+      for (const row of items) {
+        insert.run(row.id, row.workshop_type, row.form_data, row.timestamp);
+      }
+    });
+    copy(rows);
+    console.log(`Copied ${rows.length} existing feedback rows into legacy`);
+  }
+
+  getLegacyByWorkshop(workshopType) {
+    const rows = this.selectLegacyByWorkshopStmt.all(workshopType);
+    return rows.map(row => ({
+      id: row.id,
+      sourceId: row.source_id,
+      timestamp: row.timestamp,
+      ...this.normalizeFormData(JSON.parse(row.form_data), row.timestamp)
+    }));
   }
 
   getFeedbackByWorkshop(workshopType) {

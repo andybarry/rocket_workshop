@@ -8,6 +8,6 @@
 
 export const SITE_CONFIG = {
   copyrightYear: 2026,
-  version: 'V26.2',
+  version: 'V26.9',
   companyName: 'Stage One Education, LLC',
 }

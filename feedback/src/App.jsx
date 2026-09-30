@@ -1201,13 +1201,22 @@ function App() {
                 }}
                 title="Feedback Data"
               >
-                <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
-                  <rect x="1.5" y="2.5" width="15" height="13" rx="1.5" fill="#ffffff" stroke="#217346" strokeWidth="1.3"/>
-                  <rect x="1.5" y="2.5" width="15" height="3.3" fill="#217346"/>
-                  <line x1="6.5" y1="2.5" x2="6.5" y2="15.5" stroke="#217346" strokeWidth="1"/>
-                  <line x1="11.5" y1="2.5" x2="11.5" y2="15.5" stroke="#217346" strokeWidth="1"/>
-                  <line x1="1.5" y1="9" x2="16.5" y2="9" stroke="#217346" strokeWidth="1"/>
-                  <line x1="1.5" y1="12.3" x2="16.5" y2="12.3" stroke="#217346" strokeWidth="1"/>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <rect x="4" y="4" width="16" height="16" rx="2" stroke="white" strokeWidth="2"/>
+                  <path d="M4 9h16M4 14h16M10 4v16M15 4v16" stroke="white" strokeWidth="2"/>
+                </svg>
+              </button>
+              <button
+                className="gear-icon-btn header-backup-btn"
+                onClick={() => {
+                  window.open('/feedback-legacy.html', '_blank');
+                }}
+                title="Backup Data"
+                aria-label="Backup Data"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <rect x="5" y="11" width="14" height="10" rx="2" stroke="white" strokeWidth="2"/>
+                  <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </button>
               <button 
@@ -1220,7 +1229,10 @@ function App() {
                 }}
                 title="Settings"
               >
-                🔧
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: 'block' }}>
+                  <circle cx="12" cy="12" r="3" stroke="white" strokeWidth="2"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                </svg>
               </button>
             </>
           )}
