@@ -251,16 +251,20 @@ i18n_key: home
     z-index: 0;
     transform-origin: 100% 50%;
   }
+  .home-room-hero__image--video {
+    object-position: center;
+    animation: homeHeroFadeVideo 70s ease-in-out infinite;
+  }
   .home-room-hero__image--drone {
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeDrone 56s ease-in-out infinite;
+      homeHeroFadeDrone 70s ease-in-out infinite;
   }
   .home-room-hero__image--mechanical {
     object-position: 50% 82%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeMech 56s ease-in-out infinite;
+      homeHeroFadeMech 70s ease-in-out infinite;
   }
   .home-room-hero__image--posters {
     background-color: #f5f5f5;
@@ -270,13 +274,13 @@ i18n_key: home
     background-repeat: no-repeat;
     animation:
       homeHeroPosterScroll 90s linear infinite,
-      homeHeroFadePosters 56s ease-in-out infinite;
+      homeHeroFadePosters 70s ease-in-out infinite;
   }
   .home-room-hero__image--hnn {
     object-position: 50% 40%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeHnn 56s ease-in-out infinite;
+      homeHeroFadeHnn 70s ease-in-out infinite;
   }
   @keyframes homeHeroZoom {
     from { transform: scale(0.94) translate(0, 0); }
@@ -286,24 +290,29 @@ i18n_key: home
     from { background-position: center top; }
     to { background-position: center bottom; }
   }
-  @keyframes homeHeroFadeDrone {
-    0%, 17.857% { opacity: 1; }
-    25%, 92.857% { opacity: 0; }
+  @keyframes homeHeroFadeVideo {
+    0%, 14.286% { opacity: 1; }
+    20%, 94.286% { opacity: 0; }
     100% { opacity: 1; }
   }
+  @keyframes homeHeroFadeDrone {
+    0%, 14.286% { opacity: 0; }
+    20%, 34.286% { opacity: 1; }
+    40%, 100% { opacity: 0; }
+  }
   @keyframes homeHeroFadeMech {
-    0%, 17.857% { opacity: 0; }
-    25%, 42.857% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+    0%, 34.286% { opacity: 0; }
+    40%, 54.286% { opacity: 1; }
+    60%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadePosters {
-    0%, 42.857% { opacity: 0; }
-    50%, 67.857% { opacity: 1; }
-    75%, 100% { opacity: 0; }
+    0%, 54.286% { opacity: 0; }
+    60%, 74.286% { opacity: 1; }
+    80%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadeHnn {
-    0%, 67.857% { opacity: 0; }
-    75%, 92.857% { opacity: 1; }
+    0%, 74.286% { opacity: 0; }
+    80%, 94.286% { opacity: 1; }
     100% { opacity: 0; }
   }
   .home-room-hero__image-overlay {
@@ -317,7 +326,7 @@ i18n_key: home
     pointer-events: none;
     background: rgba(255, 255, 255, 0.16);
     opacity: 0;
-    animation: homeHeroHideOverlayOnDrone 56s ease-in-out infinite;
+    animation: homeHeroHideOverlayOnDrone 70s ease-in-out infinite;
     -webkit-mask-image:
       linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
       linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
@@ -328,9 +337,9 @@ i18n_key: home
     mask-composite: intersect;
   }
   @keyframes homeHeroHideOverlayOnDrone {
-    0%, 17.857% { opacity: 0; }
-    25%, 67.857% { opacity: 1; }
-    75%, 100% { opacity: 0; }
+    0%, 34.286% { opacity: 0; }
+    40%, 74.286% { opacity: 1; }
+    80%, 100% { opacity: 0; }
   }
   .home-room-hero__fade {
     display: block;
@@ -738,6 +747,9 @@ i18n_key: home
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .home-room-hero__image--video {
+      display: none;
+    }
     .home-room-hero__image--drone,
     .home-room-hero__image--mechanical,
     .home-room-hero__image--posters,
@@ -837,13 +849,13 @@ i18n_key: home
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation: homeHeroFadeDrone 56s ease-in-out infinite;
+      animation: homeHeroFadeDrone 70s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__image--mechanical {
       object-fit: cover;
       object-position: 50% 42%;
-      animation: homeHeroFadeMech 56s ease-in-out infinite;
+      animation: homeHeroFadeMech 70s ease-in-out infinite;
     }
     .home-room-hero__image--posters {
       background-color: #ececec;
@@ -852,10 +864,10 @@ i18n_key: home
       background-repeat: no-repeat;
       animation:
         homeHeroPosterScroll 90s linear infinite,
-        homeHeroFadePosters 56s ease-in-out infinite;
+        homeHeroFadePosters 70s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation: homeHeroFadeHnn 56s ease-in-out infinite;
+      animation: homeHeroFadeHnn 70s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__content {
@@ -1550,6 +1562,10 @@ i18n_key: home
     {% include navigation.html %}
 
 <section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
+    <video class="home-room-hero__image home-room-hero__image--video" autoplay loop muted playsinline aria-hidden="true">
+      <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+      <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+    </video>
     <img class="home-room-hero__image home-room-hero__image--drone" src="img/Drone_Hero_BG.jpg" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
     <img class="home-room-hero__image home-room-hero__image--mechanical" src="img/Mechanical-BG.png" alt="" aria-hidden="true">
     <div class="home-room-hero__image home-room-hero__image--posters" aria-hidden="true"></div>

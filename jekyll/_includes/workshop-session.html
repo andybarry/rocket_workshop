@@ -1,229 +1,90 @@
-<body id="page-top" class="workshop-session-page workshop-session-page--{{ include.workshop }}">
+{% case include.workshop %}
+{% when "ai" %}
+  {% include workshops/ai-hero.html session=true %}
+{% when "robotics" %}
+  {% include workshops/robotics-hero.html session=true %}
+{% when "mechanical" %}
+  {% include workshops/mechanical-hero.html session=true %}
+{% endcase %}
+
+{% include discovery/page-footer.html bar_only=true %}
+
 <style>
-    html:has(body.workshop-session-page) {
-        height: auto;
-        min-height: 100%;
-    }
-
-    .workshop-session-page {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        min-height: 100vh;
-        min-height: 100dvh;
-        height: auto;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background: #f5f5f5;
-        color: #434343;
-    }
-
-    .workshop-session-bg {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-        background: #f5f5f5;
-    }
-
-    .workshop-session-bg::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.28);
-        z-index: 1;
-    }
-
-    @keyframes workshopSessionScroll {
-        from { background-position: center top; }
-        to { background-position: center bottom; }
-    }
-
-    .workshop-session-page--ai .workshop-session-bg::before {
-        content: "";
-        position: absolute;
-        inset: -10%;
-        background-image: url("/img/film-poster.webp");
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-        animation: workshopSessionScroll 100s linear infinite;
-        opacity: 0.92;
-    }
-
-    .workshop-session-page--mechanical .workshop-session-video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .workshop-session-main {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
-        padding: 80px 24px 40px;
-        box-sizing: border-box;
-    }
-
-    .workshop-session-card {
-        width: fit-content;
-        min-width: min(96vw, 1040px);
-        max-width: min(96vw, 1280px);
-        padding: 22px 40px 28px;
-        border: 1px solid rgba(67, 67, 67, 0.14);
-        border-radius: 22px;
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow:
-            0 0 28px rgba(67, 67, 67, 0.07),
-            0 10px 24px rgba(67, 67, 67, 0.05);
-        box-sizing: border-box;
-    }
-
-    .workshop-session-card__head {
-        width: 100%;
-        margin: 0 0 36px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #f05f40;
-        text-align: center;
-    }
-
-    .workshop-session-title {
-        width: 100%;
-        margin: 0;
-        font-family: "Roboto", sans-serif;
-        font-size: 40px;
-        font-weight: 800;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-        color: #434343;
-        text-align: center;
-        text-transform: none;
-        white-space: nowrap;
-        cursor: default;
-    }
-
-    .workshop-session-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 32px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .workshop-session-links .glow-text,
-    .workshop-session-links .glow-button {
-        width: max-content;
-        min-width: 320px;
-        max-width: 100%;
-        margin: 0;
-        padding: 11px 28px;
-        box-sizing: border-box;
-        font-size: 22px;
-        text-align: center;
-        text-decoration: none;
-        color: #f05f40;
-        border-color: #f05f40;
-    }
-
-    .workshop-session-links .glow-text:hover,
-    .workshop-session-links .glow-button:hover,
-    .workshop-session-links .glow-text:focus,
-    .workshop-session-links .glow-button:focus {
-        color: #fff;
-        background-color: #f05f40;
-        border-color: #f05f40;
-        text-decoration: none;
-    }
-
-    .workshop-session-page .discovery-page-footer {
-        position: relative;
-        z-index: 3;
-        flex: 0 0 auto;
-        margin-top: auto;
-        background: #fafafa;
-    }
-
-    .workshop-session-page .drone {
-        position: absolute;
-        width: auto;
-        height: 50px;
-        z-index: 0;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-    }
-
-    @keyframes sessionDroneLtr {
-        from { transform: translateX(-180px); }
-        to { transform: translateX(120vw); }
-    }
-    @keyframes sessionDroneRtl {
-        from { transform: translateX(120vw); }
-        to { transform: translateX(-180px); }
-    }
-    @keyframes sessionDroneUp {
-        from { transform: translateY(110vh); }
-        to { transform: translateY(-160px); }
-    }
-    @keyframes sessionDroneDown {
-        from { transform: translateY(-160px); }
-        to { transform: translateY(110vh); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .workshop-session-page--ai .workshop-session-bg::before,
-        .workshop-session-page .drone {
-            animation: none;
-        }
-    }
+  html:has(body.workshop-session-page) {
+    height: 100%;
+    overflow: hidden;
+  }
+  body.cursor-glow-page.workshop-session-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  body.workshop-session-page > .ai-workshop-hero,
+  body.workshop-session-page > .workshop-detail-hero {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  body.workshop-session-page .ai-workshop-hero__center,
+  body.workshop-session-page .workshop-detail-hero__center {
+    inset: 0;
+    padding: var(--session-nav-height, 72px) 16px 56px;
+    box-sizing: border-box;
+  }
+  body.workshop-session-page .ai-workshop-hero__copy,
+  body.workshop-session-page .workshop-detail-hero__copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+  }
+  body.workshop-session-page .workshop-session-card {
+    flex: 0 0 auto;
+    transform: scale(var(--session-content-scale, 1));
+    transform-origin: center;
+  }
+  body.workshop-session-page > .discovery-page-footer {
+    flex: 0 0 auto;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    z-index: 3;
+  }
 </style>
-
-    {% include navigation.html %}
-
-    <div class="workshop-session-bg" aria-hidden="true">
-        {% if include.workshop == "mechanical" %}
-        <video class="workshop-session-video" autoplay loop muted playsinline>
-            <source src="/cad-tutorial/videos/intro-video3.webm" type="video/webm">
-            <source src="/cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
-        </video>
-        {% elsif include.workshop == "robotics" %}
-        <img src="/img/drone.png" class="drone" style="top: 10%; left: -180px; animation: sessionDroneLtr 8s linear infinite;" alt="">
-        <img src="/img/drone.png" class="drone" style="top: 38%; left: -180px; animation: sessionDroneLtr 6s linear infinite;" alt="">
-        <img src="/img/drone.png" class="drone" style="top: 62%; animation: sessionDroneRtl 8s linear infinite;" alt="">
-        <img src="/img/drone.png" class="drone" style="top: 82%; animation: sessionDroneRtl 6s linear infinite;" alt="">
-        <img src="/img/drone.png" class="drone" style="left: 8%; animation: sessionDroneUp 5s linear infinite;" alt="">
-        <img src="/img/drone.png" class="drone" style="left: 78%; animation: sessionDroneDown 4s linear infinite;" alt="">
-        {% endif %}
-    </div>
-
-    <main class="workshop-session-main">
-        <section class="workshop-session-card">
-            <div class="workshop-session-card__head">
-                <h1 class="workshop-session-title">{{ include.title }}</h1>
-            </div>
-            <div class="workshop-session-links">
-                {% if include.workshop == "ai" %}
-                <a href="https://stageoneeducation.com/ai-network/human-neural-network.html" target="_blank" rel="noopener noreferrer" class="glow-text">Human Neural Network</a>
-                <a href="https://ai.stageoneeducation.com/" target="_blank" rel="noopener noreferrer" class="glow-text">ai.stageoneeducation.com</a>
-                <a href="https://ai.stageoneeducation.com/website-workshop/" target="_blank" rel="noopener noreferrer" class="glow-text">ai website</a>
-                <a href="https://input.stageoneeducation.com/artificial-intelligence-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-text">Feedback Survey</a>
-                {% elsif include.workshop == "robotics" %}
-                <a href="https://stageoneeducation.com/drone/?reset=1" target="_blank" rel="noopener noreferrer" class="glow-button">stageoneeducation.com/drone</a>
-                <a href="https://input.stageoneeducation.com/robotics-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
-                {% else %}
-                <a href="/cad-tutorial/portal.html" target="_blank" rel="noopener noreferrer" class="glow-button">Start</a>
-                <a href="https://input.stageoneeducation.com/mechanical-engineering-feedback-survey.html" target="_blank" rel="noopener noreferrer" class="glow-button">Feedback Survey</a>
-                {% endif %}
-            </div>
-        </section>
-    </main>
-
-    {% include discovery/page-footer.html bar_only=true %}
+<script>
+(function () {
+  var card = document.querySelector('.workshop-session-card');
+  var area = card.parentElement;
+  var nav = document.querySelector('.navbar');
+  var scheduled = false;
+  function fit() {
+    scheduled = false;
+    document.body.style.setProperty('--session-nav-height', (nav ? nav.getBoundingClientRect().height : 72) + 'px');
+    var scale = Math.min(1, area.clientWidth / Math.max(card.offsetWidth, card.scrollWidth, 1), area.clientHeight / Math.max(card.offsetHeight, card.scrollHeight, 1));
+    card.style.setProperty('--session-content-scale', scale);
+  }
+  function schedule() {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(fit); }
+  }
+  var observer = new ResizeObserver(schedule);
+  observer.observe(area);
+  observer.observe(card);
+  if (nav) observer.observe(nav);
+  window.addEventListener('resize', schedule);
+  if (document.fonts) document.fonts.ready.then(schedule);
+  schedule();
+})();
+</script>
