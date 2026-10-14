@@ -201,8 +201,6 @@ function App() {
   const checkAuthStatus = async () => {
     const storedSessionId = localStorage.getItem('sessionId')
     const storedExpires = localStorage.getItem('sessionExpires')
-    const storedIsAdmin = localStorage.getItem('isAdmin')
-    const parsedIsAdmin = storedIsAdmin ? JSON.parse(storedIsAdmin) : false
     
     if (!storedSessionId || !storedExpires) {
       setIsCheckingAuth(false)
@@ -1244,7 +1242,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="app feedback-dashboard">
       <header className="header-bar">
         <div className="header-left">
           <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> <span className="header-page-name">Workshop Feedback</span></span>
@@ -1256,7 +1254,7 @@ function App() {
               <button 
                 className="gear-icon-btn"
                 onClick={() => {
-                  window.open('/feedback-data.html', '_blank');
+                  window.location.assign('/feedback-data.html');
                 }}
                 title="Feedback Data"
               >
@@ -1268,7 +1266,7 @@ function App() {
               <button
                 className="gear-icon-btn header-backup-btn"
                 onClick={() => {
-                  window.open('/feedback-legacy.html', '_blank');
+                  window.location.assign('/feedback-legacy.html');
                 }}
                 title="Backup Data"
                 aria-label="Backup Data"
@@ -1295,12 +1293,14 @@ function App() {
               </button>
             </>
           )}
-          <button 
-            className="instructor-feedback-btn"
-            onClick={() => window.open('/instructor-feedback-survey.html', '_blank')}
-          >
-            Instructor Feedback Survey
-          </button>
+          {isAdmin && (
+            <button
+              className="instructor-feedback-btn"
+              onClick={() => window.open('/instructor-feedback-survey.html', '_blank')}
+            >
+              Instructor Feedback Survey
+            </button>
+          )}
           <button 
             className="logout-btn"
             onClick={handleLogout}
@@ -1310,6 +1310,7 @@ function App() {
           </button>
         </div>
       </header>
+      <main className="feedback-scroll-area">
       <div className="specific-feedback-title">
         <div className="dropdown-and-button-wrapper">
           <div className="dropdown-container">
@@ -1384,11 +1385,17 @@ function App() {
             </button>
             <button
               className="print-feedback-btn"
+              aria-label="Print feedback"
               onClick={() => window.print()}
               disabled={!showSpecificFeedback}
               title={showSpecificFeedback ? 'Print the currently displayed feedback' : 'Click "Show Feedback" first to load feedback to print'}
             >
-              Print Feedback
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 9V3h12v6" />
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <path d="M6 14h12v8H6z" />
+                <path d="M18 12h.01" />
+              </svg>
             </button>
           </div>
         </div>
@@ -1525,8 +1532,9 @@ function App() {
           <span className="footer-version">{SITE_CONFIG.version}</span>
         </div>
       </footer>
+      </main>
       
-      {showSettings && (
+      {isAuthenticated && isAdmin && showSettings && (
         <div className="settings-modal">
           <div className="settings-content">
             <div className="settings-header">

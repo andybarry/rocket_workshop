@@ -46,7 +46,7 @@ function Login({ onLogin, adminOnly = false }) {
             <div className="stage-one-text">STAGE ONE EDUCATION</div>
             <div className="workshop-feedback-text">Workshop Feedback</div>
           </div>
-          <p>{adminOnly ? 'Enter the admin password to access backup feedback data' : 'Please enter your password to access the feedback data'}</p>
+          <p>{adminOnly ? 'Enter the admin password to access feedback data' : 'Please enter your password to access the feedback data'}</p>
         </div>
         
         <form onSubmit={handleLogin} className="login-form">

@@ -250,13 +250,41 @@ class FeedbackDB {
   }
 
   getLegacyByWorkshop(workshopType) {
-    const rows = this.selectLegacyByWorkshopStmt.all(workshopType);
+    const rows = this.db.prepare(`
+      SELECT archive.*, working.id IS NULL AS is_deleted
+      FROM feedback_legacy archive
+      LEFT JOIN feedback working ON working.id = archive.source_id
+        AND working.workshop_type = archive.workshop_type
+      WHERE archive.workshop_type = ? ORDER BY archive.timestamp DESC
+    `).all(workshopType);
     return rows.map(row => ({
       id: row.id,
       sourceId: row.source_id,
       timestamp: row.timestamp,
-      ...this.normalizeFormData(JSON.parse(row.form_data), row.timestamp)
+      ...this.normalizeFormData(JSON.parse(row.form_data), row.timestamp),
+      isDeleted: Boolean(row.is_deleted)
     }));
+  }
+
+  restoreLegacyFeedback(workshopType, ids, bySourceId = false) {
+    const find = this.db.prepare(`SELECT * FROM feedback_legacy WHERE ${bySourceId ? 'source_id' : 'id'} = ? AND workshop_type = ?`);
+    const insert = this.db.prepare(`INSERT INTO feedback (id, workshop_type, form_data, timestamp, created_at) VALUES (?, ?, ?, ?, ?)`);
+    const existing = this.db.prepare('SELECT workshop_type FROM feedback WHERE id = ?');
+    return this.db.transaction(() => {
+      let restored = 0;
+      for (const id of new Set(ids)) {
+        const row = find.get(id, workshopType);
+        if (!row || row.source_id == null) throw new Error('Archived row not found');
+        const current = existing.get(row.source_id);
+        if (current) {
+          if (current.workshop_type !== workshopType) throw new Error('Feedback ID conflict');
+          continue;
+        }
+        insert.run(row.source_id, row.workshop_type, row.form_data, row.timestamp, row.created_at);
+        restored++;
+      }
+      return { restored };
+    })();
   }
 
   getFeedbackByWorkshop(workshopType) {

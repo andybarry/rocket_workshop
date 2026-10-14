@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import './App.css'
 import Login from './Login'
+import HoldDeleteButton from './HoldDeleteButton'
 import { SITE_CONFIG } from './config'
 
 function FeedbackData({ legacy = false }) {
@@ -99,13 +100,12 @@ function FeedbackData({ legacy = false }) {
   const [isImporting, setIsImporting] = useState(false)
   const [selectedRows, setSelectedRows] = useState([])
   const [checkedRowIds, setCheckedRowIds] = useState(new Set())
+  const [isDeleting, setIsDeleting] = useState(false)
 
   // Authentication functions
   const checkAuthStatus = async () => {
     const storedSessionId = localStorage.getItem('sessionId')
     const storedExpires = localStorage.getItem('sessionExpires')
-    const storedIsAdmin = localStorage.getItem('isAdmin')
-    const parsedIsAdmin = storedIsAdmin ? JSON.parse(storedIsAdmin) : false
     
     if (!storedSessionId || !storedExpires) {
       setIsCheckingAuth(false)
@@ -129,7 +129,8 @@ function FeedbackData({ legacy = false }) {
       
       if (response.ok) {
         const data = await response.json()
-        if (legacy && !data.isAdmin) {
+        if (!data.isAdmin) {
+          window.location.replace('/feedback')
           return
         }
         setIsAuthenticated(true)
@@ -151,7 +152,8 @@ function FeedbackData({ legacy = false }) {
   }
 
   const handleLogin = (newSessionId, newIsAdmin) => {
-    if (legacy && !newIsAdmin) {
+    if (!newIsAdmin) {
+      window.location.replace('/feedback')
       return
     }
     setIsAuthenticated(true)
@@ -990,6 +992,7 @@ function FeedbackData({ legacy = false }) {
 
   // Fetch feedback data from backend
   const fetchFeedbackData = async () => {
+    if (!isAuthenticated || !isAdmin) return
     try {
       setLoading(true)
       console.log('Fetching data for workshop:', selectedWorkshop)
@@ -1047,12 +1050,14 @@ function FeedbackData({ legacy = false }) {
 
   useEffect(() => {
     // Only fetch data if authenticated and not checking auth
-    if (isAuthenticated && !isCheckingAuth) {
+    if (isAuthenticated && isAdmin && !isCheckingAuth) {
       fetchFeedbackData()
     }
 
     // Reset the "Show feedback" checkbox selection when switching workshops
     setCheckedRowIds(new Set())
+    setSelectedRows([])
+    setDeleteRowIndex(null)
     
     // Adjust column widths based on workshop type
     if (selectedWorkshop === 'Instructor') {
@@ -1070,7 +1075,7 @@ function FeedbackData({ legacy = false }) {
       setColumnWidths(widths)
       setOriginalColumnWidths([...widths]) // Store original widths
     }
-  }, [isAuthenticated, isCheckingAuth, selectedWorkshop])
+  }, [isAuthenticated, isAdmin, isCheckingAuth, selectedWorkshop])
 
   // Send the checked responses to the /feedback dashboard for graphing
   const handleShowSelectedFeedback = () => {
@@ -1535,104 +1540,41 @@ function FeedbackData({ legacy = false }) {
     }
   }
 
-  const handleUndoDelete = async () => {
-    const currentWorkshopDeletedRows = deletedRows[selectedWorkshop]
-    
-    if (currentWorkshopDeletedRows.length === 0) {
-      alert('No deleted rows to restore')
-      return
-    }
-
-    // Get the most recently deleted row (last in the array)
-    const deletedRow = currentWorkshopDeletedRows[currentWorkshopDeletedRows.length - 1]
-
+  const restoreRows = async (selection) => {
+    if (!isAdmin || isDeleting) return false
+    setIsDeleting(true)
     try {
-      // Submit the deleted row back to the backend
-      const endpoints = [
-        '/api/feedback'
-      ]
-      
-      let response = null
-      for (const endpoint of endpoints) {
-        try {
-          console.log('Trying restore endpoint:', endpoint)
-          response = await apiRequest(endpoint, {
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify({
-              workshopType: selectedWorkshop,
-              feedbackData: deletedRow.data,
-              skipLegacy: true
-            })
-          })
-          if (response.ok) {
-            console.log('Success with restore endpoint:', endpoint)
-            break
-          }
-        } catch (err) {
-          console.log('Failed with restore endpoint:', endpoint, err.message)
-          continue
-        }
+      const response = await apiRequest(`/api/feedback-legacy/${selectedWorkshop}/restore`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selection)
+      })
+      if (!response.ok) {
+        const result = await response.json()
+        throw new Error(result.error || 'Could not restore selected rows')
       }
-
-      if (response && response.ok) {
-        // Refresh the data from backend to get the updated state
-        const fetchFeedbackData = async () => {
-          try {
-            setLoading(true)
-            const endpoints = [
-              `/api/${legacy ? 'feedback-legacy' : 'feedback'}/${selectedWorkshop}`
-            ]
-            
-            let response = null
-            for (const endpoint of endpoints) {
-              try {
-          response = await apiRequest(endpoint, {
-            method: 'GET',
-            mode: 'cors'
-          })
-                if (response.ok) {
-                  break
-                }
-              } catch (err) {
-                continue
-              }
-            }
-            
-            if (response && response.ok) {
-              const data = await response.json()
-              setFeedbackData(data)
-              setError(null)
-            }
-          } catch (err) {
-            console.error('Error refreshing data:', err)
-          } finally {
-            setLoading(false)
-          }
-        }
-
-        await fetchFeedbackData()
-
-        // Remove the restored row from the deleted rows history for this workshop
-        setDeletedRows(prev => ({
-          ...prev,
-          [selectedWorkshop]: prev[selectedWorkshop].slice(0, -1)
-        }))
-        
-        console.log('Successfully restored deleted row')
-      } else {
-        console.error('Failed to restore feedback')
-        alert('Failed to restore feedback. Please try again.')
-      }
+      setCheckedRowIds(new Set())
+      await fetchFeedbackData()
+      return true
     } catch (err) {
-      console.error('Error restoring row:', err)
-      alert(`Error restoring row: ${err.message}`)
+      alert(err.message)
+      return false
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  const handleUndoDelete = async () => {
+    if (legacy || isDeleting) return
+    const row = deletedRows[selectedWorkshop].at(-1)
+    if (row && await restoreRows({ sourceIds: [row.data.id] })) {
+      setDeletedRows(prev => ({ ...prev, [selectedWorkshop]: prev[selectedWorkshop].slice(0, -1) }))
     }
   }
 
   // Handle row selection for multi-row delete
   const handleRowClick = (rowIndex, event) => {
-    if (legacy) return
+    if (legacy || isDeleting) return
     if (event.detail === 2) { // Double click
       if (selectedRows.length === 0) {
         // First selection - just select this row
@@ -1670,10 +1612,12 @@ function FeedbackData({ legacy = false }) {
   }
 
   // Handle multi-row delete
-  const handleMultiRowDelete = async () => {
-    if (selectedRows.length === 0) return
+  const handleMultiRowDelete = async (rows = selectedRows) => {
+    if (legacy || !isAdmin || isDeleting || rows.length === 0) return
     
-    const sortedRows = [...selectedRows].sort((a, b) => a - b)
+    const sortedRows = [...rows].sort((a, b) => a - b)
+    const deletedIds = new Set()
+    setIsDeleting(true)
     
     try {
       // Delete rows in reverse order to maintain indices
@@ -1709,6 +1653,7 @@ function FeedbackData({ legacy = false }) {
         }
         
         if (response && response.ok) {
+          deletedIds.add(feedbackToDelete.id)
           // Store deleted row for undo
           setDeletedRows(prev => ({
             ...prev,
@@ -1717,18 +1662,25 @@ function FeedbackData({ legacy = false }) {
               originalIndex: rowIndex
             }]
           }))
+        } else {
+          throw new Error(`Could not delete a row${response ? ` (${response.status})` : ''}. Please try again.`)
         }
       }
       
       // Clear selection and refresh data
       setSelectedRows([])
       setDeleteRowIndex(null)
-      await fetchFeedbackData()
       
       console.log(`Successfully deleted ${sortedRows.length} row(s)!`)
     } catch (err) {
       console.error('Error deleting rows:', err)
-      alert(`Error deleting rows: ${err.message}`)
+      alert(`${deletedIds.size} of ${sortedRows.length} rows deleted. ${err.message}`)
+    } finally {
+      setCheckedRowIds(prev => new Set([...prev].filter(id => !deletedIds.has(id))))
+      setSelectedRows([])
+      setDeleteRowIndex(null)
+      await fetchFeedbackData()
+      setIsDeleting(false)
     }
   }
 
@@ -2338,18 +2290,12 @@ function FeedbackData({ legacy = false }) {
   }
 
   // Show login component if not authenticated
-  if (!isAuthenticated) {
-    return <Login onLogin={handleLogin} adminOnly={legacy} />
-  }
-
-  // Redirect standard users to main feedback page
-  if (!isAdmin) {
-    window.location.href = '/';
-    return <div>Redirecting to main feedback page...</div>
+  if (!isAuthenticated || !isAdmin) {
+    return <Login onLogin={handleLogin} adminOnly />
   }
 
   return (
-    <div className={`app${legacy ? ' backup-sheet' : ''}`} onKeyDown={handleKeyDown} tabIndex={0}>
+    <div className={`app data-sheet${legacy ? ' backup-sheet' : ''}`} onKeyDown={handleKeyDown} tabIndex={0}>
       <header className="header-bar">
         <div className="header-left">
           <span><strong>STAGE ONE EDUCATION</strong> <span className="header-separator">|</span> <span className="header-page-name">{legacy ? 'Backup Feedback Data' : 'Workshop Feedback Data'}</span></span>
@@ -2361,7 +2307,7 @@ function FeedbackData({ legacy = false }) {
               <button 
                 className="gear-icon-btn"
                 onClick={() => {
-                  window.open('/', '_blank');
+                  window.location.assign('/feedback');
                 }}
                 title="Feedback Dashboard"
                 aria-label="Feedback Dashboard"
@@ -2373,7 +2319,7 @@ function FeedbackData({ legacy = false }) {
               <button
                 className="gear-icon-btn header-backup-btn"
                 onClick={() => {
-                  window.open(legacy ? '/feedback-data.html' : '/feedback-legacy.html', '_blank');
+                  window.location.assign(legacy ? '/feedback-data.html' : '/feedback-legacy.html');
                 }}
                 title={legacy ? 'Feedback Data' : 'Backup Data'}
                 aria-label={legacy ? 'Feedback Data' : 'Backup Data'}
@@ -2423,6 +2369,7 @@ function FeedbackData({ legacy = false }) {
           <select 
             className="workshop-dropdown"
             value={selectedWorkshop}
+            disabled={isDeleting}
             onChange={(e) => setSelectedWorkshop(e.target.value)}
           >
             <option value="AI">Artificial Intelligence Workshop</option>
@@ -2496,6 +2443,25 @@ function FeedbackData({ legacy = false }) {
             }}>
               {selectedRows.length} row{selectedRows.length > 1 ? 's' : ''} selected
             </span>
+          )}
+          {legacy && sortedFeedbackData.some(row => checkedRowIds.has(row.id) && row.isDeleted) && (
+            <HoldDeleteButton
+              key={selectedWorkshop + ':restore:' + [...checkedRowIds].join(',') + ':' + isDeleting}
+              restore
+              count={sortedFeedbackData.filter(row => checkedRowIds.has(row.id) && row.isDeleted).length}
+              disabled={isDeleting || loading}
+              onConfirm={() => restoreRows({ ids: sortedFeedbackData.filter(row => checkedRowIds.has(row.id) && row.isDeleted).map(row => row.id) })}
+            />
+          )}
+          {!legacy && (checkedRowIds.size > 0 || selectedRows.length > 0) && (
+            <HoldDeleteButton
+              key={selectedWorkshop + ':' + [...checkedRowIds].join(',') + ':' + selectedRows.join(',') + ':' + isDeleting}
+              count={checkedRowIds.size || selectedRows.length}
+              disabled={isDeleting || loading}
+              onConfirm={() => handleMultiRowDelete(checkedRowIds.size > 0
+                ? sortedFeedbackData.flatMap((row, index) => checkedRowIds.has(row.id) ? [index] : [])
+                : [...selectedRows])}
+            />
           )}
           {checkedRowIds.size > 0 && selectedWorkshop !== 'Instructor' && (
             <button
@@ -2666,6 +2632,7 @@ function FeedbackData({ legacy = false }) {
               padding: '0 4px',
               backgroundColor: 'white',
               borderTop: '1px solid #666666',
+              borderLeft: '1px solid #666666',
               borderBottom: '1px solid #666666'
             }}>
               {zoomLabel}%
@@ -2731,6 +2698,8 @@ function FeedbackData({ legacy = false }) {
               <input
                 type="checkbox"
                 title="Select all"
+                aria-label="Select all rows"
+                disabled={isDeleting || loading}
                 checked={sortedFeedbackData.length > 0 && checkedRowIds.size === sortedFeedbackData.length}
                 onChange={(e) => {
                   if (e.target.checked) {
@@ -2911,7 +2880,7 @@ function FeedbackData({ legacy = false }) {
               return (
               <div 
                 key={rowIndex} 
-                className="spreadsheet-row"
+                className={`spreadsheet-row${legacy && sortedFeedbackData[rowIndex]?.isDeleted ? ' legacy-deleted-row' : ''}`}
                 onClick={(e) => handleRowClick(rowIndex, e)}
                 style={{
                   backgroundColor: selectedRows.includes(rowIndex) ? '#e3f2fd' : 'transparent',
@@ -2921,6 +2890,8 @@ function FeedbackData({ legacy = false }) {
                 <div className="checkbox-cell" onClick={(e) => e.stopPropagation()}>
                   <input
                     type="checkbox"
+                    aria-label={`Select row ${rowIndex + 1}`}
+                    disabled={isDeleting || loading}
                     checked={checkedRowIds.has(sortedFeedbackData[rowIndex]?.id)}
                     onChange={() => {
                       const id = sortedFeedbackData[rowIndex]?.id
@@ -2946,30 +2917,7 @@ function FeedbackData({ legacy = false }) {
                     color: selectedRows.includes(rowIndex) ? 'white' : '#000'
                   }}
                 >
-                  {!legacy && selectedRows.length > 0 && selectedRows.includes(rowIndex) ? (
-                    <button
-                      className="delete-button"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleMultiRowDelete()
-                      }}
-                      style={{
-                        background: '#ff4444',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '3px',
-                        padding: '2px 6px',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      Delete
-                    </button>
-                  ) : (
-                    rowIndex + 1
-                  )}
+                  {rowIndex + 1}
                 </div>
                 {Array.from({ length: selectedWorkshop === 'Instructor' ? 10 : 15 }, (_, colIndex) => {
                   const cellId = `${rowIndex}-${colIndex}`
@@ -3269,7 +3217,7 @@ function FeedbackData({ legacy = false }) {
         </div>
       </footer>
       
-      {showSettings && (
+      {isAuthenticated && isAdmin && showSettings && (
         <div className="settings-modal">
           <div className="settings-content">
             <div className="settings-header">

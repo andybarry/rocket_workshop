@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import SurveySuccess from './SurveySuccess'
 import { SITE_CONFIG } from './config'
 
 function AIFeedbackSurvey() {
@@ -98,20 +99,8 @@ function AIFeedbackSurvey() {
   }
 
   if (submitted) {
-    // Simple fade transition to Stage One Education website after 5 seconds
-    setTimeout(() => {
-      // Add fade out effect to current page
-      document.body.style.transition = 'opacity 1s ease-in-out'
-      document.body.style.opacity = '0'
-      
-      // Redirect after fade completes
-      setTimeout(() => {
-        window.location.href = 'https://stageoneeducation.com/index.html'
-      }, 1000)
-    }, 5000)
-
     return (
-      <div className="app">
+      <div className="app survey-thank-you-page">
         <header className="header-bar">
           <div className="header-left">
             <span><strong>STAGE ONE EDUCATION</strong><span className="header-separator"> | </span><span className="survey-name">Artificial Intelligence Workshop Survey</span></span>
@@ -121,10 +110,11 @@ function AIFeedbackSurvey() {
         </header>
         
         <main className="main-content">
-          <div className="success-message">
-            <h2>Thank You!</h2>
-            <p>Your feedback has been submitted successfully. We appreciate your input!</p>
-          </div>
+          <SurveySuccess onRetake={() => {
+            setFormData(previous => Object.fromEntries(Object.keys(previous).map(key => [key, ''])))
+            setSubmitted(false)
+            window.scrollTo(0, 0)
+          }} />
         </main>
         
         <footer className="footer">

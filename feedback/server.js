@@ -374,6 +374,22 @@ app.get('/api/feedback-legacy/:workshopType', authenticate, requireAdmin, async 
   }
 });
 
+// Restore working rows from immutable archive copies (admin only).
+app.post('/api/feedback-legacy/:workshopType/restore', authenticate, requireAdmin, (req, res) => {
+  const { ids, sourceIds } = req.body;
+  const selected = ids ?? sourceIds;
+  if ((ids && sourceIds) || !Array.isArray(selected) || selected.length === 0 ||
+      selected.length > 10000 || !selected.every(id => Number.isSafeInteger(id) && id > 0)) {
+    return res.status(400).json({ error: 'Select valid archived rows to restore' });
+  }
+  try {
+    const result = feedbackDB.restoreLegacyFeedback(req.params.workshopType, selected, !ids);
+    res.json({ success: true, ...result });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // Get feedback for specific workshop type (accessible to both standard and admin users)
 app.get('/api/feedback/:workshopType', authenticate, async (req, res) => {
   try {
