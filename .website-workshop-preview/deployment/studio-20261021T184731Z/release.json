@@ -1,0 +1,144 @@
+{
+  "releaseId": "studio-20261021T184731Z",
+  "createdAt": "2026-10-21T18:47:34.463Z",
+  "renamed": {
+    "website-workshop": {
+      "from": "assets/index-fkdtBi_i.js",
+      "to": "assets/index-e18a7712c7de11b5.js"
+    },
+    "manage-servers": {
+      "from": "static/js/main.7e1f137c.js",
+      "to": "static/js/main.6f49073a2a7303e0.js"
+    }
+  },
+  "files": [
+    {
+      "path": "manage-servers/favicon.ico",
+      "sha256": "af3a48fa8b9a4b7c83f527d465eca935664814a00b7f35ab0c13383ab897c871"
+    },
+    {
+      "path": "manage-servers/index.html",
+      "sha256": "6477e1e35c5d15c66e2f8c371b077a493dd23d57aadf0510a0bd3b1e5ca1d3ad"
+    },
+    {
+      "path": "manage-servers/logo192.png",
+      "sha256": "c386396ec70db3608075b5fbfaac4ab1ccaa86ba05a68ab393ec551eb66c3e00"
+    },
+    {
+      "path": "manage-servers/manifest.json",
+      "sha256": "33fdb99cc2cd3ad8e1815b18b7005eb3f58048990d80ee7c73aed28ab69a4e19"
+    },
+    {
+      "path": "manage-servers/static/css/main.e1c75f94.css",
+      "sha256": "c68bfdc7357192f7ea2d9fcbf7ed5f7323214be828633f422c2aa9806c2b3927"
+    },
+    {
+      "path": "manage-servers/static/js/main.6f49073a2a7303e0.js",
+      "sha256": "6f49073a2a7303e0c9fd93e3e2e264009032d081a0bff20bc3f57800adc486de"
+    },
+    {
+      "path": "manage-servers/static/media/browser.bc45086b50f89c37eb15.cjs",
+      "sha256": "54e911d1eb056e7516f34c7d35f97e7a64632d2e51f6b0076a079591fa610707"
+    },
+    {
+      "path": "manage-servers/static/media/index.f2e6f029457aeeccdaa5.cjs",
+      "sha256": "9b13f41b3d05b7dddf266c119856b800526d7d99466c1d860448b867564a685d"
+    },
+    {
+      "path": "website-workshop/apple-touch-icon.png",
+      "sha256": "57597c5c3b64b73ff4f81cd054dd9d62186a586aacb5593cea9fe06248549d80"
+    },
+    {
+      "path": "website-workshop/assets/html2canvas.esm-QH1iLAAe.js",
+      "sha256": "061c08e50c0dc57b8d5e6531f0b8237a52a68b233260d49ab2f2c2906ad112c4"
+    },
+    {
+      "path": "website-workshop/assets/index-DZ8Uda5V.css",
+      "sha256": "6eca6900ff6b5ee8bf2146e97cd7f271bbf771bc5673c6cfcb75ab35c8336193"
+    },
+    {
+      "path": "website-workshop/assets/index-e18a7712c7de11b5.js",
+      "sha256": "e18a7712c7de11b545bf5e5e11c5e3efd0297b5bf8c2ccab1e228ae9a6109cc1"
+    },
+    {
+      "path": "website-workshop/drawing-phone.js",
+      "sha256": "0300b31f1e969a628d3cb042fe4fcbb2da2082b73928a2baa5b8ea5e05ebe78e"
+    },
+    {
+      "path": "website-workshop/drawing-studio.js",
+      "sha256": "29e012f2bbde42fd655dbebdf8c9a88ac36db5fb4c2cf477913320325502698f"
+    },
+    {
+      "path": "website-workshop/editor-split.js",
+      "sha256": "c8031acae9dec2070d8caf270dccb39faa6ebd148ab83468feff3c63412648b1"
+    },
+    {
+      "path": "website-workshop/favicon-16x16.png",
+      "sha256": "97e75f72e1540f4d1456340f10ba7d9f7dff36904437129e135ac675a78541b6"
+    },
+    {
+      "path": "website-workshop/favicon-32x32.png",
+      "sha256": "ee7eb68e5bbbc30e28b433fcc504dda0b6144c029fd6c6be4d737b19ec3e3f7a"
+    },
+    {
+      "path": "website-workshop/favicon.ico",
+      "sha256": "af3a48fa8b9a4b7c83f527d465eca935664814a00b7f35ab0c13383ab897c871"
+    },
+    {
+      "path": "website-workshop/image-summary.svg",
+      "sha256": "f451440269a88f44b6c0f04b49f981f8482b41ab6845528d162ff9e7192b2996"
+    },
+    {
+      "path": "website-workshop/index.html",
+      "sha256": "fbb6499d9747cf819368f7077c3b6f6b19d1a4e8dc4dcf97454b3c65641e5397"
+    },
+    {
+      "path": "website-workshop/local-overrides.css",
+      "sha256": "098aa73aaf94b6f081429a9ef3a40ed129d41347ecfbf33277d6756e742d268d"
+    },
+    {
+      "path": "website-workshop/panel-layout.js",
+      "sha256": "e2cbc64f7fd77a9cc8c6666fdad88168d17bbe96187b3259c6b533b2cbcb6c7b"
+    },
+    {
+      "path": "website-workshop/panel-order.js",
+      "sha256": "e6092897aa657477b82586ae7b628e299075ae3ceaf378a239a078b5e297be4a"
+    },
+    {
+      "path": "website-workshop/panel-resize.js",
+      "sha256": "f717e6b261693ea008c7b4fff9020c135660ceac6944dc2a502c982f3f44d155"
+    },
+    {
+      "path": "website-workshop/phone-sketch.html",
+      "sha256": "e56d394ec614e48a01909209b1d1d142ac858c374b5902d5372912706642af8f"
+    },
+    {
+      "path": "website-workshop/phone-sketch.js",
+      "sha256": "9db457835246d161d97eab04441b6cba4848c3daff74c3486950febbef01370d"
+    },
+    {
+      "path": "website-workshop/preview-navigation.js",
+      "sha256": "f71a958b8dd3f0b54f7c6c0dabb1e196457640cfafe8d365bf38ecf290c64c8e"
+    },
+    {
+      "path": "website-workshop/preview-safety.js",
+      "sha256": "ffe85e6e595150f65377f967728a89cd1e0ebdd4a3d03595a79bed30b417822b"
+    },
+    {
+      "path": "website-workshop/prompt-image.js",
+      "sha256": "0912cc3b134e0e2d1536640acc266a7d3964b815241a4833683226c01e54d040"
+    },
+    {
+      "path": "website-workshop/studio-bootstrap.js",
+      "sha256": "c091dd5f61d33ddf1ac90a9b0fc21d4b812ab850414ff1f3d066eb59c9beed76"
+    },
+    {
+      "path": "website-workshop/voice-summary.svg",
+      "sha256": "d989262a892a71ecf7c44af91b339ffb40b51e5ddb111df25b2ebc512abe6eae"
+    },
+    {
+      "path": "website-workshop/website-summary.svg",
+      "sha256": "8a73abdc49d9f931ba25f215f68634be801a48c602c9e3eefe68cab5696ea476"
+    }
+  ]
+}

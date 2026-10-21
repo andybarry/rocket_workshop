@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isolated panel controls regression</title>
+  <link rel="stylesheet" href="/website-workshop/local-overrides.css">
+  <style>
+    body{margin:0;background:#f8f9fa;font:16px system-ui;color:#26313f}
+    #test-actions{padding:16px;display:flex;gap:12px;align-items:center}
+    .ide-body{display:flex;align-items:stretch;height:520px;padding:8px;box-sizing:border-box}
+    .ide-body>section{background:white;border:2px solid #bcc4cf;border-radius:10px;overflow:hidden;box-sizing:border-box;flex-shrink:0}
+    .ide-body .task-rail{width:70px;min-width:70px}
+    .ide-body .studio-workspace{width:240px;min-width:150px}
+    .ide-body .workspace-code{width:90px;min-width:90px}
+    .ide-body .workspace-code.is-expanded{width:300px;min-width:240px}
+    .ide-body .preview-panel{min-width:200px;flex:1}
+    h2,.workspace-code-heading,.preview-toolbar{font:600 15px system-ui;box-sizing:border-box;margin:0;width:100%;height:38px;padding:8px 12px;border:0;background:#d1d6dd;text-align:left}
+    .content{padding:20px 12px;overflow:hidden}
+  </style>
+</head>
+<body>
+  <div id="test-actions"><strong>Panel controls regression (no student session)</strong><button id="toggle-code">Toggle code expansion</button><button id="restore">Restore saved layout</button></div>
+  <div id="root"><div class="ide-body">
+    <section class="task-rail"><h2>Learn</h2><div class="content">Lessons</div></section>
+    <section class="studio-workspace"><h2 class="studio-create-heading">Create</h2><div class="content">Drawing and prompts</div></section>
+    <section class="workspace-code"><button class="workspace-code-heading">Code</button><div class="content">Files</div></section>
+    <section class="preview-panel"><div class="preview-toolbar">Live Preview</div><div class="content">Website preview</div></section>
+  </div></div>
+  <script>
+    const savedOrder = localStorage.getItem('website-workshop.panel-order.v1');
+    document.getElementById('restore').onclick = () => {
+      if (savedOrder === null) localStorage.removeItem('website-workshop.panel-order.v1');
+      else localStorage.setItem('website-workshop.panel-order.v1', savedOrder);
+      location.reload();
+    };
+    document.getElementById('toggle-code').onclick = () => {
+      const code = document.querySelector('.workspace-code');
+      code.classList.toggle('is-expanded');
+      code.style.removeProperty('width');
+    };
+    window.addEventListener('workshop-panel-resize', event => {
+      document.querySelector('.workspace-code').style.width = event.detail.width + 'px';
+    });
+  </script>
+  <script type="module" src="/website-workshop/panel-layout.js"></script>
+  <script type="module" src="/website-workshop/panel-resize.js"></script>
+</body>
+</html>

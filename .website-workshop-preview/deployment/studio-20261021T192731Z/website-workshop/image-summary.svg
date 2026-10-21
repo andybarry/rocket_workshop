@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none">
+  <defs>
+    <linearGradient id="paper" x1="30" y1="28" x2="112" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#F1ECFF"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="12" width="152" height="108" filterUnits="userSpaceOnUse">
+      <feDropShadow dy="5" stdDeviation="5" flood-color="#765AEE" flood-opacity=".2"/>
+    </filter>
+  </defs>
+  <ellipse cx="77" cy="75" rx="65" ry="38" fill="#E4DAFF" fill-opacity=".7"/>
+  <g filter="url(#shadow)">
+    <rect x="13" y="27" width="79" height="73" rx="7" transform="rotate(-11 13 27)" fill="#CDBAFF"/>
+    <rect x="55" y="24" width="79" height="73" rx="7" transform="rotate(13 55 24)" fill="#DCCEFF"/>
+    <rect x="30" y="28" width="84" height="77" rx="8" fill="url(#paper)"/>
+    <rect x="36" y="34" width="72" height="65" rx="5" fill="#E6DDFF"/>
+    <circle cx="91" cy="48" r="6" fill="#FFB84D"/>
+    <path d="m36 80 21-24a5 5 0 0 1 8 0l32 43H41a5 5 0 0 1-5-5V80Z" fill="#9F83FC"/>
+    <path d="m61 99 22-28a5 5 0 0 1 8 0l17 21v2a5 5 0 0 1-5 5H61Z" fill="#765AEE"/>
+  </g>
+  <path d="m142 9 3.5 8 8 3.5-8 3.5-3.5 8-3.5-8-8-3.5 8-3.5Z" fill="#765AEE"/>
+  <path d="m126 12 1.5 3.5L131 17l-3.5 1.5L126 22l-1.5-3.5L121 17l3.5-1.5Z" fill="#9F83FC"/>
+  <path d="m150 36 1.5 3.5L155 41l-3.5 1.5L150 46l-1.5-3.5L145 41l3.5-1.5Z" fill="#B59DFD"/>
+</svg>

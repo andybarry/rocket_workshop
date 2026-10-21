@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Preview navigation regression checks</title>
+<style>body{font:15px system-ui;margin:24px;color:#243047}iframe{width:100%;height:440px;border:1px solid #aaa}button{padding:10px;margin:0 8px 12px 0}#results{white-space:pre-wrap}input{padding:6px}</style></head>
+<body>
+<h1>Preview navigation regression checks</h1>
+<button id="run">Run regression checks</button>
+<button id="load">Load interactive fixture</button>
+<pre id="results">Ready</pre>
+<iframe class="preview-iframe" title="Test Live Preview" sandbox="allow-scripts allow-modals allow-same-origin allow-popups"></iframe>
+<script type="module">
+import { compilePreview } from './compiler.fixture.js';
+import { writePreviewDocument } from '../website-workshop/preview-safety.js';
+const frame = document.querySelector('iframe'), results = document.querySelector('#results');
+let loads = 0;
+frame.addEventListener('load', () => loads++);
+const source = `
+import { useState } from "react";
+export default function App() {
+  const [count,setCount]=useState(0);
+  return <main id="top">
+    <h1>Student website</h1>
+    <input aria-label="Keep this text" defaultValue="Unsaved student input"/>
+    <p>Menu actions: <span id="count">{count}</span></p>
+    <a href="#studio" onClick={()=>setCount(c=>c+1)}>Enter the studio</a>
+    <p><a id="custom-link" href="#studio" onClick={event=>event.preventDefault()}>Custom handled link</a></p>
+    <p><a href="#%73tudio">Encoded studio link</a> · <a href="#missing">Missing section</a> · <a href="#%zz">Malformed fragment</a> · <a href="#">Top</a></p>
+    <button onClick={()=>window.location.assign("/website-workshop/#studio")}>Try studio redirect</button>
+    <button onClick={()=>window.location.replace("/website-workshop/#studio")}>Try studio replace</button>
+    <div style={{height:600}}>Page content</div>
+    <section id="studio"><h2>Studio section</h2><a href="#top">Back to top</a></section>
+    <div style={{height:600}} />
+  </main>
+}`;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function until(check) {
+  for (let i=0;i<100;i++) { if (check()) return; await wait(100); }
+  throw new Error('Timed out waiting for preview');
+}
+function check(condition, label) {
+  if (!condition) throw new Error(label);
+  results.textContent += '\nPASS: '+label;
+}
+async function load() {
+  const compiled = compilePreview({'App.jsx':source}, {}, { inspectorSession: 'regression-inspector' });
+  if(compiled.error) throw new Error(compiled.error);
+  writePreviewDocument(frame, compiled.html, message => results.textContent += '\nRECOVERY: '+message);
+  await until(()=>frame.contentDocument?.querySelector('#studio'));
+}
+document.querySelector('#load').onclick=()=>load();
+document.querySelector('#run').onclick=async()=>{
+  results.textContent='Running…';
+  try {
+    await load();
+    const doc=frame.contentDocument, originalLoads=loads;
+    for(let i=0;i<3;i++) {
+      doc.querySelector('[href="#studio"]').click();
+      await wait(150);
+      check(frame.contentDocument===doc && doc.querySelector('#studio').getBoundingClientRect().top<5, 'hash click '+(i+1)+' scrolls without replacing the document');
+      doc.querySelector('[href="#top"]').click();
+      await wait(100);
+    }
+    check(doc.querySelector('#count').textContent==='3','student click handlers still run');
+    check(doc.querySelector('input').value==='Unsaved student input','student input stays intact');
+    doc.querySelector('#custom-link').click();
+    await wait(100);
+    check(frame.contentWindow.scrollY===0,'custom preventDefault still prevents scrolling');
+    frame.contentWindow.postMessage({type:'workshop-inspector-mode',session:'regression-inspector',enabled:true},'*');
+    await wait(100);
+    doc.querySelector('[href="#studio"]').click();
+    await wait(100);
+    check(frame.contentWindow.scrollY===0 && doc.querySelector('#count').textContent==='3' && doc.querySelector('[data-workshop-highlight]').style.display==='block','inspection selects without scrolling or running student click handlers');
+    frame.contentWindow.postMessage({type:'workshop-inspector-mode',session:'regression-inspector',enabled:false},'*');
+    await wait(100);
+    for(const href of ['#%73tudio','#missing','#%zz','#']) {
+      doc.querySelector('[href="'+href+'"]').click();
+      await wait(100);
+      check(frame.contentDocument===doc,href+' does not navigate the iframe');
+    }
+    check(loads===originalLoads,'hash clicks cause zero document loads');
+    doc.querySelector('button').click();
+    await until(()=>frame.contentDocument!==doc && frame.contentDocument?.querySelector('#studio'));
+    check(!frame.contentDocument.querySelector('iframe') && frame.contentDocument.querySelector('h1').textContent==='Student website','direct studio navigation restores only the student site');
+    const before=loads;
+    // No trusted interaction after recovery: another redirect cannot loop.
+    frame.contentDocument.querySelector('button').click();
+    await until(()=>results.textContent.includes('RECOVERY:'));
+    await wait(300);
+    check(loads<=before+1,'automatic repeated redirects stop without recursive recovery');
+    check(!frame.contentDocument.querySelector('#root > *'),'the guarded shell never mounts the studio');
+    await load();
+    results.textContent+='\nALL AUTOMATED CHECKS PASSED. Interactive fixture ready.';
+  } catch(error) { results.textContent+='\nFAIL: '+error.message; }
+};
+</script>
+</body></html>

@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Workshop compiler verification</title>
+<style>body{margin:0;background:#f5f7fa;font:14px system-ui;color:#26364a}header{padding:12px;display:flex;gap:12px;align-items:center}button{padding:6px 10px}#status{padding:10px 12px;background:#fff;white-space:pre-wrap}iframe{width:100%;height:calc(100vh - 110px);border:0;background:white}</style>
+</head><body><header><strong>Workshop compiler verification</strong><button id="demo">Demo/B26</button><button id="routes">Nested modules and routing</button><button id="invalid">Invalid update</button></header><div id="status">Loading…</div><iframe class="preview-iframe" title="Verified student preview" sandbox="allow-scripts allow-same-origin allow-modals allow-popups"></iframe>
+<script type="module">
+import {compilePreview} from './compiler.fixture.js';
+import {writePreviewDocument} from '../website-workshop/preview-safety.js';
+const frame=document.querySelector('iframe'),status=document.querySelector('#status');
+function preview(files){
+  const result=compilePreview(files,{}, {inspectorSession:crypto.randomUUID()});
+  if(result.error){status.textContent='Update rejected; the working preview is retained.\n'+result.error;return;}
+  status.textContent='Compiled successfully. Starting preview…';
+  writePreviewDocument(frame,result.html, message=>status.textContent=message);
+}
+window.addEventListener('message',event=>{
+ if(event.source!==frame.contentWindow)return;
+ if(event.data?.type==='preview-ready')status.textContent='Preview started successfully.';
+ if(event.data?.type==='preview-error')status.textContent='Preview error: '+event.data.message;
+});
+document.querySelector('#demo').onclick=async()=>preview(await(await fetch('./demo-B26-files.json')).json());
+document.querySelector('#routes').onclick=()=>preview({
+ 'App.jsx':`import React from 'react';import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';import Home from './pages/Home';import Details from './pages/Details';export default function App(){return <BrowserRouter><nav><Link to='/'>Home</Link> | <Link to='/details'>Details</Link></nav><Routes><Route path='/' element={<Home/>}/><Route path='/details' element={<Details/>}/></Routes></BrowserRouter>}`,
+ 'pages/Home.jsx':`import React,{useState} from 'react';import fishList from '../reefFishData';export default function Home(){const [n,setN]=useState(0);return <main><h1>{fishList[0].name}</h1><button onClick={()=>setN(n+1)}>Count: {n}</button><a href='#studio'>Enter the studio</a><section id='studio' style={{marginTop:500}}>Student studio section</section></main>}`,
+ 'pages/Details.jsx':`import {caption} from '../shared';export default function Details(){return <h1>{caption}</h1>}`,
+ 'shared/index.js':`export const caption='Nested imports work';`,
+ 'reefFishData.js':`export default [{name:'Clownfish'}];`,
+});
+document.querySelector('#invalid').onclick=()=>preview({'App.jsx':'export default function App( {'});
+document.querySelector('#demo').click();
+</script></body></html>

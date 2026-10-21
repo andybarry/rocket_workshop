@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none">
+  <defs>
+    <linearGradient id="mic" x1="66" y1="25" x2="90" y2="74" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5ADD89"/>
+      <stop offset="1" stop-color="#3BBF6B"/>
+    </linearGradient>
+    <filter id="shadow" x="43" y="12" width="73" height="104" filterUnits="userSpaceOnUse">
+      <feDropShadow dy="4" stdDeviation="4" flood-color="#237943" flood-opacity=".15"/>
+    </filter>
+  </defs>
+  <ellipse cx="78" cy="64" rx="61" ry="38" fill="#DCF5E5" fill-opacity=".8"/>
+  <g stroke="#7CE59B" stroke-width="4" stroke-linecap="round">
+    <path d="M13 56v10m9-19v28m9-38v48m9-33v18m9-24v30"/>
+    <path d="M106 49v24m9-34v44m9-31v18m9-23v28m9-18v8"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="65" y="24" width="26" height="49" rx="13" fill="url(#mic)" stroke="#237943" stroke-width="3"/>
+    <path d="M58 58v4a20 20 0 0 0 40 0v-4M78 83v13M66 97h24" stroke="#237943" stroke-width="4" stroke-linecap="round"/>
+    <path d="M71 37v22" stroke="#B0F5C7" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <path d="m129 13 3.2 7.3 7.3 3.2-7.3 3.2-3.2 7.3-3.2-7.3-7.3-3.2 7.3-3.2Z" fill="#3BBF6B"/>
+  <path d="m112 16 1.5 3.5L117 21l-3.5 1.5L112 26l-1.5-3.5L107 21l3.5-1.5Z" fill="#73D995"/>
+  <path d="m146 33 1.5 3.5L151 38l-3.5 1.5L146 43l-1.5-3.5L141 38l3.5-1.5Z" fill="#3BBF6B"/>
+</svg>

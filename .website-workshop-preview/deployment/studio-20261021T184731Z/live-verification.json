@@ -1,0 +1,263 @@
+{
+  "releaseId": "studio-20261021T184731Z",
+  "verifiedAt": "2026-10-21T18:48:22.492Z",
+  "passed": true,
+  "results": [
+    {
+      "path": "manage-servers/favicon.ico",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/vnd.microsoft.icon",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/index.html",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/logo192.png",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/png",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/manifest.json",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/json",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/static/css/main.e1c75f94.css",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/css; charset=utf-8",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/static/js/main.6f49073a2a7303e0.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/javascript; charset=utf-8",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/static/media/browser.bc45086b50f89c37eb15.cjs",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/octet-stream",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "manage-servers/static/media/index.f2e6f029457aeeccdaa5.cjs",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/octet-stream",
+      "cacheControl": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
+    },
+    {
+      "path": "website-workshop/apple-touch-icon.png",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/png",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/assets/html2canvas.esm-QH1iLAAe.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "website-workshop/assets/index-DZ8Uda5V.css",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/css",
+      "cacheControl": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "website-workshop/assets/index-e18a7712c7de11b5.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "website-workshop/drawing-phone.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/drawing-studio.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/editor-split.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/favicon-16x16.png",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/png",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/favicon-32x32.png",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/png",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/favicon.ico",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/x-icon",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/image-summary.svg",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/svg+xml",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/index.html",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/html",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/local-overrides.css",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/css",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/panel-layout.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/panel-order.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/panel-resize.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/phone-sketch.html",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "text/html",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/phone-sketch.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/preview-navigation.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/preview-safety.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/prompt-image.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/studio-bootstrap.js",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "application/javascript",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/voice-summary.svg",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/svg+xml",
+      "cacheControl": "no-cache"
+    },
+    {
+      "path": "website-workshop/website-summary.svg",
+      "status": 200,
+      "matches": true,
+      "scriptTypeValid": true,
+      "contentType": "image/svg+xml",
+      "cacheControl": "no-cache"
+    }
+  ]
+}

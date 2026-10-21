@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none">
+  <defs>
+    <linearGradient id="toolbar" x1="10" y1="24" x2="130" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#19365F"/>
+      <stop offset="1" stop-color="#31A9DE"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="10" y1="40" x2="130" y2="108" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#F0F9FF"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="12" width="146" height="108" filterUnits="userSpaceOnUse">
+      <feDropShadow dy="5" stdDeviation="5" flood-color="#31A9DE" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <ellipse cx="74" cy="73" rx="64" ry="40" fill="#DCEEFF" fill-opacity=".65"/>
+  <g filter="url(#shadow)">
+    <rect x="10" y="23" width="120" height="81" rx="9" fill="url(#paper)"/>
+    <path d="M19 23h102a9 9 0 0 1 9 9v7H10v-7a9 9 0 0 1 9-9Z" fill="url(#toolbar)"/>
+    <circle cx="20" cy="31" r="3" fill="#FF8D7E"/>
+    <circle cx="30" cy="31" r="3" fill="#FFD76C"/>
+    <circle cx="40" cy="31" r="3" fill="#66D799"/>
+    <rect x="21" y="48" width="42" height="27" rx="5" fill="#E8F3FF"/>
+    <path d="m33 54-6 7 6 7m17-14 6 7-6 7m-6-16-5 18" stroke="#31A9DE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="71" y="49" width="22" height="5" rx="2.5" fill="#31A9DE"/>
+    <rect x="98" y="49" width="20" height="5" rx="2.5" fill="#D7E3F0"/>
+    <rect x="71" y="59" width="15" height="5" rx="2.5" fill="#31A9DE"/>
+    <rect x="91" y="59" width="27" height="5" rx="2.5" fill="#D7E3F0"/>
+    <rect x="71" y="69" width="31" height="5" rx="2.5" fill="#83B8FA"/>
+    <rect x="21" y="83" width="45" height="5" rx="2.5" fill="#31A9DE"/>
+    <rect x="71" y="83" width="47" height="5" rx="2.5" fill="#D7E3F0"/>
+    <rect x="21" y="93" width="68" height="4" rx="2" fill="#83B8FA"/>
+  </g>
+  <path d="m146 7 3.5 8 8 3.5-8 3.5-3.5 8-3.5-8-8-3.5 8-3.5Z" fill="#31A9DE"/>
+  <path d="m129 10 1.5 3.5L134 15l-3.5 1.5L129 20l-1.5-3.5L124 15l3.5-1.5Z" fill="#31A9DE"/>
+  <path d="m139 34 1.5 3.5L144 39l-3.5 1.5L139 44l-1.5-3.5L134 39l3.5-1.5Z" fill="#83B8FA"/>
+</svg>
