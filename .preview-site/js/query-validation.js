@@ -1,35 +1,33 @@
 (function (root) {
     "use strict";
 
-    var REGION_IDS = [
-        "northeast-mid-atlantic",
-        "southeast",
-        "midwest-south-central",
-        "mountain-west",
-        "west-coast",
-        "international"
-    ];
+    // Allowed ids come from the discovery data embedded by discovery-data.html,
+    // so adding a city/audience/group type in _data requires no JS change.
+    function data() {
+        return root.StageOneDiscoveryData || {};
+    }
 
-    var AUDIENCE_IDS = [
-        "middle-school",
-        "high-school",
-        "college-university",
-        "adult-professional",
-        "mixed-age"
-    ];
+    function ids(list, key) {
+        return (list || []).map(function (item) {
+            return item[key];
+        });
+    }
 
-    var GROUP_TYPE_IDS = [
-        "educational-travel",
-        "school-campus",
-        "private-other"
-    ];
+    function cityIds() {
+        return ids(data().cities, "slug");
+    }
 
-    var WORKSHOP_IDS = [
-        "artificial-intelligence",
-        "robotics-drone",
-        "mechanical-engineering",
-        "web-development"
-    ];
+    function audienceIds() {
+        return ids(data().audiences, "id");
+    }
+
+    function groupTypeIds() {
+        return ids(data().groupTypes, "id");
+    }
+
+    function workshopIds() {
+        return ids(data().workshops, "slug");
+    }
 
     var UTM_KEYS = ["utm_source", "utm_campaign", "utm_medium", "utm_content", "utm_term"];
 
@@ -39,7 +37,7 @@
 
     function normalizeWorkshop(value) {
         if (!value || value === "all") return "all";
-        if (includes(WORKSHOP_IDS, value)) return value;
+        if (includes(workshopIds(), value)) return value;
         return null;
     }
 
@@ -48,15 +46,15 @@
             ? params
             : new URLSearchParams(params || "");
 
-        var region = search.get("region");
+        var city = search.get("city");
         var audience = search.get("audience");
         var groupType = search.get("group");
         var workshop = normalizeWorkshop(search.get("workshop"));
 
         return {
-            region: includes(REGION_IDS, region) ? region : null,
-            audience: includes(AUDIENCE_IDS, audience) ? audience : null,
-            groupType: includes(GROUP_TYPE_IDS, groupType) ? groupType : null,
+            city: includes(cityIds(), city) ? city : null,
+            audience: includes(audienceIds(), audience) ? audience : null,
+            groupType: includes(groupTypeIds(), groupType) ? groupType : null,
             workshop: workshop === null ? "all" : workshop
         };
     }
@@ -81,10 +79,10 @@
     }
 
     root.StageOneQuery = {
-        REGION_IDS: REGION_IDS,
-        AUDIENCE_IDS: AUDIENCE_IDS,
-        GROUP_TYPE_IDS: GROUP_TYPE_IDS,
-        WORKSHOP_IDS: WORKSHOP_IDS,
+        cityIds: cityIds,
+        audienceIds: audienceIds,
+        groupTypeIds: groupTypeIds,
+        workshopIds: workshopIds,
         UTM_KEYS: UTM_KEYS,
         validateQuery: validateQuery,
         normalizeWorkshop: normalizeWorkshop,

@@ -27,25 +27,31 @@
         $('.navbar-toggle:visible').click();
     });
 
-    // Workshops dropdown opens on hover (no click required)
-    var dropdownTimeout;
+    // Nav dropdowns open on hover. Each menu has its own close timer, and
+    // opening one closes the others so Workshops and Explore never overlap.
     $('.nav-dropdown').hover(
         function() {
-            clearTimeout(dropdownTimeout);
-            $(this).addClass('open');
+            var $self = $(this);
+            clearTimeout($self.data('dropdownTimeout'));
+            $('.nav-dropdown').not($self).each(function() {
+                var $other = $(this);
+                clearTimeout($other.data('dropdownTimeout'));
+                $other.removeClass('open');
+            });
+            $self.addClass('open');
         },
         function() {
             var $self = $(this);
-            dropdownTimeout = setTimeout(function() {
+            $self.data('dropdownTimeout', setTimeout(function() {
                 $self.removeClass('open');
-            }, 150);
+            }, 150));
         }
     );
 
     // Fit Text Plugin for Main Header
     // Skip the home hero headline — it uses CSS clamp/media queries (and
     // i18n.js shrinks translations). FitText's 35px floor locked it on mobile.
-    $("h1").not(".home-room-hero__title").fitText(
+    $("h1").not(".home-room-hero__title, .workshop-session-title").fitText(
         1.2, {
             minFontSize: '35px',
             maxFontSize: '65px'

@@ -108,8 +108,8 @@
       justify-content: center;
       width: 100vw;
       max-width: 100vw;
-      height: 78vh;
-      min-height: 78vh;
+      height: 90vh;
+      min-height: 90vh;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
       padding: 72px 24px 24px;
@@ -157,8 +157,8 @@
         linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
       background-size: 24px 24px;
       background-attachment: fixed;
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0,62 C260,148 940,148 1200,62 L1200,160 L0,160 Z' fill='black'/%3E%3C/svg%3E");
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0,62 C260,148 940,148 1200,62 L1200,160 L0,160 Z' fill='black'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0,126.5 L1200,126.5 L1200,160 L0,160 Z' fill='black'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0,126.5 L1200,126.5 L1200,160 L0,160 Z' fill='black'/%3E%3C/svg%3E");
       -webkit-mask-size: 100% 100%;
       mask-size: 100% 100%;
       -webkit-mask-repeat: no-repeat;
@@ -256,7 +256,7 @@
       max-width: min(96vw, 1100px);
       margin: 0 auto;
       padding: 28px 40px 32px;
-      transform: translateY(-28px);
+      transform: translateY(12px);
       border: 0;
       background: transparent;
       box-shadow: none;
@@ -497,7 +497,7 @@
 
       .workshop-detail-hero .workshop-session-card {
         padding: min(16px, calc(1.8 * var(--workshop-vh, 1vh))) 8px min(20px, calc(2.2 * var(--workshop-vh, 1vh)));
-        transform: translateY(min(-12px, calc(-1.2 * var(--workshop-vh, 1vh))));
+        transform: translateY(12px);
       }
 
       .workshop-detail-hero .workshop-session-card__head {
@@ -654,13 +654,7 @@
       </div>
       <div class="workshop-detail-hero__transition" aria-hidden="true">
         <div class="workshop-detail-hero__transition-veil"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--left"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--right"></div>
         <div class="workshop-detail-hero__transition-fill"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--gray workshop-detail-hero__transition-glow--gray-left"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--gray workshop-detail-hero__transition-glow--gray-right"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--orange-below workshop-detail-hero__transition-glow--orange-below-left"></div>
-        <div class="workshop-detail-hero__transition-glow workshop-detail-hero__transition-glow--orange-below workshop-detail-hero__transition-glow--orange-below-right"></div>
         <svg class="workshop-detail-hero__transition-svg" viewBox="0 0 1200 160" preserveAspectRatio="none" focusable="false">
           <defs>
             <linearGradient id="roboticsWorkshopCurveStroke" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
@@ -674,8 +668,8 @@
               <feGaussianBlur in="SourceGraphic" stdDeviation="7"/>
             </filter>
           </defs>
-          <path d="M0,62 C260,148 940,148 1200,62" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="34" stroke-linecap="round" filter="url(#roboticsWorkshopWhiteCloud)"/>
-          <path fill="url(#roboticsWorkshopCurveStroke)" d="M-234.2,-0.7 L-171.5,20.0 L-108.8,40.7 L-56.6,58.0 L-4.4,75.3 L12.9,80.4 L31.3,84.6 L50.8,88.2 L71.1,91.3 L92.4,94.1 L114.4,96.6 L137.1,99.1 L160.5,101.6 L184.6,104.4 L209.2,107.5 L234.5,110.6 L260.3,113.4 L286.7,115.9 L313.6,118.3 L340.9,120.4 L368.7,122.3 L396.8,124.0 L425.2,125.5 L454.0,126.7 L482.9,127.7 L512.0,128.5 L541.3,129.1 L570.6,129.4 L600.0,129.5 L629.4,129.4 L658.7,129.1 L688.0,128.5 L717.1,127.7 L746.0,126.7 L774.8,125.5 L803.2,124.0 L831.3,122.3 L859.1,120.4 L886.4,118.3 L913.3,115.9 L939.7,113.4 L965.5,110.6 L990.8,107.5 L1015.4,104.4 L1039.5,101.6 L1062.9,99.1 L1085.6,96.6 L1107.6,94.1 L1128.9,91.3 L1149.2,88.2 L1168.7,84.6 L1187.1,80.4 L1204.4,75.3 L1256.6,58.0 L1308.8,40.7 L1371.5,20.0 L1434.2,-0.7 L1425.4,-27.3 L1362.7,-6.6 L1300.0,14.2 L1247.8,31.4 L1195.6,48.7 L1179.3,54.2 L1162.1,60.0 L1143.8,66.0 L1124.6,72.1 L1104.4,78.1 L1083.3,83.8 L1061.2,89.2 L1038.3,94.1 L1014.6,98.2 L990.0,101.6 L964.8,104.6 L939.1,107.4 L912.7,110.0 L885.9,112.3 L858.6,114.4 L830.9,116.3 L802.9,118.0 L774.5,119.5 L745.8,120.7 L716.9,121.7 L687.9,122.5 L658.6,123.1 L629.3,123.4 L600.0,123.5 L570.7,123.4 L541.4,123.1 L512.1,122.5 L483.1,121.7 L454.2,120.7 L425.5,119.5 L397.1,118.0 L369.1,116.3 L341.4,114.4 L314.1,112.3 L287.3,110.0 L260.9,107.4 L235.2,104.6 L210.0,101.6 L185.4,98.2 L161.7,94.1 L138.8,89.2 L116.7,83.8 L95.6,78.1 L75.4,72.1 L56.2,66.0 L37.9,60.0 L20.7,54.2 L4.4,48.7 L-47.8,31.4 L-100.0,14.2 L-162.7,-6.6 L-225.4,-27.3 Z"/>
+          <path d="M0,126.5 L1200,126.5" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="34" stroke-linecap="round" filter="url(#roboticsWorkshopWhiteCloud)"/>
+          <path fill="url(#roboticsWorkshopCurveStroke)" d="M0,123.5 H1200 V129.5 H0 Z"/>
         </svg>
       </div>
       <div class="workshop-detail-hero__center">
@@ -692,4 +686,7 @@
       </section>
       </div>
       </div>
+      {% unless include.session %}
+      {% include workshops/overview-arrow.html target='robotics-workshop-overview' %}
+      {% endunless %}
     </section>

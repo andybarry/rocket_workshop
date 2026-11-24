@@ -25,7 +25,13 @@
     <meta property="og:description" content="Hands-on engineering workshops nationwide since 2013, featuring AI, robotics, and mechanical engineering taught by real engineers. Spark innovation!">
     
     
-    <meta property="og:image" content="https://stageoneeducation.com/img/stageone-logo-orange-small.png">
+    <meta property="og:image" content="https://stageoneeducation.com/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Stage One Education orange rocket icon">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://stageoneeducation.com/android-chrome-512x512.png">
+    <meta name="twitter:image:alt" content="Stage One Education orange rocket icon">
     <meta property="og:type" content="website">
             
     <meta name="keywords"
@@ -47,14 +53,14 @@
     <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/creative.css?v=20260827g" type="text/css">
-    <link rel="stylesheet" href="/css/workshop-explorer.css?v=20260826f" type="text/css">
-    <link rel="stylesheet" href="/css/discovery.css?v=20260828x" type="text/css">
+    <link rel="stylesheet" href="/css/creative.css?v=20260916ad" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css?v=20260914f" type="text/css">
+    <link rel="stylesheet" href="/css/discovery.css?v=20260916ag" type="text/css">
 
     <!-- Language switcher. Loads before paint so a stored non-English choice is
          applied without a flash of English. Inert when English is active. -->
     <link rel="stylesheet" href="/css/i18n.css" type="text/css">
-    <script src="/js/i18n.js"></script>
+    <script src="/js/i18n.js?v=20260916c"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -109,17 +115,70 @@
     box-sizing: border-box;
   }
   body.cursor-glow-page .home-align-col {
-    width: min(92vw, 1280px) !important;
-    max-width: 1280px !important;
+    width: var(--page-card-width) !important;
+    max-width: var(--page-card-max) !important;
     margin-left: auto !important;
     margin-right: auto !important;
     box-sizing: border-box !important;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits {
+    padding-top: 24px;
+    padding-bottom: 4px;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
+    overflow: hidden;
+    border: 0;
+    background: #fff;
+    box-shadow:
+      inset 0 0 16px rgba(67, 67, 67, 0.12),
+      inset 0 0 6px rgba(67, 67, 67, 0.14);
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+    min-height: 96px;
+    padding: 12px 18px;
+    gap: 16px;
+    align-items: center;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
+    flex-basis: 58px;
+    width: 58px;
+    height: 58px;
+    font-size: 27px;
+    align-self: center;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    container-type: inline-size;
+    min-width: 0;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
+    margin-bottom: 2px;
+    font-size: clamp(15px, calc((100cqi - 4px) / 13.6), 20px);
+    line-height: 1.2;
+    min-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
+    font-size: 13px;
+    line-height: 1.25;
+    min-height: calc(13px * 1.25 * 2);
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
+    font-size: 13px;
+  }
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before,
+  body.cursor-glow-page .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before {
+    top: 10px;
+    bottom: 10px;
   }
   body.cursor-glow-page .home-workshops-block {
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 8px 0 28px;
+    padding: 20px 0 28px;
     border: 0;
     background: transparent;
     box-sizing: border-box;
@@ -155,6 +214,7 @@
     body.cursor-glow-page .find-workshop__shell,
     body.cursor-glow-page .our-workshops-shell,
     body.cursor-glow-page .participants-plan-row,
+    body.cursor-glow-page .home-venue-wrap,
     body.cursor-glow-page .feedback-scroll-wrapper,
     body.cursor-glow-page .main-page-hr {
       max-width: 100%;
@@ -201,7 +261,13 @@
       height: 204px !important;
     }
     body.cursor-glow-page .workshop-main-button > .main-button-title-text {
-      font-size: 26px;
+      font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
     }
     body.cursor-glow-page .workshop-main-button .workshop-card-copy h3 {
       font-size: 13px;
@@ -229,8 +295,8 @@
     max-width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    height: 340px;
-    min-height: 340px;
+    height: 360px;
+    min-height: 360px;
     overflow: hidden;
     contain: paint;
     overflow-anchor: none;
@@ -239,6 +305,14 @@
   .home-room-hero::after {
     content: none;
     display: none;
+  }
+  .home-room-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 0, rgba(0, 0, 0, 0.35) 19px, #000 44px);
+    mask-image: linear-gradient(to top, transparent 0, rgba(0, 0, 0, 0.35) 19px, #000 44px);
   }
   .home-room-hero__image {
     position: absolute;
@@ -251,26 +325,29 @@
     object-fit: cover;
     object-position: 40% 40%;
     -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    -webkit-mask-composite: source-in;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    mask-composite: intersect;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     z-index: 0;
     transform-origin: 100% 50%;
+  }
+  .home-room-hero__image--video {
+    object-position: center;
+    animation: homeHeroFadeVideo 60s ease-in-out infinite;
+  }
+  .home-room-hero__image--drone-video {
+    animation-name: homeHeroFadeDroneVideo;
   }
   .home-room-hero__image--drone {
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeDrone 96s ease-in-out infinite;
+      homeHeroFadeDrone 60s ease-in-out infinite;
   }
   .home-room-hero__image--mechanical {
     object-position: 50% 82%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeMech 96s ease-in-out infinite;
+      homeHeroFadeMech 60s ease-in-out infinite;
   }
   .home-room-hero__image--posters {
     background-color: #f5f5f5;
@@ -280,13 +357,13 @@
     background-repeat: no-repeat;
     animation:
       homeHeroPosterScroll 90s linear infinite,
-      homeHeroFadePosters 96s ease-in-out infinite;
+      homeHeroFadePosters 60s ease-in-out infinite;
   }
   .home-room-hero__image--hnn {
     object-position: 50% 40%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeHnn 96s ease-in-out infinite;
+      homeHeroFadeHnn 60s ease-in-out infinite;
   }
   @keyframes homeHeroZoom {
     from { transform: scale(0.94) translate(0, 0); }
@@ -296,25 +373,35 @@
     from { background-position: center top; }
     to { background-position: center bottom; }
   }
-  @keyframes homeHeroFadeDrone {
-    0%, 20.833% { opacity: 1; }
-    25%, 95.833% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  @keyframes homeHeroFadeMech {
-    0%, 20.833% { opacity: 0; }
-    25%, 45.833% { opacity: 1; }
+  @keyframes homeHeroFadeDroneVideo {
+    0%, 26.666667% { opacity: 0; }
+    33.333333%, 43.333333% { opacity: 1; }
     50%, 100% { opacity: 0; }
   }
+  @keyframes homeHeroFadeVideo {
+    0%, 10% { opacity: 1; }
+    16.666667%, 93.333333% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes homeHeroFadeDrone {
+    0%, 76.666667% { opacity: 0; }
+    83.333333%, 93.333333% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes homeHeroFadeMech {
+    0%, 43.333333% { opacity: 0; }
+    50%, 60% { opacity: 1; }
+    66.666667%, 100% { opacity: 0; }
+  }
   @keyframes homeHeroFadePosters {
-    0%, 45.833% { opacity: 0; }
-    50%, 70.833% { opacity: 1; }
-    75%, 100% { opacity: 0; }
+    0%, 10% { opacity: 0; }
+    16.666667%, 26.666667% { opacity: 1; }
+    33.333333%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadeHnn {
-    0%, 70.833% { opacity: 0; }
-    75%, 95.833% { opacity: 1; }
-    100% { opacity: 0; }
+    0%, 60% { opacity: 0; }
+    66.666667%, 76.666667% { opacity: 1; }
+    83.333333%, 100% { opacity: 0; }
   }
   .home-room-hero__image-overlay {
     position: absolute;
@@ -326,25 +413,19 @@
     z-index: 1;
     pointer-events: none;
     background: rgba(255, 255, 255, 0.16);
+    opacity: 0;
+    animation: homeHeroHideOverlayOnDrone 60s ease-in-out infinite;
     -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    -webkit-mask-composite: source-in;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    mask-composite: intersect;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
   }
-  .home-room-hero__fade {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    height: 88px;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(250, 250, 250, 0), #fafafa);
+  @keyframes homeHeroHideOverlayOnDrone {
+    0%, 10% { opacity: 0; }
+    16.666667%, 26.666667% { opacity: 1; }
+    33.333333%, 43.333333% { opacity: 0; }
+    50%, 60% { opacity: 1; }
+    66.666667%, 100% { opacity: 0; }
   }
   .home-room-hero__content {
     position: absolute;
@@ -357,29 +438,31 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 10px 28px 10px clamp(36px, 5.5vw, 88px);
+    padding: 26px 28px 6px clamp(36px, 5.5vw, 88px);
     box-sizing: border-box;
     /* Fluid type/icons track the copy column, not the full viewport */
     container-type: inline-size;
     container-name: hero-copy;
   }
   .home-room-hero__audience {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     max-width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(15px, 3.6cqi, 19px);
+    font-size: clamp(19px, 4.8cqi, 25px);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0.13em;
     text-transform: uppercase;
+    white-space: nowrap;
     color: #969696;
   }
   .home-room-hero__title {
     margin: 0;
-    max-width: 100%;
+    max-width: none;
+    overflow: visible;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.45rem, 11cqi, 4.9rem);
+    font-size: clamp(32px, 14.1cqi, 64px);
     line-height: 1;
     letter-spacing: -0.035em;
   }
@@ -395,7 +478,7 @@
     letter-spacing: -0.015em;
   }
   .home-room-hero__title > span > .home-room-hero__title-line:nth-child(2) {
-    margin: 0.04em 0 0.07em;
+    margin: 0.02em 0 0.04em;
   }
   .home-room-hero__title-line--orange {
     color: #f05f40;
@@ -403,18 +486,25 @@
   .home-room-hero__title-line--gray {
     color: #434343;
   }
+  .home-room-hero__copy-stack {
+    display: grid;
+    grid-template-columns: min-content;
+    justify-items: stretch;
+  }
   .home-room-hero__body {
-    margin-top: 10px;
-    max-width: min(510px, 100%);
+    margin-top: 6px;
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
     padding-left: 14px;
     border-left: 2px solid rgba(240, 95, 64, 0.45);
   }
   .home-room-hero__body p {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(1.12rem, 3.2cqi, 1.32rem);
-    line-height: 1.5;
-    font-weight: 500;
+    font-size: clamp(15px, 3.8cqi, 17px);
+    line-height: 1.45;
+    font-weight: 400;
     color: #555;
     text-wrap: pretty;
   }
@@ -422,7 +512,7 @@
     margin-bottom: 0;
   }
   .home-room-hero__actions {
-    margin-top: 12px;
+    margin-top: 14px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -434,26 +524,28 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 40px;
+    min-height: 41px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(13px, 2.7cqi, 15px);
+    font-size: clamp(15px, 3.1cqi, 17px);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: 0.01em;
     color: #434343;
-    background-color: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(67, 67, 67, 0.24);
+    background-color: #fff;
+    border: 1px solid #d8d8d8;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: 8px 16px;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.08);
+    box-shadow:
+      inset 0 0 6px rgba(67, 67, 67, 0.14),
+      0 2px 8px rgba(67, 67, 67, 0.08);
     transition: color .25s ease, background-color .25s ease, box-shadow .25s ease, border-color .25s ease, transform .25s ease;
     -webkit-tap-highlight-color: transparent;
   }
   .home-room-hero__cta .fa {
     margin-right: 7px;
-    font-size: 14px;
+    font-size: 16px;
     color: #f05f40;
   }
   .home-room-hero__cta:hover,
@@ -461,28 +553,30 @@
   .home-room-hero__cta:active {
     color: #434343;
     background-color: #fff3ef;
-    border-color: rgba(240, 95, 64, 0.72);
+    border-color: #d8d8d8;
     text-decoration: none;
-    box-shadow: 0 7px 18px rgba(67, 67, 67, 0.13);
+    box-shadow:
+      inset 0 0 6px rgba(67, 67, 67, 0.14),
+      0 7px 18px rgba(67, 67, 67, 0.13);
     transform: translateY(-1px);
   }
-  /* Solid primary style for Plan Your Workshop */
+  /* Plan A Workshop: green outline, white fill */
   .home-room-hero__cta--solid {
-    color: #fff;
-    background-color: #f05f40;
-    border-color: #f05f40;
-    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.24);
+    color: #3bbf6b;
+    background-color: #fff;
+    border-color: #3bbf6b;
+    box-shadow: 0 2px 8px rgba(59, 191, 107, 0.08);
   }
   .home-room-hero__cta--solid .fa {
-    color: #fff;
+    color: #3bbf6b;
   }
   .home-room-hero__cta--solid:hover,
   .home-room-hero__cta--solid:focus,
   .home-room-hero__cta--solid:active {
-    color: #fff;
-    background-color: #f05f40;
-    border-color: #f05f40;
-    box-shadow: 0 8px 20px rgba(240, 95, 64, 0.32);
+    color: #3bbf6b;
+    background-color: #e8f8ee;
+    border-color: #3bbf6b;
+    box-shadow: 0 7px 18px rgba(59, 191, 107, 0.16);
   }
   .workshop-benefits-section {
     width: 100vw;
@@ -567,7 +661,10 @@
     outline: none;
   }
   .home-room-hero__cta:focus-visible {
-    box-shadow: 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
+    box-shadow: inset 0 0 6px rgba(67, 67, 67, 0.14), 0 6px 16px rgba(240, 95, 64, 0.28), 0 0 0 3px rgba(240, 95, 64, 0.35);
+  }
+  .home-room-hero__cta--solid:focus-visible {
+    box-shadow: 0 6px 16px rgba(59, 191, 107, 0.28), 0 0 0 3px rgba(59, 191, 107, 0.35);
   }
   .home-room-hero__quotes {
     position: absolute;
@@ -599,10 +696,15 @@
     padding: 14px 15px;
     overflow: visible;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    background: #fff;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+      inset 0 0 14px rgba(180, 180, 180, 0.22),
+      0 10px 28px rgba(0, 0, 0, 0.12);
     color: #464444;
     font-family: 'Roboto', sans-serif;
+    text-align: center;
     opacity: 0;
     transition: opacity 2.6s ease-in-out;
     box-sizing: border-box;
@@ -613,12 +715,15 @@
     top: -18px;
     left: -12px;
     z-index: 3;
-    color: #cfcfcf;
+    color: #f05f40;
     font-family: "Roboto", sans-serif;
     font-size: 96px;
     font-weight: 700;
     line-height: 1;
     pointer-events: none;
+    text-shadow:
+      0 0 3px rgba(210, 210, 210, 0.95),
+      0 0 6px rgba(190, 190, 190, 0.55);
   }
   /* Short one-line quotes — box grows to fit the text */
   .home-room-hero__quote--oneline {
@@ -642,7 +747,7 @@
   }
   .home-room-hero__quote-slot--tl .home-room-hero__quote {
     top: 24px;
-    left: 48px;
+    left: clamp(200px, 28%, 260px);
   }
   .home-room-hero__quote-slot--br .home-room-hero__quote {
     right: 0;
@@ -652,6 +757,9 @@
   .home-room-hero__quote--shift {
     transform: translate(-5px, -10px);
   }
+  .home-room-hero__quote-slot--tl .home-room-hero__quote--shift {
+    transform: translate(10px, -10px);
+  }
   .home-room-hero__quote.is-visible {
     opacity: 1;
   }
@@ -660,21 +768,26 @@
   }
   .home-room-hero__quote-text {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.35;
+    font-size: 17px;
+    line-height: 1.5;
     font-weight: 400;
+    color: #2c2c2c;
+    text-align: center;
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
-  .home-room-hero__quote-meta {
+    .home-room-hero__quote-meta {
     display: block;
     margin-top: 8px;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
     color: #f05f40;
     letter-spacing: 0.02em;
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+  .home-room-hero__quote-scroller {
+    display: none;
   }
   @media (min-width: 768px) {
     .home-room-hero__image,
@@ -709,10 +822,14 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .home-room-hero__image--video {
+      display: none;
+    }
     .home-room-hero__image--drone,
     .home-room-hero__image--mechanical,
     .home-room-hero__image--posters,
-    .home-room-hero__image--hnn {
+    .home-room-hero__image--hnn,
+    .home-room-hero__image-overlay {
       animation: none;
     }
     .home-room-hero__image--drone {
@@ -720,21 +837,18 @@
     }
     .home-room-hero__image--mechanical,
     .home-room-hero__image--posters,
-    .home-room-hero__image--hnn {
+    .home-room-hero__image--hnn,
+    .home-room-hero__image-overlay {
       opacity: 0;
     }
   }
   @media (min-width: 768px) and (max-width: 991px) {
     .home-room-hero {
-      height: 340px;
-      min-height: 340px;
+      height: 360px;
+      min-height: 360px;
     }
     .home-room-hero__content {
       width: 42%;
-    }
-    .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
-      mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
     }
     .home-room-hero__quotes {
       left: 54%;
@@ -748,6 +862,28 @@
     }
     .home-room-hero__quote--wide {
       width: min(280px, 100%);
+    }
+  }
+  /* Ultra-wide / very large desktops: keep the hero copy and right quote
+     on the same edges as the orange nav (logo left, language button right).
+     Mobile and standard desktop (≤1920px) stay unchanged. */
+  @media (min-width: 1921px) {
+    .home-room-hero__content {
+      left: calc(50% - 720px);
+      width: calc(1440px * 0.38);
+    }
+    .home-room-hero__quotes {
+      left: calc(50% - 720px + 1440px * 0.38);
+      right: calc(50% - 720px);
+      padding-right: 24px;
+    }
+    /* Match a 1440px desktop: photo is 70% of the nav column and
+       clipped at the nav’s right edge, so it only runs a little past
+       the quote (the quote sits 24px inside that edge). */
+    .home-room-hero__image,
+    .home-room-hero__image-overlay {
+      right: calc(50% - 720px);
+      width: calc(1440px * 0.70);
     }
   }
   @media (max-width: 991px) {
@@ -765,10 +901,11 @@
       flex-direction: column;
       height: auto;
       min-height: 620px;
-      width: 100vw !important;
+      width: calc(100% + 30px) !important;
       max-width: none !important;
       margin-left: -15px !important;
       margin-right: -15px !important;
+      padding: 0;
     }
     .home-room-hero__image,
     .home-room-hero__image-overlay {
@@ -778,26 +915,39 @@
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      transform: none;
       transform-origin: center center;
       -webkit-mask-image: none !important;
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation-name: homeHeroFadeDrone;
+      animation: homeHeroFadeDrone 60s ease-in-out infinite;
+      object-fit: cover;
     }
     .home-room-hero__image--mechanical {
-      animation-name: homeHeroFadeMech;
+      object-fit: cover;
+      object-position: 50% 42%;
+      animation: homeHeroFadeMech 60s ease-in-out infinite;
+    }
+    .home-room-hero__image--posters {
+      background-color: #ececec;
+      /* Oversize both dimensions so scrolling never exposes the frame below. */
+      background-size: auto max(150%, 160vw);
+      background-position: center top;
+      background-repeat: no-repeat;
+      animation:
+        homeHeroPosterScroll 90s linear infinite,
+        homeHeroFadePosters 60s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation-name: homeHeroFadeHnn;
+      animation: homeHeroFadeHnn 60s ease-in-out infinite;
+      object-fit: cover;
     }
     .home-room-hero__content {
       position: relative;
       width: 100%;
       margin: 0;
       justify-content: flex-start;
-      padding: 56px 14px 8px;
+      padding: 88px 14px 8px;
       flex: 0 0 auto;
       background: none;
       border-radius: 0;
@@ -805,10 +955,55 @@
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
     }
+    .home-room-hero__copy-stack {
+      display: block;
+      width: 100%;
+    }
+    .home-room-hero__audience {
+      width: 100%;
+      margin-bottom: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: clamp(10px, 3.2vw, 14px);
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .home-room-hero__title {
+      font-family: 'Roboto', sans-serif;
+      font-size: clamp(48px, 15vw, 72px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+    }
+    .home-room-hero__title > span > .home-room-hero__title-line:first-child,
+    .home-room-hero__title > span > .home-room-hero__title-line:last-child {
+      font-size: 0.82em;
+      font-weight: 700;
+    }
+    .home-room-hero__title > span > .home-room-hero__title-line:nth-child(2) {
+      margin: 0.1em 0 0.12em;
+    }
+    .home-room-hero__body {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 20px;
+    }
+    .home-room-hero__body p {
+      font-size: clamp(16px, 4.4vw, 19px);
+      line-height: 1.55;
+    }
+    .home-room-hero__actions {
+      margin-top: 24px;
+    }
+    .home-room-hero__cta {
+      min-height: 44px;
+      font-size: clamp(15px, 4vw, 18px);
+      padding: 10px 18px;
+    }
     .home-room-hero__content::before {
       content: "";
       position: absolute;
-      top: 28px;
+      top: 0;
       right: -24px;
       bottom: -28px;
       left: -20px;
@@ -819,19 +1014,8 @@
         linear-gradient(180deg, rgba(250, 250, 250, 0.55) 0%, rgba(250, 250, 250, 0.28) 70%, rgba(250, 250, 250, 0) 100%);
       filter: blur(22px);
     }
-    .home-room-hero__audience {
-      width: 100%;
-      margin-bottom: 4px;
-      font-size: clamp(10px, 3.15vw, 13px);
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      white-space: nowrap;
-    }
     .home-room-hero__image--drone {
       object-position: 72% 52%;
-    }
-    .home-room-hero__image--mechanical {
-      object-position: 50% 82%;
     }
     .home-room-hero__image--hnn {
       object-position: 50% 40%;
@@ -860,17 +1044,13 @@
     .workshop-benefit:not(:last-child)::after {
       display: none;
     }
-    .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
-      mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
-    }
     .home-room-hero__quotes {
       position: relative;
       top: auto;
       right: auto;
       bottom: auto;
       left: auto;
-      display: flex;
+      display: none;
       width: 100%;
       flex: 1 1 auto;
       flex-direction: column;
@@ -880,6 +1060,15 @@
       margin-top: 36px;
       padding: 16px 14px 28px;
       overflow: visible;
+    }
+    .home-room-hero__quote-scroller {
+      display: block;
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      margin-top: auto;
+      padding: 4px 0 18px;
+      pointer-events: auto;
     }
     .home-room-hero__quote-slot {
       display: flex;
@@ -939,6 +1128,30 @@
   body.cursor-glow-page .home-workshops-block .participants-feedback {
     width: 100%;
     flex: 1 1 auto;
+    box-shadow:
+      inset 0 0 16px rgba(67, 67, 67, 0.12),
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 26px rgba(67, 67, 67, 0.05);
+  }
+  body.cursor-glow-page .find-workshop__shell {
+    box-shadow:
+      inset 0 0 16px rgba(67, 67, 67, 0.12),
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 24px rgba(67, 67, 67, 0.05);
+  }
+  body.cursor-glow-page .home-venue-wrap {
+    width: var(--page-card-width) !important;
+    max-width: var(--page-card-max) !important;
+    margin: 0 auto 24px !important;
+    box-sizing: border-box !important;
+  }
+  body.cursor-glow-page .home-venue-wrap .discovery-venue-collage {
+    border-radius: 16px;
+    padding: 14px 18px 16px;
+    box-shadow:
+      inset 0 0 16px rgba(67, 67, 67, 0.12),
+      0 0 28px rgba(67, 67, 67, 0.07),
+      0 10px 26px rgba(67, 67, 67, 0.05);
   }
   body.cursor-glow-page #tab-section .workshop-cards-row {
     margin-left: 0;
@@ -949,31 +1162,49 @@
     padding-right: 0;
   }
   .our-workshops-shell {
-    width: min(92vw, 1280px);
-    max-width: 1280px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 0 auto;
-    padding: 22px 22px 32px;
-    border: 1px solid rgba(67, 67, 67, 0.14);
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.78);
+    padding: 18px 20px 24px;
+    border: 1px solid rgba(67, 67, 67, 0.11);
+    border-radius: 16px;
+    background: #fff;
     box-shadow:
+      inset 0 0 16px rgba(67, 67, 67, 0.12),
       0 0 28px rgba(67, 67, 67, 0.07),
-      0 10px 24px rgba(67, 67, 67, 0.05);
+      0 10px 26px rgba(67, 67, 67, 0.05);
     box-sizing: border-box;
   }
   body.cursor-glow-page .workshop-main-button {
-    border-color: rgba(67, 67, 67, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 20px;
+    background-color: #434343;
     box-shadow:
-      0 0 22px rgba(67, 67, 67, 0.06),
-      0 8px 18px rgba(67, 67, 67, 0.04);
+      inset 0 1px 1px rgba(255, 255, 255, 0.5),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+      0 10px 22px rgba(0, 0, 0, 0.2);
   }
   body.cursor-glow-page .workshop-main-button > .main-button-title-text::before {
     content: none;
     display: none;
   }
   body.cursor-glow-page .workshop-main-button > .main-button-title-text {
-    font-size: 32px;
-    color: #f05f40;
+    font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  body.cursor-glow-page .workshop-main-button:hover,
+  body.cursor-glow-page .workshop-main-button:focus,
+  body.cursor-glow-page .workshop-main-button.is-hero-hover {
+    background-color: #f05f40;
+    color: #fff;
+    border: 1px solid #f05f40;
+    box-shadow:
+      inset 0 0 16px rgba(255, 255, 255, 0.4),
+      0 12px 24px rgba(0, 0, 0, 0.18);
   }
   body.cursor-glow-page .workshop-main-button:hover > .main-button-title-text,
   body.cursor-glow-page .workshop-main-button:focus > .main-button-title-text,
@@ -1049,22 +1280,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    let posters = [
-        'img/poster1.jpg',
-        'img/poster2.jpg',
-        'img/poster3.jpg',
-        'img/poster4.jpg',
-        'img/poster5.jpg',
-        'img/poster6.jpg',
-        'img/poster7.jpg',
-    ];
-
-    // Preload the images
-    posters.forEach(function (src) {
-        let img = new Image();
-        img.src = src;
-    });
-
     // Participant quotes, shared by the hero bubbles and the Feedback panel
     // further down the page. Translations come from home.heroQuotes, matched by
     // position; the city and year in `meta` stay as authored.
@@ -1092,27 +1307,63 @@
     ];
 
     $(document).ready(function () {
-        let currentIndex = 0;
-
-        setInterval(function () {
-            // Fade out the current image
-            $("#cyclingPoster").css("opacity", "0");
-
-            setTimeout(function () {
-                // Switch to the next image
-                currentIndex = (currentIndex + 1) % posters.length;
-                $("#cyclingPoster").attr("src", posters[currentIndex]);
-
-                // Fade in the new image
-                $("#cyclingPoster").css("opacity", "1");
-            }, 1000); // 1s delay matches the transition duration in the CSS
-        }, 6000); // Interval duration is 2s fade out + 1s image switch + 1s fade in
-
-        // Floating feedback quote bubbles over the hero image
+        // Floating feedback quote bubbles over the hero image on laptop.
+        // On the stacked mobile hero, all quotes sit in a horizontal scroller
+        // that matches the location-page quote boxes.
         var heroQuotes = window.SOParticipantQuotes;
 
         var $quotesLayer = $(".home-room-hero__quotes");
-        if ($quotesLayer.length) {
+        var $quoteScroller = $(".home-room-hero__quote-scroller");
+        var stackedHero = window.matchMedia && window.matchMedia("(max-width: 767px)").matches;
+
+        function translatedHeroQuote(index) {
+            var quote = heroQuotes[index];
+            var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
+            if (translated && typeof translated[index] === "string") {
+                return { text: translated[index], meta: quote.meta };
+            }
+            return quote;
+        }
+
+        function buildHomeQuoteScroller() {
+            var root = $quoteScroller[0];
+            if (!root || !heroQuotes.length) return;
+            var track = root.querySelector(".discovery-header__quote-scroller-track");
+            if (!track) return;
+
+            track.innerHTML = "";
+            heroQuotes.forEach(function (quote, index) {
+                var item = translatedHeroQuote(index);
+                var figure = document.createElement("figure");
+                figure.className = "discovery-header__quote discovery-header__quote--scroller is-visible";
+                figure.setAttribute("data-testimonial", "");
+
+                var block = document.createElement("blockquote");
+                var paragraph = document.createElement("p");
+                paragraph.textContent = item.text;
+                block.appendChild(paragraph);
+
+                var caption = document.createElement("figcaption");
+                caption.textContent = item.meta;
+
+                figure.appendChild(block);
+                figure.appendChild(caption);
+                track.appendChild(figure);
+            });
+
+            root.setAttribute("data-discovery-quote-scroller", "");
+            if (typeof window.StageOneInitQuoteScroller === "function") {
+                window.StageOneInitQuoteScroller();
+            }
+        }
+
+        if ($quotesLayer.length && stackedHero) {
+            if (window.SOI18n) {
+                window.SOI18n.ready(buildHomeQuoteScroller);
+            } else {
+                buildHomeQuoteScroller();
+            }
+        } else if ($quotesLayer.length) {
             var quoteIndex = 0;
             var mobileHero = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
             if (mobileHero) {
@@ -1132,13 +1383,7 @@
             var displayMs = 18000;
 
             function nextQuote() {
-                var quote = heroQuotes[quoteIndex];
-                // Translated quote text, when a non-English language is active.
-                // City and year in `meta` stay as authored.
-                var translated = window.SOI18n ? window.SOI18n.list("home.heroQuotes") : null;
-                if (translated && typeof translated[quoteIndex] === "string") {
-                    quote = { text: translated[quoteIndex], meta: quote.meta };
-                }
+                var quote = translatedHeroQuote(quoteIndex);
                 quoteIndex = (quoteIndex + 1) % heroQuotes.length;
                 return quote;
             }
@@ -1209,6 +1454,7 @@
                 var parentWidth = bubble.parentElement ? bubble.parentElement.clientWidth : 0;
                 if (!parentWidth) return;
 
+                var maxW = Math.max(140, parentWidth - (bubble.offsetLeft || 0) - 8);
                 var width = Math.ceil(bubble.getBoundingClientRect().width);
                 var step = 12;
                 var guard = 40;
@@ -1216,11 +1462,40 @@
                 while (guard-- > 0) {
                     var orphanCount = lastLineWordCount(textEl);
                     if (orphanCount === 0 || orphanCount >= 3) break;
-                    if (width >= parentWidth) break;
+                    if (width >= maxW) break;
 
-                    width = Math.min(parentWidth, width + step);
+                    width = Math.min(maxW, width + step);
                     bubble.style.width = width + "px";
-                    bubble.style.maxWidth = "100%";
+                    bubble.style.maxWidth = maxW + "px";
+                }
+            }
+
+            function fitBubbleInSlot($bubble, $slot) {
+                var bubble = $bubble[0];
+                var slot = $slot[0];
+                var textEl = $bubble.find(".home-room-hero__quote-text")[0];
+                if (!bubble || !slot || !textEl) return;
+
+                var slotW = slot.clientWidth;
+                var slotH = slot.clientHeight;
+                var maxW = Math.max(140, slotW - (bubble.offsetLeft || 0) - 8);
+                var maxH = Math.max(80, slotH - 16);
+
+                bubble.style.height = "auto";
+                bubble.style.maxHeight = "none";
+                textEl.style.whiteSpace = "normal";
+
+                if (bubble.offsetWidth > maxW) {
+                    bubble.style.width = maxW + "px";
+                    bubble.style.maxWidth = maxW + "px";
+                }
+
+                var fontSize = parseFloat(window.getComputedStyle(textEl).fontSize) || 17;
+                var minFont = 11;
+                var guard = 48;
+                while (guard-- > 0 && fontSize > minFont && bubble.offsetHeight > maxH) {
+                    fontSize -= 0.5;
+                    textEl.style.fontSize = fontSize + "px";
                 }
             }
 
@@ -1231,6 +1506,7 @@
                 $slot.append($bubble);
                 $bubble[0].offsetWidth;
                 expandToAvoidOrphans($bubble);
+                fitBubbleInSlot($bubble, $slot);
                 $bubble.addClass("is-visible");
             }
 
@@ -1296,8 +1572,8 @@
             }
 
             // Two quotes on laptop (top-left and bottom-right, staggered fades).
-            // One quote on mobile. Held until the translation pass finishes so
-            // the first bubbles are already in the visitor's language.
+            // Tablet keeps a single bubble. Held until the translation pass
+            // finishes so the first bubbles are already in the visitor's language.
             function startQuoteBubbles() {
                 if (bubblesStarted) return;
                 bubblesStarted = true;
@@ -1338,7 +1614,7 @@
   })();
 </script>
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation" data-i18n-aria-label="nav.primary">
     <div class="container-fluid">
         <!-- Navbar Header -->
         <div class="navbar-header">
@@ -1349,7 +1625,8 @@
                 
                 <div class="nav-mobile-language dropdown">
                     <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+                        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language"
+                        data-i18n-aria-label="nav.changeLanguage" data-i18n-title="nav.changeLanguage">
                         <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
@@ -1371,6 +1648,7 @@
             <ul class="nav navbar-nav nav-main-links">
                 
                 
+                
                 <!-- Desktop: Workshops dropdown -->
                 <li class="dropdown nav-dropdown nav-desktop-workshop">
                     <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
@@ -1383,9 +1661,8 @@
                         <li><a class="nav-dropdown-link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
                     </ul>
                 </li>
-                
                 <!-- Mobile: a clearly labeled workshop group, available on every page -->
-                <li class="nav-mobile-workshop-heading"><span>Workshops</span></li>
+                <li class="nav-mobile-workshop-heading"><span data-i18n="home.workshopsHeading">Workshops</span></li>
                 <li class="nav-mobile-workshop-item">
                     <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
                 </li>
@@ -1397,6 +1674,9 @@
                 </li>
                 
                 
+                
+                
+                
                 <li class="dropdown nav-dropdown nav-desktop-explore">
                     <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-haspopup="true" aria-expanded="false"
@@ -1406,10 +1686,10 @@
                     
 
 
-<div class="dropdown-menu nav-dropdown-menu nav-explore-menu" role="menu" aria-label="Find Your Workshop">
+<div class="dropdown-menu nav-dropdown-menu nav-explore-menu" role="menu" aria-label="Find Your Workshop" data-i18n-aria-label="discovery.ui.backLabel">
   <div class="nav-explore-menu__cols">
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">Destinations</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.destinations">Destinations</p>
       <ul>
         
         
@@ -1492,75 +1772,46 @@
         
         
         <li>
-          <a class="nav-explore-menu__link" href="/locations/other-us-cities/">Other</a>
+          <a class="nav-explore-menu__link" href="/locations/other-us-cities/" data-i18n="discovery.ui.other">Other</a>
         </li>
       </ul>
     </div>
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">Participants</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.participants">Participants</p>
       <ul>
         
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/middle-school/">Middle School</a>
+          <a class="nav-explore-menu__link" href="/workshops/middle-school/" data-i18n="discovery.audience.middle-school.label">Middle School</a>
         </li>
         
         
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/high-school/">High School</a>
+          <a class="nav-explore-menu__link" href="/workshops/high-school/" data-i18n="discovery.audience.high-school.label">High School</a>
         </li>
         
         
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/college/">College and University</a>
+          <a class="nav-explore-menu__link" href="/workshops/college/" data-i18n="discovery.audience.college.label">College and University</a>
         </li>
         
         
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/adult-professional/">Adult / Professional</a>
+          <a class="nav-explore-menu__link" href="/workshops/adult-professional/" data-i18n="discovery.audience.adult-professional.label">Adult / Professional</a>
         </li>
         
         
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/international-students/">International Students</a>
-        </li>
-        
-        
-        
-        
-      </ul>
-    </div>
-    <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">Workshops</p>
-      <ul>
-        
-        
-        <li>
-          
-          <a class="nav-explore-menu__link" href="/ai-workshop.html">Artificial Intelligence</a>
-        </li>
-        
-        
-        
-        <li>
-          
-          <a class="nav-explore-menu__link" href="/robotics-workshop.html">Robotics</a>
-        </li>
-        
-        
-        
-        <li>
-          
-          <a class="nav-explore-menu__link" href="/rocket-workshop.html">Mechanical Engineering</a>
+          <a class="nav-explore-menu__link" href="/workshops/international-students/" data-i18n="discovery.audience.international-students.label">International Students</a>
         </li>
         
         
@@ -1569,43 +1820,81 @@
       </ul>
     </div>
     <div class="nav-explore-menu__col">
-      <p class="nav-explore-menu__heading">Program</p>
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.workshops">Workshops</p>
+      <ul>
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a>
+        </li>
+        
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/robotics-workshop.html" data-i18n="home.hero.linkRobotics">Robotics</a>
+        </li>
+        
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a>
+        </li>
+        
+        
+        
+        
+      </ul>
+    </div>
+    <div class="nav-explore-menu__col">
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.program">Program</p>
       <ul>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/school-groups/">School Group</a>
+          <a class="nav-explore-menu__link" href="/workshops/school-groups/" data-i18n="discovery.group.school-groups.label">School Group</a>
         </li>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/educational-tours/">Educational Tour</a>
+          <a class="nav-explore-menu__link" href="/workshops/educational-tours/" data-i18n="discovery.group.educational-tours.label">Educational Tour</a>
         </li>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/international-groups/">International Student Group</a>
+          <a class="nav-explore-menu__link" href="/workshops/international-groups/" data-i18n="discovery.group.international-groups.label">International Student Group</a>
         </li>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/academic-programs/">Academic Program</a>
+          <a class="nav-explore-menu__link" href="/workshops/academic-programs/" data-i18n="discovery.group.academic-programs.label">Academic Program</a>
         </li>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/college-groups/">College Group</a>
+          <a class="nav-explore-menu__link" href="/workshops/college-groups/" data-i18n="discovery.group.college-groups.label">College Group</a>
         </li>
         
         <li>
           
-          <a class="nav-explore-menu__link" href="/workshops/professional-groups/">Adult / Professional Group</a>
+          <a class="nav-explore-menu__link" href="/workshops/professional-groups/" data-i18n="discovery.group.professional-groups.label">Adult / Professional Group</a>
         </li>
         
       </ul>
     </div>
   </div>
-  <a class="nav-explore-menu__all" href="/explore/">Find Your Workshop</a>
+  <a class="nav-explore-menu__all" href="/#find-your-workshop" data-i18n="discovery.ui.backLabel">Find Your Workshop</a>
 </div>
 
 
@@ -1613,8 +1902,8 @@
                 
 
 
-<li class="nav-mobile-workshop-heading nav-mobile-explore-heading"><span>Explore</span></li>
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>Destinations</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-heading"><span data-i18n="nav.exploreLabel">Explore</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.destinations">Destinations</span></li>
 
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
@@ -1685,70 +1974,79 @@
 
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
-  <a href="/locations/other-us-cities/" class="nav-button-stageone">Other</a>
+  <a href="/locations/other-us-cities/" class="nav-button-stageone" data-i18n="discovery.ui.other">Other</a>
 </li>
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>Participants</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.participants">Participants</span></li>
 
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/middle-school/" class="nav-button-stageone">Middle School</a>
+  <a href="/workshops/middle-school/" class="nav-button-stageone" data-i18n="discovery.audience.middle-school.label">Middle School</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/high-school/" class="nav-button-stageone">High School</a>
+  <a href="/workshops/high-school/" class="nav-button-stageone" data-i18n="discovery.audience.high-school.label">High School</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/college/" class="nav-button-stageone">College and University</a>
+  <a href="/workshops/college/" class="nav-button-stageone" data-i18n="discovery.audience.college.label">College and University</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/adult-professional/" class="nav-button-stageone">Adult / Professional</a>
+  <a href="/workshops/adult-professional/" class="nav-button-stageone" data-i18n="discovery.audience.adult-professional.label">Adult / Professional</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
-  <a href="/workshops/international-students/" class="nav-button-stageone">International Students</a>
+  <a href="/workshops/international-students/" class="nav-button-stageone" data-i18n="discovery.audience.international-students.label">International Students</a>
 </li>
 
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>Workshops</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.workshops">Workshops</span></li>
+
+
+
 
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/ai-workshop.html" class="nav-button-stageone">Artificial Intelligence</a>
+  <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+</li>
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="home.hero.linkRobotics">Robotics</a>
+</li>
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
+  <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+</li>
+
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.program">Program</span></li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/school-groups/" class="nav-button-stageone" data-i18n="discovery.group.school-groups.label">School Group</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/robotics-workshop.html" class="nav-button-stageone">Robotics</a>
+  <a href="/workshops/educational-tours/" class="nav-button-stageone" data-i18n="discovery.group.educational-tours.label">Educational Tour</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/international-groups/" class="nav-button-stageone" data-i18n="discovery.group.international-groups.label">International Student Group</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/academic-programs/" class="nav-button-stageone" data-i18n="discovery.group.academic-programs.label">Academic Program</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/college-groups/" class="nav-button-stageone" data-i18n="discovery.group.college-groups.label">College Group</a>
 </li>
 
 <li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
-  <a href="/rocket-workshop.html" class="nav-button-stageone">Mechanical Engineering</a>
-</li>
-
-<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span>Program</span></li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/school-groups/" class="nav-button-stageone">School Group</a>
-</li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/educational-tours/" class="nav-button-stageone">Educational Tour</a>
-</li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/international-groups/" class="nav-button-stageone">International Student Group</a>
-</li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/academic-programs/" class="nav-button-stageone">Academic Program</a>
-</li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item">
-  <a href="/workshops/college-groups/" class="nav-button-stageone">College Group</a>
-</li>
-
-<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
-  <a href="/workshops/professional-groups/" class="nav-button-stageone">Adult / Professional Group</a>
+  <a href="/workshops/professional-groups/" class="nav-button-stageone" data-i18n="discovery.group.professional-groups.label">Adult / Professional Group</a>
 </li>
 
 
@@ -1763,7 +2061,10 @@
                         About
                     </a>
                 </li>
-                <!-- Plan a Workshop button -->
+                
+                
+                
+                
                 <li class="nav-plan-workshop">
                     <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
                         data-plan-workshop-open data-plan-source="header" data-source="header">
@@ -1771,6 +2072,7 @@
                         <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
+                
                 <li class="nav-workshops-access">
                     <a href="/workshop-access.html" class="nav-workshops-access-button">
                         <span data-i18n="nav.workshopAccess">Workshop Access</span>
@@ -1780,7 +2082,8 @@
      its LANGUAGES array, so the language set lives in exactly one place. -->
 <li class="nav-language dropdown">
     <a href="#" class="nav-lang-toggle dropdown-toggle" data-toggle="dropdown" role="button"
-        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language">
+        aria-haspopup="true" aria-expanded="false" aria-label="Change language" title="Change language"
+        data-i18n-aria-label="nav.changeLanguage" data-i18n-title="nav.changeLanguage">
         <i class="fa fa-globe" aria-hidden="true"></i><span class="nav-lang-code">EN</span><span class="caret"></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-right nav-lang-menu"></ul>
@@ -1794,27 +2097,33 @@
 
 
 <section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
+    <div class="home-room-hero__media">
+    <video class="home-room-hero__image home-room-hero__image--video home-room-hero__image--drone-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+      <source src="cad-tutorial/videos/drone-hero-workshop.mp4" type="video/mp4">
+    </video>
+    <video class="home-room-hero__image home-room-hero__image--video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+      <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+      <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+    </video>
     <img class="home-room-hero__image home-room-hero__image--drone" src="img/Drone_Hero_BG.jpg" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
     <img class="home-room-hero__image home-room-hero__image--mechanical" src="img/Mechanical-BG.png" alt="" aria-hidden="true">
     <div class="home-room-hero__image home-room-hero__image--posters" aria-hidden="true"></div>
     <img class="home-room-hero__image home-room-hero__image--hnn" src="img/HNN_Hero_BG.jpg" alt="" aria-hidden="true">
     <div class="home-room-hero__image-overlay" aria-hidden="true"></div>
-    <div class="home-room-hero__fade" aria-hidden="true"></div>
+    </div>
     <div class="home-room-hero__content">
         <p class="home-room-hero__audience" data-i18n="home.hero.audience">For Schools, Tour Operators &amp; Groups</p>
+        <div class="home-room-hero__copy-stack">
         <h1 class="home-room-hero__title">
             <span data-i18n-html="home.hero.title1"><span class="home-room-hero__title-line home-room-hero__title-line--gray">We Bring</span><span class="home-room-hero__title-line home-room-hero__title-line--orange">Hands-On Engineering</span><span class="home-room-hero__title-line home-room-hero__title-line--gray">to You</span></span>
         </h1>
         <div class="home-room-hero__body">
-            <p data-i18n="home.hero.body1">Complete three-hour AI, robotics, and mechanical engineering workshops delivered to your hotel, school, campus, or venue across the USA. We bring the instructors, equipment, materials, and curriculum—and handle setup and cleanup.</p>
+            <p data-i18n="home.hero.body1">Give your group a hands-on engineering experience where participants build, code, design, and create. Our three-hour AI, robotics, and mechanical engineering workshops are led by real engineers and delivered directly to your hotel, school, campus, or venue across the USA.</p>
+        </div>
         </div>
         <div class="home-room-hero__actions">
             <a class="home-room-hero__cta" href="#find-your-workshop" data-source="hero" data-i18n-html="home.hero.ctaFind">
                 <i class="fa fa-search" aria-hidden="true"></i>FIND YOUR WORKSHOP
-            </a>
-            <a class="home-room-hero__cta home-room-hero__cta--solid" href="/plan-a-workshop/"
-                data-plan-workshop-open data-plan-source="hero" data-i18n-html="home.hero.ctaPlan">
-                <i class="fa fa-calendar" aria-hidden="true"></i>Plan A Workshop
             </a>
         </div>
     </div>
@@ -1822,7 +2131,59 @@
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--tl"></div>
         <div class="home-room-hero__quote-slot home-room-hero__quote-slot--br"></div>
     </div>
+    <aside class="home-room-hero__quote-scroller discovery-header__quote-scroller" aria-label="Participant feedback">
+        <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--prev" aria-label="Scroll quotes left">
+            <span aria-hidden="true"></span>
+        </button>
+        <div class="discovery-header__quote-scroller-viewport" data-discovery-quote-scroller-viewport>
+            <div class="discovery-header__quote-scroller-track"></div>
+        </div>
+        <button type="button" class="discovery-header__quote-scroller-nav discovery-header__quote-scroller-nav--next" aria-label="Scroll quotes right">
+            <span aria-hidden="true"></span>
+        </button>
+    </aside>
+    <div class="discovery-quote-modal" data-discovery-quote-modal hidden>
+        <div class="discovery-quote-modal__backdrop" data-discovery-quote-modal-close tabindex="-1"></div>
+        <div class="discovery-quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="home-quote-modal-text">
+            <button type="button" class="discovery-quote-modal__close" data-discovery-quote-modal-close aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <blockquote>
+                <p id="home-quote-modal-text" data-discovery-quote-modal-text></p>
+            </blockquote>
+            <p class="discovery-quote-modal__meta" data-discovery-quote-modal-meta></p>
+        </div>
+    </div>
 </section>
+<script>
+(function () {
+    var heroVideos = document.querySelectorAll('.home-room-hero video');
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function resumeVideo(video) {
+        if (document.hidden || reducedMotion.matches || !video.paused) return;
+        video.muted = true;
+        var playback = video.play();
+        if (playback && playback.catch) playback.catch(function () {
+            // Loading and browser autoplay restrictions may require a retry.
+        });
+    }
+    function resumeHeroVideos() {
+        heroVideos.forEach(resumeVideo);
+    }
+    heroVideos.forEach(function (video) {
+        // Opacity changes must never stop or rewind the underlying video.
+        video.addEventListener('canplay', function () { resumeVideo(video); });
+        video.addEventListener('pause', function () { resumeVideo(video); });
+        video.addEventListener('ended', function () { resumeVideo(video); });
+    });
+    document.addEventListener('visibilitychange', resumeHeroVideos);
+    window.addEventListener('pageshow', resumeHeroVideos);
+    document.addEventListener('pointerdown', resumeHeroVideos);
+    document.addEventListener('keydown', resumeHeroVideos);
+    resumeHeroVideos();
+}());
+</script>
 <section class="homepage-workshop-benefits" aria-label="Workshop benefits" data-i18n-aria-label="home.hero.benefitsLabel">
   <div class="homepage-workshop-explorer__benefit-bar home-align-col">
     <ul class="homepage-workshop-explorer__benefits">
@@ -1841,17 +2202,17 @@
         </span>
       </li>
       <li>
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span>
+          <strong data-i18n="home.hero.benefitDeliveryTitle">Delivered Across the USA</strong>
+          <small data-i18n="home.hero.benefitDeliveryText">We bring the workshop directly to your hotel, school, campus, or event venue.</small>
+        </span>
+      </li>
+      <li>
         <i class="fa fa-users" aria-hidden="true"></i>
         <span>
           <strong data-i18n="home.hero.benefitGroupsTitle">Flexible Group Sizes</strong>
           <small data-i18n="home.hero.benefitGroupsText">From private groups to large student programs</small>
-        </span>
-      </li>
-      <li>
-        <i class="fa fa-map-marker" aria-hidden="true"></i>
-        <span>
-          <strong data-i18n="home.hero.benefitDeliveryTitle">Delivered Across the USA</strong>
-          <small data-i18n="home.hero.benefitDeliveryText">At your hotel, school, campus, or group venue</small>
         </span>
       </li>
       <li>
@@ -1873,289 +2234,12 @@
 </section>
 
 
-
-<section id="find-your-workshop" class="find-workshop" aria-labelledby="find-your-workshop-heading" data-find-your-workshop>
-  <span id="workshop-explorer" class="find-workshop__legacy-anchor" aria-hidden="true"></span>
-  <div class="find-workshop__shell home-align-col">
-    <header class="find-workshop__header">
-      <h2 id="find-your-workshop-heading">
-        Find Your <span>Workshop</span>
-      </h2>
-      <p class="find-workshop__intro">Explore by city, participants, workshop, or program</p>
-    </header>
-
-    <div class="find-workshop__grid">
-      <!-- Cities -->
-      <details class="find-workshop__card" data-discovery-card="city" open aria-labelledby="find-workshop-cities-heading">
-        <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-cities-heading">Destinations</h3>
-          <p>Where is your group headed?</p>
-        </summary>
-        <div class="find-workshop__options" role="list">
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/ann-arbor/"
-            data-discovery-option data-category="city" data-id="ann-arbor">
-            Ann Arbor, MI
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/atlanta/"
-            data-discovery-option data-category="city" data-id="atlanta">
-            Atlanta, GA
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/berkeley/"
-            data-discovery-option data-category="city" data-id="berkeley">
-            Berkeley, CA
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/boston/"
-            data-discovery-option data-category="city" data-id="boston">
-            Boston, MA
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/denver/"
-            data-discovery-option data-category="city" data-id="denver">
-            Denver, CO
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/houston/"
-            data-discovery-option data-category="city" data-id="houston">
-            Houston, TX
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/los-angeles/"
-            data-discovery-option data-category="city" data-id="los-angeles">
-            Los Angeles, CA
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/new-haven/"
-            data-discovery-option data-category="city" data-id="new-haven">
-            New Haven, CT
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/orlando/"
-            data-discovery-option data-category="city" data-id="orlando">
-            Orlando, FL
-          </a>
-          
-          
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/san-francisco/"
-            data-discovery-option data-category="city" data-id="san-francisco">
-            San Francisco, CA
-          </a>
-          
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/washington-dc/"
-            data-discovery-option data-category="city" data-id="washington-dc">
-            Washington, DC
-          </a>
-          
-          
-          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
-            href="/locations/other-us-cities/"
-            data-discovery-option data-category="city" data-id="other-us-cities">
-            Other
-          </a>
-        </div>
-      </details>
-
-      <!-- Audience -->
-      <details class="find-workshop__card" data-discovery-card="audience" open aria-labelledby="find-workshop-audience-heading">
-        <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-audience-heading">Participants</h3>
-          <p>Who will take part?</p>
-        </summary>
-        <div class="find-workshop__options" role="list">
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/middle-school/"
-            data-discovery-option data-category="audience" data-id="middle-school">
-            Middle School
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/high-school/"
-            data-discovery-option data-category="audience" data-id="high-school">
-            High School
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/college/"
-            data-discovery-option data-category="audience" data-id="college">
-            College and University
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/adult-professional/"
-            data-discovery-option data-category="audience" data-id="adult-professional">
-            Adult / Professional
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/international-students/"
-            data-discovery-option data-category="audience" data-id="international-students">
-            International Students
-          </a>
-          
-          
-          
-          
-        </div>
-      </details>
-
-      <!-- Workshops -->
-      <details class="find-workshop__card" data-discovery-card="workshop" open aria-labelledby="find-workshop-workshops-heading">
-        <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-workshops-heading">Workshops</h3>
-          <p>What will they experience?</p>
-        </summary>
-        <div class="find-workshop__options" role="list">
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/ai-workshop.html"
-            data-discovery-option data-category="workshop" data-id="artificial-intelligence">
-            Artificial Intelligence
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/robotics-workshop.html"
-            data-discovery-option data-category="workshop" data-id="robotics-drone">
-            Robotics
-          </a>
-          
-          
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/rocket-workshop.html"
-            data-discovery-option data-category="workshop" data-id="mechanical-engineering">
-            Mechanical Engineering
-          </a>
-          
-          
-          
-          
-        </div>
-      </details>
-
-      <!-- Planning For -->
-      <details class="find-workshop__card" data-discovery-card="group_type" open aria-labelledby="find-workshop-planning-heading">
-        <summary class="find-workshop__card-head">
-          <h3 id="find-workshop-planning-heading">Program</h3>
-          <p>What are you planning?</p>
-        </summary>
-        <div class="find-workshop__options" role="list">
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/school-groups/"
-            data-discovery-option data-category="group_type" data-id="school-groups">
-            School Group
-          </a>
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/educational-tours/"
-            data-discovery-option data-category="group_type" data-id="educational-tours">
-            Educational Tour
-          </a>
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/international-groups/"
-            data-discovery-option data-category="group_type" data-id="international-groups">
-            International Student Group
-          </a>
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/academic-programs/"
-            data-discovery-option data-category="group_type" data-id="academic-programs">
-            Academic Program
-          </a>
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/college-groups/"
-            data-discovery-option data-category="group_type" data-id="college-groups">
-            College Group
-          </a>
-          
-          <a class="find-workshop__option" role="listitem"
-            href="/workshops/professional-groups/"
-            data-discovery-option data-category="group_type" data-id="professional-groups">
-            Adult / Professional Group
-          </a>
-          
-        </div>
-      </details>
-    </div>
-
-    <section class="discovery-section discovery-plan find-workshop__plan" aria-labelledby="find-workshop-plan-heading">
-      <div class="discovery-plan__lead">
-        <div class="discovery-plan__icon" aria-hidden="true">
-          <i class="fa fa-calendar"></i>
-        </div>
-        <div class="discovery-plan__content">
-          <h2 id="find-workshop-plan-heading" class="discovery-plan__heading">Ready to Add Hands-On Engineering to Your Itinerary?</h2>
-          <p class="discovery-plan__copy">Share your destination, group details, and schedule. Stage One will help plan the workshop.</p>
-        </div>
-      </div>
-      <div class="discovery-plan__actions">
-        <button type="button" class="discovery-plan-button discovery-plan-button--large" data-plan-workshop-open
-          data-plan-clear-context data-plan-source="find_your_workshop">
-          <i class="fa fa-calendar" aria-hidden="true"></i>Plan a Workshop
-        </button>
-      </div>
-    </section>
-  </div>
-</section>
-
-            
 <div id="tab-section" class="home-workshops-block">
 <span id="ai" aria-hidden="true"></span>
 
 <div class="our-workshops-shell home-align-col">
 <div class="our-workshops-header">
-    <h2 class="workshop-title our-workshops-title" data-i18n="home.workshopsHeading">Workshops</h2>
+    <h2 class="workshop-title our-workshops-title" data-i18n="about.workshopsHeading">Our Workshops</h2>
 </div>
 
 <!-- First Workshop Box -->  
@@ -2168,30 +2252,28 @@
             <br/>
 
             <!-- Image Section -->
-            <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <div class="workshop-card-poster-stage" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
-                    <img id="cyclingPoster" src="img/poster1.jpg" alt="Student-created AI movie posters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" data-i18n-alt="home.cardAi.posterAlt">
-                </div>
+            <div class="workshop-card-visual workshop-card-visual--ai" style="flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="workshop-card-poster-stage ai-poster-scroll-box" style="width: 100%; height: 200px;" role="img" aria-label="Participant-created AI movie posters" data-i18n-aria-label="home.cardAi.posterAlt"></div>
 
                 <!-- Container to hold both the cloud and the image -->
                 <div
                   style="
                     position: absolute;
-                    top: 28%;
-                    left: 37%;
+                    top: 50%;
+                    left: 50%;
                     transform: translate(-50%, -50%);
                     pointer-events: none;
                   "
                 >
                   <!-- 'Cloud' element: a white circle at 50% opacity, with some blur to soften edges -->
                   <div
-                    style="position: absolute; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
+                    style="position: absolute; width: 260px; height: 104px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; filter: blur(10px); z-index: 1;"></div>
 
                   <!-- Rocket image on top of the cloud -->
                   <img
                     src="img/nn-nobg.png"
                     alt="Rocket Image"
-                    style="position: relative; width: 200px; height: auto; object-fit: contain; z-index: 2;"
+                    style="position: relative; width: 260px; height: auto; object-fit: contain; z-index: 2;"
                   />
                 </div>
             </div>
@@ -2214,6 +2296,22 @@
 
 <!-- Second Workshop Box -->
 <style>
+    @keyframes aiPosterScrollDown {
+        0% { background-position: center top; }
+        100% { background-position: center bottom; }
+    }
+    .ai-poster-scroll-box {
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        background-image: url('img/film-poster.webp');
+        /* Slightly over 100% so the poster sheet fills the window edge to
+           edge, matching the media in the other workshop cards. */
+        background-size: 115% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        animation: aiPosterScrollDown 60s linear infinite;
+    }
     @keyframes droneCodeScrollDown {
         0% { background-position: center top; }
         100% { background-position: center bottom; }
@@ -2359,6 +2457,308 @@
 </div>
 </div>
 
+
+
+<section id="find-your-workshop" class="find-workshop" aria-labelledby="find-your-workshop-heading" data-find-your-workshop>
+  <span id="workshop-explorer" class="find-workshop__legacy-anchor" aria-hidden="true"></span>
+  <div class="find-workshop__shell home-align-col">
+    <header class="find-workshop__header">
+      <h2 id="find-your-workshop-heading">
+        <span data-i18n="discovery.ui.sectionHeading">Find Your</span> <span data-i18n="discovery.ui.sectionHeadingAccent">Workshop</span>
+      </h2>
+      <p class="find-workshop__intro" data-i18n="discovery.ui.sectionIntro">Explore by city, participants, workshop, or program</p>
+    </header>
+
+    <div class="find-workshop__grid">
+      <!-- Cities -->
+      <details class="find-workshop__card" data-discovery-card="city" open aria-labelledby="find-workshop-cities-heading">
+        <summary class="find-workshop__card-head">
+          <h3 id="find-workshop-cities-heading" data-i18n="discovery.ui.destinations">Destinations</h3>
+          <p data-i18n="discovery.ui.destinationsSubtitle">Where is your group headed?</p>
+        </summary>
+        <div class="find-workshop__options" role="list">
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/ann-arbor/"
+            data-discovery-option data-category="city" data-id="ann-arbor">
+            Ann Arbor, MI
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/atlanta/"
+            data-discovery-option data-category="city" data-id="atlanta">
+            Atlanta, GA
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/berkeley/"
+            data-discovery-option data-category="city" data-id="berkeley">
+            Berkeley, CA
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/boston/"
+            data-discovery-option data-category="city" data-id="boston">
+            Boston, MA
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/denver/"
+            data-discovery-option data-category="city" data-id="denver">
+            Denver, CO
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/houston/"
+            data-discovery-option data-category="city" data-id="houston">
+            Houston, TX
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/los-angeles/"
+            data-discovery-option data-category="city" data-id="los-angeles">
+            Los Angeles, CA
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/new-haven/"
+            data-discovery-option data-category="city" data-id="new-haven">
+            New Haven, CT
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/orlando/"
+            data-discovery-option data-category="city" data-id="orlando">
+            Orlando, FL
+          </a>
+          
+          
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/san-francisco/"
+            data-discovery-option data-category="city" data-id="san-francisco">
+            San Francisco, CA
+          </a>
+          
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/washington-dc/"
+            data-discovery-option data-category="city" data-id="washington-dc">
+            Washington, DC
+          </a>
+          
+          
+          <a class="find-workshop__option find-workshop__option--featured" role="listitem"
+            href="/locations/other-us-cities/"
+            data-discovery-option data-category="city" data-id="other-us-cities"
+            data-i18n="discovery.ui.other">
+            Other
+          </a>
+        </div>
+      </details>
+
+      <!-- Audience -->
+      <details class="find-workshop__card" data-discovery-card="audience" open aria-labelledby="find-workshop-audience-heading">
+        <summary class="find-workshop__card-head">
+          <h3 id="find-workshop-audience-heading" data-i18n="discovery.ui.participants">Participants</h3>
+          <p data-i18n="discovery.ui.participantsSubtitle">Who will take part?</p>
+        </summary>
+        <div class="find-workshop__options" role="list">
+          
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/middle-school/"
+            data-discovery-option data-category="audience" data-id="middle-school"
+            data-i18n="discovery.audience.middle-school.label">
+            Middle School
+          </a>
+          
+          
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/high-school/"
+            data-discovery-option data-category="audience" data-id="high-school"
+            data-i18n="discovery.audience.high-school.label">
+            High School
+          </a>
+          
+          
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/college/"
+            data-discovery-option data-category="audience" data-id="college"
+            data-i18n="discovery.audience.college.label">
+            College and University
+          </a>
+          
+          
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/adult-professional/"
+            data-discovery-option data-category="audience" data-id="adult-professional"
+            data-i18n="discovery.audience.adult-professional.label">
+            Adult / Professional
+          </a>
+          
+          
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/international-students/"
+            data-discovery-option data-category="audience" data-id="international-students"
+            data-i18n="discovery.audience.international-students.label">
+            International Students
+          </a>
+          
+          
+          
+          
+        </div>
+      </details>
+
+      <!-- Workshops -->
+      <details class="find-workshop__card" data-discovery-card="workshop" open aria-labelledby="find-workshop-workshops-heading">
+        <summary class="find-workshop__card-head">
+          <h3 id="find-workshop-workshops-heading" data-i18n="discovery.ui.workshops">Workshops</h3>
+          <p data-i18n="discovery.ui.workshopsSubtitle">What will they experience?</p>
+        </summary>
+        <div class="find-workshop__options" role="list">
+          
+          
+          
+
+
+          <a class="find-workshop__option" role="listitem"
+            href="/ai-workshop.html"
+            data-discovery-option data-category="workshop" data-id="artificial-intelligence"
+            data-i18n="nav.ai">
+            Artificial Intelligence
+          </a>
+          
+          
+          
+          
+
+
+          <a class="find-workshop__option" role="listitem"
+            href="/robotics-workshop.html"
+            data-discovery-option data-category="workshop" data-id="robotics-drone"
+            data-i18n="home.hero.linkRobotics">
+            Robotics
+          </a>
+          
+          
+          
+          
+
+
+          <a class="find-workshop__option" role="listitem"
+            href="/rocket-workshop.html"
+            data-discovery-option data-category="workshop" data-id="mechanical-engineering"
+            data-i18n="nav.mechanical">
+            Mechanical Engineering
+          </a>
+          
+          
+          
+          
+        </div>
+      </details>
+
+      <!-- Planning For -->
+      <details class="find-workshop__card" data-discovery-card="group_type" open aria-labelledby="find-workshop-planning-heading">
+        <summary class="find-workshop__card-head">
+          <h3 id="find-workshop-planning-heading" data-i18n="discovery.ui.program">Program</h3>
+          <p data-i18n="discovery.ui.programSubtitle">What are you planning?</p>
+        </summary>
+        <div class="find-workshop__options" role="list">
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/school-groups/"
+            data-discovery-option data-category="group_type" data-id="school-groups"
+            data-i18n="discovery.group.school-groups.label">
+            School Group
+          </a>
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/educational-tours/"
+            data-discovery-option data-category="group_type" data-id="educational-tours"
+            data-i18n="discovery.group.educational-tours.label">
+            Educational Tour
+          </a>
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/international-groups/"
+            data-discovery-option data-category="group_type" data-id="international-groups"
+            data-i18n="discovery.group.international-groups.label">
+            International Student Group
+          </a>
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/academic-programs/"
+            data-discovery-option data-category="group_type" data-id="academic-programs"
+            data-i18n="discovery.group.academic-programs.label">
+            Academic Program
+          </a>
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/college-groups/"
+            data-discovery-option data-category="group_type" data-id="college-groups"
+            data-i18n="discovery.group.college-groups.label">
+            College Group
+          </a>
+          
+          <a class="find-workshop__option" role="listitem"
+            href="/workshops/professional-groups/"
+            data-discovery-option data-category="group_type" data-id="professional-groups"
+            data-i18n="discovery.group.professional-groups.label">
+            Adult / Professional Group
+          </a>
+          
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <section class="discovery-section discovery-plan find-workshop__plan" aria-labelledby="find-workshop-plan-heading">
+    <div class="discovery-plan__lead">
+      <div class="discovery-plan__icon" aria-hidden="true">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <div class="discovery-plan__content">
+        <h2 id="find-workshop-plan-heading" class="discovery-plan__heading" data-i18n="discovery.ui.planHeading">Ready to Add Hands-On Engineering to Your Itinerary?</h2>
+        <p class="discovery-plan__copy" data-i18n="discovery.ui.planCopy">Share your destination, group details, and schedule. Stage One will help plan the workshop.</p>
+      </div>
+    </div>
+    <div class="discovery-plan__actions">
+      <button type="button" class="discovery-plan-button discovery-plan-button--large" data-plan-workshop-open
+        data-plan-clear-context data-plan-source="find_your_workshop">
+        <i class="fa fa-calendar" aria-hidden="true"></i><span data-i18n="nav.planWorkshop">Plan a Workshop</span>
+      </button>
+    </div>
+  </section>
+</section>
+
+
 <div class="participants-plan-row home-align-col">
     <section class="participants-feedback" aria-label="Participant feedback">
         <div class="participants-feedback__head">
@@ -2382,6 +2782,54 @@
             </div>
         </div>
     </section>
+  </div>
+
+  <div class="home-venue-wrap home-align-col">
+    
+<section class="discovery-section discovery-venue-collage" aria-labelledby="discovery-venue-collage-heading">
+  <div class="discovery-venue-collage__layout">
+    <div class="discovery-venue-collage__info">
+      <h2 id="discovery-venue-collage-heading" class="discovery-venue-collage__heading" data-i18n="discovery.ui.venueCollageHeading">Workshop Venues</h2>
+      <p class="discovery-venue-collage__copy" data-i18n="discovery.ui.venueCollageCopy">Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.</p>
+      <ul class="discovery-venue-collage__types" role="list">
+        <li><i class="fa fa-bed" aria-hidden="true"></i><span data-i18n="discovery.ui.venueTypeHotels">Hotels</span></li>
+        <li><i class="fa fa-university" aria-hidden="true"></i><span data-i18n="discovery.ui.venueTypeCampuses">Campuses</span></li>
+        <li><i class="fa fa-comments" aria-hidden="true"></i><span data-i18n="discovery.ui.venueTypeMeetingRooms">Meeting Rooms</span></li>
+        <li><i class="fa fa-building-o" aria-hidden="true"></i><span data-i18n="discovery.ui.venueTypeEventSpaces">Event Spaces</span></li>
+      </ul>
+      <p class="discovery-venue-collage__disclaimer" data-i18n="discovery.ui.venueCollageDisclaimer">Venue images are shown for illustrative purposes only and do not imply any affiliation or partnership with Stage One Education.</p>
+    </div>
+    <div class="discovery-venue-collage__media">
+      <div class="discovery-venue-collage__frame" data-venue-carousel role="region" aria-label="Workshop venue photos">
+        
+        <img class="discovery-venue-collage__slide is-active" src="/img/Venues/IMG_9270.jpg" alt="" aria-hidden="true" draggable="false">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room2.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room3.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room4.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room5.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room7.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/IMG_5408.jpg" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <img class="discovery-venue-collage__slide" src="/img/Venues/room1.png" alt="" aria-hidden="true" draggable="false" loading="lazy">
+        
+        <button type="button" class="discovery-venue-collage__arrow discovery-venue-collage__arrow--prev" data-venue-prev aria-label="Previous photo" data-i18n-aria-label="discovery.ui.venuePrev">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="discovery-venue-collage__arrow discovery-venue-collage__arrow--next" data-venue-next aria-label="Next photo" data-i18n-aria-label="discovery.ui.venueNext">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="discovery-venue-collage__dots" data-venue-dots></div>
+    </div>
+  </div>
+</section>
+
   </div>
 
 <script>
@@ -2976,9 +3424,9 @@
 
       <div class="discovery-page-footer__divider" aria-hidden="true"></div>
 
-      <nav class="discovery-page-footer__nav" aria-label="Site footer">
+      <nav class="discovery-page-footer__nav" aria-label="Site footer" data-i18n-aria-label="discovery.ui.siteFooter">
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--destinations">
-          <h3>Destinations</h3>
+          <h3 data-i18n="discovery.ui.destinations">Destinations</h3>
           <ul>
             
             
@@ -3084,7 +3532,8 @@
             <li>
               <a href="/locations/other-us-cities/"
                 
-                data-discovery-option data-category="city" data-id="other-us-cities">
+                data-discovery-option data-category="city" data-id="other-us-cities"
+                data-i18n="discovery.ui.other">
                 Other
               </a>
             </li>
@@ -3092,14 +3541,15 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>Participants</h3>
+          <h3 data-i18n="discovery.ui.participants">Participants</h3>
           <ul>
             
             
             <li>
               <a href="/workshops/middle-school/"
                 
-                data-discovery-option data-category="audience" data-id="middle-school">
+                data-discovery-option data-category="audience" data-id="middle-school"
+                data-i18n="discovery.audience.middle-school.label">
                 Middle School
               </a>
             </li>
@@ -3109,7 +3559,8 @@
             <li>
               <a href="/workshops/high-school/"
                 
-                data-discovery-option data-category="audience" data-id="high-school">
+                data-discovery-option data-category="audience" data-id="high-school"
+                data-i18n="discovery.audience.high-school.label">
                 High School
               </a>
             </li>
@@ -3119,7 +3570,8 @@
             <li>
               <a href="/workshops/college/"
                 
-                data-discovery-option data-category="audience" data-id="college">
+                data-discovery-option data-category="audience" data-id="college"
+                data-i18n="discovery.audience.college.label">
                 College and University
               </a>
             </li>
@@ -3129,7 +3581,8 @@
             <li>
               <a href="/workshops/adult-professional/"
                 
-                data-discovery-option data-category="audience" data-id="adult-professional">
+                data-discovery-option data-category="audience" data-id="adult-professional"
+                data-i18n="discovery.audience.adult-professional.label">
                 Adult / Professional
               </a>
             </li>
@@ -3139,7 +3592,8 @@
             <li>
               <a href="/workshops/international-students/"
                 
-                data-discovery-option data-category="audience" data-id="international-students">
+                data-discovery-option data-category="audience" data-id="international-students"
+                data-i18n="discovery.audience.international-students.label">
                 International Students
               </a>
             </li>
@@ -3151,13 +3605,14 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>Programs</h3>
+          <h3 data-i18n="discovery.ui.programs">Programs</h3>
           <ul>
             
             <li>
               <a href="/workshops/school-groups/"
                 
-                data-discovery-option data-category="group_type" data-id="school-groups">
+                data-discovery-option data-category="group_type" data-id="school-groups"
+                data-i18n="discovery.group.school-groups.label">
                 School Group
               </a>
             </li>
@@ -3165,7 +3620,8 @@
             <li>
               <a href="/workshops/educational-tours/"
                 
-                data-discovery-option data-category="group_type" data-id="educational-tours">
+                data-discovery-option data-category="group_type" data-id="educational-tours"
+                data-i18n="discovery.group.educational-tours.label">
                 Educational Tour
               </a>
             </li>
@@ -3173,7 +3629,8 @@
             <li>
               <a href="/workshops/international-groups/"
                 
-                data-discovery-option data-category="group_type" data-id="international-groups">
+                data-discovery-option data-category="group_type" data-id="international-groups"
+                data-i18n="discovery.group.international-groups.label">
                 International Student Group
               </a>
             </li>
@@ -3181,7 +3638,8 @@
             <li>
               <a href="/workshops/academic-programs/"
                 
-                data-discovery-option data-category="group_type" data-id="academic-programs">
+                data-discovery-option data-category="group_type" data-id="academic-programs"
+                data-i18n="discovery.group.academic-programs.label">
                 Academic Program
               </a>
             </li>
@@ -3189,7 +3647,8 @@
             <li>
               <a href="/workshops/college-groups/"
                 
-                data-discovery-option data-category="group_type" data-id="college-groups">
+                data-discovery-option data-category="group_type" data-id="college-groups"
+                data-i18n="discovery.group.college-groups.label">
                 College Group
               </a>
             </li>
@@ -3197,7 +3656,8 @@
             <li>
               <a href="/workshops/professional-groups/"
                 
-                data-discovery-option data-category="group_type" data-id="professional-groups">
+                data-discovery-option data-category="group_type" data-id="professional-groups"
+                data-i18n="discovery.group.professional-groups.label">
                 Adult / Professional Group
               </a>
             </li>
@@ -3206,34 +3666,46 @@
         </div>
 
         <div class="discovery-page-footer__nav-group">
-          <h3>Workshops</h3>
+          <h3 data-i18n="discovery.ui.workshops">Workshops</h3>
           <ul>
             
             
+            
+
+
             <li>
               <a href="/ai-workshop.html"
                 
-                data-discovery-option data-category="workshop" data-id="artificial-intelligence">
-                AI
+                data-discovery-option data-category="workshop" data-id="artificial-intelligence"
+                data-i18n="nav.ai">
+                Artificial Intelligence
               </a>
             </li>
             
             
             
+            
+
+
             <li>
               <a href="/robotics-workshop.html"
                 
-                data-discovery-option data-category="workshop" data-id="robotics-drone">
+                data-discovery-option data-category="workshop" data-id="robotics-drone"
+                data-i18n="home.hero.linkRobotics">
                 Robotics
               </a>
             </li>
             
             
             
+            
+
+
             <li>
               <a href="/rocket-workshop.html"
                 
-                data-discovery-option data-category="workshop" data-id="mechanical-engineering">
+                data-discovery-option data-category="workshop" data-id="mechanical-engineering"
+                data-i18n="home.hero.linkMechanical">
                 Mechanical
               </a>
             </li>
@@ -3245,11 +3717,11 @@
         </div>
 
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--link">
-          <h3><a href="/feedback.html">Feedback</a></h3>
+          <h3><a href="/feedback.html" data-i18n="nav.feedback">Feedback</a></h3>
         </div>
 
         <div class="discovery-page-footer__nav-group discovery-page-footer__nav-group--link">
-          <h3><a href="/about-us.html">About</a></h3>
+          <h3><a href="/about-us.html" data-i18n="nav.about">About</a></h3>
         </div>
       </nav>
     </div>
@@ -3260,11 +3732,13 @@
     <div class="discovery-page-footer__bar-inner">
       <div class="discovery-page-footer__bar-left">
         <span class="discovery-page-footer__copyright">&copy; 2026 Stage One Education, LLC</span>
-        <a class="discovery-page-footer__bar-link" href="/about-us.html#contact">Contact Us</a>
+        <a class="discovery-page-footer__bar-link" href="mailto:workshops@stageoneeducation.com" data-contact-email-open data-i18n="discovery.ui.contactUs">Contact Us</a>
       </div>
-      <p class="discovery-page-footer__bar-right">
+      
+      <p class="discovery-page-footer__bar-right" data-i18n-html="discovery.ui.madeWithLove">
         Made with <span class="discovery-page-footer__heart" aria-hidden="true">🧡</span> for curious minds
       </p>
+      
     </div>
   </div>
 </footer>
@@ -3279,36 +3753,106 @@
 <div class="plan-workshop-modal" data-plan-workshop-modal hidden>
   <div class="plan-workshop-modal__backdrop" data-plan-workshop-close tabindex="-1"></div>
   <div class="plan-workshop-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="plan-workshop-modal-title">
-    <button type="button" class="plan-workshop-modal__close" data-plan-workshop-close aria-label="Close">
+    <button type="button" class="plan-workshop-modal__close" data-plan-workshop-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
-    <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title">Plan a Workshop</h2>
-    <p class="plan-workshop-modal__lede">
-      Share your contact details and a few notes about your group. We’ll follow up to plan the workshop.
-    </p>
-    
+    <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title" data-i18n="nav.planWorkshop">Plan a Workshop</h2>
+    <div class="plan-workshop-modal__columns">
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--form">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        
 <form id="plan-workshop-modal-form" data-plan-workshop-form data-plan-workshop-compact class="plan-workshop-form--compact" novalidate>
   <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
 
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">Name <span aria-hidden="true">*</span></span>
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
     <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="plan-workshop-modal-form-error-contactName">
-    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-contactName">Enter your name.</span>
+    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-contactName" data-i18n="discovery.ui.formNameError">Enter your name.</span>
   </label>
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">Email <span aria-hidden="true">*</span></span>
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
     <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="plan-workshop-modal-form-error-email">
-    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-email">Enter a valid email.</span>
+    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
   </label>
   <label class="plan-workshop-field">
-    <span class="plan-workshop-field__label">What should we know about your group?</span>
-    <textarea class="plan-workshop-field__control" name="notes" rows="5" placeholder="Tell us about your group, location, time of year, and anything else we should know."></textarea>
+    <span class="plan-workshop-field__label" data-i18n="discovery.ui.formGroupNotes">What should we know about your group?</span>
+    <textarea class="plan-workshop-field__control" name="notes" rows="3" placeholder="Tell us about your group, location, time of year, and anything else we should know." data-i18n-placeholder="discovery.ui.formNotesPlaceholder"></textarea>
   </label>
-  <button type="submit" class="plan-workshop-page__submit">Send Workshop Details</button>
+  <button type="submit" class="plan-workshop-page__submit" data-i18n="discovery.ui.formSend">Send Workshop Details</button>
+  <p class="plan-workshop-form__status" data-plan-workshop-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
 
 </form>
 
+        <p class="plan-workshop-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="plan-workshop-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="plan-workshop-modal__copy plan-workshop-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="plan-workshop-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--demo">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="plan-workshop-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="plan-workshop-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+<div class="contact-email-modal" data-contact-email-modal hidden>
+  <div class="contact-email-modal__backdrop" data-contact-email-close tabindex="-1"></div>
+  <div class="contact-email-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contact-email-modal-title">
+    <button type="button" class="contact-email-modal__close" data-contact-email-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <h2 class="contact-email-modal__title" id="contact-email-modal-title" data-i18n="discovery.ui.contactUs">Contact Us</h2>
+    <p class="contact-email-modal__lede" data-i18n="discovery.ui.planModalLede">
+      Tell us a few details and we&rsquo;ll be in touch soon.
+    </p>
+    <div class="contact-email-modal__columns">
+      <div class="contact-email-modal__col contact-email-modal__col--form">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        <form class="contact-email-modal__form" data-contact-email-form novalidate>
+          <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="contact-email-form-error-name">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-name" data-i18n="discovery.ui.formNameError">Enter your name.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="contact-email-form-error-email">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n="discovery.ui.contactFormMessage">How can we help?</span>
+            <textarea class="plan-workshop-field__control" name="message" rows="3" placeholder="Tell us what you would like to know." data-i18n-placeholder="discovery.ui.contactFormMessagePlaceholder"></textarea>
+          </label>
+          <button type="submit" class="contact-email-modal__send" data-i18n="discovery.ui.contactFormSend">Send Message</button>
+          <p class="plan-workshop-form__status" data-contact-email-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
+        </form>
+        <p class="contact-email-modal__success" data-contact-email-success hidden data-i18n="discovery.ui.contactFormSuccess">Thank you! Your message has been sent. We will get back to you soon.</p>
+        <p class="contact-email-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="contact-email-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="contact-email-modal__copy contact-email-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="contact-email-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="contact-email-modal__col contact-email-modal__col--demo">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="contact-email-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="contact-email-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3334,7 +3878,7 @@ window.StageOneDiscoveryData = {
   audiences: [{"id":"middle-school","label":"Middle School","short_label":"Middle School","icon":"fa-book","age_label":"Ages 11–14","headline":"Engineering Workshops for Middle School Groups","intro":"Middle school students do real engineering from the first minute. Structured guidance, clear explanations, and regular hands-on milestones keep every student actively involved — no previous experience required.","supporting_copy":["Instructors introduce technical concepts in accessible language and keep the group moving through collaborative challenges. Every Stage One workshop — Artificial Intelligence, Robotics, and Mechanical Engineering — is available for middle school groups.","The workshop is delivered directly to your school, hotel, campus, or group venue. Stage One brings the instructor, equipment, materials, and curriculum, and handles setup and cleanup."],"facts":[{"title":"No Experience Needed","text":"Concepts are introduced in accessible language with structured guidance."},{"title":"Hands-On Milestones","text":"Regular build-and-test moments keep every student engaged."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for middle school groups."}],"cta_heading":"Ready to Plan a Middle School Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your students.","seo_title":"Middle School Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops designed for middle school groups. Delivered to schools, hotels, and venues nationwide."},{"id":"high-school","label":"High School","short_label":"High School","icon":"fa-graduation-cap","age_label":"Ages 14–18","headline":"Engineering Workshops for High School Groups","intro":"High school groups explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the depth to the group's experience.","supporting_copy":["Whether your students are already STEM-focused or trying engineering for the first time, the workshop meets them where they are. Every Stage One workshop — Artificial Intelligence, Robotics, and Mechanical Engineering — is available for high school groups.","The workshop is delivered directly to your school, hotel, campus, or group venue anywhere your group travels. Stage One brings the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Team-Based Challenges","text":"Students collaborate on real design and engineering decisions."},{"title":"Adjustable Depth","text":"Instructors tune guidance and technical depth to the group."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for high school groups."}],"cta_heading":"Ready to Plan a High School Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your students.","seo_title":"High School Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops designed for high school groups. Delivered to schools, hotels, and venues nationwide."},{"id":"college","label":"College and University","short_label":"College and University","icon":"fa-university","age_label":"College & University","headline":"Engineering Workshops for College Groups","intro":"College and university groups move at a faster pace with greater emphasis on applied engineering, collaboration, and technical decision-making. The workshop complements academic travel, campus programs, and group events.","supporting_copy":["The three-hour format works as a program block within orientation weeks, leadership programs, academic travel, or student organization events. Every Stage One workshop is available at the college level.","Stage One delivers directly to your campus, hotel, or venue, bringing the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Applied Pace","text":"Faster pacing with emphasis on technical decision-making."},{"title":"Program-Friendly","text":"Fits orientations, leadership programs, and academic travel."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for college groups."}],"cta_heading":"Ready to Plan a College Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your program.","seo_title":"College Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops for college and university groups. Delivered to campuses, hotels, and venues nationwide."},{"id":"adult-professional","label":"Adult / Professional","short_label":"Adult / Professional","icon":"fa-briefcase","age_label":"Adult learners","headline":"Engineering Workshops for Adult and Professional Groups","intro":"Adult and professional groups take part in a practical, collaborative engineering experience designed for active participation — a refreshing alternative to conventional team events and professional programs.","supporting_copy":["The format supports professional development programs, team experiences, lifelong learning groups, and customized events. No engineering background is required, and instructors adjust the depth to the group.","Stage One delivers directly to your office, conference venue, hotel, or campus, bringing the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Active Participation","text":"Everyone designs, builds, and tests — not a lecture."},{"title":"Team-Friendly","text":"Works for professional teams, programs, and group events."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for adult groups."}],"cta_heading":"Ready to Plan an Adult or Professional Workshop?","cta_copy":"Share your group size, location, and schedule. Stage One will help coordinate the right workshop for your team or program.","seo_title":"Adult & Professional Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops for adult and professional groups. Delivered to offices, hotels, and venues nationwide."},{"id":"international-students","label":"International Students","short_label":"International Students","icon":"fa-globe","age_label":"Visiting groups","headline":"Engineering Workshops for International Student Groups","intro":"Stage One works closely with tour providers, schools, and group leaders bringing international students to the United States. The workshop adds a genuine American engineering experience to the group's U.S. itinerary.","supporting_copy":["The complete three-hour program is delivered at a venue the group is already using — hotel, campus, school, or conference room — and can be scheduled in the morning, afternoon, or evening around the itinerary.","Instruction is clear and accessible, no previous engineering experience is required, and the pace adjusts to the group. Stage One coordinates directly with the tour provider or group leader."],"facts":[{"title":"Itinerary-Friendly","text":"Scheduled around the group's U.S. travel program."},{"title":"Clear Instruction","text":"Accessible pacing and language for international participants."},{"title":"Coordinated Delivery","text":"Stage One works directly with tour providers and group leaders."}],"cta_heading":"Planning a U.S. Itinerary for International Students?","cta_copy":"Share the group's destinations, dates, and size. Stage One will coordinate a workshop around the itinerary.","seo_title":"Engineering Workshops for International Student Groups | Stage One Education","seo_description":"Hands-on engineering workshops for international student groups visiting the United States. Delivered to hotels, campuses, and venues, coordinated with tour providers."},{"id":"other-groups","label":"Other","short_label":"Other Groups","hide_from_nav":true,"icon":"fa-users","age_label":"Mixed & custom","headline":"Engineering Workshops for Every Kind of Group","intro":"Mixed ages, families, community organizations, camps, scouts, or something entirely different — Stage One instructors adjust pacing, team structure, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","supporting_copy":["Tell us about your group and what you hope the experience achieves. Every Stage One workshop can be adapted, and the team will recommend the best fit.","The workshop is delivered directly to your venue — Stage One brings the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Mixed Experience Levels","text":"Pacing and team structure adjust so everyone contributes."},{"title":"Flexible Format","text":"Camps, community groups, families, and custom programs all work."},{"title":"All Workshops Available","text":"Every Stage One workshop can be adapted to your group."}],"cta_heading":"Tell Us About Your Group","cta_copy":"Share your group's makeup, location, and schedule. Stage One will recommend the right workshop.","seo_title":"Engineering Workshops for Groups of All Kinds | Stage One Education","seo_description":"Hands-on engineering workshops adapted for mixed-age, community, camp, and custom groups. Delivered to hotels, schools, and venues nationwide."}],
   groupTypes: [{"id":"school-groups","label":"School Group","short_label":"School Group","headline":"Engineering Workshops for School Groups","intro":"Bring a complete engineering experience to your students — at your school or wherever your group travels. Stage One delivers the instructor, equipment, materials, and curriculum, and handles setup and cleanup.","supporting_copy":["The three-hour workshop fits enrichment days, STEM weeks, field-trip alternatives, and travel programs. Instruction adapts from middle school through high school, and no previous engineering experience is required.","Teachers and chaperones consistently tell us the workshop reaches students who don't usually see themselves as \"engineering kids\" — every student builds, codes, and tests something real."],"facts":[{"title":"At School or On the Road","text":"Delivered to classrooms, gyms, hotels, and travel venues alike."},{"title":"Curriculum Included","text":"Designed and instructed by PhDs, engineers, and educators."},{"title":"Scales to Your Group","text":"Formats for single classes through large programs."}],"cta_heading":"Ready to Plan a School Group Workshop?","cta_copy":"Share your school, group size, and preferred dates. Stage One will help coordinate the workshop.","seo_title":"Engineering Workshops for School Groups | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to school groups at schools, hotels, and venues nationwide."},{"id":"educational-tours","label":"Educational Tour","short_label":"Educational Tour","headline":"Engineering Workshops for Educational Tours","intro":"Stage One partners with educational tour companies across the United States. The workshop is a turn-key program block: we deliver the complete experience to the group's hotel or venue, on the schedule your itinerary needs.","supporting_copy":["Tour operators use the workshop as a substantive evening activity, an arrival-day program, or a hands-on complement to the destinations already on the itinerary. It requires no lab, no transportation, and no preparation from the group.","One point of contact coordinates everything — dates, venue requirements, group size, and workshop selection — and the format is consistent across cities, so multi-city operators can offer it anywhere they run programs."],"facts":[{"title":"Turn-Key for Operators","text":"One contact, complete delivery, consistent format across cities."},{"title":"Evening & Arrival Days","text":"Turns hotel time into a highlight of the trip."},{"title":"No Lab Required","text":"Any hotel meeting room or group venue can host the workshop."}],"cta_heading":"Ready to Add a Workshop to Your Tour Program?","cta_copy":"Share your itinerary, group size, and dates. Stage One will coordinate the workshop around your program.","seo_title":"Engineering Workshops for Educational Tour Companies | Stage One Education","seo_description":"Turn-key hands-on engineering workshops for educational tour programs. Delivered to hotels and group venues in cities across the United States."},{"id":"international-groups","label":"International Student Group","short_label":"International Group","headline":"Engineering Workshops for International Groups","intro":"For international groups traveling through the United States, Stage One adds a distinctive American STEM experience without complicating the itinerary. We bring the instructors, equipment, materials, and complete workshop directly to the group's hotel, school, campus, or meeting venue, making it easy to schedule around sightseeing, institutional visits, attraction days, and travel.","supporting_copy":["The three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and instruction can be adapted for middle school, high school, college, adult, or mixed-age participants.","Stage One has welcomed international groups from around the world and understands the logistics of U.S. educational travel — coordination happens directly with the tour provider or coordinating organization."],"facts":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options around the itinerary."},{"title":"Clear, Accessible Experience","text":"No prior experience required; instruction adjusts to the group."}],"cta_heading":"Planning a U.S. Itinerary for an International Group?","cta_copy":"Share the group's destinations, dates, and size. Stage One will coordinate a workshop around the itinerary.","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel."},{"id":"academic-programs","label":"Academic Program","short_label":"Academic Program","headline":"Engineering Workshops for Academic Programs","intro":"Academic and enrichment programs use Stage One workshops as ready-made engineering experiences — complete with instructor, equipment, materials, and curriculum.","supporting_copy":["The workshop drops into your program schedule as a self-contained three-hour block, and programs running multiple sessions or cohorts can schedule repeated workshops across days or weeks.","Because each of the four workshops is distinct, returning participants can experience something new every time — AI one session, robotics or mechanical engineering the next."],"facts":[{"title":"Drop-In Program Block","text":"A self-contained three-hour experience for your schedule."},{"title":"Repeatable","text":"Multiple cohorts or repeat sessions across days and weeks."},{"title":"Four Distinct Workshops","text":"Returning participants can try something new each time."}],"cta_heading":"Ready to Add Workshops to Your Program?","cta_copy":"Share your program schedule, group sizes, and location. Stage One will help build the workshop plan.","seo_title":"Engineering Workshops for Academic Programs | Stage One Education","seo_description":"Hands-on engineering workshops for academic and enrichment programs. Complete instructor-led sessions delivered to your venue."},{"id":"college-groups","label":"College Group","short_label":"College Group","headline":"Engineering Workshops for College Groups and Campus Programs","intro":"Student organizations, orientation programs, honors cohorts, and campus events use Stage One workshops as engaging, substantive group experiences delivered right on campus or at the group's venue.","supporting_copy":["The pace and technical depth rise to meet college participants, with emphasis on applied engineering, collaboration, and decision-making. Every Stage One workshop is available at this level.","Stage One brings the instructor, equipment, materials, and curriculum to your campus space, hotel, or venue — no lab or preparation required."],"facts":[{"title":"Campus-Ready","text":"Delivered to campus spaces, hotels, and event venues."},{"title":"College-Level Pace","text":"Applied engineering with real technical decision-making."},{"title":"All Workshops Available","text":"AI, robotics, and mechanical engineering."}],"cta_heading":"Ready to Plan a College Group Workshop?","cta_copy":"Share your group, campus or venue, and schedule. Stage One will help coordinate the workshop.","seo_title":"Engineering Workshops for College Groups | Stage One Education","seo_description":"Hands-on engineering workshops for college student organizations, orientations, and campus programs. Delivered to campuses and venues nationwide."},{"id":"professional-groups","label":"Adult / Professional Group","short_label":"Adult / Professional Group","headline":"Engineering Workshops for Adult and Professional Groups","intro":"Give your team or adult group a genuinely different shared experience: three hours of collaborative, hands-on engineering led by a professional engineer, delivered to your office, conference venue, or hotel.","supporting_copy":["The workshop works for team events, professional development, conferences, and lifelong-learning groups. Participants design, build, code, and test together — no engineering background required.","Stage One brings everything the session needs and adapts the pace and technical depth to your group."],"facts":[{"title":"A Different Team Event","text":"Collaborative building and problem-solving, not a lecture."},{"title":"Conference-Friendly","text":"Fits conference programs, offsites, and professional events."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum included."}],"cta_heading":"Ready to Plan an Adult or Professional Group Workshop?","cta_copy":"Share your group size, location, and goals. Stage One will recommend the right workshop.","seo_title":"Engineering Workshops for Adult & Professional Groups | Stage One Education","seo_description":"Hands-on engineering workshops for professional teams, conferences, and adult groups. Delivered to offices, hotels, and venues nationwide."}],
   workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"],"landing_slug":"artificial-intelligence","landing_headline":"Artificial Intelligence Workshops","landing_intro":"Students explore how AI learns, creates, and makes decisions — training neural networks, working with the latest AI models, and debating the ethics of the technology shaping their world. Led by a real engineer, delivered to your venue.","landing_supporting_copy":["The workshop moves from how neural networks actually learn, through hands-on sessions with text, image, and music models, to a structured discussion of AI ethics and bias. Students leave understanding AI from the inside rather than as a black box.","No previous experience is required. Instructors adjust the technical depth from middle school through adult groups, and the complete three-hour experience is delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Train Real Neural Networks","text":"Students see how AI actually learns, hands-on."},{"title":"Latest AI Models","text":"Text, image, and music generation in guided sessions."},{"title":"Ethics Discussion","text":"A structured debate on bias, safety, and responsible AI."}],"landing_cta_heading":"Ready to Bring Artificial Intelligence to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the AI workshop around your program.","landing_seo_title":"Artificial Intelligence Workshops | Stage One Education","landing_seo_description":"Hands-on AI workshops where student groups train neural networks, use the latest AI models, and debate AI ethics. Delivered to hotels, schools, and venues nationwide."},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"],"landing_slug":"robotics","landing_headline":"Robotics Workshops","landing_intro":"Students build, program, test, and fly a working drone system — wiring circuits, writing code, and programming autonomous flight through structured, engineer-led challenges delivered to your venue.","landing_supporting_copy":["The workshop connects electronics, microcontrollers, and coding into one working system that students control themselves. Troubleshooting is part of the experience: when something doesn't fly, students find out why and fix it.","No previous experience is required. All electronics are low voltage, safety equipment is provided, and the complete three-hour experience is delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Fly Mini Drones","text":"Students pilot and program real drone flight."},{"title":"Build the Circuit","text":"Hands-on electronics and microcontroller wiring."},{"title":"Code Autonomy","text":"Program the drone to fly on its own."}],"landing_cta_heading":"Ready to Bring Robotics to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the robotics workshop around your program.","landing_seo_title":"Robotics Workshops | Stage One Education","landing_seo_description":"Hands-on robotics workshops where student groups build circuits, write code, and fly drones autonomously. Delivered to hotels, schools, and venues nationwide."},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"],"landing_slug":"mechanical-engineering","landing_headline":"Mechanical Engineering Workshops","landing_intro":"Students design a multi-part model rocket in professional CAD software and explore rapid prototyping and 3D printing — the same tools and process real engineers use, with no prior CAD experience required.","landing_supporting_copy":["Guided step by step by an engineer, every student designs their own rocket from nose cone to fins, learns how multi-part assemblies fit together, and sees how designs become physical objects through 3D printing.","The workshop consistently reaches students who have never opened a CAD program before — by the end of three hours they have designed a complete engineering model themselves. Delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Professional CAD","text":"The same software used by working engineers."},{"title":"Complete Design","text":"Every student designs a full multi-part rocket."},{"title":"Rapid Prototyping","text":"See designs become real through 3D printing."}],"landing_cta_heading":"Ready to Bring Mechanical Engineering to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the mechanical engineering workshop around your program.","landing_seo_title":"Mechanical Engineering Workshops | Stage One Education","landing_seo_description":"Hands-on mechanical engineering workshops where student groups design rockets in professional CAD and explore 3D printing. Delivered to hotels, schools, and venues nationwide."}],
-  copy: {"section_heading":"Find Your","section_heading_accent":"Workshop","section_intro":"Explore by city, participants, workshop, or program","cards":{"cities":{"title":"Destinations","subtitle":"Where is your group headed?","more_label":"More U.S. cities","other_label":"Other","other_path":"/locations/other-us-cities/"},"audiences":{"title":"Participants","subtitle":"Who will take part?"},"workshops":{"title":"Workshops","subtitle":"What will they experience?"},"group_types":{"title":"Program","subtitle":"What are you planning?"}},"back_label":"Find Your Workshop","plan_cta_label":"Plan a Workshop","plan_helper_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","plan_helper":"Share your destination, group details, and schedule. Stage One will help plan the workshop.","category_labels":{"city":"City","audience":"Participants","workshop":"Workshop","group_type":"Program"},"explore_heading":"Keep Exploring","explore_intro":"Keep narrowing things down — every path leads to the same easy planning conversation.","explore_sections":{"city":{"cities":"Other Cities","audiences":"Participants We Serve Here","workshops":"Workshops Available Here","group_types":"Program"},"default":{"cities":"Explore by City","audiences":"Explore by Participants","workshops":"Explore Workshops","group_types":"Program"}},"workshop_detail_label":"Explore the full workshop","testimonials_heading":"What Groups Say","testimonials_more_label":"More Feedback","delivery_heading":"Included with Every Workshop","location_explore_list_label":"Things to do","location_explore_intro":"Popular educational, cultural, and iconic experiences for student groups visiting","location_explore_disclaimer":"Nearby experiences are shown for itinerary inspiration only and are not included with Stage One workshops. Admission, transportation, reservations, and availability must be arranged separately. Inclusion does not imply affiliation or endorsement.","offerings_heading":"Explore More","offerings_intro":"Browse other destinations and program types.","available_workshops_heading":"Available Workshops","audiences_served_heading":"Participants We Serve"}
+  copy: {"section_heading":"Find Your","section_heading_accent":"Workshop","section_intro":"Explore by city, participants, workshop, or program","cards":{"cities":{"title":"Destinations","subtitle":"Where is your group headed?","more_label":"More U.S. cities","other_label":"Other","other_path":"/locations/other-us-cities/"},"audiences":{"title":"Participants","subtitle":"Who will take part?"},"workshops":{"title":"Workshops","subtitle":"What will they experience?"},"group_types":{"title":"Program","subtitle":"What are you planning?"}},"back_label":"Find Your Workshop","plan_cta_label":"Plan a Workshop","plan_helper_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","plan_helper":"Share your destination, group details, and schedule. Stage One will help plan the workshop.","category_labels":{"city":"City","audience":"Participants","workshop":"Workshop","group_type":"Program"},"explore_heading":"Keep Exploring","explore_intro":"Keep narrowing things down — every path leads to the same easy planning conversation.","explore_sections":{"city":{"cities":"Other Cities","audiences":"Participants We Serve Here","workshops":"Workshops Available Here","group_types":"Program"},"default":{"cities":"Explore by City","audiences":"Explore by Participants","workshops":"Explore Workshops","group_types":"Program"}},"workshop_detail_label":"Explore the full workshop","testimonials_heading":"What Groups Say","testimonials_more_label":"More Feedback","delivery_heading":"Included with Every Workshop","location_explore_list_label":"Things to do","more_to_explore_in":"More to Explore in","location_explore_intro":"Popular educational, cultural, and iconic experiences for student groups visiting","location_explore_disclaimer":"Nearby experiences are shown for itinerary inspiration only and are not included with Stage One workshops. Admission, transportation, reservations, and availability must be arranged separately. Inclusion does not imply affiliation or endorsement.","venue_collage_heading":"Workshop Venues","venue_collage_copy":"Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.","offerings_heading":"Explore More","offerings_intro":"Browse other destinations and program types.","available_workshops_heading":"Available Workshops","audiences_served_heading":"Participants We Serve"}
 };
 </script>
 <script src="/js/query-validation.js"></script>
@@ -3343,11 +3887,11 @@ window.StageOneDiscoveryData = {
 <script src="/js/explorer-state.js"></script>
 
     <script src="/js/find-your-workshop.js"></script>
-    <script src="/js/discovery-page.js"></script>
+    <script src="/js/discovery-page.js?v=20260914b"></script>
     <script src="/js/workshop-page-context.js"></script>
-    <script src="/js/plan-workshop-form.js"></script>
+    <script src="/js/plan-workshop-form.js?v=20260914b"></script>
     <script src="/js/plan-workshop-modal.js"></script>
-
+    <script src="/js/contact-email-modal.js?v=20260914b"></script>
 </body>
 
 </html>

@@ -5,6 +5,12 @@ function checkScroll() {
     for(var i = 0; i < videos.length; i++) {
 
         var video = videos[i];
+
+        // Hero videos keep looping through the opacity transitions. Scrolling
+        // must not pause them or reset their playback position.
+        if (video.classList.contains("home-room-hero__image--video")) {
+            continue;
+        }
         
         var frac_used = videoPlayAtFraction
         

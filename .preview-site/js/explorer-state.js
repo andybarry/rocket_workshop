@@ -5,7 +5,7 @@
 
     function defaults() {
         return {
-            region: null,
+            city: null,
             audience: null,
             groupType: null,
             workshop: "all"
@@ -16,9 +16,9 @@
         var query = root.StageOneQuery;
         var next = defaults();
         if (!state) return next;
-        next.region = query.REGION_IDS.indexOf(state.region) !== -1 ? state.region : null;
-        next.audience = query.AUDIENCE_IDS.indexOf(state.audience) !== -1 ? state.audience : null;
-        next.groupType = query.GROUP_TYPE_IDS.indexOf(state.groupType) !== -1 ? state.groupType : null;
+        next.city = query.cityIds().indexOf(state.city) !== -1 ? state.city : null;
+        next.audience = query.audienceIds().indexOf(state.audience) !== -1 ? state.audience : null;
+        next.groupType = query.groupTypeIds().indexOf(state.groupType) !== -1 ? state.groupType : null;
         next.workshop = query.normalizeWorkshop(state.workshop) || "all";
         next.utm = state.utm || query.collectUtmParams();
         return next;
@@ -36,7 +36,7 @@
     function writeStorage(state) {
         try {
             window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-                region: state.region,
+                city: state.city,
                 audience: state.audience,
                 groupType: state.groupType,
                 workshop: state.workshop
@@ -57,7 +57,7 @@
         var page = pageState || {};
         var url = urlState || {};
         return normalize({
-            region: url.region || page.region || fallback.region,
+            city: url.city || page.city || fallback.city,
             audience: url.audience || page.audience || fallback.audience,
             groupType: url.groupType || page.groupType || fallback.groupType,
             workshop: url.workshop && url.workshop !== "all"
@@ -70,18 +70,14 @@
     function load(pageState) {
         var urlState = fromUrl();
         var stored = readStorage();
-        var hasUrlSelection = !!(urlState.region || urlState.audience || urlState.groupType ||
-            (urlState.workshop && urlState.workshop !== "all"));
-        var state = hasUrlSelection
-            ? mergePriority(urlState, pageState, stored)
-            : mergePriority(urlState, pageState, stored);
+        var state = mergePriority(urlState, pageState, stored);
         writeStorage(state);
         return state;
     }
 
     function assign(target, patch) {
         var next = normalize({
-            region: Object.prototype.hasOwnProperty.call(patch, "region") ? patch.region : target.region,
+            city: Object.prototype.hasOwnProperty.call(patch, "city") ? patch.city : target.city,
             audience: Object.prototype.hasOwnProperty.call(patch, "audience") ? patch.audience : target.audience,
             groupType: Object.prototype.hasOwnProperty.call(patch, "groupType") ? patch.groupType : target.groupType,
             workshop: Object.prototype.hasOwnProperty.call(patch, "workshop") ? patch.workshop : target.workshop,
@@ -99,10 +95,10 @@
 
     function eventParams(state, sourcePage) {
         return {
-            region: state.region || "none",
-            audience: state.audience || "none",
-            group_type: state.groupType || "none",
-            workshop: state.workshop || "all",
+            city: (state && state.city) || "none",
+            audience: (state && state.audience) || "none",
+            group_type: (state && state.groupType) || "none",
+            workshop: (state && state.workshop) || "all",
             source_page: sourcePage || "unknown"
         };
     }

@@ -1,0 +1,51 @@
+<style>
+  html { scroll-behavior: smooth; }
+  #{{ include.target }} { scroll-margin-top: 88px; }
+  .workshop-overview-arrow {
+    position: absolute;
+    left: 50%;
+    bottom: 62px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transform: translateX(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 6px rgba(67, 67, 67, 0.06);
+    color: #888;
+    text-decoration: none;
+    transition: background .2s ease, box-shadow .2s ease;
+  }
+  .workshop-overview-arrow::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    margin-top: -4px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .workshop-overview-arrow:hover,
+  .workshop-overview-arrow:focus-visible {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 14px rgba(67, 67, 67, 0.2);
+    color: #434343;
+  }
+  .workshop-overview-arrow:focus-visible {
+    outline: 2px solid #f05f40;
+    outline-offset: 3px;
+  }
+  @media (max-width: 767px) {
+    .workshop-overview-arrow { bottom: 30px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+<a class="workshop-overview-arrow" href="#{{ include.target }}" aria-label="Scroll to Overview"></a>

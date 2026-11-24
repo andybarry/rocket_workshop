@@ -43,6 +43,87 @@ i18n_key: robotics
                 border: none;
                 padding: 0;
             }
+            .robotics-overview-media {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16 / 5;
+                margin-top: 28px;
+                overflow: hidden;
+                background: #fff;
+                border: 1px solid #e5e5e5;
+                border-radius: 12px;
+                box-shadow: 0 0 18px rgba(160, 160, 160, 0.22);
+            }
+            .robotics-overview-media > img {
+                transform-origin: 100% 50%;
+                animation: roboticsOverviewImageZoom 48s ease-in-out infinite alternate;
+            }
+            .robotics-overview-media > .robotics-overview-media__drone {
+                /* Begin at the same moving phase the IDE image first shows. */
+                animation-delay: -24s;
+            }
+            /* Keep the image covering the box throughout the hero-style zoom. */
+            @keyframes roboticsOverviewImageZoom {
+                from { transform: scale(1.04) translate(0, 0); }
+                to { transform: scale(1.19) translate(0, 2%); }
+            }
+            .robotics-overview-media > img,
+            .robotics-overview-media > video {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .robotics-overview-media > video {
+                opacity: 0;
+                animation: roboticsOverviewVideoFade 24s ease-in-out infinite;
+            }
+            .robotics-overview-media > .robotics-overview-media__ide {
+                inset: auto;
+                top: 50%;
+                left: 50%;
+                width: 64%;
+                height: 90%;
+                object-fit: contain;
+                transform: translate(-50%, -50%);
+                animation: none;
+                opacity: 1;
+                z-index: 2;
+                filter: drop-shadow(0 4px 12px rgba(67, 67, 67, 0.2));
+            }
+            .robotics-overview-media::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: rgba(255, 255, 255, 0.3);
+                z-index: 1;
+                pointer-events: none;
+            }
+            .robotics-overview-media:not(.is-playing) > video {
+                animation-play-state: paused;
+            }
+            /* Two backgrounds, each with an 8s hold and a 4s crossfade. */
+            @keyframes roboticsOverviewVideoFade {
+                0%, 33.333333% { opacity: 0; }
+                50%, 83.333333% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+            @media (max-width: 767px) {
+                .robotics-overview-media {
+                    aspect-ratio: 16 / 7;
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .robotics-overview-media > img {
+                    animation: none;
+                }
+                .robotics-overview-media > video {
+                    animation: none;
+                    display: none;
+                }
+            }
             /* Match location-page vertical card spacing (32px gaps) */
             section.less-padding {
                 padding: 0 !important;
@@ -78,6 +159,10 @@ i18n_key: robotics
                 color: #434343;
                 text-transform: none;
                 cursor: default;
+            }
+
+            #robotics-workshop-overview > .workshop-section-card {
+                margin-top: 8px;
             }
         </style>
         <section class="less-padding" id="robotics-workshop-overview">
@@ -147,8 +232,46 @@ i18n_key: robotics
                 </div>
             </div>
             </div>
+            <div class="robotics-overview-media">
+                <img class="robotics-overview-media__drone" src="img/Drone_Hero_BG.jpg" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
+                <video autoplay loop muted playsinline preload="auto" aria-hidden="true">
+                    <source src="cad-tutorial/videos/drone-hero-workshop.mp4" type="video/mp4">
+                </video>
+                <img class="robotics-overview-media__ide" src="img/drone-IDE.png" alt="Drone programming IDE">
+            </div>
             </div>
         </section>
+        <script>
+        (function () {
+            var media = document.querySelector('.robotics-overview-media');
+            var video = media.querySelector('video');
+            var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            // Start playback before the rotation begins, then keep the video
+            // running even while transparent. Fades never pause or seek it.
+            function keepPlaying() {
+                if (document.hidden || reducedMotion.matches || !video.paused) return;
+                video.muted = true;
+                var playback = video.play();
+                if (playback && playback.catch) playback.catch(function () {
+                    // Retry on canplay, tab return, or the next user gesture.
+                });
+            }
+            video.addEventListener('playing', function () {
+                media.classList.add('is-playing');
+            });
+            video.addEventListener('canplay', keepPlaying);
+            video.addEventListener('pause', keepPlaying);
+            video.addEventListener('ended', keepPlaying);
+            document.addEventListener('visibilitychange', keepPlaying);
+            document.addEventListener('pointerdown', keepPlaying);
+            document.addEventListener('keydown', keepPlaying);
+            keepPlaying();
+            if (!video.paused && video.readyState >= 3) {
+                media.classList.add('is-playing');
+            }
+        }());
+        </script>
 
 
         <div class="workshop-section-card">

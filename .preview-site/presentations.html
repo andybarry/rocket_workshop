@@ -26,7 +26,13 @@
     <meta property="og:description" content="">
     
     
-    <meta property="og:image" content="https://stageoneeducation.com/img/stageone-logo-orange-small.png">
+    <meta property="og:image" content="https://stageoneeducation.com/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Stage One Education orange rocket icon">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://stageoneeducation.com/android-chrome-512x512.png">
+    <meta name="twitter:image:alt" content="Stage One Education orange rocket icon">
     <meta property="og:type" content="website">
             
     <meta name="keywords"
@@ -41,15 +47,16 @@
     <!-- Custom Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;800&display=swap' rel='stylesheet'>
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/creative.css" type="text/css">
-    <link rel="stylesheet" href="/css/workshop-explorer.css" type="text/css">
+    <link rel="stylesheet" href="/css/creative.css?v=20260916ad" type="text/css">
+    <link rel="stylesheet" href="/css/workshop-explorer.css?v=20260914f" type="text/css">
+    <link rel="stylesheet" href="/css/discovery.css?v=20260916ag" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,7 +79,7 @@
 
 <body id="page-top">
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation" data-i18n-aria-label="nav.primary">
     <div class="container-fluid">
         <!-- Navbar Header -->
         <div class="navbar-header">
@@ -97,6 +104,7 @@
             <ul class="nav navbar-nav nav-main-links">
                 
                 
+                
                 <!-- Desktop: Workshops dropdown -->
                 <li class="dropdown nav-dropdown nav-desktop-workshop">
                     <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
@@ -107,34 +115,398 @@
                         <li><a class="nav-dropdown-link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a></li>
                         <li><a class="nav-dropdown-link" href="/robotics-workshop.html" data-i18n="nav.robotics">Robotics Drone</a></li>
                         <li><a class="nav-dropdown-link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a></li>
-                        <li><a class="nav-dropdown-link" href="/ai-website-workshop.html" data-i18n="nav.aiWebsite">Web Development</a></li>
                     </ul>
                 </li>
-                
                 <!-- Mobile: a clearly labeled workshop group, available on every page -->
-                <li class="nav-mobile-workshop-heading"><span>Workshops</span></li>
+                <li class="nav-mobile-workshop-heading"><span data-i18n="home.workshopsHeading">Workshops</span></li>
                 <li class="nav-mobile-workshop-item">
                     <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
                 </li>
                 <li class="nav-mobile-workshop-item">
                     <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="nav.robotics">Robotics Drone</a>
                 </li>
-                <li class="nav-mobile-workshop-item">
+                <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
                     <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
                 </li>
-                <li class="nav-mobile-workshop-item nav-mobile-workshop-item--last">
-                    <a href="/ai-website-workshop.html" class="nav-button-stageone" data-i18n="nav.aiWebsite">Web Development</a>
-                </li>
-                <li>
-                    <a href="/group.html" class="nav-button-stageone">
-                        Explore
+                
+                
+                
+                
+                
+                <li class="dropdown nav-dropdown nav-desktop-explore">
+                    <a href="#" class="nav-button-stageone dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false"
+                        data-i18n-html="nav.explore">
+                        Explore <span class="caret"></span>
                     </a>
+                    
+
+
+<div class="dropdown-menu nav-dropdown-menu nav-explore-menu" role="menu" aria-label="Find Your Workshop" data-i18n-aria-label="discovery.ui.backLabel">
+  <div class="nav-explore-menu__cols">
+    <div class="nav-explore-menu__col">
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.destinations">Destinations</p>
+      <ul>
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/ann-arbor/">Ann Arbor, MI</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/atlanta/">Atlanta, GA</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/berkeley/">Berkeley, CA</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/boston/">Boston, MA</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/denver/">Denver, CO</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/houston/">Houston, TX</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/los-angeles/">Los Angeles, CA</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/new-haven/">New Haven, CT</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/orlando/">Orlando, FL</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/san-francisco/">San Francisco, CA</a>
+        </li>
+        
+        
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/washington-dc/">Washington, DC</a>
+        </li>
+        
+        
+        <li>
+          <a class="nav-explore-menu__link" href="/locations/other-us-cities/" data-i18n="discovery.ui.other">Other</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-explore-menu__col">
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.participants">Participants</p>
+      <ul>
+        
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/middle-school/" data-i18n="discovery.audience.middle-school.label">Middle School</a>
+        </li>
+        
+        
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/high-school/" data-i18n="discovery.audience.high-school.label">High School</a>
+        </li>
+        
+        
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/college/" data-i18n="discovery.audience.college.label">College and University</a>
+        </li>
+        
+        
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/adult-professional/" data-i18n="discovery.audience.adult-professional.label">Adult / Professional</a>
+        </li>
+        
+        
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/international-students/" data-i18n="discovery.audience.international-students.label">International Students</a>
+        </li>
+        
+        
+        
+        
+      </ul>
+    </div>
+    <div class="nav-explore-menu__col">
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.workshops">Workshops</p>
+      <ul>
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/ai-workshop.html" data-i18n="nav.ai">Artificial Intelligence</a>
+        </li>
+        
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/robotics-workshop.html" data-i18n="home.hero.linkRobotics">Robotics</a>
+        </li>
+        
+        
+        
+        
+
+
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/rocket-workshop.html" data-i18n="nav.mechanical">Mechanical Engineering</a>
+        </li>
+        
+        
+        
+        
+      </ul>
+    </div>
+    <div class="nav-explore-menu__col">
+      <p class="nav-explore-menu__heading" data-i18n="discovery.ui.program">Program</p>
+      <ul>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/school-groups/" data-i18n="discovery.group.school-groups.label">School Group</a>
+        </li>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/educational-tours/" data-i18n="discovery.group.educational-tours.label">Educational Tour</a>
+        </li>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/international-groups/" data-i18n="discovery.group.international-groups.label">International Student Group</a>
+        </li>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/academic-programs/" data-i18n="discovery.group.academic-programs.label">Academic Program</a>
+        </li>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/college-groups/" data-i18n="discovery.group.college-groups.label">College Group</a>
+        </li>
+        
+        <li>
+          
+          <a class="nav-explore-menu__link" href="/workshops/professional-groups/" data-i18n="discovery.group.professional-groups.label">Adult / Professional Group</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  <a class="nav-explore-menu__all" href="/#find-your-workshop" data-i18n="discovery.ui.backLabel">Find Your Workshop</a>
+</div>
+
+
                 </li>
-                <li>
-                    <a href="/locations.html" class="nav-button-stageone" data-i18n="nav.locations">
-                        Locations
-                    </a>
-                </li>
+                
+
+
+<li class="nav-mobile-workshop-heading nav-mobile-explore-heading"><span data-i18n="nav.exploreLabel">Explore</span></li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.destinations">Destinations</span></li>
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/ann-arbor/" class="nav-button-stageone">Ann Arbor, MI</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/atlanta/" class="nav-button-stageone">Atlanta, GA</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/berkeley/" class="nav-button-stageone">Berkeley, CA</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/boston/" class="nav-button-stageone">Boston, MA</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/denver/" class="nav-button-stageone">Denver, CO</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/houston/" class="nav-button-stageone">Houston, TX</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/los-angeles/" class="nav-button-stageone">Los Angeles, CA</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/new-haven/" class="nav-button-stageone">New Haven, CT</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/orlando/" class="nav-button-stageone">Orlando, FL</a>
+</li>
+
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/san-francisco/" class="nav-button-stageone">San Francisco, CA</a>
+</li>
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/locations/washington-dc/" class="nav-button-stageone">Washington, DC</a>
+</li>
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
+  <a href="/locations/other-us-cities/" class="nav-button-stageone" data-i18n="discovery.ui.other">Other</a>
+</li>
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.participants">Participants</span></li>
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/middle-school/" class="nav-button-stageone" data-i18n="discovery.audience.middle-school.label">Middle School</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/high-school/" class="nav-button-stageone" data-i18n="discovery.audience.high-school.label">High School</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/college/" class="nav-button-stageone" data-i18n="discovery.audience.college.label">College and University</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/adult-professional/" class="nav-button-stageone" data-i18n="discovery.audience.adult-professional.label">Adult / Professional</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
+  <a href="/workshops/international-students/" class="nav-button-stageone" data-i18n="discovery.audience.international-students.label">International Students</a>
+</li>
+
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.workshops">Workshops</span></li>
+
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/ai-workshop.html" class="nav-button-stageone" data-i18n="nav.ai">Artificial Intelligence</a>
+</li>
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/robotics-workshop.html" class="nav-button-stageone" data-i18n="home.hero.linkRobotics">Robotics</a>
+</li>
+
+
+
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
+  <a href="/rocket-workshop.html" class="nav-button-stageone" data-i18n="nav.mechanical">Mechanical Engineering</a>
+</li>
+
+<li class="nav-mobile-workshop-heading nav-mobile-explore-subheading"><span data-i18n="discovery.ui.program">Program</span></li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/school-groups/" class="nav-button-stageone" data-i18n="discovery.group.school-groups.label">School Group</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/educational-tours/" class="nav-button-stageone" data-i18n="discovery.group.educational-tours.label">Educational Tour</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/international-groups/" class="nav-button-stageone" data-i18n="discovery.group.international-groups.label">International Student Group</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/academic-programs/" class="nav-button-stageone" data-i18n="discovery.group.academic-programs.label">Academic Program</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item">
+  <a href="/workshops/college-groups/" class="nav-button-stageone" data-i18n="discovery.group.college-groups.label">College Group</a>
+</li>
+
+<li class="nav-mobile-workshop-item nav-mobile-explore-item nav-mobile-workshop-item--last">
+  <a href="/workshops/professional-groups/" class="nav-button-stageone" data-i18n="discovery.group.professional-groups.label">Adult / Professional Group</a>
+</li>
+
+
+
                 <li>
                     <a href="/feedback.html" class="nav-button-stageone" data-i18n="nav.feedback">
                         Feedback
@@ -145,16 +517,20 @@
                         About
                     </a>
                 </li>
-                <!-- Plan a Workshop button -->
+                
+                
+                
+                
                 <li class="nav-plan-workshop">
                     <a href="/plan-a-workshop/" class="nav-plan-workshop-button"
-                        data-source="header">
+                        data-plan-workshop-open data-plan-source="header" data-source="header">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
                     </a>
                 </li>
+                
                 <li class="nav-workshops-access">
-                    <a href="/workshops.html" class="nav-workshops-access-button">
+                    <a href="/workshop-access.html" class="nav-workshops-access-button">
                         <span data-i18n="nav.workshopAccess">Workshop Access</span>
                     </a>
                 </li>
@@ -250,44 +626,14 @@
 
                 <br>
 
-                <footer style="text-align: center; margin-top: 30px;">
-  <p>
-    <a class="site-footer-plan-link" href="/plan-a-workshop/" data-source="footer">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-      <span data-i18n="nav.planWorkshop">Plan A Workshop</span>
-    </a>
-  </p>
-  <nav class="site-footer-regions" aria-label="Workshop regions">
-    
-      
-        <a href="/regions/northeast-mid-atlantic/">Northeast & Mid-Atlantic</a>
-      
-    
-      
-        <a href="/regions/southeast/">Southeast</a>
-      
-    
-      
-        <a href="/regions/midwest-south-central/">Midwest & South Central</a>
-      
-    
-      
-        <a href="/regions/mountain-west/">Mountain West</a>
-      
-    
-      
-        <a href="/regions/west-coast/">West Coast</a>
-      
-    
-      
-    
-      
-    
-    <a href="/international-groups/">International Groups</a>
-  </nav>
+                <footer style="text-align: center; margin-top: 30px; position: relative;">
+  
+  
+  
   <span style="font-family: 'Roboto', sans-serif; color: rgb(100, 100, 100); font-size: 12px; opacity: 0.8;">
     &copy; 2026 Stage One Education, LLC
   </span>
+  
 </footer>
 
 
@@ -297,6 +643,114 @@
         </section>
     </div>
 </body>
+
+    
+<div class="plan-workshop-modal" data-plan-workshop-modal hidden>
+  <div class="plan-workshop-modal__backdrop" data-plan-workshop-close tabindex="-1"></div>
+  <div class="plan-workshop-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="plan-workshop-modal-title">
+    <button type="button" class="plan-workshop-modal__close" data-plan-workshop-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <h2 class="plan-workshop-modal__title" id="plan-workshop-modal-title" data-i18n="nav.planWorkshop">Plan a Workshop</h2>
+    <div class="plan-workshop-modal__columns">
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--form">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        
+<form id="plan-workshop-modal-form" data-plan-workshop-form data-plan-workshop-compact class="plan-workshop-form--compact" novalidate>
+  <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="plan-workshop-modal-form-error-contactName">
+    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-contactName" data-i18n="discovery.ui.formNameError">Enter your name.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
+    <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="plan-workshop-modal-form-error-email">
+    <span class="plan-workshop-field__error" id="plan-workshop-modal-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
+  </label>
+  <label class="plan-workshop-field">
+    <span class="plan-workshop-field__label" data-i18n="discovery.ui.formGroupNotes">What should we know about your group?</span>
+    <textarea class="plan-workshop-field__control" name="notes" rows="3" placeholder="Tell us about your group, location, time of year, and anything else we should know." data-i18n-placeholder="discovery.ui.formNotesPlaceholder"></textarea>
+  </label>
+  <button type="submit" class="plan-workshop-page__submit" data-i18n="discovery.ui.formSend">Send Workshop Details</button>
+  <p class="plan-workshop-form__status" data-plan-workshop-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
+
+</form>
+
+        <p class="plan-workshop-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="plan-workshop-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="plan-workshop-modal__copy plan-workshop-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="plan-workshop-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="plan-workshop-modal__col plan-workshop-modal__col--demo">
+        <p class="plan-workshop-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="plan-workshop-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="plan-workshop-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+<div class="contact-email-modal" data-contact-email-modal hidden>
+  <div class="contact-email-modal__backdrop" data-contact-email-close tabindex="-1"></div>
+  <div class="contact-email-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contact-email-modal-title">
+    <button type="button" class="contact-email-modal__close" data-contact-email-close aria-label="Close" data-i18n-aria-label="home.feedbackNav.close">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <h2 class="contact-email-modal__title" id="contact-email-modal-title" data-i18n="discovery.ui.contactUs">Contact Us</h2>
+    <p class="contact-email-modal__lede" data-i18n="discovery.ui.planModalLede">
+      Tell us a few details and we&rsquo;ll be in touch soon.
+    </p>
+    <div class="contact-email-modal__columns">
+      <div class="contact-email-modal__col contact-email-modal__col--form">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionForm">Send us your details</p>
+        <form class="contact-email-modal__form" data-contact-email-form novalidate>
+          <input class="plan-workshop-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formName">Name <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="text" name="contactName" required autocomplete="name" aria-describedby="contact-email-form-error-name">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-name" data-i18n="discovery.ui.formNameError">Enter your name.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n-html="discovery.ui.formEmail">Email <span aria-hidden="true">*</span></span>
+            <input class="plan-workshop-field__control" type="email" name="email" required autocomplete="email" inputmode="email" aria-describedby="contact-email-form-error-email">
+            <span class="plan-workshop-field__error" id="contact-email-form-error-email" data-i18n="discovery.ui.formEmailError">Enter a valid email.</span>
+          </label>
+          <label class="plan-workshop-field">
+            <span class="plan-workshop-field__label" data-i18n="discovery.ui.contactFormMessage">How can we help?</span>
+            <textarea class="plan-workshop-field__control" name="message" rows="3" placeholder="Tell us what you would like to know." data-i18n-placeholder="discovery.ui.contactFormMessagePlaceholder"></textarea>
+          </label>
+          <button type="submit" class="contact-email-modal__send" data-i18n="discovery.ui.contactFormSend">Send Message</button>
+          <p class="plan-workshop-form__status" data-contact-email-status hidden data-i18n-html="discovery.ui.formSendError">Something went wrong and your request was not sent. Please email us directly at <a href="mailto:workshops@stageoneeducation.com">workshops@stageoneeducation.com</a>.</p>
+        </form>
+        <p class="contact-email-modal__success" data-contact-email-success hidden data-i18n="discovery.ui.contactFormSuccess">Thank you! Your message has been sent. We will get back to you soon.</p>
+        <p class="contact-email-modal__sent-note">
+          <span><span data-i18n="discovery.ui.planModalSentNote">Details are sent to</span> <span class="contact-email-modal__sent-address" data-contact-email>workshops@stageoneeducation.com</span></span>
+          <button type="button" class="contact-email-modal__copy contact-email-modal__copy--icon" data-contact-email-copy aria-label="Copy email address" data-i18n-aria-label="discovery.ui.copyEmail" title="Copy">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+          </button>
+        </p>
+      </div>
+      <div class="contact-email-modal__or" aria-hidden="true"><span data-i18n="discovery.ui.planModalOr">or</span></div>
+      <div class="contact-email-modal__col contact-email-modal__col--demo">
+        <p class="contact-email-modal__option-label" data-i18n="discovery.ui.planModalOptionDemo">Prefer to talk now?</p>
+        <p class="contact-email-modal__demo-copy" data-i18n="discovery.ui.planModalDemoCopy">
+          Choose a time on our calendar for a 30-minute video call and workshop demo.
+        </p>
+        <a class="contact-email-modal__demo" href="https://calendly.com/stageoneeducation/stage-one-education-workshop-demo" target="_blank" rel="noopener noreferrer" data-i18n="discovery.ui.planModalDemoButton">Schedule a Workshop Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
@@ -311,13 +765,15 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/creative.js"></script>
-    <script>
-window.StageOneExplorerData = {
-  regions: [{"id":"northeast-mid-atlantic","slug":"northeast-mid-atlantic","kind":"us","label":"Northeast & Mid-Atlantic","short_label":"Northeast & Mid-Atlantic","location_phrase":"in the Northeast & Mid-Atlantic","venue_phrase":"throughout the Northeast & Mid-Atlantic","cta_label":"Explore Northeast & Mid-Atlantic Workshops","hero_label":"NORTHEAST & MID-ATLANTIC","hero_title":"Hands-On Engineering Workshops in the Northeast & Mid-Atlantic","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Northeast and Mid-Atlantic. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Northeast and Mid-Atlantic support itineraries shaped by historic cities, universities, museums, government and civic institutions, science, and technology. A Stage One workshop gives students time to move from observing ideas to applying engineering themselves. It can serve as a focused morning or afternoon program, an evening hotel experience, or a hands-on complement to the educational destinations already included in the trip.","themes":["Historic Cities","Universities","Museums","Government & Civic Learning","Science & Technology","Innovation"],"map_states":["ME","NH","VT","MA","RI","CT","NY","NJ","PA","DE","MD","DC","VA","WV"],"map_viewbox":"535 18 424 430","image_src":"/img/regions/northeast-mid-atlantic.webp","image_alt":"Editorial collage of Northeast and Mid-Atlantic architecture, campuses, harbors, and a regional map silhouette","seo_title":"Engineering Workshops in the Northeast & Mid-Atlantic | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Northeast and Mid-Atlantic."},{"id":"southeast","slug":"southeast","kind":"us","label":"Southeast","short_label":"Southeast","location_phrase":"in the Southeast","venue_phrase":"throughout the Southeast","cta_label":"Explore Southeast Workshops","hero_label":"SOUTHEAST","hero_title":"Hands-On Engineering Workshops in the Southeast","hero_intro":"Add a complete, hands-on engineering experience to student travel throughout the Southeast. Stage One brings the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Southeast supports itineraries built around space exploration, theme parks, universities, science centers, coastal destinations, and outdoor learning. A Stage One workshop gives students an opportunity to stop observing and start engineering. It can become a focused program block, an evening hotel activity, or a hands-on complement to the attractions, institutions, and experiences already included in the trip.","themes":["Space & Aerospace","Theme Parks & Design","Universities","Science Centers","Coastal Destinations","Outdoor Learning"],"map_states":["NC","SC","GA","FL","AL","MS","TN","KY"],"map_viewbox":"455 185 455 390","image_src":"/img/regions/southeast.webp","image_alt":"Editorial collage of Southeast space, coastal, campus, and engineering motifs with a regional map outline","seo_title":"Engineering Workshops in the Southeast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Southeast."},{"id":"midwest-south-central","slug":"midwest-south-central","kind":"us","label":"Midwest & South Central","short_label":"Midwest & South Central","location_phrase":"across the Midwest & South Central","venue_phrase":"across the Midwest and South Central United States","cta_label":"Explore Midwest & South Central Workshops","hero_label":"MIDWEST & SOUTH CENTRAL","hero_title":"Hands-On Engineering Workshops Across the Midwest & South Central","hero_intro":"Bring a complete, instructor-led engineering experience to student groups traveling across the Midwest and South Central United States. Stage One delivers the equipment, materials, curriculum, and instructor directly to your group’s venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The region brings together manufacturing, aerospace, energy, universities, science museums, engineering centers, and major city destinations. A Stage One workshop gives students an active experience that connects naturally with these wider themes. Groups can build the workshop into a campus visit, educational travel program, conference schedule, or hotel-based itinerary without needing a dedicated laboratory or permanent classroom.","themes":["Engineering & Manufacturing","Aerospace","Energy","Universities","Science Museums","Major Cities"],"map_states":["OH","MI","IN","IL","WI","MN","IA","MO","ND","SD","NE","KS","OK","TX","AR","LA"],"map_viewbox":"300 45 510 520","image_src":"/img/regions/midwest-south-central.webp","image_alt":"Editorial collage of Midwest and South Central manufacturing, aerospace, campus, and city forms with a regional map silhouette","seo_title":"Engineering Workshops Across the Midwest & South Central | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues across the Midwest and South Central United States."},{"id":"mountain-west","slug":"mountain-west","kind":"us","label":"Mountain West","short_label":"Mountain West","location_phrase":"in the Mountain West","venue_phrase":"throughout the Mountain West","cta_label":"Explore Mountain West Workshops","hero_label":"MOUNTAIN WEST","hero_title":"Hands-On Engineering Workshops in the Mountain West","hero_intro":"Add a practical engineering experience to student programs throughout the Mountain West. Stage One brings the complete three-hour workshop directly to your hotel, school, campus, or group venue.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The Mountain West supports itineraries centered on aerospace, research, geology, technology, universities, and extraordinary natural landscapes. A Stage One workshop adds a collaborative indoor experience that can be scheduled alongside campus visits, science programs, outdoor learning, and regional exploration. Students work directly with engineering ideas while Stage One manages the equipment, materials, instruction, and setup.","themes":["Aerospace","Research & Technology","Geology","Universities","Natural Landscapes","Outdoor Learning"],"map_states":["MT","ID","WY","CO","NM","AZ","UT","NV"],"map_viewbox":"105 25 455 510","image_src":"/img/regions/mountain-west.webp","image_alt":"Editorial collage of Mountain West landscapes, aerospace motifs, and research forms with a regional map silhouette","seo_title":"Engineering Workshops in the Mountain West | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues throughout the Mountain West."},{"id":"west-coast","slug":"west-coast","kind":"us","label":"West Coast","short_label":"West Coast","location_phrase":"on the West Coast","venue_phrase":"on the West Coast","cta_label":"Explore West Coast Workshops","hero_label":"WEST COAST","hero_title":"Hands-On Engineering Workshops on the West Coast","hero_intro":"Build a complete engineering experience into student travel on the West Coast. Stage One brings the instructor, equipment, materials, and curriculum directly to hotels, schools, campuses, and group venues.","itinerary_heading":"Add Hands-On Engineering to the Itinerary","itinerary_copy":"The West Coast brings together technology, aerospace, universities, science, design, entertainment, media, and coastal destinations. A Stage One workshop gives students an active way to engage with the ideas surrounding the wider trip. The experience can complement campus visits, technology-focused programs, science attractions, creative destinations, or educational travel itineraries while remaining easy to schedule at the group’s own venue.","themes":["Technology","Aerospace","Universities","Science & Design","Entertainment & Media","Pacific Coast"],"map_states":["WA","OR","CA","AK","HI"],"map_viewbox":"0 20 455 573","image_src":"/img/regions/west-coast.webp","image_alt":"Editorial collage of West Coast technology, aerospace, campus, and coastal forms with a regional map silhouette","seo_title":"Engineering Workshops on the West Coast | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to student groups at hotels, schools, campuses, and venues on the West Coast."},{"id":"international","slug":"international","kind":"international","label":"International","short_label":"International Groups","location_phrase":"for International Groups Visiting the USA","venue_phrase":"during your group’s United States itinerary","cta_label":"Explore Workshops for International Groups","hero_label":"INTERNATIONAL GROUPS","hero_title":"Hands-On Engineering Workshops for International Groups Visiting the USA","hero_intro":"Add a complete, instructor-led engineering experience to your group’s United States itinerary. Stage One coordinates with tour providers, schools, and group leaders and brings the equipment, materials, curriculum, and instructor directly to the group’s hotel, campus, school, or venue.","itinerary_heading":"Easy to Build Into a U.S. Educational Itinerary","itinerary_copy":"Stage One workshops give international students an opportunity to take part in a practical engineering experience while traveling in the United States. The complete three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and the workshop can be adapted for middle school, high school, college, adult, or mixed-age participants.","themes":[],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of an educational itinerary in the United States with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel.","support_cards":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options can be coordinated around the itinerary."},{"title":"Complete Workshop Delivery","text":"Instructor, equipment, materials, curriculum, and setup are included."},{"title":"Clear, Accessible Experience","text":"No prior experience is required, and instruction can be adjusted for the group."}]},{"id":"other","slug":"other","kind":"other","label":"Other","short_label":"Other","location_phrase":"for another location","venue_phrase":"at your group’s destination","cta_label":"Explore Other Workshop Options","hero_label":"OTHER LOCATIONS","hero_title":"Hands-On Engineering Workshops for Other Locations","hero_intro":"Tell Stage One where your group will be. We can help determine workshop delivery options and coordinate the instructor, equipment, materials, and curriculum around your destination and venue.","itinerary_heading":"Build a Workshop Around Your Destination","itinerary_copy":"If your location is not represented by one of the listed regions, Stage One can review your destination, schedule, venue, and group needs. Workshops can be coordinated for hotels, schools, campuses, conference rooms, and other suitable group venues.","themes":["Flexible Destinations","Hotels & Venues","Schools & Campuses","Group Programs"],"map_states":[],"map_viewbox":"0 0 959 593","image_src":"/img/regions/international.webp","image_alt":"Editorial illustration of a flexible educational workshop itinerary with campus, hotel, and engineering motifs","seo_title":"Engineering Workshops for Other Locations | Stage One Education","seo_description":"Ask about instructor-led engineering workshop delivery for destinations outside Stage One’s listed United States regions."}],
-  audiences: [{"id":"middle-school","label":"Middle School","heading_label":"Middle School","summary":"Structured guidance and regular hands-on milestones help middle school students stay actively involved.","detail":"Structured guidance, clear explanations, collaborative challenges, and regular hands-on milestones help middle school students stay actively involved throughout the experience. Technical concepts are introduced in accessible language, and no prior experience is required.","availability":"Artificial Intelligence, Robotics, Mechanical Engineering, and Web Engineering remain available for this audience."},{"id":"high-school","label":"High School","heading_label":"High School","summary":"Team-based challenges, technical discussion, and hands-on problem-solving for high school groups.","detail":"High school groups can explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the amount of guidance based on the group’s experience, and no previous engineering background is required.","availability":"Every Stage One workshop remains available for this audience."},{"id":"college-university","label":"College & University","heading_label":"College & University","summary":"A faster pace with greater emphasis on applied engineering and technical decision-making.","detail":"College and university groups can move through the experience at a faster pace with greater emphasis on applied engineering, collaboration, technical decision-making, and discussion. The workshop can complement academic travel, campus programs, leadership experiences, or group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"adult-professional","label":"Adult & Professional","heading_label":"Adult & Professional","summary":"A practical, collaborative engineering experience for teams and adult learners.","detail":"Adult and professional groups can take part in a practical, collaborative engineering experience designed for active participation. The format can support professional programs, team experiences, lifelong learning, or customized group events.","availability":"Every Stage One workshop remains available for this audience."},{"id":"mixed-age","label":"Mixed-Age Group","heading_label":"Mixed-Age","summary":"Pacing, team structure, and guidance can be adjusted so different experience levels can contribute together.","detail":"Stage One instructors can adjust pacing, team structure, explanations, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","availability":"Every Stage One workshop remains available for mixed-age groups."}],
-  groupTypes: [{"id":"educational-travel","label":"Educational Travel","paragraph_phrase":"designed to fit educational travel itineraries"},{"id":"school-campus","label":"School or Campus","paragraph_phrase":"designed to fit school and campus programs"},{"id":"private-other","label":"Private or Other Group","paragraph_phrase":"designed to fit private and other group programs"}],
-  workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"]},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"]},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"]},{"slug":"web-development","name":"Web Engineering","heading_label":"Web Engineering","explorer_label":"Web Engineering","explorer_summary":"Design, build, and publish a live website while learning layout, content, and front-end development.","duration":"3-Hour Workshop","description":"Design, build, and publish a live website.","image":"img/ai-website-mockup.svg","image_alt":"Website interface created during the Web Development workshop","image_width":200,"image_height":200,"detail_path":"/ai-website-workshop.html","icon":"fa-code","homepage_short_name":"Web","homepage_short_focus":"HTML · AI Coding · Publish","homepage_focus":"HTML & CSS · AI Coding · Publishing","homepage_topics":["Website layout and front-end development","HTML, CSS, and AI-assisted coding","Publishing a live website"]}],
-  copy: {"section_heading":"Find Your Workshop","section_intro":"Choose a region, then optionally refine the audience and workshop.","reassurance":"Every Stage One workshop can be adapted for every audience shown. Choose based on what your group is interested in exploring.","clear_selections":"Clear selections","region_step_heading":"1. Where will your group be?","region_step_support":"Choose a region on the map or use the region buttons on mobile.","audience_step_heading":"2. Who are you planning for?","group_type_subheading":"Planning context — optional","workshop_step_heading":"3. What would your group like to explore?","workshop_step_support":"Every workshop can be adapted for every audience. Choose based on your group's interests.","all_workshops_label":"All Workshops","international_label":"International","default_heading":"Choose a Region","default_paragraph":"Select a region on the map or use the region buttons to explore available Stage One workshops.","default_button":"Select a Region","workshop_cards_heading":"Explore Our Workshops","workshop_cards_support":"Every Stage One workshop can be adapted for every audience shown below. Choose the experience that most interests your group.","selected_interest":"Selected Interest","audience_cards_heading":"Designed Around Your Group","audience_cards_support":"Select an audience to see how the pacing, guidance, and technical depth can be adjusted. Every workshop remains available for every audience.","audience_general_intro":"Every Stage One workshop can be adapted for middle school, high school, college, adult, and mixed-age groups. Select an audience to see how the experience can be adjusted.","clear_audience":"Clear Audience Selection","planning_heading":"Ready to Bring a Workshop to Your Group?","planning_body":"Share your destination, anticipated date, group size, and workshop interests. Stage One will help coordinate the experience around your group’s itinerary, schedule, and venue.","planning_prompt":"Tell us which workshop interests your group.","planning_button":"Start Planning","change_selections":"Change Selections","explore_other_regions":"Explore Other Regions","your_selections":"Your Selections","no_experience":"No Experience Required","delivery_facts":[{"title":"3-Hour Workshops","text":"Flexible morning, afternoon, or evening scheduling.","icon":"fa-clock-o"},{"title":"No Experience Required","text":"Accessible to a wide range of experience levels.","icon":"fa-star-o"},{"title":"Instructors and Equipment Included","text":"Stage One brings the instructor, equipment, materials, and curriculum.","icon":"fa-briefcase"},{"title":"Delivered to Your Venue","text":"At a hotel, school, campus, conference room, or group venue.","icon":"fa-map-marker"}]}
+    
+
+<script>
+window.StageOneDiscoveryData = {
+  cities: [{"slug":"ann-arbor","name":"Ann Arbor","state":"Michigan","state_abbr":"MI","short_label":"Ann Arbor, MI","featured":true,"visual":"default","landmark_image":"img/locations/ann-arbor.jpg","copy_status":"final","headline":"Engineering Workshops in Ann Arbor","intro":"Ann Arbor's academic culture, engineering community, and focus on research make it a natural destination for STEM-oriented travel. A Stage One workshop adds a substantial hands-on component after an institutional visit or during an open hotel block, with instructors, equipment, and materials included.","supporting_copy":["Stage One regularly delivers workshops to groups visiting Ann Arbor. The experience complements University of Michigan visits and Midwest academic programs.","Everything arrives with the instructor — equipment, materials, and curriculum — with flexible morning, afternoon, and evening scheduling."],"city_facts":[{"title":"Proven in Ann Arbor","text":"Stage One regularly serves student groups visiting the Ann Arbor area."},{"title":"Engineering Campus","text":"Pairs naturally with University of Michigan engineering visits."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Ann Arbor program.","seo_title":"Ann Arbor Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, and venues across the Ann Arbor area."},{"slug":"atlanta","name":"Atlanta","state":"Georgia","state_abbr":"GA","short_label":"Atlanta, GA","featured":true,"visual":"default","landmark_image":"img/locations/atlanta.jpg","copy_status":"final","headline":"Engineering Workshops in Atlanta","intro":"Atlanta itineraries bring together civil rights history, leading institutions, business, and modern technology. Stage One adds an active engineering experience that balances campus visits and sightseeing while giving planners a complete educational program delivered directly to the group's venue.","supporting_copy":["Stage One has delivered workshops to many groups visiting Atlanta. The experience adapts to your program — a focused morning session, an afternoon block, or an evening activity at the hotel.","Everything arrives with the instructor: equipment, materials, and curriculum. No previous engineering experience is required, and the workshop can be adjusted for middle school through adult groups."],"city_facts":[{"title":"Proven in Atlanta","text":"Stage One regularly serves student groups visiting the Atlanta area."},{"title":"University City","text":"Workshop themes connect with Georgia Tech and Atlanta's campus visits."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Atlanta program.","seo_title":"Atlanta Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, and venues across the Atlanta area."},{"slug":"berkeley","name":"Berkeley","state":"California","state_abbr":"CA","short_label":"Berkeley, CA","featured":true,"visual":"default","landmark_image":"img/locations/berkeley.jpg","copy_status":"final","headline":"Engineering Workshops in Berkeley","intro":"Berkeley is known for bold ideas, academic discovery, and its connection to the wider Bay Area innovation economy. A Stage One workshop extends that theme through a hands-on engineering experience that fits naturally after an institutional visit or as an engaging afternoon or evening program.","supporting_copy":["The workshop pairs naturally with UC Berkeley visits and Bay Area technology programs, giving students time to design, build, and code with a professional engineer.","Stage One brings the instructor, equipment, materials, and curriculum, with flexible morning, afternoon, and evening scheduling."],"city_facts":[{"title":"Campus Connection","text":"A hands-on complement to UC Berkeley and Bay Area university visits."},{"title":"Proven in Berkeley","text":"Stage One has delivered memorable workshops to groups in Berkeley."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Berkeley program.","seo_title":"Berkeley Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, campuses, schools, and venues across Berkeley."},{"slug":"boston","name":"Boston","state":"Massachusetts","state_abbr":"MA","short_label":"Boston, MA","featured":true,"visual":"boston","landmark_image":"img/locations/boston.jpg","landmark_image_position":"center top","copy_status":"final","headline":"Engineering Workshops in Boston","intro":"Boston offers an exceptional combination of American history, leading academic institutions, science, robotics, and technology. Founded in Boston, Stage One adds a locally connected engineering experience that fits naturally between campus visits, museum stops, and historic sightseeing.","supporting_copy":["Boston itineraries are shaped by universities, research labs, museums, and centuries of innovation. A Stage One workshop connects naturally with all of it. Students spend three hours designing, building, coding, and testing with a real engineer — a working session that turns the ideas surrounding the trip into something they make themselves.","Because Stage One is based in the region, scheduling in Boston is straightforward. We bring the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue anywhere in the metro area, and we handle setup and cleanup. Morning, afternoon, and evening sessions can all be coordinated around your itinerary."],"city_facts":[{"title":"Founded Here","text":"Stage One Education began in the Boston area and has deep experience with groups visiting the city."},{"title":"A Natural Fit","text":"Boston's identity — engineering, technology, universities, innovation — is exactly what students explore in the workshop."},{"title":"Easy to Schedule","text":"Local delivery means flexible timing at hotels, schools, campuses, and venues across metro Boston."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Boston program.","seo_title":"Boston Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, campuses, and venues across Boston. Founded in the Boston area."},{"slug":"denver","name":"Denver","state":"Colorado","state_abbr":"CO","short_label":"Denver, CO","featured":true,"visual":"default","landmark_image":"img/locations/denver.jpg","copy_status":"final","show_quotes":false,"headline":"Engineering Workshops in Denver","intro":"Denver combines aerospace, science, outdoor exploration, and the dramatic setting of the Rocky Mountain region. A Stage One workshop provides a strong indoor academic component before or after an outdoor excursion, attraction visit, or institutional tour, while also giving planners a dependable weather-independent activity.","supporting_copy":["The workshop gives student groups an active program block between campus visits, museums, competitions, and regional travel days.","Stage One brings the instructor, equipment, materials, and curriculum, and handles setup and cleanup at your venue."],"city_facts":[{"title":"Mountain West Fit","text":"Engineering adds a hands-on dimension to Denver educational travel."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening sessions around your itinerary."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Denver program.","seo_title":"Denver Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, campuses, and venues across Denver."},{"slug":"houston","name":"Houston","state":"Texas","state_abbr":"TX","short_label":"Houston, TX","featured":true,"visual":"default","landmark_image":"img/locations/houston.jpg","landmark_image_position":"center","copy_status":"final","headline":"Engineering Workshops in Houston","intro":"Houston is one of the country's strongest destinations for space exploration, aerospace, medicine, energy, and large-scale engineering. Stage One carries that theme beyond museums and attractions with a complete hands-on workshop that can be scheduled at the group's hotel, campus, or meeting venue.","supporting_copy":["Houston itineraries built around Space Center Houston and the city's engineering economy pair naturally with a hands-on workshop. Students move from seeing engineering to doing it.","Stage One delivers throughout the Houston area with flexible morning, afternoon, and evening scheduling, and brings everything the workshop needs to your venue."],"city_facts":[{"title":"Space City Fit","text":"Workshop themes resonate with NASA and Space Center Houston visits."},{"title":"Proven in Houston","text":"Stage One regularly serves student groups visiting the Houston area."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Houston program.","seo_title":"Houston Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, and venues across the Houston area."},{"slug":"los-angeles","name":"Los Angeles","state":"California","state_abbr":"CA","short_label":"Los Angeles, CA","featured":true,"visual":"default","landmark_image":"img/locations/los-angeles.jpg","copy_status":"final","headline":"Engineering Workshops in Los Angeles","intro":"Los Angeles brings together aerospace, entertainment, digital media, design, and technology in a way few destinations can match. Stage One connects those industries through a workshop that combines technical thinking with creativity and pairs naturally with studio experiences, science attractions, and visits to leading institutions.","supporting_copy":["Stage One has delivered workshops to groups across the LA area. The three-hour format fits campus-visit programs, educational tours, and hotel-based evening sessions equally well.","We bring the instructor, equipment, materials, and curriculum, and we handle setup and cleanup. No previous engineering experience is required."],"city_facts":[{"title":"Proven in LA","text":"Stage One regularly serves student groups visiting the Los Angeles area."},{"title":"Aerospace & Tech","text":"Workshop themes connect with LA's aerospace and technology identity."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Los Angeles program.","seo_title":"Los Angeles Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, campuses, and venues across the Los Angeles area."},{"slug":"new-haven","name":"New Haven","state":"Connecticut","state_abbr":"CT","short_label":"New Haven, CT","featured":true,"visual":"default","landmark_image":"img/locations/new-haven.jpg","copy_status":"final","headline":"Engineering Workshops in New Haven","intro":"New Haven offers a distinctive academic setting shaped by prestigious institutions, research, and intellectual discovery. A Stage One workshop takes the itinerary beyond a traditional campus tour by adding a complete engineering experience that strengthens the trip's college, career, and STEM focus.","supporting_copy":["Stage One has delivered many workshops to groups visiting New Haven and the surrounding region. The three-hour format fits naturally alongside campus visits and academic programs.","We bring the instructor, equipment, materials, and curriculum, and handle setup and cleanup. No previous engineering experience is required."],"city_facts":[{"title":"Proven in New Haven","text":"Stage One regularly serves student groups visiting the New Haven area."},{"title":"Campus Companion","text":"Pairs naturally with Yale and New England university visits."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your New Haven program.","seo_title":"New Haven Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, and venues across the New Haven area."},{"slug":"orlando","name":"Orlando","state":"Florida","state_abbr":"FL","short_label":"Orlando, FL","featured":true,"visual":"default","landmark_image":"img/locations/orlando.jpg","copy_status":"final","headline":"Engineering Workshops in Orlando","intro":"Orlando connects themed entertainment with space exploration, simulation technology, leading institutions, environmental science, and outdoor Florida experiences. Stage One gives planners a strong educational anchor between attraction days or during an evening hotel block, adding meaningful STEM programming without another complicated transfer.","supporting_copy":["Orlando programs often have busy park days and open evenings. The workshop is a natural evening or arrival-day activity — students build, code, and test together without leaving the hotel.","Stage One delivers throughout the Orlando area, bringing the instructor, equipment, materials, and curriculum to your venue and handling setup and cleanup."],"city_facts":[{"title":"Pairs with Park Days","text":"A substantive program block that balances entertainment-heavy itineraries."},{"title":"Space Coast Energy","text":"Engineering themes resonate with Kennedy Space Center visits."},{"title":"Evening-Friendly","text":"Hotel-based evening sessions fit naturally between park days."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Orlando program.","seo_title":"Orlando Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels and venues across the Orlando area."},{"slug":"other-us-cities","name":"Other U.S. Cities","short_label":"Other U.S. Cities","featured":false,"visual":"default","landmark_image":"img/locations/united-states.jpg","landmark_image_position":"center","copy_status":"final","show_quotes":false,"headline":"Engineering Workshops Anywhere Your Group Travels","intro":"Stage One workshops are not limited to our current destinations. We work with groups to deliver complete hands-on engineering programs in cities across the United States, giving planners a flexible way to add meaningful STEM programming wherever their groups are traveling.","supporting_copy":["The workshop travels well: the instructor arrives with all equipment, materials, and curriculum, and any hotel meeting room, school, campus space, or group venue can host it.","Groups traveling to multiple cities can also schedule the workshop at whichever stop fits the itinerary best."],"city_facts":[{"title":"Nationwide Delivery","text":"Workshops have been delivered to groups across the United States."},{"title":"Any Suitable Venue","text":"Hotels, schools, campuses, and conference rooms all work."},{"title":"Multi-City Trips","text":"Schedule the workshop at whichever stop fits your itinerary."}],"cta_heading":"Tell Us Where Your Group Is Headed","cta_copy":"Share your destination, dates, and group size. Stage One will help determine workshop delivery options for your trip.","seo_title":"Engineering Workshops Across the U.S. | Stage One Education","seo_description":"Hands-on engineering workshops delivered to student groups at hotels, schools, campuses, and venues in cities across the United States."},{"slug":"san-francisco","name":"San Francisco","state":"California","state_abbr":"CA","short_label":"San Francisco, CA","featured":true,"visual":"default","landmark_image":"img/locations/san-francisco.jpg","copy_status":"final","headline":"Engineering Workshops in San Francisco","intro":"San Francisco places technology, entrepreneurship, science, and design at the center of the destination. Stage One complements innovation-focused visits, science attractions, leading institutions, and iconic city touring with a complete hands-on workshop delivered directly to the group's venue.","supporting_copy":["Stage One delivers workshops in San Francisco, including venues across the city. The experience pairs naturally with university visits and technology-focused itineraries.","Everything arrives with the instructor — equipment, materials, and curriculum — with flexible morning, afternoon, and evening scheduling."],"city_facts":[{"title":"Innovation Capital","text":"Workshop themes align with San Francisco's technology identity."},{"title":"Campus Connections","text":"Pairs well with Berkeley, Stanford, and other university visits."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your San Francisco program.","seo_title":"San Francisco Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, campuses, and venues across San Francisco."},{"slug":"washington-dc","name":"Washington, DC","state":"District of Columbia","state_abbr":"DC","short_label":"Washington, DC","featured":true,"visual":"default","landmark_image":"img/locations/washington-dc.jpg","landmark_image_position":"center top","copy_status":"final","headline":"Engineering Workshops in Washington, DC","intro":"Washington, DC itineraries are rich in history, government, museums, national institutions, science, and aviation. A Stage One workshop adds a refreshing hands-on block to sightseeing-heavy schedules and works especially well as an engaging indoor or evening program with a clear educational purpose.","supporting_copy":["Stage One regularly delivers workshops to school groups and educational tours visiting the DC area. The workshop works as a focused morning or afternoon program block, or as an evening activity that turns hotel time into one of the most memorable parts of the trip.","We bring the instructor, equipment, materials, and curriculum directly to your hotel, school, campus, or group venue in the DC metro area, and we handle setup and cleanup. No previous engineering experience is required."],"city_facts":[{"title":"Fits DC Itineraries","text":"A hands-on complement to museum, government, and civic learning programs."},{"title":"Evening-Friendly","text":"Hotel-based evening sessions are a popular choice for DC tour groups."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum come to your venue."}],"cta_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","cta_copy":"Share your dates, group size, and venue. Stage One will coordinate a workshop around your Washington, DC program.","seo_title":"Washington DC Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to student groups at hotels, schools, and venues across the Washington, DC area."}],
+  audiences: [{"id":"middle-school","label":"Middle School","short_label":"Middle School","icon":"fa-book","age_label":"Ages 11–14","headline":"Engineering Workshops for Middle School Groups","intro":"Middle school students do real engineering from the first minute. Structured guidance, clear explanations, and regular hands-on milestones keep every student actively involved — no previous experience required.","supporting_copy":["Instructors introduce technical concepts in accessible language and keep the group moving through collaborative challenges. Every Stage One workshop — Artificial Intelligence, Robotics, and Mechanical Engineering — is available for middle school groups.","The workshop is delivered directly to your school, hotel, campus, or group venue. Stage One brings the instructor, equipment, materials, and curriculum, and handles setup and cleanup."],"facts":[{"title":"No Experience Needed","text":"Concepts are introduced in accessible language with structured guidance."},{"title":"Hands-On Milestones","text":"Regular build-and-test moments keep every student engaged."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for middle school groups."}],"cta_heading":"Ready to Plan a Middle School Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your students.","seo_title":"Middle School Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops designed for middle school groups. Delivered to schools, hotels, and venues nationwide."},{"id":"high-school","label":"High School","short_label":"High School","icon":"fa-graduation-cap","age_label":"Ages 14–18","headline":"Engineering Workshops for High School Groups","intro":"High school groups explore practical engineering through team-based challenges, technical discussion, design decisions, and hands-on problem-solving. Instructors adjust the depth to the group's experience.","supporting_copy":["Whether your students are already STEM-focused or trying engineering for the first time, the workshop meets them where they are. Every Stage One workshop — Artificial Intelligence, Robotics, and Mechanical Engineering — is available for high school groups.","The workshop is delivered directly to your school, hotel, campus, or group venue anywhere your group travels. Stage One brings the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Team-Based Challenges","text":"Students collaborate on real design and engineering decisions."},{"title":"Adjustable Depth","text":"Instructors tune guidance and technical depth to the group."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for high school groups."}],"cta_heading":"Ready to Plan a High School Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your students.","seo_title":"High School Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops designed for high school groups. Delivered to schools, hotels, and venues nationwide."},{"id":"college","label":"College and University","short_label":"College and University","icon":"fa-university","age_label":"College & University","headline":"Engineering Workshops for College Groups","intro":"College and university groups move at a faster pace with greater emphasis on applied engineering, collaboration, and technical decision-making. The workshop complements academic travel, campus programs, and group events.","supporting_copy":["The three-hour format works as a program block within orientation weeks, leadership programs, academic travel, or student organization events. Every Stage One workshop is available at the college level.","Stage One delivers directly to your campus, hotel, or venue, bringing the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Applied Pace","text":"Faster pacing with emphasis on technical decision-making."},{"title":"Program-Friendly","text":"Fits orientations, leadership programs, and academic travel."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for college groups."}],"cta_heading":"Ready to Plan a College Workshop?","cta_copy":"Share your group size, destination, and schedule. Stage One will help coordinate the right workshop for your program.","seo_title":"College Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops for college and university groups. Delivered to campuses, hotels, and venues nationwide."},{"id":"adult-professional","label":"Adult / Professional","short_label":"Adult / Professional","icon":"fa-briefcase","age_label":"Adult learners","headline":"Engineering Workshops for Adult and Professional Groups","intro":"Adult and professional groups take part in a practical, collaborative engineering experience designed for active participation — a refreshing alternative to conventional team events and professional programs.","supporting_copy":["The format supports professional development programs, team experiences, lifelong learning groups, and customized events. No engineering background is required, and instructors adjust the depth to the group.","Stage One delivers directly to your office, conference venue, hotel, or campus, bringing the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Active Participation","text":"Everyone designs, builds, and tests — not a lecture."},{"title":"Team-Friendly","text":"Works for professional teams, programs, and group events."},{"title":"All Workshops Available","text":"Every Stage One workshop adapts for adult groups."}],"cta_heading":"Ready to Plan an Adult or Professional Workshop?","cta_copy":"Share your group size, location, and schedule. Stage One will help coordinate the right workshop for your team or program.","seo_title":"Adult & Professional Engineering Workshops | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops for adult and professional groups. Delivered to offices, hotels, and venues nationwide."},{"id":"international-students","label":"International Students","short_label":"International Students","icon":"fa-globe","age_label":"Visiting groups","headline":"Engineering Workshops for International Student Groups","intro":"Stage One works closely with tour providers, schools, and group leaders bringing international students to the United States. The workshop adds a genuine American engineering experience to the group's U.S. itinerary.","supporting_copy":["The complete three-hour program is delivered at a venue the group is already using — hotel, campus, school, or conference room — and can be scheduled in the morning, afternoon, or evening around the itinerary.","Instruction is clear and accessible, no previous engineering experience is required, and the pace adjusts to the group. Stage One coordinates directly with the tour provider or group leader."],"facts":[{"title":"Itinerary-Friendly","text":"Scheduled around the group's U.S. travel program."},{"title":"Clear Instruction","text":"Accessible pacing and language for international participants."},{"title":"Coordinated Delivery","text":"Stage One works directly with tour providers and group leaders."}],"cta_heading":"Planning a U.S. Itinerary for International Students?","cta_copy":"Share the group's destinations, dates, and size. Stage One will coordinate a workshop around the itinerary.","seo_title":"Engineering Workshops for International Student Groups | Stage One Education","seo_description":"Hands-on engineering workshops for international student groups visiting the United States. Delivered to hotels, campuses, and venues, coordinated with tour providers."},{"id":"other-groups","label":"Other","short_label":"Other Groups","hide_from_nav":true,"icon":"fa-users","age_label":"Mixed & custom","headline":"Engineering Workshops for Every Kind of Group","intro":"Mixed ages, families, community organizations, camps, scouts, or something entirely different — Stage One instructors adjust pacing, team structure, and guidance so participants with different experience levels can contribute to the same hands-on challenge.","supporting_copy":["Tell us about your group and what you hope the experience achieves. Every Stage One workshop can be adapted, and the team will recommend the best fit.","The workshop is delivered directly to your venue — Stage One brings the instructor, equipment, materials, and curriculum."],"facts":[{"title":"Mixed Experience Levels","text":"Pacing and team structure adjust so everyone contributes."},{"title":"Flexible Format","text":"Camps, community groups, families, and custom programs all work."},{"title":"All Workshops Available","text":"Every Stage One workshop can be adapted to your group."}],"cta_heading":"Tell Us About Your Group","cta_copy":"Share your group's makeup, location, and schedule. Stage One will recommend the right workshop.","seo_title":"Engineering Workshops for Groups of All Kinds | Stage One Education","seo_description":"Hands-on engineering workshops adapted for mixed-age, community, camp, and custom groups. Delivered to hotels, schools, and venues nationwide."}],
+  groupTypes: [{"id":"school-groups","label":"School Group","short_label":"School Group","headline":"Engineering Workshops for School Groups","intro":"Bring a complete engineering experience to your students — at your school or wherever your group travels. Stage One delivers the instructor, equipment, materials, and curriculum, and handles setup and cleanup.","supporting_copy":["The three-hour workshop fits enrichment days, STEM weeks, field-trip alternatives, and travel programs. Instruction adapts from middle school through high school, and no previous engineering experience is required.","Teachers and chaperones consistently tell us the workshop reaches students who don't usually see themselves as \"engineering kids\" — every student builds, codes, and tests something real."],"facts":[{"title":"At School or On the Road","text":"Delivered to classrooms, gyms, hotels, and travel venues alike."},{"title":"Curriculum Included","text":"Designed and instructed by PhDs, engineers, and educators."},{"title":"Scales to Your Group","text":"Formats for single classes through large programs."}],"cta_heading":"Ready to Plan a School Group Workshop?","cta_copy":"Share your school, group size, and preferred dates. Stage One will help coordinate the workshop.","seo_title":"Engineering Workshops for School Groups | Stage One Education","seo_description":"Hands-on AI, robotics, and mechanical engineering workshops delivered to school groups at schools, hotels, and venues nationwide."},{"id":"educational-tours","label":"Educational Tour","short_label":"Educational Tour","headline":"Engineering Workshops for Educational Tours","intro":"Stage One partners with educational tour companies across the United States. The workshop is a turn-key program block: we deliver the complete experience to the group's hotel or venue, on the schedule your itinerary needs.","supporting_copy":["Tour operators use the workshop as a substantive evening activity, an arrival-day program, or a hands-on complement to the destinations already on the itinerary. It requires no lab, no transportation, and no preparation from the group.","One point of contact coordinates everything — dates, venue requirements, group size, and workshop selection — and the format is consistent across cities, so multi-city operators can offer it anywhere they run programs."],"facts":[{"title":"Turn-Key for Operators","text":"One contact, complete delivery, consistent format across cities."},{"title":"Evening & Arrival Days","text":"Turns hotel time into a highlight of the trip."},{"title":"No Lab Required","text":"Any hotel meeting room or group venue can host the workshop."}],"cta_heading":"Ready to Add a Workshop to Your Tour Program?","cta_copy":"Share your itinerary, group size, and dates. Stage One will coordinate the workshop around your program.","seo_title":"Engineering Workshops for Educational Tour Companies | Stage One Education","seo_description":"Turn-key hands-on engineering workshops for educational tour programs. Delivered to hotels and group venues in cities across the United States."},{"id":"international-groups","label":"International Student Group","short_label":"International Group","headline":"Engineering Workshops for International Groups","intro":"For international groups traveling through the United States, Stage One adds a distinctive American STEM experience without complicating the itinerary. We bring the instructors, equipment, materials, and complete workshop directly to the group's hotel, school, campus, or meeting venue, making it easy to schedule around sightseeing, institutional visits, attraction days, and travel.","supporting_copy":["The three-hour program can be scheduled in the morning, afternoon, or evening and delivered at a venue already used by the group. No previous engineering experience is required, and instruction can be adapted for middle school, high school, college, adult, or mixed-age participants.","Stage One has welcomed international groups from around the world and understands the logistics of U.S. educational travel — coordination happens directly with the tour provider or coordinating organization."],"facts":[{"title":"Delivered to Your Group","text":"At a hotel, school, campus, conference room, or group venue."},{"title":"Flexible Scheduling","text":"Morning, afternoon, or evening options around the itinerary."},{"title":"Clear, Accessible Experience","text":"No prior experience required; instruction adjusts to the group."}],"cta_heading":"Planning a U.S. Itinerary for an International Group?","cta_copy":"Share the group's destinations, dates, and size. Stage One will coordinate a workshop around the itinerary.","seo_title":"Engineering Workshops for International Groups Visiting the USA | Stage One Education","seo_description":"Instructor-led engineering workshops delivered to international student groups at hotels, schools, campuses, and venues during United States educational travel."},{"id":"academic-programs","label":"Academic Program","short_label":"Academic Program","headline":"Engineering Workshops for Academic Programs","intro":"Academic and enrichment programs use Stage One workshops as ready-made engineering experiences — complete with instructor, equipment, materials, and curriculum.","supporting_copy":["The workshop drops into your program schedule as a self-contained three-hour block, and programs running multiple sessions or cohorts can schedule repeated workshops across days or weeks.","Because each of the four workshops is distinct, returning participants can experience something new every time — AI one session, robotics or mechanical engineering the next."],"facts":[{"title":"Drop-In Program Block","text":"A self-contained three-hour experience for your schedule."},{"title":"Repeatable","text":"Multiple cohorts or repeat sessions across days and weeks."},{"title":"Four Distinct Workshops","text":"Returning participants can try something new each time."}],"cta_heading":"Ready to Add Workshops to Your Program?","cta_copy":"Share your program schedule, group sizes, and location. Stage One will help build the workshop plan.","seo_title":"Engineering Workshops for Academic Programs | Stage One Education","seo_description":"Hands-on engineering workshops for academic and enrichment programs. Complete instructor-led sessions delivered to your venue."},{"id":"college-groups","label":"College Group","short_label":"College Group","headline":"Engineering Workshops for College Groups and Campus Programs","intro":"Student organizations, orientation programs, honors cohorts, and campus events use Stage One workshops as engaging, substantive group experiences delivered right on campus or at the group's venue.","supporting_copy":["The pace and technical depth rise to meet college participants, with emphasis on applied engineering, collaboration, and decision-making. Every Stage One workshop is available at this level.","Stage One brings the instructor, equipment, materials, and curriculum to your campus space, hotel, or venue — no lab or preparation required."],"facts":[{"title":"Campus-Ready","text":"Delivered to campus spaces, hotels, and event venues."},{"title":"College-Level Pace","text":"Applied engineering with real technical decision-making."},{"title":"All Workshops Available","text":"AI, robotics, and mechanical engineering."}],"cta_heading":"Ready to Plan a College Group Workshop?","cta_copy":"Share your group, campus or venue, and schedule. Stage One will help coordinate the workshop.","seo_title":"Engineering Workshops for College Groups | Stage One Education","seo_description":"Hands-on engineering workshops for college student organizations, orientations, and campus programs. Delivered to campuses and venues nationwide."},{"id":"professional-groups","label":"Adult / Professional Group","short_label":"Adult / Professional Group","headline":"Engineering Workshops for Adult and Professional Groups","intro":"Give your team or adult group a genuinely different shared experience: three hours of collaborative, hands-on engineering led by a professional engineer, delivered to your office, conference venue, or hotel.","supporting_copy":["The workshop works for team events, professional development, conferences, and lifelong-learning groups. Participants design, build, code, and test together — no engineering background required.","Stage One brings everything the session needs and adapts the pace and technical depth to your group."],"facts":[{"title":"A Different Team Event","text":"Collaborative building and problem-solving, not a lecture."},{"title":"Conference-Friendly","text":"Fits conference programs, offsites, and professional events."},{"title":"Complete Delivery","text":"Instructor, equipment, materials, and curriculum included."}],"cta_heading":"Ready to Plan an Adult or Professional Group Workshop?","cta_copy":"Share your group size, location, and goals. Stage One will recommend the right workshop.","seo_title":"Engineering Workshops for Adult & Professional Groups | Stage One Education","seo_description":"Hands-on engineering workshops for professional teams, conferences, and adult groups. Delivered to offices, hotels, and venues nationwide."}],
+  workshops: [{"slug":"artificial-intelligence","name":"Artificial Intelligence","heading_label":"Artificial Intelligence","explorer_label":"Artificial Intelligence","explorer_summary":"Explore how Artificial Intelligence learns, creates, and makes decisions through collaborative, hands-on projects.","duration":"3-Hour Workshop","description":"Explore how AI learns, creates, and makes decisions through hands-on projects.","image":"img/poster1.jpg","image_alt":"Student-created artificial intelligence movie poster","image_width":200,"image_height":200,"detail_path":"/ai-workshop.html","icon":"fa-lightbulb-o","homepage_short_name":"AI","homepage_short_focus":"Neural Networks · Ethics","homepage_focus":"Neural Networks · Creative AI · Ethics","homepage_topics":["Neural networks and how AI learns","Creative model behavior and decision-making","Responsible AI, bias, and ethics"],"landing_slug":"artificial-intelligence","landing_headline":"Artificial Intelligence Workshops","landing_intro":"Students explore how AI learns, creates, and makes decisions — training neural networks, working with the latest AI models, and debating the ethics of the technology shaping their world. Led by a real engineer, delivered to your venue.","landing_supporting_copy":["The workshop moves from how neural networks actually learn, through hands-on sessions with text, image, and music models, to a structured discussion of AI ethics and bias. Students leave understanding AI from the inside rather than as a black box.","No previous experience is required. Instructors adjust the technical depth from middle school through adult groups, and the complete three-hour experience is delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Train Real Neural Networks","text":"Students see how AI actually learns, hands-on."},{"title":"Latest AI Models","text":"Text, image, and music generation in guided sessions."},{"title":"Ethics Discussion","text":"A structured debate on bias, safety, and responsible AI."}],"landing_cta_heading":"Ready to Bring Artificial Intelligence to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the AI workshop around your program.","landing_seo_title":"Artificial Intelligence Workshops | Stage One Education","landing_seo_description":"Hands-on AI workshops where student groups train neural networks, use the latest AI models, and debate AI ethics. Delivered to hotels, schools, and venues nationwide."},{"slug":"robotics-drone","name":"Robotics Drone","heading_label":"Robotics","explorer_label":"Robotics","explorer_summary":"Build, program, test, and fly a working drone system through structured, engineer-led challenges.","duration":"3-Hour Workshop","description":"Build, program, test, and fly a working drone system.","image":"img/drone-circuit.png","image_alt":"Drone circuit used in the Robotics Drone workshop","image_width":200,"image_height":200,"detail_path":"/robotics-workshop.html","icon":"fa-paper-plane-o","homepage_short_name":"Robotics","homepage_short_focus":"Drones · Electronics · Coding","homepage_focus":"Electronics · Coding · Autonomous Flight","homepage_topics":["Electronics, circuits, and microcontrollers","Coding and troubleshooting a working system","Programming autonomous drone flight"],"landing_slug":"robotics","landing_headline":"Robotics Workshops","landing_intro":"Students build, program, test, and fly a working drone system — wiring circuits, writing code, and programming autonomous flight through structured, engineer-led challenges delivered to your venue.","landing_supporting_copy":["The workshop connects electronics, microcontrollers, and coding into one working system that students control themselves. Troubleshooting is part of the experience: when something doesn't fly, students find out why and fix it.","No previous experience is required. All electronics are low voltage, safety equipment is provided, and the complete three-hour experience is delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Fly Mini Drones","text":"Students pilot and program real drone flight."},{"title":"Build the Circuit","text":"Hands-on electronics and microcontroller wiring."},{"title":"Code Autonomy","text":"Program the drone to fly on its own."}],"landing_cta_heading":"Ready to Bring Robotics to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the robotics workshop around your program.","landing_seo_title":"Robotics Workshops | Stage One Education","landing_seo_description":"Hands-on robotics workshops where student groups build circuits, write code, and fly drones autonomously. Delivered to hotels, schools, and venues nationwide."},{"slug":"mechanical-engineering","name":"Mechanical Engineering","heading_label":"Mechanical Engineering","explorer_label":"Mechanical Engineering","explorer_summary":"Design a rocket using professional CAD software and explore rapid prototyping. No prior CAD or engineering experience is required.","duration":"3-Hour Workshop","description":"Design a rocket using professional CAD software and explore rapid prototyping.","image":"img/rocket-assem-iso.png","image_alt":"Exploded view of a model rocket assembly","image_width":200,"image_height":200,"detail_path":"/rocket-workshop.html","icon":"fa-cogs","homepage_short_name":"Mechanical","homepage_short_focus":"CAD · Design · 3D Printing","homepage_focus":"CAD · Engineering Design · 3D Printing","homepage_topics":["Engineering design and professional CAD","Multi-part models and assemblies","Rapid prototyping and 3D printing"],"landing_slug":"mechanical-engineering","landing_headline":"Mechanical Engineering Workshops","landing_intro":"Students design a multi-part model rocket in professional CAD software and explore rapid prototyping and 3D printing — the same tools and process real engineers use, with no prior CAD experience required.","landing_supporting_copy":["Guided step by step by an engineer, every student designs their own rocket from nose cone to fins, learns how multi-part assemblies fit together, and sees how designs become physical objects through 3D printing.","The workshop consistently reaches students who have never opened a CAD program before — by the end of three hours they have designed a complete engineering model themselves. Delivered to your hotel, school, campus, or group venue."],"landing_facts":[{"title":"Professional CAD","text":"The same software used by working engineers."},{"title":"Complete Design","text":"Every student designs a full multi-part rocket."},{"title":"Rapid Prototyping","text":"See designs become real through 3D printing."}],"landing_cta_heading":"Ready to Bring Mechanical Engineering to Your Group?","landing_cta_copy":"Share your destination, dates, and group size. Stage One will coordinate the mechanical engineering workshop around your program.","landing_seo_title":"Mechanical Engineering Workshops | Stage One Education","landing_seo_description":"Hands-on mechanical engineering workshops where student groups design rockets in professional CAD and explore 3D printing. Delivered to hotels, schools, and venues nationwide."}],
+  copy: {"section_heading":"Find Your","section_heading_accent":"Workshop","section_intro":"Explore by city, participants, workshop, or program","cards":{"cities":{"title":"Destinations","subtitle":"Where is your group headed?","more_label":"More U.S. cities","other_label":"Other","other_path":"/locations/other-us-cities/"},"audiences":{"title":"Participants","subtitle":"Who will take part?"},"workshops":{"title":"Workshops","subtitle":"What will they experience?"},"group_types":{"title":"Program","subtitle":"What are you planning?"}},"back_label":"Find Your Workshop","plan_cta_label":"Plan a Workshop","plan_helper_heading":"Ready to Add Hands-On Engineering to Your Itinerary?","plan_helper":"Share your destination, group details, and schedule. Stage One will help plan the workshop.","category_labels":{"city":"City","audience":"Participants","workshop":"Workshop","group_type":"Program"},"explore_heading":"Keep Exploring","explore_intro":"Keep narrowing things down — every path leads to the same easy planning conversation.","explore_sections":{"city":{"cities":"Other Cities","audiences":"Participants We Serve Here","workshops":"Workshops Available Here","group_types":"Program"},"default":{"cities":"Explore by City","audiences":"Explore by Participants","workshops":"Explore Workshops","group_types":"Program"}},"workshop_detail_label":"Explore the full workshop","testimonials_heading":"What Groups Say","testimonials_more_label":"More Feedback","delivery_heading":"Included with Every Workshop","location_explore_list_label":"Things to do","more_to_explore_in":"More to Explore in","location_explore_intro":"Popular educational, cultural, and iconic experiences for student groups visiting","location_explore_disclaimer":"Nearby experiences are shown for itinerary inspiration only and are not included with Stage One workshops. Admission, transportation, reservations, and availability must be arranged separately. Inclusion does not imply affiliation or endorsement.","venue_collage_heading":"Workshop Venues","venue_collage_copy":"Hotels, campuses, meeting rooms, and event spaces. Stage One adapts each workshop to fit your venue.","offerings_heading":"Explore More","offerings_intro":"Browse other destinations and program types.","available_workshops_heading":"Available Workshops","audiences_served_heading":"Participants We Serve"}
 };
 </script>
 <script src="/js/query-validation.js"></script>
@@ -325,11 +781,12 @@ window.StageOneExplorerData = {
 <script src="/js/explorer-copy.js"></script>
 <script src="/js/explorer-state.js"></script>
 
-    <script src="/js/homepage-workshop-explorer.js"></script>
-    <script src="/js/region-page.js"></script>
+    <script src="/js/find-your-workshop.js"></script>
+    <script src="/js/discovery-page.js?v=20260914b"></script>
     <script src="/js/workshop-page-context.js"></script>
-    <script src="/js/plan-workshop-form.js"></script>
-
+    <script src="/js/plan-workshop-form.js?v=20260914b"></script>
+    <script src="/js/plan-workshop-modal.js"></script>
+    <script src="/js/contact-email-modal.js?v=20260914b"></script>
 </body>
 
 </html>

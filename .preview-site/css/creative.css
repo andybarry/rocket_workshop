@@ -8,6 +8,11 @@ html {
     overflow-y: scroll;
 }
 
+:root {
+    --page-card-max: 1140px;
+    --page-card-width: min(86vw, var(--page-card-max));
+}
+
 html,
 body {
     width: 100%;
@@ -237,6 +242,14 @@ header {
 */
 }
 
+header.discovery-header {
+    min-height: 0;
+    height: auto;
+    flex: 0 0 auto;
+    text-align: left;
+    color: inherit;
+}
+
 header .header-content {
     position: relative;
     width: 100%;
@@ -278,7 +291,7 @@ header .header-content .header-content-inner p {
 }
 
 @media(min-width:768px) {
-    header {
+    header:not(.discovery-header) {
         min-height: 100%;
     }
 
@@ -1048,7 +1061,7 @@ inline-quote-container {
     height: 24px;
     margin: 0 8px;
     padding: 1px 10px !important;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     border-radius: 6px;
     box-sizing: border-box;
     background: #fff !important;
@@ -1059,7 +1072,7 @@ inline-quote-container {
     line-height: 20px;
     letter-spacing: 0.02em;
     text-decoration: none !important;
-    box-shadow: none;
+    box-shadow: inset 0 0 6px rgba(13, 110, 253, 0.22);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -1067,15 +1080,16 @@ inline-quote-container {
 .nav-workshops-access-button:focus {
     color: #f05f40 !important;
     background: #fff3ef !important;
-    border-color: #fff;
-    box-shadow: none;
+    border-color: transparent;
+    box-shadow: inset 0 0 6px rgba(13, 110, 253, 0.22);
     outline: none;
 }
 
 .nav-workshops-access-button[aria-current="page"] {
-    color: #434343 !important;
-    background: #fff3ef !important;
-    border-color: #fff;
+    color: #fff !important;
+    background: #0d6efd !important;
+    border-color: transparent;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
 }
 
 .nav-workshops-access-button:focus-visible {
@@ -1089,32 +1103,34 @@ inline-quote-container {
     height: 24px;
     margin: 0 10px;
     padding: 1px 10px !important;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     border-radius: 6px;
     box-sizing: border-box;
-    background: #f05f40 !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: #3bbf6b !important;
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
     font-weight: 700;
     line-height: 20px;
     letter-spacing: 0.02em;
     text-decoration: none !important;
-    box-shadow: 0 2px 8px rgba(67, 67, 67, 0.18);
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 0 6px rgba(59, 191, 107, 0.22);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-plan-workshop-button:hover,
 .nav-plan-workshop-button:focus {
-    border-color: #fff;
-    background: #fff !important;
-    color: #f05f40 !important;
-    box-shadow: 0 3px 10px rgba(67, 67, 67, 0.24);
+    border-color: transparent;
+    background: #3bbf6b !important;
+    color: #fff !important;
+    box-shadow:
+        inset 0 0 6px rgba(255, 255, 255, 0.4),
+        0 3px 10px rgba(59, 191, 107, 0.28);
     outline: none;
 }
 
 .nav-plan-workshop-button:focus-visible {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6), 0 3px 10px rgba(67, 67, 67, 0.24);
+    box-shadow: 0 0 0 3px rgba(59, 191, 107, 0.35), 0 3px 10px rgba(59, 191, 107, 0.28);
 }
 
 .nav-dropdown .caret {
@@ -1363,7 +1379,8 @@ inline-quote-container {
     }
 
     /* Mobile: hide Workshops dropdown, show three flat workshop links */
-    #mainNav .nav-desktop-workshop {
+    #mainNav .nav-desktop-workshop,
+    #mainNav .nav-desktop-explore {
         display: none !important;
     }
 
@@ -1388,14 +1405,16 @@ inline-quote-container {
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button {
         margin-top: 8px;
         margin-bottom: 8px;
-        background: #f05f40 !important;
-        color: #fff !important;
+        border-color: transparent;
+        background: #fff !important;
+        color: #3bbf6b !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:focus {
-        background: #fff !important;
-        color: #f05f40 !important;
+        border-color: transparent;
+        background: #3bbf6b !important;
+        color: #fff !important;
     }
 }
 
@@ -1555,13 +1574,14 @@ html.has-workshop-plan-modal #tab-section {
     position: relative;
     width: 100%;
     margin-top: 0;
-    padding: 18px 15px 4px;
+    padding: 36px 0 4px;
     font-family: 'Roboto', sans-serif;
     z-index: 3;
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefit-bar {
     grid-template-columns: 1fr;
-    max-width: 1160px;
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
     margin: 0 auto;
     overflow: visible;
     gap: 0;
@@ -1572,11 +1592,119 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    border: 1px solid #e3e3e3;
-    border-radius: 14px;
+    list-style: none;
+    border: 0;
+    border-radius: 22px;
     background: #fff;
-    box-shadow: 0 5px 18px rgba(67, 67, 67, 0.06);
+    box-shadow:
+        inset 0 0 16px rgba(67, 67, 67, 0.12),
+        inset 0 0 6px rgba(67, 67, 67, 0.14);
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    min-width: 0;
+    min-height: 96px;
+    padding: 12px 18px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+    color: #393939;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li {
+    border-left: 0;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before,
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: auto;
+    right: 0;
+    width: 1px;
+    background: #e5e5e5;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(3n)::before {
+    display: none;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(-n+3)::after {
+    content: "";
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 0;
+    height: 1px;
+    background: #e5e5e5;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+    margin: 0;
+    font-size: 27px;
+    border-radius: 50%;
+    background: #fff3ef;
+    color: #f05f40;
+    font-size: 32px;
+    line-height: 1;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+    text-wrap: pretty;
+    container-type: inline-size;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
+    display: block;
+    margin: 0 0 2px;
+    min-height: 24px;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: clamp(15px, calc((100cqi - 4px) / 13.6), 20px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    min-height: 1.25em;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
+    display: block;
+    margin: 0;
+    color: #555555;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: left;
+    min-height: calc(13px * 1.25 * 2);
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small {
+    font-size: 13px;
+}
+.homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(5) small br {
+    display: block;
 }
 .homepage-workshop-explorer__header {
     max-width: 760px;
@@ -2088,7 +2216,7 @@ html.has-workshop-plan-modal #tab-section {
 }
 .homepage-workshop-explorer__benefits {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 8px;
     margin: 0;
     padding: 3px;
@@ -2128,16 +2256,16 @@ html.has-workshop-plan-modal #tab-section {
 .homepage-workshop-explorer__benefits strong {
     color: #434343;
     font-family: 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 .homepage-workshop-explorer__benefits small {
     margin-top: 2px;
     color: #707070;
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
     line-height: 1.25;
 }
@@ -3251,6 +3379,59 @@ html.has-workshop-plan-modal #tab-section {
         padding-right: 10px;
         padding-left: 10px;
     }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits {
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+        grid-auto-columns: unset;
+        overflow: hidden;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li {
+        min-height: 0;
+        padding: 16px 14px;
+        border-right: 0;
+        border-bottom: 0;
+        justify-content: flex-start;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 58px;
+        width: 58px;
+        height: 58px;
+        margin: 0;
+        font-size: 26px;
+        line-height: 1;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits strong {
+        font-size: 17px;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits small {
+        font-size: 14px;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(2n) {
+        border-right: 0;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(n + 5) {
+        border-bottom: 0;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li + li::before,
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:not(:nth-child(3n))::before,
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(-n+3)::after,
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(2n + 1)::before,
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:nth-child(n + 3)::before {
+        display: none;
+    }
+    .homepage-workshop-benefits .homepage-workshop-explorer__benefits li:not(:last-child)::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 0;
+        height: 1px;
+        background: #e5e5e5;
+    }
     .homepage-workshop-benefits .homepage-workshop-explorer__benefit-intro {
         padding: 0 3px 9px;
     }
@@ -4035,8 +4216,9 @@ html.has-workshop-plan-modal #tab-section {
 }
 
 #mainNav .nav-main-links > li > .nav-button-stageone:hover,
-#mainNav .nav-main-links > li > .nav-button-stageone:focus,
-#mainNav .nav-main-links > li.open > .nav-button-stageone {
+#mainNav .nav-main-links > li.open > .nav-button-stageone,
+#mainNav .nav-main-links > li > .nav-button-stageone:focus-visible,
+#mainNav .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
     border-color: transparent;
     background: transparent !important;
     color: #fff !important;
@@ -4056,6 +4238,11 @@ html.has-workshop-plan-modal #tab-section {
 #mainNav .nav-desktop-workshop > .nav-button-stageone:focus,
 #mainNav .nav-desktop-workshop.open > .nav-button-stageone {
     color: #fff !important;
+}
+
+#mainNav .nav-desktop-workshop:not(:hover):not(.open) > .nav-button-stageone:not([aria-current="page"]) {
+    text-decoration: none !important;
+    text-shadow: none !important;
 }
 
 #mainNav .nav-dropdown .caret {
@@ -4122,6 +4309,125 @@ html.has-workshop-plan-modal #tab-section {
     opacity: 1;
 }
 
+#mainNav .nav-desktop-explore > .nav-button-stageone,
+#mainNav .nav-desktop-explore > .nav-button-stageone:hover,
+#mainNav .nav-desktop-explore > .nav-button-stageone:focus,
+#mainNav .nav-desktop-explore.open > .nav-button-stageone {
+    color: #fff !important;
+}
+
+#mainNav .nav-desktop-explore > .nav-button-stageone[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+#mainNav .nav-desktop-explore {
+    position: static;
+}
+
+#mainNav .nav-explore-menu {
+    position: fixed;
+    top: 56px;
+    left: 196px;
+    right: auto;
+    width: max-content;
+    max-width: min(720px, calc(100vw - 212px));
+    min-width: 0;
+    margin-top: 8px;
+    padding: 18px 18px 14px;
+}
+
+#mainNav .nav-desktop-explore.open > .nav-explore-menu {
+    display: block;
+}
+
+@media (min-width: 1921px) {
+    #mainNav .nav-desktop-explore {
+        position: relative;
+    }
+
+    #mainNav .nav-explore-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: auto;
+        width: max-content;
+        max-width: min(720px, calc(100vw - 48px));
+    }
+}
+
+#mainNav .nav-explore-menu__cols {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 8px 28px;
+}
+
+#mainNav .nav-explore-menu__col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#mainNav .nav-explore-menu__heading {
+    margin: 0 0 8px;
+    color: #8a8a8a;
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#mainNav .nav-explore-menu__link {
+    display: block;
+    margin: 1px 0;
+    padding: 6px 8px;
+    border-radius: 7px;
+    color: #434343;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#mainNav .nav-explore-menu__link:hover,
+#mainNav .nav-explore-menu__link:focus,
+#mainNav .nav-explore-menu__link.is-current {
+    background: #fff3ef;
+    color: #f05f40;
+    text-decoration: none;
+}
+
+#mainNav .nav-explore-menu__all {
+    display: block;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(67, 67, 67, 0.08);
+    color: #f05f40;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+#mainNav .nav-explore-menu__all:hover,
+#mainNav .nav-explore-menu__all:focus {
+    color: #d94e32;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.nav-mobile-explore-heading,
+.nav-mobile-explore-subheading,
+.nav-mobile-explore-item {
+    display: none;
+}
+
 #mainNav .nav-plan-workshop-button,
 #mainNav .nav-workshops-access-button {
     display: inline-flex !important;
@@ -4145,10 +4451,10 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-plan-workshop-button {
     margin-right: 4px;
-    border: 1px solid #fff;
-    background: #f05f40 !important;
-    color: #fff !important;
-    box-shadow: 0 2px 5px rgba(67, 67, 67, 0.12);
+    border: 1px solid transparent;
+    background: #fff !important;
+    color: #3bbf6b !important;
+    box-shadow: inset 0 0 6px rgba(59, 191, 107, 0.22);
 }
 
 #mainNav .nav-plan-workshop-button > .fa {
@@ -4159,40 +4465,43 @@ html.has-workshop-plan-modal #tab-section {
 
 #mainNav .nav-plan-workshop-button:hover,
 #mainNav .nav-plan-workshop-button:focus {
-    border-color: #fff;
-    background: #fff !important;
-    color: #f05f40 !important;
+    border-color: transparent;
+    background: #3bbf6b !important;
+    color: #fff !important;
     font-weight: 400;
     text-decoration: none !important;
     text-shadow: none;
-    box-shadow: 0 2px 5px rgba(67, 67, 67, 0.12);
+    box-shadow:
+        inset 0 0 6px rgba(255, 255, 255, 0.4),
+        0 2px 5px rgba(59, 191, 107, 0.28);
     filter: none;
 }
 
 #mainNav .nav-workshops-access-button {
     margin-left: 4px;
-    border: 1px solid #0d6efd;
+    border: 1px solid transparent;
     background: #fff !important;
     color: #0d6efd !important;
-    box-shadow: none;
+    box-shadow: inset 0 0 6px rgba(13, 110, 253, 0.22);
 }
 
 #mainNav .nav-workshops-access-button[aria-current="page"] {
-    border-color: #0d6efd;
-    background: #fff !important;
-    color: #0d6efd !important;
+    border-color: transparent;
+    background: #0d6efd !important;
+    color: #fff !important;
     font-weight: 400;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
 }
 
 #mainNav .nav-workshops-access-button:hover,
 #mainNav .nav-workshops-access-button:focus {
-    border-color: #0d6efd;
+    border-color: transparent;
     background: #0d6efd !important;
     color: #fff !important;
     font-weight: 400;
     text-decoration: none !important;
     text-shadow: none;
-    box-shadow: none;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
     filter: none;
 }
 
@@ -4230,6 +4539,7 @@ html.has-workshop-plan-modal #tab-section {
     #mainNav .navbar-collapse {
         min-width: 0;
         padding: 0;
+        overflow: visible;
     }
 
     #mainNav .nav-main-links {
@@ -4274,6 +4584,17 @@ html.has-workshop-plan-modal #tab-section {
         padding-right: 6px !important;
         padding-left: 6px !important;
         font-size: 11px;
+    }
+
+    #mainNav .nav-explore-menu {
+        left: 16px;
+        right: 16px;
+        width: auto;
+        min-width: 0;
+    }
+
+    #mainNav .nav-explore-menu__cols {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -4413,10 +4734,15 @@ html.has-workshop-plan-modal #tab-section {
     }
 
     #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:hover,
-    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus {
+    #mainNav .navbar-collapse .nav-main-links > li.open > .nav-button-stageone,
+    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone:focus-visible,
+    #mainNav .navbar-collapse .nav-main-links > li > .nav-button-stageone[aria-current="page"] {
         border-color: transparent;
         background: transparent !important;
         color: #fff !important;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
     }
 
     #mainNav .nav-mobile-workshop-item > .nav-button-stageone {
@@ -4454,6 +4780,26 @@ html.has-workshop-plan-modal #tab-section {
         margin-left: 8px;
         border-left: 2px solid #fff;
         background: rgba(255, 255, 255, 0.12);
+    }
+
+    #mainNav .nav-desktop-explore {
+        display: none !important;
+    }
+
+    #mainNav .nav-mobile-explore-heading,
+    #mainNav .nav-mobile-explore-subheading {
+        display: flex !important;
+    }
+
+    #mainNav .nav-mobile-explore-item {
+        display: block !important;
+    }
+
+    #mainNav .nav-mobile-explore-subheading {
+        margin-top: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        opacity: 0.88;
     }
 
     #mainNav .nav-mobile-workshop-heading + .nav-mobile-workshop-item {
@@ -4497,31 +4843,32 @@ html.has-workshop-plan-modal #tab-section {
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button {
         margin: 0;
-        border-color: #fff;
-        background: #f05f40 !important;
-        color: #fff !important;
+        border-color: transparent;
+        background: #fff !important;
+        color: #3bbf6b !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-plan-workshop-button:focus {
-        border-color: #fff;
-        background: #fff !important;
-        color: #f05f40 !important;
+        border-color: transparent;
+        background: #3bbf6b !important;
+        color: #fff !important;
     }
 
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button {
-        border-color: #0d6efd;
+        border-color: transparent;
         background: #fff !important;
         color: #0d6efd !important;
-        box-shadow: none;
+        box-shadow: inset 0 0 6px rgba(13, 110, 253, 0.22);
     }
 
+    #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button[aria-current="page"],
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button:hover,
     #mainNav .navbar-collapse .nav-main-links .nav-workshops-access-button:focus {
-        border-color: #0d6efd;
+        border-color: transparent;
         background: #0d6efd !important;
         color: #fff !important;
-        box-shadow: none;
+        box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
     }
 }
 
@@ -4636,8 +4983,9 @@ html.has-workshop-plan-modal #tab-section {
     display: flex;
     align-items: stretch;
     gap: 28px;
-    width: min(97vw, 1300px);
-    margin: 40px 0 24px calc(50% - min(48.5vw, 650px));
+    width: var(--page-card-width);
+    max-width: var(--page-card-max);
+    margin: 24px auto 24px;
     box-sizing: border-box;
 }
 
@@ -4669,16 +5017,16 @@ html.has-workshop-plan-modal #tab-section {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 40px;
     padding: 14px 18px;
     box-sizing: border-box;
-    /* A surface rather than a sheet of white: warmed by the faintest wash of the
-       brand orange towards the foot, which is what lifts the white quote boxes
-       and charts off it. */
-    background: linear-gradient(180deg, #ffffff 0%, #fffcfb 55%, #fdf8f6 100%);
+    background: #fff;
     border: 1px solid var(--feedback-line);
     border-radius: 16px;
-    box-shadow: 0 10px 26px rgba(67, 67, 67, 0.07);
+    box-shadow:
+        inset 0 0 16px rgba(67, 67, 67, 0.12),
+        0 0 28px rgba(67, 67, 67, 0.07),
+        0 10px 26px rgba(67, 67, 67, 0.05);
     overflow: hidden;
 }
 
@@ -4694,7 +5042,7 @@ html.has-workshop-plan-modal #tab-section {
 .participants-feedback__title {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.3rem;
+    font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.01em;
     text-transform: none;
@@ -4850,8 +5198,7 @@ html.has-workshop-plan-modal #tab-section {
 .feedback-rail {
     position: relative;
     min-height: 0;
-    /* Room for the cards' shadows, which the overflow would otherwise crop. */
-    padding: 10px 0;
+    padding: 4px 0;
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
@@ -4865,9 +5212,23 @@ html.has-workshop-plan-modal #tab-section {
 }
 
 /* Held at the height the surveys read well at. Left to itself the rail would take
-   the full height of the images, which are 405px tall at source. */
+   the full height of the images, which are 405px tall at source. Height is set in
+   px as well as flex-basis: Safari will not stretch the cards from basis alone. */
 .feedback-rail--charts {
-    flex: 0 0 180px;
+    flex: 0 0 236px;
+    height: 236px;
+}
+
+.feedback-charts-updated {
+    margin: -4px 2px 0 0;
+    padding: 0;
+    text-align: right;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: #b0b0b0;
 }
 
 /* The track carries the charts twice over, so half of it is exactly one copy and
@@ -4883,6 +5244,8 @@ html.has-workshop-plan-modal #tab-section {
 
 .feedback-rail__run {
     display: flex;
+    height: 100%;
+    align-items: stretch;
 }
 
 @keyframes feedback-drift {
@@ -4929,9 +5292,13 @@ html.has-feedback-viewer .feedback-rail__track {
 
 /* Only the charts do anything when clicked, so only the charts answer the
    pointer. A quote box lighting up would be a promise the panel cannot keep. */
+.feedback-card--chart {
+    box-shadow: none;
+}
+
 .feedback-card--chart:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(67, 67, 67, 0.12), 0 0 22px rgba(240, 95, 64, 0.26);
+    box-shadow: none;
 }
 
 /* A card being carried along under the hand is not being pointed at. */
@@ -4942,7 +5309,13 @@ html.has-feedback-viewer .feedback-rail__track {
 /* Height comes from the rail and width from the shape of the charts, all four of
    which are 817 by 405, so a card is the right size before its image arrives. */
 .feedback-card--chart {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    height: 100%;
+    max-height: 100%;
     aspect-ratio: 817 / 405;
+    overflow: hidden;
     /* A floor for anything that cannot work out a width from the ratio. */
     min-width: 260px;
     /* Spacing along the rail is a margin rather than a flex gap, since the track
@@ -4951,7 +5324,9 @@ html.has-feedback-viewer .feedback-rail__track {
     padding: 7px;
     font: inherit;
     color: inherit;
-    cursor: zoom-in;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .feedback-card--chart:focus {
@@ -4967,7 +5342,13 @@ html.has-feedback-viewer .feedback-rail__track {
     display: block;
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
+    object-position: center;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 /* Tight to its words, the way the quotes over the hero image are: the box is as
@@ -4983,15 +5364,37 @@ html.has-feedback-viewer .feedback-rail__track {
        on its own shadow is what reads as being said out loud. */
     border: 0;
     border-radius: 16px;
-    /* Trims the ends of the timer line to the rounded foot of the box. */
-    overflow: hidden;
-    box-shadow: 0 8px 22px rgba(67, 67, 67, 0.10), 0 1px 2px rgba(67, 67, 67, 0.05);
+    overflow: visible;
+    text-align: center;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.7),
+        inset 0 0 0 1px rgba(200, 200, 200, 0.45),
+        inset 0 0 14px rgba(180, 180, 180, 0.22),
+        0 8px 22px rgba(67, 67, 67, 0.10),
+        0 1px 2px rgba(67, 67, 67, 0.05);
     /* Dissolves in and out where it stands. Slow, since a box changing is meant
        to be caught out of the corner of the eye rather than to snap. The figure
        here is the quickest box's; the script hands the slower boxes a longer one. */
     opacity: 0;
-    transition: opacity 0.7s ease;
+    transition: opacity 2s ease-in-out;
     pointer-events: none;
+}
+
+.feedback-card--quote::before {
+    content: "\201C";
+    position: absolute;
+    top: -18px;
+    left: -12px;
+    z-index: 3;
+    color: #f05f40;
+    font-family: "Roboto", sans-serif;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+    text-shadow:
+        0 0 3px rgba(210, 210, 210, 0.95),
+        0 0 6px rgba(190, 190, 190, 0.55);
 }
 
 .feedback-card--quote.is-visible {
@@ -5012,17 +5415,18 @@ html.has-feedback-viewer .feedback-rail__track {
 .feedback-quote__text {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.45;
-    color: #464444;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: #2c2c2c;
+    text-align: center;
     text-wrap: pretty;
 }
 
 .feedback-quote__meta {
     font-family: 'Roboto', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--feedback-orange);
@@ -5035,10 +5439,12 @@ html.has-feedback-viewer .feedback-rail__track {
    looked for rather than to be part of the reading. */
 .feedback-quote__timer {
     position: absolute;
-    left: 0;
+    left: 5px;
     right: 0;
     bottom: 0;
     height: 2px;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
     pointer-events: none;
 }
 
@@ -5070,7 +5476,7 @@ html.has-feedback-viewer .feedback-rail__track {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 2000;
+    z-index: 4000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5101,11 +5507,15 @@ html.has-feedback-viewer .feedback-rail__track {
 
 .feedback-viewer__panel {
     position: relative;
-    max-width: min(94vw, 880px);
-    padding: 16px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(96vw, 920px);
+    max-width: 920px;
+    padding: 36px 28px 22px;
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.32);
     transform: translateY(12px) scale(0.985);
     transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -5114,33 +5524,25 @@ html.has-feedback-viewer .feedback-rail__track {
     transform: none;
 }
 
+.feedback-viewer__frame {
+    position: relative;
+    width: 100%;
+}
+
 .feedback-viewer__image {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 74vh;
+    max-height: 78vh;
     object-fit: contain;
-}
-
-.feedback-viewer__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 2px 4px;
-}
-
-.feedback-viewer__nav {
-    display: flex;
-    gap: 8px;
 }
 
 .feedback-viewer__step,
 .feedback-viewer__close {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -5155,6 +5557,22 @@ html.has-feedback-viewer .feedback-rail__track {
     transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
+.feedback-viewer__step {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.feedback-viewer__step[data-viewer-step="-1"] {
+    left: 8px;
+}
+
+.feedback-viewer__step[data-viewer-step="1"] {
+    right: 8px;
+}
+
 .feedback-viewer__step:hover,
 .feedback-viewer__step:focus,
 .feedback-viewer__close:hover,
@@ -5167,24 +5585,42 @@ html.has-feedback-viewer .feedback-rail__track {
 
 .feedback-viewer__close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
 .feedback-viewer__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 4px 12px;
+    border: 1px solid var(--viewer-orange);
+    border-radius: 999px;
+    background: transparent;
     font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-decoration: none;
     color: var(--viewer-orange);
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feedback-viewer__more .fa {
+    font-size: 11px;
 }
 
 .feedback-viewer__more:hover,
 .feedback-viewer__more:focus {
-    color: #d24f34;
-    text-decoration: underline;
+    background: var(--viewer-orange);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(240, 95, 64, 0.28);
+    text-decoration: none;
 }
 
 /* The page behind is held still while a chart is open. */
@@ -5198,11 +5634,19 @@ html.has-feedback-viewer {
     }
 
     .feedback-viewer__panel {
-        padding: 12px 12px 6px;
+        padding: 32px 14px 16px;
     }
 
     .feedback-viewer__image {
-        max-height: 62vh;
+        max-height: 64vh;
+    }
+
+    .feedback-viewer__step[data-viewer-step="-1"] {
+        left: 2px;
+    }
+
+    .feedback-viewer__step[data-viewer-step="1"] {
+        right: 2px;
     }
 }
 
@@ -5533,8 +5977,9 @@ html.has-feedback-viewer {
     .participants-plan-row {
         flex-direction: column;
         gap: 18px;
-        width: 100%;
-        margin: 28px 0 24px;
+        width: var(--page-card-width);
+        max-width: var(--page-card-max);
+        margin: 28px auto 24px;
     }
 
     /* Stacked, a vertical divider has nothing to separate. */
@@ -5555,7 +6000,8 @@ html.has-feedback-viewer {
 
     /* Stacked, the charts no longer take their height from the form beside them. */
     .feedback-rail--charts {
-        flex: 0 0 190px;
+        flex: 0 0 248px;
+        height: 248px;
     }
 
     /* Nothing is competing for the height any more, so the rows sit at the height
@@ -5584,10 +6030,31 @@ html.has-feedback-viewer {
         display: none;
     }
 
-    /* A chart card is around twice as wide as the rail is tall, so the rail has to
-       come down to keep whole charts on a phone screen. */
+    /* Width is taken from the phone, not from the 817px image: Safari otherwise
+       sizes the button to the PNG and the rail crops it, which reads as zoomed in. */
     .feedback-rail--charts {
-        flex-basis: 152px;
+        flex: 0 0 auto;
+        height: auto;
+    }
+
+    .feedback-rail__track,
+    .feedback-rail__run {
+        height: auto;
+        align-items: stretch;
+    }
+
+    .feedback-card--chart {
+        flex: 0 0 calc(100vw - 56px);
+        width: calc(100vw - 56px);
+        max-width: calc(100vw - 56px);
+        min-width: 0;
+        height: calc((100vw - 56px) * 405 / 817);
+        max-height: none;
+        aspect-ratio: 817 / 405;
+    }
+
+    .feedback-chart__image {
+        height: auto;
     }
 
     /* Two boxes cannot sit side by side in a phone's width, so the narrowest band
@@ -5615,16 +6082,21 @@ html.has-feedback-viewer {
 .workshop-main-button {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-bottom: 20px;
+    flex: 1 1 auto;
+    align-self: stretch;
+    margin: 0 auto 20px;
     width: 300px;
-    height: 440px;
-    border: 1px solid #d9d9d9;
+    height: auto;
+    min-height: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.38);
     border-radius: 16px;
-    background-color: #fff;
-    color: #434343;
-    box-shadow: none;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: #434343;
+    color: #fff;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.28),
+        0 10px 22px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     position: relative;
     overflow: hidden;
     text-align: left;
@@ -5642,18 +6114,27 @@ html.has-feedback-viewer {
     width: auto;
     min-height: 188px;
     margin: 0 14px;
-    border: 1px solid #ececec;
+    border: 0;
     border-radius: 10px;
-    background: #f7f7f7;
+    background: #434343;
+    box-shadow: none;
+}
+
+.workshop-card-visual--ai {
+    box-shadow: none;
 }
 
 .workshop-card-poster-stage {
-    width: min(188px, 100%) !important;
+    width: 100% !important;
     height: 174px !important;
 }
 
 .workshop-card-visual--robotics {
-    background: rgba(255, 255, 255, 0.78);
+    background: #434343;
+}
+
+.workshop-main-button--robotics .workshop-card-visual > img {
+    object-position: 50% 72%;
 }
 
 .workshop-card-video {
@@ -5674,7 +6155,7 @@ html.has-feedback-viewer {
     left: 82.5%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    width: min(200px, 68%);
+    width: min(134px, 45%);
     height: auto;
     object-fit: contain;
     z-index: 2;
@@ -5682,7 +6163,7 @@ html.has-feedback-viewer {
 
 .workshop-main-button > .main-button-title-text {
     margin: 0;
-    min-height: 72px;
+    min-height: 0;
     padding: 15px 20px 12px;
     text-align: left;
     font-family: 'Roboto', sans-serif;
@@ -5690,14 +6171,37 @@ html.has-feedback-viewer {
     font-weight: 800;
     letter-spacing: -0.025em;
     line-height: 1.05;
-    color: #434343;
+    color: #fff;
     text-transform: none;
+    white-space: nowrap;
+}
+
+.workshop-cards-row .workshop-main-button,
+.workshops-card-grid .workshop-main-button,
+.our-workshops-shell .workshop-main-button,
+#tab-section .workshop-main-button {
+    container-type: inline-size;
+}
+
+.workshop-cards-row .workshop-main-button > .main-button-title-text,
+.workshops-card-grid .workshop-main-button > .main-button-title-text,
+.our-workshops-shell .workshop-main-button > .main-button-title-text,
+#tab-section .workshop-main-button > .main-button-title-text {
+    font-size: clamp(16px, calc((100cqi - 36px) / 10.9), 32px);
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.workshop-main-button > .main-button-title-text br {
+    display: none;
 }
 
 .workshop-main-button > .main-button-title-text::before {
     display: block;
     margin-bottom: 5px;
-    color: #f05f40;
+    color: #fff;
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.14em;
@@ -5713,9 +6217,9 @@ html.has-feedback-viewer {
 .workshop-main-button .workshop-card-copy {
     width: 100%;
     margin: 0;
-    padding: 12px 20px 8px;
+    padding: 10px 20px 12px;
     text-align: left;
-    color: #434343;
+    color: #fff;
 }
 
 .workshop-main-button .workshop-card-copy h3 {
@@ -5725,20 +6229,23 @@ html.has-feedback-viewer {
     font-weight: 500;
     line-height: 1.28;
     letter-spacing: 0;
-    color: #434343;
+    color: #fff;
     margin: 0;
-    padding: 3px 0 3px 12px;
+    padding: 3px 0 3px 14px;
 }
 
 .workshop-main-button .workshop-card-copy h3::before {
     position: absolute;
-    top: 0.72em;
+    top: 0.55em;
     left: 0;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
+    border: 0;
     border-radius: 50%;
     background: #f05f40;
+    box-shadow: 0 0 0 2px rgba(240, 95, 64, 0.28);
     content: "";
+    transform: none;
 }
 
 .workshop-main-button .workshop-card-copy ul {
@@ -5751,7 +6258,7 @@ html.has-feedback-viewer {
 .workshop-main-button .workshop-card-copy em {
     margin: 0;
     font-style: italic;
-    color: #434343;
+    color: #fff;
 }
 
 .workshop-card-link-label {
@@ -5761,20 +6268,21 @@ html.has-feedback-viewer {
     min-height: 42px;
     margin-top: auto;
     padding: 10px 20px;
-    border-top: 1px solid #f4e4bc;
-    background: #fff3ef;
-    color: #c8472b;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .workshop-card-link-label .fa {
     font-size: 11px;
-    transition: transform 0.2s ease;
+    color: #f05f40;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .location-item {
@@ -5791,18 +6299,42 @@ html.has-feedback-viewer {
 .workshop-main-button:hover,
 .workshop-main-button:focus,
 .workshop-main-button.is-hero-hover {
-    border-color: #f05f40;
+    border: 2px solid #f05f40;
     border-radius: 16px;
-    background-color: #fff;
-    color: #434343;
+    background-color: #f05f40;
+    color: #fff;
     text-decoration: none;
-    box-shadow: none;
+    box-shadow:
+        inset 0 0 16px rgba(255, 255, 255, 0.4),
+        0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
 .workshop-main-button:hover > .main-button-title-text,
 .workshop-main-button:focus > .main-button-title-text,
-.workshop-main-button.is-hero-hover > .main-button-title-text {
-    color: #f05f40;
+.workshop-main-button.is-hero-hover > .main-button-title-text,
+.workshop-main-button:hover > .main-button-title-text::before,
+.workshop-main-button:focus > .main-button-title-text::before,
+.workshop-main-button.is-hero-hover > .main-button-title-text::before,
+.workshop-main-button:hover .workshop-card-copy,
+.workshop-main-button:focus .workshop-card-copy,
+.workshop-main-button.is-hero-hover .workshop-card-copy,
+.workshop-main-button:hover .workshop-card-copy h3,
+.workshop-main-button:focus .workshop-card-copy h3,
+.workshop-main-button.is-hero-hover .workshop-card-copy h3,
+.workshop-main-button:hover .workshop-card-copy li,
+.workshop-main-button:focus .workshop-card-copy li,
+.workshop-main-button.is-hero-hover .workshop-card-copy li,
+.workshop-main-button:hover .workshop-card-copy em,
+.workshop-main-button:focus .workshop-card-copy em,
+.workshop-main-button.is-hero-hover .workshop-card-copy em {
+    color: #fff;
+}
+
+.workshop-main-button:hover .workshop-card-copy h3::before,
+.workshop-main-button:focus .workshop-card-copy h3::before,
+.workshop-main-button.is-hero-hover .workshop-card-copy h3::before {
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28);
 }
 
 .workshop-main-button:hover .workshop-card-link-label,
@@ -5810,17 +6342,19 @@ html.has-feedback-viewer {
 .workshop-main-button.is-hero-hover .workshop-card-link-label {
     background: #f05f40;
     color: #fff;
+    border-top-color: rgba(255, 255, 255, 0.35);
 }
 
 .workshop-main-button:hover .workshop-card-link-label .fa,
 .workshop-main-button:focus .workshop-card-link-label .fa,
 .workshop-main-button.is-hero-hover .workshop-card-link-label .fa {
+    color: #fff;
     transform: translateX(3px);
 }
 
 /* The legacy cards on Workshops and About share the base class but not the
    homepage markup. Keep their established presentation isolated. */
-body:not(.cursor-glow-page) .workshop-main-button {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button {
     width: 300px;
     height: 430px;
     border: 2px solid #f05f40;
@@ -5832,7 +6366,7 @@ body:not(.cursor-glow-page) .workshop-main-button {
     transition: box-shadow 0.2s ease, background-color 0.2s ease, border-width 0.2s ease;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-media {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-media {
     flex: 1 1 auto !important;
     width: 100%;
     min-height: 0;
@@ -5842,7 +6376,7 @@ body:not(.cursor-glow-page) .workshop-main-button .workshop-card-media {
     background: transparent;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button > .main-button-title-text {
     min-height: 0;
     padding: 18px 16px 4px;
     color: #f05f40;
@@ -5852,20 +6386,21 @@ body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text {
     line-height: 1.2;
     text-align: center;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button > .main-button-title-text::before,
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3::before {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button > .main-button-title-text::before,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy h3::before {
     display: none;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy {
     margin: auto 0 0;
     padding: 6px 20px 18px;
     text-align: center;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3 {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button .workshop-card-copy h3 {
     padding: 5px 0;
     font-size: 13px;
     font-weight: 400;
@@ -5873,9 +6408,9 @@ body:not(.cursor-glow-page) .workshop-main-button .workshop-card-copy h3 {
     letter-spacing: 0.01em;
 }
 
-body:not(.cursor-glow-page) .workshop-main-button:hover,
-body:not(.cursor-glow-page) .workshop-main-button:focus,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover {
     border: 3px solid #f05f40;
     border-radius: 50px;
     background-color: #f05f40;
@@ -5883,15 +6418,15 @@ body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover {
     box-shadow: 0 6px 18px rgba(67, 67, 67, 0.16);
 }
 
-body:not(.cursor-glow-page) .workshop-main-button:hover > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button:focus > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover > .main-button-title-text,
-body:not(.cursor-glow-page) .workshop-main-button:hover .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button:focus .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
-body:not(.cursor-glow-page) .workshop-main-button:hover .workshop-card-copy li,
-body:not(.cursor-glow-page) .workshop-main-button:focus .workshop-card-copy li,
-body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-copy li {
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover > .main-button-title-text,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover .workshop-card-copy h3,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:hover .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button:focus .workshop-card-copy li,
+body:not(.cursor-glow-page):not(.workshops-page):not(.discovery-page--participants):not(.discovery-page--location) .workshop-main-button.is-hero-hover .workshop-card-copy li {
     color: #fff;
 }
 
@@ -5981,7 +6516,7 @@ body:not(.cursor-glow-page) .workshop-main-button.is-hero-hover .workshop-card-c
 .glow-button {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 400;
     color: #f05f40;
     text-align: center;
     background-color: white;
@@ -6006,10 +6541,64 @@ border: 3px solid #f05f40; /* Keep border at 3px */
 text-decoration: none; /* Remove underline on hover */
 }
 
+body.cursor-glow-page .ai-workshop-hero .workshop-session-links {
+    display: grid;
+    grid-template-columns: max-content;
+    justify-items: center;
+}
+
+body.cursor-glow-page .workshop-detail-hero .workshop-session-links {
+    display: grid;
+    grid-template-columns: max-content;
+    justify-items: center;
+}
+
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text:not(.workshop-feedback-link) {
+    border: none;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text:not(.workshop-feedback-link):hover,
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text:not(.workshop-feedback-link):focus-visible {
+    background-color: #fff0eb;
+    color: #f05f40;
+    font-weight: 700;
+    scale: 1.05;
+    text-decoration: none;
+    text-shadow: none;
+    box-shadow: inset 0 0 0 1.5px #f5a18d, 0 7px 18px rgba(240, 95, 64, 0.16);
+    filter: none;
+}
+
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text.workshop-feedback-link {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: max-content;
+    min-width: 0;
+    padding: 7px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    border: none;
+    border-radius: 999px;
+    background-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text.workshop-feedback-link:hover,
+body.cursor-glow-page .workshop-session-card .workshop-session-links a.glow-text.workshop-feedback-link:focus-visible {
+    color: #f05f40;
+    background-color: #fff0eb;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1.5px #f5a18d;
+    border-color: #fff;
+}
+
 .glow-text {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 400;
     color: #f05f40;
     text-align: center;
     background-color: white;
@@ -6059,7 +6648,7 @@ text-decoration: none; /* Remove underline on hover */
     .feedback-spacing {
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
-        font-weight: 100;
+        font-weight: 400;
         color: #f05f40;
         text-align: center;
         padding: 1px 15px;

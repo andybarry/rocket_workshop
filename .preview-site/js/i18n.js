@@ -19,11 +19,55 @@
 (function (window, document) {
     'use strict';
 
+    /* Chrome device-mode jumps can leave CSS vw/vh stuck until refresh. Titles
+       read --workshop-vw and --workshop-vh from the live window size. */
+    function syncWorkshopViewport() {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        document.documentElement.style.setProperty('--workshop-vw', (width / 100) + 'px');
+        document.documentElement.style.setProperty('--workshop-vh', (height / 100) + 'px');
+        var titles = document.querySelectorAll('.ai-workshop-hero .workshop-session-title, .workshop-detail-hero .workshop-session-title');
+        if (!titles.length) return;
+        var desktop = width >= 768;
+        var size = desktop ? Math.max(40, Math.min(72, Math.round(width * 0.062))) : '';
+        for (var i = 0; i < titles.length; i++) {
+            var el = titles[i];
+            if (desktop) {
+                el.style.fontSize = size + 'px';
+                el.style.display = 'block';
+                el.style.flexDirection = '';
+                el.style.alignItems = '';
+                el.style.justifyContent = '';
+                el.style.whiteSpace = 'nowrap';
+                el.style.width = 'max-content';
+                el.style.maxWidth = '100%';
+                el.style.textAlign = 'center';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+            } else {
+                el.style.fontSize = '';
+                el.style.display = 'flex';
+                el.style.flexDirection = 'column';
+                el.style.alignItems = 'center';
+                el.style.justifyContent = 'center';
+                el.style.whiteSpace = 'normal';
+                el.style.width = '100%';
+                el.style.maxWidth = '100%';
+                el.style.textAlign = 'center';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+            }
+        }
+    }
+    syncWorkshopViewport();
+
     var STORAGE_KEY = 'so_lang';
     var DEFAULT_LANG = 'en';
     var PENDING_CLASS = 'i18n-pending';
     var REVEAL_TIMEOUT_MS = 1500;
-    var DICT_PATH = 'i18n/';
+    // Dictionaries live at the site root. An absolute path is required for
+    // nested generated pages such as /workshops/orlando/.
+    var DICT_PATH = '/i18n/';
 
     /* Single source of truth for the language list. The nav dropdown is built
        from this at runtime so the markup stays ASCII and cannot drift. */
@@ -420,14 +464,28 @@
 
     var resizeTimer = null;
     function watchResize() {
-        window.addEventListener('resize', function () {
+        var onResize = function () {
+            syncWorkshopViewport();
             if (resizeTimer) window.clearTimeout(resizeTimer);
             resizeTimer = window.setTimeout(function () {
                 fitHeader();
                 fitHeroTitle();
                 fitHero();
             }, 150);
-        });
+        };
+        window.addEventListener('resize', onResize);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', onResize);
+        }
+        if (window.matchMedia) {
+            var desktopQuery = window.matchMedia('(min-width: 768px)');
+            if (desktopQuery.addEventListener) {
+                desktopQuery.addEventListener('change', onResize);
+            } else if (desktopQuery.addListener) {
+                desktopQuery.addListener(onResize);
+            }
+        }
+        syncWorkshopViewport();
     }
 
     function updateSwitcher(lang) {
@@ -441,8 +499,12 @@
 
         each(document.querySelectorAll('.nav-lang-toggle'), function (toggle) {
             if (active) {
-                toggle.setAttribute('title', active.label);
-                toggle.setAttribute('aria-label', 'Change language, current language ' + active.label);
+                var dict = lang === DEFAULT_LANG ? null : dictionaries[lang];
+                var changeLang = (dict && lookup(dict, 'nav.changeLanguage')) || 'Change language';
+                var currentTpl = (dict && lookup(dict, 'nav.changeLanguageCurrent')) ||
+                    'Change language, current language {name}';
+                toggle.setAttribute('title', changeLang);
+                toggle.setAttribute('aria-label', String(currentTpl).replace('{name}', active.label));
             }
         });
         each(document.querySelectorAll('.nav-lang-menu [data-lang]'), function (link) {

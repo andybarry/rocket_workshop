@@ -230,6 +230,14 @@ i18n_key: home
     content: none;
     display: none;
   }
+  .home-room-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 0, rgba(0, 0, 0, 0.35) 19px, #000 44px);
+    mask-image: linear-gradient(to top, transparent 0, rgba(0, 0, 0, 0.35) 19px, #000 44px);
+  }
   .home-room-hero__image {
     position: absolute;
     top: 0;
@@ -241,30 +249,29 @@ i18n_key: home
     object-fit: cover;
     object-position: 40% 40%;
     -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    -webkit-mask-composite: source-in;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    mask-composite: intersect;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     z-index: 0;
     transform-origin: 100% 50%;
   }
   .home-room-hero__image--video {
     object-position: center;
-    animation: homeHeroFadeVideo 70s ease-in-out infinite;
+    animation: homeHeroFadeVideo 60s ease-in-out infinite;
+  }
+  .home-room-hero__image--drone-video {
+    animation-name: homeHeroFadeDroneVideo;
   }
   .home-room-hero__image--drone {
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeDrone 70s ease-in-out infinite;
+      homeHeroFadeDrone 60s ease-in-out infinite;
   }
   .home-room-hero__image--mechanical {
     object-position: 50% 82%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeMech 70s ease-in-out infinite;
+      homeHeroFadeMech 60s ease-in-out infinite;
   }
   .home-room-hero__image--posters {
     background-color: #f5f5f5;
@@ -274,13 +281,13 @@ i18n_key: home
     background-repeat: no-repeat;
     animation:
       homeHeroPosterScroll 90s linear infinite,
-      homeHeroFadePosters 70s ease-in-out infinite;
+      homeHeroFadePosters 60s ease-in-out infinite;
   }
   .home-room-hero__image--hnn {
     object-position: 50% 40%;
     animation:
       homeHeroZoom 48s ease-in-out infinite alternate,
-      homeHeroFadeHnn 70s ease-in-out infinite;
+      homeHeroFadeHnn 60s ease-in-out infinite;
   }
   @keyframes homeHeroZoom {
     from { transform: scale(0.94) translate(0, 0); }
@@ -290,30 +297,35 @@ i18n_key: home
     from { background-position: center top; }
     to { background-position: center bottom; }
   }
+  @keyframes homeHeroFadeDroneVideo {
+    0%, 26.666667% { opacity: 0; }
+    33.333333%, 43.333333% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
   @keyframes homeHeroFadeVideo {
-    0%, 14.286% { opacity: 1; }
-    20%, 94.286% { opacity: 0; }
+    0%, 10% { opacity: 1; }
+    16.666667%, 93.333333% { opacity: 0; }
     100% { opacity: 1; }
   }
   @keyframes homeHeroFadeDrone {
-    0%, 14.286% { opacity: 0; }
-    20%, 34.286% { opacity: 1; }
-    40%, 100% { opacity: 0; }
+    0%, 76.666667% { opacity: 0; }
+    83.333333%, 93.333333% { opacity: 1; }
+    100% { opacity: 0; }
   }
   @keyframes homeHeroFadeMech {
-    0%, 34.286% { opacity: 0; }
-    40%, 54.286% { opacity: 1; }
-    60%, 100% { opacity: 0; }
+    0%, 43.333333% { opacity: 0; }
+    50%, 60% { opacity: 1; }
+    66.666667%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadePosters {
-    0%, 54.286% { opacity: 0; }
-    60%, 74.286% { opacity: 1; }
-    80%, 100% { opacity: 0; }
+    0%, 10% { opacity: 0; }
+    16.666667%, 26.666667% { opacity: 1; }
+    33.333333%, 100% { opacity: 0; }
   }
   @keyframes homeHeroFadeHnn {
-    0%, 74.286% { opacity: 0; }
-    80%, 94.286% { opacity: 1; }
-    100% { opacity: 0; }
+    0%, 60% { opacity: 0; }
+    66.666667%, 76.666667% { opacity: 1; }
+    83.333333%, 100% { opacity: 0; }
   }
   .home-room-hero__image-overlay {
     position: absolute;
@@ -326,31 +338,18 @@ i18n_key: home
     pointer-events: none;
     background: rgba(255, 255, 255, 0.16);
     opacity: 0;
-    animation: homeHeroHideOverlayOnDrone 70s ease-in-out infinite;
+    animation: homeHeroHideOverlayOnDrone 60s ease-in-out infinite;
     -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    -webkit-mask-composite: source-in;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
     mask-image:
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%),
-      linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-    mask-composite: intersect;
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%);
   }
   @keyframes homeHeroHideOverlayOnDrone {
-    0%, 34.286% { opacity: 0; }
-    40%, 74.286% { opacity: 1; }
-    80%, 100% { opacity: 0; }
-  }
-  .home-room-hero__fade {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    height: 88px;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(250, 250, 250, 0), #fafafa);
+    0%, 10% { opacity: 0; }
+    16.666667%, 26.666667% { opacity: 1; }
+    33.333333%, 43.333333% { opacity: 0; }
+    50%, 60% { opacity: 1; }
+    66.666667%, 100% { opacity: 0; }
   }
   .home-room-hero__content {
     position: absolute;
@@ -775,10 +774,6 @@ i18n_key: home
     .home-room-hero__content {
       width: 42%;
     }
-    .home-room-hero__fade {
-      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
-      mask-image: linear-gradient(to right, #000 0%, #000 44%, transparent 74%);
-    }
     .home-room-hero__quotes {
       left: 54%;
       padding: 16px 16px 10px 8px;
@@ -849,25 +844,26 @@ i18n_key: home
       mask-image: none !important;
     }
     .home-room-hero__image--drone {
-      animation: homeHeroFadeDrone 70s ease-in-out infinite;
+      animation: homeHeroFadeDrone 60s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__image--mechanical {
       object-fit: cover;
       object-position: 50% 42%;
-      animation: homeHeroFadeMech 70s ease-in-out infinite;
+      animation: homeHeroFadeMech 60s ease-in-out infinite;
     }
     .home-room-hero__image--posters {
       background-color: #ececec;
-      background-size: 100% auto;
+      /* Oversize both dimensions so scrolling never exposes the frame below. */
+      background-size: auto max(150%, 160vw);
       background-position: center top;
       background-repeat: no-repeat;
       animation:
         homeHeroPosterScroll 90s linear infinite,
-        homeHeroFadePosters 70s ease-in-out infinite;
+        homeHeroFadePosters 60s ease-in-out infinite;
     }
     .home-room-hero__image--hnn {
-      animation: homeHeroFadeHnn 70s ease-in-out infinite;
+      animation: homeHeroFadeHnn 60s ease-in-out infinite;
       object-fit: cover;
     }
     .home-room-hero__content {
@@ -971,23 +967,6 @@ i18n_key: home
     }
     .workshop-benefit:not(:last-child)::after {
       display: none;
-    }
-    .home-room-hero__fade {
-      left: 0;
-      right: 0;
-      height: 42%;
-      min-height: 168px;
-      z-index: 2;
-      -webkit-mask-image: none !important;
-      mask-image: none !important;
-      background: linear-gradient(
-        to bottom,
-        rgba(250, 250, 250, 0) 0%,
-        rgba(250, 250, 250, 0.22) 28%,
-        rgba(250, 250, 250, 0.72) 68%,
-        #fafafa 100%
-      );
-      box-shadow: 0 -28px 64px 24px rgba(250, 250, 250, 0.45);
     }
     .home-room-hero__quotes {
       position: relative;
@@ -1562,7 +1541,11 @@ i18n_key: home
     {% include navigation.html %}
 
 <section class="home-room-hero" aria-label="Hands-on engineering workshops delivered across the USA" data-i18n-aria-label="home.hero.sectionLabel">
-    <video class="home-room-hero__image home-room-hero__image--video" autoplay loop muted playsinline aria-hidden="true">
+    <div class="home-room-hero__media">
+    <video class="home-room-hero__image home-room-hero__image--video home-room-hero__image--drone-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+      <source src="cad-tutorial/videos/drone-hero-workshop.mp4" type="video/mp4">
+    </video>
+    <video class="home-room-hero__image home-room-hero__image--video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
       <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
       <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
     </video>
@@ -1571,7 +1554,7 @@ i18n_key: home
     <div class="home-room-hero__image home-room-hero__image--posters" aria-hidden="true"></div>
     <img class="home-room-hero__image home-room-hero__image--hnn" src="img/HNN_Hero_BG.jpg" alt="" aria-hidden="true">
     <div class="home-room-hero__image-overlay" aria-hidden="true"></div>
-    <div class="home-room-hero__fade" aria-hidden="true"></div>
+    </div>
     <div class="home-room-hero__content">
         <p class="home-room-hero__audience" data-i18n="home.hero.audience">For Schools, Tour Operators &amp; Groups</p>
         <div class="home-room-hero__copy-stack">
@@ -1616,6 +1599,35 @@ i18n_key: home
         </div>
     </div>
 </section>
+<script>
+(function () {
+    var heroVideos = document.querySelectorAll('.home-room-hero video');
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function resumeVideo(video) {
+        if (document.hidden || reducedMotion.matches || !video.paused) return;
+        video.muted = true;
+        var playback = video.play();
+        if (playback && playback.catch) playback.catch(function () {
+            // Loading and browser autoplay restrictions may require a retry.
+        });
+    }
+    function resumeHeroVideos() {
+        heroVideos.forEach(resumeVideo);
+    }
+    heroVideos.forEach(function (video) {
+        // Opacity changes must never stop or rewind the underlying video.
+        video.addEventListener('canplay', function () { resumeVideo(video); });
+        video.addEventListener('pause', function () { resumeVideo(video); });
+        video.addEventListener('ended', function () { resumeVideo(video); });
+    });
+    document.addEventListener('visibilitychange', resumeHeroVideos);
+    window.addEventListener('pageshow', resumeHeroVideos);
+    document.addEventListener('pointerdown', resumeHeroVideos);
+    document.addEventListener('keydown', resumeHeroVideos);
+    resumeHeroVideos();
+}());
+</script>
 {% include workshop-benefits.html %}
 
 <div id="tab-section" class="home-workshops-block">

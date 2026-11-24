@@ -3,12 +3,11 @@
 
     var STORAGE_KEY = "so_workshop_explorer";
     var STATE_KEYS = ["workshop", "destination", "customDestination", "participants", "participantGroup", "region", "groupType", "international"];
-    var WORKSHOP_ORDER = ["artificial-intelligence", "robotics-drone", "mechanical-engineering", "web-development"];
+    var WORKSHOP_ORDER = ["artificial-intelligence", "robotics-drone", "mechanical-engineering"];
     var WORKSHOP_NAMES = {
         "artificial-intelligence": "Artificial Intelligence",
         "robotics-drone": "Robotics Drone",
-        "mechanical-engineering": "Mechanical Engineering",
-        "web-development": "Web Development"
+        "mechanical-engineering": "Mechanical Engineering"
     };
     var REGION_NAMES = {
         "northeast-mid-atlantic": "Northeast & Mid-Atlantic",
