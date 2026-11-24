@@ -1545,9 +1545,9 @@ i18n_key: home
     <video class="home-room-hero__image home-room-hero__image--video home-room-hero__image--drone-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
       <source src="cad-tutorial/videos/drone-hero-workshop.mp4" type="video/mp4">
     </video>
-    <video class="home-room-hero__image home-room-hero__image--video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
-      <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
+    <video class="home-room-hero__image home-room-hero__image--video home-room-hero__image--mechanical-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
       <source src="cad-tutorial/videos/intro-video3.mp4" type="video/mp4">
+      <source src="cad-tutorial/videos/intro-video3.webm" type="video/webm">
     </video>
     <img class="home-room-hero__image home-room-hero__image--drone" src="img/Drone_Hero_BG.jpg" alt="Robotics drone workshop" data-i18n-alt="home.hero.imageAlt">
     <img class="home-room-hero__image home-room-hero__image--mechanical" src="img/Mechanical-BG.png" alt="" aria-hidden="true">
@@ -1604,8 +1604,8 @@ i18n_key: home
     var heroVideos = document.querySelectorAll('.home-room-hero video');
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    function resumeVideo(video) {
-        if (document.hidden || reducedMotion.matches || !video.paused) return;
+    function resumeVideo(video, force) {
+        if (document.hidden || reducedMotion.matches || (!force && !video.paused)) return;
         video.muted = true;
         var playback = video.play();
         if (playback && playback.catch) playback.catch(function () {
@@ -1613,10 +1613,31 @@ i18n_key: home
         });
     }
     function resumeHeroVideos() {
-        heroVideos.forEach(resumeVideo);
+        heroVideos.forEach(function (video) { resumeVideo(video); });
     }
+    var mechanicalVideo = document.querySelector('.home-room-hero__image--mechanical-video');
+    var mechanicalWindowActive = true;
+    function prepareMechanicalVideo() {
+        if (document.hidden || reducedMotion.matches || !mechanicalVideo.getAnimations) return;
+        var fade = mechanicalVideo.getAnimations().find(function (animation) {
+            return animation.animationName === 'homeHeroFadeVideo';
+        });
+        if (!fade || fade.currentTime === null) return;
+        var duration = Number(fade.effect.getTiming().duration);
+        var phase = (fade.currentTime % duration) / duration;
+        // Prepare one second before the 56s fade-in, including every repeat.
+        // Use the CSS animation clock so tab suspension cannot desync playback.
+        var active = phase >= 55 / 60 || phase < 10 / 60;
+        if (active && !mechanicalWindowActive) {
+            if (mechanicalVideo.readyState >= 1) mechanicalVideo.currentTime = 0;
+            resumeVideo(mechanicalVideo, true);
+        }
+        mechanicalWindowActive = active;
+    }
+    window.setInterval(prepareMechanicalVideo, 250);
     heroVideos.forEach(function (video) {
-        // Opacity changes must never stop or rewind the underlying video.
+        // Keep playback running through both fades; mechanical replay is
+        // prepared separately while its slide is still fully transparent.
         video.addEventListener('canplay', function () { resumeVideo(video); });
         video.addEventListener('pause', function () { resumeVideo(video); });
         video.addEventListener('ended', function () { resumeVideo(video); });
